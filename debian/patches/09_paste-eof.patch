@@ -1,0 +1,87 @@
+--- coreutils-4.5.3.orig/src/paste.c
++++ coreutils-4.5.3/src/paste.c
+@@ -32,6 +32,9 @@
+ 				DELIM-LIST instead of tab to separate
+ 				merged lines.  When DELIM-LIST is exhausted,
+ 				start again at its beginning.
++   --first-eof
++   -f				Terminate after encountering the first EOF.
++				Only applies when -s is not in use.
+    A FILE of `-' means standard input.
+    If no FILEs are given, standard input is used. */
+ 
+@@ -70,6 +73,10 @@
+    corresponding lines from each file in parallel. */
+ static int serial_merge;
+ 
++/* If nonzero, terminate after encountering the first EOF.  This has no effect
++   when serial_merge is nonzero as well. */
++static int first_eof;
++
+ /* The delimeters between lines of input files (used cyclically). */
+ static char *delims;
+ 
+@@ -80,6 +87,7 @@
+ {
+   {"serial", no_argument, 0, 's'},
+   {"delimiters", required_argument, 0, 'd'},
++  {"first-eof", no_argument, 0, 'f'},
+   {GETOPT_HELP_OPTION_DECL},
+   {GETOPT_VERSION_OPTION_DECL},
+   {0, 0, 0, 0}
+@@ -213,6 +221,27 @@
+ 
+   while (files_open)
+     {
++      if (first_eof)
++	{
++	  for (i = 0; fileptr[i] != ENDLIST; i++)
++	    {
++	      if (fileptr[i] == CLOSED)
++		return errors;
++	      chr = getc (fileptr[i]);
++	      if (chr != EOF)
++		{
++		  ungetc (chr, fileptr[i]);
++		  continue;
++		}
++	      if (ferror (fileptr[i]))
++		{
++		  error (0, errno, "%s", fnamptr[i]);
++		  errors = 1;
++		}
++	      return errors;
++	    }
++	}
++
+       /* Set up for the next line. */
+       somedone = 0;
+       delimptr = delims;
+@@ -416,6 +445,7 @@
+       fputs (_("\
+   -d, --delimiters=LIST   reuse characters from LIST instead of TABs\n\
+   -s, --serial            paste one file at a time instead of in parallel\n\
++  -f, --first-eof         terminate after encountering the first EOF\n\
+ "), stdout);
+       fputs (HELP_OPTION_DESCRIPTION, stdout);
+       fputs (VERSION_OPTION_DESCRIPTION, stdout);
+@@ -444,7 +474,7 @@
+   strcpy (delims, "\t");
+   strcpy (zero_delims, "\\0");
+ 
+-  while ((optc = getopt_long (argc, argv, "d:s", longopts, NULL)) != -1)
++  while ((optc = getopt_long (argc, argv, "d:fs", longopts, NULL)) != -1)
+     {
+       switch (optc)
+ 	{
+@@ -462,6 +492,10 @@
+ 	  serial_merge++;
+ 	  break;
+ 
++	case 'f':
++	  first_eof++;
++	  break;
++
+ 	case_GETOPT_HELP_CHAR;
+ 
+ 	case_GETOPT_VERSION_CHAR (PROGRAM_NAME, AUTHORS);

@@ -1,0 +1,11 @@
+The new coreutils package combines the previous fileutils, shellutils,
+and textutils packages.
+
+Be aware that the following modifications have not been accepted 
+upstream and should be avoided in portable applications:
+* uniq: --separator and --check-fields
+* cat: --rerversible
+* tsort: cycle breaking
+* join: -n
+* paste: --first-eof
+

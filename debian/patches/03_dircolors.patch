@@ -1,0 +1,10 @@
+--- coreutils-4.5.3.orig/src/dircolors.hin
++++ coreutils-4.5.3/src/dircolors.hin
+@@ -25,6 +25,7 @@
+ TERM xterm-debian
+ TERM rxvt
+ TERM screen
++TERM screen-bce
+ TERM screen-w
+ TERM vt100
+ TERM Eterm

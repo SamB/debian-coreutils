@@ -1,0 +1,217 @@
+--- coreutils-4.5.3.orig/doc/coreutils.texi
++++ coreutils-4.5.3/doc/coreutils.texi
+@@ -5323,7 +5323,7 @@
+ Append a character to each file name indicating the file type. This is
+ like @option{-F}, except that executables are not marked.
+ 
+-@item -x @var{format}
++@item -x
+ @itemx --format=across
+ @itemx --format=horizontal
+ @opindex -x
+@@ -5494,7 +5494,10 @@
+ @opindex -N
+ @opindex --literal
+ @opindex --quoting-style
+-Do not quote file names.
++Do not quote file names. Output is still subject to locale settings so, for example,
++non-ascii characters will show up as `?' with the default locale. To see such
++characters, configure your locale (preferred) or use
++@samp{--show-control-chars}.
+ 
+ @item -q
+ @itemx --hide-control-chars
+@@ -6467,7 +6470,9 @@
+ only if you have appropriate privileges and if your operating system supports
+ @code{unlink} for directories.  Because unlinking a directory causes any files
+ in the deleted directory to become unreferenced, it is wise to @command{fsck}
+-the filesystem after doing this.
++the filesystem after doing this. Note that this option will call @code{unlink}
++on the target with no additional checks, so may be useful for non-directories
++in cases where @code{stat} fails for the target.
+ 
+ @item -f
+ @itemx --force
+@@ -9909,12 +9914,12 @@
+ @cindex login name, printing
+ @cindex user name, printing
+ 
+-@flindex /etc/utmp
++@flindex /var/run/utmp
+ @flindex utmp
+ 
+ @command{logname} prints the calling user's name, as found in the file
+-@file{/etc/utmp}, and exits with a status of 0.  If there is no
+-@file{/etc/utmp} entry for the calling process, @command{logname} prints
++@file{/var/run/utmp}, and exits with a status of 0.  If there is no
++@file{/var/run/utmp} entry for the calling process, @command{logname} prints
+ an error message and exits with a status of 1.
+ 
+ The only options are @option{--help} and @option{--version}.  @xref{Common
+@@ -9975,11 +9980,11 @@
+ users [@var{file}]
+ @end example
+ 
+-@flindex /etc/utmp
+-@flindex /etc/wtmp
++@flindex /var/run/utmp
++@flindex /var/log/wtmp
+ With no @var{file} argument, @command{users} extracts its information from
+-the file @file{/etc/utmp}.  If a file argument is given, @command{users}
+-uses that file instead.  A common choice is @file{/etc/wtmp}.
++the file @file{/var/run/utmp}.  If a file argument is given, @command{users}
++uses that file instead.  A common choice is @file{/var/log/wtmp}.
+ 
+ The only options are @option{--help} and @option{--version}.  @xref{Common
+ options}.
+@@ -10006,48 +10011,61 @@
+ information for each user currently logged on: login name, terminal
+ line, login time, and remote hostname or X display.
+ 
+-@flindex /etc/utmp
+-@flindex /etc/wtmp
++@flindex /var/run/utmp
++@flindex /var/log/wtmp
+ If given one non-option argument, @command{who} uses that instead of
+-@file{/etc/utmp} as the name of the file containing the record of
+-users logged on.  @file{/etc/wtmp} is commonly given as an argument
++@file{/var/run/utmp} as the name of the file containing the record of
++users logged on.  @file{/var/log/wtmp} is commonly given as an argument
+ to @command{who} to look at who has previously logged on.
+ 
+ @opindex am i
+ @opindex who am i
+-If given two non-option arguments, @command{who} prints only the entry
+-for the user running it (determined from its standard input), preceded
+-by the hostname.  Traditionally, the two arguments given are @samp{am
+-i}, as in @samp{who am i}.
++If given two non-option arguments, @code{who} prints only the the entry
++of the user invoking it. (Equivalent to @samp{-m}.) Traditionally, the two
++arguments given are @samp{am i}, as in @samp{who am i}.
+ 
+ The program accepts the following options.  Also see @ref{Common options}.
+ 
+ @table @samp
+-@item -m
+-@opindex -m
+-Same as @samp{who am i}.
++@item -a
++@itemx --all 
++@opindex -a
++@opindex --all
++Same as calling @code{who} with @samp{-b -d --login -p -r -t -u}.
+ 
+-@item -q
+-@itemx --count
+-@opindex -q
+-@opindex --count
+-Print only the login names and the number of users logged on.
+-Overrides all other options.
++@item -b
++@itemx --boot
++@opindex -b
++@opindex --boot
++Print the time of the last system boot.
+ 
+-@item -s
+-@opindex -s
+-Ignored; for compatibility with other versions of @command{who}.
++@item -d
++@itemx --dead
++@opindex -d
++@opindex --dead
++Print dead processes. Causes an additional field, EXIT, to be printed.
++The EXIT field displays the termination and exit codes for the process.
++
++@item -H
++@itemx --heading
++@opindex -H
++@opindex --heading
++Print a line of column headings.
+ 
+ @item -i
+-@itemx -u
+ @itemx --idle
+ @opindex -i
+-@opindex -u
+ @opindex --idle
+ @cindex idle time
+ After the login time, print the number of hours and minutes that the
+ user has been idle.  @samp{.} means the user was active in last minute.
+-@samp{old} means the user was idle for more than 24 hours.
++@samp{old} means the user was idle for more than 24 hours. NOTE: @samp{-i}
++is deprecated, please use -u instead.
++
++@itemx --login
++@opindex --login
++Output login processes. This is equivalent to the SUS @samp{-l} option,
++which is currently used as the shortname for @samp{--lookup}.
+ 
+ @item -l
+ @itemx --lookup
+@@ -10055,13 +10073,51 @@
+ @opindex --lookup
+ Attempt to canonicalize hostnames found in utmp through a DNS lookup.  This
+ is not the default because it can cause significant delays on systems with
+-automatic dial-up internet access.
++automatic dial-up internet access. NOTE: this usage of @samp{-l} is 
++deprecated. (@samp{-l} will mean @samp{--login} in the next release.)
+ 
+-@item -H
+-@itemx --heading
+-@opindex -H
+-@opindex --heading
+-Print a line of column headings.
++@item -m
++@opindex -m
++Output only items relating to the current terminal.
++
++@item -p 
++@itemx --process 
++@opindex -p
++@opindex --process
++Output other active processes spawned by init.
++
++@item -q
++@itemx --count
++@opindex -q
++@opindex --count
++Print only the login names and the number of users logged on.
++Overrides all other options.
++
++@item -r
++@itemx --runlevel
++@opindex -r
++@opindex --runlevel
++Output the current runlevel.
++
++@item -s
++@itemx --short
++@opindex -s
++@opindex --short
++Output only the NAME, LINE, and TIME fields. If no other options are 
++selected, this is the default.
++
++@item -t
++@itemx --time
++@opindex -t
++@opindex --time
++Output the time of the last change to the system clock.
++
++@item --users
++@itemx -u
++@opindex -u
++@opindex --users
++Output the users currently logged in. Adds the IDLE field, which
++is the time since there was some activity on the user's terminal.
+ 
+ @item -w
+ @itemx -T
+@@ -10175,7 +10231,6 @@
+ GNU extension).
+ Note that this value is the number of seconds between the epoch
+ and the current date as defined by the localtime system call.
+-It isn't changed by the @option{--date} option.
+ @item %S
+ second (00@dots{}60)
+ @item %T

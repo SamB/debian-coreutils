@@ -1,0 +1,42 @@
+Source: coreutils
+Maintainer: Michael Stone <mstone@debian.org>
+Section: base
+Priority: required
+Standards-Version: 3.5.7.0
+Build-Depends: gettext (>= 0.10.37), debhelper, perl-base, texinfo (>= 4.2), groff, help2man, dbs
+
+Package: coreutils
+Architecture: any
+Pre-Depends: ${shlibs:Depends}
+Provides: textutils, shellutils, fileutils
+Replaces: textutils, shellutils, fileutils, stat
+Conflicts: stat
+Essential: yes
+Description: The GNU core utilities
+ This package contains the essential basic system utilities.
+ .
+ Specifically, this package includes: 
+ basename cat chgrp chmod chown chroot cksum comm cp csplit cut date dd df dir
+ dircolors dirname du echo env expand expr factor false fmt fold groups head
+ hostid id install join link ln logname ls md5sum mkdir mkfifo mknod mv nice nl
+ nohup od paste pathchk pinky pr printenv printf ptx pwd rm rmdir seq shred
+ sleep sort split stat stty sum sync tac tail tee test touch tr true tsort tty
+ uname unexpand uniq unlink users vdir wc who whoami yes 
+
+Package: textutils
+Pre-Depends: coreutils
+Architecture: all
+Description: The GNU text file processing utilities
+ Empty package to facilitate upgrades, can be safely removed.
+
+Package: fileutils
+Pre-Depends: coreutils
+Architecture: all
+Description: GNU file management utilities
+ Empty package to facilitate upgrades, can be safely removed.
+
+Package: shellutils
+Pre-Depends: coreutils
+Architecture: all
+Description: The GNU shell programming utilities.
+ Empty package to facilitate upgrades, can be safely removed.

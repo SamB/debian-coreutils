@@ -1,0 +1,362 @@
+--- coreutils-4.5.3.orig/src/join.c
++++ coreutils-4.5.3/src/join.c
+@@ -63,7 +63,7 @@
+ /* A field of a line.  */
+ struct field
+   {
+-    const unsigned char *beg;	/* First character in field.  */
++    unsigned char *beg;		/* First character in field.  */
+     size_t len;			/* The length of the field.  */
+   };
+ 
+@@ -88,6 +88,24 @@
+ /* The name this program was run with.  */
+ char *program_name;
+ 
++#define C_DECIMAL_POINT '.'
++#define NEGATION_SIGN   '-'
++#define NUMERIC_ZERO    '0'
++
++#if HAVE_SETLOCALE
++
++static char decimal_point;
++static int th_sep; /* if CHAR_MAX + 1, then there is no thousands separator */
++
++# define IS_THOUSANDS_SEP(x) ((x) == th_sep)
++
++#else
++
++# define decimal_point C_DECIMAL_POINT
++# define IS_THOUSANDS_SEP(x) 0
++
++#endif
++
+ /* Nonzero if the LC_COLLATE locale is hard.  */
+ static int hard_LC_COLLATE;
+ 
+@@ -122,6 +140,7 @@
+   {"j", required_argument, NULL, 'j'},
+   {"j1", required_argument, NULL, '1'},
+   {"j2", required_argument, NULL, '2'},
++  {"n", required_argument, NULL, 'n'},
+   {GETOPT_HELP_OPTION_DECL},
+   {GETOPT_VERSION_OPTION_DECL},
+   {NULL, 0, NULL, 0}
+@@ -133,6 +152,9 @@
+ /* If nonzero, ignore case when comparing join fields.  */
+ static int ignore_case;
+ 
++/* If nonzero, do numeric comparison.  */
++static int numeric;
++
+ void
+ usage (int status)
+ {
+@@ -158,6 +180,7 @@
+   -j FIELD          (obsolescent) equivalent to `-1 FIELD -2 FIELD'\n\
+   -j1 FIELD         (obsolescent) equivalent to `-1 FIELD'\n\
+   -j2 FIELD         (obsolescent) equivalent to `-2 FIELD'\n\
++  -n                input files are sorted numerically\n\
+   -o FORMAT         obey FORMAT while constructing output line\n\
+   -t CHAR           use CHAR as input and output field separator\n\
+ "), stdout);
+@@ -183,7 +206,7 @@
+ }
+ 
+ static void
+-ADD_FIELD (struct line *line, const unsigned char *field, size_t len)
++ADD_FIELD (struct line *line, unsigned char *field, size_t len)
+ {
+   if (line->nfields >= line->nfields_allocated)
+     {
+@@ -319,6 +342,214 @@
+   free ((char *) seq->lines);
+ }
+ 
++/* Compare strings A and B containing decimal fractions < 1.  Each string
++   should begin with a decimal point followed immediately by the digits
++   of the fraction.  Strings not of this form are considered to be zero. */
++
++/* The goal here, is to take two numbers a and b... compare these
++   in parallel.  Instead of converting each, and then comparing the
++   outcome.  Most likely stopping the comparison before the conversion
++   is complete.  The algorithm used, in the old sort:
++
++   Algorithm: fraccompare
++   Action   : compare two decimal fractions
++   accepts  : char *a, char *b
++   returns  : -1 if a<b, 0 if a=b, 1 if a>b.
++   implement:
++
++   if *a == decimal_point AND *b == decimal_point
++     find first character different in a and b.
++     if both are digits, return the difference *a - *b.
++     if *a is a digit
++       skip past zeros
++       if digit return 1, else 0
++     if *b is a digit
++       skip past zeros
++       if digit return -1, else 0
++   if *a is a decimal_point
++     skip past decimal_point and zeros
++     if digit return 1, else 0
++   if *b is a decimal_point
++     skip past decimal_point and zeros
++     if digit return -1, else 0
++   return 0 */
++
++static int
++fraccompare (register const char *a, register const char *b)
++{
++  if (*a == decimal_point && *b == decimal_point)
++    {
++      while (*++a == *++b)
++	if (! ISDIGIT (*a))
++	  return 0;
++      if (ISDIGIT (*a) && ISDIGIT (*b))
++	return *a - *b;
++      if (ISDIGIT (*a))
++	goto a_trailing_nonzero;
++      if (ISDIGIT (*b))
++	goto b_trailing_nonzero;
++      return 0;
++    }
++  else if (*a++ == decimal_point)
++    {
++    a_trailing_nonzero:
++      while (*a == NUMERIC_ZERO)
++	a++;
++      return ISDIGIT (*a);
++    }
++  else if (*b++ == decimal_point)
++    {
++    b_trailing_nonzero:
++      while (*b == NUMERIC_ZERO)
++	b++;
++      return - ISDIGIT (*b);
++    }
++  return 0;
++}
++
++/* Compare strings A and B as numbers without explicitly converting them to
++   machine numbers.  Comparatively slow for short strings, but asymptotically
++   hideously fast. */
++
++static int
++numcompare (register const char *a, register const char *b)
++{
++  register int tmpa, tmpb, tmp;
++  register size_t loga, logb;
++
++  tmpa = *a;
++  tmpb = *b;
++
++  while (ISBLANK (tmpa))
++    tmpa = *++a;
++  while (ISBLANK (tmpb))
++    tmpb = *++b;
++
++  if (tmpa == NEGATION_SIGN)
++    {
++      do
++	tmpa = *++a;
++      while (tmpa == NUMERIC_ZERO || IS_THOUSANDS_SEP (tmpa));
++      if (tmpb != NEGATION_SIGN)
++	{
++	  if (tmpa == decimal_point)
++	    do
++	      tmpa = *++a;
++	    while (tmpa == NUMERIC_ZERO);
++	  if (ISDIGIT (tmpa))
++	    return -1;
++	  while (tmpb == NUMERIC_ZERO || IS_THOUSANDS_SEP (tmpb))
++	    tmpb = *++b;
++	  if (tmpb == decimal_point)
++	    do
++	      tmpb = *++b;
++	    while (tmpb == NUMERIC_ZERO);
++	  if (ISDIGIT (tmpb))
++	    return -1;
++	  return 0;
++	}
++      do
++	tmpb = *++b;
++      while (tmpb == NUMERIC_ZERO || IS_THOUSANDS_SEP (tmpb));
++
++      while (tmpa == tmpb && ISDIGIT (tmpa))
++	{
++	  do
++	    tmpa = *++a;
++	  while (IS_THOUSANDS_SEP (tmpa));
++	  do
++	    tmpb = *++b;
++	  while (IS_THOUSANDS_SEP (tmpb));
++	}
++
++      if ((tmpa == decimal_point && !ISDIGIT (tmpb))
++	  || (tmpb == decimal_point && !ISDIGIT (tmpa)))
++	return -fraccompare (a, b);
++
++      tmp = tmpb - tmpa;
++
++      for (loga = 0; ISDIGIT (tmpa); ++loga)
++	do
++	  tmpa = *++a;
++	while (IS_THOUSANDS_SEP (tmpa));
++
++      for (logb = 0; ISDIGIT (tmpb); ++logb)
++	do
++	  tmpb = *++b;
++	while (IS_THOUSANDS_SEP (tmpb));
++
++      if (loga != logb)
++	return loga < logb ? 1 : -1;
++
++      if (!loga)
++	return 0;
++
++      return tmp;
++    }
++  else if (tmpb == NEGATION_SIGN)
++    {
++      do
++	tmpb = *++b;
++      while (tmpb == NUMERIC_ZERO || IS_THOUSANDS_SEP (tmpb));
++      if (tmpb == decimal_point)
++	do
++	  tmpb = *++b;
++	while (tmpb == NUMERIC_ZERO);
++      if (ISDIGIT (tmpb))
++	return 1;
++      while (tmpa == NUMERIC_ZERO || IS_THOUSANDS_SEP (tmpa))
++	tmpa = *++a;
++      if (tmpa == decimal_point)
++	do
++	  tmpa = *++a;
++	while (tmpa == NUMERIC_ZERO);
++      if (ISDIGIT (tmpa))
++	return 1;
++      return 0;
++    }
++  else
++    {
++      while (tmpa == NUMERIC_ZERO || IS_THOUSANDS_SEP (tmpa))
++	tmpa = *++a;
++      while (tmpb == NUMERIC_ZERO || IS_THOUSANDS_SEP (tmpb))
++	tmpb = *++b;
++
++      while (tmpa == tmpb && ISDIGIT (tmpa))
++	{
++	  do
++	    tmpa = *++a;
++	  while (IS_THOUSANDS_SEP (tmpa));
++	  do
++	    tmpb = *++b;
++	  while (IS_THOUSANDS_SEP (tmpb));
++	}
++
++      if ((tmpa == decimal_point && !ISDIGIT (tmpb))
++	  || (tmpb == decimal_point && !ISDIGIT (tmpa)))
++	return fraccompare (a, b);
++
++      tmp = tmpa - tmpb;
++
++      for (loga = 0; ISDIGIT (tmpa); ++loga)
++	do
++	  tmpa = *++a;
++	while (IS_THOUSANDS_SEP (tmpa));
++
++      for (logb = 0; ISDIGIT (tmpb); ++logb)
++	do
++	  tmpb = *++b;
++	while (IS_THOUSANDS_SEP (tmpb));
++
++      if (loga != logb)
++	return loga < logb ? -1 : 1;
++
++      if (!loga)
++	return 0;
++
++      return tmp;
++    }
++}
++
+ /* Return <0 if the join field in LINE1 compares less than the one in LINE2;
+    >0 if it compares greater; 0 if it compares equal.
+    Report an error and exit if the comparison fails.  */
+@@ -327,7 +558,7 @@
+ keycmp (struct line *line1, struct line *line2)
+ {
+   /* Start of field to compare in each file.  */
+-  const unsigned char *beg1, *beg2;
++  unsigned char *beg1, *beg2;
+ 
+   size_t len1, len2;		/* Length of fields to compare.  */
+   int diff;
+@@ -362,7 +593,18 @@
+   /* Use an if-statement here rather than a function variable to
+      avoid portability hassles of getting a non-conflicting declaration
+      of memcmp.  */
+-  if (ignore_case)
++  if (numeric)
++    {
++      unsigned char save1, save2;
++
++      save1 = beg1[len1];
++      save2 = beg2[len2];
++      beg1[len1] = beg2[len2] = '\0';
++      diff = numcompare(beg1, beg2);
++      beg1[len1] = save1;
++      beg2[len2] = save2;
++    }
++  else if (ignore_case)
+     {
+       /* FIXME: ignore_case does not work with NLS (in particular,
+          with multibyte chars).  */
+@@ -744,6 +986,26 @@
+ 
+   atexit (close_stdout);
+ 
++#if HAVE_SETLOCALE
++
++  /* Let's get locale's representation of the decimal point */
++  {
++    struct lconv *lconvp = localeconv ();
++
++    /* If the locale doesn't define a decimal point, or if the decimal
++       point is multibyte, use the C decimal point.  We don't support
++       multibyte decimal points yet.  */
++    decimal_point = *lconvp->decimal_point;
++    if (! decimal_point || lconvp->decimal_point[1])
++      decimal_point = C_DECIMAL_POINT;
++
++    /* We don't support multibyte thousands separators yet.  */
++    th_sep = *lconvp->thousands_sep;
++    if (! th_sep || lconvp->thousands_sep[1])
++      th_sep = CHAR_MAX + 1;
++  }
++#endif
++
+   /* Initialize this before parsing options.  In parsing options,
+      it may be increased.  */
+   uni_blank.nfields = 1;
+@@ -751,7 +1013,7 @@
+   nfiles = 0;
+   print_pairables = 1;
+ 
+-  while ((optc = getopt_long_only (argc, argv, "-a:e:i1:2:o:t:v:", longopts,
++  while ((optc = getopt_long_only (argc, argv, "-a:e:in1:2:o:t:v:", longopts,
+ 				   NULL)) != -1)
+     {
+       long int val;
+@@ -783,6 +1045,10 @@
+ 	  ignore_case = 1;
+ 	  break;
+ 
++	case 'n':
++	  numeric = 1;
++	  break;
++
+ 	case '1':
+ 	  if (xstrtol (optarg, NULL, 10, &val, "") != LONGINT_OK
+ 	      || val <= 0 || val > INT_MAX)

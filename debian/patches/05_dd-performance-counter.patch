@@ -1,0 +1,128 @@
+--- coreutils-4.5.3.orig/src/dd.c
++++ coreutils-4.5.3/src/dd.c
+@@ -153,22 +153,29 @@
+   int conversion;
+ };
+ 
++struct 
++{
++  unsigned long long bytes;   /* # of bytes written */
++  double  start;              /* start time of dd */
++} st;
++
+ static struct conversion conversions[] =
+ {
+-  {"ascii", C_ASCII | C_TWOBUFS},	/* EBCDIC to ASCII. */
+-  {"ebcdic", C_EBCDIC | C_TWOBUFS},	/* ASCII to EBCDIC. */
+-  {"ibm", C_IBM | C_TWOBUFS},	/* Slightly different ASCII to EBCDIC. */
+-  {"block", C_BLOCK | C_TWOBUFS},	/* Variable to fixed length records. */
+-  {"unblock", C_UNBLOCK | C_TWOBUFS},	/* Fixed to variable length records. */
+-  {"lcase", C_LCASE | C_TWOBUFS},	/* Translate upper to lower case. */
+-  {"ucase", C_UCASE | C_TWOBUFS},	/* Translate lower to upper case. */
+-  {"swab", C_SWAB | C_TWOBUFS},	/* Swap bytes of input. */
+-  {"noerror", C_NOERROR},	/* Ignore i/o errors. */
+-  {"notrunc", C_NOTRUNC},	/* Do not truncate output file. */
+-  {"sync", C_SYNC},		/* Pad input records to ibs with NULs. */
++  {"ascii", C_ASCII | C_TWOBUFS},       /* EBCDIC to ASCII. */
++  {"ebcdic", C_EBCDIC | C_TWOBUFS},     /* ASCII to EBCDIC. */
++  {"ibm", C_IBM | C_TWOBUFS},   /* Slightly different ASCII to EBCDIC. */
++  {"block", C_BLOCK | C_TWOBUFS},       /* Variable to fixed length records. */
++  {"unblock", C_UNBLOCK | C_TWOBUFS},   /* Fixed to variable length records. */
++  {"lcase", C_LCASE | C_TWOBUFS},       /* Translate upper to lower case. */
++  {"ucase", C_UCASE | C_TWOBUFS},       /* Translate lower to upper case. */
++  {"swab", C_SWAB | C_TWOBUFS}, /* Swap bytes of input. */
++  {"noerror", C_NOERROR},       /* Ignore i/o errors. */
++  {"notrunc", C_NOTRUNC},       /* Do not truncate output file. */
++  {"sync", C_SYNC},             /* Pad input records to ibs with NULs. */
+   {NULL, 0}
+ };
+ 
++
+ /* Translation table formed by applying successive transformations. */
+ static unsigned char trans_table[256];
+ 
+@@ -362,6 +369,9 @@
+ print_stats (void)
+ {
+   char buf[2][LONGEST_HUMAN_READABLE + 1];
++  struct timeval tv;
++  double secs;
++
+   fprintf (stderr, _("%s+%s records in\n"),
+ 	   human_readable (r_full, buf[0], 1, 1),
+ 	   human_readable (r_partial, buf[1], 1, 1));
+@@ -376,6 +386,15 @@
+ 		? _("truncated record")
+ 		: _("truncated records")));
+     }
++
++  (void)gettimeofday(&tv, (struct timezone *)NULL);
++  secs = tv.tv_sec + tv.tv_usec * 1e-6 - st.start;
++  if (secs < 1e-6)
++    secs = 1e-6;
++  if (getenv ("POSIXLY_CORRECT") == NULL)
++    fprintf (stderr, 
++             _("%llu bytes transferred in %.6f seconds (%.0f bytes/sec)\n"), 
++             st.bytes, secs, st.bytes / secs);
+ }
+ 
+ static void
+@@ -467,6 +486,9 @@
+ write_output (void)
+ {
+   size_t nwritten = full_write (STDOUT_FILENO, obuf, output_blocksize);
++
++  st.bytes += nwritten;
++
+   if (nwritten != output_blocksize)
+     {
+       error (0, errno, _("writing to %s"), quote (output_file));
+@@ -1045,6 +1067,9 @@
+       if (ibuf == obuf)		/* If not C_TWOBUFS. */
+ 	{
+ 	  size_t nwritten = full_write (STDOUT_FILENO, obuf, n_bytes_read);
++
++	  st.bytes += nwritten;
++	  
+ 	  if (nwritten != n_bytes_read)
+ 	    {
+ 	      error (0, errno, _("writing %s"), quote (output_file));
+@@ -1104,6 +1129,9 @@
+   if (oc != 0)
+     {
+       size_t nwritten = full_write (STDOUT_FILENO, obuf, oc);
++
++      st.bytes += nwritten;
++
+       if (nwritten != 0)
+ 	w_partial++;
+       if (nwritten != oc)
+@@ -1136,6 +1164,7 @@
+ {
+   int i;
+   int exit_status;
++  struct timeval tv;
+ 
+   program_name = argv[0];
+   setlocale (LC_ALL, "");
+@@ -1222,6 +1251,10 @@
+   install_handler (SIGPIPE, interrupt_handler);
+   install_handler (SIGINFO, siginfo_handler);
+ 
++  (void)gettimeofday(&tv, (struct timezone *)NULL);
++  st.start = tv.tv_sec + tv.tv_usec * 1e-6; 
++  st.bytes = 0;
++
+   exit_status = dd_copy ();
+ 
+   quit (exit_status);
+--- coreutils-4.5.3.orig/tests/dd/skip-seek
++++ coreutils-4.5.3/tests/dd/skip-seek
+@@ -21,6 +21,7 @@
+ 
+ # Turn off localisation of executable's ouput.
+ @ENV{qw(LANGUAGE LANG LC_ALL)} = ('C') x 3;
++@ENV{qw(POSIXLY_CORRECT)} = 1;
+ my $out = 'out';
+ my $script_name = $ENV{SCRIPT_NAME};
+ 

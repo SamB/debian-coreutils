@@ -1,0 +1,41 @@
+coreutils (4.5.3-1) unstable; urgency=low
+
+  * New upstream version
+  * backed out more specific uname processor output 
+    - Closes: #164691, #164710, #165530, #166621
+    - basically no positive feedback :)
+  * remove /usr/share/doc/coreutils/ABOUT-NLS.gz (Closes: #164920)
+  * printf with a trailing \ doesn't cause end-of-string to be ignored
+    (Closes: #166201)
+
+ -- Michael Stone <mstone@debian.org>  Thu, 31 Oct 2002 21:20:37 -0500
+
+coreutils (4.5.2-1) unstable; urgency=low
+
+  * New upstream version
+    - translations fixed (Closes: #161629, #163712)
+  * .jar color fixed (Closes: #163838)
+  * dired test doesn't break for non-english locale (Closes: #161069)
+  * more specific uname processor output (Closes: #88070)
+    - let's see how people react to this one :)
+
+ -- Michael Stone <mstone@debian.org>  Tue, 08 Oct 2002 21:42:27 -0400
+
+coreutils (4.5.1-2) unstable; urgency=high
+
+  * don't provide stat (causes nasty upgrade problem) 
+    (Closes: #161245, #161249)
+  * bump standards-version
+  * register info file properly
+  * DEB_BUILD_OPTIONS (Closes: #152189)
+
+ -- Michael Stone <mstone@debian.org>  Tue, 17 Sep 2002 21:40:51 -0400
+
+coreutils (4.5.1-1) unstable; urgency=low
+
+  * New upstream release
+  * Replaces fileutils, shellutils, and textutils
+
+ -- Michael Stone <mstone@debian.org>  Fri, 13 Sep 2002 21:00:15 -0400
+
+

@@ -1,0 +1,98 @@
+--- coreutils-4.5.3.orig/src/cat.c
++++ coreutils-4.5.3/src/cat.c
+@@ -101,6 +101,7 @@
+   -e                       equivalent to -vE\n\
+   -E, --show-ends          display $ at end of each line\n\
+   -n, --number             number all output lines\n\
++  -r, --reversible         use \\ to make the output reversible, implies -v\n\
+   -s, --squeeze-blank      never more than one single blank line\n\
+ "), stdout);
+       fputs (_("\
+@@ -213,7 +214,8 @@
+      int numbers,
+      int numbers_at_empty_lines,
+      int mark_line_ends,
+-     int squeeze_empty_lines)
++     int squeeze_empty_lines,
++     int reversible)
+ {
+   /* Last character read from the input buffer.  */
+   unsigned char ch;
+@@ -415,7 +417,12 @@
+ 	      if (ch >= 32)
+ 		{
+ 		  if (ch < 127)
+-		    *bpout++ = ch;
++		    {
++		      if (reversible && (ch == '^' || ch == 'M' ||
++					 ch == '\\' || ch == '$'))
++			*bpout++ = '\\';
++		      *bpout++ = ch;
++		    }
+ 		  else if (ch == 127)
+ 		    {
+ 		      *bpout++ = '^';
+@@ -428,7 +435,12 @@
+ 		      if (ch >= 128 + 32)
+ 			{
+ 			  if (ch < 128 + 127)
+-			    *bpout++ = ch - 128;
++			    {
++			      ch -= 128;
++			      if (reversible && (ch == '^' || ch == '\\'))
++				*bpout++ = '\\';
++			      *bpout++ = ch;
++			    }
+ 			  else
+ 			    {
+ 			      *bpout++ = '^';
+@@ -523,6 +535,7 @@
+   int mark_line_ends = 0;
+   int quote = 0;
+   int output_tabs = 1;
++  int reversible = 0;
+ #if O_BINARY
+   int binary_files  = 0;
+   int binary_output = 0;
+@@ -541,6 +554,7 @@
+     {"show-ends", no_argument, NULL, 'E'},
+     {"show-tabs", no_argument, NULL, 'T'},
+     {"show-all", no_argument, NULL, 'A'},
++    {"reversible", no_argument, NULL, 'r'},
+ #if O_BINARY
+     {"binary", no_argument, NULL, 'B'},
+ #endif
+@@ -560,9 +574,9 @@
+ 
+   while ((c = getopt_long (argc, argv,
+ #if O_BINARY
+-			   "benstuvABET"
++			   "benrstuvABET"
+ #else
+-			   "benstuvAET"
++			   "benrstuvAET"
+ #endif
+ 			   , long_options, NULL)) != -1)
+     {
+@@ -588,6 +602,12 @@
+ 	  numbers = 1;
+ 	  break;
+ 
++	case 'r':
++	  ++options;
++	  reversible = 1;
++	  quote = 1;
++	  break;
++
+ 	case 's':
+ 	  ++options;
+ 	  squeeze_empty_lines = 1;
+@@ -816,7 +836,7 @@
+ 
+ 	  cat (inbuf, insize, outbuf, outsize, quote,
+ 	       output_tabs, numbers, numbers_at_empty_lines, mark_line_ends,
+-	       squeeze_empty_lines);
++	       squeeze_empty_lines, reversible);
+ 
+ 	  free (outbuf);
+ 	}

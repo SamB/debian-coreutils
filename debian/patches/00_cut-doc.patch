@@ -1,0 +1,11 @@
+--- coreutils-4.5.3.orig/src/cut.c
++++ coreutils-4.5.3/src/cut.c
+@@ -203,6 +203,8 @@
+   N-M   from N'th to M'th (included) byte, character or field\n\
+   -M    from first to M'th (included) byte, character or field\n\
+ \n\
++The order of bytes, characters or fields in the output will be\n\
++identical to those in the input.\n\
+ With no FILE, or when FILE is -, read standard input.\n\
+ "), stdout);
+       printf (_("\nReport bugs to <%s>.\n"), PACKAGE_BUGREPORT);

@@ -1,0 +1,20 @@
+This package uses a build system called DBS (Doogie's Build System).
+To extract the upstream source, run "debian/rules setup". This will
+extract the pristine source in build-tree/, and apply patches from
+debian/patches/.
+
+Note that source modifications in build-tree/ will not be preserved
+after the "clean" target is run.
+
+To create patches for the source, remember the following steps: There
+are two targets for handling source.  The "unpacked" target will
+simply unpack the tarball(s) into build-tree/; the "patched" target
+will apply all patches from debian/patches/.  If you make any changes,
+you can generate a new patch using the "make_patch" target.  This will
+move your current sources under build-tree/, unpack the source+patches
+again, and then generate a diff between the two.  Note that you should
+run the "clean" target in the build-tree/ source before doing this to
+get a clean patch.
+
+Tollef Fog Heen
+(modified by Colin Walters <walters@debian.org>)
