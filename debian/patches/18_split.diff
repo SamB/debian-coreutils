@@ -1,0 +1,20 @@
+--- coreutils-5.0/src/split.c	2002-10-18 17:06:32.000000000 +0100
++++ coreutils-5.2.1/src/split.c	2003-01-20 00:34:33.000000000 +0000
+@@ -236,7 +236,7 @@
+ 	    }
+ 	}
+     }
+-  while (n_read == bufsize);
++  while (n_read != 0);
+ }
+ 
+ /* Split into pieces of exactly NLINES lines.
+@@ -282,7 +282,7 @@
+ 	      }
+ 	}
+     }
+-  while (n_read == bufsize);
++  while (n_read != 0);
+ }
+ 
+ /* Split into pieces that are as large as possible while still not more

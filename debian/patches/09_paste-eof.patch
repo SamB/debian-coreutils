@@ -1,5 +1,5 @@
---- coreutils-4.5.3.orig/src/paste.c
-+++ coreutils-4.5.3/src/paste.c
+--- coreutils-5.0.orig/src/paste.c
++++ coreutils-5.2.1/src/paste.c
 @@ -32,6 +32,9 @@
  				DELIM-LIST instead of tab to separate
  				merged lines.  When DELIM-LIST is exhausted,
@@ -29,12 +29,14 @@
    {GETOPT_HELP_OPTION_DECL},
    {GETOPT_VERSION_OPTION_DECL},
    {0, 0, 0, 0}
-@@ -213,6 +221,27 @@
+@@ -213,6 +221,29 @@
  
    while (files_open)
      {
 +      if (first_eof)
 +	{
++         size_t i;
++         int chr IF_LINT (= 0);
 +	  for (i = 0; fileptr[i] != ENDLIST; i++)
 +	    {
 +	      if (fileptr[i] == CLOSED)

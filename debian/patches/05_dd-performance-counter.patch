@@ -1,6 +1,6 @@
---- coreutils-4.5.3.orig/src/dd.c
-+++ coreutils-4.5.3/src/dd.c
-@@ -153,22 +153,29 @@
+--- coreutils-5.0/src/dd.c.orig	2003-02-07 07:39:20.000000000 -0500
++++ coreutils-5.2.1/src/dd.c	2003-02-07 07:39:47.000000000 -0500
+@@ -150,22 +150,29 @@
    int conversion;
  };
  
@@ -41,17 +41,17 @@
  /* Translation table formed by applying successive transformations. */
  static unsigned char trans_table[256];
  
-@@ -362,6 +369,9 @@
+@@ -359,6 +366,9 @@
  print_stats (void)
  {
-   char buf[2][LONGEST_HUMAN_READABLE + 1];
+   char buf[2][INT_BUFSIZE_BOUND (uintmax_t)];
 +  struct timeval tv;
 +  double secs;
 +
    fprintf (stderr, _("%s+%s records in\n"),
- 	   human_readable (r_full, buf[0], 1, 1),
- 	   human_readable (r_partial, buf[1], 1, 1));
-@@ -376,6 +386,15 @@
+ 	   umaxtostr (r_full, buf[0]), umaxtostr (r_partial, buf[1]));
+   fprintf (stderr, _("%s+%s records out\n"),
+@@ -371,18 +381,27 @@
  		? _("truncated record")
  		: _("truncated records")));
      }
@@ -67,7 +67,20 @@
  }
  
  static void
-@@ -467,6 +486,9 @@
+ cleanup (void)
+ {
+-  print_stats ();
+   if (close (STDIN_FILENO) < 0)
+     error (EXIT_FAILURE, errno,
+ 	   _("closing input file %s"), quote (input_file));
+   if (close (STDOUT_FILENO) < 0)
+     error (EXIT_FAILURE, errno,
+ 	   _("closing output file %s"), quote (output_file));
++  print_stats ();
+ }
+ 
+ static inline void
+@@ -464,6 +483,9 @@
  write_output (void)
  {
    size_t nwritten = full_write (STDOUT_FILENO, obuf, output_blocksize);
@@ -77,7 +90,7 @@
    if (nwritten != output_blocksize)
      {
        error (0, errno, _("writing to %s"), quote (output_file));
-@@ -1045,6 +1067,9 @@
+@@ -1049,6 +1071,9 @@
        if (ibuf == obuf)		/* If not C_TWOBUFS. */
  	{
  	  size_t nwritten = full_write (STDOUT_FILENO, obuf, n_bytes_read);
@@ -87,7 +100,7 @@
  	  if (nwritten != n_bytes_read)
  	    {
  	      error (0, errno, _("writing %s"), quote (output_file));
-@@ -1104,6 +1129,9 @@
+@@ -1108,6 +1133,9 @@
    if (oc != 0)
      {
        size_t nwritten = full_write (STDOUT_FILENO, obuf, oc);
@@ -97,7 +110,7 @@
        if (nwritten != 0)
  	w_partial++;
        if (nwritten != oc)
-@@ -1136,6 +1164,7 @@
+@@ -1140,6 +1168,7 @@
  {
    int i;
    int exit_status;
@@ -105,7 +118,7 @@
  
    program_name = argv[0];
    setlocale (LC_ALL, "");
-@@ -1222,6 +1251,10 @@
+@@ -1227,6 +1256,10 @@
    install_handler (SIGPIPE, interrupt_handler);
    install_handler (SIGINFO, siginfo_handler);
  
@@ -116,8 +129,8 @@
    exit_status = dd_copy ();
  
    quit (exit_status);
---- coreutils-4.5.3.orig/tests/dd/skip-seek
-+++ coreutils-4.5.3/tests/dd/skip-seek
+--- coreutils-5.0.orig/tests/dd/skip-seek
++++ coreutils-5.2.1/tests/dd/skip-seek
 @@ -21,6 +21,7 @@
  
  # Turn off localisation of executable's ouput.

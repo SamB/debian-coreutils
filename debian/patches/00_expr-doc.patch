@@ -1,5 +1,5 @@
---- coreutils-4.5.3.orig/src/expr.c
-+++ coreutils-4.5.3/src/expr.c
+--- coreutils-5.0.orig/src/expr.c
++++ coreutils-5.2.1/src/expr.c
 @@ -145,6 +145,12 @@
  Pattern matches return the string matched between \\( and \\) or null; if\n\
  \\( and \\) are not used, they return the number of characters matched or 0.\n\

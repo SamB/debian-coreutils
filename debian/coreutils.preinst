@@ -2,5 +2,21 @@
 
 set -e
 
+# shellutils in woody contained symlinks for these items. On upgrade, dpkg 
+# doesn't cope well with the transition from those symlinks to the current
+# directories.
+for i in /usr/share/locale/cs /usr/share/locale/da /usr/share/locale/de /usr/share/locale/el /usr/share/locale/es /usr/share/locale/fr /usr/share/locale/gl /usr/share/locale/it /usr/share/locale/ja /usr/share/locale/ko /usr/share/locale/nl /usr/share/locale/no /usr/share/locale/pl /usr/share/locale/pt /usr/share/locale/pt_BR /usr/share/locale/ru /usr/share/locale/sk /usr/share/locale/sl /usr/share/locale/sv /usr/share/locale/zh ; do
+	test -L $i/LC_TIME && rm -f $i/LC_TIME
+	test -L $i/LC_MESSAGES/coreutils.mo && rm -f $i/LC_MESSAGES/coreutils.mo 
+done
+
+# make sure old info files are cleaned up
+for i in sh-utils fileutils textutils ; do
+	if grep -qs $i /usr/info/dir /usr/share/info/dir ; then
+		install-info --quiet --remove /usr/share/info/$i.info
+	fi
+done
+
 #DEBHELPER#
 
+exit 0

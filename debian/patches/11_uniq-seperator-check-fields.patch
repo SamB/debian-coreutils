@@ -1,5 +1,5 @@
---- coreutils-4.5.3.orig/src/uniq.c
-+++ coreutils-4.5.3/src/uniq.c
+--- coreutils-5.0.orig/src/uniq.c
++++ coreutils-5.2.1/src/uniq.c
 @@ -56,9 +56,16 @@
  /* Number of chars to skip after skipping any fields. */
  static size_t skip_chars;
@@ -121,9 +121,9 @@
    check_chars = SIZE_MAX;
 +  check_fields = 0;
 +  tab = 0;
-   mode = output_all;
+   output_unique = output_first_repeated = true;
+   output_later_repeated = false;
    countmode = count_none;
-   delimit_groups = DM_NONE;
 @@ -418,7 +460,7 @@
        if (optc == -1
  	  || (posixly_correct && nfiles != 0)

@@ -5,7 +5,8 @@
 #export DH_VERBOSE=1
 
 export DH_COMPAT=4
-TAR_DIR = coreutils-4.5.3
+
+TAR_DIR = coreutils-5.2.1
 
 # the dbs rules
 include /usr/share/dbs/dbs-build.mk
@@ -19,7 +20,7 @@ endif
 LDFLAGS = 
 
 BIN_PROGS = cat chgrp chmod chown cp date dd df dir echo false ln ls mkdir \
-	mknod mv pwd rm rmdir vdir sleep stty sync touch true uname
+	mknod mv pwd readlink rm rmdir vdir sleep stty sync touch true uname
 d=debian/coreutils
 
 default: binary
@@ -28,7 +29,10 @@ configure: configure-stamp
 configure-stamp: $(patched)
 	dh_testdir
 
-	cd $(BUILD_TREE) && CFLAGS=$(CFLAGS) LDFLAGS=$(LDFLAGS) ./configure \
+	cd $(BUILD_TREE) && aclocal -I m4 && autoconf
+
+	cd $(BUILD_TREE) && CFLAGS=$(CFLAGS) \
+		LDFLAGS=$(LDFLAGS) ./configure \
 		--build=$(DEB_BUILD_GNU_TYPE) --host=$(DEB_HOST_GNU_TYPE) \
 		--prefix=/usr -v \
 		--infodir=/usr/share/info --mandir=/usr/share/man
@@ -40,7 +44,7 @@ build-stamp: $(patched)
 	dh_testdir
 
 	cd $(BUILD_TREE) && $(MAKE)
-#	cd $(BUILD_TREE) && $(MAKE) check
+	cd $(BUILD_TREE) && $(MAKE) check
 
 	touch build-stamp
 
@@ -48,7 +52,7 @@ clean:
 	dh_testdir
 	rm -f build-stamp configure-stamp
 
-	rm -rf $(STAMP_DIR) $(SOURCE_DIR)
+	rm -rf $(STAMP_DIR) $(SOURCE_DIR) debian/buildinfo
 
 	dh_clean
 
@@ -74,18 +78,21 @@ install: build
 ifneq ($(DEB_HOST_GNU_SYSTEM),gnu)
 		# touch used to be in /usr/bin, don't break scripts
 		ln -s /bin/touch $(d)/usr/bin/touch
+endif
 
-		# remove stuff provided by other packages
+	# remove stuff provided by other packages
+ifeq ($(DEB_HOST_GNU_SYSTEM),linux)
+		# kill from procps is linux-specific
 		rm -f $(d)/usr/bin/kill $(d)/usr/share/man/man1/kill.1
+endif
+ifneq ($(DEB_HOST_GNU_SYSTEM),gnu)
 		rm -f $(d)/usr/bin/su $(d)/usr/share/man/man1/su.1
 endif
 
-	# remove more stuff provided by other packages
 	rm -f $(d)/usr/bin/hostname $(d)/usr/share/man/man1/hostname.1
 	rm -f $(d)/usr/bin/uptime $(d)/usr/share/man/man1/uptime.1
 
-	# link for archaic shells
-	ln -s test $(d)/usr/bin/[
+	# the [ program doesn't have its own man page yet
 	ln -s test.1 $(d)/usr/share/man/man1/[.1
 
 	# gnu thinks chroot is in bin, debian thinks it's in sbin
@@ -108,6 +115,7 @@ binary-indep: build install
 	dh_testroot -i
 	dh_installchangelogs -i
 	dh_installdocs -i
+	dh_buildinfo
 	dh_installexamples -i
 	dh_installinfo -i
 	dh_installman -i
@@ -127,7 +135,11 @@ binary-arch: build install
 	dh_installdocs -a
 	dh_installexamples -a
 	dh_installmenu -a
-	dh_installinfo -a $(BUILD_TREE)/doc/coreutils.info
+
+	#something wacky's going on with the info docs
+	rm -f $(d)/usr/share/info/dir*
+	ls $(d)/usr/share/info
+
 	dh_installman -a
 ifeq (,$(findstring nostrip,$(DEB_BUILD_OPTIONS)))
 	dh_strip -a

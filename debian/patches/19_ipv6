@@ -1,0 +1,149 @@
+--- coreutils-5.0/configure.ac	2003-02-06 15:28:47.000000000 +0100
++++ coreutils-5.2.1/configure.ac	2003-02-20 20:03:54.000000000 +0100
+@@ -245,6 +245,9 @@
+ # For src/kill.c.
+ AC_CHECK_DECLS([strsignal, strtoimax, sys_siglist, _sys_siglist])
+ 
++# For lib/canon-host.c
++AC_CHECK_FUNCS([getaddrinfo])
++
+ jm_LIB_CHECK
+ 
+ AM_GNU_GETTEXT([external], [need-ngettext])
+--- coreutils-5.0/lib/canon-host.c	2003-01-06 14:04:43.000000000 +0100
++++ coreutils-5.2.1/lib/canon-host.c	2003-02-20 20:12:23.000000000 +0100
+@@ -52,7 +52,27 @@
+ canon_host (const char *host)
+ {
+ #ifdef HAVE_GETHOSTBYNAME
+-  struct hostent *he = gethostbyname (host);
++  struct hostent *he;
++#endif
++#ifdef HAVE_GETADDRINFO
++  struct addrinfo hint;
++  struct addrinfo *res = NULL;
++  bzero(&hint, sizeof(struct addrinfo));
++  hint.ai_flags = AI_CANONNAME;
++  hint.ai_family = PF_INET6;
++  if (!getaddrinfo(host, NULL, &hint, &res)) {
++    if (res && res->ai_canonname) {
++      char *h_addr_copy = (char *) malloc (strlen(res->ai_canonname)+1);
++      strcpy(h_addr_copy, res->ai_canonname);
++      freeaddrinfo(res);
++      return h_addr_copy;
++    }
++  }
++  freeaddrinfo(res);
++#endif /* HAVE_GETADDRINFO */
++
++#ifdef HAVE_GETHOSTBYNAME
++  he = gethostbyname (host);
+ 
+   if (he)
+     {
+--- coreutils-5.0/config.hin	2003-02-06 19:57:32.000000000 +0100
++++ coreutils-5.2.1/config.hin	2003-02-20 20:10:14.000000000 +0100
+@@ -384,5 +384,8 @@
+ /* Define if struct statfs has the f_fstypename member. */
+ #undef HAVE_F_FSTYPENAME_IN_STATFS
+ 
++/* Define to 1 if you have the `getaddrinfo' function. */
++#undef HAVE_GETADDRINFO
++
+ /* Define to 1 if you have the `getcwd' function. */
+ #undef HAVE_GETCWD
+--- coreutils-5.0/configure	2003-02-06 19:56:49.000000000 +0100
++++ coreutils-5.2.1/configure	2003-02-20 20:10:41.000000000 +0100
+@@ -38629,6 +38629,92 @@
+ 
+ 
+ 
++# For lib/canon-host.c
++
++for ac_func in getaddrinfo
++do
++as_ac_var=`echo "ac_cv_func_$ac_func" | $as_tr_sh`
++echo "$as_me:$LINENO: checking for $ac_func" >&5
++echo $ECHO_N "checking for $ac_func... $ECHO_C" >&6
++if eval "test \"\${$as_ac_var+set}\" = set"; then
++  echo $ECHO_N "(cached) $ECHO_C" >&6
++else
++  cat >conftest.$ac_ext <<_ACEOF
++#line $LINENO "configure"
++/* confdefs.h.  */
++_ACEOF
++cat confdefs.h >>conftest.$ac_ext
++cat >>conftest.$ac_ext <<_ACEOF
++/* end confdefs.h.  */
++/* System header to define __stub macros and hopefully few prototypes,
++    which can conflict with char $ac_func (); below.
++    Prefer <limits.h> to <assert.h> if __STDC__ is defined, since
++    <limits.h> exists even on freestanding compilers.  */
++#ifdef __STDC__
++# include <limits.h>
++#else
++# include <assert.h>
++#endif
++/* Override any gcc2 internal prototype to avoid an error.  */
++#ifdef __cplusplus
++extern "C"
++{
++#endif
++/* We use char because int might match the return type of a gcc2
++   builtin and then its argument prototype would still apply.  */
++char $ac_func ();
++/* The GNU C library defines this for functions which it implements
++    to always fail with ENOSYS.  Some functions are actually named
++    something starting with __ and the normal name is an alias.  */
++#if defined (__stub_$ac_func) || defined (__stub___$ac_func)
++choke me
++#else
++char (*f) () = $ac_func;
++#endif
++#ifdef __cplusplus
++}
++#endif
++
++int
++main ()
++{
++return f != $ac_func;
++  ;
++  return 0;
++}
++_ACEOF
++rm -f conftest.$ac_objext conftest$ac_exeext
++if { (eval echo "$as_me:$LINENO: \"$ac_link\"") >&5
++  (eval $ac_link) 2>&5
++  ac_status=$?
++  echo "$as_me:$LINENO: \$? = $ac_status" >&5
++  (exit $ac_status); } &&
++         { ac_try='test -s conftest$ac_exeext'
++  { (eval echo "$as_me:$LINENO: \"$ac_try\"") >&5
++  (eval $ac_try) 2>&5
++  ac_status=$?
++  echo "$as_me:$LINENO: \$? = $ac_status" >&5
++  (exit $ac_status); }; }; then
++  eval "$as_ac_var=yes"
++else
++  echo "$as_me: failed program was:" >&5
++sed 's/^/| /' conftest.$ac_ext >&5
++
++eval "$as_ac_var=no"
++fi
++rm -f conftest.$ac_objext conftest$ac_exeext conftest.$ac_ext
++fi
++echo "$as_me:$LINENO: result: `eval echo '${'$as_ac_var'}'`" >&5
++echo "${ECHO_T}`eval echo '${'$as_ac_var'}'`" >&6
++if test `eval echo '${'$as_ac_var'}'` = yes; then
++  cat >>confdefs.h <<_ACEOF
++#define `echo "HAVE_$ac_func" | $as_tr_cpp` 1
++_ACEOF
++
++fi
++done
++
++
+ 
+ 
+   # Check for libypsec.a on Dolphin M88K machines.

@@ -1,5 +1,5 @@
---- coreutils-4.5.3.orig/src/cat.c
-+++ coreutils-4.5.3/src/cat.c
+--- coreutils-5.0.orig/src/cat.c
++++ coreutils-5.2.1/src/cat.c
 @@ -101,6 +101,7 @@
    -e                       equivalent to -vE\n\
    -E, --show-ends          display $ at end of each line\n\

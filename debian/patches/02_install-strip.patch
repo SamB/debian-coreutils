@@ -1,5 +1,5 @@
---- coreutils-4.5.3.orig/src/install.c
-+++ coreutils-4.5.3/src/install.c
+--- coreutils-5.0.orig/src/install.c
++++ coreutils-5.2.1/src/install.c
 @@ -532,7 +532,11 @@
        error (EXIT_FAILURE, errno, _("fork system call failed"));
        break;

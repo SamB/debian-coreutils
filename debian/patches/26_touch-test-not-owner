@@ -1,0 +1,18 @@
+--- coreutils-5.0.91/tests/touch/not-owner.orig	2003-08-10 07:38:57.000000000 -0400
++++ coreutils-5.2.1/tests/touch/not-owner	2003-08-10 07:40:46.000000000 -0400
+@@ -27,6 +27,7 @@
+ 
+ fail=0
+ 
++if [ ! -w / ] ; then
+ # Before fileutils-4.1, we'd get the following misleading
+ # diagnostic instead of `...: Permission denied'.
+ # touch: creating `/': Is a directory
+@@ -42,6 +43,7 @@
+   cmp out exp > /dev/null 2>&1 && { match=1; break; }
+ done
+ test "$match" = 1 || fail=1
++fi
+ 
+ test $fail = 1 && diff out exp 2> /dev/null
+ 
