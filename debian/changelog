@@ -1,3 +1,14 @@
+coreutils (5.2.1-2.1) unstable; urgency=low
+
+  * NMU during bugsquash party.
+  * Update the documentation to make it clear that mv --reply=no doesn't
+    prevent overwriting files.  Closes: #274705.
+    Note that upstream is planning to deprecate this option.
+  * Fix build with new dpkg-dev, so that it excludes the kill binary and
+    manpage on Linux again.  Closes: #314713.
+
+ -- Daniel Schepler <schepler@debian.org>  Sat,  3 Sep 2005 18:19:54 -0700
+
 coreutils (5.2.1-2) unstable; urgency=low
 
   * remove su for kfreebsd (Closes: #225131)

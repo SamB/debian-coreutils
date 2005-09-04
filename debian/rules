@@ -12,6 +12,25 @@ TAR_DIR = coreutils-5.2.1
 include /usr/share/dbs/dbs-build.mk
 include /usr/share/dbs/dpkg-arch.mk
 
+ifndef DEB_BUILD_ARCH_OS
+  DEB_BUILD_ARCH_OS := $(shell dpkg-architecture -qDEB_BUILD_ARCH_OS 2>/dev/null)
+  ifeq ($(DEB_BUILD_ARCH_OS),)
+    DEB_BUILD_ARCH_OS := $(subst -gnu,,$(DEB_BUILD_GNU_SYSTEM))
+    ifeq ($(DEB_BUILD_ARCH_OS),gnu)
+      DEB_BUILD_ARCH_OS := hurd
+    endif
+  endif
+endif
+ifndef DEB_HOST_ARCH_OS
+  DEB_HOST_ARCH_OS := $(shell dpkg-architecture -qDEB_HOST_ARCH_OS 2>/dev/null)
+  ifeq ($(DEB_HOST_ARCH_OS),)
+    DEB_HOST_ARCH_OS := $(subst -gnu,,$(DEB_HOST_GNU_SYSTEM))
+    ifeq ($(DEB_HOST_ARCH_OS),gnu)
+      DEB_HOST_ARCH_OS := hurd
+    endif
+  endif
+endif
+
 ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
 CFLAGS = "-g -DSYSLOG_SUCCESS -DSYSLOG_FAILURE -DSYSLOG_NON_ROOT -O0"
 else
@@ -75,17 +94,17 @@ install: build
 	mv $(d)/usr/share/man/man1/md5sum.1 $(d)/usr/share/man/man1/md5sum.textutils.1
 
 	# some things we don't do for hurd
-ifneq ($(DEB_HOST_GNU_SYSTEM),gnu)
+ifneq ($(DEB_HOST_ARCH_OS),hurd)
 		# touch used to be in /usr/bin, don't break scripts
 		ln -s /bin/touch $(d)/usr/bin/touch
 endif
 
 	# remove stuff provided by other packages
-ifeq ($(DEB_HOST_GNU_SYSTEM),linux)
+ifeq ($(DEB_HOST_ARCH_OS),linux)
 		# kill from procps is linux-specific
 		rm -f $(d)/usr/bin/kill $(d)/usr/share/man/man1/kill.1
 endif
-ifneq ($(DEB_HOST_GNU_SYSTEM),gnu)
+ifneq ($(DEB_HOST_ARCH_OS),hurd)
 		rm -f $(d)/usr/bin/su $(d)/usr/share/man/man1/su.1
 endif
 
@@ -147,7 +166,7 @@ endif
 	dh_link -a
 	dh_compress -a
 	dh_fixperms -a
-ifeq ($(DEB_BUILD_GNU_SYSTEM),gnu)
+ifeq ($(DEB_BUILD_ARCH_OS),hurd)
 	chmod u+s $(d)/usr/bin/su
 endif
 	dh_installdeb -a

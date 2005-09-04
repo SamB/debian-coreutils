@@ -1,6 +1,7 @@
---- coreutils-5.0.orig/doc/coreutils.texi
-+++ coreutils-5.2.1/doc/coreutils.texi
-@@ -5323,7 +5323,7 @@
+diff -ruN coreutils-5.2.1-old/doc/coreutils.texi coreutils-5.2.1/doc/coreutils.texi
+--- coreutils-5.2.1-old/doc/coreutils.texi	2004-03-10 09:50:52.000000000 -0800
++++ coreutils-5.2.1/doc/coreutils.texi	2005-09-03 17:56:39.000000000 -0700
+@@ -5726,7 +5726,7 @@
  Append a character to each file name indicating the file type. This is
  like @option{-F}, except that executables are not marked.
  
@@ -9,7 +10,7 @@
  @itemx --format=across
  @itemx --format=horizontal
  @opindex -x
-@@ -5494,7 +5494,10 @@
+@@ -5897,7 +5897,10 @@
  @opindex -N
  @opindex --literal
  @opindex --quoting-style
@@ -21,7 +22,29 @@
  
  @item -q
  @itemx --hide-control-chars
-@@ -6467,7 +6470,9 @@
+@@ -6300,7 +6303,9 @@
+ given as a response to every prompt about a destination file.  That effectively
+ cancels any preceding @option{--interactive} or @option{-i} option.
+ Specify @option{--reply=no} to make @command{cp} act as if @samp{no} were
+-given as a response to every prompt about a destination file.
++given as a response to every prompt about a destination file.  Note that
++this does @emph{not} prevent overwriting writable files, and that it
++overrides the effects of the @option{-i} option.
+ Specify @option{--reply=query} to make @command{cp} prompt the user
+ about each existing destination file.
+ 
+@@ -6770,7 +6775,9 @@
+ @cindex interactivity
+ Specifying @option{--reply=yes} is equivalent to using @option{--force}.
+ Specify @option{--reply=no} to make @command{mv} act as if @samp{no} were
+-given as a response to every prompt about a destination file.
++given as a response to every prompt about a destination file.  Note that
++this does @emph{not} prevent overwriting writable files, and that it
++overrides the effects of the @option{-i} option.
+ Specify @option{--reply=query} to make @command{mv} prompt the user
+ about each existing destination file.
+ 
+@@ -6842,7 +6849,9 @@
  only if you have appropriate privileges and if your operating system supports
  @code{unlink} for directories.  Because unlinking a directory causes any files
  in the deleted directory to become unreferenced, it is wise to @command{fsck}
@@ -32,7 +55,7 @@
  
  @item -f
  @itemx --force
-@@ -9909,12 +9914,12 @@
+@@ -10569,12 +10578,12 @@
  @cindex login name, printing
  @cindex user name, printing
  
@@ -48,7 +71,7 @@
  an error message and exits with a status of 1.
  
  The only options are @option{--help} and @option{--version}.  @xref{Common
-@@ -9975,11 +9980,11 @@
+@@ -10641,11 +10650,11 @@
  users [@var{file}]
  @end example
  
@@ -64,4 +87,3 @@
  
  The only options are @option{--help} and @option{--version}.  @xref{Common
  options}.
-
