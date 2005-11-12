@@ -1,19 +1,40 @@
-coreutils (5.2.1-2.1) unstable; urgency=low
+coreutils (5.93-1) unstable; urgency=low
 
-  * NMU during bugsquash party.
-  * Update the documentation to make it clear that mv --reply=no doesn't
-    prevent overwriting files.  Closes: #274705.
-    Note that upstream is planning to deprecate this option.
-  * Fix build with new dpkg-dev, so that it excludes the kill binary and
-    manpage on Linux again.  Closes: #314713.
+  * New upstream version
+    - tail's --allow-missing option has been removed.  Use --retry instead
+    - stat's --link and -l options have been removed. Use --dereference
+    - support things like head -NUM when conforming to POSIX 1003.1-2001.
+      because of this, debian no longer forces POSIX version 199209
+    - many other changes documented in /usr/share/doc/coreutils/NEWS.gz
+  * Need automake 1.9 now
+  * Allow build check to be skipped with nocheck option (Closes: #278915)
+  * Work around dpkg changes (Closes: #314713)
+  * Try to recover from badly planned move on part of dpkg maintainer to
+    put a *local* diversion on md5sum. There is no good way to handle this;
+    hopefully nobody will do something so stupid in the future.
+  * Remove some ancient debian-specific patches
+    - install no longer calls strip with special options
+    - no more --reversible option to cat
+    - no more --first-eof option to paste
+    - no more field seperator option to uniq
+  * [54] Update acl patch using fedora devel patch
+  * [55] Add selinux support from fedora devel & Manoj Srivastava
+    (Closes: #312426)
 
- -- Daniel Schepler <schepler@debian.org>  Sat,  3 Sep 2005 18:19:54 -0700
+ -- Michael Stone <mstone@debian.org>  Sat, 12 Nov 2005 13:34:05 -0500
+
+coreutils (5.2.1-3) unstable; urgency=low
+
+  * fix info install
+  * install the right upstream changelog
+
+ -- Michael Stone <mstone@debian.org>  Fri, 16 Jul 2004 07:28:41 -0400
 
 coreutils (5.2.1-2) unstable; urgency=low
 
   * remove su for kfreebsd (Closes: #225131)
   * add yacc to build depends. forgot that the date patch [31] forced a 
-    rebuild from getdate.y (Closes: #259653)
+    rebuild from getdate.y (Closes: #259563)
 
  -- Michael Stone <mstone@debian.org>  Fri, 16 Jul 2004 07:28:41 -0400
 

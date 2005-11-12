@@ -17,6 +17,10 @@ for i in sh-utils fileutils textutils ; do
 	fi
 done
 
+# work around stupid dpkg diversion of md5sum
+dpkg-divert --remove /usr/share/man/man1/md5sum.textutils.1.gz
+dpkg-divert --remove /usr/bin/md5sum.textutils
+
 #DEBHELPER#
 
 exit 0
