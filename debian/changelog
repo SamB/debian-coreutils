@@ -1,3 +1,12 @@
+coreutils (5.93-2) unstable; urgency=low
+
+  * Change section to utils (base ain't what it used to be)
+  * Trust the autoreconf wrapper because things are too complicated otherwise
+  * [56] Recognize cifs as remote so it can be ignored, e.g., in df -l
+    (Closes: #324934)
+
+ -- Michael Stone <mstone@debian.org>  Sat, 12 Nov 2005 20:28:53 -0500
+
 coreutils (5.93-1) unstable; urgency=low
 
   * New upstream version

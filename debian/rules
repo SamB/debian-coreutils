@@ -53,7 +53,7 @@ configure: configure-stamp
 configure-stamp: $(patched)
 	dh_testdir
 
-	cd $(BUILD_TREE) && env AUTOMAKE=automake-1.9 ACLOCAL=aclocal-1.9 autoreconf2.50
+	cd $(BUILD_TREE) && autoreconf
 
 	cd $(BUILD_TREE) && CFLAGS=$(CFLAGS) \
 		LDFLAGS=$(LDFLAGS) ./configure \

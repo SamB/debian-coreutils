@@ -1,0 +1,12 @@
+--- coreutils-5.93/lib/mountlist.c.orig	2005-11-12 20:38:33.905164421 -0500
++++ coreutils-5.93/lib/mountlist.c	2005-11-12 20:41:31.828999253 -0500
+@@ -155,7 +155,8 @@
+     (strchr (Fs_name, ':') != 0			\
+      || ((Fs_name)[0] == '/'			\
+ 	 && (Fs_name)[1] == '/'			\
+-	 && strcmp (Fs_type, "smbfs") == 0))
++	 && ( strcmp (Fs_type, "smbfs") == 0 || \
++              strcmp (Fs_type, "cifs") == 0 ) ) )
+ #endif
+ 
+ #if MOUNTED_GETMNTINFO
