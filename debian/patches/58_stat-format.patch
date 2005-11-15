@@ -1,0 +1,55 @@
+--- stat.c	15 Oct 2005 10:15:48 -0000	1.89
++++ coreutils-5.93/src/stat.c	15 Nov 2005 10:41:03 -0000
+@@ -536,6 +536,24 @@ print_stat (char *pformat, size_t buf_le
+ }
+ 
+ static void
++print_esc (FILE *fp, char const *s)
++{
++  while (*s)
++    {
++      if (*s == '\\' && s[1] == 'n')
++	{
++	  fputc ('\n', fp);
++	  ++s;
++	}
++      else
++	{
++	  fputc (*s, fp);
++	}
++      ++s;
++    }
++}
++
++static void
+ print_it (char const *masterformat, char const *filename,
+ 	  void (*print_func) (char *, size_t, char, char const *, void const *),
+ 	  void const *data)
+@@ -558,7 +576,7 @@ print_it (char const *masterformat, char
+ 	{
+ 	  size_t len;
+ 	  *p++ = '\0';
+-	  fputs (b, stdout);
++	  print_esc (stdout, b);
+ 
+ 	  len = strspn (p, "#-+.I 0123456789");
+ 	  dest[0] = '%';
+@@ -573,6 +591,9 @@ print_it (char const *masterformat, char
+ 	      b = NULL;
+ 	      /* fall through */
+ 	    case '%':
++	      if (0 < len)
++		error (EXIT_FAILURE, 0, _("%s%s: invalid directive"),
++		       quotearg_colon (dest), *p ? "%" : "");
+ 	      putchar ('%');
+ 	      break;
+ 	    default:
+@@ -582,7 +603,7 @@ print_it (char const *masterformat, char
+ 	}
+       else
+ 	{
+-	  fputs (b, stdout);
++	  print_esc (stdout, b);
+ 	  b = NULL;
+ 	}
+     }

@@ -1,3 +1,11 @@
+coreutils (5.93-4) unstable; urgency=low
+
+  * Conflict with apt-move expecting particular stat syntax (Closes: #339136)
+    I need to think more about what to do with upstream changes to stat -c 
+  * For now, add upstream patch so that stat -c "%whatever\n" actually works
+
+ -- Michael Stone <mstone@debian.org>  Tue, 15 Nov 2005 09:30:56 -0500
+
 coreutils (5.93-3) unstable; urgency=low
 
   * Remove --enable-pam from selinux rules (we don't use our su for selinux)
