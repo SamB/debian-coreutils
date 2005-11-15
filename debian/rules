@@ -38,7 +38,7 @@ LDFLAGS =
 
 # determine whether to build with SELinux
 ifeq ($(DEB_HOST_ARCH_OS),linux)
-  SELINUX_OPTS := --enable-pam --enable-selinux
+  SELINUX_OPTS := --enable-selinux
 else
   SELINUX_OPTS := 
 endif
