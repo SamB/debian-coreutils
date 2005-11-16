@@ -1,3 +1,11 @@
+coreutils (5.93-5) unstable; urgency=low
+
+  * Actually conflict with apt-move instead of just thinking about it 
+    (Closes: #339136)
+  * Drop help2man build-dep (we're actually using one in the build tree)
+
+ -- Michael Stone <mstone@debian.org>  Wed, 16 Nov 2005 07:46:45 -0500
+
 coreutils (5.93-4) unstable; urgency=low
 
   * Conflict with apt-move expecting particular stat syntax (Closes: #339136)
