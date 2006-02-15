@@ -18,6 +18,9 @@ for i in sh-utils fileutils textutils ; do
 done
 
 # work around stupid dpkg diversion of md5sum
+# get rid of this for etch+1, I don't think there's a better solution until then
+rm -f /usr/bin/md5sum.textutils
+rm -f /usr/share/man/man1/md5sum.textutils
 dpkg-divert --remove /usr/share/man/man1/md5sum.textutils.1.gz
 dpkg-divert --remove /usr/bin/md5sum.textutils
 

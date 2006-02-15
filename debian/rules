@@ -6,7 +6,7 @@ export DH_VERBOSE=1
 
 export DH_COMPAT=4
 
-TAR_DIR = coreutils-5.93
+TAR_DIR = coreutils-5.94
 
 # the dbs rules
 include /usr/share/dbs/dbs-build.mk

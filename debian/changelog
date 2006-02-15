@@ -1,3 +1,18 @@
+coreutils (5.94-1) unstable; urgency=low
+
+  * New upstream version (Closes: #349530, #273781, #332779, #341912)
+    - upstream has reverted the behavior for stat --format
+      and added a new --printf option with the new behavior
+      (Closes: #339136)
+    - tail -f works on append-only files again (Closes: #339400)
+    - tail -c 3 works again (Closes: #340364)
+    - tail -0f work for multiple files (but use -n 0 -f instead)
+      (Closes: #341785)
+  * [99_dircolors-shell] dircolors test doesn't depend on the shell
+  * Fix md5sum diversion problems with a hacksaw (Closes: #340119)
+
+ -- Michael Stone <mstone@debian.org>  Wed, 15 Feb 2006 14:11:23 -0500
+
 coreutils (5.93-5) unstable; urgency=low
 
   * Actually conflict with apt-move instead of just thinking about it 
