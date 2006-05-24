@@ -1,0 +1,16 @@
+--- coreutils-5.96/src/dircolors.hin.orig	2006-04-15 21:29:07.602443942 -0400
++++ coreutils-5.96/src/dircolors.hin	2006-04-15 21:32:57.715883348 -0400
+@@ -21,11 +21,13 @@
+ TERM con80x60
+ TERM cygwin
+ TERM dtterm
++TERM mlterm
+ TERM putty
+ TERM xterm
+ TERM xterm-color
+ TERM xterm-debian
+ TERM rxvt
++TERM rxvt-unicode
+ TERM screen
+ TERM screen-bce
+ TERM screen-w

@@ -21,6 +21,8 @@ done
 # get rid of this for etch+1, I don't think there's a better solution until then
 rm -f /usr/bin/md5sum.textutils
 rm -f /usr/share/man/man1/md5sum.textutils
+rm -f /usr/share/man/man1/md5sum.1.gz
+rm -f /usr/share/man/man1/md5sum.textutils.1.gz
 dpkg-divert --remove /usr/share/man/man1/md5sum.textutils.1.gz
 dpkg-divert --remove /usr/bin/md5sum.textutils
 

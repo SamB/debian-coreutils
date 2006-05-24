@@ -1,5 +1,5 @@
 --- /dev/null	2005-10-10 09:36:06.437701000 +0100
-+++ coreutils-5.94/m4/posix_acl.m4	2005-10-27 11:44:29.000000000 +0100
++++ coreutils-5.96/m4/posix_acl.m4	2005-10-27 11:44:29.000000000 +0100
 @@ -0,0 +1,28 @@
 +#serial 1
 +
@@ -30,7 +30,7 @@
 +  fi
 +])
 --- coreutils-5.93/lib/acl.h.acl	2005-05-14 08:58:06.000000000 +0100
-+++ coreutils-5.94/lib/acl.h	2005-10-27 11:44:29.000000000 +0100
++++ coreutils-5.96/lib/acl.h	2005-10-27 11:44:29.000000000 +0100
 @@ -18,11 +18,16 @@
  
     Written by Paul Eggert.  */
@@ -50,7 +50,7 @@
 +int copy_acl (char const *, char const *, mode_t);
 +int set_acl (char const *, mode_t);
 --- coreutils-5.93/lib/acl.c.acl	2005-09-22 07:47:18.000000000 +0100
-+++ coreutils-5.94/lib/acl.c	2005-10-27 11:44:29.000000000 +0100
++++ coreutils-5.96/lib/acl.c	2005-10-27 11:44:29.000000000 +0100
 @@ -22,18 +22,30 @@
  # include <config.h>
  #endif
@@ -291,7 +291,7 @@
 +}
 +
 --- coreutils-5.93/src/mv.c.acl	2005-07-03 17:55:19.000000000 +0100
-+++ coreutils-5.94/src/mv.c	2005-10-27 11:44:29.000000000 +0100
++++ coreutils-5.96/src/mv.c	2005-10-27 11:44:29.000000000 +0100
 @@ -135,12 +135,6 @@
    x->mode = 0;
    x->stdin_tty = isatty (STDIN_FILENO);
@@ -306,7 +306,7 @@
    x->verbose = false;
    x->dest_info = NULL;
 --- coreutils-5.93/src/ls.c.acl	2005-10-27 11:44:29.000000000 +0100
-+++ coreutils-5.94/src/ls.c	2005-10-27 11:44:29.000000000 +0100
++++ coreutils-5.96/src/ls.c	2005-10-27 11:44:29.000000000 +0100
 @@ -193,13 +193,13 @@
  
      enum filetype filetype;
@@ -342,7 +342,7 @@
  	{
  	  int n = file_has_acl (absolute_name, &f->stat);
 --- coreutils-5.93/src/install.c.acl	2005-09-23 21:58:37.000000000 +0100
-+++ coreutils-5.94/src/install.c	2005-10-27 11:44:29.000000000 +0100
++++ coreutils-5.96/src/install.c	2005-10-27 11:44:29.000000000 +0100
 @@ -153,7 +153,6 @@
    x->mode = S_IRUSR | S_IWUSR;
    x->stdin_tty = false;
@@ -352,7 +352,7 @@
    x->verbose = false;
    x->dest_info = NULL;
 --- coreutils-5.93/src/cp.c.acl	2005-09-16 08:51:01.000000000 +0100
-+++ coreutils-5.94/src/cp.c	2005-10-27 11:44:29.000000000 +0100
++++ coreutils-5.96/src/cp.c	2005-10-27 11:44:29.000000000 +0100
 @@ -56,7 +56,8 @@
     need to be fixed after copying. */
  struct dir_attr
@@ -540,7 +540,7 @@
      {
        if (x.recursive)
 --- coreutils-5.93/src/copy.h.acl	2005-07-03 10:45:51.000000000 +0100
-+++ coreutils-5.94/src/copy.h	2005-10-27 11:44:29.000000000 +0100
++++ coreutils-5.96/src/copy.h	2005-10-27 11:44:29.000000000 +0100
 @@ -165,9 +165,6 @@
       Create destination directories as usual. */
    bool symbolic_link;
@@ -552,7 +552,7 @@
       with the same or newer modification time. */
    bool update;
 --- coreutils-5.93/src/copy.c.acl	2005-09-25 06:57:47.000000000 +0100
-+++ coreutils-5.94/src/copy.c	2005-10-27 11:57:41.000000000 +0100
++++ coreutils-5.96/src/copy.c	2005-10-27 11:57:41.000000000 +0100
 @@ -101,26 +101,6 @@
  /* The invocation name of this program.  */
  extern char *program_name;
@@ -888,7 +888,7 @@
  	}
      }
 --- coreutils-5.93/src/Makefile.am.acl	2005-09-29 11:28:37.000000000 +0100
-+++ coreutils-5.94/src/Makefile.am	2005-10-27 11:44:29.000000000 +0100
++++ coreutils-5.96/src/Makefile.am	2005-10-27 11:44:29.000000000 +0100
 @@ -50,9 +50,9 @@
  LDADD = ../lib/libcoreutils.a $(LIBINTL) ../lib/libcoreutils.a
  
@@ -918,7 +918,7 @@
  ## If necessary, add -lm to resolve use of pow in lib/strtod.c.
  sort_LDADD = $(LDADD) $(POW_LIB)
 --- coreutils-5.93/configure.ac.acl	2005-10-22 19:12:36.000000000 +0100
-+++ coreutils-5.94/configure.ac	2005-10-27 11:44:30.000000000 +0100
++++ coreutils-5.96/configure.ac	2005-10-27 11:44:30.000000000 +0100
 @@ -251,6 +251,8 @@
  AM_GNU_GETTEXT([external], [need-ngettext])
  AM_GNU_GETTEXT_VERSION(0.13.1)
@@ -929,7 +929,7 @@
    Makefile
    doc/Makefile
 --- coreutils-5.93/config.hin.acl	2005-10-22 19:14:08.000000000 +0100
-+++ coreutils-5.94/config.hin	2005-10-27 11:44:30.000000000 +0100
++++ coreutils-5.96/config.hin	2005-10-27 11:44:30.000000000 +0100
 @@ -101,6 +101,30 @@
  /* Define to 1 if you have the `acl' function. */
  #undef HAVE_ACL

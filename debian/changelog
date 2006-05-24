@@ -1,3 +1,25 @@
+coreutils (5.96-1) unstable; urgency=low
+
+  * New upstream version
+  * Don't override posix version at build time anymore. Upstream has
+    made this less painful; is this viable for etch?
+  * Update copyright file (Closes: #356532)
+
+ -- Michael Stone <mstone@debian.org>  Tue, 23 May 2006 21:08:13 -0400
+
+coreutils (5.94-2) unstable; urgency=low
+
+  * Reorder 55_coreutils.selinux.patch to fix builds on hurd
+    (Closes: #344166)
+  * [58_getcwd-chroot] fix pwd failure on certain bind mounts
+    (Closes: #355810)
+  * [59_dircolors-moreterms] add rxvt-unicode & mlterm to dircolors
+    (Closes: #270139, #317503)
+  * Update copyright file (thanks Joost van Baal) (Closes: #356532)
+  * Extend the diversion hackery (Closes: #361799)
+
+ -- Michael Stone <mstone@debian.org>  Sat, 15 Apr 2006 21:48:43 -0400
+
 coreutils (5.94-1) unstable; urgency=low
 
   * New upstream version (Closes: #349530, #273781, #332779, #341912)
