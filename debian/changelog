@@ -1,9 +1,22 @@
+coreutils (5.96-3) unstable; urgency=low
+
+  * Follow strategy from Ian Jackson to better deal with the dpkg md5sum
+    mess. Only remove dpkg's mad md5sum diversion `once' (ie, on upgrade 
+    from non-/usr/bin/md5sum-supplying coreutils).  This preserves any later
+    sysadmin-installed diversions of md5sum.textutils.
+  * Add NEWS.Debian notes on the POSIX2_VERSION change
+  * add who --ips option to display IPs instead of hostnames. Code taken
+    from last.c in sysvinit-2.86.ds1. 
+    Closes: #363126
+
+ -- Michael Stone <mstone@debian.org>  Sat, 27 May 2006 14:05:44 -0400
+
 coreutils (5.96-2) unstable; urgency=low
 
   * [60] Add deprecation warnings for tail +n and sort +n, but allow that
     syntax
   * Build-depend on autoconf 2.59.cvs.2006.05.25-1 to avoid bug that could
-    affect coreutils performance. Backporters feel free to weaken that
+    affect coreutils performance. Backporters may be able to weaken that
     dependency.
 
  -- Michael Stone <mstone@debian.org>  Sat, 27 May 2006 09:21:43 -0400

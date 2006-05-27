@@ -19,12 +19,24 @@ done
 
 # work around stupid dpkg diversion of md5sum
 # get rid of this for etch+1, I don't think there's a better solution until then
-rm -f /usr/bin/md5sum.textutils
-rm -f /usr/share/man/man1/md5sum.textutils
-rm -f /usr/share/man/man1/md5sum.1.gz
-rm -f /usr/share/man/man1/md5sum.textutils.1.gz
-dpkg-divert --remove /usr/share/man/man1/md5sum.textutils.1.gz
-dpkg-divert --remove /usr/bin/md5sum.textutils
+case "$2" in
+'' | 4.* | 5.?.*)
+    # coreutils 5.93-1 onwards do this, so we can avoid doing
+    # it if we know it's already been done.  That avoids trashing
+    # any real local diversion subsequently introduced by the sysadmin.
+    # (There are no coreutils versions between 5.2.1 and 5.93.)
+    rm -f /usr/bin/md5sum.textutils
+    rm -f /usr/share/man/man1/md5sum.textutils
+    rm -f /usr/share/man/man1/md5sum.1.gz
+    rm -f /usr/share/man/man1/md5sum.textutils.1.gz
+    dpkg-divert --remove /usr/share/man/man1/md5sum.textutils.1.gz
+    dpkg-divert --remove /usr/bin/md5sum.textutils
+    # Possibly this can be removed at some distant point, when we're
+    # sure that all of the systems infected with the diversion (ie,
+    # systems which were running the wrong version of sid, breezy or
+    # dapper) have been fixed.
+    ;;
+esac
 
 #DEBHELPER#
 
