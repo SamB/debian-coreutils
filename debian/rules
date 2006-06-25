@@ -63,6 +63,9 @@ configure-stamp: $(patched)
 		$(SELINUX_OPTS)
 
 	touch configure-stamp
+ifneq ($(DEB_HOST_ARCH_OS),hurd)
+	touch $(BUILD_TREE)/man/{ch,run}con.1
+endif
 
 build: configure-stamp build-stamp
 build-stamp: $(patched)

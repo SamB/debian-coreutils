@@ -14,7 +14,7 @@
  	      else
  		{
 +		  if (!obsolete_usage)
-+                    fprintf(stderr, "Warning: \"+number\" syntax is deprecated, please use \"-k number\"");
++                    fprintf(stderr, "%s: Warning: \"+number\" syntax is deprecated, please use \"-k number\"\n", program_name);
  		  if (optind != argc && argv[optind][0] == '-'
  		      && ISDIGIT (argv[optind][1]))
  		    {
@@ -25,7 +25,7 @@
        /* Leading "+" is a file name in the non-obsolete form.  */
        if (!obsolete_usage)
 -	return false;
-+	fprintf(stderr, "Warning: \"+number\" syntax is deprecated, please use \"-n +number\"");
++	fprintf(stderr, "%s: Warning: \"+number\" syntax is deprecated, please use \"-n +number\"\n", program_name);
  
        t_from_start = true;
        break;

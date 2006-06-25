@@ -1,3 +1,10 @@
+coreutils (5.96-4) unstable; urgency=low
+
+  * Fix deprecation messages Closes: #375335
+  * Try to clobber chcon man page build on hurd Closes: #344166
+
+ -- Michael Stone <mstone@debian.org>  Sun, 25 Jun 2006 13:30:21 -0400
+
 coreutils (5.96-3) unstable; urgency=low
 
   * Follow strategy from Ian Jackson to better deal with the dpkg md5sum
