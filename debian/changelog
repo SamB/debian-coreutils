@@ -1,3 +1,11 @@
+coreutils (5.96-5) unstable; urgency=low
+
+  * [62] fix segfault when diropen fails on remove  Closes: #375333
+  * [63] warn on append with trunc Closes: #373736
+  * fix idiotic typo in build rules for hurd Closes: #344166
+
+ -- Michael Stone <mstone@debian.org>  Sun, 25 Jun 2006 13:30:21 -0400
+
 coreutils (5.96-4) unstable; urgency=low
 
   * Fix deprecation messages Closes: #375335
