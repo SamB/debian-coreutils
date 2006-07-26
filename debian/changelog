@@ -1,3 +1,13 @@
+coreutils (5.97-1) unstable; urgency=low
+
+  * New upstream version
+    - cat options work in /proc Closes: 370583
+  * [70] add sha2 utilities Closes: 325205
+  * remove spurious removal of /usr/share/man/man1/md5sum.textutils
+    in preinst
+
+ -- Michael Stone <mstone@debian.org>  Wed, 26 Jul 2006 07:34:44 -0400
+
 coreutils (5.96-5) unstable; urgency=low
 
   * [62] fix segfault when diropen fails on remove  Closes: #375333

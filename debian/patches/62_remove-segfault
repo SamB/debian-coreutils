@@ -1,6 +1,6 @@
 diff -u -p -r1.132.2.2 remove.c
---- coreutils-5.96/src/remove.c	6 May 2006 21:12:06 -0000	1.132.2.2
-+++ coreutils-5.96/src/remove.c	25 Jun 2006 19:23:35 -0000
+--- coreutils-5.97/src/remove.c	6 May 2006 21:12:06 -0000	1.132.2.2
++++ coreutils-5.97/src/remove.c	25 Jun 2006 19:23:35 -0000
 @@ -1,5 +1,5 @@
  /* remove.c -- core functions for removing files and directories
 -   Copyright (C) 88, 90, 91, 1994-2005 Free Software Foundation, Inc.

@@ -1,5 +1,5 @@
---- coreutils-5.96/src/dircolors.hin.orig	2006-04-15 21:29:07.602443942 -0400
-+++ coreutils-5.96/src/dircolors.hin	2006-04-15 21:32:57.715883348 -0400
+--- coreutils-5.97/src/dircolors.hin.orig	2006-04-15 21:29:07.602443942 -0400
++++ coreutils-5.97/src/dircolors.hin	2006-04-15 21:32:57.715883348 -0400
 @@ -21,11 +21,13 @@
  TERM con80x60
  TERM cygwin

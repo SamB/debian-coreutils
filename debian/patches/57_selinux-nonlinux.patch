@@ -1,6 +1,6 @@
 diff -ur ../build-tree-old/coreutils-5.93/configure.ac coreutils-5.93/configure.ac
 --- ../build-tree-old/coreutils-5.93/configure.ac	2005-11-14 16:33:15.000000000 +0000
-+++ coreutils-5.96/configure.ac	2005-11-14 16:45:43.000000000 +0000
++++ coreutils-5.97/configure.ac	2005-11-14 16:45:43.000000000 +0000
 @@ -32,7 +32,9 @@
  AC_ARG_ENABLE(selinux, dnl
  [  --enable-selinux              Enable use of the SELINUX libraries],
@@ -14,7 +14,7 @@ diff -ur ../build-tree-old/coreutils-5.93/configure.ac coreutils-5.93/configure.
  gl_DEFAULT_POSIX2_VERSION
 diff -ur ../build-tree-old/coreutils-5.93/src/cp.c coreutils-5.93/src/cp.c
 --- ../build-tree-old/coreutils-5.93/src/cp.c	2005-11-14 16:33:15.000000000 +0000
-+++ coreutils-5.96/src/cp.c	2005-11-14 16:48:01.000000000 +0000
++++ coreutils-5.97/src/cp.c	2005-11-14 16:48:01.000000000 +0000
 @@ -831,17 +831,19 @@
  	case PRESERVE_LINK:
  	  x->preserve_links = on_off;
@@ -39,7 +39,7 @@ diff -ur ../build-tree-old/coreutils-5.93/src/cp.c coreutils-5.93/src/cp.c
  	default:
 diff -ur ../build-tree-old/coreutils-5.93/src/id.c coreutils-5.93/src/id.c
 --- ../build-tree-old/coreutils-5.93/src/id.c	2005-11-14 16:33:15.000000000 +0000
-+++ coreutils-5.96/src/id.c	2005-11-14 16:50:14.000000000 +0000
++++ coreutils-5.97/src/id.c	2005-11-14 16:50:14.000000000 +0000
 @@ -72,7 +72,9 @@
  /* The SELinux context */
  /* Set `context' to a known invalid value so print_full_info() will *
@@ -78,7 +78,7 @@ diff -ur ../build-tree-old/coreutils-5.93/src/id.c coreutils-5.93/src/id.c
  	   _("cannot print only names or real IDs in default format"));
 diff -ur ../build-tree-old/coreutils-5.93/src/stat.c coreutils-5.93/src/stat.c
 --- ../build-tree-old/coreutils-5.93/src/stat.c	2005-11-14 16:33:15.000000000 +0000
-+++ coreutils-5.96/src/stat.c	2005-11-14 16:48:36.000000000 +0000
++++ coreutils-5.97/src/stat.c	2005-11-14 16:48:36.000000000 +0000
 @@ -867,9 +867,12 @@
  	  terse = true;
  	  break;
@@ -94,7 +94,7 @@ diff -ur ../build-tree-old/coreutils-5.93/src/stat.c coreutils-5.93/src/stat.c
  	    usage (EXIT_FAILURE);
  	  }
 --- ../build-tree-old/coreutils-5.93/src/Makefile.am	2005-11-14 16:33:15.000000000 +0000
-+++ coreutils-5.96/src/Makefile.am	2005-11-14 17:45:33.000000000 +0000
++++ coreutils-5.97/src/Makefile.am	2005-11-14 17:45:33.000000000 +0000
 @@ -17,16 +17,16 @@
  ## along with this program; if not, write to the Free Software Foundation,
  ## Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.

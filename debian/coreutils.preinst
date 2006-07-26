@@ -26,7 +26,6 @@ case "$2" in
     # any real local diversion subsequently introduced by the sysadmin.
     # (There are no coreutils versions between 5.2.1 and 5.93.)
     rm -f /usr/bin/md5sum.textutils
-    rm -f /usr/share/man/man1/md5sum.textutils
     rm -f /usr/share/man/man1/md5sum.1.gz
     rm -f /usr/share/man/man1/md5sum.textutils.1.gz
     dpkg-divert --remove /usr/share/man/man1/md5sum.textutils.1.gz

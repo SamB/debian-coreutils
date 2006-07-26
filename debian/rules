@@ -6,7 +6,7 @@ export DH_VERBOSE=1
 
 export DH_COMPAT=4
 
-TAR_DIR = coreutils-5.96
+TAR_DIR = coreutils-5.97
 
 # the dbs rules
 include /usr/share/dbs/dbs-build.mk
@@ -73,6 +73,8 @@ build-stamp: $(patched)
 
 	cd $(BUILD_TREE) && $(MAKE)
 ifeq (,$(findstring nocheck,$(DEB_BUILD_OPTIONS)))
+	# mstone patch doesn't set these executable, tests break
+	chmod +x $(BUILD_TREE)/tests/sha{224,256,384,512}sum/basic-1
 	cd $(BUILD_TREE) && $(MAKE) check
 endif
 
