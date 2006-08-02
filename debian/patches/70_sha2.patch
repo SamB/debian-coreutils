@@ -1,6 +1,6 @@
-diff -Nru coreutils-5.97.orig/AUTHORS coreutils-5.96/AUTHORS
+diff -Nru coreutils-5.97.orig/AUTHORS coreutils-5.97/AUTHORS
 --- coreutils-5.97.orig/AUTHORS	2004-11-04 00:10:50.000000000 +0100
-+++ coreutils-5.97/AUTHORS	2006-07-26 10:42:21.000000000 +0200
++++ coreutils-5.97/AUTHORS	2006-07-31 13:51:41.000000000 +0200
 @@ -39,7 +39,7 @@
  ln: Mike Parker, David MacKenzie
  logname: FIXME: unknown
@@ -23,9 +23,9 @@ diff -Nru coreutils-5.97.orig/AUTHORS coreutils-5.96/AUTHORS
  shred: Colin Plumb
  sleep: Jim Meyering, Paul Eggert
  sort: Mike Haertel, Paul Eggert
-diff -Nru coreutils-5.97.orig/README coreutils-5.96/README
---- coreutils-5.97.orig/README	2006-07-26 10:42:38.000000000 +0200
-+++ coreutils-5.97/README	2006-07-26 10:42:21.000000000 +0200
+diff -Nru coreutils-5.97.orig/README coreutils-5.97/README
+--- coreutils-5.97.orig/README	2006-07-31 14:16:25.000000000 +0200
++++ coreutils-5.97/README	2006-07-31 13:51:41.000000000 +0200
 @@ -11,8 +11,9 @@
    df dir dircolors dirname du echo env expand expr factor false fmt fold
    ginstall groups head hostid hostname id join kill link ln logname ls
@@ -38,9 +38,9 @@ diff -Nru coreutils-5.97.orig/README coreutils-5.96/README
    uname unexpand uniq unlink uptime users vdir wc who whoami yes
  
  See the file NEWS for a list of major changes in the current release.
-diff -Nru coreutils-5.97.orig/config/compile coreutils-5.96/config/compile
+diff -Nru coreutils-5.97.orig/config/compile coreutils-5.97/config/compile
 --- coreutils-5.97.orig/config/compile	1970-01-01 01:00:00.000000000 +0100
-+++ coreutils-5.97/config/compile	2006-07-26 10:42:21.000000000 +0200
++++ coreutils-5.97/config/compile	2006-07-31 13:51:41.000000000 +0200
 @@ -0,0 +1,136 @@
 +#! /bin/sh
 +# Wrapper for compilers which do not understand `-c -o'.
@@ -178,9 +178,9 @@ diff -Nru coreutils-5.97.orig/config/compile coreutils-5.96/config/compile
 +# time-stamp-format: "%:y-%02m-%02d.%02H"
 +# time-stamp-end: "$"
 +# End:
-diff -Nru coreutils-5.97.orig/configure.ac coreutils-5.96/configure.ac
---- coreutils-5.97.orig/configure.ac	2006-07-26 10:42:38.000000000 +0200
-+++ coreutils-5.97/configure.ac	2006-07-26 10:42:21.000000000 +0200
+diff -Nru coreutils-5.97.orig/configure.ac coreutils-5.97/configure.ac
+--- coreutils-5.97.orig/configure.ac	2006-07-31 14:16:25.000000000 +0200
++++ coreutils-5.97/configure.ac	2006-07-31 13:51:41.000000000 +0200
 @@ -299,6 +299,10 @@
    tests/rmdir/Makefile
    tests/seq/Makefile
@@ -192,14 +192,14 @@ diff -Nru coreutils-5.97.orig/configure.ac coreutils-5.96/configure.ac
    tests/shred/Makefile
    tests/sort/Makefile
    tests/stty/Makefile
-diff -Nru coreutils-5.97.orig/lib/sha256.c coreutils-5.96/lib/sha256.c
+diff -Nru coreutils-5.97.orig/lib/sha256.c coreutils-5.97/lib/sha256.c
 --- coreutils-5.97.orig/lib/sha256.c	1970-01-01 01:00:00.000000000 +0100
-+++ coreutils-5.97/lib/sha256.c	2006-07-26 10:42:21.000000000 +0200
-@@ -0,0 +1,560 @@
++++ coreutils-5.97/lib/sha256.c	2006-07-31 14:00:56.000000000 +0200
+@@ -0,0 +1,552 @@
 +/* sha256.c - Functions to compute SHA256 and SHA224 message digest of files or
 +   memory blocks according to the NIST specification FIPS-180-2.
 +
-+   Copyright (C) 2000, 2001, 2003 Free Software Foundation, Inc.
++   Copyright (C) 2000, 2001, 2003, 2004, 2005 Free Software Foundation, Inc.
 +
 +   This program is free software; you can redistribute it and/or modify it
 +   under the terms of the GNU General Public License as published by the
@@ -213,7 +213,7 @@ diff -Nru coreutils-5.97.orig/lib/sha256.c coreutils-5.96/lib/sha256.c
 +
 +   You should have received a copy of the GNU General Public License
 +   along with this program; if not, write to the Free Software Foundation,
-+   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
++   Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  */
 +
 +/* Written by David Madore, considerably copypasting from
 +   Scott G. Miller's sha1.c
@@ -225,12 +225,12 @@ diff -Nru coreutils-5.97.orig/lib/sha256.c coreutils-5.96/lib/sha256.c
 +
 +#include "sha256.h"
 +
-+#include <sys/types.h>
-+
-+#include <stdlib.h>
++#include <stddef.h>
 +#include <string.h>
 +
-+#include "unlocked-io.h"
++#if USE_UNLOCKED_IO
++# include "unlocked-io.h"
++#endif
 +
 +/* SWAP does an endian swap on architectures that are little-endian,
 +   as SHA256 needs some data in a big-endian form.  */
@@ -238,15 +238,13 @@ diff -Nru coreutils-5.97.orig/lib/sha256.c coreutils-5.96/lib/sha256.c
 +#ifdef WORDS_BIGENDIAN
 +# define SWAP(n) (n)
 +#else
-+# define SWAP(n)                                                         \
++# define SWAP(n) \
 +    (((n) << 24) | (((n) & 0xff00) << 8) | (((n) >> 8) & 0xff00) | ((n) >> 24))
 +#endif
 +
 +#define BLOCKSIZE 4096
-+/* Ensure that BLOCKSIZE is a multiple of 64.  */
 +#if BLOCKSIZE % 64 != 0
-+/* FIXME-someday (soon?): use #error instead of this kludge.  */
-+"invalid BLOCKSIZE"
++# error "invalid BLOCKSIZE"
 +#endif
 +
 +/* This array contains the bytes used to pad the buffer to the next
@@ -556,13 +554,8 @@ diff -Nru coreutils-5.97.orig/lib/sha256.c coreutils-5.96/lib/sha256.c
 +  if (len >= 64)
 +    {
 +#if !_STRING_ARCH_unaligned
-+/* To check alignment gcc has an appropriate operator.  Other
-+   compilers don't.  */
-+# if __GNUC__ >= 2
-+#  define UNALIGNED_P(p) (((md5_uintptr) p) % __alignof__ (md5_uint32) != 0)
-+# else
-+#  define UNALIGNED_P(p) (((md5_uintptr) p) % sizeof (md5_uint32) != 0)
-+# endif
++# define alignof(type) offsetof (struct { char c; type x; }, x)
++# define UNALIGNED_P(p) (((size_t) p) % alignof (md5_uint32) != 0)
 +      if (UNALIGNED_P (buffer))
 +	while (len > 64)
 +	  {
@@ -674,7 +667,6 @@ diff -Nru coreutils-5.97.orig/lib/sha256.c coreutils-5.96/lib/sha256.c
 +      md5_uint32 tm;
 +      md5_uint32 t0, t1;
 +      int t;
-+      /* FIXME: see sha1.c for a better implementation.  */
 +      for (t = 0; t < 16; t++)
 +	{
 +	  x[t] = SWAP (*words);
@@ -756,13 +748,13 @@ diff -Nru coreutils-5.97.orig/lib/sha256.c coreutils-5.96/lib/sha256.c
 +      h = ctx->state[7] += h;
 +    }
 +}
-diff -Nru coreutils-5.97.orig/lib/sha256.h coreutils-5.96/lib/sha256.h
+diff -Nru coreutils-5.97.orig/lib/sha256.h coreutils-5.97/lib/sha256.h
 --- coreutils-5.97.orig/lib/sha256.h	1970-01-01 01:00:00.000000000 +0100
-+++ coreutils-5.97/lib/sha256.h	2006-07-26 10:42:21.000000000 +0200
++++ coreutils-5.97/lib/sha256.h	2006-07-31 14:14:36.000000000 +0200
 @@ -0,0 +1,88 @@
 +/* Declarations of functions and data types used for SHA256 and SHA224 sum
 +   library functions.
-+   Copyright (C) 2000, 2001, 2003 Free Software Foundation, Inc.
++   Copyright (C) 2000, 2001, 2003, 2004, 2005 Free Software Foundation, Inc.
 +
 +   This program is free software; you can redistribute it and/or modify it
 +   under the terms of the GNU General Public License as published by the
@@ -776,7 +768,7 @@ diff -Nru coreutils-5.97.orig/lib/sha256.h coreutils-5.96/lib/sha256.h
 +
 +   You should have received a copy of the GNU General Public License
 +   along with this program; if not, write to the Free Software Foundation,
-+   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
++   Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  */
 +
 +#ifndef SHA256_H
 +# define SHA256_H 1
@@ -848,14 +840,14 @@ diff -Nru coreutils-5.97.orig/lib/sha256.h coreutils-5.96/lib/sha256.h
 +extern void *sha224_buffer (const char *buffer, size_t len, void *resblock);
 +
 +#endif
-diff -Nru coreutils-5.97.orig/lib/sha512.c coreutils-5.96/lib/sha512.c
+diff -Nru coreutils-5.97.orig/lib/sha512.c coreutils-5.97/lib/sha512.c
 --- coreutils-5.97.orig/lib/sha512.c	1970-01-01 01:00:00.000000000 +0100
-+++ coreutils-5.97/lib/sha512.c	2006-07-26 10:42:21.000000000 +0200
-@@ -0,0 +1,572 @@
++++ coreutils-5.97/lib/sha512.c	2006-07-31 14:05:31.000000000 +0200
+@@ -0,0 +1,564 @@
 +/* sha512.c - Functions to compute SHA512 and SHA384 message digest of files or
 +   memory blocks according to the NIST specification FIPS-180-2.
 +
-+   Copyright (C) 2000, 2001, 2003 Free Software Foundation, Inc.
++   Copyright (C) 2000, 2001, 2003, 2004, 2005 Free Software Foundation, Inc.
 +
 +   This program is free software; you can redistribute it and/or modify it
 +   under the terms of the GNU General Public License as published by the
@@ -869,7 +861,7 @@ diff -Nru coreutils-5.97.orig/lib/sha512.c coreutils-5.96/lib/sha512.c
 +
 +   You should have received a copy of the GNU General Public License
 +   along with this program; if not, write to the Free Software Foundation,
-+   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
++   Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  */
 +
 +/* Written by David Madore, considerably copypasting from
 +   Scott G. Miller's sha1.c
@@ -881,12 +873,12 @@ diff -Nru coreutils-5.97.orig/lib/sha512.c coreutils-5.96/lib/sha512.c
 +
 +#include "sha512.h"
 +
-+#include <sys/types.h>
-+
-+#include <stdlib.h>
++#include <stddef.h>
 +#include <string.h>
 +
-+#include "unlocked-io.h"
++#if USE_UNLOCKED_IO
++# include "unlocked-io.h"
++#endif
 +
 +/* SWAP does an endian swap on architectures that are little-endian,
 +   as SHA512 needs some data in a big-endian form.  */
@@ -894,17 +886,15 @@ diff -Nru coreutils-5.97.orig/lib/sha512.c coreutils-5.96/lib/sha512.c
 +#ifdef WORDS_BIGENDIAN
 +# define SWAP(n) (n)
 +#else
-+# define SWAP(n)                                                         \
++# define SWAP(n) \
 +    (((n) << 56) | (((n) & 0xff00) << 40) | (((n) & 0xff0000UL) << 24) \
 +  | (((n) & 0xff000000UL) << 8) | (((n) >> 8) & 0xff000000UL) \
 +  | (((n) >> 24) & 0xff0000UL) | (((n) >> 40) & 0xff00UL) | ((n) >> 56))
 +#endif
 +
 +#define BLOCKSIZE 4096
-+/* Ensure that BLOCKSIZE is a multiple of 128.  */
 +#if BLOCKSIZE % 128 != 0
-+/* FIXME-someday (soon?): use #error instead of this kludge.  */
-+"invalid BLOCKSIZE"
++# error "invalid BLOCKSIZE"
 +#endif
 +
 +/* This array contains the bytes used to pad the buffer to the next
@@ -1214,13 +1204,8 @@ diff -Nru coreutils-5.97.orig/lib/sha512.c coreutils-5.96/lib/sha512.c
 +  if (len >= 128)
 +    {
 +#if !_STRING_ARCH_unaligned
-+/* To check alignment gcc has an appropriate operator.  Other
-+   compilers don't.  */
-+# if __GNUC__ >= 2
-+#  define UNALIGNED_P(p) (((sha512_uintptr) p) % __alignof__ (sha512_uint64) != 0)
-+# else
-+#  define UNALIGNED_P(p) (((sha512_uintptr) p) % sizeof (sha512_uint64) != 0)
-+# endif
++# define alignof(type) offsetof (struct { char c; type x; }, x)
++# define UNALIGNED_P(p) (((size_t) p) % alignof (sha512_uint64) != 0)
 +      if (UNALIGNED_P (buffer))
 +	while (len > 128)
 +	  {
@@ -1326,7 +1311,6 @@ diff -Nru coreutils-5.97.orig/lib/sha512.c coreutils-5.96/lib/sha512.c
 +      sha512_uint64 tm;
 +      sha512_uint64 t0, t1;
 +      int t;
-+      /* FIXME: see sha1.c for a better implementation.  */
 +      for (t = 0; t < 16; t++)
 +	{
 +	  x[t] = SWAP (*words);
@@ -1424,13 +1408,13 @@ diff -Nru coreutils-5.97.orig/lib/sha512.c coreutils-5.96/lib/sha512.c
 +      h = ctx->state[7] += h;
 +    }
 +}
-diff -Nru coreutils-5.97.orig/lib/sha512.h coreutils-5.96/lib/sha512.h
+diff -Nru coreutils-5.97.orig/lib/sha512.h coreutils-5.97/lib/sha512.h
 --- coreutils-5.97.orig/lib/sha512.h	1970-01-01 01:00:00.000000000 +0100
-+++ coreutils-5.97/lib/sha512.h	2006-07-26 10:42:21.000000000 +0200
-@@ -0,0 +1,127 @@
++++ coreutils-5.97/lib/sha512.h	2006-07-31 14:15:02.000000000 +0200
+@@ -0,0 +1,91 @@
 +/* Declarations of functions and data types used for SHA512 and SHA384 sum
 +   library functions.
-+   Copyright (C) 2000, 2001, 2003 Free Software Foundation, Inc.
++   Copyright (C) 2000, 2001, 2003, 2004, 2005 Free Software Foundation, Inc.
 +
 +   This program is free software; you can redistribute it and/or modify it
 +   under the terms of the GNU General Public License as published by the
@@ -1444,51 +1428,15 @@ diff -Nru coreutils-5.97.orig/lib/sha512.h coreutils-5.96/lib/sha512.h
 +
 +   You should have received a copy of the GNU General Public License
 +   along with this program; if not, write to the Free Software Foundation,
-+   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
++   Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  */
 +
 +#ifndef SHA512_H
 +# define SHA512_H 1
 +
 +# include <stdio.h>
-+
-+/* The following contortions are an attempt to use the C preprocessor
-+   to determine an unsigned integral type that is 64 bits wide.  An
-+   alternative approach is to use autoconf's AC_CHECK_SIZEOF macro, but
-+   doing that would require that the configure script compile and *run*
-+   the resulting executable.  Locally running cross-compiled executables
-+   is usually not possible.  */
-+
-+#ifdef _LIBC
 +# include <stdint.h>
-+typedef uint64_t sha512_uint64;
-+typedef uintptr_t sha512_uintptr;
-+#else
-+# define UINT_MAX_64_BITS 18446744073709551615U
-+# include <limits.h>
 +
-+# if UINT_MAX == UINT_MAX_64_BITS
-+   typedef unsigned int sha512_uint64;
-+# else
-+#  if USHRT_MAX == UINT_MAX_64_BITS
-+    typedef unsigned short sha512_uint64;
-+#  else
-+#   if ULONG_MAX == UINT_MAX_64_BITS
-+     typedef unsigned long sha512_uint64;
-+#   else
-+#    if ULLONG_MAX == UINT_MAX_64_BITS || ULONG_LONG_MAX == UINT_MAX_64_BITS
-+      typedef unsigned long long sha512_uint64;
-+#    else
-+     /* The following line is intended to evoke an error.
-+        Using #error is not portable enough.  */
-+     "Cannot determine unsigned 64-bit data type."
-+#    endif
-+#   endif
-+#  endif
-+# endif
-+/* We have to make a guess about the integer type equivalent in size
-+   to pointers which should always be correct.  */
-+typedef unsigned long int sha512_uintptr;
-+#endif
++typedef uint64_t sha512_uint64;
 +
 +
 +/* Structure to save state of computation between the single steps.  */
@@ -1555,9 +1503,9 @@ diff -Nru coreutils-5.97.orig/lib/sha512.h coreutils-5.96/lib/sha512.h
 +extern void *sha384_buffer (const char *buffer, size_t len, void *resblock);
 +
 +#endif
-diff -Nru coreutils-5.97.orig/m4/prereq.m4 coreutils-5.96/m4/prereq.m4
+diff -Nru coreutils-5.97.orig/m4/prereq.m4 coreutils-5.97/m4/prereq.m4
 --- coreutils-5.97.orig/m4/prereq.m4	2005-09-22 09:00:24.000000000 +0200
-+++ coreutils-5.97/m4/prereq.m4	2006-07-26 10:42:21.000000000 +0200
++++ coreutils-5.97/m4/prereq.m4	2006-07-31 13:51:41.000000000 +0200
 @@ -134,6 +134,8 @@
    AC_REQUIRE([gl_SAVE_CWD])
    AC_REQUIRE([gl_SETTIME])
@@ -1567,9 +1515,9 @@ diff -Nru coreutils-5.97.orig/m4/prereq.m4 coreutils-5.96/m4/prereq.m4
    AC_REQUIRE([gl_STAT_MACROS])
    AC_REQUIRE([gl_STAT_TIME])
    AC_REQUIRE([gl_STDIO_SAFER])
-diff -Nru coreutils-5.97.orig/m4/sha256.m4 coreutils-5.96/m4/sha256.m4
+diff -Nru coreutils-5.97.orig/m4/sha256.m4 coreutils-5.97/m4/sha256.m4
 --- coreutils-5.97.orig/m4/sha256.m4	1970-01-01 01:00:00.000000000 +0100
-+++ coreutils-5.97/m4/sha256.m4	2006-07-26 10:42:21.000000000 +0200
++++ coreutils-5.97/m4/sha256.m4	2006-07-31 13:51:41.000000000 +0200
 @@ -0,0 +1,15 @@
 +# sha256.m4 serial 1
 +dnl Copyright (C) 2002, 2003, 2004, 2005, 2006 Free Software Foundation, Inc.
@@ -1586,9 +1534,9 @@ diff -Nru coreutils-5.97.orig/m4/sha256.m4 coreutils-5.96/m4/sha256.m4
 +  AC_REQUIRE([AC_C_BIGENDIAN])
 +  :
 +])
-diff -Nru coreutils-5.97.orig/m4/sha512.m4 coreutils-5.96/m4/sha512.m4
+diff -Nru coreutils-5.97.orig/m4/sha512.m4 coreutils-5.97/m4/sha512.m4
 --- coreutils-5.97.orig/m4/sha512.m4	1970-01-01 01:00:00.000000000 +0100
-+++ coreutils-5.97/m4/sha512.m4	2006-07-26 10:42:21.000000000 +0200
++++ coreutils-5.97/m4/sha512.m4	2006-07-31 13:51:41.000000000 +0200
 @@ -0,0 +1,15 @@
 +# sha512.m4 serial 1
 +dnl Copyright (C) 2002, 2003, 2004, 2005, 2006 Free Software Foundation, Inc.
@@ -1605,9 +1553,9 @@ diff -Nru coreutils-5.97.orig/m4/sha512.m4 coreutils-5.96/m4/sha512.m4
 +  AC_REQUIRE([AC_C_BIGENDIAN])
 +  :
 +])
-diff -Nru coreutils-5.97.orig/man/Makefile.am coreutils-5.96/man/Makefile.am
---- coreutils-5.97.orig/man/Makefile.am	2006-07-26 10:42:38.000000000 +0200
-+++ coreutils-5.97/man/Makefile.am	2006-07-26 10:42:21.000000000 +0200
+diff -Nru coreutils-5.97.orig/man/Makefile.am coreutils-5.97/man/Makefile.am
+--- coreutils-5.97.orig/man/Makefile.am	2006-07-31 14:16:25.000000000 +0200
++++ coreutils-5.97/man/Makefile.am	2006-07-31 13:51:41.000000000 +0200
 @@ -7,7 +7,8 @@
    link.1 ln.1 logname.1 \
    ls.1 md5sum.1 mkdir.1 mkfifo.1 mknod.1 mv.1 nice.1 nl.1 nohup.1 od.1 \
@@ -1629,41 +1577,41 @@ diff -Nru coreutils-5.97.orig/man/Makefile.am coreutils-5.96/man/Makefile.am
  shred.1:	$(common_dep)	$(srcdir)/shred.x	../src/shred.c
  sleep.1:	$(common_dep)	$(srcdir)/sleep.x	../src/sleep.c
  sort.1:		$(common_dep)	$(srcdir)/sort.x	../src/sort.c
-diff -Nru coreutils-5.97.orig/man/sha224sum.x coreutils-5.96/man/sha224sum.x
+diff -Nru coreutils-5.97.orig/man/sha224sum.x coreutils-5.97/man/sha224sum.x
 --- coreutils-5.97.orig/man/sha224sum.x	1970-01-01 01:00:00.000000000 +0100
-+++ coreutils-5.97/man/sha224sum.x	2006-07-26 10:42:21.000000000 +0200
++++ coreutils-5.97/man/sha224sum.x	2006-07-31 13:51:41.000000000 +0200
 @@ -0,0 +1,4 @@
 +[NAME]
 +sha224sum \- compute and check SHA224 message digest
 +[DESCRIPTION]
 +.\" Add any additional description here
-diff -Nru coreutils-5.97.orig/man/sha256sum.x coreutils-5.96/man/sha256sum.x
+diff -Nru coreutils-5.97.orig/man/sha256sum.x coreutils-5.97/man/sha256sum.x
 --- coreutils-5.97.orig/man/sha256sum.x	1970-01-01 01:00:00.000000000 +0100
-+++ coreutils-5.97/man/sha256sum.x	2006-07-26 10:42:21.000000000 +0200
++++ coreutils-5.97/man/sha256sum.x	2006-07-31 13:51:41.000000000 +0200
 @@ -0,0 +1,4 @@
 +[NAME]
 +sha256sum \- compute and check SHA256 message digest
 +[DESCRIPTION]
 +.\" Add any additional description here
-diff -Nru coreutils-5.97.orig/man/sha384sum.x coreutils-5.96/man/sha384sum.x
+diff -Nru coreutils-5.97.orig/man/sha384sum.x coreutils-5.97/man/sha384sum.x
 --- coreutils-5.97.orig/man/sha384sum.x	1970-01-01 01:00:00.000000000 +0100
-+++ coreutils-5.97/man/sha384sum.x	2006-07-26 10:42:21.000000000 +0200
++++ coreutils-5.97/man/sha384sum.x	2006-07-31 13:51:41.000000000 +0200
 @@ -0,0 +1,4 @@
 +[NAME]
 +sha384sum \- compute and check SHA384 message digest
 +[DESCRIPTION]
 +.\" Add any additional description here
-diff -Nru coreutils-5.97.orig/man/sha512sum.x coreutils-5.96/man/sha512sum.x
+diff -Nru coreutils-5.97.orig/man/sha512sum.x coreutils-5.97/man/sha512sum.x
 --- coreutils-5.97.orig/man/sha512sum.x	1970-01-01 01:00:00.000000000 +0100
-+++ coreutils-5.97/man/sha512sum.x	2006-07-26 10:42:21.000000000 +0200
++++ coreutils-5.97/man/sha512sum.x	2006-07-31 13:51:41.000000000 +0200
 @@ -0,0 +1,4 @@
 +[NAME]
 +sha512sum \- compute and check SHA512 message digest
 +[DESCRIPTION]
 +.\" Add any additional description here
-diff -Nru coreutils-5.97.orig/src/Makefile.am coreutils-5.96/src/Makefile.am
---- coreutils-5.97.orig/src/Makefile.am	2006-07-26 10:42:38.000000000 +0200
-+++ coreutils-5.97/src/Makefile.am	2006-07-26 10:42:21.000000000 +0200
+diff -Nru coreutils-5.97.orig/src/Makefile.am coreutils-5.97/src/Makefile.am
+--- coreutils-5.97.orig/src/Makefile.am	2006-07-31 14:16:25.000000000 +0200
++++ coreutils-5.97/src/Makefile.am	2006-07-31 13:51:41.000000000 +0200
 @@ -24,7 +24,8 @@
    ginstall link ln dir vdir ls mkdir \
    mkfifo mknod mv nohup readlink rm rmdir shred stat sync touch unlink \
@@ -1704,7 +1652,7 @@ diff -Nru coreutils-5.97.orig/src/Makefile.am coreutils-5.96/src/Makefile.am
  
  editpl = sed -e 's,@''PERL''@,$(PERL),g'
  
-diff -Nru coreutils-5.97.orig/src/checksum.h coreutils-5.96/src/checksum.h
+diff -Nru coreutils-5.97.orig/src/checksum.h coreutils-5.97/src/checksum.h
 --- coreutils-5.97.orig/src/checksum.h	2004-09-22 22:11:10.000000000 +0200
 +++ coreutils-5.97/src/checksum.h	1970-01-01 01:00:00.000000000 +0100
 @@ -1,7 +0,0 @@
@@ -1715,15 +1663,15 @@ diff -Nru coreutils-5.97.orig/src/checksum.h coreutils-5.96/src/checksum.h
 -};
 -
 -extern int algorithm;
-diff -Nru coreutils-5.97.orig/src/md5.c coreutils-5.96/src/md5.c
+diff -Nru coreutils-5.97.orig/src/md5.c coreutils-5.97/src/md5.c
 --- coreutils-5.97.orig/src/md5.c	2004-07-30 02:54:02.000000000 +0200
 +++ coreutils-5.97/src/md5.c	1970-01-01 01:00:00.000000000 +0100
 @@ -1,2 +0,0 @@
 -#include "checksum.h"
 -int algorithm = ALG_MD5;
-diff -Nru coreutils-5.97.orig/src/md5sum.c coreutils-5.96/src/md5sum.c
+diff -Nru coreutils-5.97.orig/src/md5sum.c coreutils-5.97/src/md5sum.c
 --- coreutils-5.97.orig/src/md5sum.c	2005-10-27 18:22:14.000000000 +0200
-+++ coreutils-5.97/src/md5sum.c	2006-07-26 10:42:21.000000000 +0200
++++ coreutils-5.97/src/md5sum.c	2006-07-31 13:51:41.000000000 +0200
 @@ -1,4 +1,4 @@
 -/* Compute MD5 or SHA1 checksum of files or strings
 +/* Compute MD5, SHA1, SHA224, SHA256, SHA384 and SHA512 checksum of files or strings
@@ -1973,15 +1921,15 @@ diff -Nru coreutils-5.97.orig/src/md5sum.c coreutils-5.96/src/md5sum.c
  	    ok = false;
  	  else
  	    {
-diff -Nru coreutils-5.97.orig/src/sha1sum.c coreutils-5.96/src/sha1sum.c
+diff -Nru coreutils-5.97.orig/src/sha1sum.c coreutils-5.97/src/sha1sum.c
 --- coreutils-5.97.orig/src/sha1sum.c	2004-07-30 02:54:20.000000000 +0200
 +++ coreutils-5.97/src/sha1sum.c	1970-01-01 01:00:00.000000000 +0100
 @@ -1,2 +0,0 @@
 -#include "checksum.h"
 -int algorithm = ALG_SHA1;
-diff -Nru coreutils-5.97.orig/tests/Makefile.am coreutils-5.96/tests/Makefile.am
+diff -Nru coreutils-5.97.orig/tests/Makefile.am coreutils-5.97/tests/Makefile.am
 --- coreutils-5.97.orig/tests/Makefile.am	2005-08-13 19:34:11.000000000 +0200
-+++ coreutils-5.97/tests/Makefile.am	2006-07-26 10:42:21.000000000 +0200
++++ coreutils-5.97/tests/Makefile.am	2006-07-31 13:51:41.000000000 +0200
 @@ -21,7 +21,8 @@
  SUBDIRS = \
    basename chgrp chmod chown cp cut dd dircolors du expr factor \
@@ -1992,9 +1940,9 @@ diff -Nru coreutils-5.97.orig/tests/Makefile.am coreutils-5.96/tests/Makefile.am
    touch tr tsort unexpand uniq wc
  
  .PHONY: check-root
-diff -Nru coreutils-5.97.orig/tests/sha224sum/Makefile.am coreutils-5.96/tests/sha224sum/Makefile.am
+diff -Nru coreutils-5.97.orig/tests/sha224sum/Makefile.am coreutils-5.97/tests/sha224sum/Makefile.am
 --- coreutils-5.97.orig/tests/sha224sum/Makefile.am	1970-01-01 01:00:00.000000000 +0100
-+++ coreutils-5.97/tests/sha224sum/Makefile.am	2006-07-26 10:42:21.000000000 +0200
++++ coreutils-5.97/tests/sha224sum/Makefile.am	2006-07-31 13:51:41.000000000 +0200
 @@ -0,0 +1,12 @@
 +## Process this file with automake to produce Makefile.in -*-Makefile-*-.
 +
@@ -2008,9 +1956,9 @@ diff -Nru coreutils-5.97.orig/tests/sha224sum/Makefile.am coreutils-5.96/tests/s
 +  PROG=sha224sum
 +
 +TESTS = basic-1
-diff -Nru coreutils-5.97.orig/tests/sha224sum/basic-1 coreutils-5.96/tests/sha224sum/basic-1
+diff -Nru coreutils-5.97.orig/tests/sha224sum/basic-1 coreutils-5.97/tests/sha224sum/basic-1
 --- coreutils-5.97.orig/tests/sha224sum/basic-1	1970-01-01 01:00:00.000000000 +0100
-+++ coreutils-5.97/tests/sha224sum/basic-1	2006-07-26 10:42:21.000000000 +0200
++++ coreutils-5.97/tests/sha224sum/basic-1	2006-07-31 13:51:41.000000000 +0200
 @@ -0,0 +1,43 @@
 +#!/bin/sh
 +
@@ -2055,9 +2003,9 @@ diff -Nru coreutils-5.97.orig/tests/sha224sum/basic-1 coreutils-5.96/tests/sha22
 +my $fail = run_tests ($program_name, $prog, \@Tests, $save_temps, $verbose);
 +exit $fail;
 +EOF
-diff -Nru coreutils-5.97.orig/tests/sha256sum/Makefile.am coreutils-5.96/tests/sha256sum/Makefile.am
+diff -Nru coreutils-5.97.orig/tests/sha256sum/Makefile.am coreutils-5.97/tests/sha256sum/Makefile.am
 --- coreutils-5.97.orig/tests/sha256sum/Makefile.am	1970-01-01 01:00:00.000000000 +0100
-+++ coreutils-5.97/tests/sha256sum/Makefile.am	2006-07-26 10:42:21.000000000 +0200
++++ coreutils-5.97/tests/sha256sum/Makefile.am	2006-07-31 13:51:41.000000000 +0200
 @@ -0,0 +1,12 @@
 +## Process this file with automake to produce Makefile.in -*-Makefile-*-.
 +
@@ -2071,9 +2019,9 @@ diff -Nru coreutils-5.97.orig/tests/sha256sum/Makefile.am coreutils-5.96/tests/s
 +  PROG=sha256sum
 +
 +TESTS = basic-1
-diff -Nru coreutils-5.97.orig/tests/sha256sum/basic-1 coreutils-5.96/tests/sha256sum/basic-1
+diff -Nru coreutils-5.97.orig/tests/sha256sum/basic-1 coreutils-5.97/tests/sha256sum/basic-1
 --- coreutils-5.97.orig/tests/sha256sum/basic-1	1970-01-01 01:00:00.000000000 +0100
-+++ coreutils-5.97/tests/sha256sum/basic-1	2006-07-26 10:42:21.000000000 +0200
++++ coreutils-5.97/tests/sha256sum/basic-1	2006-07-31 13:51:41.000000000 +0200
 @@ -0,0 +1,49 @@
 +#!/bin/sh
 +
@@ -2124,9 +2072,9 @@ diff -Nru coreutils-5.97.orig/tests/sha256sum/basic-1 coreutils-5.96/tests/sha25
 +my $fail = run_tests ($program_name, $prog, \@Tests, $save_temps, $verbose);
 +exit $fail;
 +EOF
-diff -Nru coreutils-5.97.orig/tests/sha384sum/Makefile.am coreutils-5.96/tests/sha384sum/Makefile.am
+diff -Nru coreutils-5.97.orig/tests/sha384sum/Makefile.am coreutils-5.97/tests/sha384sum/Makefile.am
 --- coreutils-5.97.orig/tests/sha384sum/Makefile.am	1970-01-01 01:00:00.000000000 +0100
-+++ coreutils-5.97/tests/sha384sum/Makefile.am	2006-07-26 10:42:21.000000000 +0200
++++ coreutils-5.97/tests/sha384sum/Makefile.am	2006-07-31 13:51:41.000000000 +0200
 @@ -0,0 +1,12 @@
 +## Process this file with automake to produce Makefile.in -*-Makefile-*-.
 +
@@ -2140,9 +2088,9 @@ diff -Nru coreutils-5.97.orig/tests/sha384sum/Makefile.am coreutils-5.96/tests/s
 +  PROG=sha384sum
 +
 +TESTS = basic-1
-diff -Nru coreutils-5.97.orig/tests/sha384sum/basic-1 coreutils-5.96/tests/sha384sum/basic-1
+diff -Nru coreutils-5.97.orig/tests/sha384sum/basic-1 coreutils-5.97/tests/sha384sum/basic-1
 --- coreutils-5.97.orig/tests/sha384sum/basic-1	1970-01-01 01:00:00.000000000 +0100
-+++ coreutils-5.97/tests/sha384sum/basic-1	2006-07-26 10:42:21.000000000 +0200
++++ coreutils-5.97/tests/sha384sum/basic-1	2006-07-31 13:51:41.000000000 +0200
 @@ -0,0 +1,49 @@
 +#!/bin/sh
 +
@@ -2193,9 +2141,9 @@ diff -Nru coreutils-5.97.orig/tests/sha384sum/basic-1 coreutils-5.96/tests/sha38
 +my $fail = run_tests ($program_name, $prog, \@Tests, $save_temps, $verbose);
 +exit $fail;
 +EOF
-diff -Nru coreutils-5.97.orig/tests/sha512sum/Makefile.am coreutils-5.96/tests/sha512sum/Makefile.am
+diff -Nru coreutils-5.97.orig/tests/sha512sum/Makefile.am coreutils-5.97/tests/sha512sum/Makefile.am
 --- coreutils-5.97.orig/tests/sha512sum/Makefile.am	1970-01-01 01:00:00.000000000 +0100
-+++ coreutils-5.97/tests/sha512sum/Makefile.am	2006-07-26 10:42:21.000000000 +0200
++++ coreutils-5.97/tests/sha512sum/Makefile.am	2006-07-31 13:51:41.000000000 +0200
 @@ -0,0 +1,12 @@
 +## Process this file with automake to produce Makefile.in -*-Makefile-*-.
 +
@@ -2209,9 +2157,9 @@ diff -Nru coreutils-5.97.orig/tests/sha512sum/Makefile.am coreutils-5.96/tests/s
 +  PROG=sha512sum
 +
 +TESTS = basic-1
-diff -Nru coreutils-5.97.orig/tests/sha512sum/basic-1 coreutils-5.96/tests/sha512sum/basic-1
+diff -Nru coreutils-5.97.orig/tests/sha512sum/basic-1 coreutils-5.97/tests/sha512sum/basic-1
 --- coreutils-5.97.orig/tests/sha512sum/basic-1	1970-01-01 01:00:00.000000000 +0100
-+++ coreutils-5.97/tests/sha512sum/basic-1	2006-07-26 10:42:21.000000000 +0200
++++ coreutils-5.97/tests/sha512sum/basic-1	2006-07-31 13:51:41.000000000 +0200
 @@ -0,0 +1,49 @@
 +#!/bin/sh
 +

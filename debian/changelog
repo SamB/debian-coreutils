@@ -1,3 +1,9 @@
+coreutils (5.97-2) unstable; urgency=low
+
+  * Update sha2 patch to fix FTBFS on various architectures
+
+ -- Michael Stone <mstone@debian.org>  Tue, 01 Aug 2006 20:21:05 -0400
+
 coreutils (5.97-1) unstable; urgency=low
 
   * New upstream version
