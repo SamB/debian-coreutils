@@ -1,3 +1,12 @@
+coreutils (5.97-4) unstable; urgency=medium
+
+  * s390 just doesn't seem to like sha384 (tests fail). I'm gonna kill that &
+    sha512 on s390 until someone with access to that arch & interest in the
+    problem steps up.
+  * add new catalan translation Closes: #384563
+
+ -- Michael Stone <mstone@debian.org>  Thu, 03 Aug 2006 20:53:46 -0400
+
 coreutils (5.97-3) unstable; urgency=low
 
   * Update sha2 patch to fix alignment issue on sparc
