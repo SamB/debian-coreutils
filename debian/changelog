@@ -1,6 +1,14 @@
+coreutils (5.97-3) unstable; urgency=low
+
+  * Update sha2 patch to fix alignment issue on sparc
+    (Thanks David Madore)
+
+ -- Michael Stone <mstone@debian.org>  Thu, 03 Aug 2006 20:53:46 -0400
+
 coreutils (5.97-2) unstable; urgency=low
 
   * Update sha2 patch to fix FTBFS on various architectures
+    (Thanks David Madore)
 
  -- Michael Stone <mstone@debian.org>  Tue, 01 Aug 2006 20:21:05 -0400
 
