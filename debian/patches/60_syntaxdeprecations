@@ -1,25 +1,5 @@
---- coreutils-5.97/src/sort.c.orig	2006-05-27 09:14:40.522596720 -0400
-+++ coreutils-5.97/src/sort.c	2006-05-27 09:18:02.167849973 -0400
-@@ -2218,7 +2218,7 @@
- 	{
- 	case 1:
- 	  key = NULL;
--	  if (obsolete_usage && optarg[0] == '+')
-+	  if (optarg[0] == '+')
- 	    {
- 	      /* Treat +POS1 [-POS2] as a key if possible; but silently
- 		 treat an operand as a file if it is not a valid +POS1.  */
-@@ -2235,6 +2235,8 @@
- 		}
- 	      else
- 		{
-+		  if (!obsolete_usage)
-+                    fprintf(stderr, "%s: Warning: \"+number\" syntax is deprecated, please use \"-k number\"\n", program_name);
- 		  if (optind != argc && argv[optind][0] == '-'
- 		      && ISDIGIT (argv[optind][1]))
- 		    {
---- coreutils-5.97/src/tail.c.orig	2006-05-27 09:08:25.594209539 -0400
-+++ coreutils-5.97/src/tail.c	2006-05-27 09:13:32.219736766 -0400
+--- coreutils-6.0/src/tail.c.orig	2006-05-27 09:08:25.594209539 -0400
++++ coreutils-6.0/src/tail.c	2006-05-27 09:13:32.219736766 -0400
 @@ -1401,7 +1401,7 @@
      case '+':
        /* Leading "+" is a file name in the non-obsolete form.  */

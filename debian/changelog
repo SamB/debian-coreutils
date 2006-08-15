@@ -1,104 +1,14 @@
-coreutils (5.97-5.7) unstable; urgency=low
+coreutils (6.0-1) experimental; urgency=low
 
-  * NMU
-  * Fix typo in fr.po.  closes: #442644.
-  * Replace watch file with Raphael Geissert's version.  closes: #456785.
-  * Replace DH_COMPAT in rules file with debian/compat.  closes: #452729.
-  * Bump to Standards-Version 3.7.3.
+  * New upstream version 
+    - incorporates acl & sha2 patches
+    - base64 utility
+    - shuf shuffles lines of text
+    - ls option --group-directories-first
+    - rm option -I prompts once for a large number of files
+    - see NEWS for other additions
 
- -- Clint Adams <schizo@debian.org>  Sat, 05 Jan 2008 16:30:00 -0500
-
-coreutils (5.97-5.6) unstable; urgency=low
-
-  * NMU
-  * Apply patch from Michael Banck to fix setuid su on the Hurd.
-    closes: #439249.
-  * Backport Jim Meyering's upstream fix for the sticky bit
-    discussion in chmod(1).  closes: #376745.
-  * Improve watch file regex thanks to Jim Meyering.
-
- -- Clint Adams <schizo@debian.org>  Fri, 30 Nov 2007 11:54:10 -0500
-
-coreutils (5.97-5.5) unstable; urgency=low
-
-  * Non-maintainer upload.
-  * Bump Standards-Version to 3.7.2.
-  * Add watch file.  closes: #441108. 
-
- -- Clint Adams <schizo@debian.org>  Sat, 24 Nov 2007 13:43:02 -0500
-
-coreutils (5.97-5.4) unstable; urgency=medium
-
-  * Non-maintainer upload.
-  * New patch 64_coreutils-futimens: rename futimens to cu_futimens,
-    since glibc now defines an futimens function with a different
-    prototype.  Closes: #433394.
-  * Urgency medium for the RC bug fix.
-
- -- Daniel Schepler <schepler@debian.org>  Sat, 18 Aug 2007 16:41:21 -0400
-
-coreutils (5.97-5.3) unstable; urgency=high
-
-  * This is a non-maintainer upload done with the maintainer's blessing,
-    to fix a FTBS bug, and to get the SELinux changes in through to Etch. 
-  * Bug fix: "coreutils - FTBFS", thanks to Bastian Blank and Andreas
-    Barth. The problem is with a build time test suite, which did not
-    take into account that there could be two directory names with the
-    same inode, which is what happens if there is a bind mount.  So this
-    is not anything s390 specific, nor is it a problem with the coreutils
-    package itself, just with the build time test.  Applied a version of
-    the patch being used by upstream to fix the test.
-                                                 (Closes: #380552, #407628). 
-
- -- Manoj Srivastava <srivasta@debian.org>  Tue, 23 Jan 2007 15:00:28 -0600
-
-coreutils (5.97-5.2) unstable; urgency=low
-
-  * This is an follow up non-maintainer upload to fix an issue introduced
-    in my last NMU.  This fixes an FTBS bugs when building for non-SELinux
-    environments, for example, for non Linux architectures.
-  * Bug fix: "coreutils: FTBFS on hurd and kfreebsd: Unguarded usage of
-    SELinux code", thanks to Michael Banck. I missed out on guarding
-    assignments one.  Rather than use the suggested patch (which adds two
-    members to a struct on non-selinux machines that would never get used,
-    I went back and corrected the non-selinux patch, since that is the
-    correct location to add this fix.  The version of the patch included
-    in this version should do the right thing.            (Closes: #396655).
-
- -- Manoj Srivastava <srivasta@debian.org>  Sun,  5 Nov 2006 16:04:08 -0600
-
-coreutils (5.97-5.1) unstable; urgency=low
-
-  * With permission from the maintainer, this upload (from a non-maintainer) 
-    updates the SELinux patch, synchronizing with the latest patches from
-    fedora core (:pserver:anonymous@cvs.fedora.redhat.com:/cvs/dist,
-    repository rpms/coreutils/devel). The patches had to be tweaked for
-    Debian. This bring coreutils into compatibility with the latest
-    version of SELinux now in Debian.
-  * Bug fix: "coreutils: Updated SELinux patch", thanks to Manoj
-    Srivastava.  The NMU patch is available in that bug report,
-    essentially, this is a minimal change upload.      (Closes: #394287).
-
- -- Manoj Srivastava <srivasta@debian.org>  Fri, 20 Oct 2006 15:11:27 -0500
-
-coreutils (5.97-5) unstable; urgency=medium
-
-  * Actually kill sha384 and sha512 on s390. Finally got logged into an s390
-    system, which makes debugging easier. (Conversely, buildds that fail a
-    build without providing a log make debugging harder.) Note to debian
-    developers: if you want introduce a dependency on sha384 or sha512, talk
-    to me first.
-
- -- Michael Stone <mstone@debian.org>  Thu, 31 Aug 2006 07:38:19 -0400
-
-coreutils (5.97-4) unstable; urgency=medium
-
-  * s390 just doesn't seem to like sha384 (tests fail). I'm gonna kill that &
-    sha512 on s390 until someone with access to that arch & interest in the
-    problem steps up.
-  * add new catalan translation Closes: #384563
-
- -- Michael Stone <mstone@debian.org>  Thu, 03 Aug 2006 20:53:46 -0400
+ -- Michael Stone <mstone@debian.org>  Tue, 15 Aug 2006 19:59:16 -0400
 
 coreutils (5.97-3) unstable; urgency=low
 

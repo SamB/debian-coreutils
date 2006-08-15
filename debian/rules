@@ -4,7 +4,9 @@
 # Uncomment this to turn on verbose mode. 
 export DH_VERBOSE=1
 
-TAR_DIR = coreutils-5.97
+export DH_COMPAT=4
+
+TAR_DIR = coreutils-6.0
 
 # the dbs rules
 include /usr/share/dbs/dbs-build.mk
@@ -71,8 +73,6 @@ build-stamp: $(patched)
 
 	cd $(BUILD_TREE) && $(MAKE)
 ifeq (,$(findstring nocheck,$(DEB_BUILD_OPTIONS)))
-	# mstone patch doesn't set these executable, tests break
-	chmod +x $(BUILD_TREE)/tests/sha{224,256,384,512}sum/basic-1
 	cd $(BUILD_TREE) && $(MAKE) check
 endif
 
@@ -117,9 +117,6 @@ ifeq ($(DEB_HOST_ARCH_OS),linux)
 endif
 ifneq ($(DEB_HOST_ARCH_OS),hurd)
 		rm -f $(d)/usr/bin/su $(d)/usr/share/man/man1/su.1
-endif
-ifeq ($(DEB_HOST_ARCH_CPU),s390)
-		rm -f $(d)/usr/{bin,share/man/man1}/sha{384,512}sum*
 endif
 	rm -f $(d)/usr/bin/hostname $(d)/usr/share/man/man1/hostname.1
 	rm -f $(d)/usr/bin/uptime $(d)/usr/share/man/man1/uptime.1
@@ -175,7 +172,7 @@ endif
 	dh_link -a
 	dh_compress -a
 	dh_fixperms -a
-ifeq ($(DEB_HOST_ARCH_OS),hurd)
+ifeq ($(DEB_HOST_ARCH_OS),gnu)
 	chmod u+s $(d)/usr/bin/su
 endif
 	dh_installdeb -a
