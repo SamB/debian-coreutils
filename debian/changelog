@@ -1,3 +1,13 @@
+coreutils (5.97-5) unstable; urgency=medium
+
+  * Actually kill sha384 and sha512 on s390. Finally got logged into an s390
+    system, which makes debugging easier. (Conversely, buildds that fail a
+    build without providing a log make debugging harder.) Note to debian
+    developers: if you want introduce a dependency on sha384 or sha512, talk
+    to me first.
+
+ -- Michael Stone <mstone@debian.org>  Thu, 31 Aug 2006 07:38:19 -0400
+
 coreutils (5.97-4) unstable; urgency=medium
 
   * s390 just doesn't seem to like sha384 (tests fail). I'm gonna kill that &

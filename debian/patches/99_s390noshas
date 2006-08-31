@@ -5,7 +5,7 @@ diff -u -r coreutils-5.97.bak/tests/sha384sum/basic-1 coreutils-5.97/tests/sha38
  : ${PERL=perl}
  : ${srcdir=.}
  
-+if [ `uname -m` = s390 ] ; then
++if [ `dpkg-architecture -qDEB_HOST_ARCH` = s390 ] ; then
 +  exit 77
 +fi
 +
@@ -19,7 +19,7 @@ diff -u -r coreutils-5.97.bak/tests/sha512sum/basic-1 coreutils-5.97/tests/sha51
  : ${PERL=perl}
  : ${srcdir=.}
  
-+if [ `uname -m` = s390 ] ; then
++if [ `dpkg-architecture -qDEB_HOST_ARCH` = s390 ] ; then
 +  exit 77
 +fi
 +
