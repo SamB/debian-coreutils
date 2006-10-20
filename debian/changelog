@@ -1,3 +1,17 @@
+coreutils (5.97-5.1) unstable; urgency=low
+
+  * With permission from the maintainer, this upload (from a non-maintainer)
+    updates the SELinux patch, synchronizing with the latest patches from
+    fedora core (:pserver:anonymous@cvs.fedora.redhat.com:/cvs/dist,
+    repository rpms/coreutils/devel). The patches had to be tweaked for
+    Debian. This bring coreutils into compatibility with the latest
+    version of SELinux now in Debian.
+  * Bug fix: "coreutils: Updated SELinux patch", thanks to Manoj
+    Srivastava.  The NMU patch is available in that bug report,
+    essentially, this is a minimal change upload.      (Closes: #394287).
+
+ -- Manoj Srivastava <srivasta@debian.org>  Fri, 20 Oct 2006 15:11:27 -0500
+
 coreutils (5.97-5) unstable; urgency=medium
 
   * Actually kill sha384 and sha512 on s390. Finally got logged into an s390
