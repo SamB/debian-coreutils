@@ -1,6 +1,21 @@
+coreutils (5.97-5.2) unstable; urgency=low
+
+  * This is an follow up non-maintainer upload to fix an issue introduced
+    in my last NMU.  This fixes an FTBS bugs when building for non-SELinux
+    environments, for example, for non Linux architectures.
+  * Bug fix: "coreutils: FTBFS on hurd and kfreebsd: Unguarded usage of
+    SELinux code", thanks to Michael Banck. I missed out on guarding
+    assignments one.  Rather than use the suggested patch (which adds two
+    members to a struct on non-selinux machines that would never get used,
+    I went back and corrected the non-selinux patch, since that is the
+    correct location to add this fix.  The version of the patch included
+    in this version should do the right thing.            (Closes: #396655).
+
+ -- Manoj Srivastava <srivasta@debian.org>  Sun,  5 Nov 2006 16:04:08 -0600
+
 coreutils (5.97-5.1) unstable; urgency=low
 
-  * With permission from the maintainer, this upload (from a non-maintainer)
+  * With permission from the maintainer, this upload (from a non-maintainer) 
     updates the SELinux patch, synchronizing with the latest patches from
     fedora core (:pserver:anonymous@cvs.fedora.redhat.com:/cvs/dist,
     repository rpms/coreutils/devel). The patches had to be tweaked for
