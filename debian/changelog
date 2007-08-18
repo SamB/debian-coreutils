@@ -1,3 +1,13 @@
+coreutils (5.97-5.4) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * New patch 64_coreutils-futimens: rename futimens to cu_futimens,
+    since glibc now defines an futimens function with a different
+    prototype.  Closes: #433394.
+  * Urgency medium for the RC bug fix.
+
+ -- Daniel Schepler <schepler@debian.org>  Sat, 18 Aug 2007 16:41:21 -0400
+
 coreutils (5.97-5.3) unstable; urgency=high
 
   * This is a non-maintainer upload done with the maintainer's blessing,
