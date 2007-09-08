@@ -1,3 +1,9 @@
+coreutils (6.10~20070907-2) experimental; urgency=low
+
+  * forgot to add bison to build-deps
+
+ -- Michael Stone <mstone@debian.org>  Sat, 08 Sep 2007 14:09:40 -0400
+
 coreutils (6.10~20070907-1) experimental; urgency=low
 
   * SELinux support has been integrated upstream. This may break things
