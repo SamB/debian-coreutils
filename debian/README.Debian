@@ -1,3 +1,0 @@
-The empty fileutils, shellutils, and textutils packages are present only
-for transitional purposes, and can be safely removed when no package
-continues to depend on them.

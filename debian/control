@@ -2,9 +2,8 @@ Source: coreutils
 Maintainer: Michael Stone <mstone@debian.org>
 Section: utils
 Priority: required
-Standards-Version: 3.6.2.0
-Build-Depends: gettext (>= 0.10.37), debhelper, dh-buildinfo, perl-base, texinfo (>= 4.2), groff, dbs, libattr1-dev | not+linux-gnu, libacl1-dev | not+linux-gnu, bzip2, autoconf (>= 2.59.cvs.2006.05.25-1), automake1.9, libselinux1-dev | not+linux-gnu
-Build-Conflicts: automake1.4
+Standards-Version: 3.7.2.2
+Build-Depends: gettext (>= 0.10.37), debhelper, dh-buildinfo, perl-base, texinfo (>= 4.2), groff, dbs, libattr1-dev | not+linux-gnu, libacl1-dev | not+linux-gnu, bzip2, libselinux1-dev (>= 1.32) | not+linux-gnu, gperf
 
 Package: coreutils
 Architecture: any
@@ -23,27 +22,3 @@ Description: The GNU core utilities
  nohup od paste pathchk pinky pr printenv printf ptx pwd readlink rm rmdir 
  sha1sum seq shred sleep sort split stat stty sum sync tac tail tee test touch 
  tr true tsort tty uname unexpand uniq unlink users vdir wc who whoami yes 
-
-Package: textutils
-Pre-Depends: coreutils
-Architecture: all
-Priority: extra
-Section: oldlibs
-Description: The GNU text file processing utilities (transitional package)
- Empty package to facilitate upgrades, can be safely removed.
-
-Package: fileutils
-Pre-Depends: coreutils
-Architecture: all
-Priority: extra
-Section: oldlibs
-Description: The GNU file management utilities (transitional package)
- Empty package to facilitate upgrades, can be safely removed.
-
-Package: shellutils
-Pre-Depends: coreutils
-Architecture: all
-Priority: extra
-Section: oldlibs
-Description: The GNU shell programming utilities (transitional package)
- Empty package to facilitate upgrades, can be safely removed.

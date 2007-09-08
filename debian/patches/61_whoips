@@ -1,5 +1,5 @@
---- coreutils-6.0/src/who.c.orig	2006-05-27 15:09:15.243817480 -0400
-+++ coreutils-6.0/src/who.c	2006-05-27 15:08:16.704965910 -0400
+--- coreutils-5.97/src/who.c.orig	2006-05-27 15:09:15.243817480 -0400
++++ coreutils-6.10~20070907/src/who.c	2006-05-27 15:08:16.704965910 -0400
 @@ -29,6 +29,8 @@
  #include <stdio.h>
  
@@ -29,10 +29,9 @@
  };
  
  static struct option const longopts[] = {
-@@ -172,6 +178,7 @@
+@@ -172,5 +178,6 @@
    {"dead", no_argument, NULL, 'd'},
    {"heading", no_argument, NULL, 'H'},
-   {"idle", no_argument, NULL, 'i'}, /* FIXME: deprecated: remove in late 2006 */
 +  {"ips", no_argument, NULL, IPS_OPTION},
    {"login", no_argument, NULL, 'l'},
    {"lookup", no_argument, NULL, LOOKUP_OPTION},
