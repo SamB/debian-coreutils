@@ -163,7 +163,7 @@ binary-indep: build install
 binary-arch: build install
 	dh_testdir -a
 	dh_testroot -a
-	dh_installchangelogs -a $(BUILD_TREE)/doc/ChangeLog 
+	dh_installchangelogs -a $(BUILD_TREE)/ChangeLog 
 	dh_installdocs -a
 	dh_buildinfo -a
 	dh_installexamples -a
@@ -175,7 +175,7 @@ endif
 	dh_link -a
 	dh_compress -a
 	dh_fixperms -a
-ifeq ($(DEB_HOST_ARCH_OS),gnu)
+ifeq ($(DEB_HOST_ARCH_OS),hurd)
 	chmod u+s $(d)/usr/bin/su
 endif
 	dh_installdeb -a
