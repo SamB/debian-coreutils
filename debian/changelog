@@ -1,3 +1,11 @@
+coreutils (5.97-5.5) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Bump Standards-Version to 3.7.2.
+  * Add watch file.  closes: #441108. 
+
+ -- Clint Adams <schizo@debian.org>  Sat, 24 Nov 2007 13:43:02 -0500
+
 coreutils (5.97-5.4) unstable; urgency=medium
 
   * Non-maintainer upload.

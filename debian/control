@@ -2,7 +2,7 @@ Source: coreutils
 Maintainer: Michael Stone <mstone@debian.org>
 Section: utils
 Priority: required
-Standards-Version: 3.6.2.0
+Standards-Version: 3.7.2
 Build-Depends: gettext (>= 0.10.37), debhelper, dh-buildinfo, perl-base, texinfo (>= 4.2), groff, dbs, libattr1-dev | not+linux-gnu, libacl1-dev | not+linux-gnu, bzip2, autoconf (>= 2.59.cvs.2006.05.25-1), automake1.9, libselinux1-dev (>= 1.32) | not+linux-gnu
 Build-Conflicts: automake1.4
 
