@@ -4,9 +4,7 @@
 # Uncomment this to turn on verbose mode. 
 export DH_VERBOSE=1
 
-export DH_COMPAT=4
-
-TAR_DIR = coreutils-6.10~20070907
+TAR_DIR = coreutils-6.10~20071127
 
 # the dbs rules
 include /usr/share/dbs/dbs-build.mk
@@ -118,11 +116,9 @@ endif
 ifneq ($(DEB_HOST_ARCH_OS),hurd)
 		rm -f $(d)/usr/bin/su $(d)/usr/share/man/man1/su.1
 endif
-ifeq ($(DEB_HOST_ARCH_CPU),s390)
-		rm -f $(d)/usr/{bin,share/man/man1}/sha{384,512}sum*
-endif
 	rm -f $(d)/usr/bin/hostname $(d)/usr/share/man/man1/hostname.1
 	rm -f $(d)/usr/bin/uptime $(d)/usr/share/man/man1/uptime.1
+	rm -f $(d)/usr/bin/mktemp $(d)/usr/share/man/man1/mktemp.1
 
 	# the [ program doesn't have its own man page yet
 	ln -s test.1 $(d)/usr/share/man/man1/[.1

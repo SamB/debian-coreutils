@@ -1,5 +1,5 @@
 --- coreutils-5.97/src/dd.c.orig	2006-06-26 10:17:02.143014002 -0400
-+++ coreutils-6.10~20070907/src/dd.c	2006-06-26 10:20:17.456920048 -0400
++++ coreutils-6.10~20071127/src/dd.c	2006-06-26 10:20:17.456920048 -0400
 @@ -954,6 +954,9 @@
      error (EXIT_FAILURE, 0, _("cannot combine lcase and ucase"));
    if (multiple_bits_set (conversions_mask & (C_EXCL | C_NOCREAT)))

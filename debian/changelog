@@ -1,3 +1,11 @@
+coreutils (6.10~20071127-1) experimental; urgency=low
+
+  * new snapshot
+  * coreutils now includes mktemp, but it is not included in this package
+    because debian already has a mktemp package with similar syntax.
+
+ -- Michael Stone <mstone@debian.org>  Fri, 30 Nov 2007 14:21:47 -0500
+
 coreutils (6.10~20070907-3) experimental; urgency=low
 
   * use correct upstream changelog

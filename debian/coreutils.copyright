@@ -3,7 +3,7 @@ utilities.
 
 This package is maintained by Michael Stone <mstone@debian.org> and
 built from sources obtained from:
-  cvs -z3 -d:pserver:anonymous@cvs.savannah.gnu.org:/sources/coreutils co coreutils
+  http://meyering.net/cu/coreutils-ss.tar.gz
 
 This debian package was first put together by Michael Stone 
 <mstone@debian.org>, from coreutils 4.5.1.
