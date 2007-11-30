@@ -177,7 +177,7 @@ endif
 	dh_link -a
 	dh_compress -a
 	dh_fixperms -a
-ifeq ($(DEB_HOST_ARCH_OS),gnu)
+ifeq ($(DEB_HOST_ARCH_OS),hurd)
 	chmod u+s $(d)/usr/bin/su
 endif
 	dh_installdeb -a

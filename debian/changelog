@@ -1,3 +1,14 @@
+coreutils (5.97-5.6) unstable; urgency=low
+
+  * NMU
+  * Apply patch from Michael Bank to fix setuid su on the Hurd.
+    closes: #439249.
+  * Backport Jim Meyering's upstream fix for the sticky bit
+    discussion in chmod(1).  closes: #376745.
+  * Improve watch file regex thanks to Jim Meyering.
+
+ -- Clint Adams <schizo@debian.org>  Fri, 30 Nov 2007 11:54:10 -0500
+
 coreutils (5.97-5.5) unstable; urgency=low
 
   * Non-maintainer upload.
