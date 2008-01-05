@@ -1,7 +1,17 @@
+coreutils (5.97-5.7) unstable; urgency=low
+
+  * NMU
+  * Fix typo in fr.po.  closes: #442644.
+  * Replace watch file with Raphael Geissert's version.  closes: #456785.
+  * Replace DH_COMPAT in rules file with debian/compat.  closes: #452729.
+  * Bump to Standards-Version 3.7.3.
+
+ -- Clint Adams <schizo@debian.org>  Sat, 05 Jan 2008 16:30:00 -0500
+
 coreutils (5.97-5.6) unstable; urgency=low
 
   * NMU
-  * Apply patch from Michael Bank to fix setuid su on the Hurd.
+  * Apply patch from Michael Banck to fix setuid su on the Hurd.
     closes: #439249.
   * Backport Jim Meyering's upstream fix for the sticky bit
     discussion in chmod(1).  closes: #376745.
