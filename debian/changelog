@@ -1,3 +1,10 @@
+coreutils (6.10-1) unstable; urgency=low
+
+  * new upstream release
+    - cp, by default, refuses to copy through a dangling destination symlink          Set POSIXLY_CORRECT if you require the old, risk-prone behavior.
+
+ -- Michael Stone <mstone@debian.org>  Tue, 22 Jan 2008 20:01:35 -0500
+
 coreutils (6.10~20071127-1) experimental; urgency=low
 
   * new snapshot

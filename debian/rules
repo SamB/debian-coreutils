@@ -4,7 +4,7 @@
 # Uncomment this to turn on verbose mode. 
 export DH_VERBOSE=1
 
-TAR_DIR = coreutils-6.10~20071127
+TAR_DIR = coreutils-6.10
 
 # the dbs rules
 include /usr/share/dbs/dbs-build.mk
@@ -41,6 +41,11 @@ else
   SELINUX_OPTS := 
 endif
 
+# programs to include/not include
+ifeq ($(DEB_HOST_ARCH_OS),hurd)
+  BUILDPROG_OPTS := --enable-install-program=su 
+endif
+
 BIN_PROGS = cat chgrp chmod chown cp date dd df dir echo false ln ls mkdir \
 	mknod mv pwd readlink rm rmdir vdir sleep stty sync touch true uname
 d=debian/coreutils
@@ -58,12 +63,9 @@ configure-stamp: $(patched)
 		--build=$(DEB_BUILD_GNU_TYPE) --host=$(DEB_HOST_GNU_TYPE) \
 		--prefix=/usr -v \
 		--infodir=/usr/share/info --mandir=/usr/share/man \
-		$(SELINUX_OPTS)
+		$(SELINUX_OPTS) $(BUILDPROG_OPTS)
 
 	touch configure-stamp
-ifeq ($(DEB_HOST_ARCH_OS),hurd)
-	touch $(BUILD_TREE)/man/{ch,run}con.1
-endif
 
 build: configure-stamp build-stamp
 build-stamp: $(patched)
@@ -110,7 +112,7 @@ endif
 
 	# remove stuff provided by other packages
 ifeq ($(DEB_HOST_ARCH_OS),linux)
-		# kill from procps is linux-specific
+	# kill from procps is linux-specific
 		rm -f $(d)/usr/bin/kill $(d)/usr/share/man/man1/kill.1
 endif
 ifneq ($(DEB_HOST_ARCH_OS),hurd)
