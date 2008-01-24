@@ -34,13 +34,6 @@ CFLAGS = "-g -DSYSLOG_SUCCESS -DSYSLOG_FAILURE -DSYSLOG_NON_ROOT -O2"
 endif
 LDFLAGS = 
 
-# determine whether to build with SELinux
-ifeq ($(DEB_HOST_ARCH_OS),linux)
-  SELINUX_OPTS := --enable-selinux
-else
-  SELINUX_OPTS := 
-endif
-
 # programs to include/not include
 ifeq ($(DEB_HOST_ARCH_OS),hurd)
   BUILDPROG_OPTS := --enable-install-program=su 
@@ -56,14 +49,12 @@ configure: configure-stamp
 configure-stamp: $(patched)
 	dh_testdir
 
-	#cd $(BUILD_TREE) && autoreconf
-
 	cd $(BUILD_TREE) && CFLAGS=$(CFLAGS) \
 		LDFLAGS=$(LDFLAGS) ./configure \
 		--build=$(DEB_BUILD_GNU_TYPE) --host=$(DEB_HOST_GNU_TYPE) \
 		--prefix=/usr -v \
 		--infodir=/usr/share/info --mandir=/usr/share/man \
-		$(SELINUX_OPTS) $(BUILDPROG_OPTS)
+		$(BUILDPROG_OPTS)
 
 	touch configure-stamp
 
@@ -73,7 +64,8 @@ build-stamp: $(patched)
 
 	cd $(BUILD_TREE) && $(MAKE)
 ifeq (,$(findstring nocheck,$(DEB_BUILD_OPTIONS)))
-	cd $(BUILD_TREE) && $(MAKE) check
+	[ -r /proc/cpuinfo ] && cat /proc/cpuinfo 
+	cd $(BUILD_TREE) && $(MAKE) check VERBOSE=yes 
 endif
 
 	touch build-stamp

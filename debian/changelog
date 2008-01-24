@@ -1,3 +1,16 @@
+coreutils (6.10-2) unstable; urgency=low
+
+  * run make check with VERBOSE enabled; this no longer makes the logs
+    unreadably huge (thanks Julien Cristau for asking the obvious
+    question) 
+  * print cpu info during build to help debug build failures
+  * bump policy version
+  * lose perl-base & bzip2 build-deps. Someday need to support lzma tarball
+  * drop more legacy fileutils/shellutils/textutils upgrade support. 
+    hopefully people have finished upgrading to etch
+
+ -- Michael Stone <mstone@debian.org>  Wed, 23 Jan 2008 20:36:12 -0500
+
 coreutils (6.10-1) unstable; urgency=low
 
   * new upstream release
