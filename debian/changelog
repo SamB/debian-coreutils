@@ -1,3 +1,22 @@
+coreutils (6.10-3) unstable; urgency=low
+
+  * [71] use getgrouplist to get list of groups, e.g., for id(1)
+    (Closes: #459615)
+  * [72] display warning if user is in too many groups
+    (Closes: #175994)
+  * [73] prevent segfault in ls -l /proc/sys/fs/inotify/
+    (Thanks Jan Moringen) (Closes: #463043)
+  * Try upstream fix for info references in man pages
+    (Closes: #388684)
+  * Upstream change in documentation for mv in the case of a 
+    moving a symlink to a directory with a trailing '/'
+    (Closes: #343652)
+  * move kill to /bin on hurd (Closes: #380387)
+  * Fix some minor typos/formatting in debian packaging
+  * Add link to upstream FAQ in README.Debian
+
+ -- Michael Stone <mstone@debian.org>  Mon, 28 Jan 2008 21:11:32 -0500
+
 coreutils (6.10-2) unstable; urgency=low
 
   * run make check with VERBOSE enabled; this no longer makes the logs
@@ -14,7 +33,8 @@ coreutils (6.10-2) unstable; urgency=low
 coreutils (6.10-1) unstable; urgency=low
 
   * new upstream release
-    - cp, by default, refuses to copy through a dangling destination symlink          Set POSIXLY_CORRECT if you require the old, risk-prone behavior.
+    - cp, by default, refuses to copy through a dangling destination symlink
+      Set POSIXLY_CORRECT if you require the old, risk-prone behavior.
 
  -- Michael Stone <mstone@debian.org>  Tue, 22 Jan 2008 20:01:35 -0500
 

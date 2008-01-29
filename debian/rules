@@ -95,8 +95,6 @@ install: build
 	# backward compatability
 	ln -s /usr/bin/md5sum $(d)/usr/bin/md5sum.textutils
 	ln -s /usr/share/man/man1/md5sum.1 $(d)/usr/share/man/man1/md5sum.textutils.1
-
-	# some things we don't do for hurd
 ifneq ($(DEB_HOST_ARCH_OS),hurd)
 		# touch used to be in /usr/bin, don't break scripts
 		ln -s /bin/touch $(d)/usr/bin/touch
@@ -105,7 +103,9 @@ endif
 	# remove stuff provided by other packages
 ifeq ($(DEB_HOST_ARCH_OS),linux)
 	# kill from procps is linux-specific
-		rm -f $(d)/usr/bin/kill $(d)/usr/share/man/man1/kill.1
+	rm -f $(d)/usr/bin/kill $(d)/usr/share/man/man1/kill.1
+else
+	mv $(d)/usr/bin/kill $(d)/bin
 endif
 ifneq ($(DEB_HOST_ARCH_OS),hurd)
 		rm -f $(d)/usr/bin/su $(d)/usr/share/man/man1/su.1

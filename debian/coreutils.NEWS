@@ -1,6 +1,6 @@
 coreutils (5.96-3) unstable; urgency=low
 
-  * The POSIX compatability level is now set to POSIX 1003.1-2001, 
+  * The POSIX compatibility level is now set to POSIX 1003.1-2001, 
     which affects the syntax for several commands.  For transition 
     purposes, "sort +number" and "tail +number" will be supported 
     for the etch release. Note that these usages are deprecated, and 
