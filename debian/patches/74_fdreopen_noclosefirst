@@ -1,0 +1,49 @@
+diff --git a/lib/fd-reopen.c b/lib/fd-reopen.c
+index 2ce4678..c12fef6 100644
+--- a/lib/fd-reopen.c
++++ coreutils-6.10/lib/fd-reopen.c
+@@ -1,6 +1,6 @@
+ /* Invoke open, but return either a desired file descriptor or -1.
+ 
+-   Copyright (C) 2005, 2006 Free Software Foundation, Inc.
++   Copyright (C) 2005, 2006, 2008 Free Software Foundation, Inc.
+ 
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+@@ -31,15 +31,13 @@
+ int
+ fd_reopen (int desired_fd, char const *file, int flags, mode_t mode)
+ {
+-  int fd;
++  int fd = open (file, flags, mode);
+ 
+-  close (desired_fd);
+-  fd = open (file, flags, mode);
+   if (fd == desired_fd || fd < 0)
+     return fd;
+   else
+     {
+-      int fd2 = fcntl (fd, F_DUPFD, desired_fd);
++      int fd2 = dup2 (fd, desired_fd);
+       int saved_errno = errno;
+       close (fd);
+       errno = saved_errno;
+diff --git a/tests/dd/misc b/tests/dd/misc
+index 9172582..2b54cfb 100755
+--- a/tests/dd/misc
++++ coreutils-6.10/tests/dd/misc
+@@ -46,6 +46,13 @@ if dd oflag=append if=$tmp_in of=$tmp_out 2> /dev/null; then
+   compare $tmp_in $tmp_out || fail=1
+ fi
+ 
++case $(cat /dev/stdin <$tmp_in 2>/dev/null) in
++(data)
++  rm -f $tmp_out
++  dd if=/dev/stdin of=$tmp_out <$tmp_in || fail=1
++  compare $tmp_in $tmp_out || fail=1
++esac
++
+ if dd iflag=nofollow if=$tmp_in count=0 2> /dev/null; then
+   dd iflag=nofollow if=$tmp_sym count=0 2> /dev/null && fail=1
+ fi
+

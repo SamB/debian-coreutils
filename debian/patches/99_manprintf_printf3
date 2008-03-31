@@ -1,0 +1,8 @@
+--- coreutils-6.10/man/printf.x.orig	2008-03-31 17:34:50.524187934 -0400
++++ coreutils-6.10/man/printf.x	2008-03-31 17:35:03.784463903 -0400
+@@ -2,3 +2,5 @@
+ printf \- format and print data
+ [DESCRIPTION]
+ .\" Add any additional description here
++[SEE ALSO]
++printf(3)

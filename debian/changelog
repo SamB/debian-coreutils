@@ -1,3 +1,16 @@
+coreutils (6.10-4) unstable; urgency=low
+
+  * [74] upstream patch to allow dd & other commands to use /dev/stdin
+    (Thanks Paul Eggert) (closes: #290727)
+  * [75] prevent ls from displaying a + for files with an selinux context.
+    (this will change in future, but the exact future output isn't certain
+    yet) (Thanks Russell Coker) (closes: #472590)
+  * Add a watch file to keep people from complaining about not having a watch
+    file. (closes: #441108)
+  * printf(1) now references printf(3) (closes: #465522)
+
+ -- Michael Stone <mstone@debian.org>  Mon, 31 Mar 2008 18:19:52 -0400
+
 coreutils (6.10-3) unstable; urgency=low
 
   * [71] use getgrouplist to get list of groups, e.g., for id(1)
