@@ -1,3 +1,10 @@
+coreutils (6.10-5) unstable; urgency=low
+
+  * [75] Fix that last patch so that it doesn't display error messages
+    on non-selinux systems (closes: 473739)
+
+ -- Michael Stone <mstone@debian.org>  Tue, 01 Apr 2008 06:55:03 -0400
+
 coreutils (6.10-4) unstable; urgency=low
 
   * [74] upstream patch to allow dd & other commands to use /dev/stdin

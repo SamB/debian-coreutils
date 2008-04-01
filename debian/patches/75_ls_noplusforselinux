@@ -1,26 +1,11 @@
-diff -ru coreutils.org/src/ls.c coreutils.patched/src/ls.c
---- coreutils-6.10/src/ls.c	2008-03-25 13:07:53.000000000 +1100
-+++ coreutils-6.10/src/ls.c	2008-03-25 13:19:17.000000000 +1100
-@@ -2667,20 +2667,6 @@
- 			  : lgetfilecon (absolute_name, &f->scontext));
+--- coreutils-6.10/src/ls.c.bak	2008-04-01 06:56:38.222851023 -0400
++++ coreutils-6.10/src/ls.c	2008-04-01 06:58:16.654848696 -0400
+@@ -2668,7 +2668,7 @@
  	  err = (attr_len < 0);
  
--	  if (err == 0 && f->scontext != NULL)
+ 	  if (err == 0 && f->scontext != NULL)
 -	    have_acl = ! STREQ ("unlabeled", f->scontext);
--	  else
--	    {
--	      f->scontext = UNKNOWN_SECURITY_CONTEXT;
--
--	      /* When requesting security context information, don't make
--		 ls fail just because the file (even a command line argument)
--		 isn't on the right type of file system.  I.e., a getfilecon
--		 failure isn't in the same class as a stat failure.  */
--	      if (err == 0 || errno == ENOTSUP || errno == ENODATA)
--		err = 0;
--	    }
--
- 	  if (err == 0 && ! have_acl && format == long_format)
++	    ; /* for now, we're ignoring selinux contexts */
+ 	  else
  	    {
- 	      int n = file_has_acl (absolute_name, &f->stat);
-
-
+ 	      f->scontext = UNKNOWN_SECURITY_CONTEXT;
