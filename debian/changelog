@@ -1,3 +1,15 @@
+coreutils (6.10-6) unstable; urgency=low
+
+  * [76] Add ubuntu/upstream patch to prevent failure of cp of a special
+    (e.g., fifo) file to an existing file
+  * [71] change getgrouplist patch to skip the autoconf test and use
+    getgrouplist unconditionally. (Patch isn't immediately ready for 
+    upstream anyway, and I assume that glibc provides this function
+    on all our supported platforms. If this turns out to not be true,
+    I'll revisit.) (Closes: #459615)
+
+ -- Michael Stone <mstone@debian.org>  Fri, 04 Apr 2008 10:02:18 -0400
+
 coreutils (6.10-5) unstable; urgency=low
 
   * [75] Fix that last patch so that it doesn't display error messages
