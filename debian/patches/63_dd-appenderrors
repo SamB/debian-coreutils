@@ -1,3 +1,6 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+
+@DPATCH@
 --- coreutils-5.97/src/dd.c.orig	2006-06-26 10:17:02.143014002 -0400
 +++ coreutils-6.10/src/dd.c	2006-06-26 10:20:17.456920048 -0400
 @@ -954,6 +954,9 @@

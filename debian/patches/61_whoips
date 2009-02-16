@@ -1,3 +1,6 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+
+@DPATCH@
 --- coreutils-5.97/src/who.c.orig	2006-05-27 15:09:15.243817480 -0400
 +++ coreutils-6.10/src/who.c	2006-05-27 15:08:16.704965910 -0400
 @@ -29,6 +29,8 @@

@@ -2,15 +2,12 @@ Source: coreutils
 Maintainer: Michael Stone <mstone@debian.org>
 Section: utils
 Priority: required
-Standards-Version: 3.7.3.0
-Build-Depends: gettext (>= 0.10.37), debhelper, dh-buildinfo, texinfo (>= 4.2), groff, dbs, libattr1-dev | not+linux-gnu, libacl1-dev | not+linux-gnu, libselinux1-dev (>= 1.32) | not+linux-gnu, gperf, bison
+Standards-Version: 3.8.0.0
+Build-Depends: gettext (>= 0.10.37), debhelper, dh-buildinfo, texinfo (>= 4.2), groff, dpatch, libattr1-dev | not+linux-gnu, libacl1-dev | not+linux-gnu, libselinux1-dev (>= 1.32) | not+linux-gnu, gperf, bison
 
 Package: coreutils
 Architecture: any
 Pre-Depends: ${shlibs:Depends}
-Provides: textutils, shellutils, fileutils
-Replaces: textutils, shellutils, fileutils, stat, debianutils (<= 2.3.1), dpkg (<< 1.13.2)
-Conflicts: stat
 Essential: yes
 Description: The GNU core utilities
  This package contains the essential basic system utilities.

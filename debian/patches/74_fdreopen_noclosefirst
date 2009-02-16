@@ -1,3 +1,6 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+
+@DPATCH@
 diff --git a/lib/fd-reopen.c b/lib/fd-reopen.c
 index 2ce4678..c12fef6 100644
 --- a/lib/fd-reopen.c

@@ -1,3 +1,10 @@
+coreutils (6.12-1) unstable; urgency=low
+
+  * New upstream version
+  * Switch to dpatch
+
+ -- Michael Stone <mstone@debian.org>  Mon, 16 Feb 2009 12:42:44 -0500
+
 coreutils (6.10-6) unstable; urgency=low
 
   * [76] Add ubuntu/upstream patch to prevent failure of cp of a special
