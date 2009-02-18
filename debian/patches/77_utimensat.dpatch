@@ -1,0 +1,58 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## 77_utimensat.dpatch by Michael Stone <mstone@debian.org>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: Work around glibc not handling kernel interface changes well
+
+@DPATCH@
+diff -urNad coreutils-6.12~/lib/utimens.c coreutils-6.12/lib/utimens.c
+--- coreutils-6.12~/lib/utimens.c	2008-05-29 09:21:57.000000000 -0400
++++ coreutils-6.12/lib/utimens.c	2009-02-18 07:00:33.863932176 -0500
+@@ -78,6 +78,8 @@
+ gl_futimens (int fd ATTRIBUTE_UNUSED,
+ 	     char const *file, struct timespec const timespec[2])
+ {
++  int ret;
++
+   /* Some Linux-based NFS clients are buggy, and mishandle time stamps
+      of files in NFS file systems in some cases.  We have no
+      configure-time test for this, but please see
+@@ -98,16 +100,23 @@
+   /* POSIX 200x added two interfaces to set file timestamps with
+      nanosecond resolution.  */
+ #if HAVE_UTIMENSAT
+-  if (fd < 0)
+-    return utimensat (AT_FDCWD, file, timespec, 0);
++  if (fd < 0) {
++    ret = utimensat (AT_FDCWD, file, timespec, 0);
++    if (!ret || errno != ENOSYS) {
++      return ret;
++    }
++  }
+ #endif
+ #if HAVE_FUTIMENS
+-  return futimens (fd, timespec);
+-#else
++  ret = futimens (fd, timespec);
++  if (!ret || errno != ENOSYS) {
++    return ret;
++  }
++#endif
+ 
+-  /* The platform lacks an interface to set file timestamps with
+-     nanosecond resolution, so do the best we can, discarding any
+-     fractional part of the timestamp.  */
++  /* If we get here, the platform lacks an interface to set file 
++     timestamps with nanosecond resolution, so do the best we can, 
++     discarding any fractional part of the timestamp.  */
+   {
+ # if HAVE_FUTIMESAT || HAVE_WORKING_UTIMES
+     struct timeval timeval[2];
+@@ -189,7 +198,6 @@
+     }
+ # endif /* !HAVE_WORKING_UTIMES */
+   }
+-#endif /* !HAVE_FUTIMENS */
+ }
+ 
+ /* Set the access and modification time stamps of FILE to be
