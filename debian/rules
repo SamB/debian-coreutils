@@ -117,6 +117,7 @@ endif
 	rm -f $(d)/usr/bin/hostname $(d)/usr/share/man/man1/hostname.1
 	rm -f $(d)/usr/bin/uptime $(d)/usr/share/man/man1/uptime.1
 	rm -f $(d)/usr/bin/mktemp $(d)/usr/share/man/man1/mktemp.1
+	rm -f $(d)/usr/bin/timeout $(d)/usr/share/man/man1/timeout.1
 
 	# the [ program doesn't have its own man page yet
 	ln -s test.1 $(d)/usr/share/man/man1/[.1

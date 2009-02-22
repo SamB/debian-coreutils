@@ -1,3 +1,9 @@
+coreutils (7.1-2) unstable; urgency=low
+
+  * remove timeout binary, conflicts with package "timeout" (Closes: #516652)
+
+ -- Michael Stone <mstone@debian.org>  Sun, 22 Feb 2009 17:35:32 -0500
+
 coreutils (7.1-1) unstable; urgency=low
 
   * New upstream version
