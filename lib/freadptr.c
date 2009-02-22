@@ -29,7 +29,7 @@ freadptr (FILE *fp, size_t *sizep)
   size_t size;
 
   /* Keep this code in sync with freadahead!  */
-#if defined _IO_ferror_unlocked || __GNU_LIBRARY__ == 1 /* GNU libc, BeOS, Linux libc5 */
+#if defined _IO_ftrylockfile || __GNU_LIBRARY__ == 1 /* GNU libc, BeOS, Haiku, Linux libc5 */
   if (fp->_IO_write_ptr > fp->_IO_write_base)
     return NULL;
   size = fp->_IO_read_end - fp->_IO_read_ptr;
@@ -85,6 +85,10 @@ freadptr (FILE *fp, size_t *sizep)
     return NULL;
   *sizep = size;
   return (const char *) fp->_Next;
+#elif defined SLOW_BUT_NO_HACKS     /* users can define this */
+  /* This implementation is correct on any ANSI C platform.  It is just
+     awfully slow.  */
+  return NULL;
 #else
  #error "Please port gnulib freadptr.c to your platform! Look at the definition of fflush, fread, getc, getc_unlocked on your system, then report this to bug-gnulib."
 #endif

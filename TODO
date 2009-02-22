@@ -5,14 +5,24 @@ longer pertinent, please search the mailing list and post your intent
 before embarking on a big project.
 
 ==================================================
+Modify chmod so that it does not change an inode's st_ctime
+  when the selected operation would have no other effect.
+  First suggested by Hans Ecke <http://hans.ecke.ws> in
+    http://thread.gmane.org/gmane.comp.gnu.coreutils.bugs/2920
+  Discussed more recently on <http://bugs.debian.org/497514>.
+
 document the following in coreutils.texi:
-  runcon
-  chcon
   mktemp
   [
   pinky
-  uptime
 Also document the SELinux changes.
+
+Suggestion from Paul Eggert:
+  More generally, there's not that much use for imaxtostr nowadays,
+  since the inttypes module and newer versions of gettext allow things
+  like _("truncating %s at %" PRIdMAX " bytes") to work portably.
+  I suspect that (if someone cares to take the time) we can remove
+  all instances of imaxtostr and umaxtostr in coreutils and gnulib.
 
 cp --recursive: use fts and *at functions to perform directory traversals
   in source and destination hierarchy rather than forming full file names.
@@ -20,23 +30,20 @@ cp --recursive: use fts and *at functions to perform directory traversals
   become very long, and requires space and time that is quadratic in the
   depth of the hierarchy.  [Bo Borgerson is working on this]
 
-comm: add an option, --output-delimiter=STR
-  Files to change: src/comm.c, ChangeLog, NEWS, doc/coreutils.texi,
-  Add a new file, tests/misc/comm (use another file in that directory as
-  a template), to exercise the new option.  Suggestion from Dan Jacobson.
-
 printf:
   Now that gnulib supports *printf("%a"), import one of the
   *printf-posix modules so that printf(1) will support %a even on
   platforms where the native *printf(3) is deficient.
   Suggestion from Eric Blake.
 
+pwd:
+  Implement the options -P and -L in a POSIX-compatible way.
+  Note the instructions in the initial paragraph of this file
+  before starting.
+
 renice: POSIX utility, needs implementing.
   suggestion from Karl Berry (among others).
   Bob Proulx is working on this.
-
-install: add an option to specify the program used to strip binaries.
-  suggestion from Karl Berry
 
 doc/coreutils.texi:
   Address this comment: FIXME: mv's behavior in this case is system-dependent
@@ -64,8 +71,6 @@ Should printf '\0123' print "\n3"?
   http://mail.gnu.org/archive/html/bug-coreutils/2003-03/index.html
 
 printf: consider adapting builtins/printf.def from bash
-
-df: add `--total' option, suggested here http://bugs.debian.org/186007
 
 tail: don't use xlseek; it *exits*.
   Instead, maybe use a macro and return nonzero.
@@ -102,6 +107,9 @@ sort: Investigate better sorting algorithms; see Knuth vol. 3.
   5.3.1, who credits Lester Ford, Jr. and Selmer Johnson, American
   Mathematical Monthly 66 (1959), 387-389.
 
+shred: Update shred as described here to conform to DoD 5220 rules:
+http://lists.gnu.org/archive/html/bug-coreutils/2007-05/msg00075.html
+
 Remove suspicious uses of alloca (ones that may allocate more than
    about 4k)
 
@@ -124,9 +132,6 @@ Changes expected to go in, someday.
   dereference command line symlinks to directories.  Since -l has
   an implicit --NO-dereference-command-line-symlink-to-dir meaning.
   Pointed out by Karl Berry.
-
-  A more efficient version of factor, and possibly one that
-  accepts inputs of size 2^64 and larger.
 
   dd: consider adding an option to suppress `bytes/block read/written'
   output to stderr.  Suggested here:
@@ -157,6 +162,11 @@ remove all uses of the `register' keyword: Done.  add a maint.mk rule
 remove or adjust chown's --changes option, since it
   can't always do what it currently says it does.
 
+Support arbitrary-precision arithmetic in those tools for which it
+makes sense.  Factor and expr already support this via libgmp.
+The "test" program is covered via its string-based comparison of
+integers.  To be converted: seq.
+
 Adapt tools like wc, tr, fmt, etc. (most of the textutils) to be
   multibyte aware.  The problem is that I want to avoid duplicating
   significant blocks of logic, yet I also want to incur only minimal
@@ -166,7 +176,7 @@ pr's use of nstrftime can make it malloc a very large (up to SIZE_MAX) buffer
 
 -----
 
-Copyright (C) 2002-2008 Free Software Foundation, Inc.
+Copyright (C) 2002-2009 Free Software Foundation, Inc.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

@@ -45,9 +45,6 @@ enum { PRINTENV_FAILURE = 2 };
   proper_name ("David MacKenzie"), \
   proper_name ("Richard Mlynarik")
 
-/* The name this program was run with. */
-char *program_name;
-
 extern char **environ;
 
 void
@@ -61,7 +58,8 @@ usage (int status)
       printf (_("\
 Usage: %s [VARIABLE]...\n\
   or:  %s OPTION\n\
-If no environment VARIABLE specified, print them all.\n\
+Print the values of the specified environment VARIABLE(s).\n\
+If no VARIABLE is specified, print name and value pairs for them all.\n\
 \n\
 "),
 	      program_name, program_name);
@@ -82,7 +80,7 @@ main (int argc, char **argv)
   bool ok;
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
@@ -90,7 +88,7 @@ main (int argc, char **argv)
   initialize_exit_failure (PRINTENV_FAILURE);
   atexit (close_stdout);
 
-  parse_long_options (argc, argv, PROGRAM_NAME, PACKAGE_NAME, VERSION,
+  parse_long_options (argc, argv, PROGRAM_NAME, PACKAGE_NAME, Version,
 		      usage, AUTHORS, (char const *) NULL);
   if (getopt_long (argc, argv, "+", NULL, NULL) != -1)
     usage (PRINTENV_FAILURE);

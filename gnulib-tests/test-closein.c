@@ -2,7 +2,7 @@
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
 #line 1
 /* Test of closein module.
-   Copyright (C) 2007 Free Software Foundation, Inc.
+   Copyright (C) 2007, 2008 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -39,8 +39,7 @@ int
 main (int argc, char **argv)
 {
   char buf[7];
-  int i = -1;
-  atexit(close_stdin);
+  atexit (close_stdin);
   program_name = argv[0];
 
   /* close_stdin currently relies on ftell, but mingw ftell is
@@ -51,6 +50,6 @@ main (int argc, char **argv)
     close (0);
 
   if (argc > 1)
-    i = fread (buf, 1, 6, stdin);
+    fread (buf, 1, 6, stdin);
   return 0;
 }

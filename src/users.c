@@ -35,9 +35,6 @@
   proper_name ("Joseph Arceneaux"), \
   proper_name ("David MacKenzie")
 
-/* The name this program was run with. */
-char *program_name;
-
 static int
 userid_compare (const void *v_a, const void *v_b)
 {
@@ -106,7 +103,7 @@ usage (int status)
 	     program_name);
   else
     {
-      printf (_("Usage: %s [OPTION]... [ FILE ]\n"), program_name);
+      printf (_("Usage: %s [OPTION]... [FILE]\n"), program_name);
       printf (_("\
 Output who is currently logged in according to FILE.\n\
 If FILE is not specified, use %s.  %s as FILE is common.\n\
@@ -124,14 +121,14 @@ int
 main (int argc, char **argv)
 {
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
 
   atexit (close_stdout);
 
-  parse_long_options (argc, argv, PROGRAM_NAME, PACKAGE_NAME, VERSION,
+  parse_long_options (argc, argv, PROGRAM_NAME, PACKAGE_NAME, Version,
 		      usage, AUTHORS, (char const *) NULL);
   if (getopt_long (argc, argv, "", NULL, NULL) != -1)
     usage (EXIT_FAILURE);

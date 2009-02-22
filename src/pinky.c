@@ -26,8 +26,6 @@
 
 #include "canon-host.h"
 #include "error.h"
-#include "hard-locale.h"
-#include "inttostr.h"
 #include "readutmp.h"
 
 /* The official name of this program (e.g., no `g' prefix).  */
@@ -42,10 +40,7 @@
 # define MAXHOSTNAMELEN 64
 #endif
 
-char *ttyname ();
-
-/* The name this program was run with. */
-const char *program_name;
+char *ttyname (int);
 
 /* If true, display the hours:minutes since each user has touched
    the keyboard, or blank if within the last minute, or days followed
@@ -200,7 +195,7 @@ time_string (const STRUCT_UTMP *utmp_ent)
       return buf;
     }
   else
-    return TYPE_SIGNED (time_t) ? imaxtostr (t, buf) : umaxtostr (t, buf);
+    return timetostr (t, buf);
 }
 
 /* Display a line of information about UTMP_ENT. */
@@ -254,7 +249,8 @@ print_entry (const STRUCT_UTMP *utmp_ent)
       name[UT_USER_SIZE] = '\0';
       pw = getpwnam (name);
       if (pw == NULL)
-	printf (" %19s", "        ???");
+	/* TRANSLATORS: Real name is unknown; at most 19 characters. */
+	printf (" %19s", _("        ???"));
       else
 	{
 	  char *const comma = strchr (pw->pw_gecos, ',');
@@ -277,7 +273,8 @@ print_entry (const STRUCT_UTMP *utmp_ent)
       if (last_change)
 	printf (" %-6s", idle_string (last_change));
       else
-	printf (" %-6s", "???");
+	/* TRANSLATORS: Idle time is unknown; at most 5 characters. */
+	printf (" %-6s", _("?????"));
     }
 
   printf (" %s", time_string (utmp_ent));
@@ -332,6 +329,7 @@ print_long_entry (const char name[])
   printf (_("In real life: "));
   if (pw == NULL)
     {
+      /* TRANSLATORS: Real name is unknown; no hard limit. */
       printf (" %s", _("???\n"));
       return;
     }
@@ -544,7 +542,7 @@ main (int argc, char **argv)
   int n_users;
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);

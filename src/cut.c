@@ -40,7 +40,7 @@
 #define PROGRAM_NAME "cut"
 
 #define AUTHORS \
-  proper_name ("David Ihnat"), \
+  proper_name ("David M. Ihnat"), \
   proper_name ("David MacKenzie"), \
   proper_name ("Jim Meyering")
 
@@ -119,9 +119,6 @@ enum operating_mode
     /* Output the given delimeter-separated fields. */
     field_mode
   };
-
-/* The name this program was run with. */
-char *program_name;
 
 static enum operating_mode operating_mode;
 
@@ -213,7 +210,7 @@ Mandatory arguments to long options are mandatory for short options too.\n\
 "), stdout);
       fputs (_("\
       --complement        complement the set of selected bytes, characters\n\
-                            or fields.\n\
+                            or fields\n\
 "), stdout);
       fputs (_("\
   -s, --only-delimited    do not print lines not containing delimiters\n\
@@ -762,7 +759,7 @@ main (int argc, char **argv)
   char *spec_list_string IF_LINT(= NULL);
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);

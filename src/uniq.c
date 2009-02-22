@@ -14,7 +14,7 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
-/* Written by Richard Stallman and David MacKenzie. */
+/* Written by Richard M. Stallman and David MacKenzie. */
 
 #include <config.h>
 
@@ -26,7 +26,6 @@
 #include "argmatch.h"
 #include "linebuffer.h"
 #include "error.h"
-#include "hard-locale.h"
 #include "posixver.h"
 #include "quote.h"
 #include "xmemcoll.h"
@@ -37,7 +36,7 @@
 #define PROGRAM_NAME "uniq"
 
 #define AUTHORS \
-  proper_name ("Richard Stallman"), \
+  proper_name ("Richard M. Stallman"), \
   proper_name ("David MacKenzie")
 
 #define SWAP_LINES(A, B)			\
@@ -49,9 +48,6 @@
       (B) = _tmp;				\
     }						\
   while (0)
-
-/* The name this program was run with. */
-char *program_name;
 
 /* True if the LC_COLLATE locale is hard.  */
 static bool hard_LC_COLLATE;
@@ -206,14 +202,14 @@ size_opt (char const *opt, char const *msgid)
    return a pointer to the beginning of the line's field to be compared. */
 
 static char *
-find_field (const struct linebuffer *line)
+find_field (struct linebuffer const *line)
 {
   size_t count;
-  char *lp = line->buffer;
+  char const *lp = line->buffer;
   size_t size = line->length - 1;
   size_t i = 0;
 
-  for (count = 0; count < skip_fields && i < size; count++)
+  for (count = 0; count < skip_fields; count++)
     {
       while (i < size && isblank (to_uchar (lp[i])))
 	i++;
@@ -224,7 +220,7 @@ find_field (const struct linebuffer *line)
   for (count = 0; count < skip_chars && i < size; count++)
     i++;
 
-  return lp + i;
+  return line->buffer + i;
 }
 
 /* Return false if two strings OLD and NEW match, true if not.
@@ -418,7 +414,7 @@ main (int argc, char **argv)
 
   file[0] = file[1] = "-";
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);

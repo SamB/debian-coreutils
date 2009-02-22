@@ -78,7 +78,6 @@
 
 #include <config.h>
 #include <stdio.h>
-#include <getopt.h>
 #include <sys/types.h>
 #include <getopt.h>
 
@@ -92,12 +91,7 @@
   proper_name ("Richard Mlynarik"), \
   proper_name ("David MacKenzie")
 
-int putenv ();
-
 extern char **environ;
-
-/* The name by which this program was run. */
-char *program_name;
 
 static struct option const longopts[] =
 {
@@ -143,7 +137,7 @@ main (int argc, char **argv)
   bool ignore_environment = false;
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);

@@ -38,9 +38,6 @@
 
 #define AUTHORS proper_name ("David MacKenzie")
 
-/* The name this program was run with. */
-char *program_name;
-
 /* If true, remove empty parent directories.  */
 static bool remove_empty_parents;
 
@@ -172,11 +169,11 @@ Remove the DIRECTORY(ies), if they are empty.\n\
 \n\
       --ignore-fail-on-non-empty\n\
                   ignore each failure that is solely because a directory\n\
-                  is non-empty\n\
+                    is non-empty\n\
 "), stdout);
       fputs (_("\
-  -p, --parents   Remove DIRECTORY and its ancestors.  E.g., `rmdir -p a/b/c' is\n\
-                  similar to `rmdir a/b/c a/b a'.\n\
+  -p, --parents   remove DIRECTORY and its ancestors; e.g., `rmdir -p a/b/c' is\n\
+                    similar to `rmdir a/b/c a/b a'\n\
   -v, --verbose   output a diagnostic for every directory processed\n\
 "), stdout);
       fputs (HELP_OPTION_DESCRIPTION, stdout);
@@ -193,7 +190,7 @@ main (int argc, char **argv)
   int optc;
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);

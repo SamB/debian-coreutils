@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 
 # Generate a short man page from --help and --version output.
-# Copyright (C) 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2008
+# Copyright (C) 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2008, 2009
 # Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
@@ -368,7 +368,7 @@ s/^\./\x80/mg;
 s/^'/\x81/mg;
 s/\\/\x82/g;
 
-my $PAT_BUGS		= _('Report +bugs|Email +bug +reports +to');
+my $PAT_BUGS		= _('Report +(?:\w+ +)?bugs|Email +bug +reports +to');
 my $PAT_AUTHOR		= _('Written +by');
 my $PAT_OPTIONS		= _('Options');
 my $PAT_EXAMPLES	= _('Examples');
@@ -567,7 +567,7 @@ and
 .B %s
 programs are properly installed at your site, the command
 .IP
-.B info coreutils '%s invocation'
+.B info coreutils \(aq%s invocation\(aq
 .PP
 should give you access to the complete manual.
 EOT
@@ -606,6 +606,9 @@ for my $sect (@pre, (grep ! /^($filter)$/o, @include), @post)
 
 	    # Convert some latin1 chars to troff equivalents
 	    s/\xa0/\\ /g; # non-breaking space
+
+	    $sect eq 'REPORTING BUGS'
+		and s/\n(.)/\n.br\n$1/g;
 
 	    print;
 	}

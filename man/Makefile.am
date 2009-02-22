@@ -1,6 +1,6 @@
 # Make coreutils man pages.				-*-Makefile-*-
 
-# Copyright (C) 2002-2008 Free Software Foundation, Inc.
+# Copyright (C) 2002-2009 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -113,9 +113,11 @@ tac.1:		$(common_dep)	$(srcdir)/tac.x		../src/tac.c
 tail.1:		$(common_dep)	$(srcdir)/tail.x	../src/tail.c
 tee.1:		$(common_dep)	$(srcdir)/tee.x		../src/tee.c
 test.1:		$(common_dep)	$(srcdir)/test.x	../src/test.c
+timeout.1:	$(common_dep)	$(srcdir)/timeout.x	../src/timeout.c
 touch.1:	$(common_dep)	$(srcdir)/touch.x	../src/touch.c
 tr.1:		$(common_dep)	$(srcdir)/tr.x		../src/tr.c
 true.1:		$(common_dep)	$(srcdir)/true.x	../src/true.c
+truncate.1:	$(common_dep)	$(srcdir)/truncate.x	../src/truncate.c
 tsort.1:	$(common_dep)	$(srcdir)/tsort.x	../src/tsort.c
 tty.1:		$(common_dep)	$(srcdir)/tty.x		../src/tty.c
 uname.1:	$(common_dep)	$(srcdir)/uname.x	../src/uname.c
@@ -129,6 +131,10 @@ wc.1:		$(common_dep)	$(srcdir)/wc.x		../src/wc.c
 who.1:		$(common_dep)	$(srcdir)/who.x		../src/who.c
 whoami.1:	$(common_dep)	$(srcdir)/whoami.x	../src/whoami.c
 yes.1:		$(common_dep)	$(srcdir)/yes.x		../src/yes.c
+
+# This is required so that changes to e.g., emit_bug_reporting_address
+# provoke regeneration of all $(MAN) files.
+$(MAN): $(top_srcdir)/src/system.h
 
 SUFFIXES = .x .1
 
@@ -159,7 +165,6 @@ mapped_name = `echo $*|sed 's/^install$$/ginstall/; s/^test$$/[/'`
 	             --output=$t/$@ $t/$*;			\
 	       }						\
 	    && sed 's|$*\.td/||g' $t/$@ > $@			\
-	    && chmod a-w $@					\
 	    && rm -rf $t ;;					\
 	esac
 

@@ -1,5 +1,5 @@
 /* chroot -- run command or shell with special root directory
-   Copyright (C) 95, 96, 1997, 1999-2004, 2007-2008
+   Copyright (C) 95, 96, 1997, 1999-2004, 2007-2009
    Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
@@ -32,9 +32,6 @@
 
 #define AUTHORS proper_name ("Roland McGrath")
 
-/* The name this program was run with, for error messages. */
-char *program_name;
-
 void
 usage (int status)
 {
@@ -44,7 +41,7 @@ usage (int status)
   else
     {
       printf (_("\
-Usage: %s NEWROOT [COMMAND...]\n\
+Usage: %s NEWROOT [COMMAND [ARG]...]\n\
   or:  %s OPTION\n\
 "), program_name, program_name);
       fputs (_("\
@@ -66,7 +63,7 @@ int
 main (int argc, char **argv)
 {
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
@@ -74,7 +71,7 @@ main (int argc, char **argv)
   initialize_exit_failure (EXIT_FAILURE);
   atexit (close_stdout);
 
-  parse_long_options (argc, argv, PROGRAM_NAME, PACKAGE_NAME, VERSION,
+  parse_long_options (argc, argv, PROGRAM_NAME, PACKAGE_NAME, Version,
 		      usage, AUTHORS, (char const *) NULL);
   if (getopt_long (argc, argv, "+", NULL, NULL) != -1)
     usage (EXIT_FAILURE);
@@ -86,7 +83,8 @@ main (int argc, char **argv)
     }
 
   if (chroot (argv[optind]) != 0)
-    error (EXIT_FAILURE, errno, _("cannot change root directory to %s"), argv[1]);
+    error (EXIT_FAILURE, errno, _("cannot change root directory to %s"),
+	   argv[optind]);
 
   if (chdir ("/"))
     error (EXIT_FAILURE, errno, _("cannot chdir to root directory"));
@@ -96,9 +94,9 @@ main (int argc, char **argv)
       /* No command.  Run an interactive shell.  */
       char *shell = getenv ("SHELL");
       if (shell == NULL)
-	shell = "/bin/sh";
+	shell = bad_cast ("/bin/sh");
       argv[0] = shell;
-      argv[1] = "-i";
+      argv[1] = bad_cast ("-i");
       argv[2] = NULL;
     }
   else

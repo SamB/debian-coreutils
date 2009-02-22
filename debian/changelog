@@ -1,3 +1,9 @@
+coreutils (7.1-1) unstable; urgency=low
+
+  * New upstream version
+
+ -- Michael Stone <mstone@debian.org>  Sun, 22 Feb 2009 12:36:29 -0500
+
 coreutils (6.12-2) unstable; urgency=low
 
   * [77] fall back if utimensat doesn't exist (Closes: #515731)

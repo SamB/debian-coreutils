@@ -1,5 +1,5 @@
 /* id -- print real and effective UIDs and GIDs
-   Copyright (C) 1989-2008 Free Software Foundation, Inc.
+   Copyright (C) 1989-2009 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -44,9 +44,6 @@ static int just_context = 0;
 static void print_user (uid_t uid);
 static void print_full_info (const char *username);
 
-/* The name this program was run with. */
-char *program_name;
-
 /* If true, output user/group name instead of ID number. -n */
 static bool use_name = false;
 
@@ -84,7 +81,8 @@ usage (int status)
     {
       printf (_("Usage: %s [OPTION]... [USERNAME]\n"), program_name);
       fputs (_("\
-Print information for USERNAME, or the current user.\n\
+Print user and group information for the specified USERNAME,\n\
+or (when USERNAME omitted) for the current user.\n\
 \n\
   -a              ignore, for compatibility with other versions\n\
   -Z, --context   print only the security context of the current user\n\
@@ -121,7 +119,7 @@ main (int argc, char **argv)
   bool just_user = false;
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
@@ -175,11 +173,6 @@ main (int argc, char **argv)
   if (argc - optind == 1 && just_context)
     error (EXIT_FAILURE, 0,
 	   _("cannot print security context when user specified"));
-
-  if (just_context && !selinux_enabled)
-    error (EXIT_FAILURE, 0, _("\
-cannot display context when selinux not enabled or when displaying the id\n\
-of a different user"));
 
   /* If we are on a selinux-enabled kernel and no user is specified,
      get our context. Otherwise, leave the context variable alone -
@@ -273,19 +266,19 @@ print_full_info (const char *username)
   struct passwd *pwd;
   struct group *grp;
 
-  printf ("uid=%lu", (unsigned long int) ruid);
+  printf (_("uid=%lu"), (unsigned long int) ruid);
   pwd = getpwuid (ruid);
   if (pwd)
     printf ("(%s)", pwd->pw_name);
 
-  printf (" gid=%lu", (unsigned long int) rgid);
+  printf (_(" gid=%lu"), (unsigned long int) rgid);
   grp = getgrgid (rgid);
   if (grp)
     printf ("(%s)", grp->gr_name);
 
   if (euid != ruid)
     {
-      printf (" euid=%lu", (unsigned long int) euid);
+      printf (_(" euid=%lu"), (unsigned long int) euid);
       pwd = getpwuid (euid);
       if (pwd)
 	printf ("(%s)", pwd->pw_name);
@@ -293,7 +286,7 @@ print_full_info (const char *username)
 
   if (egid != rgid)
     {
-      printf (" egid=%lu", (unsigned long int) egid);
+      printf (_(" egid=%lu"), (unsigned long int) egid);
       grp = getgrgid (egid);
       if (grp)
 	printf ("(%s)", grp->gr_name);
@@ -302,7 +295,7 @@ print_full_info (const char *username)
 #if HAVE_GETGROUPS
   {
     GETGROUPS_T *groups;
-    size_t i;
+    int i;
 
     int n_groups = mgetgroups (username, (pwd ? pwd->pw_gid : (gid_t) -1),
 			       &groups);
@@ -336,5 +329,5 @@ print_full_info (const char *username)
   }
 #endif /* HAVE_GETGROUPS */
   if (context != NULL)
-    printf (" context=%s", context);
+    printf (_(" context=%s"), context);
 }

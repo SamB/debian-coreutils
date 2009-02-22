@@ -1,5 +1,5 @@
 /* setuidgid - run a command with the UID and GID of a specified user
-   Copyright (C) 2003-2008 Free Software Foundation, Inc.
+   Copyright (C) 2003-2009 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -39,8 +39,6 @@
 
 #define SETUIDGID_FAILURE 111
 
-char *program_name;
-
 void
 usage (int status)
 {
@@ -50,8 +48,8 @@ usage (int status)
   else
     {
       printf (_("\
-Usage: %s OPTION USER COMMAND [ARGUMENT]...\n\
-  or:  %s OPTION\n\
+Usage: %s [SHORT-OPTION]... USER COMMAND [ARGUMENT]...\n\
+  or:  %s LONG-OPTION\n\
 "),
               program_name, program_name);
 
@@ -84,7 +82,7 @@ main (int argc, char **argv)
   gid_t primary_gid;
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
@@ -92,7 +90,7 @@ main (int argc, char **argv)
   initialize_exit_failure (SETUIDGID_FAILURE);
   atexit (close_stdout);
 
-  parse_long_options (argc, argv, PROGRAM_NAME, PACKAGE_NAME, VERSION,
+  parse_long_options (argc, argv, PROGRAM_NAME, PACKAGE_NAME, Version,
                       usage, AUTHORS, (char const *) NULL);
   {
     int c;

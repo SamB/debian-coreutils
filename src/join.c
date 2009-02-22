@@ -24,7 +24,6 @@
 
 #include "system.h"
 #include "error.h"
-#include "hard-locale.h"
 #include "linebuffer.h"
 #include "memcasecmp.h"
 #include "quote.h"
@@ -39,6 +38,12 @@
 #define AUTHORS proper_name ("Mike Haertel")
 
 #define join system_join
+
+#define SWAPLINES(a, b) do { \
+  struct line *tmp = a; \
+  a = b; \
+  b = tmp; \
+} while (0);
 
 /* An element of the list identifying which fields to print for each
    output line.  */
@@ -76,14 +81,16 @@ struct seq
   {
     size_t count;			/* Elements used in `lines'.  */
     size_t alloc;			/* Elements allocated in `lines'.  */
-    struct line *lines;
+    struct line **lines;
   };
 
-/* The name this program was run with.  */
-char *program_name;
-
 /* The previous line read from each file. */
-static struct line *prevline[2];
+static struct line *prevline[2] = {NULL, NULL};
+
+/* This provides an extra line buffer for each file.  We need these if we
+   try to read two consecutive lines into the same buffer, since we don't
+   want to overwrite the previous buffer before we check order. */
+static struct line *spareline[2] = {NULL, NULL};
 
 /* True if the LC_COLLATE locale is hard.  */
 static bool hard_LC_COLLATE;
@@ -260,33 +267,6 @@ xfields (struct line *line)
   extract_field (line, ptr, lim - ptr);
 }
 
-static struct line *
-dup_line (const struct line *old)
-{
-  struct line *newline = xmalloc (sizeof *newline);
-  size_t i;
-
-  /* Duplicate the buffer. */
-  initbuffer (&newline->buf);
-  newline->buf.buffer = xmalloc (old->buf.size);
-  newline->buf.size = old->buf.size;
-  memcpy (newline->buf.buffer, old->buf.buffer, old->buf.length);
-  newline->buf.length = old->buf.length;
-
-  /* Duplicate the field positions. */
-  newline->fields = xnmalloc (old->nfields_allocated, sizeof *newline->fields);
-  newline->nfields = old->nfields;
-  newline->nfields_allocated = old->nfields_allocated;
-
-  for (i = 0; i < old->nfields; i++)
-    {
-      newline->fields[i].len = old->fields[i].len;
-      newline->fields[i].beg = newline->buf.buffer + (old->fields[i].beg
-						      - old->buf.buffer);
-    }
-  return newline;
-}
-
 static void
 freeline (struct line *line)
 {
@@ -383,7 +363,7 @@ check_order (const struct line *prev,
 	    {
 	      error ((check_input_order == CHECK_ORDER_ENABLED
 		      ? EXIT_FAILURE : 0),
-		     0, _("File %d is not in sorted order"), whatfile);
+		     0, _("file %d is not in sorted order"), whatfile);
 
 	      /* If we get to here, the message was just a warning, but we
 		 want only to issue it once. */
@@ -393,49 +373,69 @@ check_order (const struct line *prev,
     }
 }
 
+static inline void
+reset_line (struct line *line)
+{
+  line->nfields = 0;
+}
+
+static struct line *
+init_linep (struct line **linep)
+{
+  struct line *line = xmalloc (sizeof *line);
+  memset (line, '\0', sizeof *line);
+  *linep = line;
+  return line;
+}
+
 /* Read a line from FP into LINE and split it into fields.
    Return true if successful.  */
 
 static bool
-get_line (FILE *fp, struct line *line, int which)
+get_line (FILE *fp, struct line **linep, int which)
 {
-  initbuffer (&line->buf);
+  struct line *line = *linep;
+
+  if (line == prevline[which - 1])
+    {
+      SWAPLINES (line, spareline[which - 1]);
+      *linep = line;
+    }
+
+  if (line)
+    reset_line (line);
+  else
+    line = init_linep (linep);
 
   if (! readlinebuffer (&line->buf, fp))
     {
       if (ferror (fp))
 	error (EXIT_FAILURE, errno, _("read error"));
-      free (line->buf.buffer);
-      line->buf.buffer = NULL;
+      freeline (line);
       return false;
     }
 
-  line->nfields_allocated = 0;
-  line->nfields = 0;
-  line->fields = NULL;
   xfields (line);
 
   if (prevline[which - 1])
-    {
-      check_order (prevline[which - 1], line, which);
-      freeline (prevline[which - 1]);
-      free (prevline[which - 1]);
-    }
-  prevline[which - 1] = dup_line (line);
+    check_order (prevline[which - 1], line, which);
+
+  prevline[which - 1] = line;
   return true;
 }
 
 static void
-free_prevline (void)
+free_spareline (void)
 {
   size_t i;
 
-  for (i = 0; i < ARRAY_CARDINALITY (prevline); i++)
+  for (i = 0; i < ARRAY_CARDINALITY (spareline); i++)
     {
-      if (prevline[i])
-	freeline (prevline[i]);
-      free (prevline[i]);
-      prevline[i] = NULL;
+      if (spareline[i])
+	{
+	  freeline (spareline[i]);
+	  free (spareline[i]);
+	}
     }
 }
 
@@ -453,7 +453,12 @@ static bool
 getseq (FILE *fp, struct seq *seq, int whichfile)
 {
   if (seq->count == seq->alloc)
-    seq->lines = X2NREALLOC (seq->lines, &seq->alloc);
+    {
+      size_t i;
+      seq->lines = X2NREALLOC (seq->lines, &seq->alloc);
+      for (i = seq->count; i < seq->alloc; i++)
+	seq->lines[i] = NULL;
+    }
 
   if (get_line (fp, &seq->lines[seq->count], whichfile))
     {
@@ -469,10 +474,8 @@ static bool
 advance_seq (FILE *fp, struct seq *seq, bool first, int whichfile)
 {
   if (first)
-    {
-      freeline (&seq->lines[0]);
-      seq->count = 0;
-    }
+    seq->count = 0;
+
   return getseq (fp, seq, whichfile);
 }
 
@@ -480,9 +483,13 @@ static void
 delseq (struct seq *seq)
 {
   size_t i;
-  for (i = 0; i < seq->count; i++)
-    if (seq->lines[i].buf.buffer)
-      freeline (&seq->lines[i]);
+  for (i = 0; i < seq->alloc; i++)
+    if (seq->lines[i])
+      {
+	if (seq->lines[i]->buf.buffer)
+	  freeline (seq->lines[i]);
+	free (seq->lines[i]);
+      }
   free (seq->lines);
 }
 
@@ -595,9 +602,11 @@ static void
 join (FILE *fp1, FILE *fp2)
 {
   struct seq seq1, seq2;
-  struct line line;
+  struct line **linep = xmalloc (sizeof *linep);
   int diff;
   bool eof1, eof2, checktail;
+
+  *linep = NULL;
 
   /* Read the first line of each file.  */
   initseq (&seq1);
@@ -608,12 +617,12 @@ join (FILE *fp1, FILE *fp2)
   while (seq1.count && seq2.count)
     {
       size_t i;
-      diff = keycmp (&seq1.lines[0], &seq2.lines[0],
+      diff = keycmp (seq1.lines[0], seq2.lines[0],
 		     join_field_1, join_field_2);
       if (diff < 0)
 	{
 	  if (print_unpairables_1)
-	    prjoin (&seq1.lines[0], &uni_blank);
+	    prjoin (seq1.lines[0], &uni_blank);
 	  advance_seq (fp1, &seq1, true, 1);
 	  seen_unpairable = true;
 	  continue;
@@ -621,7 +630,7 @@ join (FILE *fp1, FILE *fp2)
       if (diff > 0)
 	{
 	  if (print_unpairables_2)
-	    prjoin (&uni_blank, &seq2.lines[0]);
+	    prjoin (&uni_blank, seq2.lines[0]);
 	  advance_seq (fp2, &seq2, true, 2);
 	  seen_unpairable = true;
 	  continue;
@@ -637,7 +646,7 @@ join (FILE *fp1, FILE *fp2)
 	    ++seq1.count;
 	    break;
 	  }
-      while (!keycmp (&seq1.lines[seq1.count - 1], &seq2.lines[0],
+      while (!keycmp (seq1.lines[seq1.count - 1], seq2.lines[0],
 		      join_field_1, join_field_2));
 
       /* Keep reading lines from file2 as long as they continue to
@@ -650,7 +659,7 @@ join (FILE *fp1, FILE *fp2)
 	    ++seq2.count;
 	    break;
 	  }
-      while (!keycmp (&seq1.lines[0], &seq2.lines[seq2.count - 1],
+      while (!keycmp (seq1.lines[0], seq2.lines[seq2.count - 1],
 		      join_field_1, join_field_2));
 
       if (print_pairables)
@@ -659,25 +668,21 @@ join (FILE *fp1, FILE *fp2)
 	    {
 	      size_t j;
 	      for (j = 0; j < seq2.count - 1; ++j)
-		prjoin (&seq1.lines[i], &seq2.lines[j]);
+		prjoin (seq1.lines[i], seq2.lines[j]);
 	    }
 	}
 
-      for (i = 0; i < seq1.count - 1; ++i)
-	freeline (&seq1.lines[i]);
       if (!eof1)
 	{
-	  seq1.lines[0] = seq1.lines[seq1.count - 1];
+	  SWAPLINES (seq1.lines[0], seq1.lines[seq1.count - 1]);
 	  seq1.count = 1;
 	}
       else
 	seq1.count = 0;
 
-      for (i = 0; i < seq2.count - 1; ++i)
-	freeline (&seq2.lines[i]);
       if (!eof2)
 	{
-	  seq2.lines[0] = seq2.lines[seq2.count - 1];
+	  SWAPLINES (seq2.lines[0], seq2.lines[seq2.count - 1]);
 	  seq2.count = 1;
 	}
       else
@@ -697,14 +702,12 @@ join (FILE *fp1, FILE *fp2)
   if ((print_unpairables_1 || checktail) && seq1.count)
     {
       if (print_unpairables_1)
-	prjoin (&seq1.lines[0], &uni_blank);
-      freeline (&seq1.lines[0]);
+	prjoin (seq1.lines[0], &uni_blank);
       seen_unpairable = true;
-      while (get_line (fp1, &line, 1))
+      while (get_line (fp1, linep, 1))
 	{
 	  if (print_unpairables_1)
-	    prjoin (&line, &uni_blank);
-	  freeline (&line);
+	    prjoin (*linep, &uni_blank);
 	  if (issued_disorder_warning[0] && !print_unpairables_1)
 	    break;
 	}
@@ -713,19 +716,20 @@ join (FILE *fp1, FILE *fp2)
   if ((print_unpairables_2 || checktail) && seq2.count)
     {
       if (print_unpairables_2)
-	prjoin (&uni_blank, &seq2.lines[0]);
-      freeline (&seq2.lines[0]);
+	prjoin (&uni_blank, seq2.lines[0]);
       seen_unpairable = true;
-      while (get_line (fp2, &line, 2))
+      while (get_line (fp2, linep, 2))
 	{
 	  if (print_unpairables_2)
-	    prjoin (&uni_blank, &line);
-	  freeline (&line);
+	    prjoin (&uni_blank, *linep);
 	  if (issued_disorder_warning[1] && !print_unpairables_2)
 	    break;
 	}
     }
 
+  free (*linep);
+
+  free (linep);
   delseq (&seq1);
   delseq (&seq2);
 }
@@ -934,14 +938,14 @@ main (int argc, char **argv)
   int i;
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
   hard_LC_COLLATE = hard_locale (LC_COLLATE);
 
   atexit (close_stdout);
-  atexit (free_prevline);
+  atexit (free_spareline);
 
   print_pairables = true;
   seen_unpairable = false;

@@ -2,7 +2,7 @@
 
 /* Modified to run with the GNU shell by bfox. */
 
-/* Copyright (C) 1987-2005, 2007-2008 Free Software Foundation, Inc.
+/* Copyright (C) 1987-2005, 2007-2009 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -38,8 +38,6 @@
 #endif
 
 #include "system.h"
-#include "euidaccess.h"
-#include "inttostr.h"
 #include "quote.h"
 #include "stat-time.h"
 #include "strnumcmp.h"
@@ -47,8 +45,6 @@
 #if HAVE_SYS_PARAM_H
 # include <sys/param.h>
 #endif
-
-char *program_name;
 
 /* Exit status for syntax errors, etc.  */
 enum { TEST_TRUE, TEST_FALSE, TEST_FAILURE };
@@ -677,7 +673,6 @@ posixtest (int nargs)
 }
 
 #if defined TEST_STANDALONE
-# include "long-options.h"
 
 void
 usage (int status)
@@ -809,7 +804,7 @@ main (int margc, char **margv)
     return (test_error_return);
 #else /* TEST_STANDALONE */
   initialize_main (&margc, &margv);
-  program_name = margv[0];
+  set_program_name (margv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
@@ -823,16 +818,25 @@ main (int margc, char **margv)
   if (LBRACKET)
     {
       /* Recognize --help or --version, but only when invoked in the
-	 "[" form, and when the last argument is not "]".  POSIX
-	 allows "[ --help" and "[ --version" to have the usual GNU
-	 behavior, but it requires "test --help" and "test --version"
-	 to exit silently with status 0.  */
-      if (margc < 2 || !STREQ (margv[margc - 1], "]"))
+	 "[" form, when the last argument is not "]".  Use direct
+	 parsing, rather than parse_long_options, to avoid accepting
+	 abbreviations.  POSIX allows "[ --help" and "[ --version" to
+	 have the usual GNU behavior, but it requires "test --help"
+	 and "test --version" to exit silently with status 0.  */
+      if (margc == 2)
 	{
-	  parse_long_options (margc, margv, PROGRAM_NAME, PACKAGE_NAME, VERSION,
-			      usage, AUTHORS, (char const *) NULL);
-	  test_syntax_error (_("missing `]'"), NULL);
+	  if (STREQ (margv[1], "--help"))
+	    usage (EXIT_SUCCESS);
+
+	  if (STREQ (margv[1], "--version"))
+	    {
+	      version_etc (stdout, PROGRAM_NAME, PACKAGE_NAME, Version, AUTHORS,
+			   (char *) NULL);
+	      test_exit (EXIT_SUCCESS);
+	    }
 	}
+      if (margc < 2 || !STREQ (margv[margc - 1], "]"))
+	test_syntax_error (_("missing `]'"), NULL);
 
       --margc;
     }

@@ -1,5 +1,5 @@
 /* chgrp -- change group ownership of files
-   Copyright (C) 89, 90, 91, 1995-2008 Free Software Foundation, Inc.
+   Copyright (C) 89, 90, 91, 1995-2009 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -41,9 +41,6 @@
 #if ! HAVE_ENDGRENT
 # define endgrent() ((void) 0)
 #endif
-
-/* The name the program was run with. */
-char *program_name;
 
 /* The argument to the --reference option.  Use the group ID of this file.
    This file must exist.  */
@@ -184,7 +181,7 @@ main (int argc, char **argv)
   int optc;
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
@@ -305,6 +302,7 @@ main (int argc, char **argv)
 	       quote ("/"));
     }
 
+  bit_flags |= FTS_DEFER_STAT;
   ok = chown_files (argv + optind, bit_flags,
 		    (uid_t) -1, gid,
 		    (uid_t) -1, (gid_t) -1, &chopt);

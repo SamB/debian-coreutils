@@ -35,29 +35,6 @@
   proper_name ("Russell Coker"), \
   proper_name ("Jim Meyering")
 
-enum Change_status
-{
-  CH_NOT_APPLIED,
-  CH_SUCCEEDED,
-  CH_FAILED,
-  CH_NO_CHANGE_REQUESTED
-};
-
-enum Verbosity
-{
-  /* Print a message for each file that is processed.  */
-  V_high,
-
-  /* Print a message for each file whose attributes we change.  */
-  V_changes_only,
-
-  /* Do not be verbose.  This is the default. */
-  V_off
-};
-
-/* The name the program was run with. */
-char *program_name;
-
 /* If nonzero, and the systems has support for it, change the context
    of symbolic links rather than any files they point to.  */
 static bool affect_symlink_referent;
@@ -303,7 +280,7 @@ process_file (FTS *fts, FTSENT *ent)
   if (ok)
     {
       if (verbose)
-	printf (_("changing security context of %s"),
+	printf (_("changing security context of %s\n"),
 		quote (file_full_name));
 
       if (change_file_context (fts->fts_cwd_fd, file) != 0)
@@ -372,7 +349,6 @@ Usage: %s [OPTION]... CONTEXT FILE...\n\
 Change the security context of each FILE to CONTEXT.\n\
 With --reference, change the security context of each FILE to that of RFILE.\n\
 \n\
-  -c, --changes          like verbose but report only when a change is made\n\
   -h, --no-dereference   affect symbolic links instead of any referenced file\n\
 "), stdout);
       fputs (_("\
@@ -426,14 +402,14 @@ main (int argc, char **argv)
   int optc;
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
 
   atexit (close_stdout);
 
-  while ((optc = getopt_long (argc, argv, "HLPRchvu:r:t:l:", long_options, NULL))
+  while ((optc = getopt_long (argc, argv, "HLPRhvu:r:t:l:", long_options, NULL))
 	 != -1)
     {
       switch (optc)

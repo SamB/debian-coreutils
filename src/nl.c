@@ -1,5 +1,5 @@
 /* nl -- number lines of files
-   Copyright (C) 89, 92, 1995-2008 Free Software Foundation, Inc.
+   Copyright (C) 89, 92, 1995-2009 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -60,9 +60,6 @@ enum section
 {
   Header, Body, Footer, Text
 };
-
-/* The name this program was run with. */
-char *program_name;
 
 /* Format of body lines (-b).  */
 static char const *body_type = "t";
@@ -201,7 +198,7 @@ Mandatory arguments to long options are mandatory for short options too.\n\
   -s, --number-separator=STRING   add STRING after (possible) line number\n\
 "), stdout);
       fputs (_("\
-  -v, --first-page=NUMBER         first line number on each logical page\n\
+  -v, --starting-line-number=NUMBER  first line number on each logical page\n\
   -w, --number-width=NUMBER       use NUMBER columns for line numbers\n\
 "), stdout);
       fputs (HELP_OPTION_DESCRIPTION, stdout);
@@ -460,7 +457,7 @@ main (int argc, char **argv)
   bool ok = true;
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);

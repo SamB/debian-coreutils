@@ -55,9 +55,6 @@
 # define NZERO 20
 #endif
 
-/* The name this program was run with. */
-char *program_name;
-
 static struct option const longopts[] =
 {
   {"adjustment", required_argument, NULL, 'n'},
@@ -99,7 +96,7 @@ main (int argc, char **argv)
   int i;
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
@@ -107,7 +104,7 @@ main (int argc, char **argv)
   initialize_exit_failure (EXIT_FAILURE);
   atexit (close_stdout);
 
-  parse_long_options (argc, argv, PROGRAM_NAME, PACKAGE_NAME, VERSION,
+  parse_long_options (argc, argv, PROGRAM_NAME, PACKAGE_NAME, Version,
 		      usage, AUTHORS, (char const *) NULL);
 
   for (i = 1; i < argc; /* empty */)
@@ -126,7 +123,7 @@ main (int argc, char **argv)
 	  char **fake_argv = argv + (i - 1);
 
 	  /* Ensure that any getopt diagnostics use the right name.  */
-	  fake_argv[0] = program_name;
+	  fake_argv[0] = argv[0];
 
 	  /* Initialize getopt_long's internal state.  */
 	  optind = 0;

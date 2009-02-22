@@ -27,7 +27,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "isnand.h"
+#include "isnand-nolibm.h"
 #include "nan.h"
 
 /* Avoid some warnings from "gcc -Wshadow".
@@ -46,6 +46,10 @@
         }								     \
     }									     \
   while (0)
+
+/* HP cc on HP-UX 10.20 has a bug with the constant expression -0.0.
+   So we use -zero instead.  */
+double zero = 0.0;
 
 static double
 my_ldexp (double x, int d)
@@ -105,7 +109,7 @@ main ()
   { /* Negative zero.  */
     int exp = -9999;
     double mantissa;
-    x = -0.0;
+    x = -zero;
     mantissa = frexp (x, &exp);
     ASSERT (exp == 0);
     ASSERT (mantissa == x);

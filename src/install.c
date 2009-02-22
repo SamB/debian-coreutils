@@ -1,5 +1,5 @@
 /* install - copy files and set attributes
-   Copyright (C) 89, 90, 91, 1995-2008 Free Software Foundation, Inc.
+   Copyright (C) 89, 90, 91, 1995-2009 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -31,6 +31,7 @@
 #include "cp-hash.h"
 #include "copy.h"
 #include "filenamecat.h"
+#include "full-read.h"
 #include "mkancesdirs.h"
 #include "mkdir-p.h"
 #include "modechange.h"
@@ -66,6 +67,10 @@ static bool use_default_selinux_context = true;
 # define lchown(name, uid, gid) chown (name, uid, gid)
 #endif
 
+#if ! HAVE_MATCHPATHCON_INIT_PREFIX
+# define matchpathcon_init_prefix(a, p) /* empty */
+#endif
+
 /* Initial number of entries in each hash table entry's table of inodes.  */
 #define INITIAL_HASH_MODULE 100
 
@@ -91,9 +96,6 @@ static void announce_mkdir (char const *dir, void *options);
 static int make_ancestor (char const *dir, char const *component,
 			  void *options);
 void usage (int status);
-
-/* The name this program was run with, for error messages. */
-char *program_name;
 
 /* The user name that will own the files, or NULL to make the owner
    the current user ID. */
@@ -124,22 +126,30 @@ static mode_t dir_mode = DEFAULT_MODE;
    or S_ISGID bits.  */
 static mode_t dir_mode_bits = CHMOD_MODE_BITS;
 
+/* Compare files before installing (-C) */
+static bool copy_only_if_needed;
+
 /* If true, strip executable files after copying them. */
 static bool strip_files;
 
 /* If true, install a directory instead of a regular file. */
 static bool dir_arg;
 
+/* Program used to strip binaries, "strip" is default */
+static char const *strip_program = "strip";
+
 /* For long options that have no equivalent short option, use a
    non-character as a pseudo short option, starting with CHAR_MAX + 1.  */
 enum
 {
-  PRESERVE_CONTEXT_OPTION = CHAR_MAX + 1
+  PRESERVE_CONTEXT_OPTION = CHAR_MAX + 1,
+  STRIP_PROGRAM_OPTION
 };
 
 static struct option const long_options[] =
 {
   {"backup", optional_argument, NULL, 'b'},
+  {"compare", no_argument, NULL, 'C'},
   {GETOPT_SELINUX_CONTEXT_OPTION_DECL},
   {"directory", no_argument, NULL, 'd'},
   {"group", required_argument, NULL, 'g'},
@@ -153,6 +163,7 @@ static struct option const long_options[] =
      a year or two later.  */
   {"preserve_context", no_argument, NULL, PRESERVE_CONTEXT_OPTION},
   {"strip", no_argument, NULL, 's'},
+  {"strip-program", required_argument, NULL, STRIP_PROGRAM_OPTION},
   {"suffix", required_argument, NULL, 'S'},
   {"target-directory", required_argument, NULL, 't'},
   {"verbose", no_argument, NULL, 'v'},
@@ -160,6 +171,107 @@ static struct option const long_options[] =
   {GETOPT_VERSION_OPTION_DECL},
   {NULL, 0, NULL, 0}
 };
+
+/* Compare content of opened files using file descriptors A_FD and B_FD. Return
+   true if files are equal. */
+static bool
+have_same_content (int a_fd, int b_fd)
+{
+  enum { CMP_BLOCK_SIZE = 4096 };
+  static char a_buff[CMP_BLOCK_SIZE];
+  static char b_buff[CMP_BLOCK_SIZE];
+
+  size_t size;
+  while (0 < (size = full_read (a_fd, a_buff, sizeof a_buff))) {
+    if (size != full_read (b_fd, b_buff, sizeof b_buff))
+      return false;
+
+    if (memcmp (a_buff, b_buff, size) != 0)
+      return false;
+  }
+
+  return size == 0;
+}
+
+/* Return true for mode with non-permission bits. */
+static bool
+extra_mode (mode_t input)
+{
+  const mode_t mask = ~S_IRWXUGO & ~S_IFMT;
+  return input & mask;
+}
+
+/* Return true if copy of file SRC_NAME to file DEST_NAME is necessary. */
+static bool
+need_copy (const char *src_name, const char *dest_name,
+	   const struct cp_options *x)
+{
+  struct stat src_sb, dest_sb;
+  int src_fd, dest_fd;
+  bool content_match;
+
+  if (extra_mode (mode))
+    return true;
+
+  /* compare files using stat */
+  if (lstat (src_name, &src_sb) != 0)
+    return true;
+
+  if (lstat (dest_name, &dest_sb) != 0)
+    return true;
+
+  if (!S_ISREG (src_sb.st_mode) || !S_ISREG (dest_sb.st_mode)
+      || extra_mode (src_sb.st_mode) || extra_mode (dest_sb.st_mode))
+    return true;
+
+  if (src_sb.st_size != dest_sb.st_size
+      || (dest_sb.st_mode & CHMOD_MODE_BITS) != mode
+      || dest_sb.st_uid != (owner_id == (uid_t) -1 ? getuid () : owner_id)
+      || dest_sb.st_gid != (group_id == (gid_t) -1 ? getgid () : group_id))
+    return true;
+
+  /* compare SELinux context if preserving */
+  if (selinux_enabled && x->preserve_security_context)
+    {
+      security_context_t file_scontext = NULL;
+      security_context_t to_scontext = NULL;
+      bool scontext_match;
+
+      if (getfilecon (src_name, &file_scontext) == -1)
+	return true;
+
+      if (getfilecon (dest_name, &to_scontext) == -1)
+	{
+	  freecon (file_scontext);
+	  return true;
+	}
+
+      scontext_match = STREQ (file_scontext, to_scontext);
+
+      freecon (file_scontext);
+      freecon (to_scontext);
+      if (!scontext_match)
+	return true;
+    }
+
+  /* compare files content */
+  src_fd = open (src_name, O_RDONLY | O_BINARY);
+  if (src_fd < 0)
+    return true;
+
+  dest_fd = open (dest_name, O_RDONLY | O_BINARY);
+  if (dest_fd < 0)
+    {
+      close (src_fd);
+      return true;
+    }
+
+  content_match = have_same_content (src_fd, dest_fd);
+
+  close (src_fd);
+  close (dest_fd);
+  return !content_match;
+}
 
 static void
 cp_option_init (struct cp_options *x)
@@ -177,8 +289,10 @@ cp_option_init (struct cp_options *x)
   x->preserve_links = false;
   x->preserve_mode = false;
   x->preserve_timestamps = false;
+  x->reduce_diagnostics=false;
   x->require_preserve = false;
   x->require_preserve_context = false;
+  x->require_preserve_xattr = false;
   x->recursive = false;
   x->sparse_mode = SPARSE_AUTO;
   x->symbolic_link = false;
@@ -194,6 +308,7 @@ cp_option_init (struct cp_options *x)
   x->open_dangling_dest_symlink = false;
   x->update = false;
   x->preserve_security_context = false;
+  x->preserve_xattr = false;
   x->verbose = false;
   x->dest_info = NULL;
   x->src_info = NULL;
@@ -329,12 +444,13 @@ main (int argc, char **argv)
   bool no_target_directory = false;
   int n_files;
   char **file;
+  bool strip_program_specified = false;
   security_context_t scontext = NULL;
   /* set iff kernel has extra selinux system calls */
   selinux_enabled = (0 < is_selinux_enabled ());
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
@@ -353,7 +469,7 @@ main (int argc, char **argv)
      we'll actually use backup_suffix_string.  */
   backup_suffix_string = getenv ("SIMPLE_BACKUP_SUFFIX");
 
-  while ((optc = getopt_long (argc, argv, "bcsDdg:m:o:pt:TvS:Z:", long_options,
+  while ((optc = getopt_long (argc, argv, "bcCsDdg:m:o:pt:TvS:Z:", long_options,
 			      NULL)) != -1)
     {
       switch (optc)
@@ -365,12 +481,19 @@ main (int argc, char **argv)
 	  break;
 	case 'c':
 	  break;
+	case 'C':
+	  copy_only_if_needed = true;
+	  break;
 	case 's':
 	  strip_files = true;
 #ifdef SIGCHLD
 	  /* System V fork+wait does not work if SIGCHLD is ignored.  */
 	  signal (SIGCHLD, SIG_DFL);
 #endif
+	  break;
+	case STRIP_PROGRAM_OPTION:
+	  strip_program = xstrdup (optarg);
+	  strip_program_specified = true;
 	  break;
 	case 'd':
 	  dir_arg = true;
@@ -419,8 +542,8 @@ main (int argc, char **argv)
 	case PRESERVE_CONTEXT_OPTION:
 	  if ( ! selinux_enabled)
 	    {
-	      error (0, 0, _("Warning: ignoring --preserve-context; "
-			     "this kernel is not SELinux-enabled."));
+	      error (0, 0, _("WARNING: ignoring --preserve-context; "
+			     "this kernel is not SELinux-enabled"));
 	      break;
 	    }
 	  x.preserve_security_context = true;
@@ -429,8 +552,8 @@ main (int argc, char **argv)
 	case 'Z':
 	  if ( ! selinux_enabled)
 	    {
-	      error (0, 0, _("Warning: ignoring --context (-Z); "
-			     "this kernel is not SELinux-enabled."));
+	      error (0, 0, _("WARNING: ignoring --context (-Z); "
+			     "this kernel is not SELinux-enabled"));
 	      break;
 	    }
 	  scontext = optarg;
@@ -486,7 +609,7 @@ main (int argc, char **argv)
     {
       if (target_directory)
 	error (EXIT_FAILURE, 0,
-	       _("Cannot combine --target-directory (-t) "
+	       _("cannot combine --target-directory (-t) "
 		 "and --no-target-directory (-T)"));
       if (2 < n_files)
 	{
@@ -512,6 +635,28 @@ main (int argc, char **argv)
       dir_mode = mode_adjust (0, true, 0, change, &dir_mode_bits);
       free (change);
     }
+
+  if (strip_program_specified && !strip_files)
+    error (0, 0, _("WARNING: ignoring --strip-program option as -s option was "
+		   "not specified"));
+
+  if (copy_only_if_needed && x.preserve_timestamps)
+    {
+      error (0, 0, _("options --compare (-C) and --preserve-timestamps are "
+		     "mutually exclusive"));
+      usage (EXIT_FAILURE);
+    }
+
+  if (copy_only_if_needed && strip_files)
+    {
+      error (0, 0, _("options --compare (-C) and --strip are mutually "
+		     "exclusive"));
+      usage (EXIT_FAILURE);
+    }
+
+  if (copy_only_if_needed && extra_mode (mode))
+    error (0, 0, _("the --compare (-C) option is ignored when you"
+		   " specify a mode with non-permission bits"));
 
   get_ids ();
 
@@ -629,6 +774,9 @@ copy_file (const char *from, const char *to, const struct cp_options *x)
 {
   bool copy_into_self;
 
+  if (copy_only_if_needed && !need_copy (from, to, x))
+    return true;
+
   /* Allow installing from non-regular files like /dev/null.
      Charles Karney reported that some Sun version of install allows that
      and that sendmail's installation process relies on the behavior.
@@ -707,8 +855,8 @@ strip (char const *name)
       error (EXIT_FAILURE, errno, _("fork system call failed"));
       break;
     case 0:			/* Child. */
-      execlp ("strip", "strip", name, NULL);
-      error (EXIT_FAILURE, errno, _("cannot run strip"));
+      execlp (strip_program, strip_program, name, NULL);
+      error (EXIT_FAILURE, errno, _("cannot run %s"), strip_program);
       break;
     default:			/* Parent. */
       if (waitpid (pid, &status, 0) < 0)
@@ -801,6 +949,12 @@ Usage: %s [OPTION]... [-T] SOURCE DEST\n\
 "),
 	      program_name, program_name, program_name, program_name);
       fputs (_("\
+\n\
+This install program copies files (often just compiled) into destination\n\
+locations you choose.  If you want to download and install a ready-to-use\n\
+package on a GNU/Linux system, you should instead be using a package manager\n\
+like yum(1) or apt-get(1).\n\
+\n\
 In the first three forms, copy SOURCE to DEST or multiple SOURCE(s) to\n\
 the existing DIRECTORY, while setting permission modes and owner/group.\n\
 In the 4th form, create all components of the given DIRECTORY(ies).\n\
@@ -813,6 +967,8 @@ Mandatory arguments to long options are mandatory for short options too.\n\
       --backup[=CONTROL]  make a backup of each existing destination file\n\
   -b                  like --backup but does not accept an argument\n\
   -c                  (ignored)\n\
+  -C, --compare       compare each pair of source and destination files, and\n\
+                        in some cases, do not modify the destination at all\n\
   -d, --directory     treat all arguments as directory names; create all\n\
                         components of the specified directories\n\
 "), stdout);
@@ -827,6 +983,7 @@ Mandatory arguments to long options are mandatory for short options too.\n\
   -p, --preserve-timestamps   apply access/modification times of SOURCE files\n\
                         to corresponding destination files\n\
   -s, --strip         strip symbol tables\n\
+      --strip-program=PROGRAM  program used to strip binaries\n\
   -S, --suffix=SUFFIX  override the usual backup suffix\n\
   -t, --target-directory=DIRECTORY  copy all SOURCE arguments into DIRECTORY\n\
   -T, --no-target-directory  treat DEST as a normal file\n\

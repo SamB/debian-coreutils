@@ -1,17 +1,39 @@
 # source this file; set up for tests
 
+# Copyright (C) 2009 Free Software Foundation, Inc.
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 # Skip this test if the shell lacks support for functions.
 unset function_test
 eval 'function_test() { return 11; }; function_test'
 if test $? != 11; then
   echo "$0: /bin/sh lacks support for functions; skipping this test." 1>&2
-  (exit 77); exit 77
+  Exit 77
 fi
 
 skip_test_()
 {
   echo "$0: skipping test: $@" 1>&2
-  (exit 77); exit 77
+  Exit 77
+}
+
+getlimits_()
+{
+    eval $(getlimits)
+    test "$INT_MAX" ||
+    error_ "Error running getlimits"
 }
 
 require_acl_()
@@ -55,6 +77,18 @@ require_strace_()
 
   strace -qe "$1" echo > /dev/null 2>&1 ||
     skip_test_ 'strace -qe "'"$1"'" does not work'
+}
+
+# Require a controlling input `terminal'.
+require_controlling_input_terminal_()
+{
+  tty -s || have_input_tty=no
+  test -t 0 || have_input_tty=no
+  if test "$have_input_tty" = no; then
+    skip_test_ "This test must have a controlling input \`terminal'," \
+      "so it may not be run via \`batch', \`at', or \`rsh'." \
+      "On some systems, it may not even be run in the background."
+  fi
 }
 
 require_built_()
@@ -171,7 +205,7 @@ require_root_()
 }
 
 skip_if_root_() { uid_is_privileged_ && skip_test_ "must be run as non-root"; }
-error_() { echo "$0: $@" 1>&2; (exit 1); exit 1; }
+error_() { echo "$0: $@" 1>&2; Exit 1; }
 framework_failure() { error_ 'failure in testing framework'; }
 
 # Set `groups' to a space-separated list of at least two groups
@@ -233,11 +267,11 @@ skip_if_mcstransd_is_running_()
   # When mcstransd is running, you'll see only the 3-component
   # version of file-system context strings.  Detect that,
   # and if it's running, skip this test.
-  local ctx=$(stat --printf='%C\n' .) || framework_failure
-  case $ctx in
+  __ctx=$(stat --printf='%C\n' .) || framework_failure
+  case $__ctx in
     *:*:*:*) ;; # four components is ok
     *) # anything else probably means mcstransd is running
-        skip_test_ "unexpected context '$ctx'; turn off mcstransd" ;;
+        skip_test_ "unexpected context '$__ctx'; turn off mcstransd" ;;
   esac
 }
 
@@ -258,6 +292,18 @@ working_umask_or_skip_()
   esac
 }
 
+# We use a trap below for cleanup.  This requires us to go through
+# hoops to get the right exit status transported through the signal.
+# So use `Exit STATUS' instead of `exit STATUS' inside of the tests.
+# Turn off errexit here so that we don't trip the bug with OSF1/Tru64
+# sh inside this function.
+Exit ()
+{
+  set +e
+  (exit $1)
+  exit $1
+}
+
 test_dir_=$(pwd)
 
 this_test_() { echo "./$0" | sed 's,.*/,,'; }
@@ -271,11 +317,17 @@ cleanup_() { :; }
 t_=$("$abs_top_builddir/src/mktemp" -d --tmp="$test_dir_" cu-$this_test.XXXXXXXXXX)\
     || error_ "failed to create temporary directory in $test_dir_"
 
+remove_tmp_()
+{
+  __st=$?
+  cleanup_
+  cd "$test_dir_" && chmod -R u+rwx "$t_" && rm -rf "$t_" && exit $__st
+}
+
 # Run each test from within a temporary sub-directory named after the
 # test itself, and arrange to remove it upon exception or normal exit.
-trap 'st=$?; cleanup_; d='"$t_"';
-    cd '"$test_dir_"' && chmod -R u+rwx "$d" && rm -rf "$d" && exit $st' 0
-trap '(exit $?); exit $?' 1 2 13 15
+trap remove_tmp_ 0
+trap 'Exit $?' 1 2 13 15
 
 cd "$t_" || error_ "failed to cd to $t_"
 

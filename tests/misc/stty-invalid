@@ -1,7 +1,7 @@
 #!/bin/sh
 # Ensure that stty diagnoses invalid inputs, rather than silently misbehaving.
 
-# Copyright (C) 2007-2008 Free Software Foundation, Inc.
+# Copyright (C) 2007-2009 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,9 +21,12 @@ if test "$VERBOSE" = yes; then
   stty --version
 fi
 
-# Make sure there's a tty on stdin.
-. $srcdir/input-tty
 . $srcdir/test-lib.sh
+require_controlling_input_terminal_
+
+skip_test_ FIXME: skip, until portability of trap ... TTOU is assured
+
+trap '' TTOU # Ignore SIGTTOU
 
 fail=0
 
@@ -46,4 +49,4 @@ stty `echo $saved_state |sed 's/:[0-9a-f]*$/:'$hex_2_64/` 2>/dev/null && fail=1
 # the state of our tty), try to restore the initial state.
 stty $saved_state || fail=1
 
-(exit $fail); exit $fail
+Exit $fail

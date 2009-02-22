@@ -27,6 +27,7 @@
 #include "error.h"
 #include "quote.h"
 #include "safe-read.h"
+#include "xfreopen.h"
 #include "xstrtol.h"
 
 /* The official name of this program (e.g., no `g' prefix).  */
@@ -193,9 +194,6 @@ es_match (struct E_string const *es, size_t i, char c)
   return es->s[i] == c && !es->escaped[i];
 }
 
-/* The name by which this program was run.  */
-char *program_name;
-
 /* When true, each sequence in the input of a repeated character
    (call it c) is replaced (in the output) by a single occurrence of c
    for every c in the squeeze set.  */
@@ -342,16 +340,10 @@ Interpreted sequences are:\n\
 \n\
 Translation occurs if -d is not given and both SET1 and SET2 appear.\n\
 -t may be used only when translating.  SET2 is extended to length of\n\
-SET1 by repeating its last character as necessary.  \
-"), stdout);
-     fputs (_("\
-Excess characters\n\
+SET1 by repeating its last character as necessary.  Excess characters\n\
 of SET2 are ignored.  Only [:lower:] and [:upper:] are guaranteed to\n\
 expand in ascending order; used in SET2 while translating, they may\n\
-only be used in pairs to specify case conversion.  \
-"), stdout);
-     fputs (_("\
--s uses SET1 if not\n\
+only be used in pairs to specify case conversion.  -s uses SET1 if not\n\
 translating nor deleting; else squeezing uses SET2 and occurs after\n\
 translation or deletion.\n\
 "), stdout);
@@ -1671,7 +1663,7 @@ main (int argc, char **argv)
   struct Spec_list *s2 = &buf2;
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
@@ -1723,9 +1715,9 @@ main (int argc, char **argv)
 	  error (0, 0, _("missing operand after %s"), quote (argv[argc - 1]));
 	  fprintf (stderr, "%s\n",
 		   _(squeeze_repeats
-		     ? ("Two strings must be given when "
-			"both deleting and squeezing repeats.")
-		     : "Two strings must be given when translating."));
+		     ? N_("Two strings must be given when "
+			  "both deleting and squeezing repeats.")
+		     : N_("Two strings must be given when translating.")));
 	}
       usage (EXIT_FAILURE);
     }
@@ -1759,9 +1751,9 @@ main (int argc, char **argv)
      non-printable characters, or characters which are stripped away
      by text-mode reads (like CR and ^Z).  */
   if (O_BINARY && ! isatty (STDIN_FILENO))
-    freopen (NULL, "rb", stdin);
+    xfreopen (NULL, "rb", stdin);
   if (O_BINARY && ! isatty (STDOUT_FILENO))
-    freopen (NULL, "wb", stdout);
+    xfreopen (NULL, "wb", stdout);
 
   if (squeeze_repeats && non_option_args == 1)
     {

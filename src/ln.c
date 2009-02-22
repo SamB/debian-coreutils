@@ -1,5 +1,5 @@
 /* `ln' program to create links between files.
-   Copyright (C) 1986, 1989-1991, 1995-2008 Free Software Foundation, Inc.
+   Copyright (C) 1986, 1989-1991, 1995-2009 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -56,9 +56,6 @@
 # define STAT_LIKE_LINK(File, Stat_buf) \
   lstat (File, Stat_buf)
 #endif
-
-/* The name by which the program was run, for error messages.  */
-char *program_name;
 
 /* FIXME: document */
 static enum backup_type backup_type;
@@ -362,7 +359,9 @@ In the 1st form, create a link to TARGET with the name LINK_NAME.\n\
 In the 2nd form, create a link to TARGET in the current directory.\n\
 In the 3rd and 4th forms, create links to each TARGET in DIRECTORY.\n\
 Create hard links by default, symbolic links with --symbolic.\n\
-When creating hard links, each TARGET must exist.\n\
+When creating hard links, each TARGET must exist.  Symbolic links\n\
+can hold arbitrary text; if later resolved, a relative link is\n\
+interpreted in relation to its parent directory.\n\
 \n\
 "), stdout);
       fputs (_("\
@@ -423,7 +422,7 @@ main (int argc, char **argv)
   char **file;
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
@@ -510,7 +509,7 @@ main (int argc, char **argv)
     {
       if (target_directory)
 	error (EXIT_FAILURE, 0,
-	       _("Cannot combine --target-directory "
+	       _("cannot combine --target-directory "
 		 "and --no-target-directory"));
       if (n_files != 2)
 	{

@@ -14,7 +14,7 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
-/* Jim Meyering */
+/* Written by Jim Meyering.  */
 
 #include <config.h>
 #include <stdio.h>
@@ -34,9 +34,6 @@
 #define AUTHORS proper_name ("Jim Meyering")
 
 static const char *default_template = "tmp.XXXXXXXXXX";
-
-/* The name this program was run with. */
-char *program_name;
 
 /* For long options that have no equivalent short option, use a
    non-character as a pseudo short option, starting with CHAR_MAX + 1.  */
@@ -129,8 +126,8 @@ mkdtemp_len (char *tmpl, size_t suff_len, bool dry_run)
 int
 main (int argc, char **argv)
 {
-  char *dest_dir;
-  char *dest_dir_arg = NULL;
+  char const *dest_dir;
+  char const *dest_dir_arg = NULL;
   bool suppress_stderr = false;
   int c;
   unsigned int n_args;
@@ -144,7 +141,7 @@ main (int argc, char **argv)
   char *dest_name;
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
@@ -191,7 +188,9 @@ main (int argc, char **argv)
     {
       /* From here on, redirect stderr to /dev/null.
          A diagnostic from getopt_long, above, would still go to stderr.  */
-      freopen ("/dev/null", "wb", stderr);
+      if (!freopen ("/dev/null", "wb", stderr))
+        error (EXIT_FAILURE, errno,
+               _("failed to redirect stderr to /dev/null"));
     }
 
   n_args = argc - optind;
@@ -245,12 +244,16 @@ main (int argc, char **argv)
                    quote (template));
         }
 
-      dest_name = file_name_concat (dest_dir, template, NULL);
+      template = file_name_concat (dest_dir, template, NULL);
     }
   else
     {
-      dest_name = xstrdup (template);
+      template = xstrdup (template);
     }
+
+  /* Make a copy to be used in case of diagnostic, since failing
+     mkstemp may leave the buffer in an undefined state.  */
+  dest_name = xstrdup (template);
 
   if (create_directory)
     {
@@ -258,7 +261,7 @@ main (int argc, char **argv)
       if (err != 0)
         {
           error (0, errno, _("failed to create directory via template %s"),
-                 quote (dest_name));
+                 quote (template));
           status = EXIT_FAILURE;
         }
     }
@@ -268,7 +271,7 @@ main (int argc, char **argv)
       if (fd < 0 || (!dry_run && close (fd) != 0))
         {
           error (0, errno, _("failed to create file via template %s"),
-                 quote (dest_name));
+                 quote (template));
           status = EXIT_FAILURE;
         }
     }
@@ -278,6 +281,7 @@ main (int argc, char **argv)
 
 #ifdef lint
   free (dest_name);
+  free (template);
 #endif
 
   exit (status);

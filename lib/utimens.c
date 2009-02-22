@@ -96,20 +96,47 @@ gl_futimens (int fd ATTRIBUTE_UNUSED,
 #endif
 
   /* POSIX 200x added two interfaces to set file timestamps with
-     nanosecond resolution.  */
+     nanosecond resolution.  We provide a fallback for ENOSYS (for
+     example, compiling against Linux 2.6.25 kernel headers and glibc
+     2.7, but running on Linux 2.6.18 kernel).  */
 #if HAVE_UTIMENSAT
   if (fd < 0)
-    return utimensat (AT_FDCWD, file, timespec, 0);
+    {
+      int result = utimensat (AT_FDCWD, file, timespec, 0);
+# ifdef __linux__
+      /* Work around what might be a kernel bug:
+         http://bugzilla.redhat.com/442352
+         http://bugzilla.redhat.com/449910
+         It appears that utimensat can mistakenly return 280 rather
+         than -1 upon failure.
+         FIXME: remove in 2010 or whenever the offending kernels
+         are no longer in common use.  */
+      if (0 < result)
+        errno = ENOSYS;
+# endif
+
+      if (result == 0 || errno != ENOSYS)
+        return result;
+    }
 #endif
 #if HAVE_FUTIMENS
-  return futimens (fd, timespec);
-#else
+  {
+    int result = futimens (fd, timespec);
+# ifdef __linux__
+    /* Work around the same bug as above.  */
+    if (0 < result)
+      errno = ENOSYS;
+# endif
+    if (result == 0 || errno != ENOSYS)
+      return result;
+  }
+#endif
 
   /* The platform lacks an interface to set file timestamps with
      nanosecond resolution, so do the best we can, discarding any
      fractional part of the timestamp.  */
   {
-# if HAVE_FUTIMESAT || HAVE_WORKING_UTIMES
+#if HAVE_FUTIMESAT || HAVE_WORKING_UTIMES
     struct timeval timeval[2];
     struct timeval const *t;
     if (timespec)
@@ -125,9 +152,9 @@ gl_futimens (int fd ATTRIBUTE_UNUSED,
 
     if (fd < 0)
       {
-#  if HAVE_FUTIMESAT
+# if HAVE_FUTIMESAT
 	return futimesat (AT_FDCWD, file, t);
-#  endif
+# endif
       }
     else
       {
@@ -141,21 +168,21 @@ gl_futimens (int fd ATTRIBUTE_UNUSED,
 	   worth optimizing, and who knows what other messed-up systems
 	   are out there?  So play it safe and fall back on the code
 	   below.  */
-#  if HAVE_FUTIMESAT
+# if HAVE_FUTIMESAT
 	if (futimesat (fd, NULL, t) == 0)
 	  return 0;
-#  elif HAVE_FUTIMES
+# elif HAVE_FUTIMES
 	if (futimes (fd, t) == 0)
 	  return 0;
-#  endif
+# endif
       }
-# endif /* HAVE_FUTIMESAT || HAVE_WORKING_UTIMES */
+#endif /* HAVE_FUTIMESAT || HAVE_WORKING_UTIMES */
 
     if (!file)
       {
-# if ! (HAVE_FUTIMESAT || (HAVE_WORKING_UTIMES && HAVE_FUTIMES))
+#if ! (HAVE_FUTIMESAT || (HAVE_WORKING_UTIMES && HAVE_FUTIMES))
 	errno = ENOSYS;
-# endif
+#endif
 
 	/* Prefer EBADF to ENOSYS if both error numbers apply.  */
 	if (errno == ENOSYS)
@@ -170,9 +197,9 @@ gl_futimens (int fd ATTRIBUTE_UNUSED,
 	return -1;
       }
 
-# if HAVE_WORKING_UTIMES
+#if HAVE_WORKING_UTIMES
     return utimes (file, t);
-# else
+#else
     {
       struct utimbuf utimbuf;
       struct utimbuf const *ut;
@@ -187,9 +214,8 @@ gl_futimens (int fd ATTRIBUTE_UNUSED,
 
       return utime (file, ut);
     }
-# endif /* !HAVE_WORKING_UTIMES */
+#endif /* !HAVE_WORKING_UTIMES */
   }
-#endif /* !HAVE_FUTIMENS */
 }
 
 /* Set the access and modification time stamps of FILE to be

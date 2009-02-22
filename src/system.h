@@ -1,5 +1,5 @@
 /* system-dependent definitions for coreutils
-   Copyright (C) 1989, 1991-2008 Free Software Foundation, Inc.
+   Copyright (C) 1989, 1991-2009 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -35,19 +35,6 @@ you must include <sys/types.h> before including this file
 #endif
 
 #include <unistd.h>
-
-#ifndef STDIN_FILENO
-# define STDIN_FILENO 0
-#endif
-
-#ifndef STDOUT_FILENO
-# define STDOUT_FILENO 1
-#endif
-
-#ifndef STDERR_FILENO
-# define STDERR_FILENO 2
-#endif
-
 
 /* limits.h must come before pathmax.h because limits.h on some systems
    undefs PATH_MAX, whereas pathmax.h sets PATH_MAX.  */
@@ -115,6 +102,7 @@ you must include <sys/types.h> before including this file
 
 #include <stdbool.h>
 #include <stdlib.h>
+#include "version.h"
 
 /* Exit statuses for programs like 'env' that exec other programs.  */
 enum
@@ -453,7 +441,11 @@ enum
 
 #include "closein.h"
 #include "closeout.h"
+
+#define emit_bug_reporting_address unused__emit_bug_reporting_address
 #include "version-etc.h"
+#undef emit_bug_reporting_address
+
 #include "propername.h"
 /* Define away proper_name (leaving proper_name_utf8, which affects far
    fewer programs), since it's not worth the cost of adding ~17KB to
@@ -462,9 +454,11 @@ enum
    of the 100 binaries. */
 #define proper_name(x) (x)
 
+#include "progname.h"
+
 #define case_GETOPT_VERSION_CHAR(Program_name, Authors)			\
   case GETOPT_VERSION_CHAR:						\
-    version_etc (stdout, Program_name, PACKAGE_NAME, VERSION, Authors,	\
+    version_etc (stdout, Program_name, PACKAGE_NAME, Version, Authors,	\
                  (char *) NULL);					\
     exit (EXIT_SUCCESS);						\
     break;
@@ -508,6 +502,19 @@ enum
 # define IF_LINT(Code) Code
 #else
 # define IF_LINT(Code) /* empty */
+#endif
+
+/* With -Dlint, avoid warnings from gcc about code like mbstate_t m = {0,};
+   by wasting space on a static variable of the same type, that is thus
+   guaranteed to be initialized to 0, and use that on the RHS.  */
+#define DZA_CONCAT0(x,y) x ## y
+#define DZA_CONCAT(x,y) DZA_CONCAT0 (x, y)
+#ifdef lint
+# define DECLARE_ZEROED_AGGREGATE(Type, Var) \
+   static Type DZA_CONCAT (s0_, __LINE__); Type Var = DZA_CONCAT (s0_, __LINE__)
+#else
+# define DECLARE_ZEROED_AGGREGATE(Type, Var) \
+  Type Var = { 0, }
 #endif
 
 #ifndef __attribute__
@@ -608,12 +615,42 @@ ptr_align (void const *ptr, size_t alignment)
     ? false : (((Accum) = (Accum) * 10 + (Digit_val)), true))		\
   )
 
+#include "hard-locale.h"
 static inline void
 emit_bug_reporting_address (void)
 {
-  /* TRANSLATORS: The placeholder indicates the bug-reporting address
-     for this package.  Please add _another line_ saying
-     "Report translation bugs to <...>\n" with the address for translation
-     bugs (typically your translation team's web or email address).  */
-  printf (_("\nReport bugs to <%s>.\n"), PACKAGE_BUGREPORT);
+  printf (_("\nReport %s bugs to %s\n"), last_component (program_name),
+	  PACKAGE_BUGREPORT);
+  /* FIXME 2010: use AC_PACKAGE_URL once we require autoconf-2.64 */
+  printf (_("%s home page: <http://www.gnu.org/software/%s/>\n"),
+	  PACKAGE_NAME, PACKAGE);
+  fputs (_("General help using GNU software: <http://www.gnu.org/gethelp/>\n"),
+	 stdout);
+
+  /* TRANSLATORS: Replace LANG_CODE in this URL with your language code
+     <http://translationproject.org/team/LANG_CODE.html> to form one of
+     the URLs at http://translationproject.org/team/.  Otherwise, replace
+     the entire URL with your translation team's email address.  */
+  if (hard_locale (LC_MESSAGES))
+    printf (_("Report %s translation bugs to "
+	      "<http://translationproject.org/team/>\n"),
+	    last_component (program_name));
 }
+
+#include "inttostr.h"
+
+static inline char *
+timetostr (time_t t, char *buf)
+{
+  return (TYPE_SIGNED (time_t)
+	  ? imaxtostr (t, buf)
+	  : umaxtostr (t, buf));
+}
+
+static inline char *
+bad_cast (char const *s)
+{
+  return (char *) s;
+}
+
+void usage (int status);

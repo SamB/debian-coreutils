@@ -1,5 +1,5 @@
 /* mv -- move or rename files
-   Copyright (C) 86, 89, 90, 91, 1995-2008 Free Software Foundation, Inc.
+   Copyright (C) 86, 89, 90, 91, 1995-2009 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -24,7 +24,6 @@
 #include <selinux/selinux.h>
 
 #include "system.h"
-#include "argmatch.h"
 #include "backupfile.h"
 #include "copy.h"
 #include "cp-hash.h"
@@ -52,36 +51,19 @@
    non-character as a pseudo short option, starting with CHAR_MAX + 1.  */
 enum
 {
-  REPLY_OPTION = CHAR_MAX + 1,
-  STRIP_TRAILING_SLASHES_OPTION
+  STRIP_TRAILING_SLASHES_OPTION = CHAR_MAX + 1
 };
-
-/* The name this program was run with. */
-char *program_name;
 
 /* Remove any trailing slashes from each SOURCE argument.  */
 static bool remove_trailing_slashes;
-
-/* Valid arguments to the `--reply' option. */
-static char const* const reply_args[] =
-{
-  "yes", "no", "query", NULL
-};
-
-/* The values that correspond to the above strings. */
-static int const reply_vals[] =
-{
-  I_ALWAYS_YES, I_ALWAYS_NO, I_ASK_USER
-};
 
 static struct option const long_options[] =
 {
   {"backup", optional_argument, NULL, 'b'},
   {"force", no_argument, NULL, 'f'},
   {"interactive", no_argument, NULL, 'i'},
+  {"no-clobber", no_argument, NULL, 'n'},
   {"no-target-directory", no_argument, NULL, 'T'},
-  {"reply", required_argument, NULL, REPLY_OPTION}, /* Deprecated 2005-07-03,
-						       remove in 2008. */
   {"strip-trailing-slashes", no_argument, NULL, STRIP_TRAILING_SLASHES_OPTION},
   {"suffix", required_argument, NULL, 'S'},
   {"target-directory", required_argument, NULL, 't'},
@@ -140,8 +122,11 @@ cp_option_init (struct cp_options *x)
   x->preserve_mode = true;
   x->preserve_timestamps = true;
   x->preserve_security_context = selinux_enabled;
+  x->reduce_diagnostics = false;
   x->require_preserve = false;  /* FIXME: maybe make this an option */
   x->require_preserve_context = false;
+  x->preserve_xattr = true;
+  x->require_preserve_xattr = false;
   x->recursive = true;
   x->sparse_mode = SPARSE_AUTO;  /* FIXME: maybe make this an option */
   x->symbolic_link = false;
@@ -315,6 +300,8 @@ Mandatory arguments to long options are mandatory for short options too.\n\
   -b                           like --backup but does not accept an argument\n\
   -f, --force                  do not prompt before overwriting\n\
   -i, --interactive            prompt before overwrite\n\
+  -n, --no-clobber             do not overwrite an existing file\n\
+If you specify more than one of -i, -f, -n, only the final one takes effect.\n\
 "), stdout);
       fputs (_("\
       --strip-trailing-slashes  remove any trailing slashes from each SOURCE\n\
@@ -364,7 +351,7 @@ main (int argc, char **argv)
   char **file;
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
@@ -377,7 +364,7 @@ main (int argc, char **argv)
      we'll actually use backup_suffix_string.  */
   backup_suffix_string = getenv ("SIMPLE_BACKUP_SUFFIX");
 
-  while ((c = getopt_long (argc, argv, "bfit:uvS:T", long_options, NULL))
+  while ((c = getopt_long (argc, argv, "bfint:uvS:T", long_options, NULL))
 	 != -1)
     {
       switch (c)
@@ -393,11 +380,8 @@ main (int argc, char **argv)
 	case 'i':
 	  x.interactive = I_ASK_USER;
 	  break;
-	case REPLY_OPTION: /* Deprecated */
-	  x.interactive = XARGMATCH ("--reply", optarg,
-				     reply_args, reply_vals);
-	  error (0, 0,
-		 _("the --reply option is deprecated; use -i or -f instead"));
+	case 'n':
+	  x.interactive = I_ALWAYS_NO;
 	  break;
 	case STRIP_TRAILING_SLASHES_OPTION:
 	  remove_trailing_slashes = true;
@@ -453,7 +437,7 @@ main (int argc, char **argv)
     {
       if (target_directory)
 	error (EXIT_FAILURE, 0,
-	       _("Cannot combine --target-directory (-t) "
+	       _("cannot combine --target-directory (-t) "
 		 "and --no-target-directory (-T)"));
       if (2 < n_files)
 	{
@@ -469,6 +453,13 @@ main (int argc, char **argv)
       else if (2 < n_files)
 	error (EXIT_FAILURE, 0, _("target %s is not a directory"),
 	       quote (file[n_files - 1]));
+    }
+
+  if (make_backups && x.interactive == I_ALWAYS_NO)
+    {
+      error (0, 0,
+	     _("options --backup and --no-clobber are mutually exclusive"));
+      usage (EXIT_FAILURE);
     }
 
   if (backup_suffix_string)

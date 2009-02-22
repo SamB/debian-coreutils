@@ -19,7 +19,6 @@
 
 #include <config.h>
 #include <stdio.h>
-#include <getopt.h>
 #include <sys/types.h>
 #include <pwd.h>
 #include <grp.h>
@@ -28,9 +27,6 @@
 #include "system.h"
 #include "error.h"
 #include "group-list.h"
-
-/* The name this program was run with. */
-char *program_name;
 
 /* The official name of this program (e.g., no `g' prefix).  */
 #define PROGRAM_NAME "groups"
@@ -55,10 +51,10 @@ usage (int status)
              program_name);
   else
     {
-      printf (_("Usage: %s [OPTION]... [USERNAME]\n"), program_name);
+      printf (_("Usage: %s [OPTION]... [USERNAME]...\n"), program_name);
       fputs (_("\
-Print information for USERNAME or, if no USERNAME is specified,\n\
-the current process (which is different if the groups database has changed).\n"),
+Print group memberships for each USERNAME or, if no USERNAME is specified, for\n\
+the current process (which may differ if the groups database has changed).\n"),
              stdout);
       fputs (HELP_OPTION_DESCRIPTION, stdout);
       fputs (VERSION_OPTION_DESCRIPTION, stdout);
@@ -76,7 +72,7 @@ main (int argc, char **argv)
   uid_t ruid;
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);

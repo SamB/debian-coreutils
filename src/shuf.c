@@ -36,9 +36,6 @@
 
 #define AUTHORS proper_name ("Paul Eggert")
 
-/* The name this program was run with. */
-char *program_name;
-
 void
 usage (int status)
 {
@@ -63,7 +60,7 @@ Mandatory arguments to long options are mandatory for short options too.\n\
       fputs (_("\
   -e, --echo                treat each ARG as an input line\n\
   -i, --input-range=LO-HI   treat each number LO through HI as an input line\n\
-  -n, --head-lines=LINES    output at most LINES lines\n\
+  -n, --head-count=COUNT    output at most COUNT lines\n\
   -o, --output=FILE         write result to FILE instead of standard output\n\
       --random-source=FILE  get random bytes from FILE (default /dev/urandom)\n\
   -z, --zero-terminated     end lines with 0 byte, not newline\n\
@@ -217,7 +214,7 @@ read_input (FILE *in, char eolbyte, char ***pline)
 
 static int
 write_permuted_output (size_t n_lines, char * const *line, size_t lo_input,
-		       size_t const *permutation)
+		       size_t const *permutation, char eolbyte)
 {
   size_t i;
 
@@ -233,7 +230,7 @@ write_permuted_output (size_t n_lines, char * const *line, size_t lo_input,
     for (i = 0; i < n_lines; i++)
       {
 	unsigned long int n = lo_input + permutation[i];
-	if (printf ("%lu\n", n) < 0)
+	if (printf ("%lu%c", n, eolbyte) < 0)
 	  return -1;
       }
 
@@ -261,7 +258,7 @@ main (int argc, char **argv)
   size_t *permutation;
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
@@ -403,7 +400,8 @@ main (int argc, char **argv)
 
   if (outfile && ! freopen (outfile, "w", stdout))
     error (EXIT_FAILURE, errno, "%s", quotearg_colon (outfile));
-  if (write_permuted_output (head_lines, line, lo_input, permutation) != 0)
+  if (write_permuted_output (head_lines, line, lo_input, permutation, eolbyte)
+      != 0)
     error (EXIT_FAILURE, errno, _("write error"));
 
 #ifdef lint

@@ -2,7 +2,7 @@
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
 #line 1
 /* Test of <unistd.h> substitute.
-   Copyright (C) 2007 Free Software Foundation, Inc.
+   Copyright (C) 2007, 2009 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -25,6 +25,12 @@
 
 /* Check that the various SEEK_* macros are defined.  */
 int sk[] = { SEEK_CUR, SEEK_END, SEEK_SET };
+
+/* Check that the various *_FILENO macros are defined.  */
+#if ! (defined STDIN_FILENO                                     \
+       && (STDIN_FILENO + STDOUT_FILENO + STDERR_FILENO == 3))
+missing or broken *_FILENO macros
+#endif
 
 /* Check that the types are all defined.  */
 size_t t1;

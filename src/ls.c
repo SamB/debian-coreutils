@@ -1,5 +1,5 @@
 /* `dir', `vdir' and `ls' directory listing programs for GNU.
-   Copyright (C) 85, 88, 90, 91, 1995-2008 Free Software Foundation, Inc.
+   Copyright (C) 85, 88, 90, 91, 1995-2009 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -37,6 +37,10 @@
 
 #include <config.h>
 #include <sys/types.h>
+
+#ifdef HAVE_CAP
+# include <sys/capability.h>
+#endif
 
 #if HAVE_TERMIOS_H
 # include <termios.h>
@@ -83,17 +87,14 @@
 #include "acl.h"
 #include "argmatch.h"
 #include "dev-ino.h"
-#include "dirfd.h"
 #include "error.h"
 #include "filenamecat.h"
-#include "hard-locale.h"
 #include "hash.h"
 #include "human.h"
 #include "filemode.h"
+#include "filevercmp.h"
 #include "idcache.h"
-#include "inttostr.h"
 #include "ls.h"
-#include "lstat.h"
 #include "mbswidth.h"
 #include "mpsort.h"
 #include "obstack.h"
@@ -102,7 +103,6 @@
 #include "same.h"
 #include "stat-time.h"
 #include "strftime.h"
-#include "strverscmp.h"
 #include "xstrtol.h"
 #include "areadlink.h"
 
@@ -111,7 +111,7 @@
 			 ? "dir" : "vdir"))
 
 #define AUTHORS \
-  proper_name ("Richard Stallman"), \
+  proper_name ("Richard M. Stallman"), \
   proper_name ("David MacKenzie")
 
 #define obstack_chunk_alloc malloc
@@ -153,6 +153,12 @@ verify (sizeof filetype_letter - 1 == arg_directory + 1);
     C_LINK, C_SOCK, C_FILE, C_DIR			\
   }
 
+enum acl_type
+  {
+    ACL_T_NONE,
+    ACL_T_SELINUX_ONLY,
+    ACL_T_YES
+  };
 
 struct fileinfo
   {
@@ -181,7 +187,7 @@ struct fileinfo
 
     /* For long listings, true if the file has an access control list,
        or an SELinux security context.  */
-    bool have_acl;
+    enum acl_type acl_type;
   };
 
 #define LEN_STR_PAIR(s) sizeof (s) - 1, s
@@ -210,7 +216,8 @@ static uintmax_t gobble_file (char const *name, enum filetype type,
 			      ino_t inode, bool command_line_arg,
 			      char const *dirname);
 static bool print_color_indicator (const char *name, mode_t mode, int linkok,
-				   bool stat_ok, enum filetype type);
+				   bool stat_ok, enum filetype type,
+				   nlink_t nlink);
 static void put_indicator (const struct bin_str *ind);
 static void add_ignore_pattern (const char *pattern);
 static void attach (char *dest, const char *dirname, const char *name);
@@ -224,18 +231,21 @@ static size_t calculate_columns (bool by_columns);
 static void print_current_files (void);
 static void print_dir (char const *name, char const *realname,
 		       bool command_line_arg);
-static void print_file_name_and_frills (const struct fileinfo *f);
+static size_t print_file_name_and_frills (const struct fileinfo *f,
+					  size_t start_col);
 static void print_horizontal (void);
 static int format_user_width (uid_t u);
 static int format_group_width (gid_t g);
 static void print_long_format (const struct fileinfo *f);
 static void print_many_per_line (void);
-static void print_name_with_quoting (const char *p, mode_t mode,
-				     int linkok, bool stat_ok,
-				     enum filetype type,
-				     struct obstack *stack);
+static size_t print_name_with_quoting (const char *p, mode_t mode,
+				       int linkok, bool stat_ok,
+				       enum filetype type,
+				       struct obstack *stack,
+				       nlink_t nlink,
+				       size_t start_col);
 static void prep_non_filename_text (void);
-static void print_type_indicator (bool stat_ok, mode_t mode,
+static bool print_type_indicator (bool stat_ok, mode_t mode,
 				  enum filetype type);
 static void print_with_commas (void);
 static void queue_directory (char const *name, char const *realname,
@@ -243,9 +253,6 @@ static void queue_directory (char const *name, char const *realname,
 static void sort_files (void);
 static void parse_ls_color (void);
 void usage (int status);
-
-/* The name this program was run with.  */
-char *program_name;
 
 /* Initial size of hash table.
    Most hierarchies are likely to be shallower than this.  */
@@ -517,14 +524,15 @@ enum indicator_no
     C_LEFT, C_RIGHT, C_END, C_RESET, C_NORM, C_FILE, C_DIR, C_LINK,
     C_FIFO, C_SOCK,
     C_BLK, C_CHR, C_MISSING, C_ORPHAN, C_EXEC, C_DOOR, C_SETUID, C_SETGID,
-    C_STICKY, C_OTHER_WRITABLE, C_STICKY_OTHER_WRITABLE
+    C_STICKY, C_OTHER_WRITABLE, C_STICKY_OTHER_WRITABLE, C_CAP, C_HARDLINK,
+    C_CLR_TO_EOL
   };
 
 static const char *const indicator_name[]=
   {
     "lc", "rc", "ec", "rs", "no", "fi", "di", "ln", "pi", "so",
     "bd", "cd", "mi", "or", "ex", "do", "su", "sg", "st",
-    "ow", "tw", NULL
+    "ow", "tw", "ca", "hl", "cl", NULL
   };
 
 struct color_ext_type
@@ -557,6 +565,9 @@ static struct bin_str color_indicator[] =
     { LEN_STR_PAIR ("37;44") },		/* st: sticky: black on blue */
     { LEN_STR_PAIR ("34;42") },		/* ow: other-writable: blue on green */
     { LEN_STR_PAIR ("30;42") },		/* tw: ow w/ sticky: black on green */
+    { LEN_STR_PAIR ("30;41") },		/* ca: black on red */
+    { LEN_STR_PAIR ("44;37") },		/* hl: white on blue */
+    { LEN_STR_PAIR ("\033[K") },	/* cl: clear to end of line */
   };
 
 /* FIXME: comment  */
@@ -714,11 +725,14 @@ static int exit_status;
 /* Exit statuses.  */
 enum
   {
-    /* "ls" had a minor problem (e.g., it could not stat a directory
-       entry).  */
+    /* "ls" had a minor problem.  E.g., while processing a directory,
+       ls obtained the name of an entry via readdir, yet was later
+       unable to stat that name.  This happens when listing a directory
+       in which entries are actively being removed or renamed.  */
     LS_MINOR_PROBLEM = 1,
 
-    /* "ls" had more serious trouble.  */
+    /* "ls" had more serious trouble (e.g., memory exhausted, invalid
+       option or failure to stat a command line argument.  */
     LS_FAILURE = 2
   };
 
@@ -1150,7 +1164,7 @@ main (int argc, char **argv)
 #endif
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
@@ -1759,7 +1773,7 @@ decode_switches (int argc, char **argv)
 
 	case FULL_TIME_OPTION:
 	  format = long_format;
-	  time_style_option = "full-iso";
+	  time_style_option = bad_cast ("full-iso");
 	  break;
 
 	case COLOR_OPTION:
@@ -1877,7 +1891,7 @@ decode_switches (int argc, char **argv)
 
       if (! style)
 	if (! (style = getenv ("TIME_STYLE")))
-	  style = "locale";
+	  style = bad_cast ("locale");
 
       while (strncmp (style, posix_prefix, sizeof posix_prefix - 1) == 0)
 	{
@@ -2406,6 +2420,20 @@ print_dir (char const *name, char const *realname, bool command_line_arg)
 #endif
 	      total_blocks += gobble_file (next->d_name, type, D_INO (next),
 					   false, name);
+
+	      /* In this narrow case, print out each name right away, so
+		 ls uses constant memory while processing the entries of
+		 this directory.  Useful when there are many (millions)
+		 of entries in a directory.  */
+	      if (format == one_per_line && sort_type == sort_none)
+		{
+		  /* We must call sort_files in spite of
+		     "sort_type == sort_none" for its initialization
+		     of the sorted_file vector.  */
+		  sort_files ();
+		  print_current_files ();
+		  clear_files ();
+		}
 	    }
 	}
       else if (errno != 0)
@@ -2673,6 +2701,7 @@ gobble_file (char const *name, enum filetype type, ino_t inode,
 
       if (format == long_format || print_scontext)
 	{
+	  bool have_selinux = false;
 	  bool have_acl = false;
 	  int attr_len = (do_deref
 			  ?  getfilecon (absolute_name, &f->scontext)
@@ -2691,7 +2720,7 @@ gobble_file (char const *name, enum filetype type, ino_t inode,
 	    }
 
 	  if (err == 0)
-	    have_acl = ! STREQ ("unlabeled", f->scontext);
+	    have_selinux = ! STREQ ("unlabeled", f->scontext);
 	  else
 	    {
 	      f->scontext = UNKNOWN_SECURITY_CONTEXT;
@@ -2700,19 +2729,23 @@ gobble_file (char const *name, enum filetype type, ino_t inode,
 		 ls fail just because the file (even a command line argument)
 		 isn't on the right type of file system.  I.e., a getfilecon
 		 failure isn't in the same class as a stat failure.  */
-	      if (errno == ENOTSUP || errno == ENODATA)
+	      if (errno == ENOTSUP || errno == EOPNOTSUPP || errno == ENODATA)
 		err = 0;
 	    }
 
-	  if (err == 0 && ! have_acl && format == long_format)
+	  if (err == 0 && format == long_format)
 	    {
 	      int n = file_has_acl (absolute_name, &f->stat);
 	      err = (n < 0);
 	      have_acl = (0 < n);
 	    }
 
-	  f->have_acl = have_acl;
-	  any_has_acl |= have_acl;
+	  f->acl_type = (!have_selinux && !have_acl
+			 ? ACL_T_NONE
+			 : (have_selinux && !have_acl
+			    ? ACL_T_SELINUX_ONLY
+			    : ACL_T_YES));
+	  any_has_acl |= f->acl_type != ACL_T_NONE;
 
 	  if (err)
 	    error (0, errno, "%s", quotearg_colon (absolute_name));
@@ -3109,8 +3142,9 @@ DEFINE_SORT_FUNCTIONS (extension, cmp_extension)
 
 /* Compare file versions.
    Unlike all other compare functions above, cmp_version depends only
-   on strverscmp, which does not fail (even for locale reasons), and does not
-   need a secondary sort key.
+   on filevercmp, which does not fail (even for locale reasons), and does not
+   need a secondary sort key. See lib/filevercmp.h for function description.
+
    All the other sort options, in fact, need xstrcoll and strcmp variants,
    because they all use a string comparison (either as the primary or secondary
    sort key), and xstrcoll has the ability to do a longjmp if strcoll fails for
@@ -3119,7 +3153,7 @@ DEFINE_SORT_FUNCTIONS (extension, cmp_extension)
 static inline int
 cmp_version (struct fileinfo const *a, struct fileinfo const *b)
 {
-  return strverscmp (a->name, b->name);
+  return filevercmp (a->name, b->name);
 }
 
 static int xstrcoll_version (V a, V b)
@@ -3154,7 +3188,7 @@ static int rev_xstrcoll_df_version (V a, V b)
     }                                                               \
   }
 
-static qsortFunc sort_functions[][2][2][2] =
+static qsortFunc const sort_functions[][2][2][2] =
   {
     LIST_SORTFUNCTION_VARIANTS (name),
     LIST_SORTFUNCTION_VARIANTS (extension),
@@ -3255,7 +3289,7 @@ print_current_files (void)
     case one_per_line:
       for (i = 0; i < cwd_n_used; i++)
 	{
-	  print_file_name_and_frills (sorted_file[i]);
+	  print_file_name_and_frills (sorted_file[i], 0);
 	  putchar ('\n');
 	}
       break;
@@ -3432,7 +3466,9 @@ print_long_format (const struct fileinfo *f)
     }
   if (! any_has_acl)
     modebuf[10] = '\0';
-  else if (f->have_acl)
+  else if (f->acl_type == ACL_T_SELINUX_ONLY)
+    modebuf[10] = '.';
+  else if (f->acl_type == ACL_T_YES)
     modebuf[10] = '+';
 
   switch (time_type)
@@ -3599,16 +3635,15 @@ print_long_format (const struct fileinfo *f)
       sprintf (p, "%*s ", long_time_expected_width (),
 	       (! f->stat_ok
 		? "?"
-		: (TYPE_SIGNED (time_t)
-		   ? imaxtostr (when_timespec.tv_sec, hbuf)
-		   : umaxtostr (when_timespec.tv_sec, hbuf))));
+		: timetostr (when_timespec.tv_sec, hbuf)));
       /* FIXME: (maybe) We discarded when_timespec.tv_nsec. */
       p += strlen (p);
     }
 
   DIRED_FPUTS (buf, stdout, p - buf);
-  print_name_with_quoting (f->name, FILE_OR_LINK_MODE (f), f->linkok,
-			   f->stat_ok, f->filetype, &dired_obstack);
+  size_t w = print_name_with_quoting (f->name, FILE_OR_LINK_MODE (f), f->linkok,
+				      f->stat_ok, f->filetype, &dired_obstack,
+				      f->stat.st_nlink, p - buf);
 
   if (f->filetype == symbolic_link)
     {
@@ -3616,7 +3651,8 @@ print_long_format (const struct fileinfo *f)
 	{
 	  DIRED_FPUTS_LITERAL (" -> ", stdout);
 	  print_name_with_quoting (f->linkname, f->linkmode, f->linkok - 1,
-				   f->stat_ok, f->filetype, NULL);
+				   f->stat_ok, f->filetype, NULL,
+				   f->stat.st_nlink, (p - buf) + w + 4);
 	  if (indicator_style != none)
 	    print_type_indicator (true, f->linkmode, unknown);
 	}
@@ -3650,7 +3686,6 @@ quote_name (FILE *out, const char *name, struct quoting_options const *options,
 
   if (qmark_funny_chars)
     {
-#if HAVE_MBRTOWC
       if (MB_CUR_MAX > 1)
 	{
 	  char const *p = buf;
@@ -3690,7 +3725,7 @@ quote_name (FILE *out, const char *name, struct quoting_options const *options,
 		     reach its end, replacing each non-printable multibyte
 		     character with a single question mark.  */
 		  {
-		    mbstate_t mbstate = { 0, };
+		    DECLARE_ZEROED_AGGREGATE (mbstate_t, mbstate);
 		    do
 		      {
 			wchar_t wc;
@@ -3753,7 +3788,6 @@ quote_name (FILE *out, const char *name, struct quoting_options const *options,
 	  len = q - buf;
 	}
       else
-#endif
 	{
 	  char *p = buf;
 	  char const *plimit = buf + len;
@@ -3769,11 +3803,9 @@ quote_name (FILE *out, const char *name, struct quoting_options const *options,
     }
   else if (width != NULL)
     {
-#if HAVE_MBRTOWC
       if (MB_CUR_MAX > 1)
 	displayed_width = mbsnwidth (buf, len, 0);
       else
-#endif
 	{
 	  char const *p = buf;
 	  char const *plimit = buf + len;
@@ -3795,19 +3827,21 @@ quote_name (FILE *out, const char *name, struct quoting_options const *options,
   return len;
 }
 
-static void
+static size_t
 print_name_with_quoting (const char *p, mode_t mode, int linkok,
 			 bool stat_ok, enum filetype type,
-			 struct obstack *stack)
+			 struct obstack *stack, nlink_t nlink,
+			 size_t start_col)
 {
   bool used_color_this_time
     = (print_with_color
-       && print_color_indicator (p, mode, linkok, stat_ok, type));
+       && print_color_indicator (p, mode, linkok, stat_ok, type, nlink));
 
   if (stack)
     PUSH_CURRENT_DIRED_POS (stack);
 
-  dired_pos += quote_name (stdout, p, filename_quoting_options, NULL);
+  size_t width = quote_name (stdout, p, filename_quoting_options, NULL);
+  dired_pos += width;
 
   if (stack)
     PUSH_CURRENT_DIRED_POS (stack);
@@ -3816,7 +3850,11 @@ print_name_with_quoting (const char *p, mode_t mode, int linkok,
     {
       process_signals ();
       prep_non_filename_text ();
+      if (start_col / line_length != (start_col + width - 1) / line_length)
+	put_indicator (&color_indicator[C_CLR_TO_EOL]);
     }
+
+  return width;
 }
 
 static void
@@ -3836,8 +3874,8 @@ prep_non_filename_text (void)
    Also print file size, inode number, and filetype indicator character,
    as requested by switches.  */
 
-static void
-print_file_name_and_frills (const struct fileinfo *f)
+static size_t
+print_file_name_and_frills (const struct fileinfo *f, size_t start_col)
 {
   char buf[MAX (LONGEST_HUMAN_READABLE + 1, INT_BUFSIZE_BOUND (uintmax_t))];
 
@@ -3853,11 +3891,14 @@ print_file_name_and_frills (const struct fileinfo *f)
   if (print_scontext)
     printf ("%*s ", format == with_commas ? 0 : scontext_width, f->scontext);
 
-  print_name_with_quoting (f->name, FILE_OR_LINK_MODE (f), f->linkok,
-			   f->stat_ok, f->filetype, NULL);
+  size_t width = print_name_with_quoting (f->name, FILE_OR_LINK_MODE (f),
+					  f->linkok, f->stat_ok, f->filetype,
+					  NULL, f->stat.st_nlink, start_col);
 
   if (indicator_style != none)
-    print_type_indicator (f->stat_ok, f->stat.st_mode, f->filetype);
+    width += print_type_indicator (f->stat_ok, f->stat.st_mode, f->filetype);
+
+  return width;
 }
 
 /* Given these arguments describing a file, return the single-byte
@@ -3894,18 +3935,51 @@ get_type_indicator (bool stat_ok, mode_t mode, enum filetype type)
   return c;
 }
 
-static void
+static bool
 print_type_indicator (bool stat_ok, mode_t mode, enum filetype type)
 {
   char c = get_type_indicator (stat_ok, mode, type);
   if (c)
     DIRED_PUTCHAR (c);
+  return !!c;
 }
+
+#ifdef HAVE_CAP
+/* Return true if NAME has a capability (see linux/capability.h) */
+static bool
+has_capability (char const *name)
+{
+  char *result;
+  bool has_cap;
+
+  cap_t cap_d = cap_get_file (name);
+  if (cap_d == NULL)
+    return false;
+
+  result = cap_to_text (cap_d, NULL);
+  cap_free (cap_d);
+  if (!result)
+    return false;
+
+  /* check if human-readable capability string is empty */
+  has_cap = !!*result;
+
+  cap_free (result);
+  return has_cap;
+}
+#else
+static bool
+has_capability (char const *name ATTRIBUTE_UNUSED)
+{
+  return false;
+}
+#endif
 
 /* Returns whether any color sequence was printed. */
 static bool
 print_color_indicator (const char *name, mode_t mode, int linkok,
-		       bool stat_ok, enum filetype filetype)
+		       bool stat_ok, enum filetype filetype,
+		       nlink_t nlink)
 {
   int type;
   struct color_ext_type *ext;	/* Color extension */
@@ -3929,8 +4003,12 @@ print_color_indicator (const char *name, mode_t mode, int linkok,
 	    type = C_SETUID;
 	  else if ((mode & S_ISGID) != 0)
 	    type = C_SETGID;
+	  else if (is_colored (C_CAP) && has_capability (name))
+	    type = C_CAP;
 	  else if ((mode & S_IXUGO) != 0)
 	    type = C_EXEC;
+	  else if (1 < nlink)
+	    type = C_HARDLINK;
 	}
       else if (S_ISDIR (mode))
 	{
@@ -4065,7 +4143,7 @@ print_many_per_line (void)
 	  struct fileinfo const *f = sorted_file[filesno];
 	  size_t name_length = length_of_file_name_and_frills (f);
 	  size_t max_name_length = line_fmt->col_arr[col++];
-	  print_file_name_and_frills (f);
+	  print_file_name_and_frills (f, pos);
 
 	  filesno += rows;
 	  if (filesno >= cwd_n_used)
@@ -4090,7 +4168,7 @@ print_horizontal (void)
   size_t max_name_length = line_fmt->col_arr[0];
 
   /* Print first entry.  */
-  print_file_name_and_frills (f);
+  print_file_name_and_frills (f, 0);
 
   /* Now the rest.  */
   for (filesno = 1; filesno < cwd_n_used; ++filesno)
@@ -4109,7 +4187,7 @@ print_horizontal (void)
 	}
 
       f = sorted_file[filesno];
-      print_file_name_and_frills (f);
+      print_file_name_and_frills (f, pos);
 
       name_length = length_of_file_name_and_frills (f);
       max_name_length = line_fmt->col_arr[col];
@@ -4147,7 +4225,7 @@ print_with_commas (void)
 	  putchar (separator);
 	}
 
-      print_file_name_and_frills (f);
+      print_file_name_and_frills (f, pos);
       pos += len;
     }
   putchar ('\n');
@@ -4425,7 +4503,7 @@ Mandatory arguments to long options are mandatory for short options too.\n\
       fputs (_("\
   -r, --reverse              reverse order while sorting\n\
   -R, --recursive            list subdirectories recursively\n\
-  -s, --size                 print the size of each file, in blocks\n\
+  -s, --size                 print the allocated size of each file, in blocks\n\
 "), stdout);
       fputs (_("\
   -S                         sort by file size\n\
@@ -4480,7 +4558,10 @@ colors, and can be set easily by the dircolors command.\n\
 "), stdout);
       fputs (_("\
 \n\
-Exit status is 0 if OK, 1 if minor problems, 2 if serious trouble.\n\
+Exit status:\n\
+ 0  if OK,\n\
+ 1  if minor problems (e.g., cannot access subdirectory),\n\
+ 2  if serious trouble (e.g., cannot access command-line argument).\n\
 "), stdout);
       emit_bug_reporting_address ();
     }

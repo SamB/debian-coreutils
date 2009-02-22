@@ -50,7 +50,6 @@
 #include "system.h"
 #include "argmatch.h"
 #include "error.h"
-#include "lstat.h"
 #include "quote.h"
 #include "quotearg.h"
 #include "remove.h"
@@ -63,11 +62,8 @@
 #define AUTHORS \
   proper_name ("Paul Rubin"), \
   proper_name ("David MacKenzie"), \
-  proper_name ("Richard Stallman"), \
+  proper_name ("Richard M. Stallman"), \
   proper_name ("Jim Meyering")
-
-/* Name this program was run with.  */
-char *program_name;
 
 /* For long options that have no equivalent short option, use a
    non-character as a pseudo short option, starting with CHAR_MAX + 1.  */
@@ -236,7 +232,7 @@ main (int argc, char **argv)
   int c;
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);

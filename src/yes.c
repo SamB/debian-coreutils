@@ -31,9 +31,6 @@
 
 #define AUTHORS proper_name ("David MacKenzie")
 
-/* The name this program was run with. */
-char *program_name;
-
 void
 usage (int status)
 {
@@ -63,14 +60,14 @@ int
 main (int argc, char **argv)
 {
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
 
   atexit (close_stdout);
 
-  parse_long_options (argc, argv, PROGRAM_NAME, PACKAGE_NAME, VERSION,
+  parse_long_options (argc, argv, PROGRAM_NAME, PACKAGE_NAME, Version,
 		      usage, AUTHORS, (char const *) NULL);
   if (getopt_long (argc, argv, "+", NULL, NULL) != -1)
     usage (EXIT_FAILURE);
@@ -78,7 +75,7 @@ main (int argc, char **argv)
   if (argc <= optind)
     {
       optind = argc;
-      argv[argc++] = "y";
+      argv[argc++] = bad_cast ("y");
     }
 
   for (;;)

@@ -13,8 +13,9 @@ The programs that can be built with this package are:
   link ln logname ls md5sum mkdir mkfifo mknod mktemp mv nice nl nohup
   od paste pathchk pinky pr printenv printf ptx pwd readlink rm rmdir
   runcon seq sha1sum sha224sum sha256sum sha384sum sha512sum shred shuf
-  sleep sort split stat stty su sum sync tac tail tee test touch tr true
-  tsort tty uname unexpand uniq unlink uptime users vdir wc who whoami yes
+  sleep sort split stat stty su sum sync tac tail tee test timeout touch tr
+  true truncate tsort tty uname unexpand uniq unlink uptime users vdir wc who
+  whoami yes
 
 See the file NEWS for a list of major changes in the current release.
 
@@ -91,10 +92,14 @@ compiler, due to the use of declarations after non-declaration statements
 in several files in src/.  There is code in configure to find and, if
 possible, enable an appropriate compiler.  However, if configure doesn't
 find a C99 compiler, it continues nonetheless, and your build will fail.
-If that happens, simply apply the included patch using the following
+If that happens, simply[*] apply the included patch using the following
 command, and then run make again:
 
   cd src && patch < c99-to-c89.diff
+
+[*] however, as of coreutils-7.1, the "c99-to-c89.diff" file is no longer
+maintained, so even if the patches still apply, the result will be an
+incomplete conversion.  It's been 10 years.  Get a decent compiler! ;-)
 
 
 ***********************
@@ -160,17 +165,13 @@ Reporting bugs:
 IMPORTANT: if you take the time to report a test failure,
 please be sure to include the output of running `make check'
 in verbose mode for each failing test.  For example,
-if the test that fails is tests/mv/hard-link-1, then you
-would run this command:
+if the test that fails is tests/misc/df, then you would
+run this command:
 
-  env VERBOSE=yes make check -C tests/mv TESTS=hard-link-1 >> log 2>&1
+  (cd tests && make check TESTS=misc/df VERBOSE=yes) >> log 2>&1
 
-For some tests, you can get even more detail by including
-DEBUG=yes in the environment:
-
-  env DEBUG=yes VERBOSE=yes make check -C tests/mv TESTS=hard-link-1 >> log 2>&1
-
-and then include the contents of the file `log' in your bug report.
+For some tests, you can get even more detail by adding DEBUG=yes.
+Then include the contents of the file `log' in your bug report.
 
 ***************************************
 
@@ -230,8 +231,7 @@ the address on the last line of --help output.
 
 ========================================================================
 
-Copyright (C) 1998, 2002, 2003, 2004, 2005, 2006 Free Software
-Foundation, Inc.
+Copyright (C) 1998, 2002-2009 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.2 or

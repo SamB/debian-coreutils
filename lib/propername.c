@@ -31,9 +31,7 @@
 
 #include "trim.h"
 #include "mbchar.h"
-#if HAVE_MBRTOWC
-# include "mbuiter.h"
-#endif
+#include "mbuiter.h"
 #include "localcharset.h"
 #include "c-strcase.h"
 #include "xstriconv.h"
@@ -60,7 +58,6 @@ mbsstr_trimmed_wordbounded (const char *string, const char *sub)
 	break;
       else
 	{
-#if HAVE_MBRTOWC
 	  if (MB_CUR_MAX > 1)
 	    {
 	      mbui_iterator_t string_iter;
@@ -117,7 +114,6 @@ mbsstr_trimmed_wordbounded (const char *string, const char *sub)
 	      string = tsub_in_string + mb_len (mbui_cur (string_iter));
 	    }
 	  else
-#endif /* HAVE_MBRTOWC */
 	    {
 	      bool word_boundary_before;
 	      const char *p;
@@ -205,15 +201,32 @@ proper_name_utf8 (const char *name_ascii, const char *name_utf8)
 # if (__GLIBC__ == 2 && __GLIBC_MINOR__ >= 2) || __GLIBC__ > 2 \
      || _LIBICONV_VERSION >= 0x0105
       {
+	char *converted_translit;
+
 	size_t len = strlen (locale_code);
 	char *locale_code_translit = XNMALLOC (len + 10 + 1, char);
 	memcpy (locale_code_translit, locale_code, len);
 	memcpy (locale_code_translit + len, "//TRANSLIT", 10 + 1);
 
-	name_converted_translit = alloc_name_converted_translit =
+	converted_translit =
 	  xstr_iconv (name_utf8, "UTF-8", locale_code_translit);
 
 	free (locale_code_translit);
+
+	if (converted_translit != NULL)
+	  {
+#  if !_LIBICONV_VERSION
+	    /* Don't use the transliteration if it added question marks.
+	       glibc's transliteration falls back to question marks; libiconv's
+	       transliteration does not.
+	       mbschr is equivalent to strchr in this case.  */
+	    if (strchr (converted_translit, '?') != NULL)
+	      free (converted_translit);
+	    else
+#  endif
+	      name_converted_translit = alloc_name_converted_translit =
+		converted_translit;
+	  }
       }
 # endif
 #endif
@@ -270,7 +283,7 @@ proper_name_utf8 (const char *name_ascii, const char *name_utf8)
     }
 }
 
-#ifdef TEST
+#ifdef TEST1
 # include <locale.h>
 int
 main (int argc, char *argv[])
@@ -278,6 +291,18 @@ main (int argc, char *argv[])
   setlocale (LC_ALL, "");
   if (mbsstr_trimmed_wordbounded (argv[1], argv[2]))
     printf("found\n");
+  return 0;
+}
+#endif
+
+#ifdef TEST2
+# include <locale.h>
+# include <stdio.h>
+int
+main (int argc, char *argv[])
+{
+  setlocale (LC_ALL, "");
+  printf ("%s\n", proper_name_utf8 ("Franc,ois Pinard", "Fran\303\247ois Pinard"));
   return 0;
 }
 #endif

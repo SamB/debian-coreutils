@@ -43,8 +43,6 @@ enum
     NOHUP_FAILURE = 127
   };
 
-char *program_name;
-
 void
 usage (int status)
 {
@@ -89,7 +87,7 @@ main (int argc, char **argv)
   bool redirecting_stderr;
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
@@ -97,7 +95,7 @@ main (int argc, char **argv)
   initialize_exit_failure (NOHUP_FAILURE);
   atexit (close_stdout);
 
-  parse_long_options (argc, argv, PROGRAM_NAME, PACKAGE_NAME, VERSION,
+  parse_long_options (argc, argv, PROGRAM_NAME, PACKAGE_NAME, Version,
 		      usage, AUTHORS, (char const *) NULL);
   if (getopt_long (argc, argv, "+", NULL, NULL) != -1)
     usage (NOHUP_FAILURE);
@@ -164,8 +162,8 @@ main (int argc, char **argv)
       umask (umask_value);
       error (0, 0,
 	     _(ignoring_input
-	       ? "ignoring input and appending output to %s"
-	       : "appending output to %s"),
+	       ? N_("ignoring input and appending output to %s")
+	       : N_("appending output to %s")),
 	     quote (file));
       free (in_home);
     }
@@ -187,8 +185,8 @@ main (int argc, char **argv)
       if (!redirecting_stdout)
 	error (0, 0,
 	       _(ignoring_input
-		 ? "ignoring input and redirecting stderr to stdout"
-		 : "redirecting stderr to stdout"));
+		 ? N_("ignoring input and redirecting stderr to stdout")
+		 : N_("redirecting stderr to stdout")));
 
       if (dup2 (out_fd, STDERR_FILENO) < 0)
 	error (NOHUP_FAILURE, errno, _("failed to redirect standard error"));

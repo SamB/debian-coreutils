@@ -2,7 +2,7 @@
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
 #line 1
 /* Test of splitting a 'long double' into fraction and mantissa.
-   Copyright (C) 2007-2008 Free Software Foundation, Inc.
+   Copyright (C) 2007-2009 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -58,6 +58,22 @@
 # define MIN_NORMAL_EXP (LDBL_MIN_EXP + 53)
 #else
 # define MIN_NORMAL_EXP LDBL_MIN_EXP
+#endif
+
+/* On HP-UX 10.20, negating 0.0L does not yield -0.0L.
+   So we use minus_zero instead.
+   IRIX cc can't put -0.0L into .data, but can compute at runtime.
+   Note that the expression -LDBL_MIN * LDBL_MIN does not work on other
+   platforms, such as when cross-compiling to PowerPC on MacOS X 10.5.  */
+#if defined __hpux || defined __sgi
+static long double
+compute_minus_zero (void)
+{
+  return -LDBL_MIN * LDBL_MIN;
+}
+# define minus_zero compute_minus_zero ()
+#else
+long double minus_zero = -0.0L;
 #endif
 
 static long double
@@ -116,7 +132,7 @@ main ()
   { /* Negative zero.  */
     int exp = -9999;
     long double mantissa;
-    x = -0.0L;
+    x = minus_zero;
     mantissa = frexpl (x, &exp);
     ASSERT (exp == 0);
     ASSERT (mantissa == x);

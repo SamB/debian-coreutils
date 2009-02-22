@@ -32,9 +32,9 @@
 #include "fcntl--.h"
 #include "full-read.h"
 #include "full-write.h"
-#include "inttostr.h"
 #include "quote.h"
 #include "safe-read.h"
+#include "xfreopen.h"
 #include "xstrtol.h"
 
 /* The official name of this program (e.g., no `g' prefix).  */
@@ -45,9 +45,6 @@
   proper_name ("Richard M. Stallman")
 
 #define DEFAULT_SUFFIX_LENGTH 2
-
-/* The name this program was run with. */
-char *program_name;
 
 /* Base name of output files.  */
 static char const *outbase;
@@ -104,7 +101,7 @@ usage (int status)
   else
     {
       printf (_("\
-Usage: %s [OPTION] [INPUT [PREFIX]]\n\
+Usage: %s [OPTION]... [INPUT [PREFIX]]\n\
 "),
 	      program_name);
     fputs (_("\
@@ -192,7 +189,7 @@ next_file_name (void)
 	  sufindex[i] = 0;
 	  outfile_mid[i] = suffix_alphabet[sufindex[i]];
 	}
-      error (EXIT_FAILURE, 0, _("Output file suffixes exhausted"));
+      error (EXIT_FAILURE, 0, _("output file suffixes exhausted"));
     }
 }
 
@@ -395,7 +392,7 @@ main (int argc, char **argv)
   int digits_optind = 0;
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
@@ -404,8 +401,8 @@ main (int argc, char **argv)
 
   /* Parse command line options.  */
 
-  infile = "-";
-  outbase = "x";
+  infile = bad_cast ( "-");
+  outbase = bad_cast ("x");
 
   while (1)
     {
@@ -548,7 +545,7 @@ main (int argc, char **argv)
 
   /* Binary I/O is safer when bytecounts are used.  */
   if (O_BINARY && ! isatty (STDIN_FILENO))
-    freopen (NULL, "rb", stdin);
+    xfreopen (NULL, "rb", stdin);
 
   /* No output file is open now.  */
   output_desc = -1;

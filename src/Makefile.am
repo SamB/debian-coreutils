@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in -*-Makefile-*-
 
-## Copyright (C) 1990, 1991, 1993-2008 Free Software Foundation, Inc.
+## Copyright (C) 1990, 1991, 1993-2009 Free Software Foundation, Inc.
 
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -26,6 +26,8 @@ no_install__progs = \
 build_if_possible__progs = \
   chroot df hostid nice pinky stty su uname uptime users who
 
+AM_CFLAGS = $(WARN_CFLAGS) $(WERROR_CFLAGS)
+
 EXTRA_PROGRAMS = \
   $(no_install__progs) \
   $(build_if_possible__progs) \
@@ -39,12 +41,12 @@ EXTRA_PROGRAMS = \
   basename date dirname echo env expr factor false \
   id kill logname pathchk printenv printf pwd \
   runcon seq sleep tee \
-  test true tty whoami yes \
+  test timeout true truncate tty whoami yes \
   base64
 
 bin_PROGRAMS = $(OPTIONAL_BIN_PROGS)
 
-noinst_PROGRAMS = setuidgid
+noinst_PROGRAMS = setuidgid getlimits
 
 noinst_HEADERS = \
   chown-core.h \
@@ -54,6 +56,7 @@ noinst_HEADERS = \
   fs.h \
   group-list.h \
   ls.h \
+  operand2sig.h \
   prog-fprintf.h \
   remove.h \
   system.h \
@@ -68,18 +71,24 @@ CLEANFILES = $(SCRIPTS) su
 
 AM_CPPFLAGS = -I$(top_srcdir)/lib
 
+noinst_LIBRARIES = libver.a
+nodist_libver_a_SOURCES = version.c version.h
+
 # Sometimes, the expansion of $(LIBINTL) includes -lc which may
 # include modules defining variables like `optind', so libcoreutils.a
 # must precede $(LIBINTL) in order to ensure we use GNU getopt.
 # But libcoreutils.a must also follow $(LIBINTL), since libintl uses
 # replacement functions defined in libcoreutils.a.
-LDADD = ../lib/libcoreutils.a $(LIBINTL) ../lib/libcoreutils.a
+LDADD = libver.a ../lib/libcoreutils.a $(LIBINTL) ../lib/libcoreutils.a
 
 cat_LDADD = $(LDADD)
 df_LDADD = $(LDADD)
 du_LDADD = $(LDADD)
+getlimits_LDADD = $(LDADD)
 ptx_LDADD = $(LDADD)
 split_LDADD = $(LDADD)
+timeout_LDADD = $(LDADD)
+truncate_LDADD = $(LDADD)
 
 # for eaccess in lib/euidaccess.c.
 chcon_LDADD = $(LDADD) $(LIB_SELINUX)
@@ -98,15 +107,15 @@ __LDADD = $(LDADD) $(LIB_EACCESS)
 
 # for clock_gettime and fdatasync
 dd_LDADD = $(LDADD) $(LIB_GETHRXTIME) $(LIB_FDATASYNC)
-dir_LDADD = $(LDADD) $(LIB_CLOCK_GETTIME) $(LIB_SELINUX)
+dir_LDADD = $(LDADD) $(LIB_CLOCK_GETTIME) $(LIB_SELINUX) $(LIB_CAP)
 id_LDADD = $(LDADD) $(LIB_SELINUX)
-ls_LDADD = $(LDADD) $(LIB_CLOCK_GETTIME) $(LIB_SELINUX)
+ls_LDADD = $(LDADD) $(LIB_CLOCK_GETTIME) $(LIB_SELINUX) $(LIB_CAP)
 mktemp_LDADD = $(LDADD) $(LIB_GETHRXTIME)
 pr_LDADD = $(LDADD) $(LIB_CLOCK_GETTIME)
 shred_LDADD = $(LDADD) $(LIB_GETHRXTIME) $(LIB_FDATASYNC)
 shuf_LDADD = $(LDADD) $(LIB_GETHRXTIME)
 tac_LDADD = $(LDADD) $(LIB_CLOCK_GETTIME)
-vdir_LDADD = $(LDADD) $(LIB_CLOCK_GETTIME) $(LIB_SELINUX)
+vdir_LDADD = $(LDADD) $(LIB_CLOCK_GETTIME) $(LIB_SELINUX) $(LIB_CAP)
 
 ## If necessary, add -lm to resolve use of pow in lib/strtod.c.
 sort_LDADD = $(LDADD) $(POW_LIB) $(LIB_GETHRXTIME)
@@ -126,6 +135,12 @@ seq_LDADD = $(LDADD) $(POW_LIB)
 # and the `nanosleep' reference in lib/xnanosleep.c.
 nanosec_libs = $(LDADD) $(POW_LIB) $(LIB_NANOSLEEP)
 
+# for various GMP functions
+expr_LDADD = $(LDADD) $(LIB_GMP)
+
+# for various GMP functions
+factor_LDADD = $(LDADD) $(LIB_GMP)
+
 sleep_LDADD = $(nanosec_libs)
 tail_LDADD = $(nanosec_libs)
 
@@ -137,9 +152,9 @@ su_LDADD = $(LDADD) $(LIB_CRYPT)
 dir_LDADD += $(LIB_ACL)
 ls_LDADD += $(LIB_ACL)
 vdir_LDADD += $(LIB_ACL)
-cp_LDADD += $(LIB_ACL)
-mv_LDADD += $(LIB_ACL)
-ginstall_LDADD += $(LIB_ACL)
+cp_LDADD += $(LIB_ACL) $(LIB_XATTR)
+mv_LDADD += $(LIB_ACL) $(LIB_XATTR)
+ginstall_LDADD += $(LIB_ACL) $(LIB_XATTR)
 
 stat_LDADD = $(LDADD) $(LIB_SELINUX)
 
@@ -148,8 +163,15 @@ cat_LDADD += $(LIBICONV)
 cp_LDADD += $(LIBICONV)
 df_LDADD += $(LIBICONV)
 du_LDADD += $(LIBICONV)
+getlimits_LDADD += $(LIBICONV)
 ptx_LDADD += $(LIBICONV)
 split_LDADD += $(LIBICONV)
+timeout_LDADD += $(LIBICONV)
+truncate_LDADD += $(LIBICONV)
+
+# programs that use getaddrinfo (e.g., via canon_host)
+pinky_LDADD = $(LDADD) $(GETADDRINFO_LIB)
+who_LDADD = $(LDADD) $(GETADDRINFO_LIB)
 
 $(PROGRAMS): ../lib/libcoreutils.a
 
@@ -233,6 +255,8 @@ ln_SOURCES = ln.c
 ls_SOURCES = ls.c ls-ls.c
 chown_SOURCES = chown.c chown-core.c
 chgrp_SOURCES = chgrp.c chown-core.c
+kill_SOURCES = kill.c operand2sig.c
+timeout_SOURCES = timeout.c operand2sig.c
 
 mv_SOURCES = mv.c remove.c $(copy_sources)
 rm_SOURCES = rm.c remove.c
@@ -295,6 +319,22 @@ fs.h: stat.c extract-magic
 	@chmod a-w $@t
 	mv $@t $@
 
+BUILT_SOURCES += version.c
+version.c: Makefile
+	rm -f $@
+	printf '#include <config.h>\n' > $@t
+	printf 'char const *Version = "$(PACKAGE_VERSION)";\n' >> $@t
+	@chmod a-w $@t
+	mv $@t $@
+
+BUILT_SOURCES += version.h
+version.h: Makefile
+	rm -f $@
+	printf 'extern char const *Version;\n' > $@t
+	@chmod a-w $@t
+	mv $@t $@
+
+DISTCLEANFILES = version.c version.h
 MAINTAINERCLEANFILES = $(BUILT_SOURCES)
 
 # Sort in traditional ASCII order, regardless of the current locale;
@@ -319,7 +359,7 @@ pm = progs-makefile
 pr = progs-readme
 # Ensure that the list of programs in README matches the list
 # of programs we can build.
-check: check-README check-misc check-duplicate-no-install
+check: check-README check-duplicate-no-install
 .PHONY: check-README
 check-README:
 	rm -rf $(pr) $(pm)
@@ -342,8 +382,8 @@ au_dotdot = authors-dotdot
 au_actual = authors-actual
 .PHONY: check-AUTHORS
 check-AUTHORS: $(all_programs)
-	rm -f $(au_actual) $(au_dotdot)
-	for i in `ls $(all_programs) | sed -e 's,$(EXEEXT)$$,,' \
+	@rm -f $(au_actual) $(au_dotdot)
+	@for i in `ls $(all_programs) | sed -e 's,$(EXEEXT)$$,,' \
 	    | $(ASSORT) -u`; do				\
 	  test "$$i" = '[' && continue;			\
 	  exe=$$i;					\
@@ -352,24 +392,12 @@ check-AUTHORS: $(all_programs)
 	  elif test "$$i" = test; then			\
 	    exe='[';					\
 	  fi;						\
-	  LC_ALL=en_US.UTF-8 ./$$exe --version			\
+	  LC_ALL=en_US.UTF-8 ./$$exe --version		\
 	    | perl -0 -pi -e 's/,\n/, /gm'		\
 	    |sed -n '/Written by /{ s//'"$$i"': /; s/,* and /, /; s/\.$$//; p; }'; \
 	done > $(au_actual)
-	sed -n '/^[^ ][^ ]*:/p' $(top_srcdir)/AUTHORS > $(au_dotdot)
-	diff $(au_actual) $(au_dotdot) && rm -f $(au_actual) $(au_dotdot)
-
-# Make sure we don't define any S_IS* macros in src/*.c files.
-# Not a big deal, but they're already defined via system.h.
-#
-# Also make sure we don't use st_blocks.  Use ST_NBLOCKS instead.
-# This is a bit of a kludge, since it prevents use of the string
-# even in comments, but for now it does the job with no false positives.
-.PHONY: check-misc
-check-misc:
-	cd $(srcdir); grep '^# *define  *S_IS' $(SOURCES) && exit 1 || :
-	cd $(srcdir); grep st_blocks $(SOURCES) && exit 1 || :
-	cd $(srcdir); grep '^# *define .*defined' $(SOURCES) && exit 1 || :
+	@sed -n '/^[^ ][^ ]*:/p' $(top_srcdir)/AUTHORS > $(au_dotdot)
+	@diff $(au_actual) $(au_dotdot) && rm -f $(au_actual) $(au_dotdot)
 
 # Extract the list of authors from each file.
 sed_filter = s/^ *//;s/N_ (//;s/^"//;s/")*$$//
@@ -410,11 +438,14 @@ s2 = '/^\#define AUTHORS \\\\/{;n;$(sed_filter);p;q;}'
 sc_tight_scope: $(all_programs)
 	@t=exceptions-$$$$;						\
 	trap "s=$$?; rm -f $$t; exit $$s" 0 1 2 13 15;			\
+	src=`for f in $(SOURCES); do					\
+	       test -f $$f && d= || d=$(srcdir)/; echo $$d$$f; done`;	\
+	hdr=`for f in $(noinst_HEADERS); do				\
+	       test -f $$f && d= || d=$(srcdir)/; echo $$d$$f; done`;	\
 	( printf 'main\nusage\n';					\
-	  grep -h -A1 '^extern .*[^;]$$' $(SOURCES)			\
+	  grep -h -A1 '^extern .*[^;]$$' $$src				\
 	    | grep -vE '^(extern |--)' | sed 's/ .*//';			\
-	  perl -ne '/^extern \S+ (\S*) \(/ and print "$$1\n"'		\
-	    $(noinst_HEADERS);						\
+	  perl -ne '/^extern \S+ (\S*) \(/ and print "$$1\n"' $$hdr;	\
 	) | $(ASSORT) -u | sed 's/^/^/;s/$$/$$/' > $$t;			\
 	nm -e *.$(OBJEXT)						\
 	    | sed -n 's/.* T //p'					\
@@ -422,43 +453,18 @@ sc_tight_scope: $(all_programs)
 	  { echo 'the above functions should have static scope' 1>&2;	\
 	    exit 1; } || : ;						\
 	( printf '^program_name$$\n';					\
-	  sed -n 's/^extern int \([^ ][^ ]*\);$$/^\1$$/p'		\
-	    $(noinst_HEADERS) ) > $$t;					\
+	  perl -ne '/^extern .*?\**(\w+);/ and print "^$$1\$$\n"'	\
+	    $$hdr *.h ) | $(ASSORT) -u > $$t;				\
 	nm -e *.$(OBJEXT)						\
 	    | sed -n 's/.* [BD] //p'					\
 	    | grep -Ev -f $$t &&					\
 	  { echo 'the above variables should have static scope' 1>&2;	\
 	    exit 1; } || :
 
-.PHONY: cu-install-binPROGRAMS
-install-exec-am:
-	@case '$(program_transform_name):$(EXEEXT)' in		\
-	  's,x,x,:') cu=cu-;; *) cu= ;; esac;			\
-	$(MAKE) $(AM_MAKEFLAGS) binPROGRAMS_INSTALL=./ginstall	\
-	  $${cu}install-binPROGRAMS
-	@$(NORMAL_INSTALL)
-	$(MAKE) $(AM_MAKEFLAGS) install-exec-hook
-
-# The following rule is used only when --program-transform-name
-# has not been used and there is no .exe "extension".
-# Override the automake-generated rule so that we can install
-# all binaries with a single install command.  However, ...
-# install ginstall and [ separately.  "ginstall" because we rename
-# it to "install", and "[" because using it unquoted will cause a
-# syntax error with some shells.  Be careful to install each of these
-# exceptions only if it is to be installed (i.e., not excluded via
-# --enable-no-install-program=PROG_LIST.
-filtered_PROGS = \
-  `echo "$(bin_PROGRAMS)" | sed 's/ *\<ginstall\> */ /;s/ *\[ */ /'`
-d_bindir = $(DESTDIR)$(bindir)
-cu-install-binPROGRAMS: $(bin_PROGRAMS)
-	$(NORMAL_INSTALL)
-	test -z "$(bindir)" || $(MKDIR_P) "$(d_bindir)"
-	test x = 'x$(bin_PROGRAMS)' && exit || :
-	case '$(bin_PROGRAMS)' in *\[*) \
-	  echo "$(binPROGRAMS_INSTALL) '[' '$(d_bindir)/['"; \
-	  $(binPROGRAMS_INSTALL) '[' '$(d_bindir)/[';; esac
-	case '$(bin_PROGRAMS)' in *ginstall*) \
-	  echo "$(binPROGRAMS_INSTALL) ginstall '$(d_bindir)/install'";\
-	  $(binPROGRAMS_INSTALL) ginstall '$(d_bindir)/install';; esac
-	$(binPROGRAMS_INSTALL) $(filtered_PROGS) '$(d_bindir)'
+# Use the just-built ./ginstall, when not cross-compiling.
+if CROSS_COMPILING
+cu_install_program = @INSTALL_PROGRAM@
+else
+cu_install_program = ./ginstall
+endif
+INSTALL_PROGRAM = $(cu_install_program)

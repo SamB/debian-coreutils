@@ -1,5 +1,5 @@
 /* cp.c  -- file copying (main routines)
-   Copyright (C) 89, 90, 91, 1995-2008 Free Software Foundation, Inc.
+   Copyright (C) 89, 90, 91, 1995-2009 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -29,7 +29,7 @@
 #include "cp-hash.h"
 #include "error.h"
 #include "filenamecat.h"
-#include "lchmod.h"
+#include "ignore-value.h"
 #include "quote.h"
 #include "stat-time.h"
 #include "utimens.h"
@@ -76,7 +76,6 @@ enum
   NO_PRESERVE_ATTRIBUTES_OPTION,
   PARENTS_OPTION,
   PRESERVE_ATTRIBUTES_OPTION,
-  REPLY_OPTION,
   SPARSE_OPTION,
   STRIP_TRAILING_SLASHES_OPTION,
   UNLINK_DEST_BEFORE_OPENING
@@ -87,9 +86,6 @@ enum
 
 /* Initial number of entries in the inode hash table.  */
 #define INITIAL_ENTRY_TAB_SIZE 70
-
-/* The invocation name of this program.  */
-char *program_name;
 
 /* True if the kernel is SELinux enabled.  */
 static bool selinux_enabled;
@@ -111,18 +107,6 @@ static enum Sparse_type const sparse_type[] =
 };
 ARGMATCH_VERIFY (sparse_type_string, sparse_type);
 
-/* Valid arguments to the `--reply' option. */
-static char const* const reply_args[] =
-{
-  "yes", "no", "query", NULL
-};
-/* The values that correspond to the above strings. */
-static int const reply_vals[] =
-{
-  I_ALWAYS_YES, I_ALWAYS_NO, I_ASK_USER
-};
-ARGMATCH_VERIFY (reply_args, reply_vals);
-
 static struct option const long_opts[] =
 {
   {"archive", no_argument, NULL, 'a'},
@@ -132,6 +116,7 @@ static struct option const long_opts[] =
   {"force", no_argument, NULL, 'f'},
   {"interactive", no_argument, NULL, 'i'},
   {"link", no_argument, NULL, 'l'},
+  {"no-clobber", no_argument, NULL, 'n'},
   {"no-dereference", no_argument, NULL, 'P'},
   {"no-preserve", required_argument, NULL, NO_PRESERVE_ATTRIBUTES_OPTION},
   {"no-target-directory", no_argument, NULL, 'T'},
@@ -141,8 +126,6 @@ static struct option const long_opts[] =
   {"preserve", optional_argument, NULL, PRESERVE_ATTRIBUTES_OPTION},
   {"recursive", no_argument, NULL, 'R'},
   {"remove-destination", no_argument, NULL, UNLINK_DEST_BEFORE_OPENING},
-  {"reply", required_argument, NULL, REPLY_OPTION}, /* Deprecated 2005-07-03,
-						       remove in 2008. */
   {"sparse", required_argument, NULL, SPARSE_OPTION},
   {"strip-trailing-slashes", no_argument, NULL, STRIP_TRAILING_SLASHES_OPTION},
   {"suffix", required_argument, NULL, 'S'},
@@ -177,7 +160,7 @@ Copy SOURCE to DEST, or multiple SOURCE(s) to DIRECTORY.\n\
 Mandatory arguments to long options are mandatory for short options too.\n\
 "), stdout);
       fputs (_("\
-  -a, --archive                same as -dpR\n\
+  -a, --archive                same as -dR --preserve=all\n\
       --backup[=CONTROL]       make a backup of each existing destination file\n\
   -b                           like --backup but does not accept an argument\n\
       --copy-contents          copy contents of special files when recursive\n\
@@ -185,8 +168,10 @@ Mandatory arguments to long options are mandatory for short options too.\n\
 "), stdout);
       fputs (_("\
   -f, --force                  if an existing destination file cannot be\n\
-                                 opened, remove it and try again\n\
-  -i, --interactive            prompt before overwrite\n\
+                                 opened, remove it and try again (redundant if\n\
+                                 the -n option is used)\n\
+  -i, --interactive            prompt before overwrite (overrides a previous -n\n\
+                                  option)\n\
   -H                           follow command-line symbolic links in SOURCE\n\
 "), stdout);
       fputs (_("\
@@ -194,13 +179,16 @@ Mandatory arguments to long options are mandatory for short options too.\n\
   -L, --dereference            always follow symbolic links in SOURCE\n\
 "), stdout);
       fputs (_("\
+  -n, --no-clobber             do not overwrite an existing file (overrides\n\
+                                 a previous -i option)\n\
   -P, --no-dereference         never follow symbolic links in SOURCE\n\
 "), stdout);
       fputs (_("\
   -p                           same as --preserve=mode,ownership,timestamps\n\
       --preserve[=ATTR_LIST]   preserve the specified attributes (default:\n\
                                  mode,ownership,timestamps), if possible\n\
-                                 additional attributes: context, links, all\n\
+                                 additional attributes: context, links, xattr,\n\
+                                 all\n\
 "), stdout);
       fputs (_("\
       --no-preserve=ATTR_LIST  don't preserve the specified attributes\n\
@@ -238,9 +226,9 @@ corresponding DEST file is made sparse as well.  That is the behavior\n\
 selected by --sparse=auto.  Specify --sparse=always to create a sparse DEST\n\
 file whenever the SOURCE file contains a long enough sequence of zero bytes.\n\
 Use --sparse=never to inhibit creation of sparse files.\n\
-\n\
 "), stdout);
       fputs (_("\
+\n\
 The backup suffix is `~', unless set with --suffix or SIMPLE_BACKUP_SUFFIX.\n\
 The version control method may be selected via the --backup option or through\n\
 the VERSION_CONTROL environment variable.  Here are the values:\n\
@@ -329,7 +317,7 @@ re_protect (char const *const_dst_name, size_t src_offset,
                 }
               /* Failing to preserve ownership is OK. Still, try to preserve
                  the group, but ignore the possible error. */
-              (void) lchown (dst_name, -1, p->st.st_gid);
+              ignore_value (lchown (dst_name, -1, p->st.st_gid));
             }
 	}
 
@@ -595,7 +583,7 @@ do_copy (int n_files, char **file, const char *target_directory,
     {
       if (target_directory)
 	error (EXIT_FAILURE, 0,
-	       _("Cannot combine --target-directory (-t) "
+	       _("cannot combine --target-directory (-t) "
 		 "and --no-target-directory (-T)"));
       if (2 < n_files)
 	{
@@ -777,6 +765,9 @@ cp_option_init (struct cp_options *x)
   x->preserve_timestamps = false;
   x->preserve_security_context = false;
   x->require_preserve_context = false;
+  x->preserve_xattr = false;
+  x->reduce_diagnostics = false;
+  x->require_preserve_xattr = false;
 
   x->require_preserve = false;
   x->recursive = false;
@@ -813,18 +804,20 @@ decode_preserve_arg (char const *arg, struct cp_options *x, bool on_off)
       PRESERVE_OWNERSHIP,
       PRESERVE_LINK,
       PRESERVE_CONTEXT,
+      PRESERVE_XATTR,
       PRESERVE_ALL
     };
   static enum File_attribute const preserve_vals[] =
     {
       PRESERVE_MODE, PRESERVE_TIMESTAMPS,
-      PRESERVE_OWNERSHIP, PRESERVE_LINK, PRESERVE_CONTEXT, PRESERVE_ALL
+      PRESERVE_OWNERSHIP, PRESERVE_LINK, PRESERVE_CONTEXT, PRESERVE_XATTR,
+      PRESERVE_ALL
     };
   /* Valid arguments to the `--preserve' option. */
   static char const* const preserve_args[] =
     {
       "mode", "timestamps",
-      "ownership", "links", "context", "all", NULL
+      "ownership", "links", "context", "xattr", "all", NULL
     };
   ARGMATCH_VERIFY (preserve_args, preserve_vals);
 
@@ -865,6 +858,11 @@ decode_preserve_arg (char const *arg, struct cp_options *x, bool on_off)
 	  x->require_preserve_context = on_off;
 	  break;
 
+	case PRESERVE_XATTR:
+	  x->preserve_xattr = on_off;
+	  x->require_preserve_xattr = on_off;
+	  break;
+
 	case PRESERVE_ALL:
 	  x->preserve_mode = on_off;
 	  x->preserve_timestamps = on_off;
@@ -872,6 +870,7 @@ decode_preserve_arg (char const *arg, struct cp_options *x, bool on_off)
 	  x->preserve_links = on_off;
 	  if (selinux_enabled)
 	    x->preserve_security_context = on_off;
+	  x->preserve_xattr = on_off;
 	  break;
 
 	default:
@@ -898,7 +897,7 @@ main (int argc, char **argv)
   bool no_target_directory = false;
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
@@ -912,7 +911,7 @@ main (int argc, char **argv)
      we'll actually use backup_suffix_string.  */
   backup_suffix_string = getenv ("SIMPLE_BACKUP_SUFFIX");
 
-  while ((c = getopt_long (argc, argv, "abdfHilLprst:uvxPRS:T",
+  while ((c = getopt_long (argc, argv, "abdfHilLnprst:uvxPRS:T",
 			   long_opts, NULL))
 	 != -1)
     {
@@ -923,13 +922,16 @@ main (int argc, char **argv)
 				     sparse_type_string, sparse_type);
 	  break;
 
-	case 'a':		/* Like -dpPR. */
+	case 'a':		/* Like -dR --preserve=all with reduced failure diagnostics. */
 	  x.dereference = DEREF_NEVER;
 	  x.preserve_links = true;
 	  x.preserve_ownership = true;
 	  x.preserve_mode = true;
 	  x.preserve_timestamps = true;
 	  x.require_preserve = true;
+	  if (selinux_enabled)
+	     x.preserve_security_context = true;
+	  x.reduce_diagnostics = true;
 	  x.recursive = true;
 	  break;
 
@@ -968,6 +970,10 @@ main (int argc, char **argv)
 	  x.dereference = DEREF_ALWAYS;
 	  break;
 
+	case 'n':
+	  x.interactive = I_ALWAYS_NO;
+	  break;
+
 	case 'P':
 	  x.dereference = DEREF_NEVER;
 	  break;
@@ -1002,13 +1008,6 @@ main (int argc, char **argv)
 	case 'r':
 	case 'R':
 	  x.recursive = true;
-	  break;
-
-	case REPLY_OPTION: /* Deprecated */
-	  x.interactive = XARGMATCH ("--reply", optarg,
-				     reply_args, reply_vals);
-	  error (0, 0,
-		 _("the --reply option is deprecated; use -i or -f instead"));
 	  break;
 
 	case UNLINK_DEST_BEFORE_OPENING:
@@ -1075,6 +1074,13 @@ main (int argc, char **argv)
       usage (EXIT_FAILURE);
     }
 
+  if (make_backups && x.interactive == I_ALWAYS_NO)
+    {
+      error (0, 0,
+	     _("options --backup and --no-clobber are mutually exclusive"));
+      usage (EXIT_FAILURE);
+    }
+
   if (backup_suffix_string)
     simple_backup_suffix = xstrdup (backup_suffix_string);
 
@@ -1107,6 +1113,12 @@ main (int argc, char **argv)
 	       _("cannot preserve security context "
 		 "without an SELinux-enabled kernel"));
     }
+
+#if !USE_XATTR
+  if (x.require_preserve_xattr)
+    error (EXIT_FAILURE, 0, _("cannot preserve extended attributes, cp is "
+			      "built without xattr support"));
+#endif
 
   /* Allocate space for remembering copied and created files.  */
 
