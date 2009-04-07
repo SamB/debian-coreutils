@@ -21,6 +21,9 @@ gnu_ftp_host-beta = alpha.gnu.org
 gnu_ftp_host-major = ftp.gnu.org
 gnu_rel_host = $(gnu_ftp_host-$(RELEASE_TYPE))
 
+# Used in maint.mk's web-manual rule
+manual_title = Core GNU utilities
+
 url_dir_list = \
   ftp://$(gnu_rel_host)/gnu/coreutils
 
@@ -42,13 +45,13 @@ gnulib_dir = /gnulib
 # Now that we have better (check.mk) tests, make this the default.
 export VERBOSE = yes
 
-old_NEWS_hash = 791cf10529d00853f6363ca67f360747  -
+old_NEWS_hash = fa6cba1740b3f385520c1b54d90859ca
 
 # Ensure that the list of O_ symbols used to compute O_FULLBLOCK is complete.
 dd = $(srcdir)/src/dd.c
 sc_dd_O_FLAGS:
 	@rm -f $@.1 $@.2
-	@{ echo O_FULLBLOCK; perl -nle '/MAX \((O_\w*),/ and print $$1' \
+	@{ echo O_FULLBLOCK; perl -nle '/^ +\| (O_\w*)$$/ and print $$1' \
 	  $(dd); } | sort > $@.1
 	@{ echo O_NOFOLLOW; perl -nle '/{"[a-z]+",\s*(O_\w+)},/ and print $$1' \
 	  $(dd); } | sort > $@.2

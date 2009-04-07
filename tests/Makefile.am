@@ -15,7 +15,6 @@ EXTRA_DIST =		\
   other-fs-tmpdir	\
   require-perl		\
   sample-test		\
-  setgid-check		\
   test-lib.sh		\
   $(pr_data)
 
@@ -142,6 +141,7 @@ TESTS =						\
   misc/join					\
   pr/pr-tests					\
   misc/df-P					\
+  misc/pwd-option				\
   misc/pwd-unreadable-parent			\
   misc/chcon-fail				\
   misc/cut					\
@@ -149,6 +149,7 @@ TESTS =						\
   misc/wc-files0-from				\
   misc/wc-files0				\
   misc/cat-proc					\
+  misc/cat-buf					\
   misc/base64					\
   misc/basename					\
   misc/close-stdout				\
@@ -200,8 +201,10 @@ TESTS =						\
   misc/shuf					\
   misc/sort					\
   misc/sort-compress				\
+  misc/sort-continue				\
   misc/sort-files0-from				\
   misc/sort-merge				\
+  misc/sort-merge-fdlimit			\
   misc/sort-rand				\
   misc/sort-version				\
   misc/split-a					\

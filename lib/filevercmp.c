@@ -1,7 +1,7 @@
 /*
    Copyright (C) 1995 Ian Jackson <iwj10@cus.cam.ac.uk>
    Copyright (C) 2001 Anthony Towns <aj@azure.humbug.org.au>
-   Copyright (C) 2008 Free Software Foundation, Inc.
+   Copyright (C) 2008-2009 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@
 #include <limits.h>
 
 /* Match a file suffix defined by this regular expression:
-   /(\.[A-Za-z][A-Za-z0-9]*)*$/
+   /(\.[A-Za-z~][A-Za-z0-9~]*)*$/
    Scan the string *STR and return a pointer to the matching suffix, or
    NULL if not found.  Upon return, *STR points to terminating NUL.  */
 static const char *
@@ -40,7 +40,7 @@ match_suffix (const char **str)
       if (read_alpha)
         {
           read_alpha = false;
-          if (!c_isalpha (**str))
+          if (!c_isalpha (**str) && '~' != **str)
             match = NULL;
         }
       else if ('.' == **str)
@@ -49,7 +49,7 @@ match_suffix (const char **str)
           if (!match)
             match = *str;
         }
-      else if (!c_isalnum (**str))
+      else if (!c_isalnum (**str) && '~' != **str)
         match = NULL;
       (*str)++;
     }
@@ -124,8 +124,8 @@ verrevcmp (const char *s1, size_t s1_len, const char *s2, size_t s2_len)
 int
 filevercmp (const char *s1, const char *s2)
 {
-  const char *s1_pos = s1;
-  const char *s2_pos = s2;
+  const char *s1_pos;
+  const char *s2_pos;
   const char *s1_suffix, *s2_suffix;
   size_t s1_len, s2_len;
   int result;
@@ -135,7 +135,18 @@ filevercmp (const char *s1, const char *s2)
   if (simple_cmp == 0)
     return 0;
 
+  /* handle hidden files */
+  while (*s1 == '.' || *s2 == '.')
+    {
+      if (*s1 != *s2)
+	return *s1 - *s2;
+      s1++;
+      s2++;
+    }
+
   /* "cut" file suffixes */
+  s1_pos = s1;
+  s2_pos = s2;
   s1_suffix = match_suffix (&s1_pos);
   s2_suffix = match_suffix (&s2_pos);
   s1_len = (s1_suffix ? s1_suffix : s1_pos) - s1;

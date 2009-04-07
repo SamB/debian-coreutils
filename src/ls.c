@@ -943,6 +943,7 @@ dev_ino_pop (void)
   return *(struct dev_ino *) obstack_next_free (&dev_ino_obstack);
 }
 
+/* Note the use commented out below:
 #define ASSERT_MATCHING_DEV_INO(Name, Di)	\
   do						\
     {						\
@@ -953,7 +954,7 @@ dev_ino_pop (void)
       assert (sb.st_ino == Di.st_ino);		\
     }						\
   while (0)
-
+*/
 
 /* Write to standard output PREFIX, followed by the quoting style and
    a space-separated list of the integers stored in OS all on one line.  */
@@ -4007,7 +4008,7 @@ print_color_indicator (const char *name, mode_t mode, int linkok,
 	    type = C_CAP;
 	  else if ((mode & S_IXUGO) != 0)
 	    type = C_EXEC;
-	  else if (1 < nlink)
+	  else if (is_colored (C_HARDLINK) && (1 < nlink))
 	    type = C_HARDLINK;
 	}
       else if (S_ISDIR (mode))

@@ -47,7 +47,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coreutils 7.0\n"
 "Report-Msgid-Bugs-To: bug-coreutils@gnu.org\n"
-"POT-Creation-Date: 2009-02-21 10:12+0100\n"
+"POT-Creation-Date: 2009-03-26 09:14+0100\n"
 "PO-Revision-Date: 2009-02-12 18:56+0100\n"
 "Last-Translator: Ivan Vilata i Balaguer <ivan@selidor.net>\n"
 "Language-Team: Catalan <ca@dodds.net>\n"
@@ -79,18 +79,18 @@ msgid "error closing file"
 msgstr "error en tancar el fitxer"
 
 #: lib/closeout.c:112 src/base64.c:110 src/base64.c:122 src/base64.c:128
-#: src/base64.c:169 src/base64.c:225 src/cat.c:191 src/cat.c:207 src/cat.c:291
-#: src/cksum.c:248 src/expand.c:333 src/expand.c:358 src/head.c:300
+#: src/base64.c:169 src/base64.c:225 src/cat.c:187 src/cat.c:203 src/cat.c:287
+#: src/cksum.c:248 src/expand.c:329 src/expand.c:354 src/head.c:300
 #: src/head.c:350 src/head.c:758 src/head.c:799 src/od.c:920 src/paste.c:159
 #: src/shuf.c:405 src/tail.c:308 src/tail.c:1096 src/tr.c:1550 src/tr.c:1773
-#: src/tr.c:1887 src/unexpand.c:430 src/unexpand.c:446
+#: src/tr.c:1887 src/unexpand.c:426 src/unexpand.c:442
 #, c-format
 msgid "write error"
 msgstr "error d’escriptura"
 
 # Usa quote().  ivb
 # Indica condició d'error.  ivb
-#: lib/copy-acl.c:547 src/copy.c:781 src/copy.c:2114
+#: lib/copy-acl.c:547 src/copy.c:787 src/copy.c:2127
 #, c-format
 msgid "preserving permissions for %s"
 msgstr "en preservar els permisos de %s"
@@ -101,8 +101,8 @@ msgid "Unknown system error"
 msgstr "Error desconegut del sistema"
 
 # Els 3 usen quote().  ivb
-#: lib/euidaccess-stat.c:136 src/copy.c:1163 src/copy.c:1215 src/copy.c:1800
-#: src/copy.c:2101 src/df.c:560 src/install.c:741 src/stat.c:862
+#: lib/euidaccess-stat.c:136 src/copy.c:1171 src/copy.c:1223 src/copy.c:1808
+#: src/copy.c:2114 src/df.c:575 src/install.c:732 src/stat.c:862
 #: src/truncate.c:370
 #, c-format
 msgid "cannot stat %s"
@@ -292,27 +292,27 @@ msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s: l’opció «-W %s» no admet arguments\n"
 
 # Els 2 usen quote().  ivb
-#: lib/mkdir-p.c:196 src/install.c:812
+#: lib/mkdir-p.c:196 src/install.c:803
 #, c-format
 msgid "cannot change permissions of %s"
 msgstr "no s’han pogut canviar els permisos de %s"
 
 # Els 3 usen quote().  ivb
-#: lib/mkdir-p.c:206 src/copy.c:1789 src/install.c:709 src/install.c:722
+#: lib/mkdir-p.c:206 src/copy.c:1797 src/install.c:700 src/install.c:713
 #, c-format
 msgid "cannot create directory %s"
 msgstr "no s’ha pogut crear el directori %s"
 
-#: lib/obstack.c:423 lib/obstack.c:425 lib/xalloc-die.c:34 src/csplit.c:223
+#: lib/obstack.c:423 lib/obstack.c:425 lib/xalloc-die.c:34 src/csplit.c:220
 msgid "memory exhausted"
 msgstr "la memòria s’ha exhaurit"
 
-#: lib/openat-die.c:35
+#: lib/openat-die.c:34
 #, c-format
 msgid "unable to record current working directory"
 msgstr "no s’ha pogut registrar el directori de treball actual"
 
-#: lib/openat-die.c:48 src/df.c:583
+#: lib/openat-die.c:47 src/df.c:598
 #, c-format
 msgid "failed to return to initial working directory"
 msgstr "no s’ha pogut tornar al directori inicial de treball"
@@ -345,7 +345,7 @@ msgid "'"
 msgstr "»"
 
 # Indica error, usa quote().  ivb
-#: lib/randread.c:124
+#: lib/randread.c:114
 #, c-format
 msgid "%s: end of file"
 msgstr "%s: s’ha trobat el final del fitxer"
@@ -465,7 +465,7 @@ msgstr "^[nN]"
 
 # Usa quote().  ivb
 # Indica condició d'error.  ivb
-#: lib/set-mode-acl.c:488 src/copy.c:1812 src/cp.c:501
+#: lib/set-mode-acl.c:488 src/copy.c:1820 src/cp.c:495
 #, c-format
 msgid "setting permissions for %s"
 msgstr "en establir els permisos de %s"
@@ -751,26 +751,26 @@ msgstr "l’argument «%3$s» de l’opció «%1$s%2$s» és massa gran"
 msgid "Simon Josefsson"
 msgstr "Simon Josefsson"
 
-#: src/base64.c:55 src/basename.c:46 src/cat.c:89 src/chcon.c:338
+#: src/base64.c:55 src/basename.c:46 src/cat.c:85 src/chcon.c:338
 #: src/chgrp.c:106 src/chmod.c:349 src/chown.c:87 src/chroot.c:39
-#: src/cksum.c:257 src/comm.c:97 src/cp.c:145 src/csplit.c:1445 src/cut.c:185
-#: src/date.c:120 src/dd.c:454 src/df.c:785 src/dircolors.c:95
-#: src/dirname.c:42 src/du.c:264 src/echo.c:39 src/env.c:109 src/expand.c:103
-#: src/expr.c:198 src/factor.c:491 src/fmt.c:265 src/fold.c:62
+#: src/cksum.c:257 src/comm.c:98 src/cp.c:139 src/csplit.c:1442 src/cut.c:185
+#: src/date.c:120 src/dd.c:458 src/df.c:800 src/dircolors.c:95
+#: src/dirname.c:42 src/du.c:264 src/echo.c:39 src/env.c:109 src/expand.c:99
+#: src/expr.c:198 src/factor.c:489 src/fmt.c:265 src/fold.c:62
 #: src/getlimits.c:62 src/groups.c:50 src/head.c:103 src/hostid.c:40
-#: src/hostname.c:53 src/id.c:78 src/install.c:940 src/join.c:163
-#: src/kill.c:83 src/link.c:42 src/ln.c:346 src/logname.c:36 src/ls.c:4405
+#: src/hostname.c:53 src/id.c:78 src/install.c:931 src/join.c:163
+#: src/kill.c:83 src/link.c:42 src/ln.c:346 src/logname.c:36 src/ls.c:4406
 #: src/md5sum.c:149 src/mkdir.c:53 src/mkfifo.c:48 src/mknod.c:49
-#: src/mktemp.c:60 src/mv.c:281 src/nice.c:68 src/nl.c:171 src/nohup.c:50
+#: src/mktemp.c:60 src/mv.c:275 src/nice.c:68 src/nl.c:171 src/nohup.c:50
 #: src/od.c:305 src/paste.c:429 src/pathchk.c:93 src/pinky.c:506 src/pr.c:2763
-#: src/printenv.c:54 src/printf.c:84 src/ptx.c:1883 src/pwd.c:45
+#: src/printenv.c:54 src/printf.c:84 src/ptx.c:1880 src/pwd.c:53
 #: src/readlink.c:59 src/rm.c:154 src/rmdir.c:162 src/runcon.c:80 src/seq.c:66
 #: src/setuidgid.c:46 src/shred.c:154 src/shuf.c:43 src/sleep.c:42
 #: src/sort.c:309 src/split.c:99 src/stat.c:905 src/stty.c:502 src/su.c:377
 #: src/sum.c:55 src/sync.c:37 src/tac.c:129 src/tail.c:211 src/tee.c:58
 #: src/test.c:681 src/timeout.c:129 src/touch.c:229 src/tr.c:283
 #: src/truncate.c:98 src/tsort.c:78 src/tty.c:61 src/uname.c:118
-#: src/unexpand.c:113 src/uniq.c:129 src/unlink.c:42 src/uptime.c:193
+#: src/unexpand.c:109 src/uniq.c:129 src/unlink.c:42 src/uptime.c:193
 #: src/users.c:102 src/wc.c:108 src/who.c:626 src/whoami.c:42 src/yes.c:38
 #, c-format
 msgid "Try `%s --help' for more information.\n"
@@ -816,7 +816,7 @@ msgstr ""
 "      --help           Mostra aquesta ajuda i surt.\n"
 "      --version        Mostra informació sobre la versió i surt.\n"
 
-#: src/base64.c:74 src/cat.c:115 src/fmt.c:292 src/shuf.c:70 src/sum.c:71
+#: src/base64.c:74 src/cat.c:111 src/fmt.c:292 src/shuf.c:70 src/sum.c:71
 msgid ""
 "\n"
 "With no FILE, or when FILE is -, read standard input.\n"
@@ -839,7 +839,7 @@ msgstr ""
 "de\n"
 "tolerar altres octets no alfabètics en el flux codificat.\n"
 
-#: src/base64.c:172 src/base64.c:209 src/csplit.c:266 src/csplit.c:1434
+#: src/base64.c:172 src/base64.c:209 src/csplit.c:263 src/csplit.c:1431
 #: src/join.c:413 src/shuf.c:397 src/tac-pipe.c:74 src/tee.c:204 src/tr.c:1574
 #, c-format
 msgid "read error"
@@ -856,12 +856,12 @@ msgid "invalid wrap size: %s"
 msgstr "la longitud d’ajustament no és vàlida: %s"
 
 # Usa quote().  ivb
-#: src/base64.c:284 src/basename.c:119 src/comm.c:422 src/cp.c:590
+#: src/base64.c:284 src/basename.c:119 src/comm.c:421 src/cp.c:584
 #: src/date.c:426 src/dircolors.c:449 src/dirname.c:98 src/du.c:926
-#: src/hostid.c:76 src/hostname.c:112 src/id.c:169 src/install.c:616
+#: src/hostid.c:76 src/hostname.c:112 src/id.c:169 src/install.c:607
 #: src/join.c:895 src/link.c:86 src/ln.c:521 src/logname.c:72 src/mknod.c:158
-#: src/mv.c:444 src/od.c:1803 src/ptx.c:2151 src/readlink.c:152 src/seq.c:410
-#: src/shuf.c:377 src/sort.c:3271 src/split.c:536 src/tr.c:1727
+#: src/mv.c:438 src/od.c:1803 src/ptx.c:2148 src/readlink.c:152 src/seq.c:410
+#: src/shuf.c:377 src/sort.c:3409 src/split.c:536 src/tr.c:1727
 #: src/tsort.c:548 src/tty.c:113 src/uname.c:253 src/uniq.c:449 src/uniq.c:466
 #: src/unlink.c:82 src/uptime.c:251 src/users.c:147 src/wc.c:654 src/who.c:817
 #: src/whoami.c:80
@@ -870,14 +870,14 @@ msgid "extra operand %s"
 msgstr "sobra l’operand %s"
 
 # Indica la situació d'un missatge d'error.  ivb
-#: src/base64.c:310 src/cat.c:783
+#: src/base64.c:310 src/cat.c:779
 #, c-format
 msgid "closing standard input"
 msgstr "en tancar l’entrada estàndard"
 
 #. This is a proper name. See the gettext manual, section Names.
 #: src/basename.c:40 src/chgrp.c:38 src/chmod.c:38 src/chown.c:47
-#: src/comm.c:35 src/cp.c:57 src/csplit.c:42 src/cut.c:44 src/date.c:39
+#: src/comm.c:36 src/cp.c:57 src/csplit.c:42 src/cut.c:44 src/date.c:39
 #: src/dd.c:45 src/df.c:41 src/dirname.c:35 src/du.c:53 src/env.c:92
 #: src/expand.c:48 src/fold.c:35 src/groups.c:35 src/head.c:46 src/id.c:39
 #: src/install.c:49 src/ln.c:40 src/ls.c:115 src/mkdir.c:36 src/mkfifo.c:33
@@ -924,7 +924,7 @@ msgstr ""
 "    «%s include/stdio.h .h» produeix «stdio».\n"
 
 #: src/basename.c:113 src/chcon.c:514 src/chgrp.c:273 src/chmod.c:500
-#: src/chown.c:286 src/chroot.c:81 src/comm.c:414 src/csplit.c:1372
+#: src/chown.c:286 src/chroot.c:81 src/comm.c:413 src/csplit.c:1369
 #: src/dirname.c:92 src/expr.c:323 src/join.c:1073 src/link.c:78
 #: src/mkdir.c:184 src/mkfifo.c:109 src/mknod.c:147 src/nohup.c:105
 #: src/pathchk.c:156 src/printf.c:672 src/readlink.c:144 src/rm.c:342
@@ -940,19 +940,19 @@ msgid "Torbjorn Granlund"
 msgstr "Torbjörn Granlund"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/cat.c:49 src/comm.c:34 src/ls.c:114 src/rm.c:65 src/split.c:45
+#: src/cat.c:49 src/comm.c:35 src/ls.c:114 src/rm.c:65 src/split.c:45
 #: src/tee.c:34 src/uniq.c:39
 msgid "Richard M. Stallman"
 msgstr "Richard M. Stallman"
 
-#: src/cat.c:93 src/df.c:789 src/expand.c:107 src/fold.c:66 src/head.c:107
-#: src/ls.c:4409 src/nl.c:175 src/paste.c:433 src/pr.c:2767 src/sum.c:59
-#: src/tac.c:133 src/tail.c:215 src/tee.c:62 src/unexpand.c:117
+#: src/cat.c:89 src/df.c:804 src/expand.c:103 src/fold.c:66 src/head.c:107
+#: src/ls.c:4410 src/nl.c:175 src/paste.c:433 src/pr.c:2767 src/sum.c:59
+#: src/tac.c:133 src/tail.c:215 src/tee.c:62 src/unexpand.c:113
 #, c-format
 msgid "Usage: %s [OPTION]... [FILE]...\n"
 msgstr "Forma d’ús: %s [OPCIÓ]… [FITXER]…\n"
 
-#: src/cat.c:97
+#: src/cat.c:93
 msgid ""
 "Concatenate FILE(s), or standard input, to standard output.\n"
 "\n"
@@ -973,7 +973,7 @@ msgstr ""
 "  -n, --number         Enumera totes les línies.\n"
 "  -s, --squeeze-blank    No mostra més d’una línia en blanc seguida.\n"
 
-#: src/cat.c:107
+#: src/cat.c:103
 msgid ""
 "  -t                       equivalent to -vT\n"
 "  -T, --show-tabs          display TAB characters as ^I\n"
@@ -989,7 +989,7 @@ msgstr ""
 
 # Esperem que el «%s» no empente la línia més enllà de la columna 78.  ivb
 # Aquest arranjament funciona bé per a «%s = cat», el més comú.  ivb
-#: src/cat.c:119
+#: src/cat.c:115
 #, c-format
 msgid ""
 "\n"
@@ -1004,17 +1004,17 @@ msgstr ""
 "    «%s»          Còpia l’entrada estàndard a l’eixida estàndard.\n"
 
 # Usa quote().  ivb
-#: src/cat.c:331
+#: src/cat.c:327
 #, c-format
 msgid "cannot do ioctl on %s"
 msgstr "ha fallat ioctl() sobre %s"
 
-#: src/cat.c:641 src/dd.c:1847 src/sort.c:301 src/tee.c:163 src/yes.c:88
+#: src/cat.c:637 src/dd.c:1851 src/sort.c:301 src/tee.c:163 src/yes.c:88
 #, c-format
 msgid "standard output"
 msgstr "eixida estàndard"
 
-#: src/cat.c:718
+#: src/cat.c:714
 #, c-format
 msgid "%s: input file is output file"
 msgstr "%s: el fitxer d’entrada i el de sortida són el mateix"
@@ -1028,7 +1028,7 @@ msgstr "Russell Coker"
 #: src/chcon.c:36 src/chgrp.c:39 src/chmod.c:39 src/chown.c:48 src/cp.c:58
 #: src/cut.c:45 src/dirname.c:36 src/du.c:55 src/head.c:47 src/hostid.c:34
 #: src/hostname.c:33 src/mktemp.c:34 src/mv.c:42 src/nohup.c:37 src/od.c:35
-#: src/pathchk.c:41 src/pwd.c:32 src/rm.c:66 src/setuidgid.c:38 src/sleep.c:35
+#: src/pathchk.c:41 src/pwd.c:31 src/rm.c:66 src/setuidgid.c:38 src/sleep.c:35
 #: src/sync.c:31 src/tail.c:55 src/tr.c:36 src/true.c:33
 msgid "Jim Meyering"
 msgstr "Jim Meyering"
@@ -1046,7 +1046,7 @@ msgid "failed to set %s security context component to %s"
 msgstr "no s’ha pogut establir el component «%s» del context de seguretat a %s"
 
 # Els 5 usen quote().  ivb
-#: src/chcon.c:155 src/chcon.c:523 src/copy.c:1744 src/runcon.c:218
+#: src/chcon.c:155 src/chcon.c:523 src/copy.c:1752 src/runcon.c:218
 #: src/stat.c:461
 #, c-format
 msgid "failed to get security context of %s"
@@ -1066,8 +1066,8 @@ msgid "failed to change context of %s to %s"
 msgstr "no s’ha pogut canviar el context de %s a %s"
 
 # Usa quote().  ivb
-#: src/chcon.c:254 src/chmod.c:207 src/chown-core.c:300 src/copy.c:222
-#: src/du.c:485 src/ls.c:2690
+#: src/chcon.c:254 src/chmod.c:207 src/chown-core.c:300 src/copy.c:230
+#: src/du.c:485 src/ls.c:2691
 #, c-format
 msgid "cannot access %s"
 msgstr "no s’ha pogut accedir a %s"
@@ -1198,7 +1198,7 @@ msgstr "«-R -h» necessita «-P»"
 
 # Usa quote().  ivb
 #: src/chcon.c:516 src/chgrp.c:275 src/chmod.c:502 src/chown.c:288
-#: src/comm.c:416 src/csplit.c:1374 src/join.c:1075 src/link.c:80
+#: src/comm.c:415 src/csplit.c:1371 src/join.c:1075 src/link.c:80
 #: src/mknod.c:149 src/setuidgid.c:139 src/tr.c:1715
 #, c-format
 msgid "missing operand after %s"
@@ -1216,8 +1216,8 @@ msgstr "s’han proporcionat diverses especificacions de context de seguretat"
 
 # Els 9 usen quote().  ivb
 #: src/chcon.c:555 src/chgrp.c:283 src/chgrp.c:301 src/chmod.c:510
-#: src/chmod.c:529 src/chown.c:296 src/chown.c:325 src/cp.c:416 src/cp.c:476
-#: src/mv.c:101 src/pwd.c:262 src/rm.c:352 src/touch.c:159 src/touch.c:361
+#: src/chmod.c:529 src/chown.c:296 src/chown.c:325 src/cp.c:410 src/cp.c:470
+#: src/mv.c:95 src/pwd.c:274 src/rm.c:352 src/touch.c:159 src/touch.c:361
 #, c-format
 msgid "failed to get attributes of %s"
 msgstr "no s’han pogut obtenir els atributs de %s"
@@ -1666,16 +1666,16 @@ msgstr ""
 "Mostra la suma CRC i la mida en octets de cada FITXER.\n"
 "\n"
 
-#: src/comm.c:101 src/join.c:167
+#: src/comm.c:102 src/join.c:167
 #, c-format
 msgid "Usage: %s [OPTION]... FILE1 FILE2\n"
 msgstr "Forma d’ús: %s [OPCIÓ]… FITXER1 FITXER2\n"
 
-#: src/comm.c:105
+#: src/comm.c:106
 msgid "Compare sorted files FILE1 and FILE2 line by line.\n"
 msgstr "Compara els fitxers ordenats FITXER1 i FITXER2 línia per línia.\n"
 
-#: src/comm.c:108
+#: src/comm.c:109
 msgid ""
 "\n"
 "With no options, produce three-column output.  Column one contains\n"
@@ -1687,7 +1687,7 @@ msgstr ""
 "línies que només es troben al FITXER1, la segona les que només es troben al\n"
 "FITXER2, i la tercera les línies comunes a ambdós fitxers.\n"
 
-#: src/comm.c:114
+#: src/comm.c:115
 msgid ""
 "\n"
 "  -1              suppress lines unique to FILE1\n"
@@ -1702,7 +1702,7 @@ msgstr ""
 "  -3                   Elimina aquelles línies que apareixen en ambdós\n"
 "                       fitxers.\n"
 
-#: src/comm.c:120
+#: src/comm.c:121
 msgid ""
 "\n"
 "  --check-order     check that the input is correctly sorted, even\n"
@@ -1717,24 +1717,24 @@ msgstr ""
 "  --nocheck-order      No comprova si l’entrada es troba correctament\n"
 "                       ordenada.\n"
 
-#: src/comm.c:126
+#: src/comm.c:127
 msgid "  --output-delimiter=STR  separate columns with STR\n"
 msgstr ""
 "  --output-delimiter=CADENA\n"
 "                       Separa les columnes amb la CADENA.\n"
 
-#: src/comm.c:211 src/join.c:366
+#: src/comm.c:210 src/join.c:366
 #, c-format
 msgid "file %d is not in sorted order"
 msgstr "el fitxer número %d no està ordenat"
 
-#: src/comm.c:394
+#: src/comm.c:393
 #, c-format
 msgid "multiple delimiters specified"
 msgstr "s’han especificat múltiples delimitadors"
 
 # Usa quote.  ivb
-#: src/comm.c:398
+#: src/comm.c:397
 #, c-format
 msgid "empty %s not allowed"
 msgstr "no es permet un valor buit per a %s"
@@ -1742,62 +1742,62 @@ msgstr "no es permet un valor buit per a %s"
 # Usa quote().  ivb
 # Indica condició d'error.  ivb
 # Fallada en establir permisos segurs abans de canviar propietari/grup.  ivb
-#: src/copy.c:291
+#: src/copy.c:306
 #, c-format
 msgid "clearing permissions for %s"
 msgstr "en assegurar els permisos de %s"
 
 # Els 3 usen quote().  ivb
-#: src/copy.c:325 src/copy.c:1993 src/cp.c:314
+#: src/copy.c:340 src/copy.c:2006 src/cp.c:308
 #, c-format
 msgid "failed to preserve ownership for %s"
 msgstr "no s’ha pogut preservar el propietari de %s"
 
 # Usa quote().  ivb
-#: src/copy.c:351
+#: src/copy.c:366
 #, c-format
 msgid "failed to lookup file %s"
 msgstr "no s’ha pogut cercar el fitxer %s"
 
 # Usa quote().  ivb
-#: src/copy.c:356
+#: src/copy.c:371
 #, c-format
 msgid "failed to preserve authorship for %s"
 msgstr "no s’ha pogut preservar l’autoria de %s"
 
 # Usa quote().  ivb
-#: src/copy.c:414 src/csplit.c:633 src/du.c:933 src/fmt.c:427 src/head.c:849
-#: src/sort.c:3283 src/split.c:543 src/tac.c:544 src/tail.c:1294 src/wc.c:666
+#: src/copy.c:429 src/csplit.c:630 src/du.c:933 src/fmt.c:427 src/head.c:849
+#: src/sort.c:3421 src/split.c:543 src/tac.c:544 src/tail.c:1294 src/wc.c:666
 #, c-format
 msgid "cannot open %s for reading"
 msgstr "no s’ha pogut obrir %s per a llegir"
 
 # Els 4 usen quote().  ivb
-#: src/copy.c:420 src/copy.c:548 src/dd.c:1264 src/dd.c:1891 src/tail.c:1130
+#: src/copy.c:435 src/copy.c:563 src/dd.c:1268 src/dd.c:1895 src/tail.c:1130
 #: src/tail.c:1196 src/truncate.c:153 src/truncate.c:237
 #, c-format
 msgid "cannot fstat %s"
 msgstr "ha fallat fstat() sobre %s"
 
 # Usa quote().  ivb
-#: src/copy.c:430
+#: src/copy.c:445
 #, c-format
 msgid "skipping file %s, as it was replaced while being copied"
 msgstr "es salta el fitxer %s, que va ser reemplaçat en ser copiat"
 
-#: src/copy.c:454
+#: src/copy.c:469
 #, c-format
 msgid "failed to get file system create context"
 msgstr "no s’ha pogut obtenir el context de creació del sistema de fitxers"
 
 # Usa quote() en el ambdós args.  ivb
-#: src/copy.c:468
+#: src/copy.c:483
 #, c-format
 msgid "failed to set the security context of %s to %s"
 msgstr "no s’ha pogut establir el context de seguretat de %s a %s"
 
 # Els 6 usen quote().  ivb
-#: src/copy.c:485 src/copy.c:1284 src/copy.c:1438 src/copy.c:1586 src/ln.c:293
+#: src/copy.c:500 src/copy.c:1292 src/copy.c:1446 src/copy.c:1594 src/ln.c:293
 #: src/remove.c:935 src/remove.c:956 src/remove.c:1105 src/remove.c:1146
 #: src/remove.c:1165 src/remove.c:1181 src/remove.c:1188 src/remove.c:1539
 #: src/remove.c:1626 src/remove.c:1784
@@ -1807,7 +1807,7 @@ msgstr "no s’ha pogut eliminar %s"
 
 # Usa quote().  ivb
 # Missatge informatiu.  ivb
-#: src/copy.c:490 src/copy.c:1279 src/copy.c:1443 src/copy.c:1590
+#: src/copy.c:505 src/copy.c:1287 src/copy.c:1451 src/copy.c:1598
 #: src/remove.c:1013
 #, c-format
 msgid "removed %s\n"
@@ -1815,46 +1815,46 @@ msgstr "s’ha eliminat %s\n"
 
 # Usa quote.  ivb
 # Missatge d’error.  ivb
-#: src/copy.c:527
+#: src/copy.c:542
 #, c-format
 msgid "not writing through dangling symlink %s"
 msgstr "no es copiarà a través de l’enllaç simbòlic trencat %s"
 
 # Usa quote().  ivb
-#: src/copy.c:540
+#: src/copy.c:555
 #, c-format
 msgid "cannot create regular file %s"
 msgstr "no s’ha pogut crear el fitxer ordinari %s"
 
 # Els 3 usen quote().  ivb
-#: src/copy.c:632 src/dd.c:1325 src/dd.c:1650
+#: src/copy.c:638 src/dd.c:1329 src/dd.c:1654
 #, c-format
 msgid "reading %s"
 msgstr "s’està llegint %s"
 
 # Usa quote().  ivb
-#: src/copy.c:678 src/head.c:428
+#: src/copy.c:684 src/head.c:428
 #, c-format
 msgid "cannot lseek %s"
 msgstr "ha fallat lseek() sobre %s"
 
 # Els 4 usen quote().  ivb
 # En els 4 indica condició d'error.  ivb
-#: src/copy.c:691 src/copy.c:719 src/dd.c:1707 src/dd.c:1769
+#: src/copy.c:697 src/copy.c:725 src/dd.c:1711 src/dd.c:1773
 #, c-format
 msgid "writing %s"
 msgstr "en escriure %s"
 
 # Usa quote().  ivb
 # Indica condició d'error.  ivb
-#: src/copy.c:734 src/copy.c:2047
+#: src/copy.c:740 src/copy.c:2060
 #, c-format
 msgid "preserving times for %s"
 msgstr "en preservar les dates de %s"
 
 # Els 2 usen quote().  ivb
 # En els 2 indica condició d'error.  ivb
-#: src/copy.c:791 src/copy.c:797 src/head.c:857 src/touch.c:191
+#: src/copy.c:797 src/copy.c:803 src/head.c:857 src/touch.c:191
 #: src/truncate.c:411
 #, c-format
 msgid "closing %s"
@@ -1869,127 +1869,127 @@ msgstr "en tancar %s"
 # Aiii senyor, com passa el temps, ja ni hi ha fileutils (2003-1).  ivb
 # Usa quote() en el 1r arg.  ivb
 # Entre parèntesi va una cadena estil «-rwxr-xr-x».  ivb
-#: src/copy.c:1031
+#: src/copy.c:1037
 #, c-format
 msgid "%s: try to overwrite %s, overriding mode %04lo (%s)? "
 msgstr "%s: voleu sobreescriure %s, reemplaçant el mode %04lo (%s)? "
 
 # Usa quote().  ivb
-#: src/copy.c:1038
+#: src/copy.c:1044
 #, c-format
 msgid "%s: overwrite %s? "
 msgstr "%s: voleu sobreescriure %s? "
 
 # Usa quote().  ivb
-#: src/copy.c:1107
+#: src/copy.c:1113
 #, c-format
 msgid " (backup: %s)"
 msgstr " (còpia de seguretat: %s)"
 
-#: src/copy.c:1117
+#: src/copy.c:1123
 #, c-format
 msgid "failed to restore the default file creation context"
 msgstr "no s’ha pogut restaurar el context per defecte de creació de fitxers"
 
 # Usa quote().  ivb
-#: src/copy.c:1171
+#: src/copy.c:1179
 #, c-format
 msgid "omitting directory %s"
 msgstr "es descarta el directori %s"
 
 # Usa quote().  ivb
-#: src/copy.c:1185
+#: src/copy.c:1193
 #, c-format
 msgid "warning: source file %s specified more than once"
 msgstr "avís: s’ha especificat el fitxer origen %s més d’una vegada"
 
 # Els 2 usen quote() en els 2 args.  ivb
-#: src/copy.c:1233 src/ln.c:231
+#: src/copy.c:1241 src/ln.c:231
 #, c-format
 msgid "%s and %s are the same file"
 msgstr "%s i %s són el mateix fitxer"
 
 # Usa quote() en els 2 args.  ivb
-#: src/copy.c:1313
+#: src/copy.c:1321
 #, c-format
 msgid "cannot overwrite non-directory %s with directory %s"
 msgstr "no es pot sobreescriure el no‐directori %s amb el directori %s"
 
 # Usa quote() en els 2 args.  ivb
-#: src/copy.c:1331 src/ln.c:199
+#: src/copy.c:1339 src/ln.c:199
 #, c-format
 msgid "will not overwrite just-created %s with %s"
 msgstr "no es sobreescriurà %s, tot just creat, amb %s"
 
 # Usa quote().  ivb
-#: src/copy.c:1349
+#: src/copy.c:1357
 #, c-format
 msgid "cannot overwrite directory %s with non-directory"
 msgstr "no es pot sobreescriure el directori %s amb un no‐directori"
 
 # Usa quote() en els 2 args.  ivb
-#: src/copy.c:1363
+#: src/copy.c:1371
 #, c-format
 msgid "cannot move directory onto non-directory: %s -> %s"
 msgstr "no es pot moure un directori sobre un no-directori: %s -> %s"
 
 # Usa quote() en els 2 args.  ivb
-#: src/copy.c:1393
+#: src/copy.c:1401
 #, c-format
 msgid "backing up %s would destroy source;  %s not moved"
 msgstr "una còpia de seguretat de %s destruiria el fitxer origen; no es mou %s"
 
 # Usa quote() en els 2 args.  ivb
-#: src/copy.c:1394
+#: src/copy.c:1402
 #, c-format
 msgid "backing up %s would destroy source;  %s not copied"
 msgstr ""
 "una còpia de seguretat de %s destruiria el fitxer origen; no es còpia %s"
 
 # Els 2 usen quote().  ivb
-#: src/copy.c:1413 src/ln.c:261
+#: src/copy.c:1421 src/ln.c:261
 #, c-format
 msgid "cannot backup %s"
 msgstr "no sha pogut crear una còpia de seguretat de %s"
 
 # Usa quote() en els 2 args.  ivb
-#: src/copy.c:1477
+#: src/copy.c:1485
 #, c-format
 msgid "will not copy %s through just-created symlink %s"
 msgstr "no es copiarà %s a través de l’enllaç simbòlic tot just creat %s"
 
 # Usa quote() en els 2 args.  ivb
-#: src/copy.c:1554
+#: src/copy.c:1562
 #, c-format
 msgid "cannot copy a directory, %s, into itself, %s"
 msgstr "no es pot copiar un directori, %s, dins d’ell mateix, %s"
 
 # Un quote() en els 2 args.  ivb
-#: src/copy.c:1571
+#: src/copy.c:1579
 #, c-format
 msgid "will not create hard link %s to directory %s"
 msgstr "no es crearà l’enllaç fort %s cap al directori %s"
 
 # Usa quote() en els 2 args.  ivb
-#: src/copy.c:1596
+#: src/copy.c:1604
 #, c-format
 msgid "cannot create hard link %s to %s"
 msgstr "no s’ha pogut crear l’enllaç fort %s cap a %s"
 
 # Usa quote() en els 2 args.  ivb
-#: src/copy.c:1641
+#: src/copy.c:1649
 #, c-format
 msgid "cannot move %s to a subdirectory of itself, %s"
 msgstr "no es pot moure %s a un subdirectori d’ell mateix, %s"
 
 # Usa quote() en els dos args.  ivb
-#: src/copy.c:1684
+#: src/copy.c:1692
 #, c-format
 msgid "cannot move %s to %s"
 msgstr "no s’ha pogut moure %s a %s"
 
 # Usa quote() en es 2 args.  ivb
-#: src/copy.c:1696
+#: src/copy.c:1704
 #, c-format
 msgid "inter-device move failed: %s to %s; unable to remove target"
 msgstr ""
@@ -1997,7 +1997,7 @@ msgstr ""
 "destí"
 
 # Els 5 usen quote().  ivb
-#: src/copy.c:1728 src/install.c:592 src/mkdir.c:190 src/mkfifo.c:115
+#: src/copy.c:1736 src/install.c:583 src/mkdir.c:190 src/mkfifo.c:115
 #: src/mknod.c:168
 #, c-format
 msgid "failed to set default file creation context to %s"
@@ -2005,73 +2005,73 @@ msgstr ""
 "no s’ha pogut establir el context per defecte de creació de fitxers a %s"
 
 # Usa quote().  ivb
-#: src/copy.c:1769
+#: src/copy.c:1777
 #, c-format
 msgid "cannot copy cyclic symbolic link %s"
 msgstr "no es pot copiar l’enllaç simbòlic cíclic %s"
 
-#: src/copy.c:1870
+#: src/copy.c:1883
 #, c-format
 msgid "%s: can make relative symbolic links only in current directory"
 msgstr ""
 "%s: només es poden fer enllaços simbòlics relatius en el directori actual"
 
 # Usa quote() en els 2 arguments.  ivb
-#: src/copy.c:1877
+#: src/copy.c:1890
 #, c-format
 msgid "cannot create symbolic link %s to %s"
 msgstr "no s’ha pogut crear l’enllaç simbòlic %s cap a %s"
 
 # Usa quote().  ivb
-#: src/copy.c:1902
+#: src/copy.c:1915
 #, c-format
 msgid "cannot create link %s"
 msgstr "no s’ha pogut crear l’enllaç %s"
 
 # Els 2 usen quote().  ivb
-#: src/copy.c:1927 src/mkfifo.c:134
+#: src/copy.c:1940 src/mkfifo.c:134
 #, c-format
 msgid "cannot create fifo %s"
 msgstr "no s’ha pogut crear la cua FIFO %s"
 
 # Usa quote().  ivb
-#: src/copy.c:1936
+#: src/copy.c:1949
 #, c-format
 msgid "cannot create special file %s"
 msgstr "no s’ha pogut crear el fitxer especial %s"
 
 # Els 3 usen quote().  ivb
-#: src/copy.c:1946 src/ls.c:2908 src/stat.c:579
+#: src/copy.c:1959 src/ls.c:2909 src/stat.c:579
 #, c-format
 msgid "cannot read symbolic link %s"
 msgstr "no s’ha pogut llegir l’enllaç simbòlic %s"
 
 # Usa quote().  ivb
-#: src/copy.c:1973
+#: src/copy.c:1986
 #, c-format
 msgid "cannot create symbolic link %s"
 msgstr "no s’ha pogut crear l’enllaç simbòlic %s"
 
 # Usa quote().  ivb
-#: src/copy.c:2008
+#: src/copy.c:2021
 #, c-format
 msgid "%s has unknown file type"
 msgstr "%s és d’un tipus de fitxer desconegut"
 
 # Els 2 usen quote().  ivb
 # L'argument és el nom original.  ivb
-#: src/copy.c:2141 src/ln.c:334
+#: src/copy.c:2154 src/ln.c:334
 #, c-format
 msgid "cannot un-backup %s"
 msgstr "no s’ha pogut recuperar la còpia de seguretat de %s"
 
 # Usa quote() en els 2 args.  ivb
-#: src/copy.c:2145
+#: src/copy.c:2158
 #, c-format
 msgid "%s -> %s (unbackup)\n"
 msgstr "%s -> %s (recuperació de la còpia de seguretat)\n"
 
-#: src/cp.c:149 src/mv.c:285
+#: src/cp.c:143 src/mv.c:279
 #, c-format
 msgid ""
 "Usage: %s [OPTION]... [-T] SOURCE DEST\n"
@@ -2082,7 +2082,7 @@ msgstr ""
 "      o bé: %s [OPCIÓ]… ORIGEN… DIRECTORI\n"
 "      o bé: %s [OPCIÓ]… -t DIRECTORI ORIGEN…\n"
 
-#: src/cp.c:155
+#: src/cp.c:149
 msgid ""
 "Copy SOURCE to DEST, or multiple SOURCE(s) to DIRECTORY.\n"
 "\n"
@@ -2091,20 +2091,20 @@ msgstr ""
 "\n"
 
 # Agafat més o menys de libc.  ivb
-#: src/cp.c:159 src/csplit.c:1458 src/cut.c:197 src/df.c:795 src/du.c:276
-#: src/expand.c:116 src/fmt.c:275 src/fold.c:75 src/head.c:117
-#: src/install.c:963 src/kill.c:97 src/ln.c:367 src/ls.c:4415 src/mkdir.c:62
-#: src/mkfifo.c:57 src/mknod.c:59 src/mv.c:295 src/nl.c:184 src/paste.c:443
-#: src/pr.c:2776 src/ptx.c:1895 src/shred.c:164 src/shuf.c:57 src/sort.c:322
+#: src/cp.c:153 src/csplit.c:1455 src/cut.c:197 src/df.c:810 src/du.c:276
+#: src/expand.c:112 src/fmt.c:275 src/fold.c:75 src/head.c:117
+#: src/install.c:954 src/kill.c:97 src/ln.c:367 src/ls.c:4416 src/mkdir.c:62
+#: src/mkfifo.c:57 src/mknod.c:59 src/mv.c:289 src/nl.c:184 src/paste.c:443
+#: src/pr.c:2776 src/ptx.c:1892 src/shred.c:164 src/shuf.c:57 src/sort.c:322
 #: src/split.c:113 src/tac.c:142 src/tail.c:225 src/timeout.c:144
-#: src/touch.c:243 src/truncate.c:113 src/unexpand.c:126 src/uniq.c:142
+#: src/touch.c:243 src/truncate.c:113 src/unexpand.c:122 src/uniq.c:142
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too.\n"
 msgstr ""
 "Els arguments obligatoris per a les opcions llargues també ho són per a les\n"
 "opcions curtes corresponents.\n"
 
-#: src/cp.c:162
+#: src/cp.c:156
 #, fuzzy
 msgid ""
 "  -a, --archive                same as -dR --preserve=all\n"
@@ -2127,7 +2127,7 @@ msgstr ""
 "  -d                   Equival a «--no-dereference --preserve=link».\n"
 
 # FIXME: Ugly description of -f: you need to know how cp works internally!  ivb
-#: src/cp.c:169
+#: src/cp.c:163
 #, fuzzy
 msgid ""
 "  -f, --force                  if an existing destination file cannot be\n"
@@ -2146,7 +2146,7 @@ msgstr ""
 "  -H                   Segueix els enllaços simbòlics que es troben a "
 "l’ORIGEN.\n"
 
-#: src/cp.c:177
+#: src/cp.c:171
 msgid ""
 "  -l, --link                   link files instead of copying\n"
 "  -L, --dereference            always follow symbolic links in SOURCE\n"
@@ -2157,7 +2157,7 @@ msgstr ""
 "                       l’ORIGEN.\n"
 
 # FIXME: Ugly description of -f: you need to know how cp works internally!  ivb
-#: src/cp.c:181
+#: src/cp.c:175
 #, fuzzy
 msgid ""
 "  -n, --no-clobber             do not overwrite an existing file (overrides\n"
@@ -2171,7 +2171,7 @@ msgstr ""
 "  -H                   Segueix els enllaços simbòlics que es troben a "
 "l’ORIGEN.\n"
 
-#: src/cp.c:186
+#: src/cp.c:180
 #, fuzzy
 msgid ""
 "  -p                           same as --preserve=mode,ownership,timestamps\n"
@@ -2188,7 +2188,7 @@ msgstr ""
 "                       (dates); atributs addicionals: «context», «links»\n"
 "                       (enllaços), «all» (tots).\n"
 
-#: src/cp.c:193
+#: src/cp.c:187
 msgid ""
 "      --no-preserve=ATTR_LIST  don't preserve the specified attributes\n"
 "      --parents                use full source file name under DIRECTORY\n"
@@ -2198,7 +2198,7 @@ msgstr ""
 "      --parents        Crea el camí complet del fitxer origen sota el\n"
 "                       directori destí.\n"
 
-#: src/cp.c:197
+#: src/cp.c:191
 msgid ""
 "  -R, -r, --recursive          copy directories recursively\n"
 "      --remove-destination     remove each existing destination file before\n"
@@ -2210,7 +2210,7 @@ msgstr ""
 "                       Elimina cada fitxer destí existent abans d’intentar\n"
 "                       obrir‐lo (no després, com fa «--force»).\n"
 
-#: src/cp.c:202
+#: src/cp.c:196
 msgid ""
 "      --sparse=WHEN            control creation of sparse files\n"
 "      --strip-trailing-slashes  remove any trailing slashes from each "
@@ -2222,7 +2222,7 @@ msgstr ""
 "                       Elimina la barra final (si n’hi ha) de cada argument\n"
 "                       ORIGEN.\n"
 
-#: src/cp.c:207
+#: src/cp.c:201
 msgid ""
 "  -s, --symbolic-link          make symbolic links instead of copying\n"
 "  -S, --suffix=SUFFIX          override the usual backup suffix\n"
@@ -2238,7 +2238,7 @@ msgstr ""
 "  -T, --no-target-directory\n"
 "                       Tracta el DESTÍ com a un fitxer normal.\n"
 
-#: src/cp.c:213
+#: src/cp.c:207
 msgid ""
 "  -u, --update                 copy only when the SOURCE file is newer\n"
 "                                 than the destination file or when the\n"
@@ -2255,7 +2255,7 @@ msgstr ""
 #   «Sparse» són fitxers amb blocs seguits de caràcters nuls.  Com es pareix
 #   molt al concepte de «matriu dispersa» he aprofitat la traducció (que a més
 #   és la que dóna el diccionari).  Mireu «perforate(1)».
-#: src/cp.c:222
+#: src/cp.c:216
 msgid ""
 "\n"
 "By default, sparse SOURCE files are detected by a crude heuristic and the\n"
@@ -2274,7 +2274,7 @@ msgstr ""
 "suficientment llarga d’octets zero.  Empreu «--sparse=never» per a evitar la\n"
 "creació de fitxers dispersos.\n"
 
-#: src/cp.c:230 src/install.c:999 src/ln.c:393 src/mv.c:321
+#: src/cp.c:224 src/install.c:990 src/ln.c:393 src/mv.c:315
 msgid ""
 "\n"
 "The backup suffix is `~', unless set with --suffix or SIMPLE_BACKUP_SUFFIX.\n"
@@ -2290,7 +2290,7 @@ msgstr ""
 "VERSION_CONTROL.  Es poden emprar aquests valors:\n"
 "\n"
 
-#: src/cp.c:237 src/install.c:1006 src/ln.c:400 src/mv.c:328
+#: src/cp.c:231 src/install.c:997 src/ln.c:400 src/mv.c:322
 msgid ""
 "  none, off       never make backups (even if --backup is given)\n"
 "  numbered, t     make numbered backups\n"
@@ -2304,7 +2304,7 @@ msgstr ""
 "                   simples en cas contrari.\n"
 "  simple, never    Fa còpies de seguretat simples sempre.\n"
 
-#: src/cp.c:243
+#: src/cp.c:237
 msgid ""
 "\n"
 "As a special case, cp makes a backup of SOURCE when the force and backup\n"
@@ -2317,96 +2317,96 @@ msgstr ""
 "fitxer ordinari existent.\n"
 
 # Usa quote().  ivb
-#: src/cp.c:302
+#: src/cp.c:296
 #, c-format
 msgid "failed to preserve times for %s"
 msgstr "no s’han pogut preservar les dates de %s"
 
 # Usa quote().  ivb
-#: src/cp.c:333
+#: src/cp.c:327
 #, c-format
 msgid "failed to preserve permissions for %s"
 msgstr "no s’han pogut preservar els permisos de %s"
 
 # Usa quote().  ivb
-#: src/cp.c:460
+#: src/cp.c:454
 #, c-format
 msgid "cannot make directory %s"
 msgstr "no s’ha pogut crear el directori %s"
 
 # Els 4 usen quote().  ivb
-#: src/cp.c:509 src/cp.c:528
+#: src/cp.c:503 src/cp.c:522
 #, c-format
 msgid "%s exists but is not a directory"
 msgstr "%s existeix però no és un directori"
 
 # Els 5 usen quote().  ivb
 # Indica condició d'error.  ivb
-#: src/cp.c:555 src/cp.c:1033 src/install.c:414 src/install.c:531 src/ln.c:130
-#: src/ln.c:158 src/ln.c:187 src/ln.c:474 src/mv.c:155 src/mv.c:396
+#: src/cp.c:549 src/cp.c:1028 src/install.c:405 src/install.c:522 src/ln.c:130
+#: src/ln.c:158 src/ln.c:187 src/ln.c:474 src/mv.c:149 src/mv.c:390
 #, c-format
 msgid "accessing %s"
 msgstr "en accedir a %s"
 
-#: src/cp.c:575 src/install.c:601 src/ln.c:504 src/mv.c:429 src/shred.c:1190
+#: src/cp.c:569 src/install.c:592 src/ln.c:504 src/mv.c:423 src/shred.c:1190
 #: src/touch.c:440 src/truncate.c:362
 #, c-format
 msgid "missing file operand"
 msgstr "manca un operand fitxer"
 
 # Usa quote().  ivb
-#: src/cp.c:577 src/install.c:603 src/ln.c:518 src/mv.c:431
+#: src/cp.c:571 src/install.c:594 src/ln.c:518 src/mv.c:425
 #, c-format
 msgid "missing destination file operand after %s"
 msgstr "manca un operand fitxer destí després de %s"
 
-#: src/cp.c:586 src/install.c:612 src/mv.c:440
+#: src/cp.c:580 src/install.c:603 src/mv.c:434
 #, c-format
 msgid "cannot combine --target-directory (-t) and --no-target-directory (-T)"
 msgstr ""
 "no es poden combinar «--target-directory» (-t) i «--no-target-directory» (-T)"
 
 # Usa quote().  ivb
-#: src/cp.c:600 src/cp.c:1035 src/install.c:416 src/install.c:533
-#: src/install.c:625 src/ln.c:132 src/ln.c:476 src/ln.c:532 src/mv.c:398
-#: src/mv.c:454
+#: src/cp.c:594 src/cp.c:1030 src/install.c:407 src/install.c:524
+#: src/install.c:616 src/ln.c:132 src/ln.c:476 src/ln.c:532 src/mv.c:392
+#: src/mv.c:448
 #, c-format
 msgid "target %s is not a directory"
 msgstr "el destí %s no és un directori"
 
-#: src/cp.c:711
+#: src/cp.c:705
 #, c-format
 msgid "with --parents, the destination must be a directory"
 msgstr "en emprar «--parents», el destí ha de ser un directori"
 
-#: src/cp.c:1028 src/install.c:526 src/ln.c:469 src/mv.c:391
+#: src/cp.c:1023 src/install.c:517 src/ln.c:469 src/mv.c:385
 #, c-format
 msgid "multiple target directories specified"
 msgstr "s’han especificat múltiples directoris destí"
 
-#: src/cp.c:1073
+#: src/cp.c:1068
 #, c-format
 msgid "cannot make both hard and symbolic links"
 msgstr "no es poden fer enllaços forts i simbòlics alhora"
 
-#: src/cp.c:1080 src/mv.c:461
+#: src/cp.c:1075 src/mv.c:455
 #, fuzzy, c-format
 msgid "options --backup and --no-clobber are mutually exclusive"
 msgstr ""
 "\n"
 "Teniu en compte que les opcions «-r» i «-s» són mútuament excloents.\n"
 
-#: src/cp.c:1088 src/install.c:586 src/ln.c:540 src/mv.c:469
+#: src/cp.c:1083 src/install.c:577 src/ln.c:540 src/mv.c:463
 msgid "backup type"
 msgstr "tipus de còpia de seguretat"
 
-#: src/cp.c:1113
+#: src/cp.c:1108
 #, c-format
 msgid "cannot preserve security context without an SELinux-enabled kernel"
 msgstr ""
 "no es poden preservar els contexts de seguretat sota un nucli sense SELinux"
 
-#: src/cp.c:1119
+#: src/cp.c:1114
 #, c-format
 msgid "cannot preserve extended attributes, cp is built without xattr support"
 msgstr ""
@@ -2416,139 +2416,139 @@ msgstr ""
 msgid "Stuart Kemp"
 msgstr "Stuart Kemp"
 
-#: src/csplit.c:525
+#: src/csplit.c:522
 #, c-format
 msgid "input disappeared"
 msgstr "l’entrada ha desaparegut"
 
-#: src/csplit.c:653 src/csplit.c:664
+#: src/csplit.c:650 src/csplit.c:661
 #, c-format
 msgid "%s: line number out of range"
 msgstr "%s: el número de línia està fora de rang"
 
 # Usa quote().  ivb
-#: src/csplit.c:693
+#: src/csplit.c:690
 #, c-format
 msgid "%s: %s: line number out of range"
 msgstr "%s: %s: el número de línia està fora de rang"
 
-#: src/csplit.c:696 src/csplit.c:745
+#: src/csplit.c:693 src/csplit.c:742
 #, c-format
 msgid " on repetition %s\n"
 msgstr " a la %sa repetició\n"
 
 # Usa quote().  ivb
-#: src/csplit.c:739
+#: src/csplit.c:736
 #, c-format
 msgid "%s: %s: match not found"
 msgstr "%s: %s: no s’ha trobat cap coincidència"
 
-#: src/csplit.c:803 src/csplit.c:843 src/nl.c:352 src/tac.c:274
+#: src/csplit.c:800 src/csplit.c:840 src/nl.c:352 src/tac.c:274
 #, c-format
 msgid "error in regular expression search"
 msgstr "error a la cerca de l’expressió regular"
 
 # Usa quote().  ivb
-#: src/csplit.c:968
+#: src/csplit.c:965
 #, c-format
 msgid "write error for %s"
 msgstr "error en escriure %s"
 
-#: src/csplit.c:1044
+#: src/csplit.c:1041
 #, c-format
 msgid "%s: integer expected after delimiter"
 msgstr "%s: s’esperava un número enter després del delimitador"
 
-#: src/csplit.c:1060
+#: src/csplit.c:1057
 #, c-format
 msgid "%s: `}' is required in repeat count"
 msgstr "%s: cal «}» al nombre de repeticions"
 
-#: src/csplit.c:1070
+#: src/csplit.c:1067
 #, c-format
 msgid "%s}: integer required between `{' and `}'"
 msgstr "%s}: cal especificar un número enter entre «{» i «}»"
 
-#: src/csplit.c:1097
+#: src/csplit.c:1094
 #, c-format
 msgid "%s: closing delimiter `%c' missing"
 msgstr "%s: manca el delimitador «%c» de tancament"
 
-#: src/csplit.c:1114
+#: src/csplit.c:1111
 #, c-format
 msgid "%s: invalid regular expression: %s"
 msgstr "%s: l’expressió regular no és vàlida: %s"
 
-#: src/csplit.c:1147
+#: src/csplit.c:1144
 #, c-format
 msgid "%s: invalid pattern"
 msgstr "%s: el patró no és vàlid"
 
-#: src/csplit.c:1150
+#: src/csplit.c:1147
 #, c-format
 msgid "%s: line number must be greater than zero"
 msgstr "%s: el número de línia ha de ser major que zero"
 
 # Usa quote() en ambdues.  ivb
-#: src/csplit.c:1156
+#: src/csplit.c:1153
 #, c-format
 msgid "line number %s is smaller than preceding line number, %s"
 msgstr "el número de línia %s és menor que el número anterior, %s"
 
 # Usa quote().  ivb
-#: src/csplit.c:1162
+#: src/csplit.c:1159
 #, c-format
 msgid "warning: line number %s is the same as preceding line number"
 msgstr "avís: el número de línia %s és el mateix que el número anterior"
 
 # Es refereix al modificador d'amplada en una cadena de format C (-b).  ivb
-#: src/csplit.c:1215
+#: src/csplit.c:1212
 #, c-format
 msgid "invalid format width"
 msgstr "l’especificació d’amplada del format no és vàlida"
 
 # Es refereix al modificador de precisió en una cadena de format C (-b).  ivb
-#: src/csplit.c:1236
+#: src/csplit.c:1233
 #, c-format
 msgid "invalid format precision"
 msgstr "l’especificació de precisió del format no és vàlida"
 
-#: src/csplit.c:1257
+#: src/csplit.c:1254
 #, c-format
 msgid "missing conversion specifier in suffix"
 msgstr "manca l’especificació de conversió al sufix"
 
-#: src/csplit.c:1263
+#: src/csplit.c:1260
 #, c-format
 msgid "invalid conversion specifier in suffix: %c"
 msgstr "l’especificació de conversió al sufix no és vàlida: %c"
 
-#: src/csplit.c:1266
+#: src/csplit.c:1263
 #, c-format
 msgid "invalid conversion specifier in suffix: \\%.3o"
 msgstr "l’especificació de conversió al sufix no és vàlida: \\%.3o"
 
-#: src/csplit.c:1289
+#: src/csplit.c:1286
 #, c-format
 msgid "too many %% conversion specifications in suffix"
 msgstr "sobren especificacions de conversió «%%» al sufix"
 
-#: src/csplit.c:1304
+#: src/csplit.c:1301
 #, c-format
 msgid "missing %% conversion specification in suffix"
 msgstr "manca l’especificació de conversió «%%» al sufix"
 
-#: src/csplit.c:1348
+#: src/csplit.c:1345
 #, c-format
 msgid "%s: invalid number"
 msgstr "%s: el número no és vàlid"
 
-#: src/csplit.c:1449
+#: src/csplit.c:1446
 #, c-format
 msgid "Usage: %s [OPTION]... FILE PATTERN...\n"
 msgstr "Forma d’ús: %s [OPCIÓ]… FITXER PATRÓ…\n"
 
-#: src/csplit.c:1453
+#: src/csplit.c:1450
 msgid ""
 "Output pieces of FILE separated by PATTERN(s) to files `xx00', `xx01', ...,\n"
 "and output byte counts of each piece to standard output.\n"
@@ -2559,7 +2559,7 @@ msgstr ""
 "estàndard la mida en octets de cadascun d’ells.\n"
 "\n"
 
-#: src/csplit.c:1461
+#: src/csplit.c:1458
 #, c-format
 msgid ""
 "  -b, --suffix-format=FORMAT  use sprintf FORMAT instead of %02d\n"
@@ -2571,7 +2571,7 @@ msgstr ""
 "  -f, --prefix=PREFIX    Empra aquest PREFIX en lloc de «xx».\n"
 "  -k, --keep-files     No elimina els fitxer generats, en cas d’error.\n"
 
-#: src/csplit.c:1466
+#: src/csplit.c:1463
 msgid ""
 "  -n, --digits=DIGITS        use specified number of digits instead of 2\n"
 "  -s, --quiet, --silent      do not print counts of output file sizes\n"
@@ -2583,7 +2583,7 @@ msgstr ""
 "  -z, --elide-empty-files\n"
 "                       Elimina els fitxers resultants que estan buits.\n"
 
-#: src/csplit.c:1473
+#: src/csplit.c:1470
 msgid ""
 "\n"
 "Read standard input if FILE is -.  Each PATTERN may be:\n"
@@ -2591,7 +2591,7 @@ msgstr ""
 "\n"
 "Si FITXER és «-», llegeix l’entrada estàndard.  Cada PATRÓ pot ser:\n"
 
-#: src/csplit.c:1477
+#: src/csplit.c:1474
 msgid ""
 "\n"
 "  INTEGER            copy up to but not including specified line number\n"
@@ -3035,9 +3035,9 @@ msgstr ""
 "els\n"
 "símbols numèrics alternatius del locale (si n’hi ha).\n"
 
-#: src/date.c:260 src/dd.c:1831 src/head.c:840 src/md5sum.c:444
-#: src/md5sum.c:746 src/od.c:864 src/od.c:1915 src/pr.c:1177 src/pr.c:1373
-#: src/pr.c:1495 src/stty.c:839 src/tac.c:535 src/tail.c:301 src/tail.c:1653
+#: src/date.c:260 src/dd.c:1835 src/head.c:840 src/md5sum.c:444
+#: src/md5sum.c:746 src/od.c:864 src/od.c:1915 src/pr.c:1175 src/pr.c:1371
+#: src/pr.c:1493 src/stty.c:839 src/tac.c:535 src/tail.c:301 src/tail.c:1653
 #: src/tee.c:126 src/tr.c:1893 src/tsort.c:523 src/wc.c:193
 #, c-format
 msgid "standard input"
@@ -3088,12 +3088,12 @@ msgid "time %s is out of range"
 msgstr "la data %s està fora de rang"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/dd.c:44 src/factor.c:45 src/rm.c:63 src/tail.c:52 src/touch.c:41
+#: src/dd.c:44 src/factor.c:43 src/rm.c:63 src/tail.c:52 src/touch.c:41
 #: src/wc.c:49
 msgid "Paul Rubin"
 msgstr "Paul Rubin"
 
-#: src/dd.c:458
+#: src/dd.c:462
 #, c-format
 msgid ""
 "Usage: %s [OPERAND]...\n"
@@ -3102,7 +3102,7 @@ msgstr ""
 "Forma d’ús: %s [OPERAND]…\n"
 "      o bé: %s OPCIÓ\n"
 
-#: src/dd.c:463
+#: src/dd.c:467
 #, fuzzy
 msgid ""
 "Copy a file, converting and formatting according to the operands.\n"
@@ -3122,7 +3122,7 @@ msgstr ""
 "  count=BLOCS         Només còpia aquest nombre de BLOCS de l’entrada.\n"
 "  ibs=OCTETS          Llegeix aquest nombre d’OCTETS alhora.\n"
 
-#: src/dd.c:472
+#: src/dd.c:476
 #, fuzzy
 msgid ""
 "  if=FILE         read from FILE instead of stdin\n"
@@ -3149,7 +3149,7 @@ msgstr ""
 "                      de l’entrada.\n"
 "  status=noxfer       No mostra l’estadística de la tranferència.\n"
 
-#: src/dd.c:482
+#: src/dd.c:486
 msgid ""
 "\n"
 "BLOCKS and BYTES may be followed by the following multiplicative suffixes:\n"
@@ -3168,7 +3168,7 @@ msgstr ""
 "Cada símbol de CONVERSIONS pot ser:\n"
 "\n"
 
-#: src/dd.c:491
+#: src/dd.c:495
 msgid ""
 "  ascii     from EBCDIC to ASCII\n"
 "  ebcdic    from ASCII to EBCDIC\n"
@@ -3188,7 +3188,7 @@ msgstr ""
 "               per un caràcter de nova línia.\n"
 "  lcase        Transforma les majúscules en minúscules.\n"
 
-#: src/dd.c:499
+#: src/dd.c:503
 msgid ""
 "  nocreat   do not create the output file\n"
 "  excl      fail if the output file already exists\n"
@@ -3202,7 +3202,7 @@ msgstr ""
 "  ucase        Transforma les minúscules en majúscules.\n"
 "  swab         Intercanvia cada parell d’octets de l’entrada.\n"
 
-#: src/dd.c:506
+#: src/dd.c:510
 msgid ""
 "  noerror   continue after read errors\n"
 "  sync      pad every input block with NULs to ibs-size; when used\n"
@@ -3219,7 +3219,7 @@ msgstr ""
 "               finalitzar.\n"
 "  fsync        El mateix, però també n’escriu les metadades.\n"
 
-#: src/dd.c:513
+#: src/dd.c:517
 msgid ""
 "\n"
 "Each FLAG symbol may be:\n"
@@ -3233,62 +3233,62 @@ msgstr ""
 "  append       Mode de només addició (només té sentit per a l’eixida, es\n"
 "               suggereix emprar «conv=notrunc»).\n"
 
-#: src/dd.c:520
+#: src/dd.c:524
 #, fuzzy
 msgid "  cio       use concurrent I/O for data\n"
 msgstr "  text         Empra E/S textual per a les dades.\n"
 
-#: src/dd.c:522
+#: src/dd.c:526
 msgid "  direct    use direct I/O for data\n"
 msgstr "  direct       Empra E/S directa per a les dades.\n"
 
-#: src/dd.c:524
+#: src/dd.c:528
 msgid "  directory  fail unless a directory\n"
 msgstr "  directory    Falla si no és un directori.\n"
 
-#: src/dd.c:526
+#: src/dd.c:530
 msgid "  dsync     use synchronized I/O for data\n"
 msgstr "  dsync        Empra E/S sincronitzada per a les dades.\n"
 
-#: src/dd.c:528
+#: src/dd.c:532
 msgid "  sync      likewise, but also for metadata\n"
 msgstr "  sync         El mateix, però també per a les metadades.\n"
 
-#: src/dd.c:529
+#: src/dd.c:533
 msgid "  fullblock  accumulate full blocks of input (iflag only)\n"
 msgstr ""
 "  fullblock    Acumula blocs d’entrada sencers (símbol per a «iflag»).\n"
 
-#: src/dd.c:532
+#: src/dd.c:536
 msgid "  nonblock  use non-blocking I/O\n"
 msgstr "  nonblock     Empra E/S no blocadora.\n"
 
-#: src/dd.c:534
+#: src/dd.c:538
 msgid "  noatime   do not update access time\n"
 msgstr "  noatime      No actualitza la data d’accés.\n"
 
-#: src/dd.c:536
+#: src/dd.c:540
 msgid "  noctty    do not assign controlling terminal from file\n"
 msgstr "  noctty       No assigna el fitxer com a terminal de control.\n"
 
-#: src/dd.c:539
+#: src/dd.c:543
 msgid "  nofollow  do not follow symlinks\n"
 msgstr "  nofollow     No segueix els enllaços simbòlics.\n"
 
-#: src/dd.c:541
+#: src/dd.c:545
 msgid "  nolinks   fail if multiply-linked\n"
 msgstr "  nolinks      Falla si el fitxer té més d’un enllaç.\n"
 
-#: src/dd.c:543
+#: src/dd.c:547
 msgid "  binary    use binary I/O for data\n"
 msgstr "  binary       Empra E/S binària per a les dades.\n"
 
-#: src/dd.c:545
+#: src/dd.c:549
 msgid "  text      use text I/O for data\n"
 msgstr "  text         Empra E/S textual per a les dades.\n"
 
 # La substitució pot ser «USR1» o «INFO».  ivb
-#: src/dd.c:549
+#: src/dd.c:553
 #, c-format
 msgid ""
 "\n"
@@ -3318,7 +3318,7 @@ msgstr ""
 "Les opcions són:\n"
 "\n"
 
-#: src/dd.c:605
+#: src/dd.c:609
 #, c-format
 msgid ""
 "%<PRIuMAX>+%<PRIuMAX> records in\n"
@@ -3327,14 +3327,14 @@ msgstr ""
 "%<PRIuMAX>+%<PRIuMAX> registres llegits\n"
 "%<PRIuMAX>+%<PRIuMAX> registres escrits\n"
 
-#: src/dd.c:611
+#: src/dd.c:615
 #, c-format
 msgid "%<PRIuMAX> truncated record\n"
 msgid_plural "%<PRIuMAX> truncated records\n"
 msgstr[0] "%<PRIuMAX> registre truncat\n"
 msgstr[1] "%<PRIuMAX> registres truncats\n"
 
-#: src/dd.c:623
+#: src/dd.c:627
 #, c-format
 msgid "%<PRIuMAX> byte (%s) copied"
 msgid_plural "%<PRIuMAX> bytes (%s) copied"
@@ -3342,7 +3342,7 @@ msgstr[0] "%<PRIuMAX> octet (%s) copiat"
 msgstr[1] "%<PRIuMAX> octets (%s) copiats"
 
 # Es refereix a octets per segon.  ivb
-#: src/dd.c:641
+#: src/dd.c:645
 msgid "Infinity B"
 msgstr "Infinits B"
 
@@ -3356,84 +3356,84 @@ msgstr "Infinits B"
 #. but that was incorrect for languages like Polish.  To fix this
 #. bug we now use SI symbols even though they're a bit more
 #. confusing in English.
-#: src/dd.c:654
+#: src/dd.c:658
 #, c-format
 msgid ", %g s, %s/s\n"
 msgstr ", %g s, %s/s\n"
 
 # Usa quote().  ivb
 # Condició d'error.  ivb
-#: src/dd.c:662
+#: src/dd.c:666
 #, c-format
 msgid "closing input file %s"
 msgstr "en tancar el fitxer d’entrada %s"
 
 # Usa quote().  ivb
 # Condició d'error.  ivb
-#: src/dd.c:669
+#: src/dd.c:673
 #, c-format
 msgid "closing output file %s"
 msgstr "en tancar el fitxer d’eixida %s"
 
 # Usa quote().  ivb
 # Condició d'error.  ivb
-#: src/dd.c:870 src/dd.c:1620
+#: src/dd.c:874 src/dd.c:1624
 #, c-format
 msgid "writing to %s"
 msgstr "en escriure %s"
 
 # Usa quote().  ivb
-#: src/dd.c:981 src/dd.c:1035
+#: src/dd.c:985 src/dd.c:1039
 #, c-format
 msgid "unrecognized operand %s"
 msgstr "l’operand %s no és reconegut"
 
-#: src/dd.c:992
+#: src/dd.c:996
 msgid "invalid conversion"
 msgstr "la conversió no és vàlida"
 
-#: src/dd.c:995
+#: src/dd.c:999
 msgid "invalid input flag"
 msgstr "el senyalador d’entrada no és vàlid"
 
-#: src/dd.c:998 src/dd.c:1065
+#: src/dd.c:1002 src/dd.c:1069
 msgid "invalid output flag"
 msgstr "el senyalador d’eixida no és vàlid"
 
-#: src/dd.c:1001
+#: src/dd.c:1005
 msgid "invalid status flag"
 msgstr "el senyalador d’estat no és vàlid"
 
 # Usa quote().  ivb
-#: src/dd.c:1040 src/truncate.c:325
+#: src/dd.c:1044 src/truncate.c:325
 #, c-format
 msgid "invalid number %s"
 msgstr "el número %s no és vàlid"
 
-#: src/dd.c:1074
+#: src/dd.c:1078
 #, c-format
 msgid "cannot combine any two of {ascii,ebcdic,ibm}"
 msgstr "no es poden combinar «ascii», «ebcdic» o «ibm»"
 
 # Són noms de senyaladors.  ivb
-#: src/dd.c:1076
+#: src/dd.c:1080
 #, c-format
 msgid "cannot combine block and unblock"
 msgstr "no es poden combinar «block» i «unblock»"
 
 # Són noms de senyaladors.  ivb
-#: src/dd.c:1078
+#: src/dd.c:1082
 #, c-format
 msgid "cannot combine lcase and ucase"
 msgstr "no es poden combinar «lcase» i «ucase»"
 
 # Són noms de senyaladors.  ivb
-#: src/dd.c:1080
+#: src/dd.c:1084
 #, c-format
 msgid "cannot combine excl and nocreat"
 msgstr "no es poden combinar «excl» i «nocreat»"
 
-#: src/dd.c:1226
+#: src/dd.c:1230
 #, c-format
 msgid ""
 "warning: working around lseek kernel bug for file (%s)\n"
@@ -3443,66 +3443,66 @@ msgstr ""
 "mt_type=0x%0lx —vegeu <sys/mtio.h> per a la llista de tipus"
 
 # El primer hauria de ser «no *es pot* desplaçar».  ivb
-#: src/dd.c:1309
+#: src/dd.c:1313
 #, fuzzy, c-format
 msgid "%s: cannot skip"
 msgstr "%s: no s’ha pogut desplaçar"
 
 # El primer hauria de ser «no *es pot* desplaçar».  ivb
-#: src/dd.c:1311 src/dd.c:1333 src/dd.c:1390
+#: src/dd.c:1315 src/dd.c:1337 src/dd.c:1394
 #, c-format
 msgid "%s: cannot seek"
 msgstr "%s: no s’ha pogut desplaçar"
 
 # Usa quote().  ivb
-#: src/dd.c:1370
+#: src/dd.c:1374
 #, c-format
 msgid "offset overflow while reading file %s"
 msgstr "s’ha desbordat el desplaçament en llegir el fitxer %s"
 
-#: src/dd.c:1382
+#: src/dd.c:1386
 #, c-format
 msgid "warning: invalid file offset after failed read"
 msgstr ""
 "avís: després de la lectura fallada el desplaçament de fitxer no és vàlid"
 
-#: src/dd.c:1386
+#: src/dd.c:1390
 #, c-format
 msgid "cannot work around kernel bug after all"
 msgstr "al final no s’ha pogut evitar l’error del nucli"
 
 # Usa quote().  ivb
 # Condició d'error.  ivb
-#: src/dd.c:1529
+#: src/dd.c:1533
 #, c-format
 msgid "setting flags for %s"
 msgstr "en establir els senyaladors de %s"
 
-#: src/dd.c:1603
+#: src/dd.c:1607
 #, fuzzy, c-format
 msgid "%s: cannot skip to specified offset"
 msgstr "%s: no s’ha pogut moure dins el desplaçament relatiu %s"
 
 # Usa quote.  ivb
-#: src/dd.c:1778
+#: src/dd.c:1782
 #, c-format
 msgid "fdatasync failed for %s"
 msgstr "ha fallat fdatasync() sobre %s"
 
 # Usa quote().  ivb
-#: src/dd.c:1788
+#: src/dd.c:1792
 #, c-format
 msgid "fsync failed for %s"
 msgstr "ha fallat fsync() sobre %s"
 
 # Usa quote().  ivb
 # Condició d'error.  ivb
-#: src/dd.c:1837 src/dd.c:1866
+#: src/dd.c:1841 src/dd.c:1870
 #, c-format
 msgid "opening %s"
 msgstr "en obrir %s"
 
-#: src/dd.c:1876
+#: src/dd.c:1880
 #, c-format
 msgid ""
 "offset too large: cannot truncate to a length of seek=%<PRIuMAX> (%lu-byte) "
@@ -3513,7 +3513,7 @@ msgstr ""
 
 # Usa quote().  ivb
 # Condició d'error.  ivb
-#: src/dd.c:1897
+#: src/dd.c:1901
 #, c-format
 msgid "truncating at %<PRIuMAX> bytes in output file %s"
 msgstr "en truncar a %<PRIuMAX> octets al fitxer d’eixida %s"
@@ -3569,23 +3569,23 @@ msgstr "  Blocs %4s     En ús   Lliures  %%Ús"
 msgid " Mounted on\n"
 msgstr " Muntat a\n"
 
-#: src/df.c:516
+#: src/df.c:531
 #, c-format
 msgid "cannot get current directory"
 msgstr "no s’ha pogut obtenir el directori actual"
 
-#: src/df.c:526 src/df.c:540 src/df.c:568
+#: src/df.c:541 src/df.c:555 src/df.c:583
 #, c-format
 msgid "cannot change to directory %s"
 msgstr "no s’ha pogut canviar al directori %s"
 
 # Usa quote().  ivb
-#: src/df.c:546
+#: src/df.c:561
 #, c-format
 msgid "cannot stat current directory (now %s)"
 msgstr "ha fallat stat() sobre el directori actual (ara %s)"
 
-#: src/df.c:790
+#: src/df.c:805
 msgid ""
 "Show information about the file system on which each FILE resides,\n"
 "or all file systems by default.\n"
@@ -3597,7 +3597,7 @@ msgstr ""
 "\n"
 
 # Crec que «virtual» capta millor el significat de «dummy».  ivb
-#: src/df.c:798
+#: src/df.c:813
 msgid ""
 "  -a, --all             include dummy file systems\n"
 "  -B, --block-size=SIZE  use SIZE-byte blocks\n"
@@ -3613,7 +3613,7 @@ msgstr ""
 "                       humans (per exemple: 1K 234M 2G).\n"
 "  -H, --si             El mateix, però empra potències de 1000, no de 1024.\n"
 
-#: src/df.c:805
+#: src/df.c:820
 msgid ""
 "  -i, --inodes          list inode information instead of block usage\n"
 "  -k                    like --block-size=1K\n"
@@ -3628,7 +3628,7 @@ msgstr ""
 "      --no-sync        No invoca sync() abans d’obtenir la informació sobre\n"
 "                       l’ús (per defecte).\n"
 
-#: src/df.c:811
+#: src/df.c:826
 msgid ""
 "  -P, --portability     use the POSIX output format\n"
 "      --sync            invoke sync before getting usage info\n"
@@ -3649,7 +3649,7 @@ msgstr ""
 "                       del TIPUS especificat.\n"
 "  -v                   (No es té en compte.)\n"
 
-#: src/df.c:821 src/du.c:333 src/ls.c:4546
+#: src/df.c:836 src/du.c:333 src/ls.c:4547
 msgid ""
 "\n"
 "SIZE may be (or may be an integer optionally followed by) one of following:\n"
@@ -3662,20 +3662,20 @@ msgstr ""
 "enter.\n"
 
 # Usa quote().  ivb
-#: src/df.c:961
+#: src/df.c:976
 #, c-format
 msgid "file system type %s both selected and excluded"
 msgstr "s’ha seleccionat i exclós alhora el tipus de sistema de fitxers %s"
 
-#: src/df.c:1002
+#: src/df.c:1017
 msgid "Warning: "
 msgstr "avís: "
 
-#: src/df.c:1004
+#: src/df.c:1019
 msgid "cannot read table of mounted file systems"
 msgstr "no s’ha pogut llegir la taula de sistemes de fitxers muntats"
 
-#: src/df.c:1032
+#: src/df.c:1047
 #, c-format
 msgid "no file systems processed"
 msgstr "no s’ha processat cap sistema de fitxers"
@@ -3973,7 +3973,7 @@ msgid "warning: summarizing conflicts with --max-depth=%lu"
 msgstr "avís: resumir no és compatible amb «--max-depth=%lu»"
 
 # Açò s'imprimeix després d'un missatge d'error.  ivb
-#: src/du.c:928 src/sort.c:3273 src/wc.c:656
+#: src/du.c:928 src/sort.c:3411 src/wc.c:656
 msgid "file operands cannot be combined with --files0-from"
 msgstr "No es poden combinar els operands fitxer amb «--files0-from»."
 
@@ -3984,7 +3984,7 @@ msgid "%s: read error"
 msgstr "%s: error de lectura"
 
 # Usa quote().  ivb
-#: src/du.c:980 src/sort.c:3302 src/wc.c:731
+#: src/du.c:980 src/sort.c:3440 src/wc.c:731
 #, c-format
 msgid "when reading file names from stdin, no file name of %s allowed"
 msgstr ""
@@ -4005,7 +4005,7 @@ msgid "error reading %s"
 msgstr "error en llegir %s"
 
 # Els 3 fan el mateix ús.  ivb
-#: src/du.c:1025 src/ls.c:2483 src/wc.c:774
+#: src/du.c:1025 src/ls.c:2484 src/wc.c:774
 msgid "total"
 msgstr "total"
 
@@ -4128,7 +4128,7 @@ msgstr ""
 "Un «-» a soles implica «-i».  Si no s’indica l’ORDRE, mostra l’entorn\n"
 "resultant.\n"
 
-#: src/expand.c:111
+#: src/expand.c:107
 msgid ""
 "Convert tabs in each FILE to spaces, writing to standard output.\n"
 "With no FILE, or when FILE is -, read standard input.\n"
@@ -4142,7 +4142,7 @@ msgstr ""
 
 # Hau!  ivb
 # L'explicació d'«--initial» vé de la plana info.  ivb
-#: src/expand.c:119
+#: src/expand.c:115
 msgid ""
 "  -i, --initial       do not convert tabs after non blanks\n"
 "  -t, --tabs=NUMBER   have tabs NUMBER characters apart, not 8\n"
@@ -4152,7 +4152,7 @@ msgstr ""
 "  -t, --tabs=NÚMERO    Tabula a una distància de NÚMERO caràcters, en lloc\n"
 "                       de 8.\n"
 
-#: src/expand.c:123
+#: src/expand.c:119
 msgid ""
 "  -t, --tabs=LIST     use comma separated list of explicit tab positions\n"
 msgstr ""
@@ -4162,28 +4162,28 @@ msgstr ""
 
 # És un enter correcte però massa gran.  ivb
 # Usa quote().  ivb
-#: src/expand.c:176 src/unexpand.c:195
+#: src/expand.c:172 src/unexpand.c:191
 #, c-format
 msgid "tab stop is too large %s"
 msgstr "la distància de tabulació %s és massa gran"
 
 # Usa quote().  ivb
-#: src/expand.c:184 src/unexpand.c:203
+#: src/expand.c:180 src/unexpand.c:199
 #, c-format
 msgid "tab size contains invalid character(s): %s"
 msgstr "la distància de tabulació conté caràcters no vàlids: %s"
 
-#: src/expand.c:210 src/unexpand.c:229
+#: src/expand.c:206 src/unexpand.c:225
 #, c-format
 msgid "tab size cannot be 0"
 msgstr "la distància de tabulació no pot ser 0"
 
-#: src/expand.c:212 src/unexpand.c:231
+#: src/expand.c:208 src/unexpand.c:227
 #, c-format
 msgid "tab sizes must be ascending"
 msgstr "les distàncies de tabulació han de ser ascendents"
 
-#: src/expand.c:329 src/expand.c:348 src/unexpand.c:377 src/unexpand.c:424
+#: src/expand.c:325 src/expand.c:344 src/unexpand.c:373 src/unexpand.c:420
 #, c-format
 msgid "input line is too long"
 msgstr "la línia d’entrada és massa llarga"
@@ -4340,7 +4340,7 @@ msgstr ""
 msgid "syntax error"
 msgstr "error de sintaxi"
 
-#: src/expr.c:596 src/ptx.c:288
+#: src/expr.c:596 src/ptx.c:285
 #, c-format
 msgid "error in regular expression matcher"
 msgstr "error al cercador d’expressions regulars"
@@ -4364,28 +4364,28 @@ msgid "the strings compared were %s and %s"
 msgstr "Les cadenes comparades eren %s i %s."
 
 # És un missatge informatiu.  ivb
-#: src/factor.c:449
+#: src/factor.c:447
 msgid "using arbitrary-precision arithmetic"
 msgstr "s’està emprant l’aritmètica de precisió arbitrària"
 
 # És un missatge informatiu.  ivb
-#: src/factor.c:460
+#: src/factor.c:458
 msgid "using single-precision arithmetic"
 msgstr "s’està emprant l’aritmètica de precisió simple"
 
 # És un enter correcte però massa gran.  ivb
-#: src/factor.c:465 src/od.c:1641 src/od.c:1710
+#: src/factor.c:463 src/od.c:1641 src/od.c:1710
 #, c-format
 msgid "%s is too large"
 msgstr "%s és massa gran"
 
 # Usa quote().  ivb
-#: src/factor.c:469
+#: src/factor.c:467
 #, c-format
 msgid "%s is not a valid positive integer"
 msgstr "%s no és un número enter positiu vàlid"
 
-#: src/factor.c:495
+#: src/factor.c:493
 #, c-format
 msgid ""
 "Usage: %s [NUMBER]...\n"
@@ -4394,7 +4394,7 @@ msgstr ""
 "Forma d’ús: %s [NÚMERO]…\n"
 "      o bé: %s OPCIÓ\n"
 
-#: src/factor.c:500
+#: src/factor.c:498
 msgid ""
 "Print the prime factors of each specified integer NUMBER.  If none\n"
 "are specified on the command line, read them from standard input.\n"
@@ -4494,7 +4494,7 @@ msgstr ""
 "  -w, --width=AMPLADA    Indica el nombre de columnes, en lloc de 80.\n"
 
 # Usa quote().  ivb
-#: src/fold.c:287 src/pr.c:837
+#: src/fold.c:287 src/pr.c:835
 #, c-format
 msgid "invalid number of columns: %s"
 msgstr "el nombre de columnes no és vàlid: %s"
@@ -4813,66 +4813,66 @@ msgid " context=%s"
 msgstr " context=%s"
 
 # Usa quote() en el 1r. argument, però no en el 2n.  ivb
-#: src/install.c:385
+#: src/install.c:376
 #, c-format
 msgid "warning: %s: failed to change context to %s"
 msgstr "avís: %s: no s’ha pogut canviar el context a «%s»"
 
-#: src/install.c:545
+#: src/install.c:536
 #, c-format
 msgid ""
 "WARNING: ignoring --preserve-context; this kernel is not SELinux-enabled"
 msgstr "avís: es descarta «--preserve-context» sota aquest nucli sense SELinux"
 
-#: src/install.c:555
+#: src/install.c:546
 #, c-format
 msgid "WARNING: ignoring --context (-Z); this kernel is not SELinux-enabled"
 msgstr "avís: es descarta «--context» (-Z) sota aquest nucli sense SELinux"
 
-#: src/install.c:572
+#: src/install.c:563
 #, c-format
 msgid "the strip option may not be used when installing a directory"
 msgstr "no es pot emprar l’opció «--strip» en instaŀlar un directori"
 
 # Es refereix a especificar l'opció «--target-directory».  ivb
-#: src/install.c:575
+#: src/install.c:566
 #, c-format
 msgid "target directory not allowed when installing a directory"
 msgstr "no es pot especificar el directori destí en instaŀlar un directori"
 
 # Usa quote().  ivb
-#: src/install.c:579
+#: src/install.c:570
 #, c-format
 msgid "cannot force target context to %s and preserve it"
 msgstr "no es pot canviar a %s el context del destí i preservar‐lo alhora"
 
 # Els 2 usen quote().  ivb
-#: src/install.c:633 src/mkdir.c:203
+#: src/install.c:624 src/mkdir.c:203
 #, c-format
 msgid "invalid mode %s"
 msgstr "el mode %s no és vàlid"
 
-#: src/install.c:640
+#: src/install.c:631
 #, c-format
 msgid "WARNING: ignoring --strip-program option as -s option was not specified"
 msgstr ""
 "avís: es descarta l’opció «--strip-program» ja que no s’ha emprat l’opció «-s»"
 
-#: src/install.c:645
+#: src/install.c:636
 #, fuzzy, c-format
 msgid "options --compare (-C) and --preserve-timestamps are mutually exclusive"
 msgstr ""
 "\n"
 "Teniu en compte que les opcions «-r» i «-s» són mútuament excloents.\n"
 
-#: src/install.c:652
+#: src/install.c:643
 #, fuzzy, c-format
 msgid "options --compare (-C) and --strip are mutually exclusive"
 msgstr ""
 "\n"
 "Teniu en compte que les opcions «-r» i «-s» són mútuament excloents.\n"
 
-#: src/install.c:658
+#: src/install.c:649
 #, c-format
 msgid ""
 "the --compare (-C) option is ignored when you specify a mode with non-"
@@ -4880,60 +4880,60 @@ msgid ""
 msgstr ""
 
 # Usa quote().  ivb
-#: src/install.c:810
+#: src/install.c:801
 #, c-format
 msgid "cannot change ownership of %s"
 msgstr "no s’ha pogut canviar el propietari de %s"
 
 # Usa quote().  ivb
-#: src/install.c:834
+#: src/install.c:825
 #, c-format
 msgid "cannot set time stamps for %s"
 msgstr "no s’han pogut establir les dates de %s"
 
-#: src/install.c:855 src/timeout.c:289
+#: src/install.c:846 src/timeout.c:289
 #, c-format
 msgid "fork system call failed"
 msgstr "ha fallat la crida al sistema fork()"
 
 # No usa quote().  ivb
-#: src/install.c:859
+#: src/install.c:850
 #, c-format
 msgid "cannot run %s"
 msgstr "no s’ha pogut executar «%s»"
 
 # Usa quote().  ivb
 # Condició d'error.  ivb
-#: src/install.c:863
+#: src/install.c:854
 #, c-format
 msgid "waiting for strip"
 msgstr "en esperar la finalització d’«strip»"
 
-#: src/install.c:865
+#: src/install.c:856
 #, c-format
 msgid "strip process terminated abnormally"
 msgstr "el procés «strip» ha finalitzat de forma anormal"
 
 # Usa quote().  ivb
-#: src/install.c:886
+#: src/install.c:877
 #, c-format
 msgid "invalid user %s"
 msgstr "l’usuari %s no és vàlid"
 
 # Usa quote().  ivb
-#: src/install.c:904 src/setuidgid.c:110 src/setuidgid.c:120
+#: src/install.c:895 src/setuidgid.c:110 src/setuidgid.c:120
 #, c-format
 msgid "invalid group %s"
 msgstr "el grup %s no és vàlid"
 
 # Els 2 usen quote().  ivb
 # És un missatge informatiu.  ivb
-#: src/install.c:921
+#: src/install.c:912
 #, c-format
 msgid "creating directory %s"
 msgstr "s’està creant el directori %s"
 
-#: src/install.c:944
+#: src/install.c:935
 #, c-format
 msgid ""
 "Usage: %s [OPTION]... [-T] SOURCE DEST\n"
@@ -4946,7 +4946,7 @@ msgstr ""
 "      o bé: %s [OPCIÓ]… -t DIRECTORI ORIGEN…\n"
 "      o bé: %s [OPCIÓ]… -d DIRECTORI…\n"
 
-#: src/install.c:951
+#: src/install.c:942
 #, fuzzy
 msgid ""
 "\n"
@@ -4967,7 +4967,7 @@ msgstr ""
 "Al quart format es creen tots els components de cada DIRECTORI indicat.\n"
 "\n"
 
-#: src/install.c:966
+#: src/install.c:957
 #, fuzzy
 msgid ""
 "      --backup[=CONTROL]  make a backup of each existing destination file\n"
@@ -4988,7 +4988,7 @@ msgstr ""
 "crea\n"
 "                       tots els components de cada directori especificat.\n"
 
-#: src/install.c:975
+#: src/install.c:966
 msgid ""
 "  -D                  create all leading components of DEST except the "
 "last,\n"
@@ -5008,7 +5008,7 @@ msgstr ""
 "                       d’emprar «rwxr-xr-x».\n"
 "  -o, --owner=OWNER    Estableix el propietari (només per al superusuari).\n"
 
-#: src/install.c:982
+#: src/install.c:973
 msgid ""
 "  -p, --preserve-timestamps   apply access/modification times of SOURCE "
 "files\n"
@@ -5036,7 +5036,7 @@ msgstr ""
 "  -v, --verbose        Mostra el nom de cada directori segons es van "
 "creant.\n"
 
-#: src/install.c:992
+#: src/install.c:983
 msgid ""
 "      --preserve-context  preserve SELinux security context\n"
 "  -Z, --context=CONTEXT  set SELinux security context of files and "
@@ -5175,20 +5175,20 @@ msgstr ""
 "s’han indicat dues cadenes distintes per a reemplaçar els camps mancants"
 
 # No és necessàriament una tabulació, ho diu info.  ivb
-#: src/join.c:1025 src/sort.c:3201
+#: src/join.c:1025 src/sort.c:3339
 #, c-format
 msgid "empty tab"
 msgstr "el separador és buit"
 
 # Ambdues usen quote().  ivb
 # No és necessàriament una tabulació, ho diu info.  ivb
-#: src/join.c:1031 src/sort.c:3212
+#: src/join.c:1031 src/sort.c:3350
 #, c-format
 msgid "multi-character tab %s"
 msgstr "%s és un separador multicaràcter"
 
 # No és necessàriament una tabulació, ho diu info.  ivb
-#: src/join.c:1035 src/sort.c:3217
+#: src/join.c:1035 src/sort.c:3355
 #, c-format
 msgid "incompatible tabs"
 msgstr "els separadors no són compatibles"
@@ -5461,7 +5461,7 @@ msgstr "no es poden combinar «--target-directory» i «--no-target-directory»"
 msgid "FIXME: unknown"
 msgstr "ARREGLA’M: desconegut"
 
-#: src/logname.c:40 src/pwd.c:49 src/sync.c:41
+#: src/logname.c:40 src/sync.c:41
 #, c-format
 msgid "Usage: %s [OPTION]\n"
 msgstr "Forma d’ús: %s [OPCIÓ]\n"
@@ -5489,83 +5489,83 @@ msgstr "%e %b  %Y"
 msgid "%b %e %H:%M"
 msgstr "%e %b %H:%M"
 
-#: src/ls.c:1470
+#: src/ls.c:1471
 #, c-format
 msgid "ignoring invalid value of environment variable QUOTING_STYLE: %s"
 msgstr ""
 "es descarta el valor no vàlid de la variable d’entorn QUOTING_STYLE: %s"
 
-#: src/ls.c:1497
+#: src/ls.c:1498
 #, c-format
 msgid "ignoring invalid width in environment variable COLUMNS: %s"
 msgstr "es descarta l’amplària no vàlida a la variable d’entorn COLUMNS: %s"
 
-#: src/ls.c:1527
+#: src/ls.c:1528
 #, c-format
 msgid "ignoring invalid tab size in environment variable TABSIZE: %s"
 msgstr ""
 "es descarta l’amplària no vàlida de tabulació a la variable d’entorn "
 "TABSIZE: %s"
 
-#: src/ls.c:1648 src/ptx.c:2046
+#: src/ls.c:1649 src/ptx.c:2043
 #, c-format
 msgid "invalid line width: %s"
 msgstr "l’amplària de línia no és vàlida: %s"
 
-#: src/ls.c:1722
+#: src/ls.c:1723
 #, c-format
 msgid "invalid tab size: %s"
 msgstr "l’amplària de tabulació no és vàlida: %s"
 
-#: src/ls.c:1912
+#: src/ls.c:1913
 #, c-format
 msgid "invalid time style format %s"
 msgstr "l’estil de data «%s» no és vàlid"
 
-#: src/ls.c:2256
+#: src/ls.c:2257
 #, c-format
 msgid "unrecognized prefix: %s"
 msgstr "el prefix no és reconegut: %s"
 
-#: src/ls.c:2279
+#: src/ls.c:2280
 #, c-format
 msgid "unparsable value for LS_COLORS environment variable"
 msgstr "el valor de la variable d’entorn LS_COLORS no és interpretable"
 
 # Usa quote().  ivb
-#: src/ls.c:2356 src/pwd.c:150
+#: src/ls.c:2357 src/pwd.c:162
 #, c-format
 msgid "cannot open directory %s"
 msgstr "no s’ha pogut obrir el directori %s"
 
 # Usa quote().  ivb
-#: src/ls.c:2371
+#: src/ls.c:2372
 #, c-format
 msgid "cannot determine device and inode of %s"
 msgstr "no es poden determinar el dispositiu i node índex de %s"
 
 # Usa quote().  ivb
-#: src/ls.c:2380
+#: src/ls.c:2381
 #, c-format
 msgid "%s: not listing already-listed directory"
 msgstr "%s: no es llista el directori ja llistat"
 
 # Els 2 usen quote().  ivb
 # Indica condició d'error.  ivb
-#: src/ls.c:2441 src/pwd.c:218
+#: src/ls.c:2442 src/pwd.c:230
 #, c-format
 msgid "reading directory %s"
 msgstr "en llegir el directori %s"
 
 # Usa quote().  ivb
 # És un missatge d'error.  ivb
-#: src/ls.c:2451
+#: src/ls.c:2452
 #, c-format
 msgid "closing directory %s"
 msgstr "en tancar el directori %s"
 
 # Usa quote() en els 2 args.  ivb
-#: src/ls.c:3023
+#: src/ls.c:3024
 #, c-format
 msgid "cannot compare file names %s and %s"
 msgstr "no es poden comparar els noms de fitxer %s i %s"
@@ -5575,7 +5575,7 @@ msgstr "no es poden comparar els noms de fitxer %s i %s"
 #   2.- Com és d'important el principi KISS
 #   3.- Com és de _vital_ el moviment cap enrere de la pantalla de text
 # (Déu els compila i ells s'enllacen!)  ivb
-#: src/ls.c:4410
+#: src/ls.c:4411
 msgid ""
 "List information about the FILEs (the current directory by default).\n"
 "Sort entries alphabetically if none of -cftuvSUX nor --sort.\n"
@@ -5588,7 +5588,7 @@ msgstr ""
 "\n"
 
 # Amb «implied» vol dir que no han estat indicats explícitament com a args.  ivb
-#: src/ls.c:4418
+#: src/ls.c:4419
 msgid ""
 "  -a, --all                  do not ignore entries starting with .\n"
 "  -A, --almost-all           do not list implied . and ..\n"
@@ -5602,7 +5602,7 @@ msgstr ""
 "caràcters\n"
 "                       no gràfics.\n"
 
-#: src/ls.c:4424
+#: src/ls.c:4425
 msgid ""
 "      --block-size=SIZE      use SIZE-byte blocks\n"
 "  -B, --ignore-backups       do not list implied entries ending with ~\n"
@@ -5619,7 +5619,7 @@ msgstr ""
 "                       Amb «-l», mostra la data de canvi i ordena pel nom.\n"
 "                       Altrament, ordena per la data de canvi.\n"
 
-#: src/ls.c:4432
+#: src/ls.c:4433
 msgid ""
 "  -C                         list entries by columns\n"
 "      --color[=WHEN]         control whether color is used to distinguish "
@@ -5639,7 +5639,7 @@ msgstr ""
 "                       continguts, i no segueix els enllaços simbòlics.\n"
 "  -D, --dired          Genera eixida preparada per al mode «dired» d’Emacs.\n"
 
-#: src/ls.c:4440
+#: src/ls.c:4441
 msgid ""
 "  -f                         do not sort, enable -aU, disable -ls --color\n"
 "  -F, --classify             append indicator (one of */=>@|) to entries\n"
@@ -5658,11 +5658,11 @@ msgstr ""
 "                       single-column (-1), verbose (-l), vertical (-C).\n"
 "      --full-time      Equival a «-l --time-style=full-iso».\n"
 
-#: src/ls.c:4448
+#: src/ls.c:4449
 msgid "  -g                         like -l, but do not list owner\n"
 msgstr "  -g                   Com «-l», però no mostra el propietari.\n"
 
-#: src/ls.c:4451
+#: src/ls.c:4452
 msgid ""
 "      --group-directories-first\n"
 "                             group directories before files.\n"
@@ -5675,7 +5675,7 @@ msgstr ""
 "                       l’agrupament.\n"
 
 # Crec que «virtual» capta millor el significat de «dummy».  ivb
-#: src/ls.c:4457
+#: src/ls.c:4458
 msgid ""
 "  -G, --no-group             in a long listing, don't print group names\n"
 "  -h, --human-readable       with -l, print sizes in human readable format\n"
@@ -5690,7 +5690,7 @@ msgstr ""
 
 # «--dereference-command-line-symlink-to-dir» /**/  ivb
 # «--hide», encara una altra opció! O_O  ivb
-#: src/ls.c:4463
+#: src/ls.c:4464
 msgid ""
 "  -H, --dereference-command-line\n"
 "                             follow symbolic links listed on the command "
@@ -5715,7 +5715,7 @@ msgstr ""
 "                       el PATRÓ d’intèrpret indicat (inhabilitada per les\n"
 "                       opcions «-a» i «A»).\n"
 
-#: src/ls.c:4472
+#: src/ls.c:4473
 msgid ""
 "      --indicator-style=WORD  append indicator with style WORD to entry "
 "names:\n"
@@ -5736,7 +5736,7 @@ msgstr ""
 "                       el PATRÓ d’intèrpret indicat.\n"
 "  -k                   Equival a «--block-size=1K».\n"
 
-#: src/ls.c:4480
+#: src/ls.c:4481
 msgid ""
 "  -l                         use a long listing format\n"
 "  -L, --dereference          when showing file information for a symbolic\n"
@@ -5753,7 +5753,7 @@ msgstr ""
 "per\n"
 "                       comes.\n"
 
-#: src/ls.c:4487
+#: src/ls.c:4488
 msgid ""
 "  -n, --numeric-uid-gid      like -l, but list numeric user and group IDs\n"
 "  -N, --literal              print raw entry names (don't treat e.g. "
@@ -5772,7 +5772,7 @@ msgstr ""
 "  -p, --indicator-style=slash\n"
 "                       Afegeix l’indicador «/» als directoris.\n"
 
-#: src/ls.c:4495
+#: src/ls.c:4496
 msgid ""
 "  -q, --hide-control-chars   print ? instead of non graphic characters\n"
 "      --show-control-chars   show non graphic characters as-is (default\n"
@@ -5795,7 +5795,7 @@ msgstr ""
 "                       Empra l’ESTIL indicat per a citar les paraules:\n"
 "                       literal, locale, shell, shell-always, c, escape.\n"
 
-#: src/ls.c:4503
+#: src/ls.c:4504
 #, fuzzy
 msgid ""
 "  -r, --reverse              reverse order while sorting\n"
@@ -5807,7 +5807,7 @@ msgstr ""
 "  -R, --recursive      Llista recursivament els subdirectoris.\n"
 "  -s, --size           Mostra la mida en blocs de cada fitxer.\n"
 
-#: src/ls.c:4508
+#: src/ls.c:4509
 msgid ""
 "  -S                         sort by file size\n"
 "      --sort=WORD            sort by WORD instead of name: none -U,\n"
@@ -5831,7 +5831,7 @@ msgstr ""
 "                       base a aquesta data.\n"
 
 # ls, your next programming language for the shell...  ivb
-#: src/ls.c:4517
+#: src/ls.c:4518
 msgid ""
 "      --time-style=STYLE     with -l, show times using style STYLE:\n"
 "                             full-iso, long-iso, iso, locale, +FORMAT.\n"
@@ -5852,7 +5852,7 @@ msgstr ""
 "                       l’ESTIL amb «posix-», només s’empra l’ESTIL si el\n"
 "                       locale POSIX no es troba actiu.\n"
 
-#: src/ls.c:4526
+#: src/ls.c:4527
 msgid ""
 "  -t                         sort by modification time\n"
 "  -T, --tabsize=COLS         assume tab stops at each COLS instead of 8\n"
@@ -5861,7 +5861,7 @@ msgstr ""
 "  -T, --tabsize=COLUMNES\n"
 "                       Indica les COLUMNES entre tabulacions, en lloc de 8.\n"
 
-#: src/ls.c:4530
+#: src/ls.c:4531
 msgid ""
 "  -u                         with -lt: sort by, and show, access time\n"
 "                               with -l: show access time and sort by name\n"
@@ -5876,7 +5876,7 @@ msgstr ""
 "                       troben al directori.\n"
 "  -v                   Ordena per la versió.\n"
 
-#: src/ls.c:4537
+#: src/ls.c:4538
 msgid ""
 "  -w, --width=COLS           assume screen width instead of current value\n"
 "  -x                         list entries by lines instead of by columns\n"
@@ -5895,7 +5895,7 @@ msgstr ""
 "                       fitxer.\n"
 "  -1                   Llista un fitxer per línia.\n"
 
-#: src/ls.c:4550
+#: src/ls.c:4551
 msgid ""
 "\n"
 "By default, color is not used to distinguish types of files.  That is\n"
@@ -5915,7 +5915,7 @@ msgstr ""
 "(tty).  Es poden alterar els colors emprant la variable d’entorn LS_COLORS,\n"
 "que pot ser establerta de forma senzilla emprant l’ordre «dircolors».\n"
 
-#: src/ls.c:4559
+#: src/ls.c:4560
 msgid ""
 "\n"
 "Exit status:\n"
@@ -6356,7 +6356,7 @@ msgstr "no s’ha pogut crear el directori emprant la plantilla %s"
 msgid "failed to create file via template %s"
 msgstr "no s’ha pogut crear el fitxer emprant la plantilla %s"
 
-#: src/mv.c:291
+#: src/mv.c:285
 msgid ""
 "Rename SOURCE to DEST, or move SOURCE(s) to DIRECTORY.\n"
 "\n"
@@ -6364,7 +6364,7 @@ msgstr ""
 "Canvia el nom d’ORIGEN a DESTÍ, o mou cada ORIGEN al DIRECTORI.\n"
 "\n"
 
-#: src/mv.c:298
+#: src/mv.c:292
 #, fuzzy
 msgid ""
 "      --backup[=CONTROL]       make a backup of each existing destination "
@@ -6384,7 +6384,7 @@ msgstr ""
 "  -f, --force          No pregunta abans de sobreescriure.\n"
 "  -i, --interactive    Pregunta abans de sobreescriure.\n"
 
-#: src/mv.c:306
+#: src/mv.c:300
 msgid ""
 "      --strip-trailing-slashes  remove any trailing slashes from each "
 "SOURCE\n"
@@ -6397,7 +6397,7 @@ msgstr ""
 "  -S, --suffix=SUFIX    Reemplaça el sufix habitual de les còpies de\n"
 "                       seguretat.\n"
 
-#: src/mv.c:311
+#: src/mv.c:305
 msgid ""
 "  -t, --target-directory=DIRECTORY  move all SOURCE arguments into "
 "DIRECTORY\n"
@@ -6976,7 +6976,7 @@ msgstr "«skip-bytes» + «read-bytes» és massa gran"
 msgid "warning: invalid width %lu; using %d instead"
 msgstr "atenció: l’amplada %lu no és vàlida; s’emprarà %d"
 
-#: src/operand2sig.c:79
+#: src/operand2sig.c:78
 #, c-format
 msgid "%s: invalid signal"
 msgstr "%s: el senyal no és vàlid"
@@ -7222,83 +7222,83 @@ msgstr "Pete TerMaat"
 msgid "Roland Huebner"
 msgstr "Roland Huebner"
 
-#: src/pr.c:913
+#: src/pr.c:911
 #, c-format
 msgid "`--pages=FIRST_PAGE[:LAST_PAGE]' missing argument"
 msgstr "--pages=PRIM_PÀG[:ÚLT_PÀG]: manca un argument"
 
 # Usa quote().  ivb
-#: src/pr.c:915
+#: src/pr.c:913
 #, c-format
 msgid "invalid page range %s"
 msgstr "el rang de pàgines no és vàlid: %s"
 
 # Usa quote().  ivb
-#: src/pr.c:980
+#: src/pr.c:978
 #, c-format
 msgid "`-l PAGE_LENGTH' invalid number of lines: %s"
 msgstr "-l LLARG_PÀG: el nombre de línies no és vàlid: %s"
 
 # Usa quote().  ivb
-#: src/pr.c:1004
+#: src/pr.c:1002
 #, c-format
 msgid "`-N NUMBER' invalid starting line number: %s"
 msgstr "-N NÚMERO: el número inicial de línia no és vàlid: %s"
 
 # Usa quote().  ivb
-#: src/pr.c:1016
+#: src/pr.c:1014
 #, c-format
 msgid "`-o MARGIN' invalid line offset: %s"
 msgstr "-o MARGE: el desplaçament de línia no és vàlid: %s"
 
 # Usa quote().  ivb
-#: src/pr.c:1057
+#: src/pr.c:1055
 #, c-format
 msgid "`-w PAGE_WIDTH' invalid number of characters: %s"
 msgstr "-w AMPLADA_PÀG: el nombre de caràcters no és vàlid: %s"
 
 # Usa quote().  ivb
-#: src/pr.c:1071
+#: src/pr.c:1069
 #, c-format
 msgid "`-W PAGE_WIDTH' invalid number of characters: %s"
 msgstr "-W AMPLADA_PÀG: el nombre de caràcters no és vàlid: %s"
 
-#: src/pr.c:1101
+#: src/pr.c:1099
 #, c-format
 msgid "cannot specify number of columns when printing in parallel"
 msgstr ""
 "no es pot especificar el nombre de columnes quan s’imprimeix en paraŀlel"
 
-#: src/pr.c:1105
+#: src/pr.c:1103
 #, c-format
 msgid "cannot specify both printing across and printing in parallel"
 msgstr "no es pot especificar impressió en paraŀlel i de través alhora"
 
 # Usa quote() en la segona.  ivb
-#: src/pr.c:1201
+#: src/pr.c:1199
 #, c-format
 msgid "`-%c' extra characters or invalid number in the argument: %s"
 msgstr "-%c: sobren caràcters o el número de l’argument no és vàlid: %s"
 
-#: src/pr.c:1305
+#: src/pr.c:1303
 #, c-format
 msgid "page width too narrow"
 msgstr "l’amplada de pàgina és insuficient"
 
-#: src/pr.c:2369
+#: src/pr.c:2367
 #, c-format
 msgid "starting page number %<PRIuMAX> exceeds page count %<PRIuMAX>"
 msgstr ""
 "el número de pàgina inicial %<PRIuMAX> excedeix el comptador de pàgines %"
 "<PRIuMAX>"
 
-#: src/pr.c:2396
+#: src/pr.c:2394
 #, c-format
 msgid "page number overflow"
 msgstr "el comptador de pàgines s’ha desbordat"
 
 # Açò és el text per a numerar les pàgines.  ivb
-#: src/pr.c:2401
+#: src/pr.c:2399
 #, c-format
 msgid "Page %<PRIuMAX>"
 msgstr "Pàgina %<PRIuMAX>"
@@ -7713,12 +7713,12 @@ msgstr "F. Pinard"
 
 # La primera és un missatge d'error.  ivb
 # Usa quote() en la segona.  ivb
-#: src/ptx.c:424
+#: src/ptx.c:421
 #, c-format
 msgid "%s (for regexp %s)"
 msgstr "%s (a l’expressió regular %s)"
 
-#: src/ptx.c:1887
+#: src/ptx.c:1884
 #, c-format
 msgid ""
 "Usage: %s [OPTION]... [INPUT]...   (without -G)\n"
@@ -7728,7 +7728,7 @@ msgstr ""
 "      o bé: %s -G [OPCIÓ]… [ENTRADA [SORTIDA]]\n"
 
 # Escriu les paraules del text seguides, començant cada colta per una.  ivb
-#: src/ptx.c:1891
+#: src/ptx.c:1888
 msgid ""
 "Output a permuted index, including context, of the words in the input "
 "files.\n"
@@ -7739,7 +7739,7 @@ msgstr ""
 "que formen l’entrada.\n"
 "\n"
 
-#: src/ptx.c:1898
+#: src/ptx.c:1895
 msgid ""
 "  -A, --auto-reference           output automatically generated references\n"
 "  -G, --traditional              behave more like System V `ptx'\n"
@@ -7751,7 +7751,7 @@ msgstr ""
 "                       Empra la CADENA per a senyalar els truncaments de\n"
 "                       línia.\n"
 
-#: src/ptx.c:1903
+#: src/ptx.c:1900
 msgid ""
 "  -M, --macro-name=STRING        macro name to use instead of `xx'\n"
 "  -O, --format=roff              generate output as roff directives\n"
@@ -7770,7 +7770,7 @@ msgstr ""
 "                       l’expressió regular indicada.\n"
 "  -T, --format=tex     Genera la sortida com a directives de TeX.\n"
 
-#: src/ptx.c:1910
+#: src/ptx.c:1907
 msgid ""
 "  -W, --word-regexp=REGEXP       use REGEXP to match each keyword\n"
 "  -b, --break-file=FILE          word break characters in this FILE\n"
@@ -7797,7 +7797,7 @@ msgstr ""
 "que\n"
 "                       seran preses com a paraules clau.\n"
 
-#: src/ptx.c:1918
+#: src/ptx.c:1915
 msgid ""
 "  -r, --references               first field of each line is a reference\n"
 "  -t, --typeset-mode               - not implemented -\n"
@@ -7810,7 +7810,7 @@ msgstr ""
 "  -w, --width=NÚMERO    Amplada (en columnes) de la sortida (excloent‐ne la\n"
 "                       referència).\n"
 
-#: src/ptx.c:1925
+#: src/ptx.c:1922
 msgid ""
 "\n"
 "With no FILE or if FILE is -, read Standard Input.  `-F /' by default.\n"
@@ -7821,12 +7821,17 @@ msgstr ""
 "s’empra «-F /».\n"
 
 # Usa quote().  ivb
-#: src/ptx.c:2019
+#: src/ptx.c:2016
 #, c-format
 msgid "invalid gap width: %s"
 msgstr "la mida de la separació no és vàlida: %s"
 
-#: src/pwd.c:50
+#: src/pwd.c:57 src/tty.c:65 src/uname.c:122 src/whoami.c:46
+#, c-format
+msgid "Usage: %s [OPTION]...\n"
+msgstr "Forma d’ús: %s [OPCIÓ]…\n"
+
+#: src/pwd.c:58
 msgid ""
 "Print the full filename of the current working directory.\n"
 "\n"
@@ -7834,27 +7839,33 @@ msgstr ""
 "Mostra el nom de fitxer complet del directori de treball actual.\n"
 "\n"
 
+#: src/pwd.c:62
+msgid ""
+"  -L, --logical   use PWD from environment, even if it contains symlinks\n"
+"  -P, --physical  avoid all symlinks\n"
+msgstr ""
+
 # Usa quote().  ivb
-#: src/pwd.c:155
+#: src/pwd.c:167
 #, c-format
 msgid "failed to chdir to %s"
 msgstr "no s’ha pogut canviar al directori %s"
 
 # Usa quote().  ivb
-#: src/pwd.c:159 src/pwd.c:266
+#: src/pwd.c:171 src/pwd.c:278
 #, c-format
 msgid "failed to stat %s"
 msgstr "ha fallat stat() sobre %s"
 
 # Usa quote().  ivb
-#: src/pwd.c:224
+#: src/pwd.c:236
 #, c-format
 msgid "couldn't find directory entry in %s with matching i-node"
 msgstr ""
 "no s’ha pogut trobar una entrada de directori en %s amb un node índex "
 "coincident"
 
-#: src/pwd.c:301
+#: src/pwd.c:363
 #, c-format
 msgid "ignoring non-option arguments"
 msgstr "es descarten els arguments no‐opció"
@@ -8785,7 +8796,7 @@ msgstr "%s: no s’ha pogut obrir per a escriure"
 msgid "%s: invalid number of passes"
 msgstr "%s: el nombre de passades no és vàlid"
 
-#: src/shred.c:1143 src/shuf.c:329 src/sort.c:3185
+#: src/shred.c:1143 src/shuf.c:329 src/sort.c:3323
 #, c-format
 msgid "multiple random sources specified"
 msgstr "s’han especificat múltiples fonts d’aleatorietat"
@@ -8857,7 +8868,7 @@ msgstr "el rang d’entrada no és vàlid: %s"
 msgid "invalid line count %s"
 msgstr "el nombre de línies no és vàlid: %s"
 
-#: src/shuf.c:323 src/sort.c:3179
+#: src/shuf.c:323 src/sort.c:3317
 #, c-format
 msgid "multiple output files specified"
 msgstr "s’han especificat múltiples fitxers d’eixida"
@@ -9141,180 +9152,176 @@ msgid "%s [-d] terminated abnormally"
 msgstr "«%s [-d]» ha finalitzat de forma anormal"
 
 # Usa quote().  ivb
-#: src/sort.c:771 src/tac.c:458
+#: src/sort.c:776 src/tac.c:458
 #, c-format
 msgid "cannot create temporary file in %s"
 msgstr "no s’ha pogut crear un fitxer temporal a %s"
 
-#: src/sort.c:800 src/sort.c:3373
+#: src/sort.c:813 src/sort.c:2433 src/sort.c:2711 src/sort.c:2714
+#: src/sort.c:3511
 msgid "open failed"
 msgstr "no s’ha pogut obrir"
 
-#: src/sort.c:822
+#: src/sort.c:833
 msgid "fflush failed"
 msgstr "ha fallat fflush()"
 
-#: src/sort.c:827 src/sort.c:3428
+#: src/sort.c:838 src/sort.c:3566
 msgid "close failed"
 msgstr "no s’ha pogut tancar"
 
-#: src/sort.c:836
+#: src/sort.c:847
 #, c-format
 msgid "dup2 failed"
 msgstr "ha fallat dup2()"
 
 # No usa quote().  ivb
-#: src/sort.c:935
+#: src/sort.c:956
 #, c-format
 msgid "couldn't execute %s"
 msgstr "no s’ha pogut executar «%s»"
 
 # Va seguit del nom del fitxer.  ivb
-#: src/sort.c:944 src/sort.c:993
+#: src/sort.c:965
 msgid "couldn't create temporary file"
 msgstr "no s’ha pogut crear el fitxer temporal"
 
-# Va seguit del nom del fitxer.  ivb
-#: src/sort.c:967
-msgid "couldn't open temporary file"
-msgstr "no s’ha pogut obrir el fitxer temporal"
-
-# No usa quote().  ivb
-#: src/sort.c:984
-#, c-format
-msgid "couldn't execute %s -d"
-msgstr "no s’ha pogut executar «%s -d»"
-
 # No usa quote() (afortunadament).  ivb
-#: src/sort.c:988
+#: src/sort.c:1005
 #, c-format
 msgid "couldn't create process for %s -d"
 msgstr "no s’ha pogut crear el procés «%s -d»"
 
-#: src/sort.c:1002
+# No usa quote().  ivb
+#: src/sort.c:1019
+#, c-format
+msgid "couldn't execute %s -d"
+msgstr "no s’ha pogut executar «%s -d»"
+
+#: src/sort.c:1043
 msgid "write failed"
 msgstr "no s’ha pogut escriure"
 
 # No usa quote().  ivb
-#: src/sort.c:1039
+#: src/sort.c:1080
 #, c-format
 msgid "warning: cannot remove: %s"
 msgstr "avís: no s’ha pogut eliminar: %s"
 
 # La segona usa quote().  ivb
-#: src/sort.c:1125
+#: src/sort.c:1166
 #, c-format
 msgid "invalid --%s argument %s"
 msgstr "l’argument %2$s de l’opció «--%1$s» no és vàlid"
 
 # La segona usa quote().  ivb
-#: src/sort.c:1128
+#: src/sort.c:1169
 #, c-format
 msgid "minimum --%s argument is %s"
 msgstr "l’argument mínim de l’opció «--%s» és %s"
 
 # La segona usa quote().  ivb
-#: src/sort.c:1143
+#: src/sort.c:1184
 #, c-format
 msgid "--%s argument %s too large"
 msgstr "l’argument %2$s de l’opció «--%1$s» és massa gran"
 
 # Va darrere d’un error.  ivb
 # La segona no usa quote(), però es un número.  ivb
-#: src/sort.c:1146
+#: src/sort.c:1187
 #, c-format
 msgid "maximum --%s argument with current rlimit is %s"
 msgstr ""
 "l’argument màxim de l’opció «--%s» amb els límits actuals de recursos és %s"
 
-#: src/sort.c:1291
+#: src/sort.c:1332
 msgid "stat failed"
 msgstr "ha fallat stat()"
 
-#: src/sort.c:1555
+#: src/sort.c:1593
 msgid "read failed"
 msgstr "no s’ha pogut llegir"
 
-#: src/sort.c:2104
+#: src/sort.c:2142
 #, c-format
 msgid "%s: %s:%s: disorder: "
 msgstr "%s: %s:%s: fora d’ordre: "
 
-#: src/sort.c:2108
+#: src/sort.c:2146
 msgid "standard error"
 msgstr "eixida estàndard d’errors"
 
 # Usa quote().  ivb
-#: src/sort.c:2725
+#: src/sort.c:2866
 #, c-format
 msgid "%s: invalid field specification %s"
 msgstr "%s: l’especifiació de camp no és vàlida: %s"
 
-#: src/sort.c:2736
+#: src/sort.c:2877
 #, c-format
 msgid "options `-%s' are incompatible"
 msgstr "les opcions «%s» no són compatibles"
 
 # Usa quote().  ivb
-#: src/sort.c:2803
+#: src/sort.c:2944
 #, c-format
 msgid "%s: invalid count at start of %s"
 msgstr "%s: el comptador a l’inici de %s no és vàlid"
 
-#: src/sort.c:3056
+#: src/sort.c:3197
 msgid "invalid number after `-'"
 msgstr "el número després de «-» no és vàlid"
 
-#: src/sort.c:3059 src/sort.c:3129 src/sort.c:3156
+#: src/sort.c:3200 src/sort.c:3270 src/sort.c:3298
 msgid "invalid number after `.'"
 msgstr "el número després de «.» no és vàlid"
 
-#: src/sort.c:3062 src/sort.c:3165
+#: src/sort.c:3203 src/sort.c:3303
 msgid "stray character in field spec"
 msgstr "l’especificació de camp conté un caràcter extraviat"
 
-#: src/sort.c:3107
+#: src/sort.c:3248
 #, c-format
 msgid "multiple compress programs specified"
 msgstr "s’han especificat múltiples programes de compressió"
 
-#: src/sort.c:3120
+#: src/sort.c:3261
 msgid "invalid number at field start"
 msgstr "el número a l’inici del camp no és vàlid"
 
-#: src/sort.c:3124 src/sort.c:3152
+#: src/sort.c:3265 src/sort.c:3293
 msgid "field number is zero"
 msgstr "el número de camp és zero"
 
-#: src/sort.c:3133
+#: src/sort.c:3274
 msgid "character offset is zero"
 msgstr "el desplaçament de caràcter és zero"
 
-#: src/sort.c:3148
+#: src/sort.c:3289
 msgid "invalid number after `,'"
 msgstr "el número després de «,» no és vàlid"
 
 # Usa quote().  ivb
-#: src/sort.c:3290 src/wc.c:680
+#: src/sort.c:3428 src/wc.c:680
 #, c-format
 msgid "cannot read file names from %s"
 msgstr "no s’han pogut llegir els noms de fitxer de %s"
 
 # Usa quote().  ivb
-#: src/sort.c:3312
+#: src/sort.c:3450
 #, c-format
 msgid "%s:%lu: invalid zero-length file name"
 msgstr "%s:%lu: el nom buit de fitxer no és vàlid"
 
 # Usa quote().  ivb
 # Condició d'error.  ivb
-#: src/sort.c:3318
+#: src/sort.c:3456
 #, c-format
 msgid "no input from %s"
 msgstr "el fitxer d’entrada %s no conté dades"
 
 # Usa quote().  ivb
-#: src/sort.c:3398
+#: src/sort.c:3536
 #, c-format
 msgid "extra operand %s not allowed with -%c"
 msgstr "no es permet l’operand extra %s en emprar l’opció «-%c»"
@@ -10243,7 +10250,7 @@ msgstr ""
 msgid "ignoring all arguments"
 msgstr "es descarten tots els arguments"
 
-#: src/system.h:432
+#: src/system.h:433
 #, c-format
 msgid ""
 "\n"
@@ -10257,15 +10264,15 @@ msgstr ""
 "del\n"
 "vostre intèrpret quines opcions admet.\n"
 
-#: src/system.h:438
+#: src/system.h:439
 msgid "      --help     display this help and exit\n"
 msgstr "      --help           Mostra aquesta ajuda i surt.\n"
 
-#: src/system.h:440
+#: src/system.h:441
 msgid "      --version  output version information and exit\n"
 msgstr "      --version        Mostra informació sobre la versió i surt.\n"
 
-#: src/system.h:622
+#: src/system.h:623
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -10274,16 +10281,20 @@ msgstr ""
 "\n"
 "Informeu dels errors a <%s>.\n"
 
-#: src/system.h:625
+#: src/system.h:626
 #, c-format
 msgid "%s home page: <http://www.gnu.org/software/%s/>\n"
 msgstr ""
 
-#: src/system.h:627
+#: src/system.h:628
 msgid "General help using GNU software: <http://www.gnu.org/gethelp/>\n"
 msgstr ""
 
-#: src/system.h:635
+#. TRANSLATORS: Replace LANG_CODE in this URL with your language code
+#. <http://translationproject.org/team/LANG_CODE.html> to form one of
+#. the URLs at http://translationproject.org/team/.  Otherwise, replace
+#. the entire URL with your translation team's email address.
+#: src/system.h:637
 #, c-format
 msgid "Report %s translation bugs to <http://translationproject.org/team/>\n"
 msgstr ""
@@ -11504,11 +11515,6 @@ msgstr "%s: l’entrada conté un nombre senar de components"
 msgid "%s: input contains a loop:"
 msgstr "%s: l’entrada conté un cicle:"
 
-#: src/tty.c:65 src/uname.c:122 src/whoami.c:46
-#, c-format
-msgid "Usage: %s [OPTION]...\n"
-msgstr "Forma d’ús: %s [OPCIÓ]…\n"
-
 #: src/tty.c:66
 msgid ""
 "Print the file name of the terminal connected to standard input.\n"
@@ -11576,7 +11582,7 @@ msgstr ""
 msgid "cannot get system name"
 msgstr "no s’ha pogut obtenir el nom del sistema"
 
-#: src/unexpand.c:121
+#: src/unexpand.c:117
 msgid ""
 "Convert blanks in each FILE to tabs, writing to standard output.\n"
 "With no FILE, or when FILE is -, read standard input.\n"
@@ -11588,7 +11594,7 @@ msgstr ""
 "\n"
 
 # mirar la traducció del expand
-#: src/unexpand.c:129
+#: src/unexpand.c:125
 msgid ""
 "  -a, --all        convert all blanks, instead of just initial blanks\n"
 "      --first-only  convert only leading sequences of blanks (overrides -a)\n"
@@ -11608,13 +11614,13 @@ msgstr ""
 "cada\n"
 "                       tabulació, separades per comes (habilita «-a»).\n"
 
-#: src/unexpand.c:157
+#: src/unexpand.c:153
 #, c-format
 msgid "tabs are too far apart"
 msgstr "els tabuladors es troben massa separats"
 
 # És un enter correcte però massa gran.  ivb
-#: src/unexpand.c:508
+#: src/unexpand.c:504
 #, c-format
 msgid "tab stop value is too large"
 msgstr "la distància de tabulació és massa gran"
@@ -12078,6 +12084,10 @@ msgid ""
 msgstr ""
 "Mostra repetidament una línia amb totes les cadenes indicades, o «y».\n"
 "\n"
+
+# Va seguit del nom del fitxer.  ivb
+#~ msgid "couldn't open temporary file"
+#~ msgstr "no s’ha pogut obrir el fitxer temporal"
 
 #~ msgid ""
 #~ "  -P, --no-dereference         never follow symbolic links in SOURCE\n"

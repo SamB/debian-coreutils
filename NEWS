@@ -1,5 +1,54 @@
 GNU coreutils NEWS                                    -*- outline -*-
 
+* Noteworthy changes in release 7.2 (2009-03-31) [stable]
+
+** New features
+
+  pwd now accepts the options --logical (-L) and --physical (-P).  For
+  compatibility with existing scripts, -P is the default behavior
+  unless POSIXLY_CORRECT is requested.
+
+** Bug fixes
+
+  cat once again immediately outputs data it has processed.
+  Previously it would have been buffered and only output if enough
+  data was read, or on process exit.
+  [bug introduced in coreutils-6.0]
+
+  comm's new --check-order option would fail to detect disorder on any pair
+  of lines where one was a prefix of the other.  For example, this would
+  fail to report the disorder: printf 'Xb\nX\n'>k; comm --check-order k k
+  [bug introduced in coreutils-7.0]
+
+  cp once again diagnoses the invalid "cp -rl dir dir" right away,
+  rather than after creating a very deep dir/dir/dir/... hierarchy.
+  The bug strikes only with both --recursive (-r, -R) and --link (-l).
+  [bug introduced in coreutils-7.1]
+
+  ls --sort=version (-v) sorted names beginning with "." inconsistently.
+  Now, names that start with "." are always listed before those that don't.
+
+  pr: fix the bug whereby --indent=N (-o) did not indent header lines
+  [bug introduced in coreutils-6.9.90]
+
+  sort now handles specified key ends correctly.
+  Previously -k1,1b would have caused leading space from field 2 to be
+  included in the sort while -k2,3.0 would have not included field 3.
+
+** Changes in behavior
+
+  cp,mv,install,cat,split: now read and write a minimum of 32KiB
+  at a time.  This was seen to increase throughput.  Up to 2 times
+  when reading cached files on linux for example.
+
+  cp -a now tries to preserve extended attributes (xattr), but does not
+  diagnose xattr-preservation failure.  However, cp --preserve=all still does.
+
+  ls --color: hard link highlighting can be now disabled by changing the
+  LS_COLORS environment variable. To disable it you can add something like
+  this to your profile: eval `dircolors | sed s/hl=[^:]*:/hl=:/`
+
+
 * Noteworthy changes in release 7.1 (2009-02-21) [stable]
 
 ** New features

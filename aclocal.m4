@@ -1,4 +1,4 @@
-# generated automatically by aclocal 1.10a -*- Autoconf -*-
+# generated automatically by aclocal 1.10c -*- Autoconf -*-
 
 # Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004,
 # 2005, 2006, 2007, 2008, 2009  Free Software Foundation, Inc.
@@ -13,8 +13,8 @@
 
 m4_ifndef([AC_AUTOCONF_VERSION],
   [m4_copy([m4_PACKAGE_VERSION], [AC_AUTOCONF_VERSION])])dnl
-m4_if(m4_defn([AC_AUTOCONF_VERSION]), [2.63.277-be5e],,
-[m4_warning([this file was generated for autoconf 2.63.277-be5e.
+m4_if(m4_defn([AC_AUTOCONF_VERSION]), [2.63b],,
+[m4_warning([this file was generated for autoconf 2.63b.
 You have another version of autoconf.  It may work, but is not guaranteed to.
 If you have problems, you may need to regenerate the build system entirely.
 To do so, use the procedure documented by the package, typically `autoreconf'.])])
@@ -31,10 +31,10 @@ To do so, use the procedure documented by the package, typically `autoreconf'.])
 # generated from the m4 files accompanying Automake X.Y.
 # (This private macro should not be called outside this file.)
 AC_DEFUN([AM_AUTOMAKE_VERSION],
-[am__api_version='1.10a'
+[am__api_version='1.10c'
 dnl Some users find AM_AUTOMAKE_VERSION and mistake it for a way to
 dnl require some minimum version.  Point them to the right macro.
-m4_if([$1], [1.10a], [],
+m4_if([$1], [1.10c], [],
       [AC_FATAL([Do not call $0, use AM_INIT_AUTOMAKE([$1]).])])dnl
 ])
 
@@ -50,7 +50,7 @@ m4_define([_AM_AUTOCONF_VERSION], [])
 # Call AM_AUTOMAKE_VERSION and AM_AUTOMAKE_VERSION so they can be traced.
 # This function is AC_REQUIREd by AM_INIT_AUTOMAKE.
 AC_DEFUN([AM_SET_CURRENT_AUTOMAKE_VERSION],
-[AM_AUTOMAKE_VERSION([1.10a])dnl
+[AM_AUTOMAKE_VERSION([1.10c])dnl
 m4_ifndef([AC_AUTOCONF_VERSION],
   [m4_copy([m4_PACKAGE_VERSION], [AC_AUTOCONF_VERSION])])dnl
 _AM_AUTOCONF_VERSION(m4_defn([AC_AUTOCONF_VERSION]))])
@@ -144,14 +144,14 @@ AC_CONFIG_COMMANDS_PRE(
 Usually this means the macro was only invoked conditionally.]])
 fi])])
 
-# Copyright (C) 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006
+# Copyright (C) 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2009
 # Free Software Foundation, Inc.
 #
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
 # with or without modifications, as long as this notice is preserved.
 
-# serial 9
+# serial 10
 
 # There are a few dirty hacks below to avoid letting `AC_PROG_CC' be
 # written in clear, in which case automake, when reading aclocal.m4,
@@ -225,6 +225,12 @@ AC_CACHE_CHECK([dependency style of $depcc],
     done
     echo "${am__include} ${am__quote}sub/conftest.Po${am__quote}" > confmf
 
+    # We check with `-c' and `-o' for the sake of the "dashmstdout"
+    # mode.  It turns out that the SunPro C++ compiler does not properly
+    # handle `-M -o', and we need to detect this.  Also, some Intel
+    # versions had trouble with output in subdirs
+    am__obj=sub/conftest.${OBJEXT-o}
+    am__minus_obj="-o $am__obj"
     case $depmode in
     nosideeffect)
       # after this tag, mechanisms are not by side-effect, so they'll
@@ -235,19 +241,23 @@ AC_CACHE_CHECK([dependency style of $depcc],
 	break
       fi
       ;;
+    msvisualcpp | msvcmsys)
+      # This compiler won't grok `-c -o', but also, the minuso test has
+      # not run yet.  These depmodes are late enough in the game, and
+      # so weak that their functioning should not be impacted.
+      am__obj=conftest.${OBJEXT-o}
+      am__minus_obj=
+      ;;
     none) break ;;
     esac
-    # We check with `-c' and `-o' for the sake of the "dashmstdout"
-    # mode.  It turns out that the SunPro C++ compiler does not properly
-    # handle `-M -o', and we need to detect this.
     if depmode=$depmode \
-       source=sub/conftest.c object=sub/conftest.${OBJEXT-o} \
+       source=sub/conftest.c object=$am__obj \
        depfile=sub/conftest.Po tmpdepfile=sub/conftest.TPo \
-       $SHELL ./depcomp $depcc -c -o sub/conftest.${OBJEXT-o} sub/conftest.c \
+       $SHELL ./depcomp $depcc -c $am__minus_obj sub/conftest.c \
          >/dev/null 2>conftest.err &&
        grep sub/conftst1.h sub/conftest.Po > /dev/null 2>&1 &&
        grep sub/conftst6.h sub/conftest.Po > /dev/null 2>&1 &&
-       grep sub/conftest.${OBJEXT-o} sub/conftest.Po > /dev/null 2>&1 &&
+       grep $am__obj sub/conftest.Po > /dev/null 2>&1 &&
        ${MAKE-make} -s -f confmf > /dev/null 2>&1; then
       # icc doesn't choke on unknown options, it will just issue warnings
       # or remarks (even with -Werror).  So we grep stderr for any message
@@ -484,6 +494,9 @@ AC_PROVIDE_IFELSE([AC_PROG_OBJC],
 		  [define([AC_PROG_OBJC],
 			  defn([AC_PROG_OBJC])[_AM_DEPENDENCIES(OBJC)])])dnl
 ])
+AM_BACKSLASH='\'
+AC_SUBST([AM_BACKSLASH])dnl
+_AM_SUBST_NOTMAKE([AM_BACKSLASH])dnl
 ])
 
 
@@ -1087,6 +1100,7 @@ m4_include([m4/idcache.m4])
 m4_include([m4/include-exclude-prog.m4])
 m4_include([m4/include_next.m4])
 m4_include([m4/inet_ntop.m4])
+m4_include([m4/inet_pton.m4])
 m4_include([m4/inline.m4])
 m4_include([m4/intlmacosx.m4])
 m4_include([m4/intmax_t.m4])
@@ -1122,15 +1136,13 @@ m4_include([m4/lseek.m4])
 m4_include([m4/lstat.m4])
 m4_include([m4/malloc.m4])
 m4_include([m4/malloca.m4])
+m4_include([m4/manywarnings.m4])
 m4_include([m4/math_h.m4])
 m4_include([m4/mbchar.m4])
 m4_include([m4/mbiter.m4])
 m4_include([m4/mbrlen.m4])
 m4_include([m4/mbrtowc.m4])
-m4_include([m4/mbscasecmp.m4])
 m4_include([m4/mbsinit.m4])
-m4_include([m4/mbslen.m4])
-m4_include([m4/mbsstr.m4])
 m4_include([m4/mbstate_t.m4])
 m4_include([m4/mbswidth.m4])
 m4_include([m4/md5.m4])
@@ -1163,6 +1175,7 @@ m4_include([m4/open.m4])
 m4_include([m4/openat.m4])
 m4_include([m4/pathmax.m4])
 m4_include([m4/perl.m4])
+m4_include([m4/perror.m4])
 m4_include([m4/physmem.m4])
 m4_include([m4/po.m4])
 m4_include([m4/posix-shell.m4])
@@ -1194,6 +1207,7 @@ m4_include([m4/same.m4])
 m4_include([m4/save-cwd.m4])
 m4_include([m4/savedir.m4])
 m4_include([m4/savewd.m4])
+m4_include([m4/select.m4])
 m4_include([m4/selinux-context-h.m4])
 m4_include([m4/selinux-selinux-h.m4])
 m4_include([m4/servent.m4])
@@ -1210,6 +1224,7 @@ m4_include([m4/signbit.m4])
 m4_include([m4/size_max.m4])
 m4_include([m4/sleep.m4])
 m4_include([m4/snprintf.m4])
+m4_include([m4/sockets.m4])
 m4_include([m4/socklen.m4])
 m4_include([m4/sockpfaf.m4])
 m4_include([m4/ssize_t.m4])
@@ -1254,6 +1269,7 @@ m4_include([m4/time_r.m4])
 m4_include([m4/timespec.m4])
 m4_include([m4/tm_gmtoff.m4])
 m4_include([m4/tzset.m4])
+m4_include([m4/ungetc.m4])
 m4_include([m4/unicodeio.m4])
 m4_include([m4/unistd-safer.m4])
 m4_include([m4/unistd_h.m4])

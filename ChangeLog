@@ -1,4 +1,639 @@
+2009-03-31  Jim Meyering  <meyering@redhat.com>
+
+	version 7.2
+	* NEWS: Record release date.
+
+2009-03-29  Jim Meyering  <meyering@redhat.com>
+
+	tests: don't use lang-default from individual tests
+	* tests/sample-test: Don't recommend using lang-default here.
+	It is now run for each test automatically, via TESTS_ENVIRONMENT.
+	* tests/dd/reblock: Don't source lang-default here.
+	* tests/misc/truncate-fail-diag: Likewise.
+
+	tests: other-fs-tmpdir: remove just-added duplicate /usr/tmp
+	* tests/other-fs-tmpdir (CANDIDATE_TMP_DIRS): Remove 2nd /usr/tmp.
+
+	tests: other-fs-tmpdir: avoid bogus "skipped **********..." diagnostic
+	* tests/other-fs-tmpdir (CANDIDATE_TMP_DIRS): Add /dev/shm to the list.
+	Don't use a line of asterisks as the first line of the "why skipped"
+	diagnostic, now that that line is printed on 'make check's stderr.
+
+2009-03-28  Jim Meyering  <meyering@redhat.com>
+
+	build: use automake's --silent-rules option when possible
+	* bootstrap: Use automake's --silent-rules option.
+
+2009-03-27  Jim Meyering  <meyering@redhat.com>
+
+	tests: test-argv-iter.c: avoid declaration-after-stmt
+	* gl/tests/test-argv-iter.c: Move declaration "up", so as not
+	to ruffle feathers of crufty compilers.  We accommodate such
+	compilers here solely because this module may migrate to gnulib.
+	Tiny patch by Matthew Woehlke.
+
+2009-03-27  Eric Blake  <ebb9@byu.net>
+
+	tests: fix 'make sc_tight_scope' on cygwin
+	* src/Makefile.am (sc_tight_scope): Ignore leading underscores in symbols.
+
+2009-03-27  Jim Meyering  <meyering@redhat.com>
+
+	tests: avoid spurious test failure in set-GID build dir
+	* tests/install/install-C-root: Skip this test if in set-gid directory.
+	Reported by Sven Joachim and C de-Avillez.
+
+	tests: migrate setgid-check into test-lib.sh
+	* tests/test-lib.sh (skip_if_setgid_): New function.
+	* tests/setgid-check: Remove file.
+	* tests/Makefile.am (EXTRA_DIST): Remove setgid-check.
+	* tests/chmod/c-option: Use the new function rather than sourcing
+	the separate file.
+	* tests/cp/cp-parents: Likewise.
+	* tests/install/install-C: Likewise.
+	* tests/mkdir/parents: Likewise.
+	* tests/mkdir/perm: Likewise.
+
+2009-03-26  Jim Meyering  <meyering@redhat.com>
+
+	tests: mark the rm/ext3-perf test as "very" expensive
+	* tests/rm/ext3-perf: Relegate this test to the very_expensive
+	category, since it is failing too often for me, when run in
+	parallel (-j4) with other disk-hammering tests.  This test fails
+	when it takes too long, so the fact that it fails under pressure
+	is an inconvenience more than a real problem.
+
+	* gnulib: Update submodule to latest.
+
+2009-03-26  Paul Eggert  <eggert@cs.ucla.edu>
+
+	df: port the known-value fix to AIX as well
+	* src/df.c (known_value): New function, which also works on AIX
+	/proc file systems.
+	(df_readable, show_dev): Use it instead of hardcoding comparison to
+	UINTMAX_MAX.  Suggested by Jim Meyering and Matthew Woehlke.
+
+	df: fix a bug when totaling unknown values
+	* src/df.c (show_dev): Don't add UINTMAX_MAX to grand totals, as that
+	value indicates that the true value is unknown; adding it effectively
+	subtracts 1 from the total, whereas we want to leave the total alone.
+
+2009-03-25  Jim Meyering  <meyering@redhat.com>
+
+	tests: don't fail "make syntax-check" on cygwin
+	* maint.mk (NEWS_hash): Remove trailing " -" or " *-".
+	* cfg.mk (old_NEWS_hash): Regenerate, removing " -".
+	Reported by Eric Blake.
+
+2009-03-25  Eric Blake  <ebb9@byu.net>
+
+	pwd: support -L and -P
+	* src/pwd.c (longopts): New variable.
+	(logical_getcwd): New function.
+	(main): Use it.
+	(usage): Document new options.
+	* doc/coreutils.texi (pwd invocation): Likewise.
+	* NEWS: Likewise.
+	* TODO (pwd): Mark it done.
+	* tests/misc/pwd-option: New file.
+	* tests/Makefile.am (TESTS): Add test.
+	* THANKS: Update.
+	Reported by Paul D. Smith, in savannah bug 24949.
+
+2009-03-25  Ondřej Vašík  <ovasik@redhat.com>
+
+	doc: update suffix regex in version sort
+	* doc/coreutils.texi: Reflect current filevercmp regex.
+
+2009-03-25  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+
+	tests: CuTmpdir.pm: avoid use of undefined variable in warning
+	* tests/CuTmpdir.pm (chmod_tree): Do not warn if $dir is undefined.
+
+2009-03-24  Jim Meyering  <meyering@redhat.com>
+
+	tests: ls -v: exercise yet another change in gnulib's new filevercmp
+	* tests/misc/ls-misc: Add names with ~ and ~.1~ suffixes.
+
+	* gnulib: Update submodule to latest.
+
+2009-03-24  Kamil Dudka  <kdudka@redhat.com>
+
+	ls: make it possible to disable coloring of hard links
+	* src/ls.c (print_color_indicator): Don't color hard links if disabled
+	(when there is an empty hl= in the LS_COLORS environment variable).
+	* tests/ls/hardlink: Add test case for disabled hard link highlighting.
+	* NEWS: Mention the change.
+
+2009-03-21  Jim Meyering  <meyering@redhat.com>
+
+	tests: search only files that are under version control
+	* maint.mk (sc_error_exit_success): Search only files
+	that are under version control.
+	(sc_makefile_path_separator_check): Likewise.
+	Check *.mk files, too, not just Makefile.am files.
+
+	tests: follow own advice: use $(PATH_SEPARATOR), not ":"
+	* maint.mk (coreutils-path-check): Use the variable, not the literal.
+
+	tests: modernize: use $(var) makefile notation, not @var@
+	* maint.mk (sc_makefile_path_separator_check): Recommend
+	the use of $(PATH_SEPARATOR), not @PATH_SEPARATOR@.
+	Remove an obsolete comment.
+
+2009-03-20  Jim Meyering  <meyering@redhat.com>
+
+	tests: teach sc_dd_O_FLAGS about new syntax in dd.c
+	* cfg.mk (sc_dd_O_FLAGS): Adapt to new syntax.
+
+2009-03-20  Eric Blake  <ebb9@byu.net>
+
+	dd: use a more portable definition of O_FULLBLOCK
+	* src/dd.c (O_FULLBLOCK): Compute its value without using a 180KB
+	macro.  This avoids triggering a compilation failure with HP-UX's cc.
+	Reported by Matthew Woehlke.
+
+2009-03-20  Jim Meyering  <meyering@redhat.com>
+
+	tests: avoid spurious mkdir/selinux test failure on HP-UX 11.23
+	* tests/mkdir/selinux: Accept yet another diagnostic.
+	Reported by Matthew Woehlke.
+
+2009-03-19  Jim Meyering  <meyering@redhat.com>
+
+	tests: df/total-verify: avoid test failure with older Perl
+	* tests/df/total-verify: Don't use perl's -f option.
+	Reported by Matthew Woehlke.
+
+	* gnulib: Update submodule to latest.
+
+2009-03-18  Jim Meyering  <meyering@redhat.com>
+
+	tests: adjust sort-continue not to fail under valgrind
+	* tests/misc/sort-continue: Don't run cat inside fd-limited shell.
+	If sort fails to run in an fd-limited shell, skip the test.
+
+2009-03-18  Paul Eggert  <eggert@CS.UCLA.EDU>
+
+	tests: add another sort/nmerge test
+	* tests/Makefile.am (TESTS): Add sort-merge-fdlimit.
+	* tests/misc/sort-merge-fdlimit: New file.
+	* doc/coreutils.texi (sort invocation): Document that we now silently
+	lower nmerge if necessary.
+	Patch by Paul Eggert, Nima Nikzad, Max Chang, Alexander Nguyen,
+	Sahil Amoli, and Nick Graham.
+
+	sort: handle fd exhaustion better when merging
+	This is an alternative to my 9 March patch labeled "Silently lower
+	nmerge; don't (sometimes incorrectly) range-check"
+	<http://lists.gnu.org/archive/html/bug-coreutils/2009-03/msg00070.html>.
+	It differs by not using 'dup' to probe for extra file descriptors;
+	instead, it simply calls 'open' (and 'pipe') to open files and pipes,
+	until one of these calls fails due to file descriptor exhaustion; it
+	then backs off by 1, does a merge with the files that it has opened,
+	and then retries with the (now-smaller) number of files.
+
+	This patch requires quite a few more changes to the source code than
+	the earlier patch, but it is in some sense "better" because it doesn't
+	need to call "dup" ahead of time in order to decide whether "open" or
+	"pipe" will fail.  Also, it's more robust in the case where "open" or
+	"pipe" fails with errno==EMFILE because some system-wide limit is
+	exhausted.
+
+	* src/sort.c (create_temp_file): New arg SURVIVE_FD_EXHAUSTION.
+	(stream_open): New function, containing guts of xfopen.
+	(xfopen): Use it.
+	(pipe_fork): Set errno on failure.
+	(maybe_create_temp): New function, containing guts of create_temp.
+	(create_temp): Use it.
+	(open_temp): Distinguish failures due to file descriptor exhaustion
+	from other failures, and on fd exhaustion return a notice to caller
+	rather than dying.  Don't test execlp's return value; when it returns,
+	it *always* returns -1.
+	(open_input_files): New function.
+	(mergefps): New arg FPS. It's now the caller's responsibility to open
+	the input and output files.  All callers changed.
+	(mergefiles): New function.
+	(avoid_trashing_input, merge): Handle the case where a single merge
+	can't merge as much as we wanted due to file descriptor exhaustion, by
+	merging as much as we can and then retrying.
+	* tests/Makefile.am (TESTS): Add misc/sort-continue.
+	* tests/misc/sort-continue: New file.
+	* THANKS: Add Glen Lenker and Matt Pham who coauthored this patch.
+
+2009-03-18  Jim Meyering  <meyering@redhat.com>
+
+	maint: normalize leading-TAB indentation in Makefiles
+	* maint.mk (sc_makefile_TAB_only_indentation): New rule.
+	Replace each TAB+8-space sequence with two TABs.
+	* man/Makefile.am: Likewise.
+	* build-aux/check.mk: Likewise.
+	I used this command (run it more than once, if needed):
+	t=$'\t'; git grep -l -E "$t {8}"|grep -E 'Makefile|\.mk$' \
+	| xargs perl -pi -e 's/\t {8}/\t\t/'
+
+2009-03-15  Jim Meyering  <meyering@redhat.com>
+
+	maint: remove long-unused Makefile
+	* tests/sort-time/Makefile: Remove long-unused file.
+
+	maint: remove unused include and definitions
+	* gl/lib/randread.c (__attribute__): Remove unused definition.
+	(ATTRIBUTE_UNUSED): Likewise.
+	* gl/lib/selinux-at.c (_): Remove unused definition.
+	Don't include <gettext.h>.  No longer needed.
+
+	* gnulib: Update submodule to latest.
+
+2009-03-14  Jim Meyering  <meyering@redhat.com>
+
+	system.h: correct compilation error: MAX not defined
+	* src/system.h (io_blksize): Move definition down, so it follows that
+	of MAX -- to avoid compilation failure on OpenSolaris.  Reported by
+	David Bartley.  Details in
+	http://lists.gnu.org/archive/html/bug-coreutils/2009-03/msg00190.html
+
+	* gnulib: Update to pull in select/interix work-around.
+
+2009-03-13  Kamil Dudka  <kdudka@redhat.com>
+
+	doc: update "version sort" documentation
+	* doc/coreutils.texi: Reflect current filevercmp behavior.
+
+2009-03-12  Jim Meyering  <meyering@redhat.com>
+
+	tests: groups-version: don't require that id be built
+	* tests/misc/groups-version: groups is now independent of id.
+
+	tests: skip the groups-dash test when "groups" is not built
+	* tests/misc/groups-dash: Skip if groups is not being installed.
+	Suggested by Mike Frysinger.
+	Also fail if groups exits with nonzero status.
+
+2009-03-12  Pádraig Brady  <P@draigBrady.com>
+
+	maint: mention Autoconf version required to build Automake
+	* README-prereq: coreutils currently requires an unreleased
+	version of Automake, so mention the minimum version of Autoconf
+	required to build that. Suggestion from James Youngman.
+
+2009-03-12  Jim Meyering  <meyering@redhat.com>
+
+	* gnulib: Update submodule to latest.
+
+2009-03-11  Ondřej Vašík  <ovasik@redhat.com>
+
+	cp: make -a option preserve xattrs, but with reduced diagnostics
+	* copy.c (copy_attr_by_fd): Reduce xattr diagnostics for 'cp -a'.
+	(copy_attr_by_name): Likewise.
+	* cp.c (main): Preserve xattrs with -a option, when possible.
+	* doc/coreutils.texi: Document that xattrs are preserved with
+	cp -a, with no added diagnostics.
+	* NEWS: Mention the change.
+	* tests/misc/xattr: Add tests for 'cp --preserve=all' and 'cp -a'.
+
+2009-03-11  Pádraig Brady  <P@draigBrady.com>
+
+	maint: Document how to best to enable gcc warnings for developers
+	* README-hacking: Mention --enable-gcc-warnings configure option
+	* configure.ac: Don't scare developers away from using gcc warnings
+
+2009-03-11  Jim Meyering  <meyering@redhat.com>
+
+	maint: remove an obsolete FIXME comment
+	* src/Makefile.am (../AUTHORS): Remove obsolete FIXME comment.
+	There are no longer any installed *.sh programs.
+
+2009-03-11  Pádraig Brady  <P@draigBrady.com>
+
+	cat: Fix immediate output of processed data
+	Introduced by commit 790892db, 2006-06-08 "Ensure that cat works ...".
+	* NEWS: Mention the bugfix.
+	* src/cat.c (cat): Fix the typo which stopped the writing
+	of processed data before a blocking read() is done.
+	* tests/misc/cat-buf: Add to ensure processed data is not buffered.
+	* tests/Makefile.am: Reference the new test.
+
+	cat,cp,mv,install,split: Set the minimum IO block size used to 32KiB
+	This is following on from this change:
+	[02c3dc9d 2008-03-06 cat: use larger buffer sizes ...]
+	which increased the IO block size used by cat by 8 times,
+	but also capped it at 32KiB.
+	* NEWS: Mention the change in behavior.
+	* src/system.h: Add a new io_blksize() function that
+	returns the max of ST_BLKSIZE or 32KiB, as this was
+	seen as a good value for a minimum block size to use
+	to get good performance while minimizing system call overhead.
+	* src/cat.c: Use it.
+	* src/copy.c: ditto
+	* src/split.c: ditto
+
+2009-03-08  Jim Meyering  <meyering@redhat.com>
+
+	tests: add a test for newly-fixed bug in comm --check-order
+	* tests/misc/comm (ooo-prefix): Add a test for today's fix.
+	* NEWS (Bug fixes): Mention it.
+
+2009-03-08  Bruno Haible  <bruno@clisp.org>
+
+	comm: fix a bug in its new --check-order option
+	* src/comm.c: Include memcmp2.h.
+	(check_order): Use memcmp2 instead of memcmp.
+	* bootstrap.conf (gnulib_modules): Add memcmp2.
+
+2009-03-08  Jim Meyering  <meyering@redhat.com>
+
+	tests: ls -v: exercise the bug fixed by gnulib's new filevercmp
+	* tests/misc/ls-misc (version-sort): New test.
+	(mk_file): New function.
+	Reported by Josh Triplett in <http://bugs.debian.org/517558>.
+	Details in http://thread.gmane.org/gmane.comp.lib.gnulib.bugs/16902
+	* NEWS (Bug fixes): Mention it.
+
+	gnulib: sync submodule to latest
+
+2009-03-07  Jim Meyering  <meyering@redhat.com>
+
+	pr: fix a bug whereby --indent=N (-o) did not indent header lines
+	* src/pr.c (print_header): Honor chars_per_margin also for the header.
+	Inspired by a patch from C de-Avillez.
+	This change also adjusts two other %*s directives to be %*.*s instead,
+	(for the padding on either side of "file_text") to correct a bug that
+	could make pr print one space of padding instead of none.
+	* NEWS (Bug fixes): Mention it.
+	* tests/pr/o3Jml24f-lm-lo: Adjust for new expected output.
+	* tests/pr/o3a3Sl24f-tn: Likewise.
+	* tests/pr/o3a3Snl24f-tn: Likewise.
+	* tests/pr/o3a3l24f-tn: Likewise.
+	* tests/pr/o3b3Sl24f-tn: Likewise.
+	* tests/pr/o3b3Snl24f-tn: Likewise.
+	* tests/pr/o3b3l24f-tn: Likewise.
+	* tests/pr/o3mSl24f-bl-tn: Likewise.
+	* tests/pr/o3mSnl24fbltn: Likewise.
+	* tests/pr/o3ml24f-bl-tn: Likewise.
+
+	bootstrap: add to XGETTEXT_OPTIONS
+	* bootstrap.conf (XGETTEXT_OPTIONS): Add c-format --flag options
+	for verror and verror_at_line; alphabetize.
+
+	maint: use a git submodule for gnulib
+	* .gitmodules: New file, to track gnulib.
+	* gnulib: New file, created by running this:
+	git submodule add git://git.sv.gnu.org/gnulib.git gnulib
+
+	build: allow ./bootstrap --srcdir=... to work with a git submodule
+	* bootstrap (git_modules_config): Use GIT_CONFIG, not GIT_CONFIG_LOCAL.
+	The latter was removed in v1.5.6.1-109-gdc87183.
+
+	build: avoid "multiply defined..." warning from automake
+	* Makefile.am (AM_CFLAGS): Add $(WARN_CFLAGS) via +=, not =, to
+	avoid "multiply defined..." warning from automake.
+
+2009-03-06  Jim Meyering  <meyering@redhat.com>
+
+	cat: use larger buffer sizes to reduce read/write-syscall overhead
+	* src/cat.c (max): Remove definition.  Use MAX from system.h instead.
+	(compute_buffer_size): New function to compute the input and output
+	buffer sizes, which are now set at 8 times st_blksize with a maximum
+	of 32KiB. Previously the typical block sizes used were 1KiB for pipes
+	and 4KiB for files, and now will be 8KiB and 32KiB respectively.
+	(main): Use it.
+	This change can double throughput on modern systems.  For timings,
+	see http://article.gmane.org/gmane.comp.gnu.core-utils.bugs/16040
+	Suggestion from Tzvi Rotshtein.
+
+	maint: avoid new unused-macro warnings from gcc
+	* src/ls.c (ASSERT_MATCHING_DEV_INO): Comment-out unused definition,
+	to match commented-out use.
+	* src/install.c (INITIAL_HASH_MODULE, INITIAL_ENTRY_TAB_SIZE):
+	(READ_SIZE): Remove definitions of unused macros.
+	* src/mv.c (INITIAL_HASH_MODULE, INITIAL_ENTRY_TAB_SIZE): Likewise.
+	* src/dd.c (max): Likewise.
+	* src/expand.c (OUTPUT_BLOCK): Likewise.
+	* src/csplit.c (ALLOC_SIZE): Likewise.
+	* src/pr.c (NULLCOL): Likewise.
+	* src/ptx.c (Sword): Likewise.
+	* src/unexpand.c (OUTPUT_BLOCK): Likewise.
+	* src/factor.c (NDEBUG): Likewise.
+
+	tests: fix just-introduced typo in rm/ext3-perf
+	* tests/rm/ext3-perf: Fix typo in commit 2b1e6636bea,
+	2009-02-27 "tests: rm/ext3-perf: relax this test".
+
+	maint: remove spurious case-ignoring option from a test
+	* maint.mk (sc_trailing_blank): Remove useless/harmless ignore_case=1.
+
+2009-03-04  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+
+	policy: use git to help avoid trailing white space
+	* HACKING (Avoid trailing white space): Describe how git can help.
+
+2009-03-04  Andreas Schwab  <schwab@linux-m68k.org>
+
+	Update Andreas Schwab's email address
+	* THANKS: Update Andreas Schwab's email address.
+
+2009-03-03  Jim Meyering  <meyering@redhat.com>
+
+	maint: improve release-related process and documentation
+	* README-release: Fix typo. it's "maintainer-clean".
+	Refer to HACKING for full list of dependencies.
+	Use cvs add's -ko option to inhibit $Id$-style keyword expansion.
+	* maint.mk (web-manual): Factor out definition of $(manual_title).
+	(vc-dist): Set XZ_OPT=-9ev for the final "make dist".
+	* cfg.mk (manual_title): Define it here.
+	Suggestions from Eric Blake.
+
+2009-03-02  Jim Meyering  <meyering@redhat.com>
+
+	dist: document our release procedure
+	* README-release: New file.
+
+	dist: automate the post-release web-manual update process
+	* maint.mk (web-manual): New rule, from m4's maint.mk.
+	* bootstrap.conf (gnulib_modules): Add gendocs.
+
+	tests: rm/ext3-perf: relax this test
+	* tests/rm/ext3-perf: If set-up takes too long, use the set-up time
+	as the removal time limit.  Otherwise, a parallel "make check" would
+	usually fail when run with RUN_VERY_EXPENSIVE_TESTS=yes.
+
+	tests: don't skip setgid-dir related tests on SELinux-enabled systems
+	* tests/setgid-check: The change in ls (use ".", not "+") caused
+	this check always to report the working directory as set-gid.
+	Now, use stat, not ls.
+
+	tests: reflect the s/+/./ SELinux indicator change
+	* tests/mkdir/perm: Now that this test is no longer always skipped,
+	make it work independently of ls: use stat, not ls, to get perm string.
+	* test-lib.sh (rwx_to_mode_): Use stat, not ls to get perm string
+	This test was run only when RUN_VERY_EXPENSIVE_TESTS=yes was set.
+
+	tests: when skipping a test, say why on screen, not just in the log
+	* tests/test-lib.sh: Redirect also to descriptor 9.
+	Better one-line why-skip diagnostics.
+	* tests/check.mk (TESTS_ENVIRONMENT): Redirect 9 to stderr.
+	* tests/misc/pwd-unreadable-parent: Remove redundant "skipping..." diag.
+
+	maint: enable many gcc warnings
+	* bootstrap.conf (gnulib_modules): Add manywarnings.
+	* configure.ac: Use gl_MANYWARN_ALL_GCC, and exclude options
+	I don't want or that provoke too many warnings.
+	(WARN_CFLAGS, WERROR_CFLAGS): Define.
+	(lint, GNULIB_PORTCHECK): Define.
+	(_FORTIFY_SOURCE): Define to 2.
+
+	maint: avoid gcc warning about missing attributes
+	* src/prog-fprintf.h (prog_fprintf): Declare with printf attribute.
+	* src/system.h (usage): Declare with the "noreturn" attribute.
+
+	maint: avoid warnings about potentially-counterproductive "inline"
+	* src/dd.c (quit): Remove "inline" attribute.
+	* src/test.c (advance, unary_advance): Likewise.
+
+	maint: cp: avoid gcc warning about unused macro definitions
+	* src/cp.c (INITIAL_HASH_MODULE, INITIAL_ENTRY_TAB_SIZE): Remove.
+
+	dist: do not emit MD5 or SHA1 checksums into announcement template
+	* maint.mk (announcement): Use announce-gen's new --no-print-checksums.
+
+2009-02-28  Jim Meyering  <meyering@redhat.com>
+
+	maint: detect unnecessary inclusion of signal.h
+	* maint.mk (sc_prohibit_signal_without_use): New rule.
+
+	maint: remove an unnecessary inclusion of <signal.h>
+	* src/operand2sig.c: Don't include <signal.h>.
+
+2009-02-28  Pádraig Brady  <P@draigBrady.com>
+
+	tests: sort: Check skipping blanks in multibyte locales
+	* tests/misc/sort: On Fedora 8 at least, sort -k1b,1
+	mishandles blanks in multibyte locales, so add test.
+
+2009-02-27  Jim Meyering  <meyering@redhat.com>
+
+	* HACKING: avoid trailing white space
+
+	cp: diagnose invalid "cp -rl dir dir" right away, once again
+	Running "mkdir dir; cp -rl dir dir" would create dir/dir/dir/...
+	rather than diagnosing the "copy-into-self" failure.
+
+	The easy fix would have been to revert this part of the change
+	[3ece0355 2008-11-09 cp: use far less memory in some cases]
+	that introduced the bug:
+
+	-         remember_copied (dst_name, dst_sb.st_ino, dst_sb.st_dev);
+	+         if (!x->hard_link)
+	+           remember_copied (dst_name, dst_sb.st_ino, dst_sb.st_dev);
+
+	However, that would have induced the failure of the new cp/link-heap
+	test, due to the added memory pressure of recording 10k dev/ino pairs.
+	And besides, I liked that improvement and wanted to keep it.
+
+	Now that it's obvious recording the just-created-directory dev/ino
+	needn't depend on the setting of hard_link, I realized it is necessary
+	to record the pair only for the first directory created for each
+	source command-line argument.
+
+	I made that change, then noticed the new test, cp -rl a d d, would pass
+	when run once, yet output the into-self diagnostic twice.  Also note
+	the side effect: it creates d/a and d/d.  However, running that same
+	command a second time, now with the modified directory, would fail.
+
+	That turned out to be due to the fact that although the first into-self
+	failure was detected in copy_dir, that function would continue copying
+	other entries regardless -- and that would make it fail (eventually)
+	with the unwanted recursion.
+
+	* src/copy.c (copy_internal): This function needed an indicator of
+	whether, for a give command line argument, it had already created its
+	first directory.  If so, no more need to record dev/ino pairs.  If this
+	is the first, then do record its pair.  Hence, the new parameter.
+	(copy_dir, copy): Update callers.
+	(copy_dir): Upon any into-self failure, break out of the loop.
+	* tests/cp/into-self: Test for the above.
+	Reported by Mikael Magnusson.
+
+2009-02-26  Jim Meyering  <meyering@redhat.com>
+
+	tests: stty-row-col would hang when run in the background
+	* tests/misc/stty-row-col: Don't hang when run in background
+	at least on Solaris 10 and OpenBSD.
+
+2009-02-26  Pádraig Brady  <P@draigBrady.com>
+
+	sort: Fix two bugs with determining the end of field
+	* src/sort.c: When no specific number of chars to skip
+	is specified for the end field, always skip the whole field.
+	Also never include leading spaces from next field.
+	* tests/misc/sort: Add 2 new tests for these cases.
+	* NEWS: Mention this bug fix.
+	* THANKS: Add bug reporter.
+	Reported by Davide Canova.
+
+2009-02-26  Eric Blake  <ebb9@byu.net>
+
+	argv-iter: avoid variadic macro
+	* gl/lib/argv-iter.h (_ATTRIBUTE_NONNULL_): Don't assume C99 variadic
+	macros are portable yet; needed for at least IRIX/MIPSpro.
+	* THANKS: Update.
+	Reported by Stuart Shelton.
+
+2009-02-26  Pádraig Brady  <P@draigBrady.com>
+
+	tests: Remove system specific error strings
+	* tests/dd/skip-seek-past-file: Just check for
+	the non system specific part of the error strings.
+	This was causing an erroneous failure on NetBSD 1.6 at least.
+
+2009-02-25  Jim Meyering  <meyering@redhat.com>
+
+	tests: using printf with \e for ESC isn't portable
+	* tests/ls/color-clear-to-eol: Use \33, not \e for ascii ESC.
+	This test failed when using the built-in printf of /bin/sh from
+	NetBSD 1.6.
+
+2009-02-24  Pádraig Brady  <P@draigBrady.com>
+
+	Ensure comment for translators is included in po file
+	Issue reported by Göran Uddeborg.
+
+	* src/system.h: Move the translator comment adjacent
+	to the translated string.
+	* THANKS: Update Göran's email address.
+
+2009-02-22  Tobias Stoeckmann  <tobias@bugol.de>
+
+	truncate: fix typo in man page
+	* man/truncate.x: Fix spelling.
+	* THANKS: Update.
+
+2009-02-22  Andrew Church  <achurch@achurch.org>
+
+	doc: describe dd's status=noxref option
+	* doc/coreutils.texi (dd invocation): Describe status=noxref.
+
+2009-02-22  Jim Meyering  <meyering@redhat.com>
+
+	tests: reenable temporarily-disabled tests using e.g., trap '' TTOU
+	Revert "tests: skip newly-modified tests unconditionally..."
+	This reverts commit 773a88d33f68e50a2919c8a8310c646a7e5fabc2.
+	* tests/misc/stty: Don't skip.
+	* tests/misc/stty-invalid: Likewise.
+	* tests/mv/i-3: Likewise.
+
+2009-02-22  James Youngman  <jay@gnu.org>
+
+	update James Youngman's email address
+	* THANKS: Update James Youngman's email address
+
 2009-02-21  Jim Meyering  <meyering@redhat.com>
+
+	post-release administrivia
+	* NEWS: Add header line for next release.
+	* .prev-version: Record previous version.
+	* cfg.mk (old_NEWS_hash): Auto-update.
 
 	version 7.1
 	* NEWS: Record release date.

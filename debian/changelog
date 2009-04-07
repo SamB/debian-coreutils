@@ -1,3 +1,10 @@
+coreutils (7.2-1) unstable; urgency=low
+
+  * new upstream version (Closes: #517558)
+  * [78] fix kfreebsd build problem (Closes: #520368)
+
+ -- Michael Stone <mstone@debian.org>  Tue, 07 Apr 2009 19:21:42 -0400
+
 coreutils (7.1-2) unstable; urgency=low
 
   * remove timeout binary, conflicts with package "timeout" (Closes: #516652)

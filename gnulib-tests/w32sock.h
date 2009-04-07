@@ -1,3 +1,6 @@
+/* -*- buffer-read-only: t -*- vi: set ro: */
+/* DO NOT EDIT! GENERATED AUTOMATICALLY! */
+#line 1
 /* w32sock.h --- internal auxilliary functions for Windows socket functions
 
    Copyright (C) 2008 Free Software Foundation, Inc.
