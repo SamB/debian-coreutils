@@ -147,27 +147,27 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/00gnulib.m4 \
 	$(top_srcdir)/m4/manywarnings.m4 $(top_srcdir)/m4/math_h.m4 \
 	$(top_srcdir)/m4/mbchar.m4 $(top_srcdir)/m4/mbiter.m4 \
 	$(top_srcdir)/m4/mbrlen.m4 $(top_srcdir)/m4/mbrtowc.m4 \
-	$(top_srcdir)/m4/mbsinit.m4 $(top_srcdir)/m4/mbstate_t.m4 \
-	$(top_srcdir)/m4/mbswidth.m4 $(top_srcdir)/m4/md5.m4 \
-	$(top_srcdir)/m4/memcasecmp.m4 $(top_srcdir)/m4/memchr.m4 \
-	$(top_srcdir)/m4/memcmp.m4 $(top_srcdir)/m4/memcoll.m4 \
-	$(top_srcdir)/m4/memcpy.m4 $(top_srcdir)/m4/memmove.m4 \
-	$(top_srcdir)/m4/mempcpy.m4 $(top_srcdir)/m4/memrchr.m4 \
-	$(top_srcdir)/m4/memset.m4 $(top_srcdir)/m4/memxfrm.m4 \
-	$(top_srcdir)/m4/mgetgroups.m4 $(top_srcdir)/m4/mkancesdirs.m4 \
-	$(top_srcdir)/m4/mkdir-p.m4 $(top_srcdir)/m4/mkdir-slash.m4 \
-	$(top_srcdir)/m4/mkstemp.m4 $(top_srcdir)/m4/mktime.m4 \
-	$(top_srcdir)/m4/modechange.m4 $(top_srcdir)/m4/mountlist.m4 \
-	$(top_srcdir)/m4/mpsort.m4 $(top_srcdir)/m4/multiarch.m4 \
-	$(top_srcdir)/m4/nanosleep.m4 $(top_srcdir)/m4/netdb_h.m4 \
-	$(top_srcdir)/m4/netinet_in_h.m4 $(top_srcdir)/m4/nls.m4 \
-	$(top_srcdir)/m4/nocrash.m4 $(top_srcdir)/m4/open.m4 \
-	$(top_srcdir)/m4/openat.m4 $(top_srcdir)/m4/pathmax.m4 \
-	$(top_srcdir)/m4/perl.m4 $(top_srcdir)/m4/perror.m4 \
-	$(top_srcdir)/m4/physmem.m4 $(top_srcdir)/m4/po.m4 \
-	$(top_srcdir)/m4/posix-shell.m4 $(top_srcdir)/m4/posixtm.m4 \
-	$(top_srcdir)/m4/posixver.m4 $(top_srcdir)/m4/prereq.m4 \
-	$(top_srcdir)/m4/printf-frexp.m4 \
+	$(top_srcdir)/m4/mbsinit.m4 $(top_srcdir)/m4/mbsrtowcs.m4 \
+	$(top_srcdir)/m4/mbstate_t.m4 $(top_srcdir)/m4/mbswidth.m4 \
+	$(top_srcdir)/m4/md5.m4 $(top_srcdir)/m4/memcasecmp.m4 \
+	$(top_srcdir)/m4/memchr.m4 $(top_srcdir)/m4/memcmp.m4 \
+	$(top_srcdir)/m4/memcoll.m4 $(top_srcdir)/m4/memcpy.m4 \
+	$(top_srcdir)/m4/memmove.m4 $(top_srcdir)/m4/mempcpy.m4 \
+	$(top_srcdir)/m4/memrchr.m4 $(top_srcdir)/m4/memset.m4 \
+	$(top_srcdir)/m4/memxfrm.m4 $(top_srcdir)/m4/mgetgroups.m4 \
+	$(top_srcdir)/m4/mkancesdirs.m4 $(top_srcdir)/m4/mkdir-p.m4 \
+	$(top_srcdir)/m4/mkdir-slash.m4 $(top_srcdir)/m4/mkstemp.m4 \
+	$(top_srcdir)/m4/mktime.m4 $(top_srcdir)/m4/modechange.m4 \
+	$(top_srcdir)/m4/mountlist.m4 $(top_srcdir)/m4/mpsort.m4 \
+	$(top_srcdir)/m4/multiarch.m4 $(top_srcdir)/m4/nanosleep.m4 \
+	$(top_srcdir)/m4/netdb_h.m4 $(top_srcdir)/m4/netinet_in_h.m4 \
+	$(top_srcdir)/m4/nls.m4 $(top_srcdir)/m4/nocrash.m4 \
+	$(top_srcdir)/m4/open.m4 $(top_srcdir)/m4/openat.m4 \
+	$(top_srcdir)/m4/pathmax.m4 $(top_srcdir)/m4/perl.m4 \
+	$(top_srcdir)/m4/perror.m4 $(top_srcdir)/m4/physmem.m4 \
+	$(top_srcdir)/m4/po.m4 $(top_srcdir)/m4/posix-shell.m4 \
+	$(top_srcdir)/m4/posixtm.m4 $(top_srcdir)/m4/posixver.m4 \
+	$(top_srcdir)/m4/prereq.m4 $(top_srcdir)/m4/printf-frexp.m4 \
 	$(top_srcdir)/m4/printf-frexpl.m4 $(top_srcdir)/m4/printf.m4 \
 	$(top_srcdir)/m4/progtest.m4 $(top_srcdir)/m4/putenv.m4 \
 	$(top_srcdir)/m4/quote.m4 $(top_srcdir)/m4/quotearg.m4 \
@@ -219,8 +219,7 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/00gnulib.m4 \
 	$(top_srcdir)/m4/unlink-busy.m4 $(top_srcdir)/m4/unlinkdir.m4 \
 	$(top_srcdir)/m4/unlocked-io.m4 $(top_srcdir)/m4/uptime.m4 \
 	$(top_srcdir)/m4/userspec.m4 $(top_srcdir)/m4/utimbuf.m4 \
-	$(top_srcdir)/m4/utime.m4 $(top_srcdir)/m4/utimecmp.m4 \
-	$(top_srcdir)/m4/utimens.m4 $(top_srcdir)/m4/utimes-null.m4 \
+	$(top_srcdir)/m4/utimecmp.m4 $(top_srcdir)/m4/utimens.m4 \
 	$(top_srcdir)/m4/utimes.m4 $(top_srcdir)/m4/vasnprintf.m4 \
 	$(top_srcdir)/m4/vasprintf-posix.m4 \
 	$(top_srcdir)/m4/vasprintf.m4 \
@@ -247,10 +246,10 @@ LIBRARIES = $(noinst_LIBRARIES)
 AR = ar
 ARFLAGS = cru
 AM_V_AR = $(am__v_AR_$(V))
-am__v_AR_ = @echo " AR " $@;
-am__v_AR_0 = @echo " AR " $@;
+am__v_AR_ = $(am__v_AR_$(AM_DEFAULT_VERBOSITY))
+am__v_AR_0 = @echo "  AR    " $@;
 AM_V_at = $(am__v_at_$(V))
-am__v_at_ = @
+am__v_at_ = $(am__v_at_$(AM_DEFAULT_VERBOSITY))
 am__v_at_0 = @
 libver_a_AR = $(AR) $(ARFLAGS)
 libver_a_LIBADD =
@@ -724,21 +723,21 @@ depcomp = $(SHELL) $(top_srcdir)/build-aux/depcomp
 am__depfiles_maybe = depfiles
 am__mv = mv -f
 AM_V_lt = $(am__v_lt_$(V))
-am__v_lt_ = --silent
+am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
 am__v_lt_0 = --silent
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 AM_V_CC = $(am__v_CC_$(V))
-am__v_CC_ = @echo " CC " $@;
-am__v_CC_0 = @echo " CC " $@;
+am__v_CC_ = $(am__v_CC_$(AM_DEFAULT_VERBOSITY))
+am__v_CC_0 = @echo "  CC    " $@;
 CCLD = $(CC)
 LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
 AM_V_CCLD = $(am__v_CCLD_$(V))
-am__v_CCLD_ = @echo " CCLD " $@;
-am__v_CCLD_0 = @echo " CCLD " $@;
+am__v_CCLD_ = $(am__v_CCLD_$(AM_DEFAULT_VERBOSITY))
+am__v_CCLD_0 = @echo "  CCLD  " $@;
 AM_V_GEN = $(am__v_GEN_$(V))
-am__v_GEN_ = @echo " GEN " $@;
-am__v_GEN_0 = @echo " GEN " $@;
+am__v_GEN_ = $(am__v_GEN_$(AM_DEFAULT_VERBOSITY))
+am__v_GEN_0 = @echo "  GEN   " $@;
 SOURCES = $(nodist_libver_a_SOURCES) $(__SOURCES) $(arch_SOURCES) \
 	base64.c basename.c cat.c chcon.c $(chgrp_SOURCES) chmod.c \
 	$(chown_SOURCES) chroot.c cksum.c comm.c $(cp_SOURCES) \
@@ -789,6 +788,7 @@ ACLOCAL = @ACLOCAL@
 ALLOCA = @ALLOCA@
 ALLOCA_H = @ALLOCA_H@
 AMTAR = @AMTAR@
+AM_DEFAULT_VERBOSITY = @AM_DEFAULT_VERBOSITY@
 APPLE_UNIVERSAL_BUILD = @APPLE_UNIVERSAL_BUILD@
 ARPA_INET_H = @ARPA_INET_H@
 AUTOCONF = @AUTOCONF@
@@ -1452,7 +1452,10 @@ EXTRA_DIST = dcgen dircolors.hin tac-pipe.c \
 
 BUILT_SOURCES = dircolors.h wheel-size.h wheel.h fs.h version.c \
 	version.h
-CLEANFILES = $(SCRIPTS) su
+
+# Also remove these sometimes-built programs.
+# For example, even when excluded, they're built via check-AUTHORS.
+CLEANFILES = $(SCRIPTS) su $(no_install__progs)
 AM_CPPFLAGS = -I$(top_srcdir)/lib
 noinst_LIBRARIES = libver.a
 nodist_libver_a_SOURCES = version.c version.h
@@ -1618,15 +1621,10 @@ pm = progs-makefile
 pr = progs-readme
 
 # Ensure that the list of programs and author names is accurate.
+# We need a UTF8 locale, and any one should do, but since configure
+# already tries to find a French one, use it.  It's fine to skip this test.
 au_dotdot = authors-dotdot
 au_actual = authors-actual
-
-# Extract the list of authors from each file.
-sed_filter = s/^ *//;s/N_ (//;s/^"//;s/")*$$//
-# Sometimes the string is on the same line as the #define...
-s1 = '/^\#define AUTHORS \([^\\]\)/{;s//\1/;$(sed_filter);p;q;}'
-# Sometimes the string is on the backslash-continued line after the #define.
-s2 = '/^\#define AUTHORS \\\\/{;n;$(sed_filter);p;q;}'
 @CROSS_COMPILING_FALSE@cu_install_program = ./ginstall
 
 # Use the just-built ./ginstall, when not cross-compiling.
@@ -1645,9 +1643,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu --silent-rules src/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu src/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu --silent-rules src/Makefile
+	  $(AUTOMAKE) --gnu src/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
@@ -2572,36 +2570,36 @@ uninstall-local:
 	  fi; \
 	fi
 dircolors.h: dcgen dircolors.hin
-	@rm -f $@ $@-t
-	$(PERL) -w -- $(srcdir)/dcgen $(srcdir)/dircolors.hin > $@-t
-	@chmod a-w $@-t
-	mv $@-t $@
+	$(AM_V_GEN)rm -f $@ $@-t
+	$(AM_V_at)$(PERL) -w -- $(srcdir)/dcgen $(srcdir)/dircolors.hin > $@-t
+	$(AM_V_at)chmod a-w $@-t
+	$(AM_V_at)mv $@-t $@
 wheel-size.h: Makefile.am
-	@rm -f $@ $@-t
-	echo '#define WHEEL_SIZE $(wheel_size)' > $@-t
-	@chmod a-w $@-t
-	mv $@-t $@
+	$(AM_V_GEN)rm -f $@ $@-t
+	$(AM_V_at)echo '#define WHEEL_SIZE $(wheel_size)' > $@-t
+	$(AM_V_at)chmod a-w $@-t
+	$(AM_V_at)mv $@-t $@
 wheel.h: wheel-gen.pl Makefile.am
-	@rm -f $@ $@-t
-	$(srcdir)/wheel-gen.pl $(wheel_size) > $@-t
-	@chmod a-w $@-t
-	mv $@-t $@
+	$(AM_V_GEN)rm -f $@ $@-t
+	$(AM_V_at)$(srcdir)/wheel-gen.pl $(wheel_size) > $@-t
+	$(AM_V_at)chmod a-w $@-t
+	$(AM_V_at)mv $@-t $@
 fs.h: stat.c extract-magic
-	rm -f $@
-	$(PERL) $(srcdir)/extract-magic $(srcdir)/stat.c > $@t
-	@chmod a-w $@t
-	mv $@t $@
+	$(AM_V_GEN)rm -f $@
+	$(AM_V_at)$(PERL) $(srcdir)/extract-magic $(srcdir)/stat.c > $@t
+	$(AM_V_at)chmod a-w $@t
+	$(AM_V_at)mv $@t $@
 version.c: Makefile
-	rm -f $@
-	printf '#include <config.h>\n' > $@t
-	printf 'char const *Version = "$(PACKAGE_VERSION)";\n' >> $@t
-	@chmod a-w $@t
-	mv $@t $@
+	$(AM_V_GEN)rm -f $@
+	$(AM_V_at)printf '#include <config.h>\n' > $@t
+	$(AM_V_at)printf 'char const *Version = "$(PACKAGE_VERSION)";\n' >> $@t
+	$(AM_V_at)chmod a-w $@t
+	$(AM_V_at)mv $@t $@
 version.h: Makefile
-	rm -f $@
-	printf 'extern char const *Version;\n' > $@t
-	@chmod a-w $@t
-	mv $@t $@
+	$(AM_V_GEN)rm -f $@
+	$(AM_V_at)printf 'extern char const *Version;\n' > $@t
+	$(AM_V_at)chmod a-w $@t
+	$(AM_V_at)mv $@t $@
 
 built_programs.list:
 	@echo $(bin_PROGRAMS) $(bin_SCRIPTS) | tr ' ' '\n' \
@@ -2612,7 +2610,7 @@ all_programs.list:
 	  | $(ASSORT) -u
 # Ensure that the list of programs in README matches the list
 # of programs we can build.
-check: check-README check-duplicate-no-install
+check: check-README check-duplicate-no-install check-AUTHORS
 .PHONY: check-README
 check-README:
 	rm -rf $(pr) $(pm)
@@ -2631,8 +2629,11 @@ check-duplicate-no-install: tr
 	test -z "`echo '$(EXTRA_PROGRAMS)'| ./tr ' ' '\n' | uniq -d`"
 .PHONY: check-AUTHORS
 check-AUTHORS: $(all_programs)
-	@rm -f $(au_actual) $(au_dotdot)
-	@for i in `ls $(all_programs) | sed -e 's,$(EXEEXT)$$,,' \
+	@locale='$(LOCALE_FR_UTF8)';			\
+	case "$$locale" in				\
+	  ''|none) echo "$@: skipping this check"; exit 0;; esac; \
+	rm -f $(au_actual) $(au_dotdot);		\
+	for i in `ls $(all_programs) | sed -e 's,$(EXEEXT)$$,,' \
 	    | $(ASSORT) -u`; do				\
 	  test "$$i" = '[' && continue;			\
 	  exe=$$i;					\
@@ -2641,30 +2642,13 @@ check-AUTHORS: $(all_programs)
 	  elif test "$$i" = test; then			\
 	    exe='[';					\
 	  fi;						\
-	  LC_ALL=en_US.UTF-8 ./$$exe --version		\
+	  LC_ALL="$$locale" ./$$exe --version		\
 	    | perl -0 -pi -e 's/,\n/, /gm'		\
-	    |sed -n '/Written by /{ s//'"$$i"': /; s/,* and /, /; s/\.$$//; p; }'; \
-	done > $(au_actual)
-	@sed -n '/^[^ ][^ ]*:/p' $(top_srcdir)/AUTHORS > $(au_dotdot)
-	@diff $(au_actual) $(au_dotdot) && rm -f $(au_actual) $(au_dotdot)
-../AUTHORS: $(SOURCES)
-	rm -f $@-t
-	(						\
-	  set -e;					\
-	  echo "Here are the names of the programs in this package,";	\
-	  echo "each followed by the name(s) of its author(s).";	\
-	  echo;						\
-	  for i in $(SOURCES); do			\
-	    a=`sed -n $(s1) $$i`;			\
-	    test "$$a" && :				\
-	      || a=`sed -n $(s2) $$i`;			\
-	    if test "$$a"; then				\
-	      prog=`echo $$i|sed 's/\.c$$//'`;		\
-	      echo "$$prog: $$a";			\
-	    fi;						\
-	  done | $(ASSORT) -u ) > $@-t
-	chmod a-w $@-t
-	mv $@-t $@
+	    | sed -n -e '/Written by /{ s//'"$$i"': /;'	\
+		  -e 's/,* and /, /; s/\.$$//; p; }';	\
+	done > $(au_actual) &&				\
+	sed -n '/^[^ ][^ ]*:/p' $(top_srcdir)/AUTHORS > $(au_dotdot) && \
+	diff $(au_actual) $(au_dotdot) && rm -f $(au_actual) $(au_dotdot)
 
 # The following rule is not designed to be portable,
 # and relies on tools that not everyone has.
@@ -2676,7 +2660,7 @@ check-AUTHORS: $(all_programs)
 #
 # The second nm|grep checks for file-scope variables with `extern' scope.
 .PHONY: sc_tight_scope
-sc_tight_scope: $(all_programs)
+sc_tight_scope: $(bin_PROGRAMS)
 	@t=exceptions-$$$$;						\
 	trap "s=$$?; rm -f $$t; exit $$s" 0 1 2 13 15;			\
 	src=`for f in $(SOURCES); do					\

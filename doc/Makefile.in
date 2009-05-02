@@ -52,7 +52,7 @@ build_triplet = @build@
 host_triplet = @host@
 subdir = doc
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
-	$(srcdir)/stamp-vti $(srcdir)/version.texi ChangeLog
+	$(srcdir)/stamp-vti $(srcdir)/version.texi
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/00gnulib.m4 \
 	$(top_srcdir)/m4/acl.m4 $(top_srcdir)/m4/alloca.m4 \
@@ -137,27 +137,27 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/00gnulib.m4 \
 	$(top_srcdir)/m4/manywarnings.m4 $(top_srcdir)/m4/math_h.m4 \
 	$(top_srcdir)/m4/mbchar.m4 $(top_srcdir)/m4/mbiter.m4 \
 	$(top_srcdir)/m4/mbrlen.m4 $(top_srcdir)/m4/mbrtowc.m4 \
-	$(top_srcdir)/m4/mbsinit.m4 $(top_srcdir)/m4/mbstate_t.m4 \
-	$(top_srcdir)/m4/mbswidth.m4 $(top_srcdir)/m4/md5.m4 \
-	$(top_srcdir)/m4/memcasecmp.m4 $(top_srcdir)/m4/memchr.m4 \
-	$(top_srcdir)/m4/memcmp.m4 $(top_srcdir)/m4/memcoll.m4 \
-	$(top_srcdir)/m4/memcpy.m4 $(top_srcdir)/m4/memmove.m4 \
-	$(top_srcdir)/m4/mempcpy.m4 $(top_srcdir)/m4/memrchr.m4 \
-	$(top_srcdir)/m4/memset.m4 $(top_srcdir)/m4/memxfrm.m4 \
-	$(top_srcdir)/m4/mgetgroups.m4 $(top_srcdir)/m4/mkancesdirs.m4 \
-	$(top_srcdir)/m4/mkdir-p.m4 $(top_srcdir)/m4/mkdir-slash.m4 \
-	$(top_srcdir)/m4/mkstemp.m4 $(top_srcdir)/m4/mktime.m4 \
-	$(top_srcdir)/m4/modechange.m4 $(top_srcdir)/m4/mountlist.m4 \
-	$(top_srcdir)/m4/mpsort.m4 $(top_srcdir)/m4/multiarch.m4 \
-	$(top_srcdir)/m4/nanosleep.m4 $(top_srcdir)/m4/netdb_h.m4 \
-	$(top_srcdir)/m4/netinet_in_h.m4 $(top_srcdir)/m4/nls.m4 \
-	$(top_srcdir)/m4/nocrash.m4 $(top_srcdir)/m4/open.m4 \
-	$(top_srcdir)/m4/openat.m4 $(top_srcdir)/m4/pathmax.m4 \
-	$(top_srcdir)/m4/perl.m4 $(top_srcdir)/m4/perror.m4 \
-	$(top_srcdir)/m4/physmem.m4 $(top_srcdir)/m4/po.m4 \
-	$(top_srcdir)/m4/posix-shell.m4 $(top_srcdir)/m4/posixtm.m4 \
-	$(top_srcdir)/m4/posixver.m4 $(top_srcdir)/m4/prereq.m4 \
-	$(top_srcdir)/m4/printf-frexp.m4 \
+	$(top_srcdir)/m4/mbsinit.m4 $(top_srcdir)/m4/mbsrtowcs.m4 \
+	$(top_srcdir)/m4/mbstate_t.m4 $(top_srcdir)/m4/mbswidth.m4 \
+	$(top_srcdir)/m4/md5.m4 $(top_srcdir)/m4/memcasecmp.m4 \
+	$(top_srcdir)/m4/memchr.m4 $(top_srcdir)/m4/memcmp.m4 \
+	$(top_srcdir)/m4/memcoll.m4 $(top_srcdir)/m4/memcpy.m4 \
+	$(top_srcdir)/m4/memmove.m4 $(top_srcdir)/m4/mempcpy.m4 \
+	$(top_srcdir)/m4/memrchr.m4 $(top_srcdir)/m4/memset.m4 \
+	$(top_srcdir)/m4/memxfrm.m4 $(top_srcdir)/m4/mgetgroups.m4 \
+	$(top_srcdir)/m4/mkancesdirs.m4 $(top_srcdir)/m4/mkdir-p.m4 \
+	$(top_srcdir)/m4/mkdir-slash.m4 $(top_srcdir)/m4/mkstemp.m4 \
+	$(top_srcdir)/m4/mktime.m4 $(top_srcdir)/m4/modechange.m4 \
+	$(top_srcdir)/m4/mountlist.m4 $(top_srcdir)/m4/mpsort.m4 \
+	$(top_srcdir)/m4/multiarch.m4 $(top_srcdir)/m4/nanosleep.m4 \
+	$(top_srcdir)/m4/netdb_h.m4 $(top_srcdir)/m4/netinet_in_h.m4 \
+	$(top_srcdir)/m4/nls.m4 $(top_srcdir)/m4/nocrash.m4 \
+	$(top_srcdir)/m4/open.m4 $(top_srcdir)/m4/openat.m4 \
+	$(top_srcdir)/m4/pathmax.m4 $(top_srcdir)/m4/perl.m4 \
+	$(top_srcdir)/m4/perror.m4 $(top_srcdir)/m4/physmem.m4 \
+	$(top_srcdir)/m4/po.m4 $(top_srcdir)/m4/posix-shell.m4 \
+	$(top_srcdir)/m4/posixtm.m4 $(top_srcdir)/m4/posixver.m4 \
+	$(top_srcdir)/m4/prereq.m4 $(top_srcdir)/m4/printf-frexp.m4 \
 	$(top_srcdir)/m4/printf-frexpl.m4 $(top_srcdir)/m4/printf.m4 \
 	$(top_srcdir)/m4/progtest.m4 $(top_srcdir)/m4/putenv.m4 \
 	$(top_srcdir)/m4/quote.m4 $(top_srcdir)/m4/quotearg.m4 \
@@ -209,8 +209,7 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/00gnulib.m4 \
 	$(top_srcdir)/m4/unlink-busy.m4 $(top_srcdir)/m4/unlinkdir.m4 \
 	$(top_srcdir)/m4/unlocked-io.m4 $(top_srcdir)/m4/uptime.m4 \
 	$(top_srcdir)/m4/userspec.m4 $(top_srcdir)/m4/utimbuf.m4 \
-	$(top_srcdir)/m4/utime.m4 $(top_srcdir)/m4/utimecmp.m4 \
-	$(top_srcdir)/m4/utimens.m4 $(top_srcdir)/m4/utimes-null.m4 \
+	$(top_srcdir)/m4/utimecmp.m4 $(top_srcdir)/m4/utimens.m4 \
 	$(top_srcdir)/m4/utimes.m4 $(top_srcdir)/m4/vasnprintf.m4 \
 	$(top_srcdir)/m4/vasprintf-posix.m4 \
 	$(top_srcdir)/m4/vasprintf.m4 \
@@ -234,10 +233,10 @@ CONFIG_HEADER = $(top_builddir)/lib/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 AM_V_GEN = $(am__v_GEN_$(V))
-am__v_GEN_ = @echo " GEN " $@;
-am__v_GEN_0 = @echo " GEN " $@;
+am__v_GEN_ = $(am__v_GEN_$(AM_DEFAULT_VERBOSITY))
+am__v_GEN_0 = @echo "  GEN   " $@;
 AM_V_at = $(am__v_at_$(V))
-am__v_at_ = @
+am__v_at_ = $(am__v_at_$(AM_DEFAULT_VERBOSITY))
 am__v_at_0 = @
 SOURCES =
 DIST_SOURCES =
@@ -281,6 +280,7 @@ ACLOCAL = @ACLOCAL@
 ALLOCA = @ALLOCA@
 ALLOCA_H = @ALLOCA_H@
 AMTAR = @AMTAR@
+AM_DEFAULT_VERBOSITY = @AM_DEFAULT_VERBOSITY@
 APPLE_UNIVERSAL_BUILD = @APPLE_UNIVERSAL_BUILD@
 ARPA_INET_H = @ARPA_INET_H@
 AUTOCONF = @AUTOCONF@
@@ -964,9 +964,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu --silent-rules doc/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu doc/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu --silent-rules doc/Makefile
+	  $(AUTOMAKE) --gnu doc/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
@@ -1140,8 +1140,11 @@ mostlyclean-aminfo:
 	-rm -rf coreutils.aux coreutils.cp coreutils.cps coreutils.fl coreutils.fn \
 	  coreutils.ky coreutils.log coreutils.op coreutils.pg \
 	  coreutils.tmp coreutils.toc coreutils.tp coreutils.tps \
-	  coreutils.vr coreutils.dvi coreutils.pdf coreutils.ps \
-	  coreutils.html
+	  coreutils.vr
+
+clean-aminfo:
+	-test -z "coreutils.dvi coreutils.pdf coreutils.ps coreutils.html" \
+	|| rm -rf coreutils.dvi coreutils.pdf coreutils.ps coreutils.html
 
 maintainer-clean-aminfo:
 	@list='$(INFO_DEPS)'; for i in $$list; do \
@@ -1224,7 +1227,7 @@ maintainer-clean-generic:
 	-test -z "$(MAINTAINERCLEANFILES)" || rm -f $(MAINTAINERCLEANFILES)
 clean: clean-am
 
-clean-am: clean-generic mostlyclean-am
+clean-am: clean-aminfo clean-generic mostlyclean-am
 
 distclean: distclean-am
 	-rm -f Makefile
@@ -1297,7 +1300,7 @@ install-info-am: $(INFO_DEPS)
 	  if test -f $$file; then d=.; else d=$(srcdir); fi; \
 	  file_i=`echo "$$file" | sed 's|\.info$$||;s|$$|.i|'`; \
 	  for ifile in $$d/$$file $$d/$$file-[0-9] $$d/$$file-[0-9][0-9] \
-                       $$d/$$file_i[0-9] $$d/$$file_i[0-9][0-9] ; do \
+	               $$d/$$file_i[0-9] $$d/$$file_i[0-9][0-9] ; do \
 	    if test -f $$ifile; then \
 	      echo "$$ifile"; \
 	    else : ; fi; \
@@ -1368,19 +1371,19 @@ uninstall-am: uninstall-dvi-am uninstall-html-am uninstall-info-am \
 
 .MAKE: install-am install-strip
 
-.PHONY: all all-am check check-am clean clean-generic dist-info \
-	distclean distclean-generic distdir dvi dvi-am html html-am \
-	info info-am install install-am install-data install-data-am \
-	install-dvi install-dvi-am install-exec install-exec-am \
-	install-html install-html-am install-info install-info-am \
-	install-man install-pdf install-pdf-am install-ps \
-	install-ps-am install-strip installcheck installcheck-am \
-	installdirs maintainer-clean maintainer-clean-aminfo \
-	maintainer-clean-generic maintainer-clean-vti mostlyclean \
-	mostlyclean-aminfo mostlyclean-generic mostlyclean-vti pdf \
-	pdf-am ps ps-am uninstall uninstall-am uninstall-dvi-am \
-	uninstall-html-am uninstall-info-am uninstall-pdf-am \
-	uninstall-ps-am
+.PHONY: all all-am check check-am clean clean-aminfo clean-generic \
+	dist-info distclean distclean-generic distdir dvi dvi-am html \
+	html-am info info-am install install-am install-data \
+	install-data-am install-dvi install-dvi-am install-exec \
+	install-exec-am install-html install-html-am install-info \
+	install-info-am install-man install-pdf install-pdf-am \
+	install-ps install-ps-am install-strip installcheck \
+	installcheck-am installdirs maintainer-clean \
+	maintainer-clean-aminfo maintainer-clean-generic \
+	maintainer-clean-vti mostlyclean mostlyclean-aminfo \
+	mostlyclean-generic mostlyclean-vti pdf pdf-am ps ps-am \
+	uninstall uninstall-am uninstall-dvi-am uninstall-html-am \
+	uninstall-info-am uninstall-pdf-am uninstall-ps-am
 
 
 constants.texi: $(top_srcdir)/src/tail.c $(top_srcdir)/src/shred.c
@@ -1399,48 +1402,48 @@ $(INFO_DEPS): $(EXTRA_DIST)
 
 # List words/regexps here that should not appear in the texinfo documentation.
 check-texinfo: $(syntax_checks)
-	@fail=0; \
-	grep '@url{' $(srcdir)/*.texi && fail=1; \
-	grep '\$$@"' $(srcdir)/*.texi && fail=1; \
-	grep -n '[^[:punct:]]@footnote' $(srcdir)/*.texi && fail=1; \
-	grep -n filename $(srcdir)/*.texi \
-	    | $(EGREP) -v 'setfilename|[{]filename[}]' \
-	  && fail=1; \
-	$(PERL) -e 1 2> /dev/null && { $(PERL) -ne \
+	$(AM_V_GEN)fail=0;						\
+	grep '@url{' $(srcdir)/*.texi && fail=1;			\
+	grep '\$$@"' $(srcdir)/*.texi && fail=1;			\
+	grep -n '[^[:punct:]]@footnote' $(srcdir)/*.texi && fail=1;	\
+	grep -n filename $(srcdir)/*.texi				\
+	    | $(EGREP) -v 'setfilename|[{]filename[}]'			\
+	  && fail=1;							\
+	$(PERL) -e 1 2> /dev/null && { $(PERL) -ne			\
 	  '/\bPOSIX\b/ && !/\@acronym{POSIX}/ && !/^\* / || /{posix}/ and print,exit 1' \
-	  $(srcdir)/*.texi 2> /dev/null || fail=1; }; \
-	$(EGREP) -i '$(_W)builtins?$(W_)' $(srcdir)/*.texi && fail=1; \
-	$(EGREP) -i '$(_W)path(name)?s?$(W_)' $(srcdir)/*.texi \
+	  $(srcdir)/*.texi 2> /dev/null || fail=1; };			\
+	$(EGREP) -i '$(_W)builtins?$(W_)' $(srcdir)/*.texi && fail=1;	\
+	$(EGREP) -i '$(_W)path(name)?s?$(W_)' $(srcdir)/*.texi		\
 	  | $(EGREP) -v 'search path|@vindex PATH$$|@env[{]PATH[}]' && fail=1; \
 	exit $$fail
 
 # Use `time zone', not `timezone'.
 sc-avoid-timezone:
-	@$(EGREP) timezone $(srcdir)/*.texi && exit 1 || :
+	$(AM_V_GEN)$(EGREP) timezone $(srcdir)/*.texi && exit 1 || :
 
 # Check for insufficient exponent grouping, e.g.,
 # @math{2^64} should be @math{2^{64}}.
 sc-exponent-grouping:
-	@$(EGREP) '\{.*\^[0-9][0-9]' $(srcdir)/*.texi && exit 1 || :
+	$(AM_V_GEN)$(EGREP) '\{.*\^[0-9][0-9]' $(srcdir)/*.texi && exit 1 || :
 
 # E.g., use @sc{nul}, not NUL.
 sc-use-small-caps-NUL:
-	@$(EGREP) '$(_W)NUL$(W_)' $(srcdir)/*.texi && exit 1 || :
+	$(AM_V_GEN)$(EGREP) '$(_W)NUL$(W_)' $(srcdir)/*.texi && exit 1 || :
 
 # Say I/O, not IO.
 sc-avoid-io:
-	@$(EGREP) '$(_W)IO$(W_)' $(srcdir)/*.texi && exit 1 || :
+	$(AM_V_GEN)$(EGREP) '$(_W)IO$(W_)' $(srcdir)/*.texi && exit 1 || :
 
 # I prefer nonzero over non-zero.
 sc-avoid-non-zero:
-	@$(EGREP) non-zero $(srcdir)/*.texi && exit 1 || :
+	$(AM_V_GEN)$(EGREP) non-zero $(srcdir)/*.texi && exit 1 || :
 
 # Use `zeros', not `zeroes' (nothing wrong with `zeroes'. just be consistent).
 sc-avoid-zeroes:
-	@$(EGREP) -i '$(_W)zeroes$(W_)' $(srcdir)/*.texi && exit 1 || :
+	$(AM_V_GEN)$(EGREP) -i '$(_W)zeroes$(W_)' $(srcdir)/*.texi && exit 1 || :
 sc-lower-case-var:
-	@$(PERL) -e 1 2> /dev/null && \
-	  $(PERL) -lne $(find_upper_case_var) $(srcdir)/*.texi
+	$(AM_V_GEN)$(PERL) -e 1 \
+	  && $(PERL) -lne $(find_upper_case_var) $(srcdir)/*.texi
 
 check: check-texinfo
 

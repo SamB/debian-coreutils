@@ -167,7 +167,7 @@ Mandatory arguments to long options are mandatory for short options too.\n\
       printf (_("\
   -f, --force    change permissions to allow writing if necessary\n\
   -n, --iterations=N  overwrite N times instead of the default (%d)\n\
-      --random-source=FILE  get random bytes from FILE (default /dev/urandom)\n\
+      --random-source=FILE  get random bytes from FILE\n\
   -s, --size=N   shred this many bytes (suffixes like K, M, G accepted)\n\
 "), DEFAULT_PASSES);
       fputs (_("\
@@ -450,8 +450,8 @@ dopass (int fd, char const *qname, off_t *sizep, int type,
 
 		  /* If the first write of the first pass for a given file
 		     has just failed with EINVAL, turn off direct mode I/O
-		     and try again.  This works around a bug in linux-2.4
-		     whereby opening with O_DIRECT would succeed for some
+		     and try again.  This works around a bug in Linux kernel
+		     2.4 whereby opening with O_DIRECT would succeed for some
 		     file system types (e.g., ext3), but any attempt to
 		     access a file through the resulting descriptor would
 		     fail with EINVAL.  */

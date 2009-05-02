@@ -50,7 +50,7 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 DIST_COMMON = README $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
-	$(srcdir)/check.mk $(top_srcdir)/build-aux/check.mk
+	$(srcdir)/check.mk
 subdir = tests
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/00gnulib.m4 \
@@ -136,27 +136,27 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/00gnulib.m4 \
 	$(top_srcdir)/m4/manywarnings.m4 $(top_srcdir)/m4/math_h.m4 \
 	$(top_srcdir)/m4/mbchar.m4 $(top_srcdir)/m4/mbiter.m4 \
 	$(top_srcdir)/m4/mbrlen.m4 $(top_srcdir)/m4/mbrtowc.m4 \
-	$(top_srcdir)/m4/mbsinit.m4 $(top_srcdir)/m4/mbstate_t.m4 \
-	$(top_srcdir)/m4/mbswidth.m4 $(top_srcdir)/m4/md5.m4 \
-	$(top_srcdir)/m4/memcasecmp.m4 $(top_srcdir)/m4/memchr.m4 \
-	$(top_srcdir)/m4/memcmp.m4 $(top_srcdir)/m4/memcoll.m4 \
-	$(top_srcdir)/m4/memcpy.m4 $(top_srcdir)/m4/memmove.m4 \
-	$(top_srcdir)/m4/mempcpy.m4 $(top_srcdir)/m4/memrchr.m4 \
-	$(top_srcdir)/m4/memset.m4 $(top_srcdir)/m4/memxfrm.m4 \
-	$(top_srcdir)/m4/mgetgroups.m4 $(top_srcdir)/m4/mkancesdirs.m4 \
-	$(top_srcdir)/m4/mkdir-p.m4 $(top_srcdir)/m4/mkdir-slash.m4 \
-	$(top_srcdir)/m4/mkstemp.m4 $(top_srcdir)/m4/mktime.m4 \
-	$(top_srcdir)/m4/modechange.m4 $(top_srcdir)/m4/mountlist.m4 \
-	$(top_srcdir)/m4/mpsort.m4 $(top_srcdir)/m4/multiarch.m4 \
-	$(top_srcdir)/m4/nanosleep.m4 $(top_srcdir)/m4/netdb_h.m4 \
-	$(top_srcdir)/m4/netinet_in_h.m4 $(top_srcdir)/m4/nls.m4 \
-	$(top_srcdir)/m4/nocrash.m4 $(top_srcdir)/m4/open.m4 \
-	$(top_srcdir)/m4/openat.m4 $(top_srcdir)/m4/pathmax.m4 \
-	$(top_srcdir)/m4/perl.m4 $(top_srcdir)/m4/perror.m4 \
-	$(top_srcdir)/m4/physmem.m4 $(top_srcdir)/m4/po.m4 \
-	$(top_srcdir)/m4/posix-shell.m4 $(top_srcdir)/m4/posixtm.m4 \
-	$(top_srcdir)/m4/posixver.m4 $(top_srcdir)/m4/prereq.m4 \
-	$(top_srcdir)/m4/printf-frexp.m4 \
+	$(top_srcdir)/m4/mbsinit.m4 $(top_srcdir)/m4/mbsrtowcs.m4 \
+	$(top_srcdir)/m4/mbstate_t.m4 $(top_srcdir)/m4/mbswidth.m4 \
+	$(top_srcdir)/m4/md5.m4 $(top_srcdir)/m4/memcasecmp.m4 \
+	$(top_srcdir)/m4/memchr.m4 $(top_srcdir)/m4/memcmp.m4 \
+	$(top_srcdir)/m4/memcoll.m4 $(top_srcdir)/m4/memcpy.m4 \
+	$(top_srcdir)/m4/memmove.m4 $(top_srcdir)/m4/mempcpy.m4 \
+	$(top_srcdir)/m4/memrchr.m4 $(top_srcdir)/m4/memset.m4 \
+	$(top_srcdir)/m4/memxfrm.m4 $(top_srcdir)/m4/mgetgroups.m4 \
+	$(top_srcdir)/m4/mkancesdirs.m4 $(top_srcdir)/m4/mkdir-p.m4 \
+	$(top_srcdir)/m4/mkdir-slash.m4 $(top_srcdir)/m4/mkstemp.m4 \
+	$(top_srcdir)/m4/mktime.m4 $(top_srcdir)/m4/modechange.m4 \
+	$(top_srcdir)/m4/mountlist.m4 $(top_srcdir)/m4/mpsort.m4 \
+	$(top_srcdir)/m4/multiarch.m4 $(top_srcdir)/m4/nanosleep.m4 \
+	$(top_srcdir)/m4/netdb_h.m4 $(top_srcdir)/m4/netinet_in_h.m4 \
+	$(top_srcdir)/m4/nls.m4 $(top_srcdir)/m4/nocrash.m4 \
+	$(top_srcdir)/m4/open.m4 $(top_srcdir)/m4/openat.m4 \
+	$(top_srcdir)/m4/pathmax.m4 $(top_srcdir)/m4/perl.m4 \
+	$(top_srcdir)/m4/perror.m4 $(top_srcdir)/m4/physmem.m4 \
+	$(top_srcdir)/m4/po.m4 $(top_srcdir)/m4/posix-shell.m4 \
+	$(top_srcdir)/m4/posixtm.m4 $(top_srcdir)/m4/posixver.m4 \
+	$(top_srcdir)/m4/prereq.m4 $(top_srcdir)/m4/printf-frexp.m4 \
 	$(top_srcdir)/m4/printf-frexpl.m4 $(top_srcdir)/m4/printf.m4 \
 	$(top_srcdir)/m4/progtest.m4 $(top_srcdir)/m4/putenv.m4 \
 	$(top_srcdir)/m4/quote.m4 $(top_srcdir)/m4/quotearg.m4 \
@@ -208,8 +208,7 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/00gnulib.m4 \
 	$(top_srcdir)/m4/unlink-busy.m4 $(top_srcdir)/m4/unlinkdir.m4 \
 	$(top_srcdir)/m4/unlocked-io.m4 $(top_srcdir)/m4/uptime.m4 \
 	$(top_srcdir)/m4/userspec.m4 $(top_srcdir)/m4/utimbuf.m4 \
-	$(top_srcdir)/m4/utime.m4 $(top_srcdir)/m4/utimecmp.m4 \
-	$(top_srcdir)/m4/utimens.m4 $(top_srcdir)/m4/utimes-null.m4 \
+	$(top_srcdir)/m4/utimecmp.m4 $(top_srcdir)/m4/utimens.m4 \
 	$(top_srcdir)/m4/utimes.m4 $(top_srcdir)/m4/vasnprintf.m4 \
 	$(top_srcdir)/m4/vasprintf-posix.m4 \
 	$(top_srcdir)/m4/vasprintf.m4 \
@@ -233,18 +232,104 @@ CONFIG_HEADER = $(top_builddir)/lib/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 AM_V_GEN = $(am__v_GEN_$(V))
-am__v_GEN_ = @echo " GEN " $@;
-am__v_GEN_0 = @echo " GEN " $@;
+am__v_GEN_ = $(am__v_GEN_$(AM_DEFAULT_VERBOSITY))
+am__v_GEN_0 = @echo "  GEN   " $@;
 AM_V_at = $(am__v_at_$(V))
-am__v_at_ = @
+am__v_at_ = $(am__v_at_$(AM_DEFAULT_VERBOSITY))
 am__v_at_0 = @
 SOURCES =
 DIST_SOURCES =
+# If stdout is a non-dumb tty, use colors.  If test -t is not supported,
+# then this fails; a conservative approach.  Of course do not redirect
+# stdout here, just stderr.
+am__tty_colors = \
+red=; grn=; lgn=; blu=; std=; \
+test "X$(AM_COLOR_TESTS)" != Xno \
+&& test "X$$TERM" != Xdumb \
+&& { test "X$(AM_COLOR_TESTS)" = Xalways || test -t 1 2>/dev/null; } \
+&& { \
+  red='[0;31m'; \
+  grn='[0;32m'; \
+  lgn='[1;32m'; \
+  blu='[1;34m'; \
+  std='[m'; \
+}
+am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
+am__vpath_adj = case $$p in \
+    $(srcdir)/*) f=`echo "$$p" | sed "s|^$$srcdirstrip/||"`;; \
+    *) f=$$p;; \
+  esac;
+am__strip_dir = f=`echo $$p | sed -e 's|^.*/||'`;
+am__install_max = 40
+am__nobase_strip_setup = \
+  srcdirstrip=`echo "$(srcdir)" | sed 's/[].[^$$\\*|]/\\\\&/g'`
+am__nobase_strip = \
+  for p in $$list; do echo "$$p"; done | sed -e "s|$$srcdirstrip/||"
+am__nobase_list = $(am__nobase_strip_setup); \
+  for p in $$list; do echo "$$p $$p"; done | \
+  sed "s| $$srcdirstrip/| |;"' / .*\//!s/ .*/ ./; s,\( .*\)/[^/]*$$,\1,' | \
+  $(AWK) 'BEGIN { files["."] = "" } { files[$$2] = files[$$2] " " $$1; \
+    if (++n[$$2] == $(am__install_max)) \
+      { print $$2, files[$$2]; n[$$2] = 0; files[$$2] = "" } } \
+    END { for (dir in files) print dir, files[dir] }'
+am__base_list = \
+  sed '$$!N;$$!N;$$!N;$$!N;$$!N;$$!N;$$!N;s/\n/ /g' | \
+  sed '$$!N;$$!N;$$!N;$$!N;s/\n/ /g'
+# Restructured Text title and section.
+am__rst_title = sed 's/.*/   &   /;h;s/./=/g;p;x;p;g;p;s/.*//'
+am__rst_section = sed 'p;s/./=/g;p;g'
+# Put stdin (possibly several lines separated by ".  ") in a box.
+am__text_box = $(AWK) '{				\
+  n = split($$0, lines, "\\.  "); max = 0;		\
+  for (i = 1; i <= n; ++i)				\
+    if (max < length(lines[i]))				\
+      max = length(lines[i]);				\
+  for (i = 0; i < max; ++i) line = line "=";		\
+  print line;						\
+  for (i = 1; i <= n; ++i) if (lines[i]) print lines[i];\
+  print line;						\
+}'
+# Solaris 10 'make', and several other traditional 'make' implementations,
+# pass "-e" to $(SHELL).  This contradicts POSIX.  Work around the problem
+# by disabling -e (using the XSI extension "set +e") if it's set.
+am__sh_e_setup = case $$- in *e*) set +e;; esac
+# To be inserted before the command running the test.  Creates the
+# directory for the log if needed.  Stores in $dir the directory
+# containing $f, in $tst the test, in $log the log, and passes
+# TESTS_ENVIRONMENT.  Save and restore TERM around use of
+# TESTS_ENVIRONMENT, in case that unsets it.
+am__check_pre = \
+$(am__sh_e_setup);					\
+$(am__vpath_adj_setup) $(am__vpath_adj)			\
+srcdir=$(srcdir); export srcdir;			\
+rm -f $@-t;						\
+trap 'st=$$?; rm -f '\''$(abs_builddir)/$@-t'\''; (exit $$st); exit $$st' \
+  1 2 13 15;						\
+am__odir=`echo "./$@" | sed 's|/[^/]*$$||'`;		\
+test "x$$am__odir" = x. || $(MKDIR_P) "$$am__odir" || exit $$?;	\
+if test -f "./$$f"; then dir=./;			\
+elif test -f "$$f"; then dir=;				\
+else dir="$(srcdir)/"; fi;				\
+tst=$$dir$$f; log='$@'; __SAVED_TERM=$$TERM;		\
+$(TESTS_ENVIRONMENT)
+RECHECK_LOGS = $(TEST_LOGS)
+AM_RECURSIVE_TARGETS = check check-html recheck recheck-html
+TEST_SUITE_LOG = test-suite.log
+TEST_SUITE_HTML = $(TEST_SUITE_LOG:.log=.html)
+TEST_EXTENSIONS = @EXEEXT@ .test
+LOG_COMPILE = $(LOG_COMPILER) $(AM_LOG_FLAGS) $(LOG_FLAGS)
+am__test_logs1 = $(TESTS:=.log)
+am__test_logs2 = $(am__test_logs1:@EXEEXT@.log=.log)
+TEST_LOGS = $(am__test_logs2:.test.log=.log)
+TEST_LOG_COMPILE = $(TEST_LOG_COMPILER) $(AM_TEST_LOG_FLAGS) \
+	$(TEST_LOG_FLAGS)
+TEST_LOGS_TMP = $(TEST_LOGS:.log=.log-t)
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 ACLOCAL = @ACLOCAL@
 ALLOCA = @ALLOCA@
 ALLOCA_H = @ALLOCA_H@
 AMTAR = @AMTAR@
+AM_DEFAULT_VERBOSITY = @AM_DEFAULT_VERBOSITY@
 APPLE_UNIVERSAL_BUILD = @APPLE_UNIVERSAL_BUILD@
 ARPA_INET_H = @ARPA_INET_H@
 AUTOCONF = @AUTOCONF@
@@ -784,11 +869,7 @@ SELINUX_SELINUX_H = @SELINUX_SELINUX_H@
 SEQ_LIBM = @SEQ_LIBM@
 SERVENT_LIB = @SERVENT_LIB@
 SET_MAKE = @SET_MAKE@
-
-# Use a POSIX-compatible shell if available, as this file uses
-# features of the POSIX shell that are not supported by some standard
-# shell implementations (e.g., Solaris 10 /bin/sh).
-SHELL = $(PREFERABLY_POSIX_SHELL)
+SHELL = @SHELL@
 SIG_ATOMIC_T_SUFFIX = @SIG_ATOMIC_T_SUFFIX@
 SIZE_T_SUFFIX = @SIZE_T_SUFFIX@
 STDARG_H = @STDARG_H@
@@ -890,6 +971,7 @@ root_tests = \
   cp/cp-a-selinux				\
   cp/preserve-gid				\
   cp/special-bits				\
+  cp/cp-mv-enotsup-xattr			\
   dd/skip-seek-past-dev				\
   install/install-C-root			\
   ls/capability					\
@@ -1022,6 +1104,7 @@ TESTS = \
   misc/head-c					\
   misc/head-pos					\
   misc/id-context				\
+  misc/id-groups				\
   misc/md5sum					\
   misc/md5sum-newline				\
   misc/mknod					\
@@ -1131,6 +1214,7 @@ TESTS = \
   cp/parent-perm-race				\
   cp/perm					\
   cp/preserve-2					\
+  cp/proc-short-read				\
   cp/proc-zero-len				\
   cp/r-vs-symlink				\
   cp/same-file					\
@@ -1182,6 +1266,7 @@ TESTS = \
   ln/misc					\
   ln/sf-1					\
   ln/target-1					\
+  ls/abmon-align				\
   ls/color-clear-to-eol				\
   ls/color-dtype-dir				\
   ls/dangle					\
@@ -1438,7 +1523,6 @@ pr_data = \
   pr/ttb3-FF					\
   pr/w72l24f-ll
 
-AUTOMAKE_OPTIONS = -Wno-portability -Wno-override
 
 # Ensure that all version-controlled executable files are listed in TESTS.
 # Collect test names from the line matching /^TESTS = \\$$/ to the following
@@ -1464,7 +1548,7 @@ TESTS_ENVIRONMENT = \
       if $(PERL) -e 'use warnings' > /dev/null 2>&1; then		\
 	grep '^\#!/usr/bin/perl -T' "$$1" > /dev/null && T_=T || T_=;	\
         $(PERL) -w$$T_ -I$(srcdir) -MCoreutils				\
-	      -M"CuTmpdir qw($$tst)" -- "$$1";	\
+	      -M"CuTmpdir qw($$f)" -- "$$1";	\
       else					\
 	echo 1>&2 "$$tst: configure did not find a usable version of Perl," \
 	  "so skipping this test";		\
@@ -1500,131 +1584,12 @@ TESTS_ENVIRONMENT = \
   PATH='$(abs_top_builddir)/src$(PATH_SEPARATOR)'"$$PATH" \
   ; shell_or_perl_
 
-TEST_LOGS = $(TESTS:=.log)
-
-# Parallel replacement of Automake's check-TESTS target.
-SUFFIXES = .html .log
-
-# Set this to `false' to disable hard errors.
-ENABLE_HARD_ERRORS = :
-
-# Restructured Text title and section.
-am__rst_title = sed 's/.*/   &   /;h;s/./=/g;p;x;p;g;p;s/.*//'
-am__rst_section = sed 'p;s/./=/g;p;g'
-
-# Put stdin (possibly several lines separated by ".  ") in a box.
-am__text_box = $(AWK) '{gsub ("\\.  ", "\n"); print $$0; }' |	\
-$(AWK) '							\
-max < length($$0) {						\
-  final= final (final ? "\n" : "") " " $$0;			\
-  max = length($$0);						\
-}								\
-END {								\
-  for (i = 0; i < max + 2 ; ++i)				\
-    line = line "=";						\
-  print line;							\
-  print final;							\
-  print line;							\
-}'
-
-
-# If stdout is a tty and TERM is smart then use colors.  If test -t or
-# tput are not supported then this fails; a conservative approach.  Of
-# course do not redirect stdout here, just stderr...
-am__tty_colors = \
-red=;						\
-grn=;						\
-lgn=;						\
-blu=;						\
-std=;						\
-test "X$$TERM" != Xdumb &&			\
-test -t 1 2>/dev/null &&			\
-tput bold 1 >/dev/null 2>&1 &&			\
-tput setaf 1 >/dev/null 2>&1 &&			\
-tput sgr0 >/dev/null 2>&1 &&			\
-{						\
-    red=$$(tput setaf 1);			\
-    grn=$$(tput setaf 2);			\
-    lgn=$$(tput bold)$$(tput setaf 2);		\
-    blu=$$(tput setaf 4);			\
-    std=$$(tput sgr0);				\
-}
-
-
-# Solaris 10 'make', and several other traditional 'make' implementations,
-# pass "-e" to $(SHELL).  This contradicts POSIX.  Work around the problem
-# by disabling -e (using the XSI extension "set +e") if it's set.
-SH_E_WORKAROUND = case $$- in *e*) set +e;; esac
-
-# Emulate dirname with sed.
-_d_no_slash = s,^[^/]*$$,.,
-_d_strip_trailing = s,\([^/]\)//*$$,\1,
-_d_abs_trivial = s,^//*[^/]*$$,/,
-_d_rm_basename = s,\([^/]\)//*[^/]*$$,\1,
-_dirname = \
-  sed '$(_d_no_slash);$(_d_strip_trailing);$(_d_abs_trivial);$(_d_rm_basename)'
-
-
-# To be inserted before the command running the test.  Creates the
-# directory for the log if needed.  Stores in $dir the directory
-# containing $src, and passes TESTS_ENVIRONMENT.
-# Save and restore TERM around use of TESTS_ENVIRONMENT,
-# in case that unsets it.
-am__check_pre = \
-$(SH_E_WORKAROUND);				\
-tst=`echo "$$src" | sed 's|^.*/||'`;		\
-rm -f $@-t;					\
-trap 'st=$$?; rm -f '\''$(abs_builddir)/$@-t'\''; (exit $$st); exit $$st' \
-  1 2 13 15;					\
-$(mkdir_p) "$$(echo '$@'|$(_dirname))" || exit;	\
-if test -f "./$$src"; then dir=./;		\
-elif test -f "$$src"; then dir=;		\
-else dir="$(srcdir)/"; fi;			\
-__SAVED_TERM=$$TERM;				\
-$(TESTS_ENVIRONMENT)
-
-
-# To be appended to the command running the test.  Handles the stdout
-# and stderr redirection, and catch the exit status.
-am__check_post = \
->$@-t 2>&1;						\
-estatus=$$?;						\
-if test $$estatus -eq 177; then				\
-  $(ENABLE_HARD_ERRORS) || estatus=1;			\
-fi;							\
-TERM=$$__SAVED_TERM; export TERM;			\
-$(am__tty_colors);					\
-xfailed=PASS;						\
-for xfail in : $(XFAIL_TESTS); do			\
-  case $$src in						\
-    $$xfail | */$$xfail) xfailed=XFAIL; break;		\
-  esac;							\
-done;							\
-case $$estatus:$$xfailed in				\
-    0:XFAIL) col=$$red; res=XPASS;;			\
-    0:*)     col=$$grn; res=PASS ;;			\
-    77:*)    col=$$blu; res=SKIP ;;			\
-    177:*)   col=$$red; res=FAIL ;;			\
-    *:XFAIL) col=$$lgn; res=XFAIL;;			\
-    *:*)     col=$$red; res=FAIL ;;			\
-esac;							\
-echo "$${col}$$res$${std}: $@";				\
-echo "$$res: $@ (exit: $$estatus)" |			\
-  $(am__rst_section) >$@;				\
-cat $@-t >>$@;						\
-rm $@-t
-
-@GNU_MAKE_FALSE@DEPENDENCY = CHECK-FORCE
-
-#TEST_LOGS = $(TESTS:.test=.log)
-TEST_SUITE_LOG = test-suite.log
-TEST_SUITE_HTML = $(TEST_SUITE_LOG:.log=.html)
 VERBOSE = yes
 all: all-am
 
 .SUFFIXES:
-.SUFFIXES: .html .log
-$(srcdir)/Makefile.in:  $(srcdir)/Makefile.am $(srcdir)/check.mk $(top_srcdir)/build-aux/check.mk $(am__configure_deps)
+.SUFFIXES: .html .log .test .test$(EXEEXT)
+$(srcdir)/Makefile.in:  $(srcdir)/Makefile.am $(srcdir)/check.mk $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
 	    *$$dep*) \
@@ -1633,9 +1598,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am $(srcdir)/check.mk $(top_srcdir)/b
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu --silent-rules tests/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu tests/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu --silent-rules tests/Makefile
+	  $(AUTOMAKE) --gnu tests/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
@@ -1660,6 +1625,910 @@ TAGS:
 ctags: CTAGS
 CTAGS:
 
+
+# To be appended to the command running the test.  Handle the stdout
+# and stderr redirection, and catch the exit status.
+am__check_post =					\
+>$@-t 2>&1;						\
+estatus=$$?;						\
+if test -n '$(DISABLE_HARD_ERRORS)'			\
+   && test $$estatus -eq 99; then			\
+  estatus=1;						\
+fi;							\
+TERM=$$__SAVED_TERM; export TERM;			\
+$(am__tty_colors);					\
+xfailed=PASS;						\
+case " $(XFAIL_TESTS) " in				\
+  *[\ \	]$$f[\ \	]* | *[\ \	]$$dir$$f[\ \	]*) \
+    xfailed=XFAIL;;					\
+esac;							\
+case $$estatus:$$xfailed in				\
+    0:XFAIL) col=$$red; res=XPASS;;			\
+    0:*)     col=$$grn; res=PASS ;;			\
+    77:*)    col=$$blu; res=SKIP ;;			\
+    99:*)    col=$$red; res=FAIL ;;			\
+    *:XFAIL) col=$$lgn; res=XFAIL;;			\
+    *:*)     col=$$red; res=FAIL ;;			\
+esac;							\
+echo "$${col}$$res$${std}: $$f";			\
+echo "$$res: $$f (exit: $$estatus)" |			\
+  $(am__rst_section) >$@;				\
+cat $@-t >>$@;						\
+rm -f $@-t
+
+$(TEST_SUITE_LOG): $(TEST_LOGS)
+	@$(am__sh_e_setup);						\
+	list='$(TEST_LOGS)';						\
+	results=`for f in $$list; do					\
+		   read line < $$f && echo "$$line" || echo FAIL;	\
+		 done`;							\
+	all=`echo "$$results" | sed '/^$$/d' | wc -l | sed -e 's/^[	 ]*//'`; \
+	fail=`echo "$$results" | grep -c '^FAIL'`;			\
+	pass=`echo "$$results" | grep -c '^PASS'`;			\
+	skip=`echo "$$results" | grep -c '^SKIP'`;			\
+	xfail=`echo "$$results" | grep -c '^XFAIL'`;			\
+	xpass=`echo "$$results" | grep -c '^XPASS'`;			\
+	failures=`expr $$fail + $$xpass`;				\
+	all=`expr $$all - $$skip`;					\
+	if test "$$all" -eq 1; then tests=test; All=;			\
+	else tests=tests; All="All "; fi;				\
+	case fail=$$fail:xpass=$$xpass:xfail=$$xfail in			\
+	  fail=0:xpass=0:xfail=0)					\
+	    msg="$$All$$all $$tests passed.  ";				\
+	    exit=true;;							\
+	  fail=0:xpass=0:xfail=*)					\
+	    msg="$$All$$all $$tests behaved as expected";		\
+	    if test "$$xfail" -eq 1; then xfailures=failure;		\
+	    else xfailures=failures; fi;				\
+	    msg="$$msg ($$xfail expected $$xfailures).  ";		\
+	    exit=true;;							\
+	  fail=*:xpass=0:xfail=*)					\
+	    msg="$$fail of $$all $$tests failed.  ";			\
+	    exit=false;;						\
+	  fail=*:xpass=*:xfail=*)					\
+	    msg="$$failures of $$all $$tests did not behave as expected"; \
+	    if test "$$xpass" -eq 1; then xpasses=pass;			\
+	    else xpasses=passes; fi;					\
+	    msg="$$msg ($$xpass unexpected $$xpasses).  ";		\
+	    exit=false;;						\
+	  *)								\
+	    echo >&2 "incorrect case"; exit 4;;				\
+	esac;								\
+	if test "$$skip" -ne 0; then					\
+	  if test "$$skip" -eq 1; then					\
+	    msg="$$msg($$skip test was not run).  ";			\
+	  else								\
+	    msg="$$msg($$skip tests were not run).  ";			\
+	  fi;								\
+	fi;								\
+	{								\
+	  echo "$(PACKAGE_STRING): $(subdir)/$(TEST_SUITE_LOG)" |	\
+	    $(am__rst_title);						\
+	  echo "$$msg";							\
+	  echo;								\
+	  echo ".. contents:: :depth: 2";				\
+	  echo;								\
+	  for f in $$list; do						\
+	    read line < $$f;						\
+	    case $$line in						\
+	      PASS:*|XFAIL:*);;						\
+	      *) echo; cat $$f;;					\
+	    esac;							\
+	  done;								\
+	} >$(TEST_SUITE_LOG).tmp;					\
+	mv $(TEST_SUITE_LOG).tmp $(TEST_SUITE_LOG);			\
+	if test "$$failures" -ne 0; then				\
+	  msg="$${msg}See $(subdir)/$(TEST_SUITE_LOG).  ";		\
+	  if test -n "$(PACKAGE_BUGREPORT)"; then			\
+	    msg="$${msg}Please report to $(PACKAGE_BUGREPORT).  ";	\
+	  fi;								\
+	fi;								\
+	test x"$$VERBOSE" = x || $$exit || cat $(TEST_SUITE_LOG);	\
+	$(am__tty_colors);						\
+	if $$exit; then							\
+	  echo $(ECHO_N) "$$grn$(ECHO_C)";				\
+	 else								\
+	  echo $(ECHO_N) "$$red$(ECHO_C)";				\
+	fi;								\
+	echo "$$msg" | $(am__text_box);					\
+	echo $(ECHO_N) "$$std$(ECHO_C)";				\
+	$$exit
+
+# Run all the tests.
+check-TESTS:
+	@list='$(RECHECK_LOGS)'; test -z "$$list" || rm -f $$list
+	@test -z "$(TEST_SUITE_LOG)" || rm -f $(TEST_SUITE_LOG)
+	@set_logs=; if test "X$(TEST_LOGS)" = X.log; then		\
+	  set_logs=TEST_LOGS=;						\
+	fi;								\
+	$(MAKE) $(AM_MAKEFLAGS) $(TEST_SUITE_LOG) $$set_logs
+
+.log.html:
+	@list='$(RST2HTML) $$RST2HTML rst2html rst2html.py';		\
+	for r2h in $$list; do						\
+	  if ($$r2h --version) >/dev/null 2>&1; then			\
+	    R2H=$$r2h;							\
+	  fi;								\
+	done;								\
+	if test -z "$$R2H"; then					\
+	  echo >&2 "cannot find rst2html, cannot create $@";		\
+	  exit 2;							\
+	fi;								\
+	$$R2H $< >$@.tmp
+	@mv $@.tmp $@
+
+# Be sure to run check first, and then to convert the result.
+# Beware of concurrent executions.  Run "check" not "check-TESTS", as
+# check-SCRIPTS and other dependencies are rebuilt by the former only.
+# And expect check to fail.
+check-html:
+	@if $(MAKE) $(AM_MAKEFLAGS) check; then			\
+	  rv=0; else rv=$$?;					\
+	fi;							\
+	$(MAKE) $(AM_MAKEFLAGS) $(TEST_SUITE_HTML) || exit 4;	\
+	exit $$rv
+recheck recheck-html:
+	@target=`echo $@ | sed 's,^re,,'`;				\
+	list='$(TEST_LOGS)';						\
+	list=`for f in $$list; do					\
+	        test -f $$f || continue;				\
+	        if read line < $$f; then				\
+	          case $$line in FAIL*|XPASS*) echo $$f;; esac;		\
+	        else echo $$f; fi;					\
+	      done | tr '\012\015' '  '`;				\
+	$(MAKE) $(AM_MAKEFLAGS) $$target AM_MAKEFLAGS='$(AM_MAKEFLAGS) TEST_LOGS="'"$$list"'"'
+misc/help-version.log: misc/help-version
+	@p='misc/help-version'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/invalid-opt.log: misc/invalid-opt
+	@p='misc/invalid-opt'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+rm/ext3-perf.log: rm/ext3-perf
+	@p='rm/ext3-perf'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+rm/cycle.log: rm/cycle
+	@p='rm/cycle'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+cp/link-heap.log: cp/link-heap
+	@p='cp/link-heap'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+chmod/no-x.log: chmod/no-x
+	@p='chmod/no-x'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+chgrp/basic.log: chgrp/basic
+	@p='chgrp/basic'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+rm/dangling-symlink.log: rm/dangling-symlink
+	@p='rm/dangling-symlink'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/ls-time.log: misc/ls-time
+	@p='misc/ls-time'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+rm/deep-1.log: rm/deep-1
+	@p='rm/deep-1'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+rm/deep-2.log: rm/deep-2
+	@p='rm/deep-2'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+rm/dir-no-w.log: rm/dir-no-w
+	@p='rm/dir-no-w'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+rm/dir-nonrecur.log: rm/dir-nonrecur
+	@p='rm/dir-nonrecur'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+rm/dot-rel.log: rm/dot-rel
+	@p='rm/dot-rel'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+rm/isatty.log: rm/isatty
+	@p='rm/isatty'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+rm/empty-inacc.log: rm/empty-inacc
+	@p='rm/empty-inacc'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+rm/empty-name.log: rm/empty-name
+	@p='rm/empty-name'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+rm/f-1.log: rm/f-1
+	@p='rm/f-1'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+rm/fail-eacces.log: rm/fail-eacces
+	@p='rm/fail-eacces'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+rm/fail-eperm.log: rm/fail-eperm
+	@p='rm/fail-eperm'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+tail-2/assert.log: tail-2/assert
+	@p='tail-2/assert'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+rm/hash.log: rm/hash
+	@p='rm/hash'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+rm/i-1.log: rm/i-1
+	@p='rm/i-1'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+rm/i-never.log: rm/i-never
+	@p='rm/i-never'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+rm/i-no-r.log: rm/i-no-r
+	@p='rm/i-no-r'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+tail-2/infloop-1.log: tail-2/infloop-1
+	@p='tail-2/infloop-1'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+rm/ignorable.log: rm/ignorable
+	@p='rm/ignorable'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+rm/inaccessible.log: rm/inaccessible
+	@p='rm/inaccessible'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+rm/interactive-always.log: rm/interactive-always
+	@p='rm/interactive-always'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+rm/interactive-once.log: rm/interactive-once
+	@p='rm/interactive-once'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+rm/ir-1.log: rm/ir-1
+	@p='rm/ir-1'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+rm/r-1.log: rm/r-1
+	@p='rm/r-1'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+rm/r-2.log: rm/r-2
+	@p='rm/r-2'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+rm/r-3.log: rm/r-3
+	@p='rm/r-3'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+rm/r-4.log: rm/r-4
+	@p='rm/r-4'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+rm/readdir-bug.log: rm/readdir-bug
+	@p='rm/readdir-bug'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+rm/rm1.log: rm/rm1
+	@p='rm/rm1'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+touch/empty-file.log: touch/empty-file
+	@p='touch/empty-file'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+rm/rm2.log: rm/rm2
+	@p='rm/rm2'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+rm/rm3.log: rm/rm3
+	@p='rm/rm3'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+rm/rm4.log: rm/rm4
+	@p='rm/rm4'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+rm/rm5.log: rm/rm5
+	@p='rm/rm5'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+rm/sunos-1.log: rm/sunos-1
+	@p='rm/sunos-1'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+rm/unread2.log: rm/unread2
+	@p='rm/unread2'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+rm/unread3.log: rm/unread3
+	@p='rm/unread3'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+rm/unreadable.log: rm/unreadable
+	@p='rm/unreadable'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+rm/v-slash.log: rm/v-slash
+	@p='rm/v-slash'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+chgrp/default-no-deref.log: chgrp/default-no-deref
+	@p='chgrp/default-no-deref'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+chgrp/deref.log: chgrp/deref
+	@p='chgrp/deref'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+chgrp/no-x.log: chgrp/no-x
+	@p='chgrp/no-x'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+chgrp/posix-H.log: chgrp/posix-H
+	@p='chgrp/posix-H'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+chgrp/recurse.log: chgrp/recurse
+	@p='chgrp/recurse'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/ptx.log: misc/ptx
+	@p='misc/ptx'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/test.log: misc/test
+	@p='misc/test'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/seq.log: misc/seq
+	@p='misc/seq'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/seq-long-double.log: misc/seq-long-double
+	@p='misc/seq-long-double'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/head.log: misc/head
+	@p='misc/head'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/head-elide-tail.log: misc/head-elide-tail
+	@p='misc/head-elide-tail'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+tail-2/tail-n0f.log: tail-2/tail-n0f
+	@p='tail-2/tail-n0f'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/ls-misc.log: misc/ls-misc
+	@p='misc/ls-misc'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/date.log: misc/date
+	@p='misc/date'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/ptx-overrun.log: misc/ptx-overrun
+	@p='misc/ptx-overrun'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/xstrtol.log: misc/xstrtol
+	@p='misc/xstrtol'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/od.log: misc/od
+	@p='misc/od'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/mktemp.log: misc/mktemp
+	@p='misc/mktemp'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/arch.log: misc/arch
+	@p='misc/arch'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/pr.log: misc/pr
+	@p='misc/pr'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/join.log: misc/join
+	@p='misc/join'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+pr/pr-tests.log: pr/pr-tests
+	@p='pr/pr-tests'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/df-P.log: misc/df-P
+	@p='misc/df-P'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/pwd-option.log: misc/pwd-option
+	@p='misc/pwd-option'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/pwd-unreadable-parent.log: misc/pwd-unreadable-parent
+	@p='misc/pwd-unreadable-parent'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/chcon-fail.log: misc/chcon-fail
+	@p='misc/chcon-fail'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/cut.log: misc/cut
+	@p='misc/cut'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/wc.log: misc/wc
+	@p='misc/wc'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/wc-files0-from.log: misc/wc-files0-from
+	@p='misc/wc-files0-from'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/wc-files0.log: misc/wc-files0
+	@p='misc/wc-files0'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/cat-proc.log: misc/cat-proc
+	@p='misc/cat-proc'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/cat-buf.log: misc/cat-buf
+	@p='misc/cat-buf'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/base64.log: misc/base64
+	@p='misc/base64'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/basename.log: misc/basename
+	@p='misc/basename'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/close-stdout.log: misc/close-stdout
+	@p='misc/close-stdout'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/comm.log: misc/comm
+	@p='misc/comm'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/csplit.log: misc/csplit
+	@p='misc/csplit'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/date-sec.log: misc/date-sec
+	@p='misc/date-sec'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/dircolors.log: misc/dircolors
+	@p='misc/dircolors'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/df.log: misc/df
+	@p='misc/df'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/dirname.log: misc/dirname
+	@p='misc/dirname'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/expand.log: misc/expand
+	@p='misc/expand'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/expr.log: misc/expr
+	@p='misc/expr'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/factor.log: misc/factor
+	@p='misc/factor'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/false-status.log: misc/false-status
+	@p='misc/false-status'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/fmt.log: misc/fmt
+	@p='misc/fmt'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/fmt-long-line.log: misc/fmt-long-line
+	@p='misc/fmt-long-line'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/fold.log: misc/fold
+	@p='misc/fold'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/groups-dash.log: misc/groups-dash
+	@p='misc/groups-dash'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/groups-version.log: misc/groups-version
+	@p='misc/groups-version'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/head-c.log: misc/head-c
+	@p='misc/head-c'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/head-pos.log: misc/head-pos
+	@p='misc/head-pos'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/id-context.log: misc/id-context
+	@p='misc/id-context'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/id-groups.log: misc/id-groups
+	@p='misc/id-groups'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/md5sum.log: misc/md5sum
+	@p='misc/md5sum'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/md5sum-newline.log: misc/md5sum-newline
+	@p='misc/md5sum-newline'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/mknod.log: misc/mknod
+	@p='misc/mknod'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/nice.log: misc/nice
+	@p='misc/nice'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/nl.log: misc/nl
+	@p='misc/nl'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/nohup.log: misc/nohup
+	@p='misc/nohup'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/od-N.log: misc/od-N
+	@p='misc/od-N'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/od-multiple-t.log: misc/od-multiple-t
+	@p='misc/od-multiple-t'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/od-x8.log: misc/od-x8
+	@p='misc/od-x8'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/paste.log: misc/paste
+	@p='misc/paste'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/pathchk1.log: misc/pathchk1
+	@p='misc/pathchk1'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/printf.log: misc/printf
+	@p='misc/printf'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/printf-cov.log: misc/printf-cov
+	@p='misc/printf-cov'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/printf-hex.log: misc/printf-hex
+	@p='misc/printf-hex'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/printf-surprise.log: misc/printf-surprise
+	@p='misc/printf-surprise'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/pwd-long.log: misc/pwd-long
+	@p='misc/pwd-long'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/readlink-fp-loop.log: misc/readlink-fp-loop
+	@p='misc/readlink-fp-loop'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/runcon-no-reorder.log: misc/runcon-no-reorder
+	@p='misc/runcon-no-reorder'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/sha1sum.log: misc/sha1sum
+	@p='misc/sha1sum'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/sha1sum-vec.log: misc/sha1sum-vec
+	@p='misc/sha1sum-vec'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/sha224sum.log: misc/sha224sum
+	@p='misc/sha224sum'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/sha256sum.log: misc/sha256sum
+	@p='misc/sha256sum'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/sha384sum.log: misc/sha384sum
+	@p='misc/sha384sum'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/sha512sum.log: misc/sha512sum
+	@p='misc/sha512sum'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/shred-exact.log: misc/shred-exact
+	@p='misc/shred-exact'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/shred-passes.log: misc/shred-passes
+	@p='misc/shred-passes'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/shred-remove.log: misc/shred-remove
+	@p='misc/shred-remove'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/shuf.log: misc/shuf
+	@p='misc/shuf'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/sort.log: misc/sort
+	@p='misc/sort'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/sort-compress.log: misc/sort-compress
+	@p='misc/sort-compress'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/sort-continue.log: misc/sort-continue
+	@p='misc/sort-continue'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/sort-files0-from.log: misc/sort-files0-from
+	@p='misc/sort-files0-from'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/sort-merge.log: misc/sort-merge
+	@p='misc/sort-merge'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/sort-merge-fdlimit.log: misc/sort-merge-fdlimit
+	@p='misc/sort-merge-fdlimit'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/sort-rand.log: misc/sort-rand
+	@p='misc/sort-rand'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/sort-version.log: misc/sort-version
+	@p='misc/sort-version'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/split-a.log: misc/split-a
+	@p='misc/split-a'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/split-fail.log: misc/split-fail
+	@p='misc/split-fail'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/split-l.log: misc/split-l
+	@p='misc/split-l'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/stat-fmt.log: misc/stat-fmt
+	@p='misc/stat-fmt'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/stat-printf.log: misc/stat-printf
+	@p='misc/stat-printf'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/stty.log: misc/stty
+	@p='misc/stty'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/stty-invalid.log: misc/stty-invalid
+	@p='misc/stty-invalid'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/stty-row-col.log: misc/stty-row-col
+	@p='misc/stty-row-col'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/sum.log: misc/sum
+	@p='misc/sum'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/sum-sysv.log: misc/sum-sysv
+	@p='misc/sum-sysv'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/tac.log: misc/tac
+	@p='misc/tac'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/tac-continue.log: misc/tac-continue
+	@p='misc/tac-continue'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/tail.log: misc/tail
+	@p='misc/tail'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/tee.log: misc/tee
+	@p='misc/tee'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/tee-dash.log: misc/tee-dash
+	@p='misc/tee-dash'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/test-diag.log: misc/test-diag
+	@p='misc/test-diag'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/timeout.log: misc/timeout
+	@p='misc/timeout'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/timeout-parameters.log: misc/timeout-parameters
+	@p='misc/timeout-parameters'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/tr.log: misc/tr
+	@p='misc/tr'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/truncate-dangling-symlink.log: misc/truncate-dangling-symlink
+	@p='misc/truncate-dangling-symlink'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/truncate-dir-fail.log: misc/truncate-dir-fail
+	@p='misc/truncate-dir-fail'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/truncate-fail-diag.log: misc/truncate-fail-diag
+	@p='misc/truncate-fail-diag'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/truncate-fifo.log: misc/truncate-fifo
+	@p='misc/truncate-fifo'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/truncate-no-create-missing.log: misc/truncate-no-create-missing
+	@p='misc/truncate-no-create-missing'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/truncate-overflow.log: misc/truncate-overflow
+	@p='misc/truncate-overflow'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/truncate-parameters.log: misc/truncate-parameters
+	@p='misc/truncate-parameters'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/truncate-relative.log: misc/truncate-relative
+	@p='misc/truncate-relative'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/tsort.log: misc/tsort
+	@p='misc/tsort'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/tty-eof.log: misc/tty-eof
+	@p='misc/tty-eof'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/unexpand.log: misc/unexpand
+	@p='misc/unexpand'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/uniq.log: misc/uniq
+	@p='misc/uniq'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/xattr.log: misc/xattr
+	@p='misc/xattr'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+chmod/c-option.log: chmod/c-option
+	@p='chmod/c-option'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+chmod/equal-x.log: chmod/equal-x
+	@p='chmod/equal-x'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+chmod/equals.log: chmod/equals
+	@p='chmod/equals'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+chmod/inaccessible.log: chmod/inaccessible
+	@p='chmod/inaccessible'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+chmod/octal.log: chmod/octal
+	@p='chmod/octal'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+chmod/setgid.log: chmod/setgid
+	@p='chmod/setgid'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+chmod/silent.log: chmod/silent
+	@p='chmod/silent'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+chmod/thru-dangling.log: chmod/thru-dangling
+	@p='chmod/thru-dangling'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+chmod/umask-x.log: chmod/umask-x
+	@p='chmod/umask-x'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+chmod/usage.log: chmod/usage
+	@p='chmod/usage'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+chown/deref.log: chown/deref
+	@p='chown/deref'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+chown/preserve-root.log: chown/preserve-root
+	@p='chown/preserve-root'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+chown/separator.log: chown/separator
+	@p='chown/separator'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+cp/abuse.log: cp/abuse
+	@p='cp/abuse'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+cp/acl.log: cp/acl
+	@p='cp/acl'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+cp/backup-1.log: cp/backup-1
+	@p='cp/backup-1'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+cp/backup-dir.log: cp/backup-dir
+	@p='cp/backup-dir'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+cp/backup-is-src.log: cp/backup-is-src
+	@p='cp/backup-is-src'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+cp/cp-HL.log: cp/cp-HL
+	@p='cp/cp-HL'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+cp/cp-deref.log: cp/cp-deref
+	@p='cp/cp-deref'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+cp/cp-i.log: cp/cp-i
+	@p='cp/cp-i'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+cp/cp-mv-backup.log: cp/cp-mv-backup
+	@p='cp/cp-mv-backup'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+cp/cp-parents.log: cp/cp-parents
+	@p='cp/cp-parents'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+cp/deref-slink.log: cp/deref-slink
+	@p='cp/deref-slink'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+cp/dir-rm-dest.log: cp/dir-rm-dest
+	@p='cp/dir-rm-dest'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+cp/dir-slash.log: cp/dir-slash
+	@p='cp/dir-slash'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+cp/dir-vs-file.log: cp/dir-vs-file
+	@p='cp/dir-vs-file'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+cp/existing-perm-race.log: cp/existing-perm-race
+	@p='cp/existing-perm-race'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+cp/fail-perm.log: cp/fail-perm
+	@p='cp/fail-perm'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+cp/file-perm-race.log: cp/file-perm-race
+	@p='cp/file-perm-race'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+cp/into-self.log: cp/into-self
+	@p='cp/into-self'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+cp/link.log: cp/link
+	@p='cp/link'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+cp/link-no-deref.log: cp/link-no-deref
+	@p='cp/link-no-deref'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+cp/link-preserve.log: cp/link-preserve
+	@p='cp/link-preserve'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+cp/no-deref-link1.log: cp/no-deref-link1
+	@p='cp/no-deref-link1'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+cp/no-deref-link2.log: cp/no-deref-link2
+	@p='cp/no-deref-link2'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+cp/no-deref-link3.log: cp/no-deref-link3
+	@p='cp/no-deref-link3'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+cp/parent-perm.log: cp/parent-perm
+	@p='cp/parent-perm'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+cp/parent-perm-race.log: cp/parent-perm-race
+	@p='cp/parent-perm-race'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+cp/perm.log: cp/perm
+	@p='cp/perm'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+cp/preserve-2.log: cp/preserve-2
+	@p='cp/preserve-2'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+cp/proc-short-read.log: cp/proc-short-read
+	@p='cp/proc-short-read'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+cp/proc-zero-len.log: cp/proc-zero-len
+	@p='cp/proc-zero-len'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+cp/r-vs-symlink.log: cp/r-vs-symlink
+	@p='cp/r-vs-symlink'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+cp/same-file.log: cp/same-file
+	@p='cp/same-file'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+cp/slink-2-slink.log: cp/slink-2-slink
+	@p='cp/slink-2-slink'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+cp/sparse.log: cp/sparse
+	@p='cp/sparse'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+cp/special-f.log: cp/special-f
+	@p='cp/special-f'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+cp/src-base-dot.log: cp/src-base-dot
+	@p='cp/src-base-dot'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+cp/symlink-slash.log: cp/symlink-slash
+	@p='cp/symlink-slash'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+cp/thru-dangling.log: cp/thru-dangling
+	@p='cp/thru-dangling'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+dd/misc.log: dd/misc
+	@p='dd/misc'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+dd/not-rewound.log: dd/not-rewound
+	@p='dd/not-rewound'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+dd/reblock.log: dd/reblock
+	@p='dd/reblock'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+dd/skip-seek.log: dd/skip-seek
+	@p='dd/skip-seek'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+dd/skip-seek2.log: dd/skip-seek2
+	@p='dd/skip-seek2'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+dd/skip-seek-past-file.log: dd/skip-seek-past-file
+	@p='dd/skip-seek-past-file'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+dd/unblock-sync.log: dd/unblock-sync
+	@p='dd/unblock-sync'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+df/total-verify.log: df/total-verify
+	@p='df/total-verify'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+du/2g.log: du/2g
+	@p='du/2g'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+du/8gb.log: du/8gb
+	@p='du/8gb'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+du/basic.log: du/basic
+	@p='du/basic'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+du/deref.log: du/deref
+	@p='du/deref'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+du/deref-args.log: du/deref-args
+	@p='du/deref-args'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+du/exclude.log: du/exclude
+	@p='du/exclude'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+du/fd-leak.log: du/fd-leak
+	@p='du/fd-leak'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+du/files0-from.log: du/files0-from
+	@p='du/files0-from'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+du/hard-link.log: du/hard-link
+	@p='du/hard-link'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+du/inacc-dest.log: du/inacc-dest
+	@p='du/inacc-dest'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+du/inacc-dir.log: du/inacc-dir
+	@p='du/inacc-dir'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+du/inaccessible-cwd.log: du/inaccessible-cwd
+	@p='du/inaccessible-cwd'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+du/long-from-unreadable.log: du/long-from-unreadable
+	@p='du/long-from-unreadable'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+du/long-sloop.log: du/long-sloop
+	@p='du/long-sloop'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+du/no-deref.log: du/no-deref
+	@p='du/no-deref'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+du/no-x.log: du/no-x
+	@p='du/no-x'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+du/one-file-system.log: du/one-file-system
+	@p='du/one-file-system'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+du/restore-wd.log: du/restore-wd
+	@p='du/restore-wd'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+du/slash.log: du/slash
+	@p='du/slash'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+du/slink.log: du/slink
+	@p='du/slink'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+du/trailing-slash.log: du/trailing-slash
+	@p='du/trailing-slash'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+du/two-args.log: du/two-args
+	@p='du/two-args'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+install/basic-1.log: install/basic-1
+	@p='install/basic-1'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+install/create-leading.log: install/create-leading
+	@p='install/create-leading'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+install/d-slashdot.log: install/d-slashdot
+	@p='install/d-slashdot'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+install/install-C.log: install/install-C
+	@p='install/install-C'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+install/install-C-selinux.log: install/install-C-selinux
+	@p='install/install-C-selinux'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+install/strip-program.log: install/strip-program
+	@p='install/strip-program'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+install/trap.log: install/trap
+	@p='install/trap'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+ln/backup-1.log: ln/backup-1
+	@p='ln/backup-1'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+ln/hard-backup.log: ln/hard-backup
+	@p='ln/hard-backup'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+ln/misc.log: ln/misc
+	@p='ln/misc'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+ln/sf-1.log: ln/sf-1
+	@p='ln/sf-1'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+ln/target-1.log: ln/target-1
+	@p='ln/target-1'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+ls/abmon-align.log: ls/abmon-align
+	@p='ls/abmon-align'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+ls/color-clear-to-eol.log: ls/color-clear-to-eol
+	@p='ls/color-clear-to-eol'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+ls/color-dtype-dir.log: ls/color-dtype-dir
+	@p='ls/color-dtype-dir'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+ls/dangle.log: ls/dangle
+	@p='ls/dangle'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+ls/dired.log: ls/dired
+	@p='ls/dired'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+ls/file-type.log: ls/file-type
+	@p='ls/file-type'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+ls/follow-slink.log: ls/follow-slink
+	@p='ls/follow-slink'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+ls/hardlink.log: ls/hardlink
+	@p='ls/hardlink'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+ls/infloop.log: ls/infloop
+	@p='ls/infloop'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+ls/inode.log: ls/inode
+	@p='ls/inode'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+ls/m-option.log: ls/m-option
+	@p='ls/m-option'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+ls/no-arg.log: ls/no-arg
+	@p='ls/no-arg'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+ls/no-cap.log: ls/no-cap
+	@p='ls/no-cap'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+ls/proc-selinux-segfault.log: ls/proc-selinux-segfault
+	@p='ls/proc-selinux-segfault'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+ls/recursive.log: ls/recursive
+	@p='ls/recursive'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+ls/rt-1.log: ls/rt-1
+	@p='ls/rt-1'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+ls/stat-dtype.log: ls/stat-dtype
+	@p='ls/stat-dtype'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+ls/stat-failed.log: ls/stat-failed
+	@p='ls/stat-failed'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+ls/stat-free-symlinks.log: ls/stat-free-symlinks
+	@p='ls/stat-free-symlinks'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+ls/stat-vs-dirent.log: ls/stat-vs-dirent
+	@p='ls/stat-vs-dirent'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+ls/symlink-slash.log: ls/symlink-slash
+	@p='ls/symlink-slash'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+ls/x-option.log: ls/x-option
+	@p='ls/x-option'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mkdir/p-1.log: mkdir/p-1
+	@p='mkdir/p-1'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mkdir/p-2.log: mkdir/p-2
+	@p='mkdir/p-2'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mkdir/p-3.log: mkdir/p-3
+	@p='mkdir/p-3'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mkdir/p-slashdot.log: mkdir/p-slashdot
+	@p='mkdir/p-slashdot'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mkdir/p-thru-slink.log: mkdir/p-thru-slink
+	@p='mkdir/p-thru-slink'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mkdir/p-v.log: mkdir/p-v
+	@p='mkdir/p-v'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mkdir/parents.log: mkdir/parents
+	@p='mkdir/parents'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mkdir/perm.log: mkdir/perm
+	@p='mkdir/perm'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mkdir/selinux.log: mkdir/selinux
+	@p='mkdir/selinux'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mkdir/special-1.log: mkdir/special-1
+	@p='mkdir/special-1'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mkdir/t-slash.log: mkdir/t-slash
+	@p='mkdir/t-slash'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mv/acl.log: mv/acl
+	@p='mv/acl'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mv/atomic.log: mv/atomic
+	@p='mv/atomic'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mv/atomic2.log: mv/atomic2
+	@p='mv/atomic2'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mv/backup-dir.log: mv/backup-dir
+	@p='mv/backup-dir'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mv/backup-is-src.log: mv/backup-is-src
+	@p='mv/backup-is-src'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mv/childproof.log: mv/childproof
+	@p='mv/childproof'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mv/diag.log: mv/diag
+	@p='mv/diag'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mv/dir-file.log: mv/dir-file
+	@p='mv/dir-file'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mv/dir2dir.log: mv/dir2dir
+	@p='mv/dir2dir'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mv/dup-source.log: mv/dup-source
+	@p='mv/dup-source'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mv/force.log: mv/force
+	@p='mv/force'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mv/hard-2.log: mv/hard-2
+	@p='mv/hard-2'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mv/hard-3.log: mv/hard-3
+	@p='mv/hard-3'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mv/hard-4.log: mv/hard-4
+	@p='mv/hard-4'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mv/hard-link-1.log: mv/hard-link-1
+	@p='mv/hard-link-1'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mv/hard-verbose.log: mv/hard-verbose
+	@p='mv/hard-verbose'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mv/i-1.log: mv/i-1
+	@p='mv/i-1'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mv/i-2.log: mv/i-2
+	@p='mv/i-2'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mv/i-3.log: mv/i-3
+	@p='mv/i-3'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mv/i-4.log: mv/i-4
+	@p='mv/i-4'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mv/i-5.log: mv/i-5
+	@p='mv/i-5'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mv/i-link-no.log: mv/i-link-no
+	@p='mv/i-link-no'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mv/into-self.log: mv/into-self
+	@p='mv/into-self'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mv/into-self-2.log: mv/into-self-2
+	@p='mv/into-self-2'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mv/into-self-3.log: mv/into-self-3
+	@p='mv/into-self-3'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mv/into-self-4.log: mv/into-self-4
+	@p='mv/into-self-4'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mv/leak-fd.log: mv/leak-fd
+	@p='mv/leak-fd'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mv/mv-n.log: mv/mv-n
+	@p='mv/mv-n'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mv/mv-special-1.log: mv/mv-special-1
+	@p='mv/mv-special-1'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mv/no-target-dir.log: mv/no-target-dir
+	@p='mv/no-target-dir'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mv/part-fail.log: mv/part-fail
+	@p='mv/part-fail'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mv/part-hardlink.log: mv/part-hardlink
+	@p='mv/part-hardlink'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mv/part-rename.log: mv/part-rename
+	@p='mv/part-rename'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mv/part-symlink.log: mv/part-symlink
+	@p='mv/part-symlink'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mv/partition-perm.log: mv/partition-perm
+	@p='mv/partition-perm'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mv/perm-1.log: mv/perm-1
+	@p='mv/perm-1'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mv/to-symlink.log: mv/to-symlink
+	@p='mv/to-symlink'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mv/trailing-slash.log: mv/trailing-slash
+	@p='mv/trailing-slash'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mv/update.log: mv/update
+	@p='mv/update'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+readlink/can-e.log: readlink/can-e
+	@p='readlink/can-e'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+readlink/can-f.log: readlink/can-f
+	@p='readlink/can-f'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+readlink/can-m.log: readlink/can-m
+	@p='readlink/can-m'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+readlink/rl-1.log: readlink/rl-1
+	@p='readlink/rl-1'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+rmdir/fail-perm.log: rmdir/fail-perm
+	@p='rmdir/fail-perm'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+rmdir/ignore.log: rmdir/ignore
+	@p='rmdir/ignore'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+rmdir/t-slash.log: rmdir/t-slash
+	@p='rmdir/t-slash'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+tail-2/assert-2.log: tail-2/assert-2
+	@p='tail-2/assert-2'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+tail-2/big-4gb.log: tail-2/big-4gb
+	@p='tail-2/big-4gb'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+tail-2/proc-ksyms.log: tail-2/proc-ksyms
+	@p='tail-2/proc-ksyms'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+tail-2/start-middle.log: tail-2/start-middle
+	@p='tail-2/start-middle'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+touch/dangling-symlink.log: touch/dangling-symlink
+	@p='touch/dangling-symlink'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+touch/dir-1.log: touch/dir-1
+	@p='touch/dir-1'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+touch/fail-diag.log: touch/fail-diag
+	@p='touch/fail-diag'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+touch/fifo.log: touch/fifo
+	@p='touch/fifo'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+touch/no-create-missing.log: touch/no-create-missing
+	@p='touch/no-create-missing'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+touch/no-rights.log: touch/no-rights
+	@p='touch/no-rights'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+touch/not-owner.log: touch/not-owner
+	@p='touch/not-owner'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+touch/obsolescent.log: touch/obsolescent
+	@p='touch/obsolescent'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+touch/read-only.log: touch/read-only
+	@p='touch/read-only'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+touch/relative.log: touch/relative
+	@p='touch/relative'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+chown/basic.log: chown/basic
+	@p='chown/basic'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+cp/cp-a-selinux.log: cp/cp-a-selinux
+	@p='cp/cp-a-selinux'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+cp/preserve-gid.log: cp/preserve-gid
+	@p='cp/preserve-gid'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+cp/special-bits.log: cp/special-bits
+	@p='cp/special-bits'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+cp/cp-mv-enotsup-xattr.log: cp/cp-mv-enotsup-xattr
+	@p='cp/cp-mv-enotsup-xattr'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+dd/skip-seek-past-dev.log: dd/skip-seek-past-dev
+	@p='dd/skip-seek-past-dev'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+install/install-C-root.log: install/install-C-root
+	@p='install/install-C-root'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+ls/capability.log: ls/capability
+	@p='ls/capability'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+ls/nameless-uid.log: ls/nameless-uid
+	@p='ls/nameless-uid'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/chcon.log: misc/chcon
+	@p='misc/chcon'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/selinux.log: misc/selinux
+	@p='misc/selinux'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/truncate-owned-by-other.log: misc/truncate-owned-by-other
+	@p='misc/truncate-owned-by-other'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mkdir/writable-under-readonly.log: mkdir/writable-under-readonly
+	@p='mkdir/writable-under-readonly'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+mv/sticky-to-xpart.log: mv/sticky-to-xpart
+	@p='mv/sticky-to-xpart'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+rm/fail-2eperm.log: rm/fail-2eperm
+	@p='rm/fail-2eperm'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+rm/no-give-up.log: rm/no-give-up
+	@p='rm/no-give-up'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+rm/one-file-system.log: rm/one-file-system
+	@p='rm/one-file-system'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+tail-2/append-only.log: tail-2/append-only
+	@p='tail-2/append-only'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+touch/now-owned-by-other.log: touch/now-owned-by-other
+	@p='touch/now-owned-by-other'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+.test.log:
+	@p='$<'; $(am__check_pre) $(TEST_LOG_COMPILE) "$$tst" $(am__check_post)
+@am__EXEEXT_TRUE@.test$(EXEEXT).log:
+@am__EXEEXT_TRUE@	@p='$<'; $(am__check_pre) $(TEST_LOG_COMPILE) "$$tst" $(am__check_post)
 
 distdir: $(DISTFILES)
 	@srcdirstrip=`echo "$(srcdir)" | sed 's/[].[^$$\\*]/\\\\&/g'`; \
@@ -1711,6 +2580,10 @@ install-strip:
 	  `test -z '$(STRIP)' || \
 	    echo "INSTALL_PROGRAM_ENV=STRIPPROG='$(STRIP)'"` install
 mostlyclean-generic:
+	-test -z "$(TEST_LOGS)" || rm -f $(TEST_LOGS)
+	-test -z "$(TEST_LOGS_TMP)" || rm -f $(TEST_LOGS_TMP)
+	-test -z "$(TEST_SUITE_HTML)" || rm -f $(TEST_SUITE_HTML)
+	-test -z "$(TEST_SUITE_LOG)" || rm -f $(TEST_SUITE_LOG)
 
 clean-generic:
 
@@ -1723,7 +2596,7 @@ maintainer-clean-generic:
 	@echo "it deletes files that may require special tools to rebuild."
 clean: clean-am
 
-clean-am: clean-generic clean-local mostlyclean-am
+clean-am: clean-generic mostlyclean-am
 
 distclean: distclean-am
 	-rm -f Makefile
@@ -1787,10 +2660,11 @@ ps-am:
 
 uninstall-am:
 
-.MAKE: check-am install-am install-strip
+.MAKE: check-am check-html install-am install-strip recheck \
+	recheck-html
 
-.PHONY: all all-am check check-TESTS check-am clean clean-generic \
-	clean-local distclean distclean-generic distdir dvi dvi-am \
+.PHONY: all all-am check check-TESTS check-am check-html clean \
+	clean-generic distclean distclean-generic distdir dvi dvi-am \
 	html html-am info info-am install install-am install-data \
 	install-data-am install-dvi install-dvi-am install-exec \
 	install-exec-am install-html install-html-am install-info \
@@ -1798,7 +2672,7 @@ uninstall-am:
 	install-ps install-ps-am install-strip installcheck \
 	installcheck-am installdirs maintainer-clean \
 	maintainer-clean-generic mostlyclean mostlyclean-generic pdf \
-	pdf-am ps ps-am uninstall uninstall-am
+	pdf-am ps ps-am recheck recheck-html uninstall uninstall-am
 
 
 .PHONY: check-root
@@ -1834,122 +2708,6 @@ vc_exe_in_TESTS: Makefile
 
 check: vc_exe_in_TESTS
 .PHONY: vc_exe_in_TESTS
-
-# From a test (with no extension) to a log file.
-@GNU_MAKE_TRUE@%.log: %
-@GNU_MAKE_TRUE@	@src='$<'; $(am__check_pre) "$$dir$$src" $(am__check_post)
-# With POSIX 'make', inference rules cannot have FOO.log depend on FOO.
-# Work around the problem by calculating the dependency dynamically, and
-# then invoking a submake with the calculated dependency.
-@GNU_MAKE_FALSE@CHECK-FORCE:
-@GNU_MAKE_FALSE@$(TEST_LOGS): $(DEPENDENCY)
-@GNU_MAKE_FALSE@	@if test '$(DEPENDENCY)' = CHECK-FORCE; then			\
-@GNU_MAKE_FALSE@	  dst=$@; src=$${dst%.log};					\
-@GNU_MAKE_FALSE@	  test -x "$$src" || src='$(srcdir)'/$$src;			\
-@GNU_MAKE_FALSE@	  exec $(MAKE) $(AM_MAKEFLAGS) DEPENDENCY="$$src" $@;		\
-@GNU_MAKE_FALSE@	else								\
-@GNU_MAKE_FALSE@	  src='$(DEPENDENCY)';						\
-@GNU_MAKE_FALSE@	  $(am__check_pre) "$$dir$$src" $(am__check_post);		\
-@GNU_MAKE_FALSE@	fi
-
-$(TEST_SUITE_LOG): $(TEST_LOGS)
-	@$(SH_E_WORKAROUND);						\
-	results=$$(for f in $(TEST_LOGS); do sed 1q $$f; done);		\
-	all=$$(echo "$$results" | wc -l | sed -e 's/^[ \t]*//');	\
-	fail=$$(echo "$$results" | grep -c '^FAIL');			\
-	pass=$$(echo "$$results" | grep -c '^PASS');			\
-	skip=$$(echo "$$results" | grep -c '^SKIP');			\
-	xfail=$$(echo "$$results" | grep -c '^XFAIL');			\
-	xpass=$$(echo "$$results" | grep -c '^XPASS');			\
-	failures=$$(expr $$fail + $$xpass);				\
-	case fail=$$fail:xpass=$$xpass:xfail=$$xfail in			\
-	  fail=0:xpass=0:xfail=0)					\
-	    msg="All $$all tests passed.  ";				\
-	    exit=true;;							\
-	  fail=0:xpass=0:xfail=*)					\
-	    msg="All $$all tests behaved as expected";			\
-	    msg="$$msg ($$xfail expected failures).  ";			\
-	    exit=true;;							\
-	  fail=*:xpass=0:xfail=*)					\
-	    msg="$$fail of $$all tests failed.  ";			\
-	    exit=false;;						\
-	  fail=*:xpass=*:xfail=*)					\
-	    msg="$$failures of $$all tests did not behave as expected";	\
-	    msg="$$msg ($$xpass unexpected passes).  ";			\
-	    exit=false;;						\
-	  *)								\
-            echo >&2 "incorrect case"; exit 4;;				\
-	esac;								\
-	if test "$$skip" -ne 0; then					\
-	  msg="$$msg($$skip tests were not run).  ";			\
-	fi;								\
-	if test "$$failures" -ne 0; then				\
-	  {								\
-	    echo "$(PACKAGE_STRING): $(subdir)/$(TEST_SUITE_LOG)" |	\
-	      $(am__rst_title);						\
-	    echo "$$msg";						\
-	    echo;							\
-	    echo ".. contents:: :depth: 2";				\
-	    echo;							\
-	    for f in $(TEST_LOGS);					\
-	    do								\
-	      case $$(sed 1q $$f) in					\
-		SKIP:*|PASS:*|XFAIL:*);;				\
-		*) echo; cat $$f;;					\
-	      esac;							\
-	    done;							\
-	  } >$(TEST_SUITE_LOG).tmp;					\
-	  mv $(TEST_SUITE_LOG).tmp $(TEST_SUITE_LOG);			\
-	  msg="$${msg}See $(subdir)/$(TEST_SUITE_LOG).  ";		\
-	  if test -n "$(PACKAGE_BUGREPORT)"; then			\
-	    msg="$${msg}Please report it to $(PACKAGE_BUGREPORT).  ";	\
-	  fi;								\
-	fi;								\
-	$(am__tty_colors);						\
-	if $$exit; then echo $$grn; else echo $$red; fi;		\
-	  echo "$$msg" | $(am__text_box);				\
-	echo $$std;							\
-	test x"$$VERBOSE" = x || $$exit || cat $(TEST_SUITE_LOG);	\
-	$$exit
-
-# if test x"$$VERBOSE" != x && ! $exit; then
-
-# Run all the tests.
-check-TESTS:
-	@if test -z '$(LAZY_TEST_SUITE)'; then	\
-	  rm -f $(TEST_SUITE_LOG) $(TEST_LOGS);	\
-	fi
-	@$(MAKE) $(TEST_SUITE_LOG)
-
-.log.html:
-	@for r2h in $(RST2HTML) $$RST2HTML rst2html rst2html.py;	\
-	do								\
-	  if ($$r2h --version) >/dev/null 2>&1; then			\
-	    R2H=$$r2h;							\
-	  fi;								\
-	done;								\
-	if test -z "$$R2H"; then					\
-	  echo >&2 "cannot find rst2html, cannot create $@";		\
-	  exit 2;							\
-	fi;								\
-	$$R2H $< >$@.tmp
-	@mv $@.tmp $@
-
-# Be sure to run check-TESTS first, and then to convert the result.
-# Beware of concurrent executions.  And expect check-TESTS to fail.
-check-html:
-	@if $(MAKE) $(AM_MAKEFLAGS) check-TESTS; then :; else	\
-	  rv=$$?;						\
-	  $(MAKE) $(AM_MAKEFLAGS) $(TEST_SUITE_HTML);		\
-	  exit $$rv;						\
-	fi
-
-.PHONY: check-html
-
-check-clean:
-	rm -f $(CHECK_CLEANFILES) $(TEST_SUITE_LOG) $(TEST_SUITE_HTML) $(TEST_LOGS)
-.PHONY: check-clean
-clean-local: check-clean
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

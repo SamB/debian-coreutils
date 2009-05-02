@@ -1,3 +1,9 @@
+coreutils (7.3-1) unstable; urgency=low
+
+  * new upstream version (Closes: #525048, #524500)
+
+ -- Michael Stone <mstone@debian.org>  Sat, 02 May 2009 12:28:58 -0400
+
 coreutils (7.2-1) unstable; urgency=low
 
   * new upstream version (Closes: #517558)

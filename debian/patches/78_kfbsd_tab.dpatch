@@ -1,5 +1,5 @@
 #! /bin/sh /usr/share/dpatch/dpatch-run
-## 78_kfbsd_tab.dpatch by Michael Stone <mstone@debian.org>
+## 78_kfbsd_tab.dpatch by Petr Salinger <Petr.Salinger@seznam.cz>
 ##
 ## All lines beginning with `## DP:' are a description of the patch.
 ## DP: fix build problem on kfreebsd

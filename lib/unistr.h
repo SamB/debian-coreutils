@@ -405,6 +405,15 @@ extern int
 extern int
        u32_cmp (const uint32_t *s1, const uint32_t *s2, size_t n);
 
+/* Compare S1 and S2.  */
+/* Similar to the gnulib function memcmp2().  */
+extern int
+       u8_cmp2 (const uint8_t *s1, size_t n1, const uint8_t *s2, size_t n2);
+extern int
+       u16_cmp2 (const uint16_t *s1, size_t n1, const uint16_t *s2, size_t n2);
+extern int
+       u32_cmp2 (const uint32_t *s1, size_t n1, const uint32_t *s2, size_t n2);
+
 /* Search the string at S for UC.  */
 /* Similar to memchr().  */
 extern uint8_t *
@@ -519,8 +528,8 @@ extern uint16_t *
 extern uint32_t *
        u32_strncpy (uint32_t *dest, const uint32_t *src, size_t n);
 
-/* Copy no more than N characters of SRC to DEST, returning the address of
-   the last character written into DEST.  */
+/* Copy no more than N units of SRC to DEST, returning the address of
+   the last unit written into DEST.  */
 /* Similar to stpncpy().  */
 extern uint8_t *
        u8_stpncpy (uint8_t *dest, const uint8_t *src, size_t n);

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coreutils 6.5\n"
 "Report-Msgid-Bugs-To: bug-coreutils@gnu.org\n"
-"POT-Creation-Date: 2009-03-26 09:14+0100\n"
+"POT-Creation-Date: 2009-04-28 14:48+0200\n"
 "PO-Revision-Date: 2006-11-23 12:07+0200\n"
 "Last-Translator: Toomas Soome <Toomas.Soome@microlink.ee>\n"
 "Language-Team: Estonian <et@li.org>\n"
@@ -45,7 +45,7 @@ msgstr "sulgen sisendfaili %s"
 msgid "write error"
 msgstr "viga kirjutamisel"
 
-#: lib/copy-acl.c:547 src/copy.c:787 src/copy.c:2127
+#: lib/copy-acl.c:547 src/copy.c:813 src/copy.c:2153
 #, c-format
 msgid "preserving permissions for %s"
 msgstr "säilitan %s õigused"
@@ -54,8 +54,8 @@ msgstr "säilitan %s õigused"
 msgid "Unknown system error"
 msgstr "Tundmatu süsteemne viga"
 
-#: lib/euidaccess-stat.c:136 src/copy.c:1171 src/copy.c:1223 src/copy.c:1808
-#: src/copy.c:2114 src/df.c:575 src/install.c:732 src/stat.c:862
+#: lib/euidaccess-stat.c:136 src/copy.c:1197 src/copy.c:1249 src/copy.c:1834
+#: src/copy.c:2140 src/df.c:575 src/install.c:736 src/stat.c:862
 #: src/truncate.c:370
 #, c-format
 msgid "cannot stat %s"
@@ -244,12 +244,12 @@ msgstr "%s: võti `-W %s' on segane\n"
 msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s: võti `-W %s' ei luba kasutada argumenti\n"
 
-#: lib/mkdir-p.c:196 src/install.c:803
+#: lib/mkdir-p.c:196 src/install.c:807
 #, c-format
 msgid "cannot change permissions of %s"
 msgstr "ei õnnestu muuta %s õigusi"
 
-#: lib/mkdir-p.c:206 src/copy.c:1797 src/install.c:700 src/install.c:713
+#: lib/mkdir-p.c:206 src/copy.c:1823 src/install.c:704 src/install.c:717
 #, c-format
 msgid "cannot create directory %s"
 msgstr "kataloogi `%s' ei õnnestu luua"
@@ -295,7 +295,7 @@ msgstr "`"
 msgid "'"
 msgstr "'"
 
-#: lib/randread.c:114
+#: lib/randread.c:118
 #, c-format
 msgid "%s: end of file"
 msgstr "%s: faili lõpp"
@@ -407,7 +407,7 @@ msgstr "^[jJ]"
 msgid "^[nN]"
 msgstr "^[eE]"
 
-#: lib/set-mode-acl.c:488 src/copy.c:1820 src/cp.c:495
+#: lib/set-mode-acl.c:488 src/copy.c:1846 src/cp.c:495
 #, c-format
 msgid "setting permissions for %s"
 msgstr "sean %s õigusi"
@@ -688,8 +688,8 @@ msgstr ""
 #: src/dirname.c:42 src/du.c:264 src/echo.c:39 src/env.c:109 src/expand.c:99
 #: src/expr.c:198 src/factor.c:489 src/fmt.c:265 src/fold.c:62
 #: src/getlimits.c:62 src/groups.c:50 src/head.c:103 src/hostid.c:40
-#: src/hostname.c:53 src/id.c:78 src/install.c:931 src/join.c:163
-#: src/kill.c:83 src/link.c:42 src/ln.c:346 src/logname.c:36 src/ls.c:4406
+#: src/hostname.c:53 src/id.c:78 src/install.c:935 src/join.c:163
+#: src/kill.c:83 src/link.c:42 src/ln.c:346 src/logname.c:36 src/ls.c:4504
 #: src/md5sum.c:149 src/mkdir.c:53 src/mkfifo.c:48 src/mknod.c:49
 #: src/mktemp.c:60 src/mv.c:275 src/nice.c:68 src/nl.c:171 src/nohup.c:50
 #: src/od.c:305 src/paste.c:429 src/pathchk.c:93 src/pinky.c:506 src/pr.c:2763
@@ -783,10 +783,10 @@ msgstr "vigane murdmise veerg: %s"
 
 #: src/base64.c:284 src/basename.c:119 src/comm.c:421 src/cp.c:584
 #: src/date.c:426 src/dircolors.c:449 src/dirname.c:98 src/du.c:926
-#: src/hostid.c:76 src/hostname.c:112 src/id.c:169 src/install.c:607
+#: src/hostid.c:76 src/hostname.c:112 src/id.c:169 src/install.c:611
 #: src/join.c:895 src/link.c:86 src/ln.c:521 src/logname.c:72 src/mknod.c:158
 #: src/mv.c:438 src/od.c:1803 src/ptx.c:2148 src/readlink.c:152 src/seq.c:410
-#: src/shuf.c:377 src/sort.c:3409 src/split.c:536 src/tr.c:1727
+#: src/shuf.c:377 src/sort.c:3411 src/split.c:536 src/tr.c:1727
 #: src/tsort.c:548 src/tty.c:113 src/uname.c:253 src/uniq.c:449 src/uniq.c:466
 #: src/unlink.c:82 src/uptime.c:251 src/users.c:147 src/wc.c:654 src/who.c:817
 #: src/whoami.c:80
@@ -804,7 +804,7 @@ msgstr "sulen standardsisendi"
 #: src/comm.c:36 src/cp.c:57 src/csplit.c:42 src/cut.c:44 src/date.c:39
 #: src/dd.c:45 src/df.c:41 src/dirname.c:35 src/du.c:53 src/env.c:92
 #: src/expand.c:48 src/fold.c:35 src/groups.c:35 src/head.c:46 src/id.c:39
-#: src/install.c:49 src/ln.c:40 src/ls.c:115 src/mkdir.c:36 src/mkfifo.c:33
+#: src/install.c:49 src/ln.c:40 src/ls.c:120 src/mkdir.c:36 src/mkfifo.c:33
 #: src/mknod.c:34 src/mv.c:41 src/nice.c:40 src/nl.c:40 src/paste.c:52
 #: src/pathchk.c:40 src/pinky.c:36 src/printenv.c:45 src/printf.c:62
 #: src/rm.c:64 src/rmdir.c:39 src/stty.c:69 src/su.c:95 src/sum.c:38
@@ -863,13 +863,13 @@ msgid "Torbjorn Granlund"
 msgstr ""
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/cat.c:49 src/comm.c:35 src/ls.c:114 src/rm.c:65 src/split.c:45
+#: src/cat.c:49 src/comm.c:35 src/ls.c:119 src/rm.c:65 src/split.c:45
 #: src/tee.c:34 src/uniq.c:39
 msgid "Richard M. Stallman"
 msgstr ""
 
 #: src/cat.c:89 src/df.c:804 src/expand.c:103 src/fold.c:66 src/head.c:107
-#: src/ls.c:4410 src/nl.c:175 src/paste.c:433 src/pr.c:2767 src/sum.c:59
+#: src/ls.c:4508 src/nl.c:175 src/paste.c:433 src/pr.c:2767 src/sum.c:59
 #: src/tac.c:133 src/tail.c:215 src/tee.c:62 src/unexpand.c:113
 #, c-format
 msgid "Usage: %s [OPTION]... [FILE]...\n"
@@ -961,7 +961,7 @@ msgstr "ei õnnestu muuta %s omanikku\n"
 msgid "failed to set %s security context component to %s"
 msgstr ""
 
-#: src/chcon.c:155 src/chcon.c:523 src/copy.c:1752 src/runcon.c:218
+#: src/chcon.c:155 src/chcon.c:523 src/copy.c:1778 src/runcon.c:218
 #: src/stat.c:461
 #, fuzzy, c-format
 msgid "failed to get security context of %s"
@@ -977,8 +977,8 @@ msgstr ""
 msgid "failed to change context of %s to %s"
 msgstr "ei õnnestu seada %s omanikuks %s\n"
 
-#: src/chcon.c:254 src/chmod.c:207 src/chown-core.c:300 src/copy.c:230
-#: src/du.c:485 src/ls.c:2691
+#: src/chcon.c:254 src/chmod.c:207 src/chown-core.c:300 src/copy.c:255
+#: src/du.c:485 src/ls.c:2760
 #, c-format
 msgid "cannot access %s"
 msgstr "%s ei saa kasutada"
@@ -1565,54 +1565,54 @@ msgstr "kasutati mitut -i võtit"
 msgid "empty %s not allowed"
 msgstr "võtmega -c ei lubata täiendavat operandi %s"
 
-#: src/copy.c:306
+#: src/copy.c:331
 #, fuzzy, c-format
 msgid "clearing permissions for %s"
 msgstr "sean %s õigusi"
 
-#: src/copy.c:340 src/copy.c:2006 src/cp.c:308
+#: src/copy.c:365 src/copy.c:2032 src/cp.c:308
 #, c-format
 msgid "failed to preserve ownership for %s"
 msgstr "%s omanikku ei õnnestu säilitada"
 
-#: src/copy.c:366
+#: src/copy.c:391
 #, c-format
 msgid "failed to lookup file %s"
 msgstr "ei õnnestu leida faili %s"
 
-#: src/copy.c:371
+#: src/copy.c:396
 #, c-format
 msgid "failed to preserve authorship for %s"
 msgstr "%s autorit ei õnnestu säilitada"
 
-#: src/copy.c:429 src/csplit.c:630 src/du.c:933 src/fmt.c:427 src/head.c:849
-#: src/sort.c:3421 src/split.c:543 src/tac.c:544 src/tail.c:1294 src/wc.c:666
+#: src/copy.c:454 src/csplit.c:630 src/du.c:933 src/fmt.c:427 src/head.c:849
+#: src/sort.c:3423 src/split.c:543 src/tac.c:544 src/tail.c:1294 src/wc.c:666
 #, c-format
 msgid "cannot open %s for reading"
 msgstr "ei õnnestu avada %s lugemiseks"
 
-#: src/copy.c:435 src/copy.c:563 src/dd.c:1268 src/dd.c:1895 src/tail.c:1130
+#: src/copy.c:460 src/copy.c:588 src/dd.c:1268 src/dd.c:1895 src/tail.c:1130
 #: src/tail.c:1196 src/truncate.c:153 src/truncate.c:237
 #, c-format
 msgid "cannot fstat %s"
 msgstr "fstat %s ei õnnestu"
 
-#: src/copy.c:445
+#: src/copy.c:470
 #, c-format
 msgid "skipping file %s, as it was replaced while being copied"
 msgstr "jätan %s vahele, kuna see asendati kopeerimise ajal"
 
-#: src/copy.c:469
+#: src/copy.c:494
 #, fuzzy, c-format
 msgid "failed to get file system create context"
 msgstr "stderr koopiale ei õnnestu seada omadust 'close on exec'"
 
-#: src/copy.c:483
+#: src/copy.c:508
 #, fuzzy, c-format
 msgid "failed to set the security context of %s to %s"
 msgstr "%s grupi muutmine grupiks %s ebaõnnestus\n"
 
-#: src/copy.c:500 src/copy.c:1292 src/copy.c:1446 src/copy.c:1594 src/ln.c:293
+#: src/copy.c:525 src/copy.c:1318 src/copy.c:1472 src/copy.c:1620 src/ln.c:293
 #: src/remove.c:935 src/remove.c:956 src/remove.c:1105 src/remove.c:1146
 #: src/remove.c:1165 src/remove.c:1181 src/remove.c:1188 src/remove.c:1539
 #: src/remove.c:1626 src/remove.c:1784
@@ -1620,212 +1620,212 @@ msgstr "%s grupi muutmine grupiks %s ebaõnnestus\n"
 msgid "cannot remove %s"
 msgstr "%s ei saa kustutada"
 
-#: src/copy.c:505 src/copy.c:1287 src/copy.c:1451 src/copy.c:1598
+#: src/copy.c:530 src/copy.c:1313 src/copy.c:1477 src/copy.c:1624
 #: src/remove.c:1013
 #, c-format
 msgid "removed %s\n"
 msgstr "%s eemaldatud\n"
 
-#: src/copy.c:542
+#: src/copy.c:567
 #, c-format
 msgid "not writing through dangling symlink %s"
 msgstr ""
 
-#: src/copy.c:555
+#: src/copy.c:580
 #, c-format
 msgid "cannot create regular file %s"
 msgstr "ei õnnestu luua tavalist faili %s"
 
-#: src/copy.c:638 src/dd.c:1329 src/dd.c:1654
+#: src/copy.c:663 src/dd.c:1329 src/dd.c:1654
 #, c-format
 msgid "reading %s"
 msgstr "loen %s"
 
-#: src/copy.c:684 src/head.c:428
+#: src/copy.c:709 src/head.c:428
 #, c-format
 msgid "cannot lseek %s"
 msgstr "lseek %s ei õnnestu"
 
-#: src/copy.c:697 src/copy.c:725 src/dd.c:1711 src/dd.c:1773
+#: src/copy.c:722 src/copy.c:751 src/dd.c:1711 src/dd.c:1773
 #, c-format
 msgid "writing %s"
 msgstr "kirjutan %s"
 
-#: src/copy.c:740 src/copy.c:2060
+#: src/copy.c:766 src/copy.c:2086
 #, c-format
 msgid "preserving times for %s"
 msgstr "jätan %s ajad muutmata"
 
-#: src/copy.c:797 src/copy.c:803 src/head.c:857 src/touch.c:191
+#: src/copy.c:823 src/copy.c:829 src/head.c:857 src/touch.c:191
 #: src/truncate.c:411
 #, c-format
 msgid "closing %s"
 msgstr "sulgen %s"
 
-#: src/copy.c:1037
+#: src/copy.c:1063
 #, fuzzy, c-format
 msgid "%s: try to overwrite %s, overriding mode %04lo (%s)? "
 msgstr "%s: kirjutan %s üle, kirjutan üle ka õigused %04lo? "
 
-#: src/copy.c:1044
+#: src/copy.c:1070
 #, c-format
 msgid "%s: overwrite %s? "
 msgstr "%s: kirjutan %s üle? "
 
-#: src/copy.c:1113
+#: src/copy.c:1139
 #, c-format
 msgid " (backup: %s)"
 msgstr " (varukoopia: %s)"
 
-#: src/copy.c:1123
+#: src/copy.c:1149
 #, c-format
 msgid "failed to restore the default file creation context"
 msgstr ""
 
-#: src/copy.c:1179
+#: src/copy.c:1205
 #, c-format
 msgid "omitting directory %s"
 msgstr "jätan kataloogi %s vahele"
 
-#: src/copy.c:1193
+#: src/copy.c:1219
 #, c-format
 msgid "warning: source file %s specified more than once"
 msgstr "hoiatus: lähtefail %s on esitatur enam kui korra"
 
-#: src/copy.c:1241 src/ln.c:231
+#: src/copy.c:1267 src/ln.c:231
 #, c-format
 msgid "%s and %s are the same file"
 msgstr "%s ja %s on üks ja sama fail"
 
-#: src/copy.c:1321
+#: src/copy.c:1347
 #, c-format
 msgid "cannot overwrite non-directory %s with directory %s"
 msgstr "ei saa üle kirjutada mitte-katataloogi %s kataloogiga %s"
 
-#: src/copy.c:1339 src/ln.c:199
+#: src/copy.c:1365 src/ln.c:199
 #, c-format
 msgid "will not overwrite just-created %s with %s"
 msgstr "ei kirjuta üle just loodud faili %s failiga %s"
 
-#: src/copy.c:1357
+#: src/copy.c:1383
 #, c-format
 msgid "cannot overwrite directory %s with non-directory"
 msgstr "kataloogi %s ei saa üle kirjutada mitte kataloogiga"
 
-#: src/copy.c:1371
+#: src/copy.c:1397
 #, c-format
 msgid "cannot move directory onto non-directory: %s -> %s"
 msgstr "kataloogi ei saa tõsta mitte-kataloogi: %s -> %s"
 
-#: src/copy.c:1401
+#: src/copy.c:1427
 #, c-format
 msgid "backing up %s would destroy source;  %s not moved"
 msgstr "%s varundamine hävitaks allika; %s ei teisaldatud"
 
-#: src/copy.c:1402
+#: src/copy.c:1428
 #, c-format
 msgid "backing up %s would destroy source;  %s not copied"
 msgstr "%s varundamine hävitaks allika; %s ei kopeeritud"
 
-#: src/copy.c:1421 src/ln.c:261
+#: src/copy.c:1447 src/ln.c:261
 #, c-format
 msgid "cannot backup %s"
 msgstr "ei õnnestu luua %s varukoopiat"
 
-#: src/copy.c:1485
+#: src/copy.c:1511
 #, fuzzy, c-format
 msgid "will not copy %s through just-created symlink %s"
 msgstr "ei kirjuta üle just loodud faili %s failiga %s"
 
-#: src/copy.c:1562
+#: src/copy.c:1588
 #, c-format
 msgid "cannot copy a directory, %s, into itself, %s"
 msgstr "kataloogi %s ei saa iseendasse, %s, kopeerida"
 
-#: src/copy.c:1579
+#: src/copy.c:1605
 #, c-format
 msgid "will not create hard link %s to directory %s"
 msgstr "ei loo viidet %s kataloogile %s"
 
-#: src/copy.c:1604
+#: src/copy.c:1630
 #, c-format
 msgid "cannot create hard link %s to %s"
 msgstr "ei õnnestu luua viidet %s -> %s"
 
-#: src/copy.c:1649
+#: src/copy.c:1675
 #, c-format
 msgid "cannot move %s to a subdirectory of itself, %s"
 msgstr "%s ei saa tõsta iseenda alamkataloogi %s"
 
-#: src/copy.c:1692
+#: src/copy.c:1718
 #, c-format
 msgid "cannot move %s to %s"
 msgstr "ei õnnestu tõsta %s -> %s"
 
-#: src/copy.c:1704
+#: src/copy.c:1730
 #, c-format
 msgid "inter-device move failed: %s to %s; unable to remove target"
 msgstr ""
 "seadmete-vaheline teisaldamine ebaõnnestus: %s -> %s; allikat ei saa "
 "kustutada"
 
-#: src/copy.c:1736 src/install.c:583 src/mkdir.c:190 src/mkfifo.c:115
+#: src/copy.c:1762 src/install.c:587 src/mkdir.c:190 src/mkfifo.c:115
 #: src/mknod.c:168
 #, fuzzy, c-format
 msgid "failed to set default file creation context to %s"
 msgstr "%s atribuutide lugemine ebaõnnestus"
 
-#: src/copy.c:1777
+#: src/copy.c:1803
 #, c-format
 msgid "cannot copy cyclic symbolic link %s"
 msgstr "tsüklilist nimeviita %s ei õnnestu kopeerida"
 
-#: src/copy.c:1883
+#: src/copy.c:1909
 #, c-format
 msgid "%s: can make relative symbolic links only in current directory"
 msgstr "%s: suhtelisi nimeviiteid saab luua ainult jooksvas kataloogis"
 
-#: src/copy.c:1890
+#: src/copy.c:1916
 #, c-format
 msgid "cannot create symbolic link %s to %s"
 msgstr "ei õnnestu luua nimeviidet %s -> %s"
 
-#: src/copy.c:1915
+#: src/copy.c:1941
 #, c-format
 msgid "cannot create link %s"
 msgstr "ei õnnestu luua viidet %s"
 
-#: src/copy.c:1940 src/mkfifo.c:134
+#: src/copy.c:1966 src/mkfifo.c:134
 #, c-format
 msgid "cannot create fifo %s"
 msgstr "ei õnnestu luua fifot %s"
 
-#: src/copy.c:1949
+#: src/copy.c:1975
 #, c-format
 msgid "cannot create special file %s"
 msgstr "ei õnnestu luua seadmefaili %s"
 
-#: src/copy.c:1959 src/ls.c:2909 src/stat.c:579
+#: src/copy.c:1985 src/ls.c:2978 src/stat.c:579
 #, c-format
 msgid "cannot read symbolic link %s"
 msgstr "ei õnnestu lugeda nimeviidet %s"
 
-#: src/copy.c:1986
+#: src/copy.c:2012
 #, c-format
 msgid "cannot create symbolic link %s"
 msgstr "ei õnnestu luua nimeviidet %s"
 
-#: src/copy.c:2021
+#: src/copy.c:2047
 #, c-format
 msgid "%s has unknown file type"
 msgstr "%s on tundmatut tüüpi fail"
 
-#: src/copy.c:2154 src/ln.c:334
+#: src/copy.c:2180 src/ln.c:334
 #, c-format
 msgid "cannot un-backup %s"
 msgstr "%s ei saa taastada"
 
-#: src/copy.c:2158
+#: src/copy.c:2184
 #, c-format
 msgid "%s -> %s (unbackup)\n"
 msgstr "%s -> %s (taastamine)\n"
@@ -1851,7 +1851,7 @@ msgstr ""
 
 #: src/cp.c:153 src/csplit.c:1455 src/cut.c:197 src/df.c:810 src/du.c:276
 #: src/expand.c:112 src/fmt.c:275 src/fold.c:75 src/head.c:117
-#: src/install.c:954 src/kill.c:97 src/ln.c:367 src/ls.c:4416 src/mkdir.c:62
+#: src/install.c:958 src/kill.c:97 src/ln.c:367 src/ls.c:4514 src/mkdir.c:62
 #: src/mkfifo.c:57 src/mknod.c:59 src/mv.c:289 src/nl.c:184 src/paste.c:443
 #: src/pr.c:2776 src/ptx.c:1892 src/shred.c:164 src/shuf.c:57 src/sort.c:322
 #: src/split.c:113 src/tac.c:142 src/tail.c:225 src/timeout.c:144
@@ -2011,7 +2011,7 @@ msgstr ""
 "--sparse=never blokeerib aukudega failide loomise.\n"
 "\n"
 
-#: src/cp.c:224 src/install.c:990 src/ln.c:393 src/mv.c:315
+#: src/cp.c:224 src/install.c:994 src/ln.c:393 src/mv.c:315
 msgid ""
 "\n"
 "The backup suffix is `~', unless set with --suffix or SIMPLE_BACKUP_SUFFIX.\n"
@@ -2027,7 +2027,7 @@ msgstr ""
 "väärtused on järgnevad:\n"
 "\n"
 
-#: src/cp.c:231 src/install.c:997 src/ln.c:400 src/mv.c:322
+#: src/cp.c:231 src/install.c:1001 src/ln.c:400 src/mv.c:322
 msgid ""
 "  none, off       never make backups (even if --backup is given)\n"
 "  numbered, t     make numbered backups\n"
@@ -2077,25 +2077,25 @@ msgstr "`%s' on olemas, aga ei ole kataloog"
 msgid "accessing %s"
 msgstr "kasutan %s"
 
-#: src/cp.c:569 src/install.c:592 src/ln.c:504 src/mv.c:423 src/shred.c:1190
+#: src/cp.c:569 src/install.c:596 src/ln.c:504 src/mv.c:423 src/shred.c:1190
 #: src/touch.c:440 src/truncate.c:362
 #, c-format
 msgid "missing file operand"
 msgstr "argumentides puudub failinimi"
 
-#: src/cp.c:571 src/install.c:594 src/ln.c:518 src/mv.c:425
+#: src/cp.c:571 src/install.c:598 src/ln.c:518 src/mv.c:425
 #, c-format
 msgid "missing destination file operand after %s"
 msgstr "%s järel puudub sihtfail"
 
-#: src/cp.c:580 src/install.c:603 src/mv.c:434
+#: src/cp.c:580 src/install.c:607 src/mv.c:434
 #, fuzzy, c-format
 msgid "cannot combine --target-directory (-t) and --no-target-directory (-T)"
 msgstr ""
 "--target-directory (-t) ja --no-target-directory (-T) ei saa koos kasutada"
 
 #: src/cp.c:594 src/cp.c:1030 src/install.c:407 src/install.c:524
-#: src/install.c:616 src/ln.c:132 src/ln.c:476 src/ln.c:532 src/mv.c:392
+#: src/install.c:620 src/ln.c:132 src/ln.c:476 src/ln.c:532 src/mv.c:392
 #: src/mv.c:448
 #, c-format
 msgid "target %s is not a directory"
@@ -2121,7 +2121,7 @@ msgstr "ei õnnestu luua ei tavalist ega nimeviita"
 msgid "options --backup and --no-clobber are mutually exclusive"
 msgstr "väljastatava ajaformaadi võtmed on üksteist välistavad"
 
-#: src/cp.c:1083 src/install.c:577 src/ln.c:540 src/mv.c:463
+#: src/cp.c:1083 src/install.c:581 src/ln.c:540 src/mv.c:463
 msgid "backup type"
 msgstr "varukoopia tüüp"
 
@@ -3278,7 +3278,7 @@ msgstr ""
 "  -x, --exclude-type=TÜÜP  ära väljasta infot antud tüüpi failisüsteemidest\n"
 "  -v                    (ignoreeritakse)\n"
 
-#: src/df.c:836 src/du.c:333 src/ls.c:4547
+#: src/df.c:836 src/du.c:333 src/ls.c:4645
 msgid ""
 "\n"
 "SIZE may be (or may be an integer optionally followed by) one of following:\n"
@@ -3295,16 +3295,16 @@ msgstr ""
 msgid "file system type %s both selected and excluded"
 msgstr "failisüsteemi tüüp %s on nii valitute kui ka väljaarvatute nimekirjas"
 
-#: src/df.c:1017
+#: src/df.c:1021
 msgid "Warning: "
 msgstr "Hoiatus: "
 
-#: src/df.c:1019
+#: src/df.c:1023
 #, fuzzy
 msgid "cannot read table of mounted file systems"
 msgstr "%s ei õnnestu lugeda haagitud failisüsteemide tabelit"
 
-#: src/df.c:1047
+#: src/df.c:1051
 #, c-format
 msgid "no file systems processed"
 msgstr "ühtegi failisüsteemi ei töödeldud"
@@ -3574,7 +3574,7 @@ msgstr "hoiatus: summeerimine on sama, kui kasutada --max-depth=0"
 msgid "warning: summarizing conflicts with --max-depth=%lu"
 msgstr "hoiatus: summeerimine on konfliktne võtmega --max-depth=%lu"
 
-#: src/du.c:928 src/sort.c:3411 src/wc.c:656
+#: src/du.c:928 src/sort.c:3413 src/wc.c:656
 #, fuzzy
 msgid "file operands cannot be combined with --files0-from"
 msgstr "Faili operande ei saa võtmega --files0-from koos kasutada."
@@ -3585,7 +3585,7 @@ msgstr "Faili operande ei saa võtmega --files0-from koos kasutada."
 msgid "%s: read error"
 msgstr "%s: viga lugemisel"
 
-#: src/du.c:980 src/sort.c:3440 src/wc.c:731
+#: src/du.c:980 src/sort.c:3442 src/wc.c:731
 #, c-format
 msgid "when reading file names from stdin, no file name of %s allowed"
 msgstr ""
@@ -3603,7 +3603,7 @@ msgstr "vigane null-pikkusega faili nimi"
 msgid "error reading %s"
 msgstr "viga %s lugemisel"
 
-#: src/du.c:1025 src/ls.c:2484 src/wc.c:774
+#: src/du.c:1025 src/ls.c:2553 src/wc.c:774
 msgid "total"
 msgstr "kokku"
 
@@ -4352,105 +4352,111 @@ msgstr ""
 msgid "warning: %s: failed to change context to %s"
 msgstr "hoiatus: ei saa minna kataloogi %s"
 
-#: src/install.c:536
+#: src/install.c:534
+#, fuzzy, c-format
+msgid ""
+"WARNING: --preserve_context is deprecated; use --preserve-context instead"
+msgstr "võti --copyright on aegunud; kasutage selle asemel --version"
+
+#: src/install.c:540
 #, c-format
 msgid ""
 "WARNING: ignoring --preserve-context; this kernel is not SELinux-enabled"
 msgstr ""
 
-#: src/install.c:546
+#: src/install.c:550
 #, c-format
 msgid "WARNING: ignoring --context (-Z); this kernel is not SELinux-enabled"
 msgstr ""
 
-#: src/install.c:563
+#: src/install.c:567
 #, c-format
 msgid "the strip option may not be used when installing a directory"
 msgstr "kataloogi installeerimisel ei saa kasutada võtit strip"
 
-#: src/install.c:566
+#: src/install.c:570
 #, c-format
 msgid "target directory not allowed when installing a directory"
 msgstr "kataloogi installeerimisel ei saa sihtkataloogi määrata"
 
-#: src/install.c:570
+#: src/install.c:574
 #, c-format
 msgid "cannot force target context to %s and preserve it"
 msgstr ""
 
-#: src/install.c:624 src/mkdir.c:203
+#: src/install.c:628 src/mkdir.c:203
 #, c-format
 msgid "invalid mode %s"
 msgstr "vigane mood %s"
 
-#: src/install.c:631
+#: src/install.c:635
 #, c-format
 msgid "WARNING: ignoring --strip-program option as -s option was not specified"
 msgstr ""
 
-#: src/install.c:636
+#: src/install.c:640
 #, fuzzy, c-format
 msgid "options --compare (-C) and --preserve-timestamps are mutually exclusive"
 msgstr "väljastatava ajaformaadi võtmed on üksteist välistavad"
 
-#: src/install.c:643
+#: src/install.c:647
 #, fuzzy, c-format
 msgid "options --compare (-C) and --strip are mutually exclusive"
 msgstr "väljastatava ajaformaadi võtmed on üksteist välistavad"
 
-#: src/install.c:649
+#: src/install.c:653
 #, c-format
 msgid ""
 "the --compare (-C) option is ignored when you specify a mode with non-"
 "permission bits"
 msgstr ""
 
-#: src/install.c:801
+#: src/install.c:805
 #, c-format
 msgid "cannot change ownership of %s"
 msgstr "ei õnnestu muuta %s omanikku"
 
-#: src/install.c:825
+#: src/install.c:829
 #, c-format
 msgid "cannot set time stamps for %s"
 msgstr "ei õnnestu seada %s ajatempleid"
 
-#: src/install.c:846 src/timeout.c:289
+#: src/install.c:850 src/timeout.c:289
 #, c-format
 msgid "fork system call failed"
 msgstr "süsteemifunktsioon fork ebaõnnestus"
 
-#: src/install.c:850
+#: src/install.c:854
 #, fuzzy, c-format
 msgid "cannot run %s"
 msgstr "strip käsku ei saa käivitada"
 
-#: src/install.c:854
+#: src/install.c:858
 #, fuzzy, c-format
 msgid "waiting for strip"
 msgstr "kirjutan faili %s"
 
-#: src/install.c:856
+#: src/install.c:860
 #, c-format
 msgid "strip process terminated abnormally"
 msgstr ""
 
-#: src/install.c:877
+#: src/install.c:881
 #, c-format
 msgid "invalid user %s"
 msgstr "vigane kasutaja %s"
 
-#: src/install.c:895 src/setuidgid.c:110 src/setuidgid.c:120
+#: src/install.c:899 src/setuidgid.c:110 src/setuidgid.c:120
 #, c-format
 msgid "invalid group %s"
 msgstr "vigane grupp %s"
 
-#: src/install.c:912
+#: src/install.c:916
 #, c-format
 msgid "creating directory %s"
 msgstr "loon kataloogi %s"
 
-#: src/install.c:935
+#: src/install.c:939
 #, c-format
 msgid ""
 "Usage: %s [OPTION]... [-T] SOURCE DEST\n"
@@ -4463,7 +4469,7 @@ msgstr ""
 "       või: %s [VÕTI]... -t KATALOOG ALG...\n"
 "       või: %s [VÕTI]... -d KATALOOG...\n"
 
-#: src/install.c:942
+#: src/install.c:946
 #, fuzzy
 msgid ""
 "\n"
@@ -4483,7 +4489,7 @@ msgstr ""
 "Neljas variant loob antud kataloogi(d).\n"
 "\n"
 
-#: src/install.c:957
+#: src/install.c:961
 #, fuzzy
 msgid ""
 "      --backup[=CONTROL]  make a backup of each existing destination file\n"
@@ -4501,7 +4507,7 @@ msgstr ""
 "  -d, --directory     käsitle kõiki argumente kataloogidena; loo kõik\n"
 "                      antud kataloogide komponendid\n"
 
-#: src/install.c:966
+#: src/install.c:970
 msgid ""
 "  -D                  create all leading components of DEST except the "
 "last,\n"
@@ -4518,7 +4524,7 @@ msgstr ""
 "  -m, --mode=MOOD     sea rwxr-xr-x õiguste asemel antud õigused\n"
 "  -o, --owner=OMANIK  sea omanik (ainult super-kasutaja)\n"
 
-#: src/install.c:973
+#: src/install.c:977
 #, fuzzy
 msgid ""
 "  -p, --preserve-timestamps   apply access/modification times of SOURCE "
@@ -4539,7 +4545,7 @@ msgstr ""
 "  -T, --no-target-directory käsitle SIHT tavalise failina\n"
 "  -v, --verbose       väljasta iga loodava kataloogi nimi\n"
 
-#: src/install.c:983
+#: src/install.c:987
 msgid ""
 "      --preserve-context  preserve SELinux security context\n"
 "  -Z, --context=CONTEXT  set SELinux security context of files and "
@@ -4648,17 +4654,17 @@ msgstr "ühildamatud väljad %lu, %lu"
 msgid "conflicting empty-field replacement strings"
 msgstr "konfliktsed tühja-välja asendamise sõned"
 
-#: src/join.c:1025 src/sort.c:3339
+#: src/join.c:1025 src/sort.c:3341
 #, c-format
 msgid "empty tab"
 msgstr "tühi tabulaator"
 
-#: src/join.c:1031 src/sort.c:3350
+#: src/join.c:1031 src/sort.c:3352
 #, c-format
 msgid "multi-character tab %s"
 msgstr "mitme-sümboliline tabulaator %s"
 
-#: src/join.c:1035 src/sort.c:3355
+#: src/join.c:1035 src/sort.c:3357
 #, c-format
 msgid "incompatible tabs"
 msgstr "mitteühilduvad tabulaatorid"
@@ -4924,85 +4930,100 @@ msgstr ""
 msgid "no login name"
 msgstr "kasutajanime pole"
 
-#: src/ls.c:698
+#. TRANSLATORS: ls output needs to be aligned for ease of reading,
+#. so be wary of using variable width fields from the locale.
+#. Note %b is handled specially by ls and aligned correctly.
+#. Note also that specifying a width as in %5b is erroneous as strftime
+#. will count bytes rather than characters in multibyte locales.
+#: src/ls.c:708
 msgid "%b %e  %Y"
 msgstr "%e. %b  %Y"
 
-#: src/ls.c:706
+#. TRANSLATORS: ls output needs to be aligned for ease of reading,
+#. so be wary of using variable width fields from the locale.
+#. Note %b is handled specially by ls and aligned correctly.
+#. Note also that specifying a width as in %5b is erroneous as strftime
+#. will count bytes rather than characters in multibyte locales.
+#: src/ls.c:721
 msgid "%b %e %H:%M"
 msgstr "%e. %b %H:%M"
 
-#: src/ls.c:1471
+#: src/ls.c:1536
 #, c-format
 msgid "ignoring invalid value of environment variable QUOTING_STYLE: %s"
 msgstr "eiran vigast keskkonnamuutuja QUOTING_STYLE väärtust: %s"
 
-#: src/ls.c:1498
+#: src/ls.c:1563
 #, c-format
 msgid "ignoring invalid width in environment variable COLUMNS: %s"
 msgstr "eiran vigast laiuse kirjeldust keskkonnamuutujas COLUMNS: %s"
 
-#: src/ls.c:1528
+#: src/ls.c:1593
 #, c-format
 msgid "ignoring invalid tab size in environment variable TABSIZE: %s"
 msgstr "eiran vigast tabulaatori kirjeldust keskkonnamuutujas TABSIZE: %s"
 
-#: src/ls.c:1649 src/ptx.c:2043
+#: src/ls.c:1714 src/ptx.c:2043
 #, c-format
 msgid "invalid line width: %s"
 msgstr "vigane rea laius: %s"
 
-#: src/ls.c:1723
+#: src/ls.c:1788
 #, c-format
 msgid "invalid tab size: %s"
 msgstr "vigane tabulaatori suurus: %s"
 
-#: src/ls.c:1913
+#: src/ls.c:1978
 #, c-format
 msgid "invalid time style format %s"
 msgstr "vigane ajamäärang %s"
 
-#: src/ls.c:2257
+#: src/ls.c:2024
+#, c-format
+msgid "error initializing month strings"
+msgstr ""
+
+#: src/ls.c:2326
 #, c-format
 msgid "unrecognized prefix: %s"
 msgstr "tundmatu prefiks: %s"
 
-#: src/ls.c:2280
+#: src/ls.c:2349
 #, c-format
 msgid "unparsable value for LS_COLORS environment variable"
 msgstr "arusaamatu väärtus keskkonnamuutuja LS_COLORS jaoks"
 
-#: src/ls.c:2357 src/pwd.c:162
+#: src/ls.c:2426 src/pwd.c:162
 #, c-format
 msgid "cannot open directory %s"
 msgstr "kataloogi %s ei saa avada"
 
-#: src/ls.c:2372
+#: src/ls.c:2441
 #, c-format
 msgid "cannot determine device and inode of %s"
 msgstr "ei õnnestu tuvastada %s seadet ja i-kirje numbrit"
 
-#: src/ls.c:2381
+#: src/ls.c:2450
 #, c-format
 msgid "%s: not listing already-listed directory"
 msgstr "%s: ei näita juba näidatud kataloogi"
 
-#: src/ls.c:2442 src/pwd.c:230
+#: src/ls.c:2511 src/pwd.c:230
 #, c-format
 msgid "reading directory %s"
 msgstr "loen kataloogi %s"
 
-#: src/ls.c:2452
+#: src/ls.c:2521
 #, c-format
 msgid "closing directory %s"
 msgstr "sulen kataloogi %s"
 
-#: src/ls.c:3024
+#: src/ls.c:3093
 #, c-format
 msgid "cannot compare file names %s and %s"
 msgstr "failide %s ja %s nimesid ei õnnestu võrrelda"
 
-#: src/ls.c:4411
+#: src/ls.c:4509
 msgid ""
 "List information about the FILEs (the current directory by default).\n"
 "Sort entries alphabetically if none of -cftuvSUX nor --sort.\n"
@@ -5013,7 +5034,7 @@ msgstr ""
 "tähestikuliselt\n"
 "\n"
 
-#: src/ls.c:4419
+#: src/ls.c:4517
 msgid ""
 "  -a, --all                  do not ignore entries starting with .\n"
 "  -A, --almost-all           do not list implied . and ..\n"
@@ -5026,7 +5047,7 @@ msgstr ""
 "  -b, --escape               väljasta mitte-esitatavad sümbolid\n"
 "                             kaheksandkoodidega\n"
 
-#: src/ls.c:4425
+#: src/ls.c:4523
 msgid ""
 "      --block-size=SIZE      use SIZE-byte blocks\n"
 "  -B, --ignore-backups       do not list implied entries ending with ~\n"
@@ -5044,7 +5065,7 @@ msgstr ""
 "järgi\n"
 "                               muidu: järjesta ctime järgi\n"
 
-#: src/ls.c:4433
+#: src/ls.c:4531
 msgid ""
 "  -C                         list entries by columns\n"
 "      --color[=WHEN]         control whether color is used to distinguish "
@@ -5063,7 +5084,7 @@ msgstr ""
 "  -d, --directory            näita kataloogide sisu asemel neid endid\n"
 "  -D, --dired                vorminda väljund Emacs dired moodile\n"
 
-#: src/ls.c:4441
+#: src/ls.c:4539
 msgid ""
 "  -f                         do not sort, enable -aU, disable -ls --color\n"
 "  -F, --classify             append indicator (one of */=>@|) to entries\n"
@@ -5079,11 +5100,11 @@ msgstr ""
 "                               single-column -1, verbose -l, vertical -C\n"
 "      --full-time            nagu -l --time-style=full-iso\n"
 
-#: src/ls.c:4449
+#: src/ls.c:4547
 msgid "  -g                         like -l, but do not list owner\n"
 msgstr "  -g                         nagu -l, aga ei näita omanikku\n"
 
-#: src/ls.c:4452
+#: src/ls.c:4550
 msgid ""
 "      --group-directories-first\n"
 "                             group directories before files.\n"
@@ -5091,7 +5112,7 @@ msgid ""
 "                               use of --sort=none (-U) disables grouping\n"
 msgstr ""
 
-#: src/ls.c:4458
+#: src/ls.c:4556
 #, fuzzy
 msgid ""
 "  -G, --no-group             in a long listing, don't print group names\n"
@@ -5105,7 +5126,7 @@ msgstr ""
 "2G)\n"
 "  -H, --si              sama, kui kasuta 1000 kordseid, mitte 1024\n"
 
-#: src/ls.c:4464
+#: src/ls.c:4562
 #, fuzzy
 msgid ""
 "  -H, --dereference-command-line\n"
@@ -5132,7 +5153,7 @@ msgstr ""
 "A\n"
 "                             tühistab)\n"
 
-#: src/ls.c:4473
+#: src/ls.c:4571
 #, fuzzy
 msgid ""
 "      --indicator-style=WORD  append indicator with style WORD to entry "
@@ -5151,7 +5172,7 @@ msgstr ""
 "  -I, --ignore=MUSTER        ära näita shelli mustrile vastavaid nimesid\n"
 "  -k                         nagu --block-size=1K\n"
 
-#: src/ls.c:4481
+#: src/ls.c:4579
 msgid ""
 "  -l                         use a long listing format\n"
 "  -L, --dereference          when showing file information for a symbolic\n"
@@ -5165,7 +5186,7 @@ msgstr ""
 "                             asemel infot viidatavast failist\n"
 "  -m                         väljasta nimed komadega eraldatult\n"
 
-#: src/ls.c:4488
+#: src/ls.c:4586
 msgid ""
 "  -n, --numeric-uid-gid      like -l, but list numeric user and group IDs\n"
 "  -N, --literal              print raw entry names (don't treat e.g. "
@@ -5182,7 +5203,7 @@ msgstr ""
 "  -o                         nagu -l, aga ära väljasta grupi infot\n"
 "  -p, --indicator-style=slash lisa kataloogide nimedele lõppu /\n"
 
-#: src/ls.c:4496
+#: src/ls.c:4594
 msgid ""
 "  -q, --hide-control-chars   print ? instead of non graphic characters\n"
 "      --show-control-chars   show non graphic characters as-is (default\n"
@@ -5202,7 +5223,7 @@ msgstr ""
 "                               literal, locale, shell, shell-always, c, "
 "escape\n"
 
-#: src/ls.c:4504
+#: src/ls.c:4602
 #, fuzzy
 msgid ""
 "  -r, --reverse              reverse order while sorting\n"
@@ -5214,7 +5235,7 @@ msgstr ""
 "  -R, --recursive            esita alamkataloogid rekursiivselt\n"
 "  -s, --size                 väljasta iga faili suurus plokkides\n"
 
-#: src/ls.c:4509
+#: src/ls.c:4607
 msgid ""
 "  -S                         sort by file size\n"
 "      --sort=WORD            sort by WORD instead of name: none -U,\n"
@@ -5235,7 +5256,7 @@ msgstr ""
 "võtmena,\n"
 "                             kui kasutati --sort=time\n"
 
-#: src/ls.c:4518
+#: src/ls.c:4616
 #, fuzzy
 msgid ""
 "      --time-style=STYLE     with -l, show times using style STYLE:\n"
@@ -5258,19 +5279,20 @@ msgstr ""
 "  -t                         kasuta järjestamisel muutmise aega\n"
 "  -T, --tabsize=VEERGE       sea tabulaatori pikkus (vaikimisi 8 veergu)\n"
 
-#: src/ls.c:4527
+#: src/ls.c:4625
 msgid ""
 "  -t                         sort by modification time\n"
 "  -T, --tabsize=COLS         assume tab stops at each COLS instead of 8\n"
 msgstr ""
 
-#: src/ls.c:4531
+#: src/ls.c:4629
+#, fuzzy
 msgid ""
 "  -u                         with -lt: sort by, and show, access time\n"
 "                               with -l: show access time and sort by name\n"
 "                               otherwise: sort by access time\n"
 "  -U                         do not sort; list entries in directory order\n"
-"  -v                         sort by version\n"
+"  -v                         natural sort of (version) numbers within text\n"
 msgstr ""
 "  -u                         võtmega -lt: järjesta ja näita kasutamise aega\n"
 "                               võtmega -l: näita kasutamise aega ja "
@@ -5281,7 +5303,7 @@ msgstr ""
 "kataloogis\n"
 "  -v                         järjesta versiooni järgi\n"
 
-#: src/ls.c:4538
+#: src/ls.c:4636
 #, fuzzy
 msgid ""
 "  -w, --width=COLS           assume screen width instead of current value\n"
@@ -5296,7 +5318,7 @@ msgstr ""
 "  -X                         järjesta tähestikuliselt laiendite järgi\n"
 "  -1                         väljasta üks nimi rea kohta\n"
 
-#: src/ls.c:4551
+#: src/ls.c:4649
 msgid ""
 "\n"
 "By default, color is not used to distinguish types of files.  That is\n"
@@ -5314,7 +5336,7 @@ msgstr ""
 "terminalile (tty). Keskkonnamuutuja LS_COLORS mõjutab värvivalikut ja seda\n"
 "saab lihtsasti seada kasutades dircolors käsku.\n"
 
-#: src/ls.c:4560
+#: src/ls.c:4658
 msgid ""
 "\n"
 "Exit status:\n"
@@ -7641,8 +7663,7 @@ msgstr ""
 msgid ""
 "  -f, --force    change permissions to allow writing if necessary\n"
 "  -n, --iterations=N  overwrite N times instead of the default (%d)\n"
-"      --random-source=FILE  get random bytes from FILE (default /dev/"
-"urandom)\n"
+"      --random-source=FILE  get random bytes from FILE\n"
 "  -s, --size=N   shred this many bytes (suffixes like K, M, G accepted)\n"
 msgstr ""
 "  -f, --force    vajadusel lisa kirjutamisõigus\n"
@@ -7875,7 +7896,7 @@ msgstr "%s: faili ei saa kirjutamiseks avada"
 msgid "%s: invalid number of passes"
 msgstr "%s: vigane läbimiste arv"
 
-#: src/shred.c:1143 src/shuf.c:329 src/sort.c:3323
+#: src/shred.c:1143 src/shuf.c:329 src/sort.c:3325
 #, c-format
 msgid "multiple random sources specified"
 msgstr "määrati mitu juhuarvude allikat"
@@ -7912,8 +7933,7 @@ msgid ""
 "line\n"
 "  -n, --head-count=COUNT    output at most COUNT lines\n"
 "  -o, --output=FILE         write result to FILE instead of standard output\n"
-"      --random-source=FILE  get random bytes from FILE (default /dev/"
-"urandom)\n"
+"      --random-source=FILE  get random bytes from FILE\n"
 "  -z, --zero-terminated     end lines with 0 byte, not newline\n"
 msgstr ""
 "  -e, --echo                käsitle iga ARG kui sisendi rida\n"
@@ -7939,7 +7959,7 @@ msgstr "vigane sisendi vahemik: %s"
 msgid "invalid line count %s"
 msgstr "vigane ridade arv: %s"
 
-#: src/shuf.c:323 src/sort.c:3317
+#: src/shuf.c:323 src/sort.c:3319
 #, c-format
 msgid "multiple output files specified"
 msgstr "määrati mitu väljundfaili"
@@ -8025,8 +8045,7 @@ msgstr ""
 msgid ""
 "  -n, --numeric-sort          compare according to string numerical value\n"
 "  -R, --random-sort           sort by random hash of keys\n"
-"      --random-source=FILE    get random bytes from FILE (default /dev/"
-"urandom)\n"
+"      --random-source=FILE    get random bytes from FILE\n"
 "  -r, --reverse               reverse the result of comparisons\n"
 msgstr ""
 
@@ -8035,7 +8054,7 @@ msgid ""
 "      --sort=WORD             sort according to WORD:\n"
 "                                general-numeric -g, month -M, numeric -n,\n"
 "                                random -R, version -V\n"
-"  -V, --version-sort          sort by numeric version\n"
+"  -V, --version-sort          natural sort of (version) numbers within text\n"
 "\n"
 msgstr ""
 
@@ -8176,8 +8195,8 @@ msgstr ""
 msgid "cannot create temporary file in %s"
 msgstr "ajutist faili %s ei õnnestu luua"
 
-#: src/sort.c:813 src/sort.c:2433 src/sort.c:2711 src/sort.c:2714
-#: src/sort.c:3511
+#: src/sort.c:813 src/sort.c:2433 src/sort.c:2713 src/sort.c:2716
+#: src/sort.c:3513
 msgid "open failed"
 msgstr "open ebaõnnestus"
 
@@ -8185,7 +8204,7 @@ msgstr "open ebaõnnestus"
 msgid "fflush failed"
 msgstr "fflush ebaõnnestus"
 
-#: src/sort.c:838 src/sort.c:3566
+#: src/sort.c:838 src/sort.c:3568
 msgid "close failed"
 msgstr "close ebaõnnestus"
 
@@ -8260,70 +8279,70 @@ msgstr "%s: %s:%s: korratu: "
 msgid "standard error"
 msgstr "standard veavoog"
 
-#: src/sort.c:2866
+#: src/sort.c:2868
 #, c-format
 msgid "%s: invalid field specification %s"
 msgstr "%s: vigane välja määrang %s"
 
-#: src/sort.c:2877
+#: src/sort.c:2879
 #, c-format
 msgid "options `-%s' are incompatible"
 msgstr "võtmed `-%s' ei sobi kokku"
 
-#: src/sort.c:2944
+#: src/sort.c:2946
 #, c-format
 msgid "%s: invalid count at start of %s"
 msgstr "%s: vigane loendur %s alguses"
 
-#: src/sort.c:3197
+#: src/sort.c:3199
 msgid "invalid number after `-'"
 msgstr "vigane kuupäev peale `-'"
 
-#: src/sort.c:3200 src/sort.c:3270 src/sort.c:3298
+#: src/sort.c:3202 src/sort.c:3272 src/sort.c:3300
 msgid "invalid number after `.'"
 msgstr "vigane number peale `.'"
 
-#: src/sort.c:3203 src/sort.c:3303
+#: src/sort.c:3205 src/sort.c:3305
 msgid "stray character in field spec"
 msgstr "juhuslik sümbol välja määrangus"
 
-#: src/sort.c:3248
+#: src/sort.c:3250
 #, fuzzy, c-format
 msgid "multiple compress programs specified"
 msgstr "määrati mitu väljundvormingut"
 
-#: src/sort.c:3261
+#: src/sort.c:3263
 msgid "invalid number at field start"
 msgstr "vigane number välja alguses"
 
-#: src/sort.c:3265 src/sort.c:3293
+#: src/sort.c:3267 src/sort.c:3295
 msgid "field number is zero"
 msgstr "välja number on null"
 
-#: src/sort.c:3274
+#: src/sort.c:3276
 msgid "character offset is zero"
 msgstr "sümboli nihe on null"
 
-#: src/sort.c:3289
+#: src/sort.c:3291
 msgid "invalid number after `,'"
 msgstr "vigane number peale `,'"
 
-#: src/sort.c:3428 src/wc.c:680
+#: src/sort.c:3430 src/wc.c:680
 #, c-format
 msgid "cannot read file names from %s"
 msgstr "failist %s ei õnnestu failide nimesid lugeda"
 
-#: src/sort.c:3450
+#: src/sort.c:3452
 #, fuzzy, c-format
 msgid "%s:%lu: invalid zero-length file name"
 msgstr "vigane null-pikkusega faili nimi"
 
-#: src/sort.c:3456
+#: src/sort.c:3458
 #, fuzzy, c-format
 msgid "no input from %s"
 msgstr "sulgen sisendfaili %s"
 
-#: src/sort.c:3536
+#: src/sort.c:3538
 #, fuzzy, c-format
 msgid "extra operand %s not allowed with -%c"
 msgstr "võtmega -c ei lubata täiendavat operandi %s"
@@ -11073,9 +11092,6 @@ msgstr ""
 
 #~ msgid "page range"
 #~ msgstr "lehekülgede vahemik"
-
-#~ msgid "the --copyright option is deprecated; use --version instead"
-#~ msgstr "võti --copyright on aegunud; kasutage selle asemel --version"
 
 #~ msgid "Usage: %s [OPTIONS] FILE [...]\n"
 #~ msgstr "Kasutamine: %s [VÕTI]... FAIL [...]\n"

@@ -17,7 +17,7 @@
 
 # Make coreutils.					-*-Makefile-*-
 
-# Copyright (C) 1990, 1993-2008 Free Software Foundation, Inc.
+# Copyright (C) 1990, 1993-2009 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -54,7 +54,7 @@ subdir = .
 DIST_COMMON = README $(am__configure_deps) $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in $(top_srcdir)/configure ABOUT-NLS \
 	AUTHORS COPYING ChangeLog INSTALL NEWS THANKS TODO \
-	build-aux/ChangeLog build-aux/compile build-aux/config.guess \
+	build-aux/compile build-aux/config.guess \
 	build-aux/config.rpath build-aux/config.sub build-aux/depcomp \
 	build-aux/install-sh build-aux/mdate-sh build-aux/missing \
 	build-aux/texinfo.tex build-aux/ylwrap
@@ -142,27 +142,27 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/00gnulib.m4 \
 	$(top_srcdir)/m4/manywarnings.m4 $(top_srcdir)/m4/math_h.m4 \
 	$(top_srcdir)/m4/mbchar.m4 $(top_srcdir)/m4/mbiter.m4 \
 	$(top_srcdir)/m4/mbrlen.m4 $(top_srcdir)/m4/mbrtowc.m4 \
-	$(top_srcdir)/m4/mbsinit.m4 $(top_srcdir)/m4/mbstate_t.m4 \
-	$(top_srcdir)/m4/mbswidth.m4 $(top_srcdir)/m4/md5.m4 \
-	$(top_srcdir)/m4/memcasecmp.m4 $(top_srcdir)/m4/memchr.m4 \
-	$(top_srcdir)/m4/memcmp.m4 $(top_srcdir)/m4/memcoll.m4 \
-	$(top_srcdir)/m4/memcpy.m4 $(top_srcdir)/m4/memmove.m4 \
-	$(top_srcdir)/m4/mempcpy.m4 $(top_srcdir)/m4/memrchr.m4 \
-	$(top_srcdir)/m4/memset.m4 $(top_srcdir)/m4/memxfrm.m4 \
-	$(top_srcdir)/m4/mgetgroups.m4 $(top_srcdir)/m4/mkancesdirs.m4 \
-	$(top_srcdir)/m4/mkdir-p.m4 $(top_srcdir)/m4/mkdir-slash.m4 \
-	$(top_srcdir)/m4/mkstemp.m4 $(top_srcdir)/m4/mktime.m4 \
-	$(top_srcdir)/m4/modechange.m4 $(top_srcdir)/m4/mountlist.m4 \
-	$(top_srcdir)/m4/mpsort.m4 $(top_srcdir)/m4/multiarch.m4 \
-	$(top_srcdir)/m4/nanosleep.m4 $(top_srcdir)/m4/netdb_h.m4 \
-	$(top_srcdir)/m4/netinet_in_h.m4 $(top_srcdir)/m4/nls.m4 \
-	$(top_srcdir)/m4/nocrash.m4 $(top_srcdir)/m4/open.m4 \
-	$(top_srcdir)/m4/openat.m4 $(top_srcdir)/m4/pathmax.m4 \
-	$(top_srcdir)/m4/perl.m4 $(top_srcdir)/m4/perror.m4 \
-	$(top_srcdir)/m4/physmem.m4 $(top_srcdir)/m4/po.m4 \
-	$(top_srcdir)/m4/posix-shell.m4 $(top_srcdir)/m4/posixtm.m4 \
-	$(top_srcdir)/m4/posixver.m4 $(top_srcdir)/m4/prereq.m4 \
-	$(top_srcdir)/m4/printf-frexp.m4 \
+	$(top_srcdir)/m4/mbsinit.m4 $(top_srcdir)/m4/mbsrtowcs.m4 \
+	$(top_srcdir)/m4/mbstate_t.m4 $(top_srcdir)/m4/mbswidth.m4 \
+	$(top_srcdir)/m4/md5.m4 $(top_srcdir)/m4/memcasecmp.m4 \
+	$(top_srcdir)/m4/memchr.m4 $(top_srcdir)/m4/memcmp.m4 \
+	$(top_srcdir)/m4/memcoll.m4 $(top_srcdir)/m4/memcpy.m4 \
+	$(top_srcdir)/m4/memmove.m4 $(top_srcdir)/m4/mempcpy.m4 \
+	$(top_srcdir)/m4/memrchr.m4 $(top_srcdir)/m4/memset.m4 \
+	$(top_srcdir)/m4/memxfrm.m4 $(top_srcdir)/m4/mgetgroups.m4 \
+	$(top_srcdir)/m4/mkancesdirs.m4 $(top_srcdir)/m4/mkdir-p.m4 \
+	$(top_srcdir)/m4/mkdir-slash.m4 $(top_srcdir)/m4/mkstemp.m4 \
+	$(top_srcdir)/m4/mktime.m4 $(top_srcdir)/m4/modechange.m4 \
+	$(top_srcdir)/m4/mountlist.m4 $(top_srcdir)/m4/mpsort.m4 \
+	$(top_srcdir)/m4/multiarch.m4 $(top_srcdir)/m4/nanosleep.m4 \
+	$(top_srcdir)/m4/netdb_h.m4 $(top_srcdir)/m4/netinet_in_h.m4 \
+	$(top_srcdir)/m4/nls.m4 $(top_srcdir)/m4/nocrash.m4 \
+	$(top_srcdir)/m4/open.m4 $(top_srcdir)/m4/openat.m4 \
+	$(top_srcdir)/m4/pathmax.m4 $(top_srcdir)/m4/perl.m4 \
+	$(top_srcdir)/m4/perror.m4 $(top_srcdir)/m4/physmem.m4 \
+	$(top_srcdir)/m4/po.m4 $(top_srcdir)/m4/posix-shell.m4 \
+	$(top_srcdir)/m4/posixtm.m4 $(top_srcdir)/m4/posixver.m4 \
+	$(top_srcdir)/m4/prereq.m4 $(top_srcdir)/m4/printf-frexp.m4 \
 	$(top_srcdir)/m4/printf-frexpl.m4 $(top_srcdir)/m4/printf.m4 \
 	$(top_srcdir)/m4/progtest.m4 $(top_srcdir)/m4/putenv.m4 \
 	$(top_srcdir)/m4/quote.m4 $(top_srcdir)/m4/quotearg.m4 \
@@ -214,8 +214,7 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/00gnulib.m4 \
 	$(top_srcdir)/m4/unlink-busy.m4 $(top_srcdir)/m4/unlinkdir.m4 \
 	$(top_srcdir)/m4/unlocked-io.m4 $(top_srcdir)/m4/uptime.m4 \
 	$(top_srcdir)/m4/userspec.m4 $(top_srcdir)/m4/utimbuf.m4 \
-	$(top_srcdir)/m4/utime.m4 $(top_srcdir)/m4/utimecmp.m4 \
-	$(top_srcdir)/m4/utimens.m4 $(top_srcdir)/m4/utimes-null.m4 \
+	$(top_srcdir)/m4/utimecmp.m4 $(top_srcdir)/m4/utimens.m4 \
 	$(top_srcdir)/m4/utimes.m4 $(top_srcdir)/m4/vasnprintf.m4 \
 	$(top_srcdir)/m4/vasprintf-posix.m4 \
 	$(top_srcdir)/m4/vasprintf.m4 \
@@ -241,10 +240,10 @@ CONFIG_HEADER = $(top_builddir)/lib/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 AM_V_GEN = $(am__v_GEN_$(V))
-am__v_GEN_ = @echo " GEN " $@;
-am__v_GEN_0 = @echo " GEN " $@;
+am__v_GEN_ = $(am__v_GEN_$(AM_DEFAULT_VERBOSITY))
+am__v_GEN_0 = @echo "  GEN   " $@;
 AM_V_at = $(am__v_at_$(V))
-am__v_at_ = @
+am__v_at_ = $(am__v_at_$(AM_DEFAULT_VERBOSITY))
 am__v_at_0 = @
 SOURCES =
 DIST_SOURCES =
@@ -303,6 +302,7 @@ ACLOCAL = @ACLOCAL@
 ALLOCA = @ALLOCA@
 ALLOCA_H = @ALLOCA_H@
 AMTAR = @AMTAR@
+AM_DEFAULT_VERBOSITY = @AM_DEFAULT_VERBOSITY@
 APPLE_UNIVERSAL_BUILD = @APPLE_UNIVERSAL_BUILD@
 ARPA_INET_H = @ARPA_INET_H@
 AUTOCONF = @AUTOCONF@
@@ -931,43 +931,60 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
+
+# Some tests always need root privileges, others need them only sometimes.
+ALL_RECURSIVE_TARGETS = install-root check-root distcheck-hook
 SUBDIRS = lib src doc man po tests gnulib-tests
-EXTRA_DIST = cfg.mk maint.mk \
-  .prev-version THANKS-to-translators THANKStt.in \
-  .version \
-  .vg-suppressions \
-  .x-sc_GPL_version \
-  .x-sc_file_system \
-  .x-sc_obsolete_symbols \
-  .x-sc_po_check \
-  .x-sc_program_name \
-  .x-sc_prohibit_atoi_atof \
-  .x-sc_prohibit_stat_st_blocks \
-  .x-sc_prohibit_strcmp \
-  .x-sc_require_config_h \
-  .x-sc_space_tab .x-sc_sun_os_names \
-  .x-sc_trailing_blank \
-  .x-sc_unmarked_diagnostics \
-  .x-sc_useless_cpp_parens \
-  ChangeLog-2005 \
-  ChangeLog-2006 \
-  ChangeLog-2007 \
-  ChangeLog-2008 \
-  bootstrap \
-  bootstrap.conf \
-  build-aux/cvsu \
-  build-aux/git-version-gen \
-  build-aux/vc-list-files \
-  gl/modules/getloadavg.diff \
-  m4/ChangeLog \
-  old/fileutils/ChangeLog \
-  old/fileutils/ChangeLog-1997 \
-  old/fileutils/NEWS \
-  old/sh-utils/ChangeLog \
-  old/sh-utils/ChangeLog.0 \
-  old/sh-utils/NEWS \
-  old/textutils/ChangeLog \
-  old/textutils/NEWS
+changelog_etc = \
+  ChangeLog-2005			\
+  ChangeLog-2006			\
+  ChangeLog-2007			\
+  ChangeLog-2008			\
+  build-aux/ChangeLog-2007		\
+  doc/ChangeLog-2007			\
+  lib/ChangeLog-2007			\
+  m4/ChangeLog-2007			\
+  old/fileutils/ChangeLog		\
+  old/fileutils/ChangeLog-1997		\
+  old/fileutils/NEWS			\
+  old/sh-utils/ChangeLog		\
+  old/sh-utils/ChangeLog.0		\
+  old/sh-utils/NEWS			\
+  old/textutils/ChangeLog		\
+  old/textutils/NEWS			\
+  po/ChangeLog-2007
+
+syntax_check_exceptions = \
+  .x-sc_GPL_version			\
+  .x-sc_file_system			\
+  .x-sc_obsolete_symbols		\
+  .x-sc_po_check			\
+  .x-sc_program_name			\
+  .x-sc_prohibit_atoi_atof		\
+  .x-sc_prohibit_stat_st_blocks		\
+  .x-sc_prohibit_strcmp			\
+  .x-sc_require_config_h		\
+  .x-sc_space_tab			\
+  .x-sc_sun_os_names			\
+  .x-sc_trailing_blank			\
+  .x-sc_unmarked_diagnostics		\
+  .x-sc_useless_cpp_parens
+
+EXTRA_DIST = \
+  $(changelog_etc)			\
+  $(syntax_check_exceptions)		\
+  .prev-version				\
+  .version				\
+  .vg-suppressions			\
+  THANKS-to-translators			\
+  THANKStt.in				\
+  bootstrap				\
+  bootstrap.conf			\
+  build-aux/cvsu			\
+  cfg.mk				\
+  dist-check.mk				\
+  gl/modules/getloadavg.diff		\
+  maint.mk
 
 ACLOCAL_AMFLAGS = -I m4
 
@@ -995,15 +1012,15 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
 	    *$$dep*) \
-	      echo ' cd $(srcdir) && $(AUTOMAKE) --gnu --silent-rules'; \
-	      $(am__cd) $(srcdir) && $(AUTOMAKE) --gnu --silent-rules \
+	      echo ' cd $(srcdir) && $(AUTOMAKE) --gnu'; \
+	      $(am__cd) $(srcdir) && $(AUTOMAKE) --gnu \
 		&& exit 0; \
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu --silent-rules Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu --silent-rules Makefile
+	  $(AUTOMAKE) --gnu Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
@@ -1455,11 +1472,8 @@ uninstall-am:
 	maintainer-clean-generic mostlyclean mostlyclean-generic pdf \
 	pdf-am ps ps-am tags tags-recursive uninstall uninstall-am
 
-
 install-root:
 	cd src && $(MAKE) $@
-
-# Some tests always need root privileges, others need them only sometimes.
 check-root:
 	cd tests && $(MAKE) $@ SUBDIRS=
 .version:
@@ -1480,7 +1494,6 @@ gen-ChangeLog:
 	  rm -f $(distdir)/ChangeLog;					\
 	  mv $(distdir)/cl-t $(distdir)/ChangeLog;			\
 	fi
-
 distcheck-hook: check-ls-dircolors
 	$(MAKE) my-distcheck
 THANKS-to-translators: po/LINGUAS THANKStt.in

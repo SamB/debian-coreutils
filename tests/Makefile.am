@@ -23,6 +23,7 @@ root_tests =					\
   cp/cp-a-selinux				\
   cp/preserve-gid				\
   cp/special-bits				\
+  cp/cp-mv-enotsup-xattr			\
   dd/skip-seek-past-dev				\
   install/install-C-root			\
   ls/capability					\
@@ -171,6 +172,7 @@ TESTS =						\
   misc/head-c					\
   misc/head-pos					\
   misc/id-context				\
+  misc/id-groups				\
   misc/md5sum					\
   misc/md5sum-newline				\
   misc/mknod					\
@@ -280,6 +282,7 @@ TESTS =						\
   cp/parent-perm-race				\
   cp/perm					\
   cp/preserve-2					\
+  cp/proc-short-read				\
   cp/proc-zero-len				\
   cp/r-vs-symlink				\
   cp/same-file					\
@@ -331,6 +334,7 @@ TESTS =						\
   ln/misc					\
   ln/sf-1					\
   ln/target-1					\
+  ls/abmon-align				\
   ls/color-clear-to-eol				\
   ls/color-dtype-dir				\
   ls/dangle					\
@@ -587,5 +591,4 @@ pr_data =					\
   pr/ttb3-FF					\
   pr/w72l24f-ll
 
-AUTOMAKE_OPTIONS =
 include $(srcdir)/check.mk

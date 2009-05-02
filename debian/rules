@@ -61,8 +61,8 @@ ifeq (,$(findstring nocheck,$(DEB_BUILD_OPTIONS)))
 endif
 	echo built > build-stamp
 
-clean: clean1 unpatch
-clean1:
+clean: unpatch clean1
+clean1: 
 	dh_testdir
 	rm -f build-stamp configure-stamp
 	rm -rf debian/buildinfo
@@ -82,7 +82,6 @@ unpatch:
 	dpatch deapply-all
 	rm -rf patch-stamp debian-patched
 
-install:
 install: build
 	dh_testdir
 	dh_testroot

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coreutils 7.0\n"
 "Report-Msgid-Bugs-To: bug-coreutils@gnu.org\n"
-"POT-Creation-Date: 2009-03-26 09:14+0100\n"
+"POT-Creation-Date: 2009-04-28 14:48+0200\n"
 "PO-Revision-Date: 2009-01-23 18:03+0100\n"
 "Last-Translator: Freek de Kruijf <f.de.kruijf@hetnet.nl>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
@@ -50,7 +50,7 @@ msgstr "fout bij sluiten van bestand"
 msgid "write error"
 msgstr "fout bij schrijven"
 
-#: lib/copy-acl.c:547 src/copy.c:787 src/copy.c:2127
+#: lib/copy-acl.c:547 src/copy.c:813 src/copy.c:2153
 #, c-format
 msgid "preserving permissions for %s"
 msgstr "behouden van toegangsrechten van %s"
@@ -59,8 +59,8 @@ msgstr "behouden van toegangsrechten van %s"
 msgid "Unknown system error"
 msgstr "Onbekende systeemfout"
 
-#: lib/euidaccess-stat.c:136 src/copy.c:1171 src/copy.c:1223 src/copy.c:1808
-#: src/copy.c:2114 src/df.c:575 src/install.c:732 src/stat.c:862
+#: lib/euidaccess-stat.c:136 src/copy.c:1197 src/copy.c:1249 src/copy.c:1834
+#: src/copy.c:2140 src/df.c:575 src/install.c:736 src/stat.c:862
 #: src/truncate.c:370
 #, c-format
 msgid "cannot stat %s"
@@ -249,12 +249,12 @@ msgstr "%s: optie '-W %s' is niet eenduidig\n"
 msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s: optie '-W %s' staat geen argument toe\n"
 
-#: lib/mkdir-p.c:196 src/install.c:803
+#: lib/mkdir-p.c:196 src/install.c:807
 #, c-format
 msgid "cannot change permissions of %s"
 msgstr "kan de toegangsrechten van %s niet veranderen"
 
-#: lib/mkdir-p.c:206 src/copy.c:1797 src/install.c:700 src/install.c:713
+#: lib/mkdir-p.c:206 src/copy.c:1823 src/install.c:704 src/install.c:717
 #, c-format
 msgid "cannot create directory %s"
 msgstr "kan map %s niet aanmaken"
@@ -300,7 +300,7 @@ msgstr "‘"
 msgid "'"
 msgstr "’"
 
-#: lib/randread.c:114
+#: lib/randread.c:118
 #, c-format
 msgid "%s: end of file"
 msgstr "%s: einde van bestand"
@@ -412,7 +412,7 @@ msgstr "^[jJyY]"
 msgid "^[nN]"
 msgstr "^[nN]"
 
-#: lib/set-mode-acl.c:488 src/copy.c:1820 src/cp.c:495
+#: lib/set-mode-acl.c:488 src/copy.c:1846 src/cp.c:495
 #, c-format
 msgid "setting permissions for %s"
 msgstr "instellen van toegangsrechten van %s"
@@ -703,8 +703,8 @@ msgstr "Simon Josefsson"
 #: src/dirname.c:42 src/du.c:264 src/echo.c:39 src/env.c:109 src/expand.c:99
 #: src/expr.c:198 src/factor.c:489 src/fmt.c:265 src/fold.c:62
 #: src/getlimits.c:62 src/groups.c:50 src/head.c:103 src/hostid.c:40
-#: src/hostname.c:53 src/id.c:78 src/install.c:931 src/join.c:163
-#: src/kill.c:83 src/link.c:42 src/ln.c:346 src/logname.c:36 src/ls.c:4406
+#: src/hostname.c:53 src/id.c:78 src/install.c:935 src/join.c:163
+#: src/kill.c:83 src/link.c:42 src/ln.c:346 src/logname.c:36 src/ls.c:4504
 #: src/md5sum.c:149 src/mkdir.c:53 src/mkfifo.c:48 src/mknod.c:49
 #: src/mktemp.c:60 src/mv.c:275 src/nice.c:68 src/nl.c:171 src/nohup.c:50
 #: src/od.c:305 src/paste.c:429 src/pathchk.c:93 src/pinky.c:506 src/pr.c:2763
@@ -802,10 +802,10 @@ msgstr "ongeldige waarde van -w/--wrap: %s"
 
 #: src/base64.c:284 src/basename.c:119 src/comm.c:421 src/cp.c:584
 #: src/date.c:426 src/dircolors.c:449 src/dirname.c:98 src/du.c:926
-#: src/hostid.c:76 src/hostname.c:112 src/id.c:169 src/install.c:607
+#: src/hostid.c:76 src/hostname.c:112 src/id.c:169 src/install.c:611
 #: src/join.c:895 src/link.c:86 src/ln.c:521 src/logname.c:72 src/mknod.c:158
 #: src/mv.c:438 src/od.c:1803 src/ptx.c:2148 src/readlink.c:152 src/seq.c:410
-#: src/shuf.c:377 src/sort.c:3409 src/split.c:536 src/tr.c:1727
+#: src/shuf.c:377 src/sort.c:3411 src/split.c:536 src/tr.c:1727
 #: src/tsort.c:548 src/tty.c:113 src/uname.c:253 src/uniq.c:449 src/uniq.c:466
 #: src/unlink.c:82 src/uptime.c:251 src/users.c:147 src/wc.c:654 src/who.c:817
 #: src/whoami.c:80
@@ -823,7 +823,7 @@ msgstr "standaardinvoer wordt gesloten"
 #: src/comm.c:36 src/cp.c:57 src/csplit.c:42 src/cut.c:44 src/date.c:39
 #: src/dd.c:45 src/df.c:41 src/dirname.c:35 src/du.c:53 src/env.c:92
 #: src/expand.c:48 src/fold.c:35 src/groups.c:35 src/head.c:46 src/id.c:39
-#: src/install.c:49 src/ln.c:40 src/ls.c:115 src/mkdir.c:36 src/mkfifo.c:33
+#: src/install.c:49 src/ln.c:40 src/ls.c:120 src/mkdir.c:36 src/mkfifo.c:33
 #: src/mknod.c:34 src/mv.c:41 src/nice.c:40 src/nl.c:40 src/paste.c:52
 #: src/pathchk.c:40 src/pinky.c:36 src/printenv.c:45 src/printf.c:62
 #: src/rm.c:64 src/rmdir.c:39 src/stty.c:69 src/su.c:95 src/sum.c:38
@@ -883,13 +883,13 @@ msgid "Torbjorn Granlund"
 msgstr "Torbjörn Granlund"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/cat.c:49 src/comm.c:35 src/ls.c:114 src/rm.c:65 src/split.c:45
+#: src/cat.c:49 src/comm.c:35 src/ls.c:119 src/rm.c:65 src/split.c:45
 #: src/tee.c:34 src/uniq.c:39
 msgid "Richard M. Stallman"
 msgstr "Richard M. Stallman"
 
 #: src/cat.c:89 src/df.c:804 src/expand.c:103 src/fold.c:66 src/head.c:107
-#: src/ls.c:4410 src/nl.c:175 src/paste.c:433 src/pr.c:2767 src/sum.c:59
+#: src/ls.c:4508 src/nl.c:175 src/paste.c:433 src/pr.c:2767 src/sum.c:59
 #: src/tac.c:133 src/tail.c:215 src/tee.c:62 src/unexpand.c:113
 #, c-format
 msgid "Usage: %s [OPTION]... [FILE]...\n"
@@ -983,7 +983,7 @@ msgstr "kan beveiligingscontext niet aanmaken: %s"
 msgid "failed to set %s security context component to %s"
 msgstr "kan component %s van beveiligingscontext niet instellen op %s"
 
-#: src/chcon.c:155 src/chcon.c:523 src/copy.c:1752 src/runcon.c:218
+#: src/chcon.c:155 src/chcon.c:523 src/copy.c:1778 src/runcon.c:218
 #: src/stat.c:461
 #, c-format
 msgid "failed to get security context of %s"
@@ -999,8 +999,8 @@ msgstr "kan gedeeltelijke context niet toepassen op ongelabeld bestand %s"
 msgid "failed to change context of %s to %s"
 msgstr "kan de context van %s niet veranderen naar %s"
 
-#: src/chcon.c:254 src/chmod.c:207 src/chown-core.c:300 src/copy.c:230
-#: src/du.c:485 src/ls.c:2691
+#: src/chcon.c:254 src/chmod.c:207 src/chown-core.c:300 src/copy.c:255
+#: src/du.c:485 src/ls.c:2760
 #, c-format
 msgid "cannot access %s"
 msgstr "kan geen toegang krijgen tot %s"
@@ -1625,55 +1625,55 @@ msgstr "meer dan één scheiding gegeven"
 msgid "empty %s not allowed"
 msgstr "een lege %s is niet toegestaan"
 
-#: src/copy.c:306
+#: src/copy.c:331
 #, c-format
 msgid "clearing permissions for %s"
 msgstr "wissen van toegangsrechten van %s"
 
-#: src/copy.c:340 src/copy.c:2006 src/cp.c:308
+#: src/copy.c:365 src/copy.c:2032 src/cp.c:308
 #, c-format
 msgid "failed to preserve ownership for %s"
 msgstr "behouden van het eigenaarschap van %s is mislukt"
 
-#: src/copy.c:366
+#: src/copy.c:391
 #, c-format
 msgid "failed to lookup file %s"
 msgstr "kan bestand %s niet vinden"
 
-#: src/copy.c:371
+#: src/copy.c:396
 #, c-format
 msgid "failed to preserve authorship for %s"
 msgstr "behouden van het auteurschap van %s is mislukt"
 
-#: src/copy.c:429 src/csplit.c:630 src/du.c:933 src/fmt.c:427 src/head.c:849
-#: src/sort.c:3421 src/split.c:543 src/tac.c:544 src/tail.c:1294 src/wc.c:666
+#: src/copy.c:454 src/csplit.c:630 src/du.c:933 src/fmt.c:427 src/head.c:849
+#: src/sort.c:3423 src/split.c:543 src/tac.c:544 src/tail.c:1294 src/wc.c:666
 #, c-format
 msgid "cannot open %s for reading"
 msgstr "kan %s niet openen om te lezen"
 
-#: src/copy.c:435 src/copy.c:563 src/dd.c:1268 src/dd.c:1895 src/tail.c:1130
+#: src/copy.c:460 src/copy.c:588 src/dd.c:1268 src/dd.c:1895 src/tail.c:1130
 #: src/tail.c:1196 src/truncate.c:153 src/truncate.c:237
 #, c-format
 msgid "cannot fstat %s"
 msgstr "kan status van %s niet opvragen"
 
-#: src/copy.c:445
+#: src/copy.c:470
 #, c-format
 msgid "skipping file %s, as it was replaced while being copied"
 msgstr ""
 "bestand %s wordt overgeslagen, omdat het werd vervangen tijdens het kopiëren"
 
-#: src/copy.c:469
+#: src/copy.c:494
 #, c-format
 msgid "failed to get file system create context"
 msgstr "kan de aanmaakcontext van het bestandssysteem niet verkrijgen"
 
-#: src/copy.c:483
+#: src/copy.c:508
 #, c-format
 msgid "failed to set the security context of %s to %s"
 msgstr "kan de beveiligingscontext van %s niet naar %s veranderen"
 
-#: src/copy.c:500 src/copy.c:1292 src/copy.c:1446 src/copy.c:1594 src/ln.c:293
+#: src/copy.c:525 src/copy.c:1318 src/copy.c:1472 src/copy.c:1620 src/ln.c:293
 #: src/remove.c:935 src/remove.c:956 src/remove.c:1105 src/remove.c:1146
 #: src/remove.c:1165 src/remove.c:1181 src/remove.c:1188 src/remove.c:1539
 #: src/remove.c:1626 src/remove.c:1784
@@ -1681,214 +1681,214 @@ msgstr "kan de beveiligingscontext van %s niet naar %s veranderen"
 msgid "cannot remove %s"
 msgstr "kan %s niet verwijderen"
 
-#: src/copy.c:505 src/copy.c:1287 src/copy.c:1451 src/copy.c:1598
+#: src/copy.c:530 src/copy.c:1313 src/copy.c:1477 src/copy.c:1624
 #: src/remove.c:1013
 #, c-format
 msgid "removed %s\n"
 msgstr "%s is verwijderd\n"
 
-#: src/copy.c:542
+#: src/copy.c:567
 #, c-format
 msgid "not writing through dangling symlink %s"
 msgstr "kan niet schrijven via loze symbolische koppeling %s"
 
-#: src/copy.c:555
+#: src/copy.c:580
 #, c-format
 msgid "cannot create regular file %s"
 msgstr "kan het normale bestand %s niet aanmaken"
 
-#: src/copy.c:638 src/dd.c:1329 src/dd.c:1654
+#: src/copy.c:663 src/dd.c:1329 src/dd.c:1654
 #, c-format
 msgid "reading %s"
 msgstr "lezen van %s"
 
-#: src/copy.c:684 src/head.c:428
+#: src/copy.c:709 src/head.c:428
 #, c-format
 msgid "cannot lseek %s"
 msgstr "kan geen 'lseek' doen op %s"
 
-#: src/copy.c:697 src/copy.c:725 src/dd.c:1711 src/dd.c:1773
+#: src/copy.c:722 src/copy.c:751 src/dd.c:1711 src/dd.c:1773
 #, c-format
 msgid "writing %s"
 msgstr "schrijven van %s"
 
-#: src/copy.c:740 src/copy.c:2060
+#: src/copy.c:766 src/copy.c:2086
 #, c-format
 msgid "preserving times for %s"
 msgstr "behouden van tijdsstempels van %s"
 
-#: src/copy.c:797 src/copy.c:803 src/head.c:857 src/touch.c:191
+#: src/copy.c:823 src/copy.c:829 src/head.c:857 src/touch.c:191
 #: src/truncate.c:411
 #, c-format
 msgid "closing %s"
 msgstr "%s wordt gesloten"
 
-#: src/copy.c:1037
+#: src/copy.c:1063
 #, c-format
 msgid "%s: try to overwrite %s, overriding mode %04lo (%s)? "
 msgstr "%s: proberen om %s te overschrijven, modus %04lo (%s) negeren? "
 
-#: src/copy.c:1044
+#: src/copy.c:1070
 #, c-format
 msgid "%s: overwrite %s? "
 msgstr "%s: %s overschrijven? "
 
-#: src/copy.c:1113
+#: src/copy.c:1139
 #, c-format
 msgid " (backup: %s)"
 msgstr " (reservekopie: %s)"
 
-#: src/copy.c:1123
+#: src/copy.c:1149
 #, c-format
 msgid "failed to restore the default file creation context"
 msgstr "kan de standaard aanmaakcontext niet herstellen"
 
-#: src/copy.c:1179
+#: src/copy.c:1205
 #, c-format
 msgid "omitting directory %s"
 msgstr "map %s wordt overgeslagen"
 
-#: src/copy.c:1193
+#: src/copy.c:1219
 #, c-format
 msgid "warning: source file %s specified more than once"
 msgstr "waarschuwing: bronbestand %s komt meer dan één keer voor"
 
-#: src/copy.c:1241 src/ln.c:231
+#: src/copy.c:1267 src/ln.c:231
 #, c-format
 msgid "%s and %s are the same file"
 msgstr "%s en %s zijn hetzelfde bestand"
 
-#: src/copy.c:1321
+#: src/copy.c:1347
 #, c-format
 msgid "cannot overwrite non-directory %s with directory %s"
 msgstr "kan niet-map %s niet overschrijven met map %s"
 
-#: src/copy.c:1339 src/ln.c:199
+#: src/copy.c:1365 src/ln.c:199
 #, c-format
 msgid "will not overwrite just-created %s with %s"
 msgstr "zal zojuist gemaakte %s niet overschrijven met %s"
 
-#: src/copy.c:1357
+#: src/copy.c:1383
 #, c-format
 msgid "cannot overwrite directory %s with non-directory"
 msgstr "kan map %s niet overschrijven met een niet-map"
 
-#: src/copy.c:1371
+#: src/copy.c:1397
 #, c-format
 msgid "cannot move directory onto non-directory: %s -> %s"
 msgstr "kan een map niet verplaatsten naar een niet-map: %s -> %s"
 
-#: src/copy.c:1401
+#: src/copy.c:1427
 #, c-format
 msgid "backing up %s would destroy source;  %s not moved"
 msgstr ""
 "een reservekopie van %s zou de bron vernietigen;  %s is niet verplaatst"
 
-#: src/copy.c:1402
+#: src/copy.c:1428
 #, c-format
 msgid "backing up %s would destroy source;  %s not copied"
 msgstr ""
 "een reservekopie van %s zou de bron vernietigen;  %s is niet gekopieerd"
 
-#: src/copy.c:1421 src/ln.c:261
+#: src/copy.c:1447 src/ln.c:261
 #, c-format
 msgid "cannot backup %s"
 msgstr "kan geen reservekopie maken van %s"
 
-#: src/copy.c:1485
+#: src/copy.c:1511
 #, c-format
 msgid "will not copy %s through just-created symlink %s"
 msgstr "zal %s niet kopiëren via zojuist gemaakte symbolische koppeling %s"
 
-#: src/copy.c:1562
+#: src/copy.c:1588
 #, c-format
 msgid "cannot copy a directory, %s, into itself, %s"
 msgstr "kan map %s niet kopiëren naar in zichzelf (%s)"
 
-#: src/copy.c:1579
+#: src/copy.c:1605
 #, c-format
 msgid "will not create hard link %s to directory %s"
 msgstr "zal geen harde koppeling %s maken naar map %s"
 
-#: src/copy.c:1604
+#: src/copy.c:1630
 #, c-format
 msgid "cannot create hard link %s to %s"
 msgstr "kan geen harde koppeling %s maken naar %s"
 
-#: src/copy.c:1649
+#: src/copy.c:1675
 #, c-format
 msgid "cannot move %s to a subdirectory of itself, %s"
 msgstr "kan %s niet verplaatsten naar een submap van zichzelf, %s"
 
-#: src/copy.c:1692
+#: src/copy.c:1718
 #, c-format
 msgid "cannot move %s to %s"
 msgstr "kan %s niet verplaatsten naar %s"
 
-#: src/copy.c:1704
+#: src/copy.c:1730
 #, c-format
 msgid "inter-device move failed: %s to %s; unable to remove target"
 msgstr ""
 "verplaatsing tussen apparaten is mislukt: %s naar %s; kan het doel niet "
 "verwijderen"
 
-#: src/copy.c:1736 src/install.c:583 src/mkdir.c:190 src/mkfifo.c:115
+#: src/copy.c:1762 src/install.c:587 src/mkdir.c:190 src/mkfifo.c:115
 #: src/mknod.c:168
 #, c-format
 msgid "failed to set default file creation context to %s"
 msgstr "kan de standaard aanmaakcontext niet instellen op %s"
 
-#: src/copy.c:1777
+#: src/copy.c:1803
 #, c-format
 msgid "cannot copy cyclic symbolic link %s"
 msgstr "kan cyclische symbolische koppeling %s niet kopiëren"
 
-#: src/copy.c:1883
+#: src/copy.c:1909
 #, c-format
 msgid "%s: can make relative symbolic links only in current directory"
 msgstr "%s: kan relatieve symbolische koppelingen alleen in huidige map maken"
 
-#: src/copy.c:1890
+#: src/copy.c:1916
 #, c-format
 msgid "cannot create symbolic link %s to %s"
 msgstr "kan symbolische koppeling %s naar %s niet aanmaken"
 
-#: src/copy.c:1915
+#: src/copy.c:1941
 #, c-format
 msgid "cannot create link %s"
 msgstr "kan koppeling %s niet aanmaken"
 
-#: src/copy.c:1940 src/mkfifo.c:134
+#: src/copy.c:1966 src/mkfifo.c:134
 #, c-format
 msgid "cannot create fifo %s"
 msgstr "kan fifo %s niet aanmaken"
 
-#: src/copy.c:1949
+#: src/copy.c:1975
 #, c-format
 msgid "cannot create special file %s"
 msgstr "kan speciaal bestand %s niet aanmaken"
 
-#: src/copy.c:1959 src/ls.c:2909 src/stat.c:579
+#: src/copy.c:1985 src/ls.c:2978 src/stat.c:579
 #, c-format
 msgid "cannot read symbolic link %s"
 msgstr "kan symbolische koppeling %s niet lezen"
 
-#: src/copy.c:1986
+#: src/copy.c:2012
 #, c-format
 msgid "cannot create symbolic link %s"
 msgstr "kan symbolische koppeling %s niet aanmaken"
 
-#: src/copy.c:2021
+#: src/copy.c:2047
 #, c-format
 msgid "%s has unknown file type"
 msgstr "%s heeft onbekend bestandstype"
 
-#: src/copy.c:2154 src/ln.c:334
+#: src/copy.c:2180 src/ln.c:334
 #, c-format
 msgid "cannot un-backup %s"
 msgstr "kan %s niet uit reservekopie herstellen"
 
-#: src/copy.c:2158
+#: src/copy.c:2184
 #, c-format
 msgid "%s -> %s (unbackup)\n"
 msgstr "%s -> %s (uit reservekopie hersteld)\n"
@@ -1915,7 +1915,7 @@ msgstr ""
 
 #: src/cp.c:153 src/csplit.c:1455 src/cut.c:197 src/df.c:810 src/du.c:276
 #: src/expand.c:112 src/fmt.c:275 src/fold.c:75 src/head.c:117
-#: src/install.c:954 src/kill.c:97 src/ln.c:367 src/ls.c:4416 src/mkdir.c:62
+#: src/install.c:958 src/kill.c:97 src/ln.c:367 src/ls.c:4514 src/mkdir.c:62
 #: src/mkfifo.c:57 src/mknod.c:59 src/mv.c:289 src/nl.c:184 src/paste.c:443
 #: src/pr.c:2776 src/ptx.c:1892 src/shred.c:164 src/shuf.c:57 src/sort.c:322
 #: src/split.c:113 src/tac.c:142 src/tail.c:225 src/timeout.c:144
@@ -2089,7 +2089,7 @@ msgstr ""
 "sparse=never'\n"
 "om het aanmaken van bestanden met gaten te voorkomen.\n"
 
-#: src/cp.c:224 src/install.c:990 src/ln.c:393 src/mv.c:315
+#: src/cp.c:224 src/install.c:994 src/ln.c:393 src/mv.c:315
 msgid ""
 "\n"
 "The backup suffix is `~', unless set with --suffix or SIMPLE_BACKUP_SUFFIX.\n"
@@ -2107,7 +2107,7 @@ msgstr ""
 "dit zijn de mogelijke waarden (methodes):\n"
 "\n"
 
-#: src/cp.c:231 src/install.c:997 src/ln.c:400 src/mv.c:322
+#: src/cp.c:231 src/install.c:1001 src/ln.c:400 src/mv.c:322
 msgid ""
 "  none, off       never make backups (even if --backup is given)\n"
 "  numbered, t     make numbered backups\n"
@@ -2158,18 +2158,18 @@ msgstr "%s bestaat maar is geen map"
 msgid "accessing %s"
 msgstr "toegangzoeken tot %s"
 
-#: src/cp.c:569 src/install.c:592 src/ln.c:504 src/mv.c:423 src/shred.c:1190
+#: src/cp.c:569 src/install.c:596 src/ln.c:504 src/mv.c:423 src/shred.c:1190
 #: src/touch.c:440 src/truncate.c:362
 #, c-format
 msgid "missing file operand"
 msgstr "geen bestand opgegeven"
 
-#: src/cp.c:571 src/install.c:594 src/ln.c:518 src/mv.c:425
+#: src/cp.c:571 src/install.c:598 src/ln.c:518 src/mv.c:425
 #, c-format
 msgid "missing destination file operand after %s"
 msgstr "ontbrekende bestemming na %s"
 
-#: src/cp.c:580 src/install.c:603 src/mv.c:434
+#: src/cp.c:580 src/install.c:607 src/mv.c:434
 #, c-format
 msgid "cannot combine --target-directory (-t) and --no-target-directory (-T)"
 msgstr ""
@@ -2177,7 +2177,7 @@ msgstr ""
 "samen"
 
 #: src/cp.c:594 src/cp.c:1030 src/install.c:407 src/install.c:524
-#: src/install.c:616 src/ln.c:132 src/ln.c:476 src/ln.c:532 src/mv.c:392
+#: src/install.c:620 src/ln.c:132 src/ln.c:476 src/ln.c:532 src/mv.c:392
 #: src/mv.c:448
 #, c-format
 msgid "target %s is not a directory"
@@ -2205,7 +2205,7 @@ msgstr ""
 "\n"
 "Merk op dat de opties '-r' en '-s' elkaar uitsluiten.\n"
 
-#: src/cp.c:1083 src/install.c:577 src/ln.c:540 src/mv.c:463
+#: src/cp.c:1083 src/install.c:581 src/ln.c:540 src/mv.c:463
 msgid "backup type"
 msgstr "reservekopiemethode"
 
@@ -3384,7 +3384,7 @@ msgstr ""
 "  -v                        (genegeerde optie)\n"
 "\n"
 
-#: src/df.c:836 src/du.c:333 src/ls.c:4547
+#: src/df.c:836 src/du.c:333 src/ls.c:4645
 msgid ""
 "\n"
 "SIZE may be (or may be an integer optionally followed by) one of following:\n"
@@ -3400,15 +3400,15 @@ msgstr ""
 msgid "file system type %s both selected and excluded"
 msgstr "bestandssysteemtype %s is zowel gekozen als uitgesloten"
 
-#: src/df.c:1017
+#: src/df.c:1021
 msgid "Warning: "
 msgstr "Waarschuwing: "
 
-#: src/df.c:1019
+#: src/df.c:1023
 msgid "cannot read table of mounted file systems"
 msgstr "kan tabel van aangekoppelde bestandssystemen niet lezen"
 
-#: src/df.c:1047
+#: src/df.c:1051
 #, c-format
 msgid "no file systems processed"
 msgstr "geen bestandssystemen verwerkt"
@@ -3687,7 +3687,7 @@ msgstr "opmerking: totalen tonen is hetzelfde als '--max-depth=0'"
 msgid "warning: summarizing conflicts with --max-depth=%lu"
 msgstr "fout: totalen tonen gaat niet samen met '--max-depth=%lu'"
 
-#: src/du.c:928 src/sort.c:3411 src/wc.c:656
+#: src/du.c:928 src/sort.c:3413 src/wc.c:656
 msgid "file operands cannot be combined with --files0-from"
 msgstr "bestandsargumenten gaan niet samen met de optie '--files0-from'"
 
@@ -3697,7 +3697,7 @@ msgstr "bestandsargumenten gaan niet samen met de optie '--files0-from'"
 msgid "%s: read error"
 msgstr "%s: fout bij lezen"
 
-#: src/du.c:980 src/sort.c:3440 src/wc.c:731
+#: src/du.c:980 src/sort.c:3442 src/wc.c:731
 #, c-format
 msgid "when reading file names from stdin, no file name of %s allowed"
 msgstr ""
@@ -3716,7 +3716,7 @@ msgstr "ongeldige bestandsnaam (lengte nul)"
 msgid "error reading %s"
 msgstr "fout bij lezen van %s"
 
-#: src/du.c:1025 src/ls.c:2484 src/wc.c:774
+#: src/du.c:1025 src/ls.c:2553 src/wc.c:774
 msgid "total"
 msgstr "totaal"
 
@@ -4510,7 +4510,15 @@ msgstr " context=%s"
 msgid "warning: %s: failed to change context to %s"
 msgstr "waarschuwing: %s: kan beveiligingscontext niet wijzigen naar %s"
 
-#: src/install.c:536
+#: src/install.c:534
+#, fuzzy, c-format
+msgid ""
+"WARNING: --preserve_context is deprecated; use --preserve-context instead"
+msgstr ""
+"Waarschuwing: optie '--preserve-context' wordt genegeerd; deze kernel heeft "
+"geen SELinux ingesteld"
+
+#: src/install.c:540
 #, c-format
 msgid ""
 "WARNING: ignoring --preserve-context; this kernel is not SELinux-enabled"
@@ -4518,108 +4526,108 @@ msgstr ""
 "Waarschuwing: optie '--preserve-context' wordt genegeerd; deze kernel heeft "
 "geen SELinux ingesteld"
 
-#: src/install.c:546
+#: src/install.c:550
 #, c-format
 msgid "WARNING: ignoring --context (-Z); this kernel is not SELinux-enabled"
 msgstr ""
 "Waarschuwing: optie '--context' (-Z) wordt genegeerd; deze kernel heeft geen "
 "SELinux ingesteld"
 
-#: src/install.c:563
+#: src/install.c:567
 #, c-format
 msgid "the strip option may not be used when installing a directory"
 msgstr ""
 "de strip-optie mag niet gebruikt worden bij het installeren van een map"
 
-#: src/install.c:566
+#: src/install.c:570
 #, c-format
 msgid "target directory not allowed when installing a directory"
 msgstr "doelmap is niet toegestaan bij het installeren van een map"
 
-#: src/install.c:570
+#: src/install.c:574
 #, c-format
 msgid "cannot force target context to %s and preserve it"
 msgstr "kan doelcontext niet zowel behouden als op %s instellen"
 
-#: src/install.c:624 src/mkdir.c:203
+#: src/install.c:628 src/mkdir.c:203
 #, c-format
 msgid "invalid mode %s"
 msgstr "ongeldige modus %s"
 
-#: src/install.c:631
+#: src/install.c:635
 #, c-format
 msgid "WARNING: ignoring --strip-program option as -s option was not specified"
 msgstr ""
 "waarschuwing: optie '--strip-program' wordt genegeerd omdat optie '-s' niet "
 "is gespecificeerd"
 
-#: src/install.c:636
+#: src/install.c:640
 #, fuzzy, c-format
 msgid "options --compare (-C) and --preserve-timestamps are mutually exclusive"
 msgstr ""
 "\n"
 "Merk op dat de opties '-r' en '-s' elkaar uitsluiten.\n"
 
-#: src/install.c:643
+#: src/install.c:647
 #, fuzzy, c-format
 msgid "options --compare (-C) and --strip are mutually exclusive"
 msgstr ""
 "\n"
 "Merk op dat de opties '-r' en '-s' elkaar uitsluiten.\n"
 
-#: src/install.c:649
+#: src/install.c:653
 #, c-format
 msgid ""
 "the --compare (-C) option is ignored when you specify a mode with non-"
 "permission bits"
 msgstr ""
 
-#: src/install.c:801
+#: src/install.c:805
 #, c-format
 msgid "cannot change ownership of %s"
 msgstr "kan de eigenaar van %s niet veranderen"
 
-#: src/install.c:825
+#: src/install.c:829
 #, c-format
 msgid "cannot set time stamps for %s"
 msgstr "kan de tijdsstempels van %s niet instellen"
 
-#: src/install.c:846 src/timeout.c:289
+#: src/install.c:850 src/timeout.c:289
 #, c-format
 msgid "fork system call failed"
 msgstr "kan geen nieuw proces starten"
 
-#: src/install.c:850
+#: src/install.c:854
 #, c-format
 msgid "cannot run %s"
 msgstr "kan %s niet uitvoeren"
 
-#: src/install.c:854
+#: src/install.c:858
 #, c-format
 msgid "waiting for strip"
 msgstr "wachten op 'strip'"
 
-#: src/install.c:856
+#: src/install.c:860
 #, c-format
 msgid "strip process terminated abnormally"
 msgstr "het proces 'strip' is niet normaal beëindigd"
 
-#: src/install.c:877
+#: src/install.c:881
 #, c-format
 msgid "invalid user %s"
 msgstr "ongeldige gebruiker: %s"
 
-#: src/install.c:895 src/setuidgid.c:110 src/setuidgid.c:120
+#: src/install.c:899 src/setuidgid.c:110 src/setuidgid.c:120
 #, c-format
 msgid "invalid group %s"
 msgstr "ongeldige groep: %s"
 
-#: src/install.c:912
+#: src/install.c:916
 #, c-format
 msgid "creating directory %s"
 msgstr "aanmaken van map %s"
 
-#: src/install.c:935
+#: src/install.c:939
 #, c-format
 msgid ""
 "Usage: %s [OPTION]... [-T] SOURCE DEST\n"
@@ -4633,7 +4641,7 @@ msgstr ""
 "     of:  %s [OPTIE]... -d MAP...\n"
 "\n"
 
-#: src/install.c:942
+#: src/install.c:946
 #, fuzzy
 msgid ""
 "\n"
@@ -4656,7 +4664,7 @@ msgstr ""
 "aangemaakt.\n"
 "\n"
 
-#: src/install.c:957
+#: src/install.c:961
 #, fuzzy
 msgid ""
 "      --backup[=CONTROL]  make a backup of each existing destination file\n"
@@ -4674,7 +4682,7 @@ msgstr ""
 "  -d, --directory         alle argumenten als mapnamen behandelen;\n"
 "                            van de gegeven mappen alle componenten aanmaken\n"
 
-#: src/install.c:966
+#: src/install.c:970
 msgid ""
 "  -D                  create all leading components of DEST except the "
 "last,\n"
@@ -4694,7 +4702,7 @@ msgstr ""
 "  -o, --owner=GEBRUIKER   deze eigenaar instellen (alleen voor "
 "systeembeheerder)\n"
 
-#: src/install.c:973
+#: src/install.c:977
 msgid ""
 "  -p, --preserve-timestamps   apply access/modification times of SOURCE "
 "files\n"
@@ -4717,7 +4725,7 @@ msgstr ""
 "  -T, --no-target-directory   DOEL als een normaal bestand behandelen\n"
 "  -v, --verbose               de naam van elke aangemaakte map tonen\n"
 
-#: src/install.c:983
+#: src/install.c:987
 msgid ""
 "      --preserve-context  preserve SELinux security context\n"
 "  -Z, --context=CONTEXT  set SELinux security context of files and "
@@ -4846,17 +4854,17 @@ msgstr "incompatibele join-velden: %lu, %lu"
 msgid "conflicting empty-field replacement strings"
 msgstr "conflicterende vervangingstekenreeksen voor lege velden"
 
-#: src/join.c:1025 src/sort.c:3339
+#: src/join.c:1025 src/sort.c:3341
 #, c-format
 msgid "empty tab"
 msgstr "lege tab"
 
-#: src/join.c:1031 src/sort.c:3350
+#: src/join.c:1031 src/sort.c:3352
 #, c-format
 msgid "multi-character tab %s"
 msgstr "meerdere tekens in tab %s"
 
-#: src/join.c:1035 src/sort.c:3355
+#: src/join.c:1035 src/sort.c:3357
 #, c-format
 msgid "incompatible tabs"
 msgstr "incompatibele tabs"
@@ -5141,86 +5149,101 @@ msgstr ""
 msgid "no login name"
 msgstr "geen inlognaam"
 
-#: src/ls.c:698
+#. TRANSLATORS: ls output needs to be aligned for ease of reading,
+#. so be wary of using variable width fields from the locale.
+#. Note %b is handled specially by ls and aligned correctly.
+#. Note also that specifying a width as in %5b is erroneous as strftime
+#. will count bytes rather than characters in multibyte locales.
+#: src/ls.c:708
 msgid "%b %e  %Y"
 msgstr "%b %e  %Y"
 
-#: src/ls.c:706
+#. TRANSLATORS: ls output needs to be aligned for ease of reading,
+#. so be wary of using variable width fields from the locale.
+#. Note %b is handled specially by ls and aligned correctly.
+#. Note also that specifying a width as in %5b is erroneous as strftime
+#. will count bytes rather than characters in multibyte locales.
+#: src/ls.c:721
 msgid "%b %e %H:%M"
 msgstr "%b %e %H:%M"
 
-#: src/ls.c:1471
+#: src/ls.c:1536
 #, c-format
 msgid "ignoring invalid value of environment variable QUOTING_STYLE: %s"
 msgstr ""
 "ongeldige waarde %s van omgevingsvariabele QUOTING_STYLE wordt genegeerd"
 
-#: src/ls.c:1498
+#: src/ls.c:1563
 #, c-format
 msgid "ignoring invalid width in environment variable COLUMNS: %s"
 msgstr "ongeldige breedte %s in omgevingsvariabele COLUMNS wordt genegeerd"
 
-#: src/ls.c:1528
+#: src/ls.c:1593
 #, c-format
 msgid "ignoring invalid tab size in environment variable TABSIZE: %s"
 msgstr "ongeldige tab-grootte %s in omgevingsvariabele TABSIZE wordt genegeerd"
 
-#: src/ls.c:1649 src/ptx.c:2043
+#: src/ls.c:1714 src/ptx.c:2043
 #, c-format
 msgid "invalid line width: %s"
 msgstr "ongeldige regelbreedte: %s"
 
-#: src/ls.c:1723
+#: src/ls.c:1788
 #, c-format
 msgid "invalid tab size: %s"
 msgstr "ongeldige tab-grootte: %s"
 
-#: src/ls.c:1913
+#: src/ls.c:1978
 #, c-format
 msgid "invalid time style format %s"
 msgstr "ongeldige opmaakstijl %s voor de tijd"
 
-#: src/ls.c:2257
+#: src/ls.c:2024
+#, c-format
+msgid "error initializing month strings"
+msgstr ""
+
+#: src/ls.c:2326
 #, c-format
 msgid "unrecognized prefix: %s"
 msgstr "niet-herkend voorvoegsel: %s"
 
-#: src/ls.c:2280
+#: src/ls.c:2349
 #, c-format
 msgid "unparsable value for LS_COLORS environment variable"
 msgstr "niet-ontleedbare waarde in omgevingsvariabele LS_COLORS"
 
-#: src/ls.c:2357 src/pwd.c:162
+#: src/ls.c:2426 src/pwd.c:162
 #, c-format
 msgid "cannot open directory %s"
 msgstr "kan map %s niet openen"
 
-#: src/ls.c:2372
+#: src/ls.c:2441
 #, c-format
 msgid "cannot determine device and inode of %s"
 msgstr "kan het apparaat en de inode van %s niet bepalen"
 
-#: src/ls.c:2381
+#: src/ls.c:2450
 #, c-format
 msgid "%s: not listing already-listed directory"
 msgstr "%s: map wordt niet opnieuw getoond"
 
-#: src/ls.c:2442 src/pwd.c:230
+#: src/ls.c:2511 src/pwd.c:230
 #, c-format
 msgid "reading directory %s"
 msgstr "lezen van map %s"
 
-#: src/ls.c:2452
+#: src/ls.c:2521
 #, c-format
 msgid "closing directory %s"
 msgstr "sluiten van map %s"
 
-#: src/ls.c:3024
+#: src/ls.c:3093
 #, c-format
 msgid "cannot compare file names %s and %s"
 msgstr "kan de bestandsnamen %s en %s niet vergelijken"
 
-#: src/ls.c:4411
+#: src/ls.c:4509
 msgid ""
 "List information about the FILEs (the current directory by default).\n"
 "Sort entries alphabetically if none of -cftuvSUX nor --sort.\n"
@@ -5231,7 +5254,7 @@ msgstr ""
 "noch '--sort' gegeven is.\n"
 "\n"
 
-#: src/ls.c:4419
+#: src/ls.c:4517
 msgid ""
 "  -a, --all                  do not ignore entries starting with .\n"
 "  -A, --almost-all           do not list implied . and ..\n"
@@ -5244,7 +5267,7 @@ msgstr ""
 "  -b, --escape               van niet-grafische tekens de octale waarde "
 "tonen\n"
 
-#: src/ls.c:4425
+#: src/ls.c:4523
 msgid ""
 "      --block-size=SIZE      use SIZE-byte blocks\n"
 "  -B, --ignore-backups       do not list implied entries ending with ~\n"
@@ -5263,7 +5286,7 @@ msgstr ""
 "                               met '-l': op naam sorteren en 'ctime' tonen;\n"
 "                               anders: op 'ctime' sorteren\n"
 
-#: src/ls.c:4433
+#: src/ls.c:4531
 msgid ""
 "  -C                         list entries by columns\n"
 "      --color[=WHEN]         control whether color is used to distinguish "
@@ -5284,7 +5307,7 @@ msgstr ""
 "  -D, --dired                uitvoer produceren voor de 'dired'-modus van "
 "Emacs\n"
 
-#: src/ls.c:4441
+#: src/ls.c:4539
 msgid ""
 "  -f                         do not sort, enable -aU, disable -ls --color\n"
 "  -F, --classify             append indicator (one of */=>@|) to entries\n"
@@ -5305,11 +5328,11 @@ msgstr ""
 "1)\n"
 "      --full-time            hetzelfde als '-l --time-style=full-iso'\n"
 
-#: src/ls.c:4449
+#: src/ls.c:4547
 msgid "  -g                         like -l, but do not list owner\n"
 msgstr "  -g                         als '-l', maar geen eigenaar tonen\n"
 
-#: src/ls.c:4452
+#: src/ls.c:4550
 msgid ""
 "      --group-directories-first\n"
 "                             group directories before files.\n"
@@ -5321,7 +5344,7 @@ msgstr ""
 "                               worden met een '--sort', maar gebruik van\n"
 "                               '--sort=none' of '-U' deactiveert groepering\n"
 
-#: src/ls.c:4458
+#: src/ls.c:4556
 msgid ""
 "  -G, --no-group             in a long listing, don't print group names\n"
 "  -h, --human-readable       with -l, print sizes in human readable format\n"
@@ -5335,7 +5358,7 @@ msgstr ""
 "      --si                   idem, maar machten van 1000 i.p.v. 1024 "
 "gebruiken\n"
 
-#: src/ls.c:4464
+#: src/ls.c:4562
 msgid ""
 "  -H, --dereference-command-line\n"
 "                             follow symbolic links listed on the command "
@@ -5357,7 +5380,7 @@ msgstr ""
 "      --hide=PATROON         de namen die voldoen aan PATROON niet tonen\n"
 "                                 (geldt niet samen met '-a' of '-A')\n"
 
-#: src/ls.c:4473
+#: src/ls.c:4571
 msgid ""
 "      --indicator-style=WORD  append indicator with style WORD to entry "
 "names:\n"
@@ -5378,7 +5401,7 @@ msgstr ""
 "  -I, --ignore=PATROON       de namen die voldoen aan PATROON niet tonen\n"
 "  -k                         hetzelfde als '--block-size=1K'\n"
 
-#: src/ls.c:4481
+#: src/ls.c:4579
 msgid ""
 "  -l                         use a long listing format\n"
 "  -L, --dereference          when showing file information for a symbolic\n"
@@ -5395,7 +5418,7 @@ msgstr ""
 "                               in plaats van over de koppeling zelf\n"
 "  -m                         geen kolommen maar kommagescheiden lijst tonen\n"
 
-#: src/ls.c:4488
+#: src/ls.c:4586
 msgid ""
 "  -n, --numeric-uid-gid      like -l, but list numeric user and group IDs\n"
 "  -N, --literal              print raw entry names (don't treat e.g. "
@@ -5413,7 +5436,7 @@ msgstr ""
 "  -p, --indicator-style=slash\n"
 "                             een '/'-indicator achter mapnamen toevoegen\n"
 
-#: src/ls.c:4496
+#: src/ls.c:4594
 msgid ""
 "  -q, --hide-control-chars   print ? instead of non graphic characters\n"
 "      --show-control-chars   show non graphic characters as-is (default\n"
@@ -5435,7 +5458,7 @@ msgstr ""
 "                               'shell', 'shell-always', 'c' (-Q), 'escape' (-"
 "b)\n"
 
-#: src/ls.c:4504
+#: src/ls.c:4602
 #, fuzzy
 msgid ""
 "  -r, --reverse              reverse order while sorting\n"
@@ -5447,7 +5470,7 @@ msgstr ""
 "  -R, --recursive            submappen recursief tonen\n"
 "  -s, --size                 de grootte van ieder bestand in blokken tonen\n"
 
-#: src/ls.c:4509
+#: src/ls.c:4607
 msgid ""
 "  -S                         sort by file size\n"
 "      --sort=WORD            sort by WORD instead of name: none -U,\n"
@@ -5467,7 +5490,7 @@ msgstr ""
 "                               'atime' of 'access' of 'use' (-u),\n"
 "                               'ctime' of 'status' (-c)\n"
 
-#: src/ls.c:4518
+#: src/ls.c:4616
 msgid ""
 "      --time-style=STYLE     with -l, show times using style STYLE:\n"
 "                             full-iso, long-iso, iso, locale, +FORMAT.\n"
@@ -5492,7 +5515,7 @@ msgstr ""
 "dan\n"
 "                               geldt deze alleen buiten de POSIX-taalregio\n"
 
-#: src/ls.c:4527
+#: src/ls.c:4625
 msgid ""
 "  -t                         sort by modification time\n"
 "  -T, --tabsize=COLS         assume tab stops at each COLS instead of 8\n"
@@ -5500,13 +5523,14 @@ msgstr ""
 "  -t                         op de tijd van laatste wijziging sorteren\n"
 "  -T, --tabsize=AANTAL       te gebruiken tabbreedte in plaats van 8\n"
 
-#: src/ls.c:4531
+#: src/ls.c:4629
+#, fuzzy
 msgid ""
 "  -u                         with -lt: sort by, and show, access time\n"
 "                               with -l: show access time and sort by name\n"
 "                               otherwise: sort by access time\n"
 "  -U                         do not sort; list entries in directory order\n"
-"  -v                         sort by version\n"
+"  -v                         natural sort of (version) numbers within text\n"
 msgstr ""
 "  -u                         met '-lt': op laatste toegangstijd sorteren en\n"
 "                               deze tonen; met '-l': op naam sorteren en\n"
@@ -5516,7 +5540,7 @@ msgstr ""
 "plaatsingsvolgorde\n"
 "  -v                         op versienummer sorteren\n"
 
-#: src/ls.c:4538
+#: src/ls.c:4636
 msgid ""
 "  -w, --width=COLS           assume screen width instead of current value\n"
 "  -x                         list entries by lines instead of by columns\n"
@@ -5533,7 +5557,7 @@ msgstr ""
 "  -1                         één item per regel tonen\n"
 "\n"
 
-#: src/ls.c:4551
+#: src/ls.c:4649
 msgid ""
 "\n"
 "By default, color is not used to distinguish types of files.  That is\n"
@@ -5556,7 +5580,7 @@ msgstr ""
 "precieze\n"
 "kleuren; met het commando 'dircolors' kan deze variabele ingesteld worden.\n"
 
-#: src/ls.c:4560
+#: src/ls.c:4658
 msgid ""
 "\n"
 "Exit status:\n"
@@ -8018,12 +8042,11 @@ msgstr ""
 "\n"
 
 #: src/shred.c:167
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "  -f, --force    change permissions to allow writing if necessary\n"
 "  -n, --iterations=N  overwrite N times instead of the default (%d)\n"
-"      --random-source=FILE  get random bytes from FILE (default /dev/"
-"urandom)\n"
+"      --random-source=FILE  get random bytes from FILE\n"
 "  -s, --size=N   shred this many bytes (suffixes like K, M, G accepted)\n"
 msgstr ""
 "  -f, --force    zo nodig toegangsrechten wijzigen om schrijven toe te "
@@ -8273,7 +8296,7 @@ msgstr "%s: openen voor schrijven is mislukt"
 msgid "%s: invalid number of passes"
 msgstr "%s: ongeldig aantal doorlopen"
 
-#: src/shred.c:1143 src/shuf.c:329 src/sort.c:3323
+#: src/shred.c:1143 src/shuf.c:329 src/sort.c:3325
 #, c-format
 msgid "multiple random sources specified"
 msgstr "meer dan één bron van willekeurige bytes gegeven"
@@ -8305,14 +8328,14 @@ msgstr ""
 "\n"
 
 #: src/shuf.c:60
+#, fuzzy
 msgid ""
 "  -e, --echo                treat each ARG as an input line\n"
 "  -i, --input-range=LO-HI   treat each number LO through HI as an input "
 "line\n"
 "  -n, --head-count=COUNT    output at most COUNT lines\n"
 "  -o, --output=FILE         write result to FILE instead of standard output\n"
-"      --random-source=FILE  get random bytes from FILE (default /dev/"
-"urandom)\n"
+"      --random-source=FILE  get random bytes from FILE\n"
 "  -z, --zero-terminated     end lines with 0 byte, not newline\n"
 msgstr ""
 "  -e, --echo                 gegeven ARGUMENTen als invoerregels gebruiken\n"
@@ -8341,7 +8364,7 @@ msgstr "ongeldig invoerbereik %s"
 msgid "invalid line count %s"
 msgstr "ongeldig aantal regels %s"
 
-#: src/shuf.c:323 src/sort.c:3317
+#: src/shuf.c:323 src/sort.c:3319
 #, c-format
 msgid "multiple output files specified"
 msgstr "meer dan één uitvoerbestand gegeven"
@@ -8429,11 +8452,11 @@ msgstr ""
 "  -M, --month-sort            vergelijk (onbekend) < `JAN' < ... < `DEC'\n"
 
 #: src/sort.c:339
+#, fuzzy
 msgid ""
 "  -n, --numeric-sort          compare according to string numerical value\n"
 "  -R, --random-sort           sort by random hash of keys\n"
-"      --random-source=FILE    get random bytes from FILE (default /dev/"
-"urandom)\n"
+"      --random-source=FILE    get random bytes from FILE\n"
 "  -r, --reverse               reverse the result of comparisons\n"
 msgstr ""
 "  -n, --numeric-sort          vergelijk volgens numerieke waarden in een "
@@ -8444,11 +8467,12 @@ msgstr ""
 "  -r, --reverse               keer het resultaat van de vergelijking om\n"
 
 #: src/sort.c:345
+#, fuzzy
 msgid ""
 "      --sort=WORD             sort according to WORD:\n"
 "                                general-numeric -g, month -M, numeric -n,\n"
 "                                random -R, version -V\n"
-"  -V, --version-sort          sort by numeric version\n"
+"  -V, --version-sort          natural sort of (version) numbers within text\n"
 "\n"
 msgstr ""
 "      --sort=WOORD            sorteer volgens WOORD:\n"
@@ -8610,8 +8634,8 @@ msgstr "%s [-d] is niet normaal beëindigd"
 msgid "cannot create temporary file in %s"
 msgstr "kan tijdelijk bestand %s niet aanmaken"
 
-#: src/sort.c:813 src/sort.c:2433 src/sort.c:2711 src/sort.c:2714
-#: src/sort.c:3511
+#: src/sort.c:813 src/sort.c:2433 src/sort.c:2713 src/sort.c:2716
+#: src/sort.c:3513
 msgid "open failed"
 msgstr "openen is mislukt"
 
@@ -8619,7 +8643,7 @@ msgstr "openen is mislukt"
 msgid "fflush failed"
 msgstr "alles naar schijf wegschrijven (fflush) is mislukt"
 
-#: src/sort.c:838 src/sort.c:3566
+#: src/sort.c:838 src/sort.c:3568
 msgid "close failed"
 msgstr "sluiten is mislukt"
 
@@ -8693,70 +8717,70 @@ msgstr "%s: %s:%s: wanorde: "
 msgid "standard error"
 msgstr "standaardfoutuitvoer"
 
-#: src/sort.c:2866
+#: src/sort.c:2868
 #, c-format
 msgid "%s: invalid field specification %s"
 msgstr "%s: ongeldige veldspecificatie %s"
 
-#: src/sort.c:2877
+#: src/sort.c:2879
 #, c-format
 msgid "options `-%s' are incompatible"
 msgstr "opties '-%s' gaan niet samen"
 
-#: src/sort.c:2944
+#: src/sort.c:2946
 #, c-format
 msgid "%s: invalid count at start of %s"
 msgstr "%s: ongeldig aantal bij het begin van %s"
 
-#: src/sort.c:3197
+#: src/sort.c:3199
 msgid "invalid number after `-'"
 msgstr "ongeldig getal na '-'"
 
-#: src/sort.c:3200 src/sort.c:3270 src/sort.c:3298
+#: src/sort.c:3202 src/sort.c:3272 src/sort.c:3300
 msgid "invalid number after `.'"
 msgstr "ongeldig getal na '.'"
 
-#: src/sort.c:3203 src/sort.c:3303
+#: src/sort.c:3205 src/sort.c:3305
 msgid "stray character in field spec"
 msgstr "loos teken in veldspecificatie"
 
-#: src/sort.c:3248
+#: src/sort.c:3250
 #, c-format
 msgid "multiple compress programs specified"
 msgstr "meer dan één compressieprogramma opgegeven"
 
-#: src/sort.c:3261
+#: src/sort.c:3263
 msgid "invalid number at field start"
 msgstr "ongeldig getal aan het begin van een veld"
 
-#: src/sort.c:3265 src/sort.c:3293
+#: src/sort.c:3267 src/sort.c:3295
 msgid "field number is zero"
 msgstr "veldnummer is nul"
 
-#: src/sort.c:3274
+#: src/sort.c:3276
 msgid "character offset is zero"
 msgstr "tekenpositie is nul"
 
-#: src/sort.c:3289
+#: src/sort.c:3291
 msgid "invalid number after `,'"
 msgstr "ongeldig getal na ','"
 
-#: src/sort.c:3428 src/wc.c:680
+#: src/sort.c:3430 src/wc.c:680
 #, c-format
 msgid "cannot read file names from %s"
 msgstr "kan geen bestandsnamen uit %s lezen"
 
-#: src/sort.c:3450
+#: src/sort.c:3452
 #, c-format
 msgid "%s:%lu: invalid zero-length file name"
 msgstr "%s:%lu: ongeldige bestandsnaam (lengte nul)"
 
-#: src/sort.c:3456
+#: src/sort.c:3458
 #, c-format
 msgid "no input from %s"
 msgstr "geen invoer van %s"
 
-#: src/sort.c:3536
+#: src/sort.c:3538
 #, c-format
 msgid "extra operand %s not allowed with -%c"
 msgstr "overtollig argument %s is niet toegestaan bij -%c"
