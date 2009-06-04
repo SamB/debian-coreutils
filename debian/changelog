@@ -1,3 +1,11 @@
+coreutils (7.4-1) unstable; urgency=low
+
+  * new upstream version (Closes: #285609)
+  * replaces: mktemp 
+  * adds: arch(1) (Closes: #516050)
+
+ -- Michael Stone <mstone@debian.org>  Wed, 03 Jun 2009 21:26:52 -0400
+
 coreutils (7.3-1) unstable; urgency=low
 
   * new upstream version (Closes: #525048, #524500)

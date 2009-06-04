@@ -128,7 +128,7 @@ AC_DEFUN([gl_INIT],
   gl_FILE_NAME_CONCAT
   AC_C_FLEXIBLE_ARRAY_MEMBER
   gl_FLOAT_H
-  # No macro. You should also use one of fnmatch-posix or fnmatch-gnu.
+  gl_FUNC_FNMATCH_POSIX
   gl_FUNC_FNMATCH_GNU
   gl_FOPEN_SAFER
   gl_MODULE_INDICATOR([fopen-safer])
@@ -287,6 +287,7 @@ AC_DEFUN([gl_INIT],
   gl_FUNC_PRINTF_FREXP
   gl_FUNC_PRINTF_FREXPL
   m4_divert_text([INIT_PREPARE], [gl_printf_safe=yes])
+  gl_PRIV_SET
   m4_ifdef([AM_XGETTEXT_OPTION],
     [AM_XGETTEXT_OPTION([--keyword='proper_name:1,\"This is a proper name. See the gettext manual, section Names.\"'])
      AM_XGETTEXT_OPTION([--keyword='proper_name_utf8:1,\"This is a proper name. See the gettext manual, section Names.\"'])])
@@ -987,6 +988,8 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/printf-frexpl.h
   lib/printf-parse.c
   lib/printf-parse.h
+  lib/priv-set.c
+  lib/priv-set.h
   lib/progname.c
   lib/progname.h
   lib/propername.c
@@ -1390,6 +1393,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/printf-frexpl.m4
   m4/printf-posix.m4
   m4/printf.m4
+  m4/priv-set.m4
   m4/progtest.m4
   m4/putenv.m4
   m4/quote.m4
@@ -1624,6 +1628,7 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-printf-frexpl.c
   tests/test-printf-posix.h
   tests/test-printf-posix.output
+  tests/test-priv-set.c
   tests/test-quotearg.c
   tests/test-quotearg.sh
   tests/test-read-file.c

@@ -13,8 +13,8 @@
 
 m4_ifndef([AC_AUTOCONF_VERSION],
   [m4_copy([m4_PACKAGE_VERSION], [AC_AUTOCONF_VERSION])])dnl
-m4_if(m4_defn([AC_AUTOCONF_VERSION]), [2.63b.41-3bec0],,
-[m4_warning([this file was generated for autoconf 2.63b.41-3bec0.
+m4_if(m4_defn([AC_AUTOCONF_VERSION]), [2.63b.42-b26d5],,
+[m4_warning([this file was generated for autoconf 2.63b.42-b26d5.
 You have another version of autoconf.  It may work, but is not guaranteed to.
 If you have problems, you may need to regenerate the build system entirely.
 To do so, use the procedure documented by the package, typically `autoreconf'.])])
@@ -1237,6 +1237,7 @@ m4_include([m4/prereq.m4])
 m4_include([m4/printf-frexp.m4])
 m4_include([m4/printf-frexpl.m4])
 m4_include([m4/printf.m4])
+m4_include([m4/priv-set.m4])
 m4_include([m4/progtest.m4])
 m4_include([m4/putenv.m4])
 m4_include([m4/quote.m4])

@@ -1,4 +1,81 @@
+2009-05-07  Jim Meyering  <meyering@redhat.com>
+
+	version 7.4
+	* NEWS (Build-related): Mention make check fixes.
+
+	admin: update NEWS
+	* NEWS (Bug fixes): Mention the date-related fixes.
+	(Portability): Mention the ACL-related fixes on *BSD.
+
+2009-05-05  Pádraig Brady  <P@draigBrady.com>
+
+	doc: note the use of LC_COLLATE in comm, join and uniq
+	* doc/coreutils.texi (uniq invocation): Simplify the
+	text to remove the inconsequential mentioning of order,
+	while implying that LC_COLLATE can alter equality comparisons.
+	* src/comm.c (usage): Mention LC_COLLATE is significant.
+	* src/join.c (usage): Ditto.
+	* src/uniq.c (usage): Ditto. Also improve the summary.
+	Suggestion from Andries Brouwer
+
+2009-05-05  Jim Meyering  <meyering@redhat.com>
+
+	tests: rm/one-file-system: umount more reliably
+	* tests/rm/one-file-system: Run umount via trap, so it runs
+	also upon irregular termination.
+
+2009-05-05  Andreas Schwab  <schwab@linux-m68k.org>
+
+	tests: fix typo in check-AUTHORS rule
+	* src/Makefile.am (check-AUTHORS): Set locale.
+
+2009-05-04  Jim Meyering  <meyering@redhat.com>
+
+	build: use a gnulib SHA1 that is not private
+	* gnulib: Update submodule to latest *public*.
+
+	build: update from gnulib, for ACL-related fixes
+	* gnulib: Update submodule to latest.
+
+2009-05-03  David Bartley  <dtbartle@csclub.uwaterloo.ca>
+
+	mv, rm: adapt to new and improved gnulib interfaces
+	Use gnulib's new priv-set module and updated write-any-file.
+	With them, the remove-called can_write_any_file function no
+	longer tries to drop the unlink-directory privilege, so now
+	each caller of remove must do that separately, calling
+	priv_set_remove_linkdir.
+	* bootstrap.conf (gnulib_modules): Add priv-set.
+	* src/rm.c: Include "priv-set.h".
+	(main): Call priv_set_remove_linkdir.
+	* src/mv.c (main): Likewise.
+	* gnulib: Update submodule to latest.
+
+2009-05-03  Jim Meyering  <meyering@redhat.com>
+
+	tests: correct the "make check"-run check-AUTHORS test
+	* src/Makefile.am (check-AUTHORS): Revert back to using
+	en_US.UTF-8, to ease parsing (English-only) text around the
+	list of names, even when .po files are not installed.
+	Reported by Andreas Schwab.
+	Along the way, use $(AM_V_GEN), not "@".
+	(sc_tight_scope): Use $(AM_V_GEN) here, too.
+	* gnulib: Update submodule to latest, for the proper_name_utf8 fix
+	that makes --version output print the UTF-8 rendering of author names
+	in more cases.
+
+	tests: add tests of e.g., date -d 'next monday'
+	* tests/misc/date-next-dow: New file.
+	* tests/Makefile.am (TESTS): Add misc/date-next-dow.
+	* gnulib: Update submodule to latest, for getdate.y that
+	handles "next Monday" properly when run on a Monday.
+
 2009-05-01  Jim Meyering  <meyering@redhat.com>
+
+	post-release administrivia
+	* NEWS: Add header line for next release.
+	* .prev-version: Record previous version.
+	* cfg.mk (old_NEWS_hash): Auto-update.
 
 	version 7.3
 	* NEWS: Record release date.

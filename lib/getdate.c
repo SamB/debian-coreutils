@@ -1900,7 +1900,7 @@ yyreduce:
 /* Line 1455 of yacc.c  */
 #line 406 "getdate.y"
     {
-	pc->day_ordinal = 1;
+	pc->day_ordinal = 0;
 	pc->day_number = (yyvsp[(1) - (1)].intval);
       }
     break;
@@ -1910,7 +1910,7 @@ yyreduce:
 /* Line 1455 of yacc.c  */
 #line 411 "getdate.y"
     {
-	pc->day_ordinal = 1;
+	pc->day_ordinal = 0;
 	pc->day_number = (yyvsp[(1) - (2)].intval);
       }
     break;

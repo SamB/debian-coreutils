@@ -404,12 +404,12 @@ zone:
 day:
     tDAY
       {
-	pc->day_ordinal = 1;
+	pc->day_ordinal = 0;
 	pc->day_number = $1;
       }
   | tDAY ','
       {
-	pc->day_ordinal = 1;
+	pc->day_ordinal = 0;
 	pc->day_number = $1;
       }
   | tORDINAL tDAY
@@ -1436,9 +1436,8 @@ get_date (struct timespec *result, char const *p, struct timespec const *now)
 	{
 	  tm.tm_mday += ((pc.day_number - tm.tm_wday + 7) % 7
 			 + 7 * (pc.day_ordinal
-				+ (0 < pc.day_ordinal
-				   && tm.tm_wday == pc.day_number)
-				- (0 < pc.day_ordinal)));
+				- (0 < pc.day_ordinal
+				   && tm.tm_wday != pc.day_number)));
 	  tm.tm_isdst = -1;
 	  Start = mktime (&tm);
 	  if (Start == (time_t) -1)

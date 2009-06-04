@@ -9,6 +9,8 @@ Package: coreutils
 Architecture: any
 Pre-Depends: ${shlibs:Depends}
 Essential: yes
+Conflicts: mktemp
+Replaces: mktemp
 Description: The GNU core utilities
  This package contains the essential basic system utilities.
  .

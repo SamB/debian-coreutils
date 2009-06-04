@@ -714,6 +714,15 @@ EXTRA_DIST += test-printf-frexpl.c
 
 ## end   gnulib module printf-frexpl-tests
 
+## begin gnulib module priv-set-tests
+
+TESTS += test-priv-set
+check_PROGRAMS += test-priv-set
+
+EXTRA_DIST += test-priv-set.c
+
+## end   gnulib module priv-set-tests
+
 ## begin gnulib module quotearg-tests
 
 TESTS += test-quotearg.sh
