@@ -9,7 +9,6 @@ Package: coreutils
 Architecture: any
 Pre-Depends: ${shlibs:Depends}
 Essential: yes
-Conflicts: mktemp
 Replaces: mktemp
 Description: The GNU core utilities
  This package contains the essential basic system utilities.
@@ -17,7 +16,14 @@ Description: The GNU core utilities
  Specifically, this package includes: 
  basename cat chgrp chmod chown chroot cksum comm cp csplit cut date dd df dir
  dircolors dirname du echo env expand expr factor false fmt fold groups head
- hostid id install join link ln logname ls md5sum mkdir mkfifo mknod mv nice nl
- nohup od paste pathchk pinky pr printenv printf ptx pwd readlink rm rmdir 
- sha1sum seq shred sleep sort split stat stty sum sync tac tail tee test touch 
- tr true tsort tty uname unexpand uniq unlink users vdir wc who whoami yes 
+ hostid id install join link ln logname ls md5sum mkdir mkfifo mknod mktemp
+ mv nice nl nohup od paste pathchk pinky pr printenv printf ptx pwd readlink 
+ rm rmdir sha1sum seq shred sleep sort split stat stty sum sync tac tail tee 
+ test touch tr true tsort tty uname unexpand uniq unlink users vdir wc who 
+ whoami yes 
+
+Package: mktemp
+Pre-Depends: coreutils (>= 7.4-1)
+Architecture: all
+Description: coreutils mktemp transitional package
+ Empty package to facilitate upgrades, can be safely removed.

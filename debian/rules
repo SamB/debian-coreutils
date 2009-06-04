@@ -36,7 +36,8 @@ else
 endif
 
 BIN_PROGS = cat chgrp chmod chown cp date dd df dir echo false ln ls mkdir \
-	mknod mv pwd readlink rm rmdir vdir sleep stty sync touch true uname
+	mknod mv pwd readlink rm rmdir vdir sleep stty sync touch true uname \
+	mktemp
 d=debian/coreutils
 
 default: binary
