@@ -2,7 +2,7 @@
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
 #line 1
 /* Test of select() substitute.
-   Copyright (C) 2008 Free Software Foundation, Inc.
+   Copyright (C) 2008-2009 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -32,7 +32,6 @@
 #include <stdbool.h>
 #include <sys/ioctl.h>
 #include <errno.h>
-#include "sockets.h"
 
 enum { SEL_IN = 1, SEL_OUT = 2, SEL_EXC = 4 };
 
@@ -362,8 +361,6 @@ int
 main ()
 {
   int result;
-
-  gl_sockets_startup (SOCKETS_1_1);
 
 #ifdef INTERACTIVE
   printf ("Please press Enter\n");

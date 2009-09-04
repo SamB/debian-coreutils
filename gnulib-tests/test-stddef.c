@@ -1,5 +1,8 @@
-/* Flushing buffers of a FILE stream.
-   Copyright (C) 2007 Free Software Foundation, Inc.
+/* -*- buffer-read-only: t -*- vi: set ro: */
+/* DO NOT EDIT! GENERATED AUTOMATICALLY! */
+#line 1
+/* Test of <stddef.h> substitute.
+   Copyright (C) 2009 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -14,25 +17,25 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
-#ifndef _GL_FPURGE_H
-#define _GL_FPURGE_H
+/* Written by Eric Blake <ebb9@byu.net>, 2009.  */
 
-#include <stdio.h>
+#include <config.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#include <stddef.h>
 
-/* Discard all pending buffered I/O on the stream STREAM.
-   STREAM must not be wide-character oriented.
-   Return 0 if successful.  Upon error, return -1 and set errno.  */
-#if HAVE_FPURGE
-# define fpurge rpl_fpurge
-#endif
-extern int fpurge (FILE *stream);
+#include "verify.h"
 
-#ifdef __cplusplus
+/* Check that appropriate types are defined.  */
+wchar_t a = 'c';
+ptrdiff_t b = 1;
+size_t c = 2;
+
+/* Check that NULL can be passed through varargs as a pointer type,
+   per POSIX 2008.  */
+verify (sizeof NULL == sizeof (void *));
+
+int
+main ()
+{
+  return 0;
 }
-#endif
-
-#endif /* _GL_FPURGE_H */

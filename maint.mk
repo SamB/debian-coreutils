@@ -21,6 +21,9 @@
 # ME := $(word $(words $(MAKEFILE_LIST)),$(MAKEFILE_LIST))
 ME := maint.mk
 
+# Override this in cfg.mk if you use a non-standard build-aux directory.
+build_aux ?= $(srcdir)/build-aux
+
 # Do not save the original name or timestamp in the .tar.gz file.
 # Use --rsyncable if available.
 gzip_rsyncable := \
@@ -32,16 +35,17 @@ GIT = git
 VC = $(GIT)
 VC-tag = git tag -s -m '$(VERSION)' -u '$(gpg_key_ID)'
 
-VC_LIST = $(srcdir)/build-aux/vc-list-files -C $(srcdir)
+VC_LIST = $(build_aux)/vc-list-files -C $(srcdir)
 
 VC_LIST_EXCEPT = \
-  $(VC_LIST) | if test -f $(srcdir)/.x-$@; then grep -vEf $(srcdir)/.x-$@; else grep -v ChangeLog; fi
+  $(VC_LIST) | if test -f $(srcdir)/.x-$@; then grep -vEf $(srcdir)/.x-$@; \
+	       else grep -Ev "$${VC_LIST_EXCEPT_DEFAULT-ChangeLog}"; fi
 
 ifeq ($(origin prev_version_file), undefined)
   prev_version_file = $(srcdir)/.prev-version
 endif
 
-PREV_VERSION := $(shell cat $(prev_version_file))
+PREV_VERSION := $(shell cat $(prev_version_file) 2>/dev/null)
 VERSION_REGEXP = $(subst .,\.,$(VERSION))
 PREV_VERSION_REGEXP = $(subst .,\.,$(PREV_VERSION))
 
@@ -67,9 +71,11 @@ export LC_ALL = C
 ## Sanity checks.  ##
 ## --------------- ##
 
+_cfg_mk := $(shell test -f $(srcdir)/cfg.mk && echo '$(srcdir)/cfg.mk')
+
 # Collect the names of rules starting with `sc_'.
 syntax-check-rules := $(shell sed -n 's/^\(sc_[a-zA-Z0-9_-]*\):.*/\1/p' \
-			$(srcdir)/$(ME) $(srcdir)/cfg.mk)
+			$(srcdir)/$(ME) $(_cfg_mk))
 .PHONY: $(syntax-check-rules)
 
 local-checks-available = \
@@ -111,7 +117,7 @@ define _prohibit_regexp
 endef
 
 sc_avoid_if_before_free:
-	@$(srcdir)/build-aux/useless-if-before-free			\
+	@$(build_aux)/useless-if-before-free				\
 		$(useless_free_options)					\
 	    $$($(VC_LIST_EXCEPT) | grep -v useless-if-before-free) &&	\
 	  { echo '$(ME): found useless "if" before "free" above' 1>&2;	\
@@ -360,16 +366,19 @@ sc_program_name:
 # Require that the final line of each test-lib.sh-using test be this one:
 # Exit $fail
 # Note: this test requires GNU grep's --label= option.
+Exit_witness_file ?= tests/test-lib.sh
+Exit_base := $(notdir $(Exit_witness_file))
 sc_require_test_exit_idiom:
-	@if test -f $(srcdir)/tests/test-lib.sh; then			\
+	@if test -f $(srcdir)/$(Exit_witness_file); then		\
 	  die=0;							\
-	  for i in $$(grep -l -F /../test-lib.sh $$($(VC_LIST) tests)); do \
-	    tail -n1 $$i | grep '^Exit \$$fail$$' > /dev/null		\
+	  for i in $$(grep -l -F 'srcdir/$(Exit_base)'			\
+		$$($(VC_LIST) tests)); do				\
+	    tail -n1 $$i | grep '^Exit .' > /dev/null			\
 	      && : || { die=1; echo $$i; }				\
 	  done;								\
 	  test $$die = 1 &&						\
 	    { echo 1>&2 '$(ME): the final line in each of the above is not:'; \
-	      echo 1>&2 'Exit $$fail';					\
+	      echo 1>&2 'Exit something';				\
 	      exit 1; } || :;						\
 	fi
 
@@ -484,7 +493,7 @@ sc_immutable_NEWS:
 # Update the hash stored above.  Do this after each release and
 # for any corrections to old entries.
 update-NEWS-hash: NEWS
-	perl -pi -e 's/^(old_NEWS_hash = ).*/$${1}'"$(NEWS_hash)/" \
+	perl -pi -e 's/^(old_NEWS_hash[ \t]+:?=[ \t]+).*/$${1}'"$(NEWS_hash)/" \
 	  $(srcdir)/cfg.mk
 
 # Ensure that we use only the standard $(VAR) notation,
@@ -534,6 +543,7 @@ sc_po_check:
 	  for file in $$($(VC_LIST_EXCEPT)) lib/*.[ch]; do		\
 	    test -r $$file || continue;					\
 	    case $$file in						\
+	      *.m4|*.mk) continue ;;					\
 	      *.?|*.??) ;;						\
 	      *) continue;;						\
 	    esac;							\
@@ -620,7 +630,7 @@ maintainer-distcheck:
 # Also, make sure the NEWS file is up-to-date.
 ALL_RECURSIVE_TARGETS += vc-dist
 vc-dist: $(local-check) cvs-check maintainer-distcheck
-	XZ_OPT=-9ev $(MAKE) dist
+	XZ_OPT=9ev $(MAKE) dist
 
 # Use this to make sure we don't run these programs when building
 # from a virgin tgz file, below.
@@ -635,11 +645,12 @@ built_programs = $$(cd src && MAKEFLAGS= $(MAKE) -s built_programs.list)
 
 rel-files = $(DIST_ARCHIVES)
 
+gnulib_dir ?= $(srcdir)/gnulib
 gnulib-version = $$(cd $(gnulib_dir) && git describe)
 bootstrap-tools ?= autoconf,automake,gnulib
 
 announcement: NEWS ChangeLog $(rel-files)
-	@$(srcdir)/build-aux/announce-gen				\
+	@$(build_aux)/announce-gen					\
 	    --release-type=$(RELEASE_TYPE)				\
 	    --package=$(PACKAGE)					\
 	    --prev=$(PREV_VERSION)					\
@@ -661,7 +672,7 @@ www-gnu = http://www.gnu.org
 emit_upload_commands:
 	@echo =====================================
 	@echo =====================================
-	@echo "$(srcdir)/build-aux/gnupload $(GNUPLOADFLAGS) \\"
+	@echo "$(build_aux)/gnupload $(GNUPLOADFLAGS) \\"
 	@echo "    --to $(gnu_rel_host):$(PACKAGE) \\"
 	@echo "  $(rel-files)"
 	@echo '# send the /tmp/announcement e-mail'
@@ -761,3 +772,20 @@ INDENT_SOURCES ?= $(C_SOURCES)
 .PHONY: indent
 indent:
 	indent $(INDENT_SOURCES)
+
+# If you want to set UPDATE_COPYRIGHT_* environment variables,
+# put the assignments in this variable.
+update-copyright-env ?=
+
+# Run this rule once per year (usually early in January)
+# to update all FSF copyright year lists in your project.
+# If you have an additional project-specific rule,
+# add it in cfg.mk along with a line 'update-copyright: prereq'.
+# By default, exclude all variants of COPYING; you can also
+# add exemptions (such as ChangeLog..* for rotated change logs)
+# in the file .x-update-copyright.
+.PHONY: update-copyright
+update-copyright:
+	grep -l -w Copyright                                             \
+	  $$(export VC_LIST_EXCEPT_DEFAULT=COPYING && $(VC_LIST_EXCEPT)) \
+	  | $(update-copyright-env) xargs $(build_aux)/$@

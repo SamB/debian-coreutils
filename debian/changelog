@@ -1,3 +1,34 @@
+coreutils (7.5-3) unstable; urgency=low
+
+  * [61] update who --ips to support more ipv6 ranges (Closes: #508924)
+
+ -- Michael Stone <mstone@debian.org>  Fri, 04 Sep 2009 17:48:31 -0400
+
+coreutils (7.5-2) unstable; urgency=low
+
+  * [79] fix ls-misc build test problem if files are created world-writable 
+    (Closes: #544965)
+  * [80] fix tail/wait build test problem on kfreebsd (Closes: #544965)
+  * add -mieee to sh4 build flags (Closes: #544977)
+
+ -- Michael Stone <mstone@debian.org>  Fri, 04 Sep 2009 16:34:34 -0400
+
+coreutils (7.5-1) unstable; urgency=low
+
+  * new upstream version
+    - fix ls -1 output error (Closes: #539476)
+    - new program "stdbuf"
+    - chroot adds --userspec and --groups
+    - cp adds --reflink
+    - sort adds --human-numeric-sort
+    - tail --follow uses inotify 
+  * update package description (Closes: #535458)
+  * tweak section and priority for mktemp package
+  * conflict with package "timeout". I think coreutils timeout is just
+    different enough that it shouldn't replace that package.
+
+ -- Michael Stone <mstone@debian.org>  Wed, 02 Sep 2009 20:50:02 -0400
+
 coreutils (7.4-2) unstable; urgency=low
 
   * move mktemp to /bin instead of /usr/bin (Closes: #531842)

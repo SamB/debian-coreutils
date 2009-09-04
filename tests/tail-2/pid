@@ -1,0 +1,80 @@
+#!/bin/sh
+# Test the --pid option of tail.
+
+# Copyright (C) 2003, 2006-2009 Free Software Foundation, Inc.
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+if test "$VERBOSE" = yes; then
+  set -x
+  tail --version
+fi
+
+. $srcdir/test-lib.sh
+
+require_proc_pid_status_
+
+touch here || framework_failure
+
+
+fail=0
+
+# Use tail itself to create a background process.
+
+tail -f here &
+bg_pid=$!
+
+tail -s0.1 -f here --pid=$bg_pid &
+
+pid=$!
+
+sleep 0.5
+
+state=$(get_process_status_ $pid)
+
+if test -n "$state"; then
+  case $state in
+    S*) ;;
+    *) echo "$0: process dead? (state=$state)" 1>&2; fail=1 ;;
+  esac
+  kill $pid
+fi
+
+kill $bg_pid
+
+sleep 0.5
+
+state=$(get_process_status_ $pid)
+
+if test -n "$state"; then
+  case $state in
+    S*) echo $0: process still active 1>&2; fail=1 ;;
+    *) ;;
+  esac
+  kill $pid
+fi
+
+# Ensure that tail --pid=PID exits successfully when PID is dead.
+# Use an unlikely-to-be-live PID
+getlimits_
+timeout 1 tail -s.1 --pid=$PID_T_MAX -f /dev/null
+ret=$?
+test $ret = 124 && skip_test_ "pid $PID_T_MAX present"
+test $ret = 0 || fail=1
+
+# Ensure fractional sleep parameter is honored with --pid
+timeout 1 tail -s.1 -f /dev/null --pid=$PID_T_MAX
+test $? = 124 && fail=1
+
+Exit $fail

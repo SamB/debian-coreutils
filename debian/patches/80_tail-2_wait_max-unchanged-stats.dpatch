@@ -1,0 +1,19 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## 80_tail-2_wait.dpatch by Petr Salinger <Petr.Salinger@seznam.cz>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: fix problem that inode checking isn't done quickly enough
+
+@DPATCH@
+diff -urNad coreutils-7.5~/tests/tail-2/wait coreutils-7.5/tests/tail-2/wait
+--- coreutils-7.5~/tests/tail-2/wait	2009-08-15 11:25:32.000000000 -0400
++++ coreutils-7.5/tests/tail-2/wait	2009-09-04 16:32:29.145299359 -0400
+@@ -118,7 +118,7 @@
+ 
+ test -s tail.err && fail=1
+ 
+-tail -s.1 -F k > tail.out &
++tail -s.1 --max-unchanged-stats=2 -F k > tail.out &
+ pid=$!
+ sleep .5
+ mv k l

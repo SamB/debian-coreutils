@@ -2,7 +2,7 @@
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
 #line 1
 /*
- * Copyright (C) 2008 Free Software Foundation
+ * Copyright (C) 2008, 2009 Free Software Foundation
  * Written by Simon Josefsson.
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,7 +20,10 @@
 
 #include <config.h>
 
+/* Get gethostname() declaration.  */
 #include <unistd.h>
+/* Get HOST_NAME_MAX definition.  */
+#include <limits.h>
 
 #include <stdio.h>
 #include <string.h>
@@ -31,8 +34,14 @@
 int
 main (int argc, char *argv[])
 {
-  char buf[2500];
+  char buf[HOST_NAME_MAX];
   int rc;
+
+  if (strlen (NOHOSTNAME) >= HOST_NAME_MAX)
+    {
+      printf ("HOST_NAME_MAX impossibly small?! %d\n", HOST_NAME_MAX);
+      return 2;
+    }
 
   strcpy (buf, NOHOSTNAME);
 

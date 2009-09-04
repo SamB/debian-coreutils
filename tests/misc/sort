@@ -54,6 +54,28 @@ my @Tests =
 ["n11a", '-s -n -k1,1', {IN=>".01a\n.010\n"}, {OUT=>".01a\n.010\n"}],
 ["n11b", '-s -n -k1,1', {IN=>".010\n.01a\n"}, {OUT=>".010\n.01a\n"}],
 
+# human readable suffixes
+["h1", '-h', {IN=>"Y\nZ\nE\nP\nT\nG\nM\nK\n"},
+ {OUT=>"K\nM\nG\nT\nP\nE\nZ\nY\n"}],
+["h2", '-h', {IN=>"1M\n-2G\n-3K"}, {OUT=>"-2G\n-3K\n1M\n"}],
+["h3", '-h', {IN=>"1Mi\n1M\n"}, {OUT=>""}, {EXIT=>2},
+ {ERR=>"$prog: both SI and IEC prefixes present on units\n"}],
+# decimal at end => ignore suffix
+["h4", '-h', {IN=>"1.E\n2.M\n"}, {OUT=>"1.E\n2.M\n"}],
+# double decimal => ignore suffix
+["h5", '-h', {IN=>"1..2E\n2..2M\n"}, {OUT=>"1..2E\n2..2M\n"}],
+# illustrate misordering of ambiguous abbreviations
+["h6", '-h', {IN=>"1GiB\n1030MiB\n"}, {OUT=>"1030MiB\n1GiB\n"}],
+# check option incompatibility
+["h7", '-hn', {IN=>""}, {OUT=>""}, {EXIT=>2},
+ {ERR=>"$prog: options `-hn' are incompatible\n"}],
+# check key processing
+["h8", '-n -k2,2h', {IN=>"1 1E\n2 2M\n"}, {OUT=>"2 2M\n1 1E\n"}],
+# SI and IEC prefixes on separate keys allowed
+["h9", '-h -k1,1 -k2,2', {IN=>"1M 1Mi\n1M 1Mi\n"}, {OUT=>"1M 1Mi\n1M 1Mi\n"}],
+# This invalid SI and IEC prefix mixture is not significant so not noticed
+["h10", '-h -k1,1 -k2,2', {IN=>"1M 2M\n2M 1Mi\n"}, {OUT=>"1M 2M\n2M 1Mi\n"}],
+
 ["01a", '', {IN=>"A\nB\nC\n"}, {OUT=>"A\nB\nC\n"}],
 #
 ["02a", '-c', {IN=>"A\nB\nC\n"}, {OUT=>''}],
@@ -116,6 +138,10 @@ my @Tests =
 ["07d", '+1 -3', {IN=>"y k b\nz k a\n"}, {OUT=>"z k a\ny k b\n"}],
 # ensure a character position of 0 includes whole field
 ["07e", '-k 2,3.0', {IN=>"a a b\nz a a\n"}, {OUT=>"z a a\na a b\n"}],
+# ensure fields with end position before start are ignored
+["07f", '-n -k1.3,1.1', {IN=>"a 2\nb 1\n"}, {OUT=>"a 2\nb 1\n"}],
+["07g", '-n -k2.2,1.2', {IN=>"aa 2\nbb 1\n"}, {OUT=>"aa 2\nbb 1\n"}],
+["07h", '-k1.3nb,1.3', {IN=>"  a 2\n  b 1\n"}, {OUT=>"  a 2\n  b 1\n"}],
 #
 # report an error for `.' without following char spec
 ["08a", '-k 2.,3', {EXIT=>2},

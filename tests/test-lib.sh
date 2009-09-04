@@ -47,6 +47,21 @@ require_acl_()
     || skip_test_ "This test requires a local user named bin."
 }
 
+require_openat_support_()
+{
+  # Skip this test if your system has neither the openat-style functions
+  # nor /proc/self/fd support with which to emulate them.
+  test -z "$CONFIG_HEADER" \
+    && skip_test_ 'internal error: CONFIG_HEADER not defined'
+
+  _skip=yes
+  grep '^#define HAVE_OPENAT' "$CONFIG_HEADER" > /dev/null && _skip=no
+  test -d /proc/self/fd && _skip=no
+  if test $_skip = yes; then
+    skip_test_ 'this system lacks openat support'
+  fi
+}
+
 require_ulimit_()
 {
   ulimit_works=yes
@@ -120,6 +135,11 @@ uid_is_privileged_()
       return 1 ;;
     *) return 1 ;;
   esac
+}
+
+get_process_status_()
+{
+  sed -n '/^State:[	 ]*\([[:alpha:]]\).*/s//\1/p' /proc/$1/status
 }
 
 # Convert an ls-style permission string, like drwxr----x and -rw-r-x-wx
@@ -204,6 +224,7 @@ require_root_()
 {
   uid_is_privileged_ || skip_test_ "must be run as root"
   NON_ROOT_USERNAME=${NON_ROOT_USERNAME=nobody}
+  NON_ROOT_GROUP=${NON_ROOT_GROUP=$(id -g $NON_ROOT_USERNAME)}
 }
 
 skip_if_root_() { uid_is_privileged_ && skip_test_ "must be run as non-root"; }
@@ -231,6 +252,17 @@ of group names or numbers.  E.g.,
 '
      ;;
   esac
+}
+
+# Is /proc/$PID/status supported?
+require_proc_pid_status_()
+{
+    sleep 2 &
+    local pid=$!
+    sleep .5
+    grep '^State:[	 ]*[S]' /proc/$pid/status > /dev/null 2>&1 ||
+    skip_test_ "/proc/$pid/status: missing or 'different'"
+    kill $pid
 }
 
 # Does the current (working-dir) file system support sparse files?

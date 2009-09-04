@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNU textutils 2.0.22\n"
 "Report-Msgid-Bugs-To: bug-coreutils@gnu.org\n"
-"POT-Creation-Date: 2009-05-07 14:14+0200\n"
+"POT-Creation-Date: 2009-08-20 17:27+0200\n"
 "PO-Revision-Date: 2002-07-22 20:02+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: Korean <translation-team-ko@lists.sourceforge.net>\n"
@@ -37,25 +37,25 @@ msgstr "파일 `%s'을(를) 만듦\n"
 
 #: lib/closeout.c:112 src/base64.c:110 src/base64.c:122 src/base64.c:128
 #: src/base64.c:169 src/base64.c:225 src/cat.c:187 src/cat.c:203 src/cat.c:287
-#: src/cksum.c:248 src/expand.c:329 src/expand.c:354 src/head.c:300
-#: src/head.c:350 src/head.c:758 src/head.c:799 src/od.c:920 src/paste.c:159
-#: src/shuf.c:405 src/tail.c:308 src/tail.c:1096 src/tr.c:1550 src/tr.c:1773
-#: src/tr.c:1887 src/unexpand.c:426 src/unexpand.c:442
+#: src/cksum.c:248 src/expand.c:329 src/expand.c:354 src/head.c:301
+#: src/head.c:351 src/head.c:759 src/head.c:800 src/od.c:919 src/paste.c:159
+#: src/shuf.c:405 src/tail.c:335 src/tail.c:1123 src/tail.c:1393 src/tr.c:1549
+#: src/tr.c:1772 src/tr.c:1886 src/unexpand.c:426 src/unexpand.c:442
 #, c-format
 msgid "write error"
 msgstr "쓰기 오류"
 
-#: lib/copy-acl.c:547 src/copy.c:813 src/copy.c:2153
+#: lib/copy-acl.c:547 src/copy.c:857 src/copy.c:2196
 #, fuzzy, c-format
 msgid "preserving permissions for %s"
 msgstr "%s의 허가를 바꿀 수 없습니다"
 
-#: lib/error.c:125
+#: lib/error.c:127
 msgid "Unknown system error"
 msgstr "알 수 없는 시스템 오류"
 
-#: lib/euidaccess-stat.c:136 src/copy.c:1197 src/copy.c:1249 src/copy.c:1834
-#: src/copy.c:2140 src/df.c:575 src/install.c:736 src/stat.c:862
+#: lib/euidaccess-stat.c:136 src/copy.c:1241 src/copy.c:1293 src/copy.c:1872
+#: src/copy.c:2183 src/df.c:575 src/install.c:737 src/stat.c:862
 #: src/truncate.c:370
 #, fuzzy, c-format
 msgid "cannot stat %s"
@@ -250,12 +250,12 @@ msgstr "%s: `-W %s'은(는) 모호한 옵션입니다\n"
 msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s: `-W %s' 옵션은 인수를 허용하지 않습니다\n"
 
-#: lib/mkdir-p.c:196 src/install.c:807
+#: lib/mkdir-p.c:196 src/install.c:808
 #, c-format
 msgid "cannot change permissions of %s"
 msgstr "%s의 허가를 바꿀 수 없습니다"
 
-#: lib/mkdir-p.c:206 src/copy.c:1823 src/install.c:704 src/install.c:717
+#: lib/mkdir-p.c:206 src/copy.c:1861 src/install.c:705 src/install.c:718
 #, c-format
 msgid "cannot create directory %s"
 msgstr "%s 디렉토리를 만들 수 없습니다"
@@ -420,7 +420,7 @@ msgstr "^[yY]"
 msgid "^[nN]"
 msgstr "^[nN]"
 
-#: lib/set-mode-acl.c:488 src/copy.c:1846 src/cp.c:495
+#: lib/set-mode-acl.c:488 src/copy.c:1884 src/cp.c:498
 #, fuzzy, c-format
 msgid "setting permissions for %s"
 msgstr "%s의 허가를 바꿀 수 없습니다"
@@ -466,14 +466,24 @@ msgstr "잘못된 사용자"
 msgid "unable to display error message"
 msgstr ""
 
+#: lib/version-etc.c:68
+#, c-format
+msgid "Packaged by %s (%s)\n"
+msgstr ""
+
+#: lib/version-etc.c:71
+#, c-format
+msgid "Packaged by %s\n"
+msgstr ""
+
 #. TRANSLATORS: Translate "(C)" to the copyright symbol
 #. (C-in-a-circle), if this symbol is available in the user's
 #. locale.  Otherwise, do not translate "(C)"; leave it as-is.
-#: lib/version-etc.c:65
+#: lib/version-etc.c:78
 msgid "(C)"
 msgstr ""
 
-#: lib/version-etc.c:67
+#: lib/version-etc.c:80
 msgid ""
 "\n"
 "License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl."
@@ -484,19 +494,19 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: %s denotes an author name.
-#: lib/version-etc.c:83
+#: lib/version-etc.c:96
 #, c-format
 msgid "Written by %s.\n"
 msgstr "%s이(가) 만들었습니다.\n"
 
 #. TRANSLATORS: Each %s denotes an author name.
-#: lib/version-etc.c:87
+#: lib/version-etc.c:100
 #, fuzzy, c-format
 msgid "Written by %s and %s.\n"
 msgstr "%s이(가) 만들었습니다.\n"
 
 #. TRANSLATORS: Each %s denotes an author name.
-#: lib/version-etc.c:91
+#: lib/version-etc.c:104
 #, fuzzy, c-format
 msgid "Written by %s, %s, and %s.\n"
 msgstr "%s이(가) 만들었습니다.\n"
@@ -504,7 +514,7 @@ msgstr "%s이(가) 만들었습니다.\n"
 #. TRANSLATORS: Each %s denotes an author name.
 #. You can use line breaks, estimating that each author name occupies
 #. ca. 16 screen columns and that a screen line has ca. 80 columns.
-#: lib/version-etc.c:97
+#: lib/version-etc.c:111
 #, fuzzy, c-format
 msgid ""
 "Written by %s, %s, %s,\n"
@@ -514,7 +524,7 @@ msgstr "%s이(가) 만들었습니다.\n"
 #. TRANSLATORS: Each %s denotes an author name.
 #. You can use line breaks, estimating that each author name occupies
 #. ca. 16 screen columns and that a screen line has ca. 80 columns.
-#: lib/version-etc.c:103
+#: lib/version-etc.c:118
 #, fuzzy, c-format
 msgid ""
 "Written by %s, %s, %s,\n"
@@ -524,7 +534,7 @@ msgstr "%s이(가) 만들었습니다.\n"
 #. TRANSLATORS: Each %s denotes an author name.
 #. You can use line breaks, estimating that each author name occupies
 #. ca. 16 screen columns and that a screen line has ca. 80 columns.
-#: lib/version-etc.c:109
+#: lib/version-etc.c:125
 #, c-format
 msgid ""
 "Written by %s, %s, %s,\n"
@@ -534,7 +544,7 @@ msgstr ""
 #. TRANSLATORS: Each %s denotes an author name.
 #. You can use line breaks, estimating that each author name occupies
 #. ca. 16 screen columns and that a screen line has ca. 80 columns.
-#: lib/version-etc.c:116
+#: lib/version-etc.c:133
 #, c-format
 msgid ""
 "Written by %s, %s, %s,\n"
@@ -544,7 +554,7 @@ msgstr ""
 #. TRANSLATORS: Each %s denotes an author name.
 #. You can use line breaks, estimating that each author name occupies
 #. ca. 16 screen columns and that a screen line has ca. 80 columns.
-#: lib/version-etc.c:123
+#: lib/version-etc.c:141
 #, c-format
 msgid ""
 "Written by %s, %s, %s,\n"
@@ -555,7 +565,7 @@ msgstr ""
 #. TRANSLATORS: Each %s denotes an author name.
 #. You can use line breaks, estimating that each author name occupies
 #. ca. 16 screen columns and that a screen line has ca. 80 columns.
-#: lib/version-etc.c:131
+#: lib/version-etc.c:150
 #, c-format
 msgid ""
 "Written by %s, %s, %s,\n"
@@ -566,7 +576,7 @@ msgstr ""
 #. TRANSLATORS: Each %s denotes an author name.
 #. You can use line breaks, estimating that each author name occupies
 #. ca. 16 screen columns and that a screen line has ca. 80 columns.
-#: lib/version-etc.c:141
+#: lib/version-etc.c:161
 #, c-format
 msgid ""
 "Written by %s, %s, %s,\n"
@@ -578,7 +588,7 @@ msgstr ""
 #. for this package.  Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the address for translation
 #. bugs (typically your translation team's web or email address).
-#: lib/version-etc.c:181
+#: lib/version-etc.c:239
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -587,12 +597,19 @@ msgstr ""
 "\n"
 "<%s>(으)로 버그를 알려 주십시오.\n"
 
-#: lib/version-etc.c:182
+#: lib/version-etc.c:241
+#, fuzzy, c-format
+msgid "Report %s bugs to <%s>.\n"
+msgstr ""
+"\n"
+"<%s>(으)로 버그를 알려 주십시오.\n"
+
+#: lib/version-etc.c:244
 #, c-format
 msgid "%s home page: <http://www.gnu.org/software/%s/>.\n"
 msgstr ""
 
-#: lib/version-etc.c:184
+#: lib/version-etc.c:246
 msgid "General help using GNU software: <http://www.gnu.org/gethelp/>.\n"
 msgstr ""
 
@@ -680,23 +697,23 @@ msgid "Simon Josefsson"
 msgstr ""
 
 #: src/base64.c:55 src/basename.c:46 src/cat.c:85 src/chcon.c:338
-#: src/chgrp.c:106 src/chmod.c:349 src/chown.c:87 src/chroot.c:39
-#: src/cksum.c:257 src/comm.c:98 src/cp.c:139 src/csplit.c:1442 src/cut.c:185
-#: src/date.c:120 src/dd.c:458 src/df.c:800 src/dircolors.c:95
-#: src/dirname.c:42 src/du.c:264 src/echo.c:39 src/env.c:109 src/expand.c:99
+#: src/chgrp.c:106 src/chmod.c:349 src/chown.c:87 src/chroot.c:120
+#: src/cksum.c:257 src/comm.c:98 src/cp.c:141 src/csplit.c:1442 src/cut.c:185
+#: src/date.c:120 src/dd.c:459 src/df.c:800 src/dircolors.c:94
+#: src/dirname.c:41 src/du.c:264 src/echo.c:39 src/env.c:109 src/expand.c:99
 #: src/expr.c:198 src/factor.c:489 src/fmt.c:265 src/fold.c:62
-#: src/getlimits.c:62 src/groups.c:50 src/head.c:103 src/hostid.c:40
-#: src/hostname.c:53 src/id.c:78 src/install.c:935 src/join.c:163
-#: src/kill.c:83 src/link.c:42 src/ln.c:346 src/logname.c:36 src/ls.c:4504
+#: src/getlimits.c:62 src/groups.c:50 src/head.c:104 src/hostid.c:40
+#: src/hostname.c:53 src/id.c:78 src/install.c:936 src/join.c:163
+#: src/kill.c:83 src/link.c:42 src/ln.c:346 src/logname.c:36 src/ls.c:4505
 #: src/md5sum.c:149 src/mkdir.c:53 src/mkfifo.c:48 src/mknod.c:49
-#: src/mktemp.c:60 src/mv.c:276 src/nice.c:68 src/nl.c:171 src/nohup.c:50
-#: src/od.c:305 src/paste.c:429 src/pathchk.c:93 src/pinky.c:506 src/pr.c:2763
+#: src/mktemp.c:60 src/mv.c:277 src/nice.c:68 src/nl.c:178 src/nohup.c:50
+#: src/od.c:304 src/paste.c:429 src/pathchk.c:93 src/pinky.c:502 src/pr.c:2763
 #: src/printenv.c:54 src/printf.c:84 src/ptx.c:1880 src/pwd.c:53
-#: src/readlink.c:59 src/rm.c:155 src/rmdir.c:162 src/runcon.c:80 src/seq.c:66
+#: src/readlink.c:59 src/rm.c:155 src/rmdir.c:161 src/runcon.c:80 src/seq.c:66
 #: src/setuidgid.c:46 src/shred.c:154 src/shuf.c:43 src/sleep.c:42
-#: src/sort.c:309 src/split.c:99 src/stat.c:905 src/stty.c:502 src/su.c:377
-#: src/sum.c:55 src/sync.c:37 src/tac.c:129 src/tail.c:211 src/tee.c:58
-#: src/test.c:681 src/timeout.c:129 src/touch.c:229 src/tr.c:283
+#: src/sort.c:312 src/split.c:99 src/stat.c:905 src/stdbuf.c:91 src/stty.c:502
+#: src/su.c:377 src/sum.c:55 src/sync.c:37 src/tac.c:129 src/tail.c:238
+#: src/tee.c:58 src/test.c:681 src/timeout.c:129 src/touch.c:229 src/tr.c:282
 #: src/truncate.c:98 src/tsort.c:78 src/tty.c:61 src/uname.c:118
 #: src/unexpand.c:109 src/uniq.c:129 src/unlink.c:42 src/uptime.c:193
 #: src/users.c:102 src/wc.c:108 src/who.c:626 src/whoami.c:42 src/yes.c:38
@@ -748,7 +765,7 @@ msgid ""
 msgstr ""
 
 #: src/base64.c:172 src/base64.c:209 src/csplit.c:263 src/csplit.c:1431
-#: src/join.c:414 src/shuf.c:397 src/tac-pipe.c:74 src/tee.c:204 src/tr.c:1574
+#: src/join.c:414 src/shuf.c:397 src/tac-pipe.c:74 src/tee.c:204 src/tr.c:1573
 #, c-format
 msgid "read error"
 msgstr "읽기 오류"
@@ -763,12 +780,12 @@ msgstr "부적절한 숫자"
 msgid "invalid wrap size: %s"
 msgstr "부적절한 타입의 문자열 `%s'"
 
-#: src/base64.c:284 src/basename.c:119 src/comm.c:425 src/cp.c:584
-#: src/date.c:426 src/dircolors.c:449 src/dirname.c:98 src/du.c:926
-#: src/hostid.c:76 src/hostname.c:112 src/id.c:169 src/install.c:611
+#: src/base64.c:284 src/basename.c:119 src/comm.c:432 src/cp.c:587
+#: src/date.c:426 src/dircolors.c:448 src/dirname.c:97 src/du.c:926
+#: src/hostid.c:76 src/hostname.c:112 src/id.c:169 src/install.c:612
 #: src/join.c:896 src/link.c:86 src/ln.c:521 src/logname.c:72 src/mknod.c:158
-#: src/mv.c:442 src/od.c:1803 src/ptx.c:2148 src/readlink.c:152 src/seq.c:410
-#: src/shuf.c:377 src/sort.c:3411 src/split.c:536 src/tr.c:1727
+#: src/mv.c:443 src/od.c:1802 src/ptx.c:2148 src/readlink.c:152 src/seq.c:410
+#: src/shuf.c:377 src/sort.c:3533 src/split.c:536 src/tr.c:1726
 #: src/tsort.c:548 src/tty.c:113 src/uname.c:253 src/uniq.c:452 src/uniq.c:469
 #: src/unlink.c:82 src/uptime.c:251 src/users.c:147 src/wc.c:654 src/who.c:817
 #: src/whoami.c:80
@@ -784,13 +801,13 @@ msgstr "표준 입력"
 #. This is a proper name. See the gettext manual, section Names.
 #: src/basename.c:40 src/chgrp.c:38 src/chmod.c:38 src/chown.c:47
 #: src/comm.c:36 src/cp.c:57 src/csplit.c:42 src/cut.c:44 src/date.c:39
-#: src/dd.c:45 src/df.c:41 src/dirname.c:35 src/du.c:53 src/env.c:92
-#: src/expand.c:48 src/fold.c:35 src/groups.c:35 src/head.c:46 src/id.c:39
+#: src/dd.c:46 src/df.c:41 src/dirname.c:34 src/du.c:53 src/env.c:92
+#: src/expand.c:48 src/fold.c:35 src/groups.c:35 src/head.c:47 src/id.c:39
 #: src/install.c:49 src/ln.c:40 src/ls.c:120 src/mkdir.c:36 src/mkfifo.c:33
 #: src/mknod.c:34 src/mv.c:42 src/nice.c:40 src/nl.c:40 src/paste.c:52
 #: src/pathchk.c:40 src/pinky.c:36 src/printenv.c:45 src/printf.c:62
-#: src/rm.c:65 src/rmdir.c:39 src/stty.c:69 src/su.c:95 src/sum.c:38
-#: src/tac.c:58 src/tail.c:53 src/tee.c:35 src/touch.c:44 src/tty.c:43
+#: src/rm.c:65 src/rmdir.c:38 src/stty.c:69 src/su.c:95 src/sum.c:38
+#: src/tac.c:58 src/tail.c:62 src/tee.c:35 src/touch.c:44 src/tty.c:43
 #: src/uname.c:61 src/unexpand.c:49 src/uniq.c:40 src/uptime.c:46
 #: src/users.c:36 src/wc.c:50 src/who.c:44 src/yes.c:32
 #, fuzzy
@@ -823,12 +840,12 @@ msgid ""
 msgstr ""
 
 #: src/basename.c:113 src/chcon.c:514 src/chgrp.c:273 src/chmod.c:500
-#: src/chown.c:286 src/chroot.c:81 src/comm.c:417 src/csplit.c:1369
-#: src/dirname.c:92 src/expr.c:323 src/join.c:1074 src/link.c:78
+#: src/chown.c:286 src/chroot.c:186 src/comm.c:424 src/csplit.c:1369
+#: src/dirname.c:91 src/expr.c:323 src/join.c:1074 src/link.c:78
 #: src/mkdir.c:184 src/mkfifo.c:109 src/mknod.c:147 src/nohup.c:105
 #: src/pathchk.c:156 src/printf.c:672 src/readlink.c:144 src/rm.c:346
-#: src/rmdir.c:224 src/seq.c:404 src/setuidgid.c:137 src/sleep.c:121
-#: src/stat.c:1057 src/tr.c:1712 src/unlink.c:76
+#: src/rmdir.c:223 src/seq.c:404 src/setuidgid.c:137 src/sleep.c:121
+#: src/stat.c:1057 src/stdbuf.c:357 src/tr.c:1711 src/unlink.c:76
 #, fuzzy, c-format
 msgid "missing operand"
 msgstr "%s: `%c' 뒤에 정수가 와야함"
@@ -845,9 +862,9 @@ msgstr ""
 msgid "Richard M. Stallman"
 msgstr "Torbjorn Granlund 그리고 Richard M. Stallman"
 
-#: src/cat.c:89 src/df.c:804 src/expand.c:103 src/fold.c:66 src/head.c:107
-#: src/ls.c:4508 src/nl.c:175 src/paste.c:433 src/pr.c:2767 src/sum.c:59
-#: src/tac.c:133 src/tail.c:215 src/tee.c:62 src/unexpand.c:113
+#: src/cat.c:89 src/df.c:804 src/expand.c:103 src/fold.c:66 src/head.c:108
+#: src/ls.c:4509 src/nl.c:182 src/paste.c:433 src/pr.c:2767 src/sum.c:59
+#: src/tac.c:133 src/tail.c:242 src/tee.c:62 src/unexpand.c:113
 #, c-format
 msgid "Usage: %s [OPTION]... [FILE]...\n"
 msgstr "사용법: %s [<옵션>]... [<파일>]...\n"
@@ -899,7 +916,7 @@ msgstr ""
 msgid "cannot do ioctl on %s"
 msgstr "`%s'에서 ioctl을 할 수 없습니다"
 
-#: src/cat.c:637 src/dd.c:1851 src/sort.c:301 src/tee.c:163 src/yes.c:88
+#: src/cat.c:637 src/dd.c:1878 src/sort.c:304 src/tee.c:163 src/yes.c:88
 #, c-format
 msgid "standard output"
 msgstr "표준 출력"
@@ -916,10 +933,10 @@ msgstr ""
 
 #. This is a proper name. See the gettext manual, section Names.
 #: src/chcon.c:36 src/chgrp.c:39 src/chmod.c:39 src/chown.c:48 src/cp.c:58
-#: src/cut.c:45 src/dirname.c:36 src/du.c:55 src/head.c:47 src/hostid.c:34
+#: src/cut.c:45 src/dirname.c:35 src/du.c:55 src/head.c:48 src/hostid.c:34
 #: src/hostname.c:33 src/mktemp.c:34 src/mv.c:43 src/nohup.c:37 src/od.c:35
 #: src/pathchk.c:41 src/pwd.c:31 src/rm.c:67 src/setuidgid.c:38 src/sleep.c:35
-#: src/sync.c:31 src/tail.c:55 src/tr.c:36 src/true.c:33
+#: src/sync.c:31 src/tail.c:64 src/tr.c:36 src/true.c:33
 #, fuzzy
 msgid "Jim Meyering"
 msgstr "Mike Haertel 그리고 Paul Eggert"
@@ -934,7 +951,7 @@ msgstr "%s의 시간을 유지합니다"
 msgid "failed to set %s security context component to %s"
 msgstr ""
 
-#: src/chcon.c:155 src/chcon.c:523 src/copy.c:1778 src/runcon.c:218
+#: src/chcon.c:155 src/chcon.c:523 src/copy.c:1822 src/runcon.c:218
 #: src/stat.c:461
 #, fuzzy, c-format
 msgid "failed to get security context of %s"
@@ -950,8 +967,8 @@ msgstr ""
 msgid "failed to change context of %s to %s"
 msgstr "%s의 허가를 바꿀 수 없습니다"
 
-#: src/chcon.c:254 src/chmod.c:207 src/chown-core.c:300 src/copy.c:255
-#: src/du.c:485 src/ls.c:2760
+#: src/chcon.c:254 src/chmod.c:207 src/chown-core.c:300 src/copy.c:289
+#: src/du.c:485 src/ls.c:2761
 #, fuzzy, c-format
 msgid "cannot access %s"
 msgstr "`%s'에 chown을 실행할 수 없습니다"
@@ -1040,8 +1057,8 @@ msgid "-R -h requires -P"
 msgstr ""
 
 #: src/chcon.c:516 src/chgrp.c:275 src/chmod.c:502 src/chown.c:288
-#: src/comm.c:419 src/csplit.c:1371 src/join.c:1076 src/link.c:80
-#: src/mknod.c:149 src/setuidgid.c:139 src/tr.c:1715
+#: src/comm.c:426 src/csplit.c:1371 src/join.c:1076 src/link.c:80
+#: src/mknod.c:149 src/setuidgid.c:139 src/tr.c:1714
 #, fuzzy, c-format
 msgid "missing operand after %s"
 msgstr "%s: `%c' 뒤에 정수가 와야함"
@@ -1057,7 +1074,7 @@ msgid "conflicting security context specifiers given"
 msgstr ""
 
 #: src/chcon.c:555 src/chgrp.c:283 src/chgrp.c:301 src/chmod.c:510
-#: src/chmod.c:529 src/chown.c:296 src/chown.c:325 src/cp.c:410 src/cp.c:470
+#: src/chmod.c:529 src/chown.c:296 src/chown.c:325 src/cp.c:413 src/cp.c:473
 #: src/mv.c:96 src/pwd.c:274 src/rm.c:356 src/touch.c:159 src/touch.c:361
 #, fuzzy, c-format
 msgid "failed to get attributes of %s"
@@ -1343,44 +1360,76 @@ msgid ""
 msgstr ""
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/chroot.c:33
+#: src/chroot.c:36
 msgid "Roland McGrath"
 msgstr ""
 
-#: src/chroot.c:43
+#: src/chroot.c:88 src/install.c:900 src/setuidgid.c:110 src/setuidgid.c:120
+#, fuzzy, c-format
+msgid "invalid group %s"
+msgstr "잘못된 그룹"
+
+#: src/chroot.c:100
+#, fuzzy, c-format
+msgid "invalid group list %s"
+msgstr "잘못된 그룹"
+
+#: src/chroot.c:108
+#, fuzzy, c-format
+msgid "failed to set additional groups"
+msgstr "null 그룹으로 바꿀 수 없습니다"
+
+#: src/chroot.c:124
 #, fuzzy, c-format
 msgid ""
-"Usage: %s NEWROOT [COMMAND [ARG]...]\n"
+"Usage: %s [OPTION] NEWROOT [COMMAND [ARG]...]\n"
 "  or:  %s OPTION\n"
 msgstr ""
 "사용법: %s [<파일>]...\n"
 " 혹은:  %s [<옵션>]\n"
 
-#: src/chroot.c:47
+#: src/chroot.c:129
 msgid ""
 "Run COMMAND with root directory set to NEWROOT.\n"
 "\n"
 msgstr ""
 
-#: src/chroot.c:53
+#: src/chroot.c:134
+msgid ""
+"  --userspec=USER:GROUP  specify user and group (ID or name) to use\n"
+"  --groups=G_LIST        specify supplementary groups as g1,g2,..,gN\n"
+msgstr ""
+
+#: src/chroot.c:141
 msgid ""
 "\n"
 "If no command is given, run ``${SHELL} -i'' (default: /bin/sh).\n"
 msgstr ""
 
-#: src/chroot.c:86
+#: src/chroot.c:191
 #, fuzzy, c-format
 msgid "cannot change root directory to %s"
 msgstr "%s 디렉토리로 chdir할 수 없습니다"
 
-#: src/chroot.c:90
+#: src/chroot.c:195
 #, fuzzy, c-format
 msgid "cannot chdir to root directory"
 msgstr "%s 디렉토리로 chdir할 수 없습니다"
 
-#: src/chroot.c:113 src/nohup.c:216 src/setuidgid.c:213 src/timeout.c:304
+#: src/chroot.c:236
 #, fuzzy, c-format
-msgid "cannot run command %s"
+msgid "failed to set group-ID"
+msgstr "%s의 시간을 유지합니다"
+
+#: src/chroot.c:242
+#, fuzzy, c-format
+msgid "failed to set user-ID"
+msgstr "%s의 시간을 유지합니다"
+
+#: src/chroot.c:264 src/nohup.c:216 src/setuidgid.c:213 src/stdbuf.c:377
+#: src/timeout.c:304
+#, fuzzy, c-format
+msgid "failed to run command %s"
 msgstr "`%s'에서 ioctl을 할 수 없습니다"
 
 #. This is a proper name. See the gettext manual, section Names.
@@ -1431,9 +1480,9 @@ msgstr ""
 #, fuzzy
 msgid ""
 "\n"
-"  -1              suppress lines unique to FILE1\n"
-"  -2              suppress lines unique to FILE2\n"
-"  -3              suppress lines that appear in both files\n"
+"  -1              suppress column 1 (lines unique to FILE1)\n"
+"  -2              suppress column 2 (lines unique to FILE2)\n"
+"  -3              suppress column 3 (lines that appear in both files)\n"
 msgstr ""
 "정렬된 파일인 <왼쪽_파일>과 <오른쪽_파일>을 행 단위로 비교합니다.\n"
 "\n"
@@ -1459,69 +1508,78 @@ msgid ""
 "Note, comparisons honor the rules specified by `LC_COLLATE'.\n"
 msgstr ""
 
-#: src/comm.c:214 src/join.c:367
+#: src/comm.c:136
+#, c-format
+msgid ""
+"\n"
+"Examples:\n"
+"  %s -12 file1 file2  Print only lines present in both file1 and file2.\n"
+"  %s -3  file1 file2  Print lines in file1 not in file2, and vice versa.\n"
+msgstr ""
+
+#: src/comm.c:221 src/join.c:367
 #, c-format
 msgid "file %d is not in sorted order"
 msgstr ""
 
-#: src/comm.c:397
+#: src/comm.c:404
 #, c-format
 msgid "multiple delimiters specified"
 msgstr ""
 
-#: src/comm.c:401
+#: src/comm.c:408
 #, c-format
 msgid "empty %s not allowed"
 msgstr ""
 
-#: src/copy.c:331
+#: src/copy.c:365
 #, fuzzy, c-format
 msgid "clearing permissions for %s"
 msgstr "%s의 허가를 바꿀 수 없습니다"
 
-#: src/copy.c:365 src/copy.c:2032 src/cp.c:308
+#: src/copy.c:399 src/copy.c:2066 src/cp.c:311
 #, fuzzy, c-format
 msgid "failed to preserve ownership for %s"
 msgstr "%s의 소유권을 유지합니다"
 
-#: src/copy.c:391
+#: src/copy.c:425
 #, fuzzy, c-format
 msgid "failed to lookup file %s"
 msgstr "%s의 시간을 유지합니다"
 
-#: src/copy.c:396
+#: src/copy.c:430
 #, fuzzy, c-format
 msgid "failed to preserve authorship for %s"
 msgstr "%s의 소유권을 유지합니다"
 
-#: src/copy.c:454 src/csplit.c:630 src/du.c:933 src/fmt.c:427 src/head.c:849
-#: src/sort.c:3423 src/split.c:543 src/tac.c:544 src/tail.c:1294 src/wc.c:666
+#: src/copy.c:488 src/csplit.c:630 src/du.c:933 src/fmt.c:427 src/head.c:850
+#: src/sort.c:3545 src/split.c:543 src/tac.c:544 src/tail.c:1574 src/wc.c:666
 #, fuzzy, c-format
 msgid "cannot open %s for reading"
 msgstr "`%s'를 `%s'로 이동할 수 없습니다"
 
-#: src/copy.c:460 src/copy.c:588 src/dd.c:1268 src/dd.c:1895 src/tail.c:1130
-#: src/tail.c:1196 src/truncate.c:153 src/truncate.c:237
+#: src/copy.c:494 src/copy.c:622 src/dd.c:1293 src/dd.c:1921 src/tail.c:1410
+#: src/tail.c:1476 src/truncate.c:153 src/truncate.c:237
 #, fuzzy, c-format
 msgid "cannot fstat %s"
 msgstr "`%s'의 정보(stat)를 얻을 수 없습니다"
 
-#: src/copy.c:470
+#: src/copy.c:504
 #, c-format
 msgid "skipping file %s, as it was replaced while being copied"
 msgstr ""
 
-#: src/copy.c:494
+#: src/copy.c:528
 #, c-format
 msgid "failed to get file system create context"
 msgstr ""
 
-#: src/copy.c:508
+#: src/copy.c:542
 #, fuzzy, c-format
 msgid "failed to set the security context of %s to %s"
 msgstr "%s의 그룹을 %s로 바꾸는데 실패했습니다\n"
 
-#: src/copy.c:525 src/copy.c:1318 src/copy.c:1472 src/copy.c:1620 src/ln.c:293
+#: src/copy.c:559 src/copy.c:1362 src/copy.c:1516 src/copy.c:1664 src/ln.c:293
 #: src/remove.c:935 src/remove.c:956 src/remove.c:1105 src/remove.c:1146
 #: src/remove.c:1165 src/remove.c:1181 src/remove.c:1188 src/remove.c:1539
 #: src/remove.c:1626 src/remove.c:1784
@@ -1529,215 +1587,220 @@ msgstr "%s의 그룹을 %s로 바꾸는데 실패했습니다\n"
 msgid "cannot remove %s"
 msgstr "%s 디렉토리를 만들 수 없습니다"
 
-#: src/copy.c:530 src/copy.c:1313 src/copy.c:1477 src/copy.c:1624
+#: src/copy.c:564 src/copy.c:1357 src/copy.c:1521 src/copy.c:1668
 #: src/remove.c:1013
 #, fuzzy, c-format
 msgid "removed %s\n"
 msgstr "%s를 지웁니다\n"
 
-#: src/copy.c:567
+#: src/copy.c:601
 #, c-format
 msgid "not writing through dangling symlink %s"
 msgstr ""
 
-#: src/copy.c:580
+#: src/copy.c:614
 #, fuzzy, c-format
 msgid "cannot create regular file %s"
 msgstr "임시 파일을 만들 수 없습니다"
 
-#: src/copy.c:663 src/dd.c:1329 src/dd.c:1654
+#: src/copy.c:631
+#, fuzzy, c-format
+msgid "failed to clone %s"
+msgstr "%s의 시간을 유지합니다"
+
+#: src/copy.c:707 src/dd.c:1354 src/dd.c:1679
 #, fuzzy, c-format
 msgid "reading %s"
 msgstr "%s을(를) 읽는 도중 오류 발생"
 
-#: src/copy.c:709 src/head.c:428
+#: src/copy.c:753 src/head.c:429
 #, fuzzy, c-format
 msgid "cannot lseek %s"
 msgstr "%s: 오프셋 %s%s로(으로) 갈 수 없습니다"
 
-#: src/copy.c:722 src/copy.c:751 src/dd.c:1711 src/dd.c:1773
+#: src/copy.c:766 src/copy.c:795 src/dd.c:1736 src/dd.c:1798
 #, fuzzy, c-format
 msgid "writing %s"
 msgstr "%s에 쓰는 도중 오류 발생"
 
-#: src/copy.c:766 src/copy.c:2086
+#: src/copy.c:810 src/copy.c:2125
 #, c-format
 msgid "preserving times for %s"
 msgstr "%s의 시간을 유지합니다"
 
-#: src/copy.c:823 src/copy.c:829 src/head.c:857 src/touch.c:191
+#: src/copy.c:867 src/copy.c:873 src/head.c:858 src/touch.c:191
 #: src/truncate.c:411
 #, fuzzy, c-format
 msgid "closing %s"
 msgstr "%s(fd=%d)을(를) 닫습니다 "
 
-#: src/copy.c:1063
+#: src/copy.c:1107
 #, fuzzy, c-format
 msgid "%s: try to overwrite %s, overriding mode %04lo (%s)? "
 msgstr "%s: `%s'에 모드 %04lo으로 겹쳐쓰겠습니까? "
 
-#: src/copy.c:1070
+#: src/copy.c:1114
 #, fuzzy, c-format
 msgid "%s: overwrite %s? "
 msgstr "%s: `%s'를 겹쳐씁니까? "
 
-#: src/copy.c:1139
+#: src/copy.c:1183
 #, c-format
 msgid " (backup: %s)"
 msgstr " (백업: %s)"
 
-#: src/copy.c:1149
+#: src/copy.c:1193
 #, c-format
 msgid "failed to restore the default file creation context"
 msgstr ""
 
-#: src/copy.c:1205
+#: src/copy.c:1249
 #, fuzzy, c-format
 msgid "omitting directory %s"
 msgstr "%s 디렉토리를 만들 수 없습니다"
 
-#: src/copy.c:1219
+#: src/copy.c:1263
 #, c-format
 msgid "warning: source file %s specified more than once"
 msgstr ""
 
-#: src/copy.c:1267 src/ln.c:231
+#: src/copy.c:1311 src/ln.c:231
 #, fuzzy, c-format
 msgid "%s and %s are the same file"
 msgstr "`%s'와 `%s'는 같은 파일입니다"
 
-#: src/copy.c:1347
+#: src/copy.c:1391
 #, fuzzy, c-format
 msgid "cannot overwrite non-directory %s with directory %s"
 msgstr "%s 디렉토리로 chdir할 수 없습니다"
 
-#: src/copy.c:1365 src/ln.c:199
+#: src/copy.c:1409 src/ln.c:199
 #, fuzzy, c-format
 msgid "will not overwrite just-created %s with %s"
 msgstr "%s: 디렉토리가 아닌 곳에 디렉토리를 겹쳐쓸 수 없습니다"
 
-#: src/copy.c:1383
+#: src/copy.c:1427
 #, fuzzy, c-format
 msgid "cannot overwrite directory %s with non-directory"
 msgstr "%s 디렉토리를 만들 수 없습니다"
 
-#: src/copy.c:1397
+#: src/copy.c:1441
 #, fuzzy, c-format
 msgid "cannot move directory onto non-directory: %s -> %s"
 msgstr "%s 디렉토리로 chdir할 수 없습니다"
 
-#: src/copy.c:1427
+#: src/copy.c:1471
 #, fuzzy, c-format
 msgid "backing up %s would destroy source;  %s not moved"
 msgstr "`%s'의 백업은 원래 파일을 손상할 것입니다; `%s'는 이동되지 않습니다"
 
-#: src/copy.c:1428
+#: src/copy.c:1472
 #, fuzzy, c-format
 msgid "backing up %s would destroy source;  %s not copied"
 msgstr "`%s'의 백업은 원래 파일을 손상할 것입니다; `%s'는 복사되지 않습니다"
 
-#: src/copy.c:1447 src/ln.c:261
+#: src/copy.c:1491 src/ln.c:261
 #, fuzzy, c-format
 msgid "cannot backup %s"
 msgstr "`%s'를 백업할 수 없습니다"
 
-#: src/copy.c:1511
+#: src/copy.c:1555
 #, fuzzy, c-format
 msgid "will not copy %s through just-created symlink %s"
 msgstr "%s: 디렉토리가 아닌 곳에 디렉토리를 겹쳐쓸 수 없습니다"
 
-#: src/copy.c:1588
+#: src/copy.c:1632
 #, fuzzy, c-format
 msgid "cannot copy a directory, %s, into itself, %s"
 msgstr "%s 디렉토리를 만들 수 없습니다"
 
-#: src/copy.c:1605
+#: src/copy.c:1649
 #, fuzzy, c-format
 msgid "will not create hard link %s to directory %s"
 msgstr "%s 디렉토리로 chdir할 수 없습니다"
 
-#: src/copy.c:1630
+#: src/copy.c:1674
 #, fuzzy, c-format
 msgid "cannot create hard link %s to %s"
 msgstr "%s 디렉토리를 만들 수 없습니다"
 
-#: src/copy.c:1675
+#: src/copy.c:1719
 #, fuzzy, c-format
 msgid "cannot move %s to a subdirectory of itself, %s"
 msgstr "%s 디렉토리로 chdir할 수 없습니다"
 
-#: src/copy.c:1718
+#: src/copy.c:1762
 #, fuzzy, c-format
 msgid "cannot move %s to %s"
 msgstr "`%s'에서 ioctl을 할 수 없습니다"
 
-#: src/copy.c:1730
+#: src/copy.c:1774
 #, c-format
 msgid "inter-device move failed: %s to %s; unable to remove target"
 msgstr ""
 
-#: src/copy.c:1762 src/install.c:587 src/mkdir.c:190 src/mkfifo.c:115
+#: src/copy.c:1806 src/install.c:588 src/mkdir.c:190 src/mkfifo.c:115
 #: src/mknod.c:168
 #, fuzzy, c-format
 msgid "failed to set default file creation context to %s"
 msgstr "%s의 시간을 유지합니다"
 
-#: src/copy.c:1803
+#: src/copy.c:1841
 #, fuzzy, c-format
 msgid "cannot copy cyclic symbolic link %s"
 msgstr "%s: 심볼릭 링크의 사이클은 복사할 수 없습니다"
 
-#: src/copy.c:1909
+#: src/copy.c:1946
 #, c-format
 msgid "%s: can make relative symbolic links only in current directory"
 msgstr "%s: 현재 디렉토리 안에서만 상대적인 심볼릭 링크를 만들 수 있습니다"
 
-#: src/copy.c:1916
+#: src/copy.c:1953
 #, fuzzy, c-format
 msgid "cannot create symbolic link %s to %s"
 msgstr "%s 디렉토리를 만들 수 없습니다"
 
-#: src/copy.c:1941
+#: src/copy.c:1977
 #, fuzzy, c-format
 msgid "cannot create link %s"
 msgstr "%s 디렉토리를 만들 수 없습니다"
 
-#: src/copy.c:1966 src/mkfifo.c:134
+#: src/copy.c:2002 src/mkfifo.c:134
 #, fuzzy, c-format
 msgid "cannot create fifo %s"
 msgstr "%s 디렉토리를 만들 수 없습니다"
 
-#: src/copy.c:1975
+#: src/copy.c:2011
 #, fuzzy, c-format
 msgid "cannot create special file %s"
 msgstr "문자 특수 파일"
 
-#: src/copy.c:1985 src/ls.c:2978 src/stat.c:579
+#: src/copy.c:2022 src/ls.c:2979 src/stat.c:579
 #, fuzzy, c-format
 msgid "cannot read symbolic link %s"
 msgstr "심볼릭 링크"
 
-#: src/copy.c:2012
+#: src/copy.c:2049
 #, fuzzy, c-format
 msgid "cannot create symbolic link %s"
 msgstr "%s 디렉토리를 만들 수 없습니다"
 
-#: src/copy.c:2047
+#: src/copy.c:2081
 #, fuzzy, c-format
 msgid "%s has unknown file type"
 msgstr "%s: 알 수 없는 파일형"
 
-#: src/copy.c:2180 src/ln.c:334
+#: src/copy.c:2223 src/ln.c:334
 #, fuzzy, c-format
 msgid "cannot un-backup %s"
 msgstr "`%s'의 백업을 되돌릴 수 없습니다"
 
-#: src/copy.c:2184
+#: src/copy.c:2227
 #, c-format
 msgid "%s -> %s (unbackup)\n"
 msgstr "%s -> %s (백업 해제)\n"
 
-#: src/cp.c:143 src/mv.c:280
+#: src/cp.c:145 src/mv.c:281
 #, fuzzy, c-format
 msgid ""
 "Usage: %s [OPTION]... [-T] SOURCE DEST\n"
@@ -1748,24 +1811,25 @@ msgstr ""
 "  또는: %s [OPTION]... SOURCE... DIRECTORY\n"
 "  또는: %s -d [OPTION]... --target-directory=DIRECTORY SOURCE...\n"
 
-#: src/cp.c:149
+#: src/cp.c:151
 msgid ""
 "Copy SOURCE to DEST, or multiple SOURCE(s) to DIRECTORY.\n"
 "\n"
 msgstr ""
 
-#: src/cp.c:153 src/csplit.c:1455 src/cut.c:197 src/df.c:810 src/du.c:276
-#: src/expand.c:112 src/fmt.c:275 src/fold.c:75 src/head.c:117
-#: src/install.c:958 src/kill.c:97 src/ln.c:367 src/ls.c:4514 src/mkdir.c:62
-#: src/mkfifo.c:57 src/mknod.c:59 src/mv.c:290 src/nl.c:184 src/paste.c:443
-#: src/pr.c:2776 src/ptx.c:1892 src/shred.c:164 src/shuf.c:57 src/sort.c:322
-#: src/split.c:113 src/tac.c:142 src/tail.c:225 src/timeout.c:144
-#: src/touch.c:243 src/truncate.c:113 src/unexpand.c:122 src/uniq.c:144
+#: src/cp.c:155 src/csplit.c:1455 src/cut.c:197 src/df.c:810 src/du.c:276
+#: src/expand.c:112 src/fmt.c:275 src/fold.c:75 src/head.c:118
+#: src/install.c:959 src/kill.c:97 src/ln.c:367 src/ls.c:4515 src/mkdir.c:62
+#: src/mkfifo.c:57 src/mknod.c:59 src/mv.c:291 src/nl.c:191 src/paste.c:443
+#: src/pr.c:2776 src/ptx.c:1892 src/shred.c:164 src/shuf.c:57 src/sort.c:325
+#: src/split.c:113 src/stdbuf.c:100 src/tac.c:142 src/tail.c:252
+#: src/timeout.c:144 src/touch.c:243 src/truncate.c:113 src/unexpand.c:122
+#: src/uniq.c:144
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too.\n"
 msgstr "긴 옵션에서 꼭 필요한 인수는 짧은 옵션에도 꼭 필요합니다.\n"
 
-#: src/cp.c:156
+#: src/cp.c:158
 msgid ""
 "  -a, --archive                same as -dR --preserve=all\n"
 "      --backup[=CONTROL]       make a backup of each existing destination "
@@ -1777,7 +1841,7 @@ msgid ""
 "  -d                           same as --no-dereference --preserve=links\n"
 msgstr ""
 
-#: src/cp.c:163
+#: src/cp.c:165
 msgid ""
 "  -f, --force                  if an existing destination file cannot be\n"
 "                                 opened, remove it and try again (redundant "
@@ -1789,20 +1853,20 @@ msgid ""
 "  -H                           follow command-line symbolic links in SOURCE\n"
 msgstr ""
 
-#: src/cp.c:171
+#: src/cp.c:173
 msgid ""
 "  -l, --link                   link files instead of copying\n"
 "  -L, --dereference            always follow symbolic links in SOURCE\n"
 msgstr ""
 
-#: src/cp.c:175
+#: src/cp.c:177
 msgid ""
 "  -n, --no-clobber             do not overwrite an existing file (overrides\n"
 "                                 a previous -i option)\n"
 "  -P, --no-dereference         never follow symbolic links in SOURCE\n"
 msgstr ""
 
-#: src/cp.c:180
+#: src/cp.c:182
 msgid ""
 "  -p                           same as --preserve=mode,ownership,timestamps\n"
 "      --preserve[=ATTR_LIST]   preserve the specified attributes (default:\n"
@@ -1812,21 +1876,22 @@ msgid ""
 "                                 all\n"
 msgstr ""
 
-#: src/cp.c:187
+#: src/cp.c:189
 msgid ""
 "      --no-preserve=ATTR_LIST  don't preserve the specified attributes\n"
 "      --parents                use full source file name under DIRECTORY\n"
 msgstr ""
 
-#: src/cp.c:191
+#: src/cp.c:193
 msgid ""
 "  -R, -r, --recursive          copy directories recursively\n"
+"      --reflink                perform a lightweight (CoW/clone) copy\n"
 "      --remove-destination     remove each existing destination file before\n"
 "                                 attempting to open it (contrast with --"
 "force)\n"
 msgstr ""
 
-#: src/cp.c:196
+#: src/cp.c:199
 #, fuzzy
 msgid ""
 "      --sparse=WHEN            control creation of sparse files\n"
@@ -1872,7 +1937,7 @@ msgstr ""
 "--sparse=never라고 지정하면 성긴 파일을 생성하지 못하게 합니다.\n"
 "\n"
 
-#: src/cp.c:201
+#: src/cp.c:204
 msgid ""
 "  -s, --symbolic-link          make symbolic links instead of copying\n"
 "  -S, --suffix=SUFFIX          override the usual backup suffix\n"
@@ -1881,7 +1946,7 @@ msgid ""
 "  -T, --no-target-directory    treat DEST as a normal file\n"
 msgstr ""
 
-#: src/cp.c:207
+#: src/cp.c:210
 #, fuzzy
 msgid ""
 "  -u, --update                 copy only when the SOURCE file is newer\n"
@@ -1908,7 +1973,7 @@ msgstr ""
 "      --version                버전 정보를 표시하고 종료합니다\n"
 "\n"
 
-#: src/cp.c:216
+#: src/cp.c:219
 #, fuzzy
 msgid ""
 "\n"
@@ -1957,7 +2022,7 @@ msgstr ""
 "--sparse=never라고 지정하면 성긴 파일을 생성하지 못하게 합니다.\n"
 "\n"
 
-#: src/cp.c:224 src/install.c:994 src/ln.c:393 src/mv.c:316
+#: src/cp.c:227 src/install.c:995 src/ln.c:393 src/mv.c:317
 #, fuzzy
 msgid ""
 "\n"
@@ -1978,7 +2043,7 @@ msgstr ""
 "                  단순하게 합니다\n"
 "  simple, never   항상 단순 백업을 합니다\n"
 
-#: src/cp.c:231 src/install.c:1001 src/ln.c:400 src/mv.c:323
+#: src/cp.c:234 src/install.c:1002 src/ln.c:400 src/mv.c:324
 #, fuzzy
 msgid ""
 "  none, off       never make backups (even if --backup is given)\n"
@@ -1997,7 +2062,7 @@ msgstr ""
 "                  단순하게 합니다\n"
 "  simple, never   항상 단순 백업을 합니다\n"
 
-#: src/cp.c:237
+#: src/cp.c:240
 msgid ""
 "\n"
 "As a special case, cp makes a backup of SOURCE when the force and backup\n"
@@ -2008,91 +2073,96 @@ msgstr ""
 "특별한 경우로, 강제와 백업 옵션이 주어지며 SOURCE와 DEST가 이름이 같고,\n"
 "존재하는 일반 파일일 때 cp는 SOURCE의 백업을 만듭니다.\n"
 
-#: src/cp.c:296
+#: src/cp.c:299
 #, fuzzy, c-format
 msgid "failed to preserve times for %s"
 msgstr "%s의 시간을 유지합니다"
 
-#: src/cp.c:327
+#: src/cp.c:330
 #, fuzzy, c-format
 msgid "failed to preserve permissions for %s"
 msgstr "%s의 허가를 바꿀 수 없습니다"
 
-#: src/cp.c:454
+#: src/cp.c:457
 #, fuzzy, c-format
 msgid "cannot make directory %s"
 msgstr "%s 디렉토리를 만들 수 없습니다"
 
-#: src/cp.c:503 src/cp.c:522
+#: src/cp.c:506 src/cp.c:525
 #, c-format
 msgid "%s exists but is not a directory"
 msgstr "%s이(가) 존재하지만 디렉토리가 아닙니다"
 
-#: src/cp.c:549 src/cp.c:1028 src/install.c:405 src/install.c:522 src/ln.c:130
-#: src/ln.c:158 src/ln.c:187 src/ln.c:474 src/mv.c:150 src/mv.c:394
+#: src/cp.c:552 src/cp.c:1036 src/install.c:406 src/install.c:523 src/ln.c:130
+#: src/ln.c:158 src/ln.c:187 src/ln.c:474 src/mv.c:151 src/mv.c:395
 #, fuzzy, c-format
 msgid "accessing %s"
 msgstr "%s를 지웁니다\n"
 
-#: src/cp.c:569 src/install.c:596 src/ln.c:504 src/mv.c:427 src/shred.c:1190
+#: src/cp.c:572 src/install.c:597 src/ln.c:504 src/mv.c:428 src/shred.c:1190
 #: src/touch.c:440 src/truncate.c:362
 #, fuzzy, c-format
 msgid "missing file operand"
 msgstr "인수를 건너 뜀"
 
-#: src/cp.c:571 src/install.c:598 src/ln.c:518 src/mv.c:429
+#: src/cp.c:574 src/install.c:599 src/ln.c:518 src/mv.c:430
 #, fuzzy, c-format
 msgid "missing destination file operand after %s"
 msgstr "필드의 목록이 빠졌음"
 
-#: src/cp.c:580 src/install.c:607 src/mv.c:438
+#: src/cp.c:583 src/install.c:608 src/mv.c:439
 #, fuzzy, c-format
 msgid "cannot combine --target-directory (-t) and --no-target-directory (-T)"
 msgstr "%s 디렉토리로 chdir할 수 없습니다"
 
-#: src/cp.c:594 src/cp.c:1030 src/install.c:407 src/install.c:524
-#: src/install.c:620 src/ln.c:132 src/ln.c:476 src/ln.c:532 src/mv.c:396
-#: src/mv.c:452
+#: src/cp.c:597 src/cp.c:1038 src/install.c:408 src/install.c:525
+#: src/install.c:621 src/ln.c:132 src/ln.c:476 src/ln.c:532 src/mv.c:397
+#: src/mv.c:453
 #, fuzzy, c-format
 msgid "target %s is not a directory"
 msgstr "%s이(가) 존재하지만 디렉토리가 아닙니다"
 
-#: src/cp.c:705
+#: src/cp.c:708
 #, fuzzy, c-format
 msgid "with --parents, the destination must be a directory"
 msgstr "패스를 유지할 때 마지막 인수는 디렉토리여야 합니다"
 
-#: src/cp.c:1023 src/install.c:517 src/ln.c:469 src/mv.c:389
+#: src/cp.c:1031 src/install.c:518 src/ln.c:469 src/mv.c:390
 #, c-format
 msgid "multiple target directories specified"
 msgstr ""
 
-#: src/cp.c:1068
+#: src/cp.c:1076
 #, c-format
 msgid "cannot make both hard and symbolic links"
 msgstr "하드링크와 심볼릭 링크를 동시에 만들 수 없습니다"
 
-#: src/cp.c:1075 src/mv.c:459
+#: src/cp.c:1083 src/mv.c:460
 #, fuzzy, c-format
 msgid "options --backup and --no-clobber are mutually exclusive"
 msgstr "--string과 --check 옵션은 상호 배타적입니다"
 
-#: src/cp.c:1083 src/install.c:581 src/ln.c:540 src/mv.c:467
+#: src/cp.c:1089
+#, c-format
+msgid "--reflink can be used only with --sparse=auto"
+msgstr ""
+
+#: src/cp.c:1097 src/install.c:582 src/ln.c:540 src/mv.c:468
 msgid "backup type"
 msgstr "백업 종류"
 
-#: src/cp.c:1108
+#: src/cp.c:1122
 #, c-format
 msgid "cannot preserve security context without an SELinux-enabled kernel"
 msgstr ""
 
-#: src/cp.c:1114
+#: src/cp.c:1128
 #, c-format
 msgid "cannot preserve extended attributes, cp is built without xattr support"
 msgstr ""
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/csplit.c:41 src/dd.c:46
+#: src/csplit.c:41 src/dd.c:47
 msgid "Stuart Kemp"
 msgstr ""
 
@@ -2121,7 +2191,7 @@ msgstr " %d 번째 반복중\n"
 msgid "%s: %s: match not found"
 msgstr "%s: `%s': 맞는 짝을 찾지 못했음"
 
-#: src/csplit.c:800 src/csplit.c:840 src/nl.c:352 src/tac.c:274
+#: src/csplit.c:800 src/csplit.c:840 src/nl.c:359 src/tac.c:274
 #, c-format
 msgid "error in regular expression search"
 msgstr "정규식 탐색에 오류 발생"
@@ -2584,10 +2654,10 @@ msgid ""
 "O to use the locale's alternate numeric symbols if available.\n"
 msgstr ""
 
-#: src/date.c:260 src/dd.c:1835 src/head.c:840 src/md5sum.c:444
-#: src/md5sum.c:746 src/od.c:864 src/od.c:1915 src/pr.c:1175 src/pr.c:1371
-#: src/pr.c:1493 src/stty.c:839 src/tac.c:535 src/tail.c:301 src/tail.c:1653
-#: src/tee.c:126 src/tr.c:1893 src/tsort.c:523 src/wc.c:193
+#: src/date.c:260 src/dd.c:1862 src/head.c:841 src/md5sum.c:444
+#: src/md5sum.c:746 src/od.c:863 src/od.c:1914 src/pr.c:1175 src/pr.c:1371
+#: src/pr.c:1493 src/stty.c:839 src/tac.c:535 src/tail.c:328 src/tail.c:1933
+#: src/tee.c:126 src/tr.c:1892 src/tsort.c:523 src/wc.c:193
 #, c-format
 msgid "standard input"
 msgstr "표준 입력"
@@ -2631,12 +2701,12 @@ msgid "time %s is out of range"
 msgstr "%s: 범위를 벗어난 행 번호"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/dd.c:44 src/factor.c:43 src/rm.c:64 src/tail.c:52 src/touch.c:41
+#: src/dd.c:45 src/factor.c:43 src/rm.c:64 src/tail.c:61 src/touch.c:41
 #: src/wc.c:49
 msgid "Paul Rubin"
 msgstr ""
 
-#: src/dd.c:462
+#: src/dd.c:463
 #, fuzzy, c-format
 msgid ""
 "Usage: %s [OPERAND]...\n"
@@ -2645,7 +2715,7 @@ msgstr ""
 "사용법: %s [<파일>]...\n"
 " 혹은:  %s [<옵션>]\n"
 
-#: src/dd.c:467
+#: src/dd.c:468
 msgid ""
 "Copy a file, converting and formatting according to the operands.\n"
 "\n"
@@ -2656,7 +2726,7 @@ msgid ""
 "  ibs=BYTES       read BYTES bytes at a time (default: 512)\n"
 msgstr ""
 
-#: src/dd.c:476
+#: src/dd.c:477
 msgid ""
 "  if=FILE         read from FILE instead of stdin\n"
 "  iflag=FLAGS     read as per the comma separated symbol list\n"
@@ -2668,7 +2738,7 @@ msgid ""
 "  status=noxfer   suppress transfer statistics\n"
 msgstr ""
 
-#: src/dd.c:486
+#: src/dd.c:487
 msgid ""
 "\n"
 "BLOCKS and BYTES may be followed by the following multiplicative suffixes:\n"
@@ -2679,7 +2749,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: src/dd.c:495
+#: src/dd.c:496
 msgid ""
 "  ascii     from EBCDIC to ASCII\n"
 "  ebcdic    from ASCII to EBCDIC\n"
@@ -2689,7 +2759,7 @@ msgid ""
 "  lcase     change upper case to lower case\n"
 msgstr ""
 
-#: src/dd.c:503
+#: src/dd.c:504
 msgid ""
 "  nocreat   do not create the output file\n"
 "  excl      fail if the output file already exists\n"
@@ -2698,7 +2768,7 @@ msgid ""
 "  swab      swap every pair of input bytes\n"
 msgstr ""
 
-#: src/dd.c:510
+#: src/dd.c:511
 msgid ""
 "  noerror   continue after read errors\n"
 "  sync      pad every input block with NULs to ibs-size; when used\n"
@@ -2707,7 +2777,7 @@ msgid ""
 "  fsync     likewise, but also write metadata\n"
 msgstr ""
 
-#: src/dd.c:517
+#: src/dd.c:518
 msgid ""
 "\n"
 "Each FLAG symbol may be:\n"
@@ -2716,60 +2786,60 @@ msgid ""
 "suggested)\n"
 msgstr ""
 
-#: src/dd.c:524
+#: src/dd.c:525
 msgid "  cio       use concurrent I/O for data\n"
 msgstr ""
 
-#: src/dd.c:526
+#: src/dd.c:527
 msgid "  direct    use direct I/O for data\n"
 msgstr ""
 
-#: src/dd.c:528
+#: src/dd.c:529
 #, fuzzy
 msgid "  directory  fail unless a directory\n"
 msgstr "%s이(가) 존재하지만 디렉토리가 아닙니다"
 
-#: src/dd.c:530
+#: src/dd.c:531
 msgid "  dsync     use synchronized I/O for data\n"
 msgstr ""
 
-#: src/dd.c:532
+#: src/dd.c:533
 msgid "  sync      likewise, but also for metadata\n"
 msgstr ""
 
-#: src/dd.c:533
+#: src/dd.c:534
 msgid "  fullblock  accumulate full blocks of input (iflag only)\n"
 msgstr ""
 
-#: src/dd.c:536
+#: src/dd.c:537
 msgid "  nonblock  use non-blocking I/O\n"
 msgstr ""
 
-#: src/dd.c:538
+#: src/dd.c:539
 msgid "  noatime   do not update access time\n"
 msgstr ""
 
-#: src/dd.c:540
+#: src/dd.c:541
 msgid "  noctty    do not assign controlling terminal from file\n"
 msgstr ""
 
-#: src/dd.c:543
+#: src/dd.c:544
 msgid "  nofollow  do not follow symlinks\n"
 msgstr ""
 
-#: src/dd.c:545
+#: src/dd.c:546
 msgid "  nolinks   fail if multiply-linked\n"
 msgstr ""
 
-#: src/dd.c:547
+#: src/dd.c:548
 msgid "  binary    use binary I/O for data\n"
 msgstr ""
 
-#: src/dd.c:549
+#: src/dd.c:550
 msgid "  text      use text I/O for data\n"
 msgstr ""
 
-#: src/dd.c:553
+#: src/dd.c:554
 #, c-format
 msgid ""
 "\n"
@@ -2786,28 +2856,28 @@ msgid ""
 "\n"
 msgstr ""
 
-#: src/dd.c:609
+#: src/dd.c:610
 #, c-format
 msgid ""
 "%<PRIuMAX>+%<PRIuMAX> records in\n"
 "%<PRIuMAX>+%<PRIuMAX> records out\n"
 msgstr ""
 
-#: src/dd.c:615
+#: src/dd.c:616
 #, fuzzy, c-format
 msgid "%<PRIuMAX> truncated record\n"
 msgid_plural "%<PRIuMAX> truncated records\n"
 msgstr[0] "잘린 레코드"
 msgstr[1] "잘린 레코드"
 
-#: src/dd.c:627
+#: src/dd.c:628
 #, c-format
 msgid "%<PRIuMAX> byte (%s) copied"
 msgid_plural "%<PRIuMAX> bytes (%s) copied"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/dd.c:645
+#: src/dd.c:646
 msgid "Infinity B"
 msgstr ""
 
@@ -2821,143 +2891,148 @@ msgstr ""
 #. but that was incorrect for languages like Polish.  To fix this
 #. bug we now use SI symbols even though they're a bit more
 #. confusing in English.
-#: src/dd.c:658
+#: src/dd.c:659
 #, c-format
 msgid ", %g s, %s/s\n"
 msgstr ""
 
-#: src/dd.c:666
+#: src/dd.c:667
 #, fuzzy, c-format
 msgid "closing input file %s"
 msgstr "파일 `%s'을(를) 만듦\n"
 
-#: src/dd.c:673
+#: src/dd.c:674
 #, fuzzy, c-format
 msgid "closing output file %s"
 msgstr "%s를 지웁니다\n"
 
-#: src/dd.c:874 src/dd.c:1624
+#: src/dd.c:845
+#, fuzzy, c-format
+msgid "failed to turn off O_DIRECT: %s"
+msgstr "`%s'에서 ioctl을 할 수 없습니다"
+
+#: src/dd.c:899 src/dd.c:1649
 #, fuzzy, c-format
 msgid "writing to %s"
 msgstr "%s에 쓰는 도중 오류 발생"
 
-#: src/dd.c:985 src/dd.c:1039
+#: src/dd.c:1010 src/dd.c:1064
 #, fuzzy, c-format
 msgid "unrecognized operand %s"
 msgstr "인식할 수 없는 옵션 `-%c'"
 
-#: src/dd.c:996
+#: src/dd.c:1021
 #, fuzzy
 msgid "invalid conversion"
 msgstr "부적절한 폭 옵션 `%s'"
 
-#: src/dd.c:999
+#: src/dd.c:1024
 #, fuzzy
 msgid "invalid input flag"
 msgstr "필드 처음에 부적절한 숫자"
 
-#: src/dd.c:1002 src/dd.c:1069
+#: src/dd.c:1027 src/dd.c:1094
 #, fuzzy
 msgid "invalid output flag"
 msgstr "잘못된 그룹"
 
-#: src/dd.c:1005
+#: src/dd.c:1030
 #, fuzzy
 msgid "invalid status flag"
 msgstr "잘못된 사용자"
 
-#: src/dd.c:1044 src/truncate.c:325
+#: src/dd.c:1069 src/truncate.c:325
 #, fuzzy, c-format
 msgid "invalid number %s"
 msgstr "부적절한 숫자"
 
-#: src/dd.c:1078
+#: src/dd.c:1103
 #, c-format
 msgid "cannot combine any two of {ascii,ebcdic,ibm}"
 msgstr ""
 
-#: src/dd.c:1080
+#: src/dd.c:1105
 #, fuzzy, c-format
 msgid "cannot combine block and unblock"
 msgstr "사용자와 그룹을 모두 생략할 수는 없습니다"
 
-#: src/dd.c:1082
+#: src/dd.c:1107
 #, fuzzy, c-format
 msgid "cannot combine lcase and ucase"
 msgstr "비교한 문자열은 %s과(와) %s입니다."
 
-#: src/dd.c:1084
+#: src/dd.c:1109
 #, fuzzy, c-format
 msgid "cannot combine excl and nocreat"
 msgstr "%s에 대한 파일 포인터를 재위치할 수 없습니다"
 
-#: src/dd.c:1230
+#: src/dd.c:1255
 #, c-format
 msgid ""
 "warning: working around lseek kernel bug for file (%s)\n"
 "  of mt_type=0x%0lx -- see <sys/mtio.h> for the list of types"
 msgstr ""
 
-#: src/dd.c:1313
+#: src/dd.c:1338
 #, fuzzy, c-format
 msgid "%s: cannot skip"
 msgstr "%s: 지울 수 없습니다"
 
-#: src/dd.c:1315 src/dd.c:1337 src/dd.c:1394
+#: src/dd.c:1340 src/dd.c:1362 src/dd.c:1419
 #, fuzzy, c-format
 msgid "%s: cannot seek"
 msgstr "%s: 지울 수 없습니다"
 
-#: src/dd.c:1374
+#: src/dd.c:1399
 #, c-format
 msgid "offset overflow while reading file %s"
 msgstr ""
 
-#: src/dd.c:1386
+#: src/dd.c:1411
 #, fuzzy, c-format
 msgid "warning: invalid file offset after failed read"
 msgstr "경고: 부적절한 폭 %lu; 대신 %d을(를) 사용함"
 
-#: src/dd.c:1390
+#: src/dd.c:1415
 #, c-format
 msgid "cannot work around kernel bug after all"
 msgstr ""
 
-#: src/dd.c:1533
+#: src/dd.c:1558
 #, fuzzy, c-format
 msgid "setting flags for %s"
 msgstr "%s의 시간을 유지합니다"
 
-#: src/dd.c:1607
+#: src/dd.c:1632
 #, fuzzy, c-format
 msgid "%s: cannot skip to specified offset"
 msgstr "%s: 상대 오프셋 %s%s로(으로) 갈 수 없습니다"
 
-#: src/dd.c:1782
+#: src/dd.c:1807
 #, c-format
 msgid "fdatasync failed for %s"
 msgstr ""
 
-#: src/dd.c:1792
+#: src/dd.c:1817
 #, c-format
 msgid "fsync failed for %s"
 msgstr ""
 
-#: src/dd.c:1841 src/dd.c:1870
+#: src/dd.c:1868 src/dd.c:1897
 #, fuzzy, c-format
 msgid "opening %s"
 msgstr "%s을(를) 읽는 도중 오류 발생"
 
-#: src/dd.c:1880
+#: src/dd.c:1906
 #, c-format
 msgid ""
 "offset too large: cannot truncate to a length of seek=%<PRIuMAX> (%lu-byte) "
 "blocks"
 msgstr ""
 
-#: src/dd.c:1901
+#: src/dd.c:1927
 #, fuzzy, c-format
-msgid "truncating at %<PRIuMAX> bytes in output file %s"
+msgid "failed to truncate to %<PRIuMAX> bytes in output file %s"
 msgstr "%s를 지웁니다\n"
 
 #. This is a proper name. See the gettext manual, section Names.
@@ -3055,7 +3130,7 @@ msgid ""
 "  -v                    (ignored)\n"
 msgstr ""
 
-#: src/df.c:836 src/du.c:333 src/ls.c:4645
+#: src/df.c:836 src/du.c:333 src/ls.c:4646
 msgid ""
 "\n"
 "SIZE may be (or may be an integer optionally followed by) one of following:\n"
@@ -3086,12 +3161,12 @@ msgstr ""
 msgid "H. Peter Anvin"
 msgstr ""
 
-#: src/dircolors.c:99 src/uptime.c:197 src/users.c:106
+#: src/dircolors.c:98 src/uptime.c:197 src/users.c:106
 #, fuzzy, c-format
 msgid "Usage: %s [OPTION]... [FILE]\n"
 msgstr "사용법: %s [<옵션>]... [<파일>]...\n"
 
-#: src/dircolors.c:100
+#: src/dircolors.c:99
 #, fuzzy
 msgid ""
 "Output commands to set the LS_COLORS environment variable.\n"
@@ -3115,7 +3190,7 @@ msgstr ""
 "결정합니다. 그렇지 않은 경우에는 미리 만들어진 데이터베이스를 사용합니다.\n"
 "이 파일의 포맷을 자세히 알려면 `dircolors --print-database'라고 하세요.\n"
 
-#: src/dircolors.c:110
+#: src/dircolors.c:109
 msgid ""
 "\n"
 "If FILE is specified, read it to determine which colors to use for which\n"
@@ -3123,21 +3198,21 @@ msgid ""
 "For details on the format of these files, run `dircolors --print-database'.\n"
 msgstr ""
 
-#: src/dircolors.c:288
+#: src/dircolors.c:287
 #, fuzzy, c-format
 msgid "%s:%lu: invalid line;  missing second token"
 msgstr "%s: 부적절한 초"
 
-#: src/dircolors.c:360
+#: src/dircolors.c:359
 #, fuzzy, c-format
 msgid "%s:%lu: unrecognized keyword %s"
 msgstr "%s: 인식할 수 없는 옵션 `%c%s'\n"
 
-#: src/dircolors.c:361
+#: src/dircolors.c:360
 msgid "<internal>"
 msgstr "<내장>"
 
-#: src/dircolors.c:442
+#: src/dircolors.c:441
 #, c-format
 msgid ""
 "the options to output dircolors' internal database and\n"
@@ -3146,16 +3221,16 @@ msgstr ""
 "dircolor의 내부 데이터베이스를 출력하는 옵션과 쉘 문법을\n"
 "선택하는 옵션은 같이 쓸 수 없습니다"
 
-#: src/dircolors.c:452
+#: src/dircolors.c:451
 msgid "file operands cannot be combined with --print-database (-p)"
 msgstr ""
 
-#: src/dircolors.c:475
+#: src/dircolors.c:474
 #, c-format
 msgid "no SHELL environment variable, and no shell type option given"
 msgstr "SHELL환경변수가 없고 쉘 형태 옵션을 지정하지 않았습니다"
 
-#: src/dirname.c:46
+#: src/dirname.c:45
 #, fuzzy, c-format
 msgid ""
 "Usage: %s NAME\n"
@@ -3164,14 +3239,14 @@ msgstr ""
 "사용법: %s [<파일>]...\n"
 " 혹은:  %s [<옵션>]\n"
 
-#: src/dirname.c:51
+#: src/dirname.c:50
 msgid ""
 "Print NAME with its trailing /component removed; if NAME contains no /'s,\n"
 "output `.' (meaning the current directory).\n"
 "\n"
 msgstr ""
 
-#: src/dirname.c:58
+#: src/dirname.c:57
 #, c-format
 msgid ""
 "\n"
@@ -3180,7 +3255,7 @@ msgid ""
 "  %s stdio.h        Output \".\".\n"
 msgstr ""
 
-#: src/du.c:268 src/sort.c:313 src/wc.c:112
+#: src/du.c:268 src/sort.c:316 src/wc.c:112
 #, fuzzy, c-format
 msgid ""
 "Usage: %s [OPTION]... [FILE]...\n"
@@ -3295,17 +3370,17 @@ msgstr "경고: 요약은 --max-depth=0을 사용하는 것과 같습니다"
 msgid "warning: summarizing conflicts with --max-depth=%lu"
 msgstr "경고: --max-depth=%d는 요약 옵션과 충돌합니다"
 
-#: src/du.c:928 src/sort.c:3413 src/wc.c:656
+#: src/du.c:928 src/sort.c:3535 src/wc.c:656
 msgid "file operands cannot be combined with --files0-from"
 msgstr ""
 
-#: src/du.c:965 src/md5sum.c:552 src/od.c:904 src/tac.c:239 src/tac.c:350
+#: src/du.c:965 src/md5sum.c:552 src/od.c:903 src/tac.c:239 src/tac.c:350
 #: src/tac.c:481 src/tac.c:557 src/wc.c:718
 #, c-format
 msgid "%s: read error"
 msgstr "%s: 읽기 오류"
 
-#: src/du.c:980 src/sort.c:3442 src/wc.c:731
+#: src/du.c:980 src/sort.c:3564 src/wc.c:731
 #, c-format
 msgid "when reading file names from stdin, no file name of %s allowed"
 msgstr ""
@@ -3315,15 +3390,15 @@ msgstr ""
 msgid "invalid zero-length file name"
 msgstr "잘못된 그룹"
 
-#: src/du.c:1022 src/head.c:151 src/head.c:264 src/head.c:336 src/head.c:540
-#: src/head.c:622 src/head.c:694 src/head.c:752 src/head.c:776 src/tail.c:370
-#: src/tail.c:458 src/tail.c:507 src/tail.c:600 src/tail.c:728 src/tail.c:776
-#: src/tail.c:815 src/tail.c:1320 src/tail.c:1349 src/uniq.c:393
+#: src/du.c:1022 src/head.c:152 src/head.c:265 src/head.c:337 src/head.c:541
+#: src/head.c:623 src/head.c:695 src/head.c:753 src/head.c:777 src/tail.c:397
+#: src/tail.c:485 src/tail.c:534 src/tail.c:627 src/tail.c:755 src/tail.c:803
+#: src/tail.c:842 src/tail.c:1600 src/tail.c:1629 src/uniq.c:393
 #, c-format
 msgid "error reading %s"
 msgstr "%s을(를) 읽는 도중 오류 발생"
 
-#: src/du.c:1025 src/ls.c:2553 src/wc.c:774
+#: src/du.c:1025 src/ls.c:2554 src/wc.c:774
 msgid "total"
 msgstr "합계"
 
@@ -3588,7 +3663,7 @@ msgstr ""
 msgid "using single-precision arithmetic"
 msgstr ""
 
-#: src/factor.c:463 src/od.c:1641 src/od.c:1710
+#: src/factor.c:463 src/od.c:1640 src/od.c:1709
 #, c-format
 msgid "%s is too large"
 msgstr "%s은(는) 너무 큽니다"
@@ -3699,7 +3774,7 @@ msgid "invalid number of columns: %s"
 msgstr "부적절한 열의 개수: `%s'"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/getlimits.c:29 src/timeout.c:74 src/truncate.c:42
+#: src/getlimits.c:29 src/stdbuf.c:36 src/timeout.c:74 src/truncate.c:42
 msgid "Padraig Brady"
 msgstr ""
 
@@ -3746,7 +3821,7 @@ msgstr ""
 msgid "%s: No such user"
 msgstr ""
 
-#: src/head.c:111
+#: src/head.c:112
 #, fuzzy
 msgid ""
 "Print the first 10 lines of each FILE to standard output.\n"
@@ -3761,17 +3836,17 @@ msgstr ""
 "다.\n"
 "\n"
 
-#: src/head.c:120
+#: src/head.c:121
 msgid ""
-"  -c, --bytes=[-]N         print the first N bytes of each file;\n"
+"  -c, --bytes=[-]K         print the first K bytes of each file;\n"
 "                             with the leading `-', print all but the last\n"
-"                             N bytes of each file\n"
-"  -n, --lines=[-]N         print the first N lines instead of the first 10;\n"
+"                             K bytes of each file\n"
+"  -n, --lines=[-]K         print the first K lines instead of the first 10;\n"
 "                             with the leading `-', print all but the last\n"
-"                             N lines of each file\n"
+"                             K lines of each file\n"
 msgstr ""
 
-#: src/head.c:128
+#: src/head.c:129
 msgid ""
 "  -q, --quiet, --silent    never print headers giving file names\n"
 "  -v, --verbose            always print headers giving file names\n"
@@ -3779,66 +3854,72 @@ msgstr ""
 "  -q, --quiet, --silent    파일이름을 나타내는 헤더를 표시하지 않습니다\n"
 "  -v, --verbose            언제나 파일이름을 나타내는 헤더를 표시합니다\n"
 
-#: src/head.c:134
+#: src/head.c:135
+#, fuzzy
 msgid ""
 "\n"
-"N may have a multiplier suffix:\n"
+"K may have a multiplier suffix:\n"
 "b 512, kB 1000, K 1024, MB 1000*1000, M 1024*1024,\n"
 "GB 1000*1000*1000, G 1024*1024*1024, and so on for T, P, E, Z, Y.\n"
 msgstr ""
+"\n"
+"만약 N(바이트수나 줄의 개수) 앞에 `+'가 오는 경우, 각 파일의 \n"
+"처음에서부터 N번째부터 시작합니다.  그 외의 경우 파일의 마지막 N개를 \n"
+"표시합니다.  N 뒤에 곱하기 접미어가 올 수 있습니다: b는 512, k는 1024, m은 \n"
+"1048576 (1메가)입니다.\n"
 
-#: src/head.c:154
+#: src/head.c:155
 #, c-format
 msgid "error writing %s"
 msgstr "%s에 쓰는 도중 오류 발생"
 
-#: src/head.c:157
+#: src/head.c:158
 #, c-format
 msgid "%s: file has shrunk too much"
 msgstr ""
 
-#: src/head.c:230 src/head.c:1046
+#: src/head.c:231 src/head.c:1047
 #, fuzzy, c-format
 msgid "%s: number of bytes is too large"
 msgstr "비교할 바이트의 개수가 부적절합니다"
 
-#: src/head.c:443
+#: src/head.c:444
 #, fuzzy, c-format
 msgid "%s: cannot lseek back to original position"
 msgstr "%s: 상대 오프셋 %s%s로(으로) 갈 수 없습니다"
 
-#: src/head.c:615 src/head.c:686 src/tail.c:408
+#: src/head.c:616 src/head.c:687 src/tail.c:435
 #, fuzzy, c-format
 msgid "%s: cannot seek to offset %s"
 msgstr "%s: 오프셋 %s%s로(으로) 갈 수 없습니다"
 
-#: src/head.c:793
+#: src/head.c:794
 #, c-format
 msgid "cannot reposition file pointer for %s"
 msgstr "%s에 대한 파일 포인터를 재위치할 수 없습니다"
 
-#: src/head.c:880
+#: src/head.c:881
 #, c-format
 msgid "%s: %s is so large that it is not representable"
 msgstr "%s: %s은(는) 너무 커서 표시할 수 없습니다"
 
-#: src/head.c:881
+#: src/head.c:882
 msgid "number of lines"
 msgstr "행의 개수"
 
-#: src/head.c:881
+#: src/head.c:882
 msgid "number of bytes"
 msgstr "바이트 수"
 
-#: src/head.c:888 src/tail.c:1484
+#: src/head.c:889 src/tail.c:1764
 msgid "invalid number of lines"
 msgstr "부적절한 행의 개수"
 
-#: src/head.c:889 src/tail.c:1485
+#: src/head.c:890 src/tail.c:1765
 msgid "invalid number of bytes"
 msgstr "%s: 부적절한 바이트 수"
 
-#: src/head.c:976 src/head.c:1034
+#: src/head.c:977 src/head.c:1035
 #, fuzzy, c-format
 msgid "invalid trailing option -- %c"
 msgstr "%s: 부적절한 옵션 -- %c\n"
@@ -3964,116 +4045,111 @@ msgstr ""
 msgid " context=%s"
 msgstr ""
 
-#: src/install.c:376
+#: src/install.c:377
 #, fuzzy, c-format
 msgid "warning: %s: failed to change context to %s"
 msgstr "%s 디렉토리를 만들 수 없습니다"
 
-#: src/install.c:534
+#: src/install.c:535
 #, c-format
 msgid ""
 "WARNING: --preserve_context is deprecated; use --preserve-context instead"
 msgstr ""
 
-#: src/install.c:540
+#: src/install.c:541
 #, c-format
 msgid ""
 "WARNING: ignoring --preserve-context; this kernel is not SELinux-enabled"
 msgstr ""
 
-#: src/install.c:550
+#: src/install.c:551
 #, c-format
 msgid "WARNING: ignoring --context (-Z); this kernel is not SELinux-enabled"
 msgstr ""
 
-#: src/install.c:567
+#: src/install.c:568
 #, c-format
 msgid "the strip option may not be used when installing a directory"
 msgstr "strip옵션은 디렉토리를 설치할 때는 쓸 수 없습니다"
 
-#: src/install.c:570
+#: src/install.c:571
 #, fuzzy, c-format
 msgid "target directory not allowed when installing a directory"
 msgstr "strip옵션은 디렉토리를 설치할 때는 쓸 수 없습니다"
 
-#: src/install.c:574
+#: src/install.c:575
 #, c-format
 msgid "cannot force target context to %s and preserve it"
 msgstr ""
 
-#: src/install.c:628 src/mkdir.c:203
+#: src/install.c:629 src/mkdir.c:203 src/stdbuf.c:338
 #, fuzzy, c-format
 msgid "invalid mode %s"
 msgstr "부적절한 폭: `%s'"
 
-#: src/install.c:635
+#: src/install.c:636
 #, c-format
 msgid "WARNING: ignoring --strip-program option as -s option was not specified"
 msgstr ""
 
-#: src/install.c:640
+#: src/install.c:641
 #, fuzzy, c-format
 msgid "options --compare (-C) and --preserve-timestamps are mutually exclusive"
 msgstr "--string과 --check 옵션은 상호 배타적입니다"
 
-#: src/install.c:647
+#: src/install.c:648
 #, fuzzy, c-format
 msgid "options --compare (-C) and --strip are mutually exclusive"
 msgstr "--string과 --check 옵션은 상호 배타적입니다"
 
-#: src/install.c:653
+#: src/install.c:654
 #, c-format
 msgid ""
 "the --compare (-C) option is ignored when you specify a mode with non-"
 "permission bits"
 msgstr ""
 
-#: src/install.c:805
+#: src/install.c:806
 #, fuzzy, c-format
 msgid "cannot change ownership of %s"
 msgstr "%s의 허가를 바꿀 수 없습니다"
 
-#: src/install.c:829
+#: src/install.c:830
 #, fuzzy, c-format
 msgid "cannot set time stamps for %s"
 msgstr "%s 디렉토리를 만들 수 없습니다"
 
-#: src/install.c:850 src/timeout.c:289
+#: src/install.c:851 src/timeout.c:289
 #, fuzzy, c-format
 msgid "fork system call failed"
 msgstr "블록 특수 파일"
 
-#: src/install.c:854
+#: src/install.c:855
 #, fuzzy, c-format
 msgid "cannot run %s"
 msgstr "`%s'에서 ioctl을 할 수 없습니다"
 
-#: src/install.c:858
+#: src/install.c:859
 #, fuzzy, c-format
 msgid "waiting for strip"
 msgstr "%s에 쓰는 도중 오류 발생"
 
-#: src/install.c:860
+#: src/install.c:861
 #, c-format
 msgid "strip process terminated abnormally"
 msgstr ""
 
-#: src/install.c:881
+#: src/install.c:882
 #, fuzzy, c-format
 msgid "invalid user %s"
 msgstr "잘못된 사용자"
 
-#: src/install.c:899 src/setuidgid.c:110 src/setuidgid.c:120
-#, fuzzy, c-format
-msgid "invalid group %s"
-msgstr "잘못된 그룹"
-
-#: src/install.c:916
+#: src/install.c:917
 #, fuzzy, c-format
 msgid "creating directory %s"
 msgstr "%s 디렉토리를 만들 수 없습니다"
 
-#: src/install.c:939
+#: src/install.c:940
 #, fuzzy, c-format
 msgid ""
 "Usage: %s [OPTION]... [-T] SOURCE DEST\n"
@@ -4085,7 +4161,7 @@ msgstr ""
 "  또는: %s [OPTION]... SOURCE... DIRECTORY\n"
 "  또는: %s -d [OPTION]... --target-directory=DIRECTORY SOURCE...\n"
 
-#: src/install.c:946
+#: src/install.c:947
 msgid ""
 "\n"
 "This install program copies files (often just compiled) into destination\n"
@@ -4100,7 +4176,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: src/install.c:961
+#: src/install.c:962
 msgid ""
 "      --backup[=CONTROL]  make a backup of each existing destination file\n"
 "  -b                  like --backup but does not accept an argument\n"
@@ -4112,7 +4188,7 @@ msgid ""
 "                        components of the specified directories\n"
 msgstr ""
 
-#: src/install.c:970
+#: src/install.c:971
 msgid ""
 "  -D                  create all leading components of DEST except the "
 "last,\n"
@@ -4124,7 +4200,7 @@ msgid ""
 "  -o, --owner=OWNER   set ownership (super-user only)\n"
 msgstr ""
 
-#: src/install.c:977
+#: src/install.c:978
 msgid ""
 "  -p, --preserve-timestamps   apply access/modification times of SOURCE "
 "files\n"
@@ -4138,7 +4214,7 @@ msgid ""
 "  -v, --verbose       print the name of each directory as it is created\n"
 msgstr ""
 
-#: src/install.c:987
+#: src/install.c:988
 msgid ""
 "      --preserve-context  preserve SELinux security context\n"
 "  -Z, --context=CONTEXT  set SELinux security context of files and "
@@ -4251,17 +4327,17 @@ msgstr ""
 msgid "conflicting empty-field replacement strings"
 msgstr ""
 
-#: src/join.c:1026 src/sort.c:3341
+#: src/join.c:1026 src/sort.c:3463
 #, c-format
 msgid "empty tab"
 msgstr ""
 
-#: src/join.c:1032 src/sort.c:3352
+#: src/join.c:1032 src/sort.c:3474
 #, fuzzy, c-format
 msgid "multi-character tab %s"
 msgstr "여러 문자로 된 탭 `%s'"
 
-#: src/join.c:1036 src/sort.c:3357
+#: src/join.c:1036 src/sort.c:3479
 #, c-format
 msgid "incompatible tabs"
 msgstr ""
@@ -4330,6 +4406,21 @@ msgstr ""
 #: src/kill.c:317
 #, c-format
 msgid "no process ID specified"
+msgstr ""
+
+#: src/libstdbuf.c:109
+#, c-format
+msgid "failed to allocate a %<PRIuMAX> byte stdio buffer\n"
+msgstr ""
+
+#: src/libstdbuf.c:116
+#, fuzzy, c-format
+msgid "invalid buffering mode %s for %s\n"
+msgstr "%2$s에 대해 부적절한 인자 %1$s"
+
+#: src/libstdbuf.c:124
+#, c-format
+msgid "could not set buffering of %s to mode %s\n"
 msgstr ""
 
 #. This is a proper name. See the gettext manual, section Names.
@@ -4565,29 +4656,29 @@ msgstr "%s에 대한 파일 포인터를 재위치할 수 없습니다"
 msgid "%s: not listing already-listed directory"
 msgstr "%s 디렉토리를 만들 수 없습니다"
 
-#: src/ls.c:2511 src/pwd.c:230
+#: src/ls.c:2525 src/pwd.c:230
 #, fuzzy, c-format
 msgid "reading directory %s"
 msgstr "%s 디렉토리를 만들 수 없습니다"
 
-#: src/ls.c:2521
+#: src/ls.c:2535
 #, fuzzy, c-format
 msgid "closing directory %s"
 msgstr "%s 디렉토리로 chdir할 수 없습니다"
 
-#: src/ls.c:3093
+#: src/ls.c:3094
 #, fuzzy, c-format
 msgid "cannot compare file names %s and %s"
 msgstr "비교한 문자열은 %s과(와) %s입니다."
 
-#: src/ls.c:4509
+#: src/ls.c:4510
 msgid ""
 "List information about the FILEs (the current directory by default).\n"
 "Sort entries alphabetically if none of -cftuvSUX nor --sort.\n"
 "\n"
 msgstr ""
 
-#: src/ls.c:4517
+#: src/ls.c:4518
 msgid ""
 "  -a, --all                  do not ignore entries starting with .\n"
 "  -A, --almost-all           do not list implied . and ..\n"
@@ -4595,7 +4686,7 @@ msgid ""
 "  -b, --escape               print octal escapes for nongraphic characters\n"
 msgstr ""
 
-#: src/ls.c:4523
+#: src/ls.c:4524
 msgid ""
 "      --block-size=SIZE      use SIZE-byte blocks\n"
 "  -B, --ignore-backups       do not list implied entries ending with ~\n"
@@ -4606,7 +4697,7 @@ msgid ""
 "                               otherwise: sort by ctime\n"
 msgstr ""
 
-#: src/ls.c:4531
+#: src/ls.c:4532
 msgid ""
 "  -C                         list entries by columns\n"
 "      --color[=WHEN]         control whether color is used to distinguish "
@@ -4618,7 +4709,7 @@ msgid ""
 "  -D, --dired                generate output designed for Emacs' dired mode\n"
 msgstr ""
 
-#: src/ls.c:4539
+#: src/ls.c:4540
 msgid ""
 "  -f                         do not sort, enable -aU, disable -ls --color\n"
 "  -F, --classify             append indicator (one of */=>@|) to entries\n"
@@ -4628,11 +4719,11 @@ msgid ""
 "      --full-time            like -l --time-style=full-iso\n"
 msgstr ""
 
-#: src/ls.c:4547
+#: src/ls.c:4548
 msgid "  -g                         like -l, but do not list owner\n"
 msgstr ""
 
-#: src/ls.c:4550
+#: src/ls.c:4551
 msgid ""
 "      --group-directories-first\n"
 "                             group directories before files.\n"
@@ -4640,7 +4731,7 @@ msgid ""
 "                               use of --sort=none (-U) disables grouping\n"
 msgstr ""
 
-#: src/ls.c:4556
+#: src/ls.c:4557
 msgid ""
 "  -G, --no-group             in a long listing, don't print group names\n"
 "  -h, --human-readable       with -l, print sizes in human readable format\n"
@@ -4648,7 +4739,7 @@ msgid ""
 "      --si                   likewise, but use powers of 1000 not 1024\n"
 msgstr ""
 
-#: src/ls.c:4562
+#: src/ls.c:4563
 msgid ""
 "  -H, --dereference-command-line\n"
 "                             follow symbolic links listed on the command "
@@ -4661,7 +4752,7 @@ msgid ""
 "                               (overridden by -a or -A)\n"
 msgstr ""
 
-#: src/ls.c:4571
+#: src/ls.c:4572
 msgid ""
 "      --indicator-style=WORD  append indicator with style WORD to entry "
 "names:\n"
@@ -4673,7 +4764,7 @@ msgid ""
 "  -k                         like --block-size=1K\n"
 msgstr ""
 
-#: src/ls.c:4579
+#: src/ls.c:4580
 msgid ""
 "  -l                         use a long listing format\n"
 "  -L, --dereference          when showing file information for a symbolic\n"
@@ -4683,7 +4774,7 @@ msgid ""
 "entries\n"
 msgstr ""
 
-#: src/ls.c:4586
+#: src/ls.c:4587
 msgid ""
 "  -n, --numeric-uid-gid      like -l, but list numeric user and group IDs\n"
 "  -N, --literal              print raw entry names (don't treat e.g. "
@@ -4694,7 +4785,7 @@ msgid ""
 "                             append / indicator to directories\n"
 msgstr ""
 
-#: src/ls.c:4594
+#: src/ls.c:4595
 #, fuzzy
 msgid ""
 "  -q, --hide-control-chars   print ? instead of non graphic characters\n"
@@ -4737,7 +4828,7 @@ msgstr ""
 "  -R, --recursive            서브디렉토리까지 출력합니다\n"
 "  -s, --size                 각 파일의 블록 크기를 출력합니다\n"
 
-#: src/ls.c:4602
+#: src/ls.c:4603
 msgid ""
 "  -r, --reverse              reverse order while sorting\n"
 "  -R, --recursive            list subdirectories recursively\n"
@@ -4745,7 +4836,7 @@ msgid ""
 "blocks\n"
 msgstr ""
 
-#: src/ls.c:4607
+#: src/ls.c:4608
 msgid ""
 "  -S                         sort by file size\n"
 "      --sort=WORD            sort by WORD instead of name: none -U,\n"
@@ -4757,7 +4848,7 @@ msgid ""
 "                             if --sort=time\n"
 msgstr ""
 
-#: src/ls.c:4616
+#: src/ls.c:4617
 msgid ""
 "      --time-style=STYLE     with -l, show times using style STYLE:\n"
 "                             full-iso, long-iso, iso, locale, +FORMAT.\n"
@@ -4769,13 +4860,13 @@ msgid ""
 "                             takes effect only outside the POSIX locale\n"
 msgstr ""
 
-#: src/ls.c:4625
+#: src/ls.c:4626
 msgid ""
 "  -t                         sort by modification time\n"
 "  -T, --tabsize=COLS         assume tab stops at each COLS instead of 8\n"
 msgstr ""
 
-#: src/ls.c:4629
+#: src/ls.c:4630
 msgid ""
 "  -u                         with -lt: sort by, and show, access time\n"
 "                               with -l: show access time and sort by name\n"
@@ -4784,7 +4875,7 @@ msgid ""
 "  -v                         natural sort of (version) numbers within text\n"
 msgstr ""
 
-#: src/ls.c:4636
+#: src/ls.c:4637
 #, fuzzy
 msgid ""
 "  -w, --width=COLS           assume screen width instead of current value\n"
@@ -4799,7 +4890,7 @@ msgstr ""
 "                            출력합니다\n"
 "  -n                      (무시됨)\n"
 
-#: src/ls.c:4649
+#: src/ls.c:4650
 msgid ""
 "\n"
 "By default, color is not used to distinguish types of files.  That is\n"
@@ -4810,7 +4901,7 @@ msgid ""
 "colors, and can be set easily by the dircolors command.\n"
 msgstr ""
 
-#: src/ls.c:4658
+#: src/ls.c:4659
 msgid ""
 "\n"
 "Exit status:\n"
@@ -4972,7 +5063,7 @@ msgstr "--warn 옵션은 오직 체크섬을 검사할 때만 의미가 있습�
 msgid "the --quiet option is meaningful only when verifying checksums"
 msgstr "--status 옵션은 오직 체크섬을 검사할 때만 의미가 있습니다"
 
-#: src/mkdir.c:57 src/rmdir.c:166
+#: src/mkdir.c:57 src/rmdir.c:165
 #, fuzzy, c-format
 msgid "Usage: %s [OPTION]... DIRECTORY...\n"
 msgstr "사용법: %s [<옵션>]... [<파일>]...\n"
@@ -5211,13 +5302,13 @@ msgstr "%s 디렉토리를 만들 수 없습니다"
 msgid "failed to create file via template %s"
 msgstr "%s의 시간을 유지합니다"
 
-#: src/mv.c:286
+#: src/mv.c:287
 msgid ""
 "Rename SOURCE to DEST, or move SOURCE(s) to DIRECTORY.\n"
 "\n"
 msgstr ""
 
-#: src/mv.c:293
+#: src/mv.c:294
 msgid ""
 "      --backup[=CONTROL]       make a backup of each existing destination "
 "file\n"
@@ -5230,7 +5321,7 @@ msgid ""
 "effect.\n"
 msgstr ""
 
-#: src/mv.c:301
+#: src/mv.c:302
 msgid ""
 "      --strip-trailing-slashes  remove any trailing slashes from each "
 "SOURCE\n"
@@ -5238,7 +5329,7 @@ msgid ""
 "  -S, --suffix=SUFFIX          override the usual backup suffix\n"
 msgstr ""
 
-#: src/mv.c:306
+#: src/mv.c:307
 #, fuzzy
 msgid ""
 "  -t, --target-directory=DIRECTORY  move all SOURCE arguments into "
@@ -5307,7 +5398,7 @@ msgstr "`%s'의 정보(stat)를 얻을 수 없습니다"
 msgid "Scott Bartram"
 msgstr ""
 
-#: src/nl.c:179
+#: src/nl.c:186
 msgid ""
 "Write each FILE to standard output, with line numbers added.\n"
 "With no FILE, or when FILE is -, read standard input.\n"
@@ -5316,7 +5407,7 @@ msgstr ""
 "각 <파일>을 줄번호를 붙여서 표준 출력에 씁니다.\n"
 "<파일>이 주어지지 않거나, <파일>이 `-'이면, 표준 입력을 읽습니다.\n"
 
-#: src/nl.c:187
+#: src/nl.c:194
 msgid ""
 "  -b, --body-numbering=STYLE      use STYLE for numbering body lines\n"
 "  -d, --section-delimiter=CC      use CC for separating logical pages\n"
@@ -5328,10 +5419,11 @@ msgstr ""
 "  -f, --footer-numbering=<스타일> 아래단에 번호를 붙이는 데 <스타일>을 씁니"
 "다\n"
 
-#: src/nl.c:192
+#: src/nl.c:199
+#, fuzzy
 msgid ""
 "  -h, --header-numbering=STYLE    use STYLE for numbering header lines\n"
-"  -i, --page-increment=NUMBER     line number increment at each line\n"
+"  -i, --line-increment=NUMBER     line number increment at each line\n"
 "  -l, --join-blank-lines=NUMBER   group of NUMBER empty lines counted as "
 "one\n"
 "  -n, --number-format=FORMAT      insert line numbers according to FORMAT\n"
@@ -5347,7 +5439,7 @@ msgstr ""
 "다\n"
 "  -s, --number-separator=<문자열> 줄 번호 다음에 <문자열>을 추가합니다\n"
 
-#: src/nl.c:200
+#: src/nl.c:207
 #, fuzzy
 msgid ""
 "  -v, --starting-line-number=NUMBER  first line number on each logical page\n"
@@ -5356,7 +5448,7 @@ msgstr ""
 "  -v, --first-page=<개수>         각 논리적 페이지에서 첫번째 줄번호\n"
 "  -w, --number-width=<개수>       줄번호를 <개수>열에 씁니다\n"
 
-#: src/nl.c:206
+#: src/nl.c:213
 msgid ""
 "\n"
 "By default, selects -v1 -i1 -l1 -sTAB -w6 -nrn -hn -bt -fn.  CC are\n"
@@ -5369,7 +5461,7 @@ msgstr ""
 "페이지를 구분하는 데 쓰이는 두 개의 문자이고, 두 번째 문자가 없다면 `.'이 \n"
 "쓰입니다: `.'을 쓰려면 `\\\\'라고 쓰십시오.  <스타일>은 다음 중 하나입니다.\n"
 
-#: src/nl.c:212
+#: src/nl.c:219
 #, fuzzy
 msgid ""
 "\n"
@@ -5399,47 +5491,52 @@ msgstr ""
 "  rz   오른쪽 정렬, 앞에 0을 붙입니다\n"
 "\n"
 
-#: src/nl.c:279
+#: src/nl.c:286
 #, fuzzy, c-format
 msgid "line number overflow"
 msgstr "필드 개수가 0입니다"
 
-#: src/nl.c:477
+#: src/nl.c:484
 #, fuzzy, c-format
 msgid "invalid header numbering style: %s"
 msgstr "부적절한 필드 번호: `%s'"
 
-#: src/nl.c:485
+#: src/nl.c:492
 #, fuzzy, c-format
 msgid "invalid body numbering style: %s"
 msgstr "부적절한 숫자"
 
-#: src/nl.c:493
+#: src/nl.c:500
 #, fuzzy, c-format
 msgid "invalid footer numbering style: %s"
 msgstr "필드 지정에 부적절한 파일 번호: `%s'"
 
-#: src/nl.c:502
+#: src/nl.c:509
 #, fuzzy, c-format
 msgid "invalid starting line number: %s"
 msgstr "부적절한 시작 행번호: `%s'"
 
-#: src/nl.c:511
+#: src/nl.c:515
+#, c-format
+msgid "WARNING: --page-increment is deprecated; use --line-increment instead"
+msgstr ""
+
+#: src/nl.c:522
 #, fuzzy, c-format
 msgid "invalid line number increment: %s"
 msgstr "부적절한 행번호 증가: `%s'"
 
-#: src/nl.c:523
+#: src/nl.c:534
 #, fuzzy, c-format
 msgid "invalid number of blank lines: %s"
 msgstr "부적절한 빈줄의 개수: `%s'"
 
-#: src/nl.c:537
+#: src/nl.c:548
 #, fuzzy, c-format
 msgid "invalid line number field width: %s"
 msgstr "부적절한 행번호 필드 폭: `%s'"
 
-#: src/nl.c:556
+#: src/nl.c:567
 #, fuzzy, c-format
 msgid "invalid line numbering format: %s"
 msgstr "부적절한 행번호 증가: `%s'"
@@ -5510,7 +5607,7 @@ msgstr ""
 msgid "failed to redirect standard error"
 msgstr ""
 
-#: src/od.c:309
+#: src/od.c:308
 #, fuzzy, c-format
 msgid ""
 "Usage: %s [OPTION]... [FILE]...\n"
@@ -5521,7 +5618,7 @@ msgstr ""
 "사용법: %s [<옵션>]... [<파일>]...\n"
 "  또는: %s --traditional [<파일>] [[+]<옵셋> [[+]<레이블>]]\n"
 
-#: src/od.c:315
+#: src/od.c:314
 msgid ""
 "\n"
 "Write an unambiguous representation, octal bytes by default,\n"
@@ -5537,11 +5634,11 @@ msgstr ""
 "<파일>이 주어지지 않거나, <파일>이 `-'이면, 표준 입력을 읽습니다.\n"
 "\n"
 
-#: src/od.c:322
+#: src/od.c:321
 msgid "All arguments to long options are mandatory for short options.\n"
 msgstr "긴 옵션의 인수는 짧은 옵션에도 꼭 필요합니다.\n"
 
-#: src/od.c:325
+#: src/od.c:324
 msgid ""
 "  -A, --address-radix=RADIX   decide how file offsets are printed\n"
 "  -j, --skip-bytes=BYTES      skip BYTES input bytes first\n"
@@ -5549,7 +5646,7 @@ msgstr ""
 "  -A, --address-radix=<기수>  파일 오프셋을 출력하는 방법을 지정합니다\n"
 "  -j, --skip-bytes=<바이트>   입력의 첫 번째 <바이트> 바이트를 건너 뜁니다\n"
 
-#: src/od.c:329
+#: src/od.c:328
 #, fuzzy
 msgid ""
 "  -N, --read-bytes=BYTES      limit dump to BYTES input bytes\n"
@@ -5569,7 +5666,7 @@ msgstr ""
 "  -w, --width[=<바이트>]      출력의 한 줄에 <바이트> 바이트를 출력합니다\n"
 "      --traditional           고전적인 형식으로 인자를 받습니다\n"
 
-#: src/od.c:339
+#: src/od.c:338
 #, fuzzy
 msgid ""
 "\n"
@@ -5586,7 +5683,7 @@ msgstr ""
 "  -c   `-t c'와 동일하고, ASCII 문자 혹은 백슬래쉬 이스케이프로 지정합니다\n"
 "  -d   `-t u2'와 동일하고, 10진수 unsigned short로 지정합니다\n"
 
-#: src/od.c:347
+#: src/od.c:346
 #, fuzzy
 msgid ""
 "  -f   same as -t fF, select floats\n"
@@ -5604,7 +5701,7 @@ msgstr ""
 "  -x   -t x2와 동일하고, 16진수 short를 선택합니다\n"
 
 # 8진수 suffix에 대해서 좀 이상하다
-#: src/od.c:355
+#: src/od.c:354
 #, fuzzy
 msgid ""
 "\n"
@@ -5627,7 +5724,7 @@ msgstr ""
 "  a          문자 이름\n"
 "  c          ASCII 문자 혹은 백슬래쉬 이스케이프\n"
 
-#: src/od.c:364
+#: src/od.c:363
 msgid ""
 "\n"
 "TYPE is made up of one or more of these specifications:\n"
@@ -5636,7 +5733,7 @@ msgid ""
 "  c          ASCII character or backslash escape\n"
 msgstr ""
 
-#: src/od.c:371
+#: src/od.c:370
 msgid ""
 "  d[SIZE]    signed decimal, SIZE bytes per integer\n"
 "  f[SIZE]    floating point, SIZE bytes per integer\n"
@@ -5650,7 +5747,7 @@ msgstr ""
 "  u[<크기>]  부호없는 10진수, 각 숫자마다 <크기> 바이트\n"
 "  x[<크기>]  16진수, 각 숫자마다 <크기> 바이트\n"
 
-#: src/od.c:378
+#: src/od.c:377
 msgid ""
 "\n"
 "SIZE is a number.  For TYPE in doux, SIZE may also be C for\n"
@@ -5664,7 +5761,7 @@ msgstr ""
 "<타입>이 f인 경우 <크기>는 sizeof(float)이 되고, D는 sizeof(double), L은\n"
 "(long double)이 됩니다.\n"
 
-#: src/od.c:385
+#: src/od.c:384
 #, fuzzy
 msgid ""
 "\n"
@@ -5683,7 +5780,7 @@ msgstr ""
 "k는 1024, m은 1048576이 곱해 집니다.  어떤 타입이라도 z 접미어를 덧붙이면\n"
 "출력 줄의 끝에 표시 가능한 문자들을 표시하게 됩니다.  "
 
-#: src/od.c:394
+#: src/od.c:393
 #, fuzzy
 msgid ""
 "Option --string without a number implies 3; option --width without a number\n"
@@ -5692,12 +5789,12 @@ msgstr ""
 "-string을 숫자 없이 쓰면 3이라고 가정합니다.  --width를 숫자 없이 쓰면 32를\n"
 "가정합니다.  기본값으로 od는 `-A -o -t d2 -w 16'을 씁니다.\n"
 
-#: src/od.c:636 src/od.c:755
+#: src/od.c:635 src/od.c:754
 #, fuzzy, c-format
 msgid "invalid type string %s"
 msgstr "부적절한 타입의 문자열 `%s'"
 
-#: src/od.c:646
+#: src/od.c:645
 #, fuzzy, c-format
 msgid ""
 "invalid type string %s;\n"
@@ -5706,7 +5803,7 @@ msgstr ""
 "부적절한 형 문자열 `%s';\n"
 "이 시스템은 %lu 바이트 정수형을 제공하지 않습니다"
 
-#: src/od.c:765
+#: src/od.c:764
 #, fuzzy, c-format
 msgid ""
 "invalid type string %s;\n"
@@ -5715,39 +5812,39 @@ msgstr ""
 "부적절한 형 문자열 `%s';\n"
 "이 시스템은 %lu 바이트 부동소수점형을 제공하지 않습니다"
 
-#: src/od.c:823
+#: src/od.c:822
 #, fuzzy, c-format
 msgid "invalid character `%c' in type string %s"
 msgstr "부적절한 문자 %c' -- 형 문자열 `%s'"
 
 # combined input 번역 개선
-#: src/od.c:1049
+#: src/od.c:1048
 #, c-format
 msgid "cannot skip past end of combined input"
 msgstr "결합된 입력의 끝을 넘어갈 수는 없습니다."
 
-#: src/od.c:1604
+#: src/od.c:1603
 #, c-format
 msgid "invalid output address radix `%c'; it must be one character from [doxn]"
 msgstr ""
 "출력 주소 기수 `%c'이(가) 부적절합니다; [odxn]중의 하나의 문자이어야 합니다"
 
-#: src/od.c:1730
+#: src/od.c:1729
 #, c-format
 msgid "no type may be specified when dumping strings"
 msgstr "문자열을 덤프할 때에는 타입이 지정되면 안됩니다"
 
-#: src/od.c:1805
+#: src/od.c:1804
 #, fuzzy
 msgid "compatibility mode supports at most one file"
 msgstr "호환 모드에서는 최대 셋까지의 인수만을 지정할 수 있습니다"
 
-#: src/od.c:1826
+#: src/od.c:1825
 #, c-format
 msgid "skip-bytes + read-bytes is too large"
 msgstr ""
 
-#: src/od.c:1869
+#: src/od.c:1868
 #, c-format
 msgid "warning: invalid width %lu; using %d instead"
 msgstr "경고: 부적절한 폭 %lu; 대신 %d을(를) 사용함"
@@ -5873,46 +5970,46 @@ msgstr "디렉토리"
 msgid "Shell: "
 msgstr ""
 
-#: src/pinky.c:376
+#: src/pinky.c:374
 #, c-format
 msgid "Project: "
 msgstr ""
 
-#: src/pinky.c:402
+#: src/pinky.c:398
 #, c-format
 msgid "Plan:\n"
 msgstr ""
 
-#: src/pinky.c:421
+#: src/pinky.c:417
 msgid "Login"
 msgstr ""
 
-#: src/pinky.c:423
+#: src/pinky.c:419
 msgid "Name"
 msgstr ""
 
-#: src/pinky.c:424
+#: src/pinky.c:420
 msgid " TTY"
 msgstr ""
 
-#: src/pinky.c:426
+#: src/pinky.c:422
 msgid "Idle"
 msgstr ""
 
-#: src/pinky.c:427
+#: src/pinky.c:423
 msgid "When"
 msgstr ""
 
-#: src/pinky.c:430
+#: src/pinky.c:426
 msgid "Where"
 msgstr ""
 
-#: src/pinky.c:510
+#: src/pinky.c:506
 #, fuzzy, c-format
 msgid "Usage: %s [OPTION]... [USER]...\n"
 msgstr "사용법: %s [<옵션>]... [<파일>]...\n"
 
-#: src/pinky.c:511
+#: src/pinky.c:507
 msgid ""
 "\n"
 "  -l              produce long format output for the specified USERs\n"
@@ -5922,7 +6019,7 @@ msgid ""
 "  -s              do short format output, this is the default\n"
 msgstr ""
 
-#: src/pinky.c:519
+#: src/pinky.c:515
 msgid ""
 "  -f              omit the line of column headings in short format\n"
 "  -w              omit the user's full name in short format\n"
@@ -5931,7 +6028,7 @@ msgid ""
 "                  in short format\n"
 msgstr ""
 
-#: src/pinky.c:528
+#: src/pinky.c:524
 #, c-format
 msgid ""
 "\n"
@@ -5939,7 +6036,7 @@ msgid ""
 "The utmp file will be %s.\n"
 msgstr ""
 
-#: src/pinky.c:612
+#: src/pinky.c:608
 #, fuzzy, c-format
 msgid "no username specified; at least one must be specified when using -l"
 msgstr "--string을 사용할 땐 파일이 지정될 수 없습니다"
@@ -6509,7 +6606,7 @@ msgstr "사용법: %s [<옵션>]... [<파일>]...\n"
 
 #: src/readlink.c:64
 msgid ""
-"Display value of a symbolic link on standard output.\n"
+"Print value of a symbolic link or canonical file name\n"
 "\n"
 msgstr ""
 
@@ -6549,14 +6646,14 @@ msgid "FATAL: cannot open .. from %s"
 msgstr "%s 디렉토리를 만들 수 없습니다"
 
 #: src/remove.c:593
-#, c-format
+#, fuzzy, c-format
 msgid "FATAL: cannot ensure %s (returned to via ..) is safe"
-msgstr ""
+msgstr "%s 디렉토리로 chdir할 수 없습니다"
 
 #: src/remove.c:601
-#, c-format
+#, fuzzy, c-format
 msgid "FATAL: directory %s changed dev/ino"
-msgstr ""
+msgstr "%s 디렉토리를 만들 수 없습니다"
 
 #: src/remove.c:722
 #, fuzzy, c-format
@@ -6564,9 +6661,9 @@ msgid "FATAL: cannot enter directory %s"
 msgstr "%s 디렉토리를 만들 수 없습니다"
 
 #: src/remove.c:730
-#, c-format
+#, fuzzy, c-format
 msgid "FATAL: just-changed-to directory %s changed dev/ino"
-msgstr ""
+msgstr "%s 디렉토리를 만들 수 없습니다"
 
 #: src/remove.c:738
 #, fuzzy, c-format
@@ -6734,17 +6831,17 @@ msgstr ""
 msgid "%s: remove all arguments? "
 msgstr "%s: `%s'를 지울까요? "
 
-#: src/rmdir.c:135 src/rmdir.c:234
+#: src/rmdir.c:134 src/rmdir.c:233
 #, fuzzy, c-format
 msgid "removing directory, %s"
 msgstr "%s 디렉토리를 만들 수 없습니다"
 
-#: src/rmdir.c:149
+#: src/rmdir.c:148
 #, fuzzy, c-format
 msgid "failed to remove directory %s"
 msgstr "%s 디렉토리를 만들 수 없습니다"
 
-#: src/rmdir.c:167
+#: src/rmdir.c:166
 msgid ""
 "Remove the DIRECTORY(ies), if they are empty.\n"
 "\n"
@@ -6753,7 +6850,7 @@ msgid ""
 "                    is non-empty\n"
 msgstr ""
 
-#: src/rmdir.c:174
+#: src/rmdir.c:173
 #, fuzzy
 msgid ""
 "  -p, --parents   remove DIRECTORY and its ancestors; e.g., `rmdir -p a/b/c' "
@@ -6772,7 +6869,7 @@ msgstr ""
 "      --help      이 도움말을 표시하고 종료합니다\n"
 "      --version   버전 정보를 표시하고 종료합니다\n"
 
-#: src/rmdir.c:243
+#: src/rmdir.c:242
 #, fuzzy, c-format
 msgid "failed to remove %s"
 msgstr "%s 디렉토리를 만들 수 없습니다"
@@ -7190,7 +7287,7 @@ msgstr "%s: 파일이 너무 깁니다"
 msgid "%s: invalid number of passes"
 msgstr "%s: 부적절한 초"
 
-#: src/shred.c:1143 src/shuf.c:329 src/sort.c:3325
+#: src/shred.c:1143 src/shuf.c:329 src/sort.c:3447
 #, c-format
 msgid "multiple random sources specified"
 msgstr ""
@@ -7246,7 +7343,7 @@ msgstr "부적절한 숫자"
 msgid "invalid line count %s"
 msgstr "부적절한 폭: `%s'"
 
-#: src/shuf.c:323 src/sort.c:3319
+#: src/shuf.c:323 src/sort.c:3441
 #, fuzzy, c-format
 msgid "multiple output files specified"
 msgstr "%s를 지웁니다\n"
@@ -7280,12 +7377,12 @@ msgstr ""
 msgid "invalid time interval %s"
 msgstr "부적절한 필드 번호: `%s'"
 
-#: src/sleep.c:148 src/tail.c:1105
+#: src/sleep.c:148 src/tail.c:1132
 #, fuzzy, c-format
 msgid "cannot read realtime clock"
 msgstr "링크 `%s'를 만들 수 없습니다"
 
-#: src/sort.c:318
+#: src/sort.c:321
 #, fuzzy
 msgid ""
 "Write sorted concatenation of all FILE(s) to standard output.\n"
@@ -7296,13 +7393,13 @@ msgstr ""
 "정렬 옵션은 다음과 같습니다:\n"
 "\n"
 
-#: src/sort.c:325
+#: src/sort.c:328
 msgid ""
 "Ordering options:\n"
 "\n"
 msgstr ""
 
-#: src/sort.c:329
+#: src/sort.c:332
 #, fuzzy
 msgid ""
 "  -b, --ignore-leading-blanks  ignore leading blanks\n"
@@ -7314,14 +7411,19 @@ msgstr ""
 "  -d, --dictionary-order      공백, 알파벳, 숫자만을 고려합니다\n"
 "  -f, --ignore-case           소문자와 대문자를 구별하지 않습니다\n"
 
-#: src/sort.c:334
+#: src/sort.c:337
 msgid ""
 "  -g, --general-numeric-sort  compare according to general numerical value\n"
 "  -i, --ignore-nonprinting    consider only printable characters\n"
 "  -M, --month-sort            compare (unknown) < `JAN' < ... < `DEC'\n"
 msgstr ""
 
-#: src/sort.c:339
+#: src/sort.c:342
+msgid ""
+"  -h, --human-numeric-sort    compare human readable numbers (e.g., 2K 1G)\n"
+msgstr ""
+
+#: src/sort.c:345
 msgid ""
 "  -n, --numeric-sort          compare according to string numerical value\n"
 "  -R, --random-sort           sort by random hash of keys\n"
@@ -7329,28 +7431,29 @@ msgid ""
 "  -r, --reverse               reverse the result of comparisons\n"
 msgstr ""
 
-#: src/sort.c:345
+#: src/sort.c:351
 msgid ""
 "      --sort=WORD             sort according to WORD:\n"
-"                                general-numeric -g, month -M, numeric -n,\n"
-"                                random -R, version -V\n"
+"                                general-numeric -g, human-numeric -h, month -"
+"M,\n"
+"                                numeric -n, random -R, version -V\n"
 "  -V, --version-sort          natural sort of (version) numbers within text\n"
 "\n"
 msgstr ""
 
-#: src/sort.c:352
+#: src/sort.c:358
 msgid ""
 "Other options:\n"
 "\n"
 msgstr ""
 
-#: src/sort.c:356
+#: src/sort.c:362
 msgid ""
 "      --batch-size=NMERGE   merge at most NMERGE inputs at once;\n"
 "                            for more use temp files\n"
 msgstr ""
 
-#: src/sort.c:360
+#: src/sort.c:366
 msgid ""
 "  -c, --check, --check=diagnose-first  check for sorted input; do not sort\n"
 "  -C, --check=quiet, --check=silent  like -c, but do not report first bad "
@@ -7362,7 +7465,7 @@ msgid ""
 "                            If F is - then read names from standard input\n"
 msgstr ""
 
-#: src/sort.c:369
+#: src/sort.c:375
 msgid ""
 "  -k, --key=POS1[,POS2]     start a key at POS1 (origin 1), end it at POS2\n"
 "                            (default end of line)\n"
@@ -7370,7 +7473,7 @@ msgid ""
 msgstr ""
 
 # last-resort comparison?
-#: src/sort.c:374
+#: src/sort.c:380
 #, fuzzy
 msgid ""
 "  -o, --output=FILE         write result to FILE instead of standard output\n"
@@ -7391,7 +7494,7 @@ msgstr ""
 "다\n"
 "  -S, --buffer-size=<크기>  메인 메모리 버퍼를 <크기>만큼 씁니다\n"
 
-#: src/sort.c:379
+#: src/sort.c:385
 #, fuzzy, c-format
 msgid ""
 "  -t, --field-separator=SEP  use SEP instead of non-blank to blank "
@@ -7413,11 +7516,11 @@ msgstr ""
 "다:\n"
 "                              동일한 것중 첫 번째만 출력합니다\n"
 
-#: src/sort.c:386
+#: src/sort.c:392
 msgid "  -z, --zero-terminated     end lines with 0 byte, not newline\n"
 msgstr "  -z, --zero-terminated     줄의 끝에 줄바꿈 대신 바이트 0을 씁니다\n"
 
-#: src/sort.c:391
+#: src/sort.c:397
 #, fuzzy
 msgid ""
 "\n"
@@ -7440,7 +7543,7 @@ msgstr ""
 "\n"
 "<크기> 다음에는 다음 곱하기 접미어가 따라올 수 있습니다:\n"
 
-#: src/sort.c:401
+#: src/sort.c:407
 msgid ""
 "% 1% of memory, b 1, K 1024 (default), and so on for M, G, T, P, E, Z, Y.\n"
 "\n"
@@ -7461,172 +7564,177 @@ msgstr ""
 "바이트값에 따라 정렬된 전통적인 정렬 방식을 원한다면 \"LC_ALL=C\"로\n"
 "환경변수를 세팅하십시오\n"
 
-#: src/sort.c:601
+#: src/sort.c:609
 #, fuzzy, c-format
 msgid "waiting for %s [-d]"
 msgstr "%s에 쓰는 도중 오류 발생"
 
-#: src/sort.c:606
+#: src/sort.c:614
 #, c-format
 msgid "%s [-d] terminated abnormally"
 msgstr ""
 
-#: src/sort.c:776 src/tac.c:458
+#: src/sort.c:785 src/tac.c:458
 #, fuzzy, c-format
 msgid "cannot create temporary file in %s"
 msgstr "임시 파일을 만들 수 없습니다"
 
-#: src/sort.c:813 src/sort.c:2433 src/sort.c:2713 src/sort.c:2716
-#: src/sort.c:3513
+#: src/sort.c:822 src/sort.c:2546 src/sort.c:2826 src/sort.c:2829
+#: src/sort.c:3638
 msgid "open failed"
 msgstr "파일 열기 실패"
 
-#: src/sort.c:833
+#: src/sort.c:842
 #, fuzzy
 msgid "fflush failed"
 msgstr "파일 닫기 실패"
 
-#: src/sort.c:838 src/sort.c:3568
+#: src/sort.c:847 src/sort.c:3693
 msgid "close failed"
 msgstr "파일 닫기 실패"
 
-#: src/sort.c:847
+#: src/sort.c:856
 #, fuzzy, c-format
 msgid "dup2 failed"
 msgstr "파일 열기 실패"
 
-#: src/sort.c:956
+#: src/sort.c:965
 #, fuzzy, c-format
 msgid "couldn't execute %s"
 msgstr "%s 디렉토리를 만들 수 없습니다"
 
-#: src/sort.c:965
+#: src/sort.c:974
 #, fuzzy
 msgid "couldn't create temporary file"
 msgstr "임시 파일을 만들 수 없습니다"
 
-#: src/sort.c:1005
+#: src/sort.c:1014
 #, fuzzy, c-format
 msgid "couldn't create process for %s -d"
 msgstr "%s 디렉토리를 만들 수 없습니다"
 
-#: src/sort.c:1019
+#: src/sort.c:1028
 #, fuzzy, c-format
 msgid "couldn't execute %s -d"
 msgstr "%s 디렉토리를 만들 수 없습니다"
 
-#: src/sort.c:1043
+#: src/sort.c:1052
 msgid "write failed"
 msgstr "파일 쓰기 실패"
 
-#: src/sort.c:1080
+#: src/sort.c:1089
 #, fuzzy, c-format
 msgid "warning: cannot remove: %s"
 msgstr "%s 디렉토리를 만들 수 없습니다"
 
-#: src/sort.c:1166
+#: src/sort.c:1175
 #, fuzzy, c-format
 msgid "invalid --%s argument %s"
 msgstr "%2$s에 대해 부적절한 인자 %1$s"
 
-#: src/sort.c:1169
+#: src/sort.c:1178
 #, fuzzy, c-format
 msgid "minimum --%s argument is %s"
 msgstr "%2$s에 대해 애매한 인자 %1$s"
 
-#: src/sort.c:1184
+#: src/sort.c:1193
 #, fuzzy, c-format
 msgid "--%s argument %s too large"
 msgstr "%s: 일련번호 `%.*s'은(는) 너무 큽니다"
 
-#: src/sort.c:1187
+#: src/sort.c:1196
 #, c-format
 msgid "maximum --%s argument with current rlimit is %s"
 msgstr ""
 
-#: src/sort.c:1332
+#: src/sort.c:1341
 msgid "stat failed"
 msgstr "stat 실패"
 
-#: src/sort.c:1593
+#: src/sort.c:1602
 msgid "read failed"
 msgstr "파일 읽기 실패"
 
-#: src/sort.c:2142
+#: src/sort.c:1692
+#, c-format
+msgid "both SI and IEC prefixes present on units"
+msgstr ""
+
+#: src/sort.c:2255
 #, c-format
 msgid "%s: %s:%s: disorder: "
 msgstr "%s: %s:%s: 순서가 맞지 않음: "
 
-#: src/sort.c:2146
+#: src/sort.c:2259
 msgid "standard error"
 msgstr "표준 오류"
 
-#: src/sort.c:2868
+#: src/sort.c:2981
 #, fuzzy, c-format
 msgid "%s: invalid field specification %s"
 msgstr "%s: 부적절한 필드 지정 `%s'"
 
-#: src/sort.c:2879
+#: src/sort.c:2992
 #, c-format
 msgid "options `-%s' are incompatible"
 msgstr ""
 
 # count?
-#: src/sort.c:2946
+#: src/sort.c:3061
 #, fuzzy, c-format
 msgid "%s: invalid count at start of %s"
 msgstr "%s: `%s' 시작 부분에 부적절한 갯수"
 
-#: src/sort.c:3199
+#: src/sort.c:3320
 msgid "invalid number after `-'"
 msgstr "`-' 다음에 부적절한 숫자"
 
-#: src/sort.c:3202 src/sort.c:3272 src/sort.c:3300
+#: src/sort.c:3323 src/sort.c:3394 src/sort.c:3422
 msgid "invalid number after `.'"
 msgstr "`.' 다음에 부적절한 숫자"
 
-#: src/sort.c:3205 src/sort.c:3305
+#: src/sort.c:3326 src/sort.c:3427
 msgid "stray character in field spec"
 msgstr "필드 스펙에 벗어난 문자"
 
-#: src/sort.c:3250
+#: src/sort.c:3372
 #, c-format
 msgid "multiple compress programs specified"
 msgstr ""
 
-#: src/sort.c:3263
+#: src/sort.c:3385
 msgid "invalid number at field start"
 msgstr "필드 처음에 부적절한 숫자"
 
-#: src/sort.c:3267 src/sort.c:3295
+#: src/sort.c:3389 src/sort.c:3417
 msgid "field number is zero"
 msgstr "필드 개수가 0입니다"
 
-#: src/sort.c:3276
+#: src/sort.c:3398
 msgid "character offset is zero"
 msgstr "문자 오프셋이 0입니다"
 
-#: src/sort.c:3291
+#: src/sort.c:3413
 msgid "invalid number after `,'"
 msgstr "`,' 다음에 부적절한 숫자"
 
-#: src/sort.c:3430 src/wc.c:680
+#: src/sort.c:3552 src/wc.c:680
 #, fuzzy, c-format
 msgid "cannot read file names from %s"
 msgstr "비교한 문자열은 %s과(와) %s입니다."
 
-#: src/sort.c:3452
+#: src/sort.c:3574
 #, fuzzy, c-format
 msgid "%s:%lu: invalid zero-length file name"
 msgstr "%s: 부적절한 접미어 길이"
 
-#: src/sort.c:3458
+#: src/sort.c:3580
 #, fuzzy, c-format
 msgid "no input from %s"
 msgstr "파일 `%s'을(를) 만듦\n"
 
 # extra operand? 뭔 소리야?
-#: src/sort.c:3538
+#: src/sort.c:3663
 #, fuzzy, c-format
 msgid "extra operand %s not allowed with -%c"
 msgstr "-c 옵션에서는 추가 피연산자 `%s'을(를) 쓸 수 없습니다"
@@ -7841,6 +7949,72 @@ msgstr ""
 msgid ""
 "the --context (-Z) option is obsolete and will be removed\n"
 "in a future release"
+msgstr ""
+
+#: src/stdbuf.c:95
+#, fuzzy, c-format
+msgid "Usage: %s OPTION... COMMAND\n"
+msgstr "사용법: %s [<옵션>] [<파일>]...\n"
+
+#: src/stdbuf.c:96
+msgid ""
+"Run COMMAND, with modified buffering operations for its standard streams.\n"
+"\n"
+msgstr ""
+
+#: src/stdbuf.c:103
+msgid ""
+"  -i, --input=MODE   Adjust standard input stream buffering\n"
+"  -o, --output=MODE  Adjust standard output stream buffering\n"
+"  -e, --error=MODE   Adjust standard error stream buffering\n"
+msgstr ""
+
+#: src/stdbuf.c:110
+msgid ""
+"\n"
+"If MODE is `L' then corresponding stream will be line buffered.\n"
+"This option is invalid with standard input.\n"
+msgstr ""
+
+#: src/stdbuf.c:113
+msgid ""
+"\n"
+"If MODE is `0' then corresponding stream will be unbuffered.\n"
+msgstr ""
+
+#: src/stdbuf.c:116
+msgid ""
+"\n"
+"Otherwise MODE is a number which may be followed by one of the following:\n"
+"KB 1000, K 1024, MB 1000*1000, M 1024*1024, and so on for G, T, P, E, Z, Y.\n"
+"In this case the corresponding stream will be fully buffered with the "
+"buffer\n"
+"size set to MODE bytes.\n"
+msgstr ""
+
+#: src/stdbuf.c:122
+msgid ""
+"\n"
+"NOTE: If COMMAND adjusts the buffering of its standard streams (`tee' does\n"
+"for e.g.) then that will override corresponding settings changed by "
+"`stdbuf'.\n"
+"Also some filters (like `dd' and `cat' etc.) don't use streams for I/O,\n"
+"and are thus unaffected by `stdbuf' settings.\n"
+msgstr ""
+
+#: src/stdbuf.c:165
+#, c-format
+msgid "path truncated when looking for %s"
+msgstr ""
+
+#: src/stdbuf.c:258 src/stdbuf.c:290
+#, fuzzy, c-format
+msgid "failed to update the environment with %s"
+msgstr "%s의 그룹을 %s로 바꾸는데 실패했습니다\n"
+
+#: src/stdbuf.c:332
+#, c-format
+msgid "line buffering stdin is meaningless"
 msgstr ""
 
 #: src/stty.c:506
@@ -8364,11 +8538,11 @@ msgid "separator cannot be empty"
 msgstr "구분 단위가 빈 문자열이 될 수는 없습니다"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/tail.c:54
+#: src/tail.c:63
 msgid "Ian Lance Taylor"
 msgstr ""
 
-#: src/tail.c:219
+#: src/tail.c:246
 #, c-format
 msgid ""
 "Print the last %d lines of each FILE to standard output.\n"
@@ -8383,14 +8557,14 @@ msgstr ""
 "다.\n"
 "\n"
 
-#: src/tail.c:228
+#: src/tail.c:255
 msgid ""
-"  -c, --bytes=N            output the last N bytes; alternatively, use +N "
+"  -c, --bytes=K            output the last K bytes; alternatively, use +K "
 "to\n"
-"                           output bytes starting with the Nth of each file\n"
+"                           output bytes starting with the Kth of each file\n"
 msgstr ""
 
-#: src/tail.c:232
+#: src/tail.c:259
 msgid ""
 "  -f, --follow[={name|descriptor}]\n"
 "                           output appended data as the file grows;\n"
@@ -8404,11 +8578,11 @@ msgstr ""
 "                           같은 기능을 합니다\n"
 "  -F                       --follow=name --retry와 같습니다\n"
 
-#: src/tail.c:239
+#: src/tail.c:266
 #, fuzzy, c-format
 msgid ""
-"  -n, --lines=N            output the last N lines, instead of the last %d;\n"
-"                           or use +N to output lines starting with the Nth\n"
+"  -n, --lines=K            output the last K lines, instead of the last %d;\n"
+"                           or use +K to output lines starting with the Kth\n"
 "      --max-unchanged-stats=N\n"
 "                           with --follow=name, reopen a FILE which has not\n"
 "                           changed size after N (default %d) iterations\n"
@@ -8423,7 +8597,7 @@ msgstr ""
 "다\n"
 "                           (회전된 로그 파일의 경우 이러합니다)\n"
 
-#: src/tail.c:251
+#: src/tail.c:278
 #, fuzzy
 msgid ""
 "      --pid=PID            with -f, terminate after process ID, PID dies\n"
@@ -8439,7 +8613,7 @@ msgstr ""
 "                           S초(기본값 1초)만큼 지속되도록 합니다\n"
 "  -v, --verbose            언제나 파일이름이 들어 있는 헤더를 출력합니다\n"
 
-#: src/tail.c:258
+#: src/tail.c:285
 #, fuzzy
 msgid ""
 "  -s, --sleep-interval=S   with -f, sleep for approximately S seconds\n"
@@ -8453,13 +8627,13 @@ msgstr ""
 "                           S초(기본값 1초)만큼 지속되도록 합니다\n"
 "  -v, --verbose            언제나 파일이름이 들어 있는 헤더를 출력합니다\n"
 
-#: src/tail.c:265
+#: src/tail.c:292
 #, fuzzy
 msgid ""
 "\n"
-"If the first character of N (the number of bytes or lines) is a `+',\n"
-"print beginning with the Nth item from the start of each file, otherwise,\n"
-"print the last N items in the file.  N may have a multiplier suffix:\n"
+"If the first character of K (the number of bytes or lines) is a `+',\n"
+"print beginning with the Kth item from the start of each file, otherwise,\n"
+"print the last K items in the file.  K may have a multiplier suffix:\n"
 "b 512, kB 1000, K 1024, MB 1000*1000, M 1024*1024,\n"
 "GB 1000*1000*1000, G 1024*1024*1024, and so on for T, P, E, Z, Y.\n"
 "\n"
@@ -8470,7 +8644,7 @@ msgstr ""
 "표시합니다.  N 뒤에 곱하기 접미어가 올 수 있습니다: b는 512, k는 1024, m은 \n"
 "1048576 (1메가)입니다.\n"
 
-#: src/tail.c:274
+#: src/tail.c:301
 msgid ""
 "With --follow (-f), tail defaults to following the file descriptor, which\n"
 "means that even if a tail'ed file is renamed, tail will continue to track\n"
@@ -8480,7 +8654,7 @@ msgstr ""
 "tail된 파일의 이름이 변경되었더라도, tail은 계속해서 그 끝을 따라다니게 \n"
 "됩니다.  "
 
-#: src/tail.c:279
+#: src/tail.c:306
 msgid ""
 "This default behavior is not desirable when you really want to\n"
 "track the actual name of the file, not the file descriptor (e.g., log\n"
@@ -8495,121 +8669,146 @@ msgstr ""
 "파일을 다시 열어 지워졌거나 다른 프로그램에 의해 다시 만들어 졌는지 여부를 \n"
 "검사하게 될  것입니다.\n"
 
-#: src/tail.c:337
+#: src/tail.c:364
 #, c-format
 msgid "closing %s (fd=%d)"
 msgstr "%s(fd=%d)을(를) 닫습니다 "
 
-#: src/tail.c:412
+#: src/tail.c:439
 #, fuzzy, c-format
 msgid "%s: cannot seek to relative offset %s"
 msgstr "%s: 상대 오프셋 %s%s로(으로) 갈 수 없습니다"
 
-#: src/tail.c:416
+#: src/tail.c:443
 #, fuzzy, c-format
 msgid "%s: cannot seek to end-relative offset %s"
 msgstr "%s: 끝 상대 오프셋 %s%s로(으로) 갈 수 없습니다"
 
-#: src/tail.c:868
+#: src/tail.c:895
 #, fuzzy, c-format
 msgid "%s has become inaccessible"
 msgstr "`%s'이(가) 접근 불가능하게 되었습니다"
 
 # 좀 더 자연스럽게
-#: src/tail.c:885
+#: src/tail.c:912
 #, fuzzy, c-format
 msgid "%s has been replaced with an untailable file; giving up on this name"
 msgstr ""
 "`%s'이(가) tail을 실행할 수 없는 파일로 대체되었습니다; 이 이름은 포기합니다"
 
-#: src/tail.c:906
+#: src/tail.c:933
 #, fuzzy, c-format
 msgid "%s has become accessible"
 msgstr "`%s'이(가) 접근 가능하게 되었습니다"
 
 # 좀 더 자연스럽게
-#: src/tail.c:914
+#: src/tail.c:941
 #, fuzzy, c-format
 msgid "%s has appeared;  following end of new file"
 msgstr "`%s'이(가) 나타났습니다;  새로운 파일의 끝에 이어서 나타났습니다"
 
 # 좀 더 자연스럽게
-#: src/tail.c:925
+#: src/tail.c:952
 #, fuzzy, c-format
 msgid "%s has been replaced;  following end of new file"
 msgstr "`%s'이(가) 대체되었습니다;  새로운 파일의 끝에 이어서 대체되었습니다"
 
-#: src/tail.c:1026
+#: src/tail.c:1053
 #, fuzzy, c-format
 msgid "%s: cannot change nonblocking mode"
 msgstr "%s의 소유자 그리고/혹은 그룹을 바꿀 수 없습니다"
 
-#: src/tail.c:1067
+#: src/tail.c:1094 src/tail.c:1376
 #, c-format
 msgid "%s: file truncated"
 msgstr "%s: 파일이 잘렸음"
 
-#: src/tail.c:1091
+#: src/tail.c:1118
 #, c-format
 msgid "no files remaining"
 msgstr "파일이 남아 있지 않습니다"
 
-#: src/tail.c:1324
+#: src/tail.c:1216
+#, fuzzy, c-format
+msgid "cannot watch parent directory of %s"
+msgstr "%s 디렉토리를 만들 수 없습니다"
+
+#: src/tail.c:1227 src/tail.c:1330
+#, fuzzy, c-format
+msgid "cannot watch %s"
+msgstr "`%s'에서 ioctl을 할 수 없습니다"
+
+#: src/tail.c:1276
+#, fuzzy, c-format
+msgid "error monitoring inotify event"
+msgstr "%s을(를) 읽는 도중 오류 발생"
+
+#: src/tail.c:1305
+#, fuzzy, c-format
+msgid "error reading inotify event"
+msgstr "%s을(를) 읽는 도중 오류 발생"
+
+#: src/tail.c:1604
 #, c-format
 msgid "%s: cannot follow end of this type of file; giving up on this name"
 msgstr ""
 "`%s'은(는) 이런 종류의 파일 뒤에 이어서 나올 수 없습니다; 이 이름은 포기합니"
 "다"
 
-#: src/tail.c:1440
+#: src/tail.c:1720
 #, fuzzy, c-format
 msgid "number in %s is too large"
 msgstr "%s은(는) 너무 큽니다"
 
-#: src/tail.c:1512
+#: src/tail.c:1792
 #, c-format
 msgid "%s: invalid maximum number of unchanged stats between opens"
 msgstr "%s: 열기중에 바뀌지 않은 stat의 최대 개수가 부적절합니다"
 
-#: src/tail.c:1524
+#: src/tail.c:1804
 #, c-format
 msgid "%s: invalid PID"
 msgstr "%s: 부적절한 PID"
 
-#: src/tail.c:1543
+#: src/tail.c:1823
 #, c-format
 msgid "%s: invalid number of seconds"
 msgstr "%s: 부적절한 초"
 
-#: src/tail.c:1559
+#: src/tail.c:1839
 #, c-format
 msgid "option used in invalid context -- %c"
 msgstr ""
 
-#: src/tail.c:1567
+#: src/tail.c:1847
 #, fuzzy, c-format
 msgid "warning: --retry is useful mainly when following by name"
 msgstr "경고: --retry는 --follow=name 옵션을 사용했을 경우만 유효합니다"
 
-#: src/tail.c:1571
+#: src/tail.c:1851
 #, c-format
 msgid "warning: PID ignored; --pid=PID is useful only when following"
 msgstr ""
 "경고: PID 무시; `--pid=PID'는 --follow 옵션과 같이 사용했을 경우만 유효합니다"
 
-#: src/tail.c:1574
+#: src/tail.c:1854
 #, c-format
 msgid "warning: --pid=PID is not supported on this system"
 msgstr "경고: `--pid=PID'는 이 시스템에서 지원하지 않습니다"
 
-#: src/tail.c:1668
+#: src/tail.c:1948
 #, fuzzy, c-format
 msgid "cannot follow %s by name"
 msgstr "임시 파일을 만들 수 없습니다"
 
-#: src/tail.c:1674
+#: src/tail.c:1954
 #, c-format
 msgid "warning: following standard input indefinitely is ineffective"
+msgstr ""
+
+#: src/tail.c:1977
+#, c-format
+msgid "inotify cannot be used, reverting to polling"
 msgstr ""
 
 #: src/tee.c:63
@@ -8930,18 +9129,18 @@ msgid ""
 "warning: `touch %s' is obsolete; use `touch -t %04ld%02d%02d%02d%02d.%02d'"
 msgstr ""
 
-#: src/tr.c:287
+#: src/tr.c:286
 #, c-format
 msgid "Usage: %s [OPTION]... SET1 [SET2]\n"
 msgstr "사용법: %s [<옵션>]... <집합1> [<집합2>]\n"
 
-#: src/tr.c:291
+#: src/tr.c:290
 #, fuzzy
 msgid ""
 "Translate, squeeze, and/or delete characters from standard input,\n"
 "writing to standard output.\n"
 "\n"
-"  -c, -C, --complement    first complement SET1\n"
+"  -c, -C, --complement    use the complement of SET1\n"
 "  -d, --delete            delete characters in SET1, do not translate\n"
 "  -s, --squeeze-repeats   replace each input sequence of a repeated "
 "character\n"
@@ -8958,7 +9157,7 @@ msgstr ""
 "                            <집합1>에서 해당 문자가 한 번만 나타나게 됩니다\n"
 "  -t, --truncate-set1     먼저 <집합1>을 <집합2>의 길이에 맞게 자릅니다\n"
 
-#: src/tr.c:304
+#: src/tr.c:303
 msgid ""
 "\n"
 "SETs are specified as strings of characters.  Most represent themselves.\n"
@@ -8986,7 +9185,7 @@ msgstr ""
 "  \\r              리턴\n"
 "  \\t              수평 탭\n"
 
-#: src/tr.c:318
+#: src/tr.c:317
 msgid ""
 "  \\v              vertical tab\n"
 "  CHAR1-CHAR2     all characters from CHAR1 to CHAR2 in ascending order\n"
@@ -9008,7 +9207,7 @@ msgstr ""
 "  [:cntrl:]       모든 컨트롤 문자\n"
 "  [:digit:]       모든 숫자\n"
 
-#: src/tr.c:329
+#: src/tr.c:328
 msgid ""
 "  [:graph:]       all printable characters, not including space\n"
 "  [:lower:]       all lower case letters\n"
@@ -9028,7 +9227,7 @@ msgstr ""
 "  [:xdigit:]      모든 16진수 숫자\n"
 "  [=CHAR=]        CHAR와 동일한 모든 문자\n"
 
-#: src/tr.c:339
+#: src/tr.c:338
 msgid ""
 "\n"
 "Translation occurs if -d is not given and both SET1 and SET2 appear.\n"
@@ -9041,7 +9240,7 @@ msgid ""
 "translation or deletion.\n"
 msgstr ""
 
-#: src/tr.c:510
+#: src/tr.c:509
 #, fuzzy, c-format
 msgid ""
 "warning: the ambiguous octal escape \\%c%c%c is being\n"
@@ -9050,69 +9249,69 @@ msgstr ""
 "경고: 애매한 8진수 이스케이프 \\%c%c%c은(는) 2바이트 시퀀스\n"
 "\t\\0%c%c, `%c'로(으로) 해석됩니다"
 
-#: src/tr.c:519
+#: src/tr.c:518
 #, fuzzy, c-format
 msgid "warning: an unescaped backslash at end of string is not portable"
 msgstr ""
 "%s: 경고: 심볼릭 링크로 하드링크를 만드는 것은 시스템에 따라 안될 수도\n"
 "          있습니다."
 
-#: src/tr.c:674
+#: src/tr.c:673
 #, c-format
 msgid "range-endpoints of `%s-%s' are in reverse collating sequence order"
 msgstr "범위 지정 `%s-%s'은(는) 순서가 사전순서의 역방향입니다"
 
-#: src/tr.c:830
+#: src/tr.c:829
 #, fuzzy, c-format
 msgid "invalid repeat count %s in [c*n] construct"
 msgstr "[c*n] 구문에 부적절한 반복 회수 `%s'"
 
-#: src/tr.c:911
+#: src/tr.c:910
 #, c-format
 msgid "missing character class name `[::]'"
 msgstr "문자 클래스 이름이 빠졌습니다 `[::]'"
 
-#: src/tr.c:914
+#: src/tr.c:913
 #, c-format
 msgid "missing equivalence class character `[==]'"
 msgstr "동격 클래스 문자가 빠졌습니다 `[==]'"
 
-#: src/tr.c:929
+#: src/tr.c:928
 #, fuzzy, c-format
 msgid "invalid character class %s"
 msgstr "부적절한 문자 클래스 `%s'"
 
-#: src/tr.c:948
+#: src/tr.c:947
 #, c-format
 msgid "%s: equivalence class operand must be a single character"
 msgstr "%s: 동일 클래스 피연산자는 하나의 문자이어야 합니다"
 
-#: src/tr.c:1264
+#: src/tr.c:1263
 #, fuzzy, c-format
 msgid "too many characters in set"
 msgstr "필드 스펙에 벗어난 문자"
 
-#: src/tr.c:1412
+#: src/tr.c:1411
 #, c-format
 msgid "the [c*] repeat construct may not appear in string1"
 msgstr "[c*] 반복 구성문은 string1에서는 쓸 수 없습니다"
 
-#: src/tr.c:1422
+#: src/tr.c:1421
 #, c-format
 msgid "only one [c*] repeat construct may appear in string2"
 msgstr "[c*] 반복 구성문은 string2에서 오직 한 개만 쓸 수 있습니다"
 
-#: src/tr.c:1430
+#: src/tr.c:1429
 #, c-format
 msgid "[=c=] expressions may not appear in string2 when translating"
 msgstr "[=c=] 표현은 옮김의 경우 string2에서 쓸 수 없습니다"
 
-#: src/tr.c:1443
+#: src/tr.c:1442
 #, c-format
 msgid "when not truncating set1, string2 must be non-empty"
 msgstr "집합1이 잘려나가지 않는다면, string2는 빈 집합이어서는 안 됩니다"
 
-#: src/tr.c:1452
+#: src/tr.c:1451
 #, c-format
 msgid ""
 "when translating with complemented character classes,\n"
@@ -9121,7 +9320,7 @@ msgstr ""
 "문자 클래스의 여집합으로 옮길 경우에는,\n"
 "string2는 그 도메인의 모든 문자를 하나의 문자로 매핑해야 합니다"
 
-#: src/tr.c:1459
+#: src/tr.c:1458
 #, c-format
 msgid ""
 "when translating, the only character classes that may appear in\n"
@@ -9130,27 +9329,27 @@ msgstr ""
 "옮김의 경우, string2에 나타날 수 있는 문자 클래스는 `upper'와 \n"
 "`lower'뿐입니다"
 
-#: src/tr.c:1468
+#: src/tr.c:1467
 #, c-format
 msgid "the [c*] construct may appear in string2 only when translating"
 msgstr "번역할 때에만 [c*] 구문이 문자열2에 나타날 수 있습니다"
 
-#: src/tr.c:1718
+#: src/tr.c:1717
 #, fuzzy
 msgid "Two strings must be given when both deleting and squeezing repeats."
 msgstr "지움과 반복줄임을 동시에 하는 경우 두 개의 string이 주어져야 합니다"
 
-#: src/tr.c:1720
+#: src/tr.c:1719
 #, fuzzy
 msgid "Two strings must be given when translating."
 msgstr "번역할 때 두 문자열이 주어져야 합니다"
 
-#: src/tr.c:1730
+#: src/tr.c:1729
 #, fuzzy
 msgid "Only one string may be given when deleting without squeezing repeats."
 msgstr "반복줄임 없이 지우는 경우 1개의 string만이 주어져야 합니다"
 
-#: src/tr.c:1842
+#: src/tr.c:1841
 #, c-format
 msgid "misaligned [:upper:] and/or [:lower:] construct"
 msgstr "맞지 않는 [:upper:] 그리고/혹은 [:lower:] 구성"
@@ -9731,6 +9930,14 @@ msgid ""
 "Repeatedly output a line with all specified STRING(s), or `y'.\n"
 "\n"
 msgstr ""
+
+#, fuzzy
+#~ msgid "traversal failed: %s"
+#~ msgstr "파일 읽기 실패"
+
+#, fuzzy
+#~ msgid "cannot find group %s"
+#~ msgstr "사용자와 그룹을 모두 생략할 수는 없습니다"
 
 #~ msgid ""
 #~ "Discard all but one of successive identical lines from INPUT (or\n"
