@@ -1,3 +1,9 @@
+coreutils (7.5-4) unstable; urgency=low
+
+  * [81] fix tail -f - with inotify (Closes: #545422)
+
+ -- Michael Stone <mstone@debian.org>  Tue, 08 Sep 2009 20:54:42 -0400
+
 coreutils (7.5-3) unstable; urgency=low
 
   * [61] update who --ips to support more ipv6 ranges (Closes: #508924)

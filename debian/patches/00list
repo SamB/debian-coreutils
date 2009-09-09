@@ -1,4 +1,7 @@
 61_whoips
 63_dd-appenderrors
 72_id_checkngroups
-78_kfbsd_tab.dpatch
+78_kfbsd_tab
+79_fix_ls_test_for_sticky
+80_tail-2_wait_max-unchanged-stats
+81_tail-f-
