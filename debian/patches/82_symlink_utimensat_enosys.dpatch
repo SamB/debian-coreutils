@@ -2,7 +2,7 @@
 ## 82_symlink_utimensat_enosys.dpatch by Michael Stone <mstone@debian.org>
 ##
 ## All lines beginning with `## DP:' are a description of the patch.
-## DP: No description.
+## DP: ignore ENOSYS errors when trying to set symlink times
 
 @DPATCH@
 diff -urNad coreutils-7.5~/src/copy.c coreutils-7.5/src/copy.c

@@ -1,8 +1,16 @@
+coreutils (7.5-6) unstable; urgency=low
+
+  * remove usr/share/info/dir.gz in build rules (Closes: #546016)
+  * [83] make sure tail -f flushes initial output before waiting
+    (Closes: #545422)
+
+ -- Michael Stone <mstone@debian.org>  Fri, 11 Sep 2009 05:59:32 -0400
+
 coreutils (7.5-5) unstable; urgency=low
 
   * update standards version to 3.8.3.0 (no changes)
-  * fix "function not implemented" in cp -a of symlink on older linux
-    kernels (Closes: #545306)
+  * [82] fix "function not implemented" in cp -a of symlink on older 
+    linux kernels (Closes: #545306)
 
  -- Michael Stone <mstone@debian.org>  Thu, 10 Sep 2009 20:07:24 -0400
 

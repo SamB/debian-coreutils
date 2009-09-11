@@ -1,5 +1,5 @@
 #! /bin/sh /usr/share/dpatch/dpatch-run
-## 80_tail-2_wait.dpatch by Petr Salinger <Petr.Salinger@seznam.cz>
+## 80_tail-2_wait_max-unchanged-stats.dpatch by Petr Salinger <Petr.Salinger@seznam.cz>
 ##
 ## All lines beginning with `## DP:' are a description of the patch.
 ## DP: fix problem that inode checking isn't done quickly enough
