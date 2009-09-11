@@ -1,3 +1,11 @@
+coreutils (7.5-5) unstable; urgency=low
+
+  * update standards version to 3.8.3.0 (no changes)
+  * fix "function not implemented" in cp -a of symlink on older linux
+    kernels (Closes: #545306)
+
+ -- Michael Stone <mstone@debian.org>  Thu, 10 Sep 2009 20:07:24 -0400
+
 coreutils (7.5-4) unstable; urgency=low
 
   * [81] fix tail -f - with inotify (Closes: #545422)
@@ -14,7 +22,7 @@ coreutils (7.5-2) unstable; urgency=low
 
   * [79] fix ls-misc build test problem if files are created world-writable 
     (Closes: #544965)
-  * [80] fix tail/wait build test problem on kfreebsd (Closes: #544965)
+  * [80] fix tail/wait build test problem on kfreebsd (Closes: #545009)
   * add -mieee to sh4 build flags (Closes: #544977)
 
  -- Michael Stone <mstone@debian.org>  Fri, 04 Sep 2009 16:34:34 -0400

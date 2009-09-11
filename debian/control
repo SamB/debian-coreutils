@@ -2,7 +2,7 @@ Source: coreutils
 Maintainer: Michael Stone <mstone@debian.org>
 Section: utils
 Priority: required
-Standards-Version: 3.8.0.0
+Standards-Version: 3.8.3.0
 Build-Depends: gettext (>= 0.10.37), debhelper, dh-buildinfo, texinfo (>= 4.2), groff, dpatch, libattr1-dev | not+linux-gnu, libacl1-dev | not+linux-gnu, libselinux1-dev (>= 1.32) | not+linux-gnu, gperf, bison
 
 Package: coreutils

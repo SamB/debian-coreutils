@@ -5,3 +5,4 @@
 79_fix_ls_test_for_sticky
 80_tail-2_wait_max-unchanged-stats
 81_tail-f-
+82_symlink_utimensat_enosys
