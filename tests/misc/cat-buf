@@ -30,12 +30,17 @@ fi
 # write separately.
 mkfifo fifo || framework_failure
 
-echo '1' > exp
+fail=0
 
-dd count=1 if=fifo > out 2> err&
-(echo '1'; sleep .2; echo '2') | cat -v > fifo
-wait #for dd to complete
+echo 1 > exp
 
-compare out exp || fail=1
+dd count=1 if=fifo > out &
+(echo 1; sleep .5; echo 2) | cat -v > fifo
+wait # for dd to complete
+
+# Though unlikely, this test may fail because dd was starved
+# between opening the fifo and reading from it until after the
+# second echo.  So ask to double check rather than failing.
+compare out exp || skip_test_ "possible test failure. Please verify."
 
 Exit $fail

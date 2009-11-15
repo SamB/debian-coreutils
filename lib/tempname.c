@@ -41,8 +41,7 @@
 # define TMP_MAX 238328
 #endif
 #ifndef __GT_FILE
-# define __GT_FILE	0
-# define __GT_BIGFILE	1
+# define __GT_FILE	1
 # define __GT_DIR	2
 # define __GT_NOCREATE	3
 #endif
@@ -61,12 +60,9 @@
 
 #if _LIBC
 # define struct_stat64 struct stat64
-# define small_open __open
-# define large_open __open64
 #else
 # define struct_stat64 struct stat
-# define small_open open
-# define large_open open
+# define __open open
 # define __gen_tempname gen_tempname
 # define __getpid getpid
 # define __gettimeofday gettimeofday
@@ -96,7 +92,7 @@ direxists (const char *dir)
    enough space in TMPL. */
 int
 __path_search (char *tmpl, size_t tmpl_len, const char *dir, const char *pfx,
-	       int try_tmpdir)
+               int try_tmpdir)
 {
   const char *d;
   size_t dlen, plen;
@@ -110,30 +106,30 @@ __path_search (char *tmpl, size_t tmpl_len, const char *dir, const char *pfx,
     {
       plen = strlen (pfx);
       if (plen > 5)
-	plen = 5;
+        plen = 5;
     }
 
   if (try_tmpdir)
     {
       d = __secure_getenv ("TMPDIR");
       if (d != NULL && direxists (d))
-	dir = d;
+        dir = d;
       else if (dir != NULL && direxists (dir))
-	/* nothing */ ;
+        /* nothing */ ;
       else
-	dir = NULL;
+        dir = NULL;
     }
   if (dir == NULL)
     {
       if (direxists (P_tmpdir))
-	dir = P_tmpdir;
+        dir = P_tmpdir;
       else if (strcmp (P_tmpdir, "/tmp") != 0 && direxists ("/tmp"))
-	dir = "/tmp";
+        dir = "/tmp";
       else
-	{
-	  __set_errno (ENOENT);
-	  return -1;
-	}
+        {
+          __set_errno (ENOENT);
+          return -1;
+        }
     }
 
   dlen = strlen (dir);
@@ -169,15 +165,14 @@ static const char letters[] =
 
    KIND may be one of:
    __GT_NOCREATE:	simply verify that the name does not exist
-			at the time of the call.
+                        at the time of the call.
    __GT_FILE:		create the file using open(O_CREAT|O_EXCL)
-			and return a read-write fd.  The file is mode 0600.
-   __GT_BIGFILE:	same as __GT_FILE but use open64().
+                        and return a read-write fd.  The file is mode 0600.
    __GT_DIR:		create a directory, which will be mode 0700.
 
    We use a clever algorithm to get hard-to-predict names. */
 int
-gen_tempname_len (char *tmpl, int kind, size_t x_suffix_len)
+gen_tempname_len (char *tmpl, int flags, int kind, size_t x_suffix_len)
 {
   size_t len;
   char *XXXXXX;
@@ -205,7 +200,7 @@ gen_tempname_len (char *tmpl, int kind, size_t x_suffix_len)
 
   len = strlen (tmpl);
   if (len < x_suffix_len || ! check_x_suffix (&tmpl[len - x_suffix_len],
-					      x_suffix_len))
+                                              x_suffix_len))
     {
       __set_errno (EINVAL);
       return -1;
@@ -223,60 +218,58 @@ gen_tempname_len (char *tmpl, int kind, size_t x_suffix_len)
       size_t i;
 
       for (i = 0; i < x_suffix_len; i++)
-	{
-	  XXXXXX[i] = letters[randint_genmax (rand_src, sizeof letters - 2)];
-	}
+        {
+          XXXXXX[i] = letters[randint_genmax (rand_src, sizeof letters - 2)];
+        }
 
       switch (kind)
-	{
-	case __GT_FILE:
-	  fd = small_open (tmpl, O_RDWR | O_CREAT | O_EXCL, S_IRUSR | S_IWUSR);
-	  break;
+        {
+        case __GT_FILE:
+          fd = __open (tmpl,
+                       (flags & ~0777) | O_RDWR | O_CREAT | O_EXCL,
+                       S_IRUSR | S_IWUSR);
+          break;
 
-	case __GT_BIGFILE:
-	  fd = large_open (tmpl, O_RDWR | O_CREAT | O_EXCL, S_IRUSR | S_IWUSR);
-	  break;
+        case __GT_DIR:
+          fd = __mkdir (tmpl, S_IRUSR | S_IWUSR | S_IXUSR);
+          break;
 
-	case __GT_DIR:
-	  fd = __mkdir (tmpl, S_IRUSR | S_IWUSR | S_IXUSR);
-	  break;
+        case __GT_NOCREATE:
+          /* This case is backward from the other three.  This function
+             succeeds if __xstat fails because the name does not exist.
+             Note the continue to bypass the common logic at the bottom
+             of the loop.  */
+          if (__lxstat64 (_STAT_VER, tmpl, &st) < 0)
+            {
+              if (errno == ENOENT)
+                {
+                  __set_errno (save_errno);
+                  fd = 0;
+                  goto done;
+                }
+              else
+                {
+                  /* Give up now. */
+                  fd = -1;
+                  goto done;
+                }
+            }
+          continue;
 
-	case __GT_NOCREATE:
-	  /* This case is backward from the other three.  This function
-	     succeeds if __xstat fails because the name does not exist.
-	     Note the continue to bypass the common logic at the bottom
-	     of the loop.  */
-	  if (__lxstat64 (_STAT_VER, tmpl, &st) < 0)
-	    {
-	      if (errno == ENOENT)
-		{
-		  __set_errno (save_errno);
-		  fd = 0;
-		  goto done;
-		}
-	      else
-		{
-		  /* Give up now. */
-		  fd = -1;
-		  goto done;
-		}
-	    }
-	  continue;
-
-	default:
-	  assert (! "invalid KIND in __gen_tempname");
-	}
+        default:
+          assert (! "invalid KIND in __gen_tempname");
+        }
 
       if (fd >= 0)
-	{
-	  __set_errno (save_errno);
-	  goto done;
-	}
+        {
+          __set_errno (save_errno);
+          goto done;
+        }
       else if (errno != EEXIST)
-	{
-	  fd = -1;
-	  goto done;
-	}
+        {
+          fd = -1;
+          goto done;
+        }
     }
 
   randint_all_free (rand_src);
@@ -295,7 +288,7 @@ gen_tempname_len (char *tmpl, int kind, size_t x_suffix_len)
 }
 
 int
-__gen_tempname (char *tmpl, int kind)
+__gen_tempname (char *tmpl, int flags, int kind)
 {
-  return gen_tempname_len (tmpl, kind, 6);
+  return gen_tempname_len (tmpl, flags, kind, 6);
 }

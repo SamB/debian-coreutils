@@ -36,14 +36,14 @@ usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
-	     program_name);
+             program_name);
   else
     {
       printf (_("\
 Usage: %s [STRING]...\n\
   or:  %s OPTION\n\
 "),
-	      program_name, program_name);
+              program_name, program_name);
 
       fputs (_("\
 Repeatedly output a line with all specified STRING(s), or `y'.\n\
@@ -51,7 +51,7 @@ Repeatedly output a line with all specified STRING(s), or `y'.\n\
 "), stdout);
       fputs (HELP_OPTION_DESCRIPTION, stdout);
       fputs (VERSION_OPTION_DESCRIPTION, stdout);
-      emit_bug_reporting_address ();
+      emit_ancillary_info ();
     }
   exit (status);
 }
@@ -68,7 +68,7 @@ main (int argc, char **argv)
   atexit (close_stdout);
 
   parse_long_options (argc, argv, PROGRAM_NAME, PACKAGE_NAME, Version,
-		      usage, AUTHORS, (char const *) NULL);
+                      usage, AUTHORS, (char const *) NULL);
   if (getopt_long (argc, argv, "+", NULL, NULL) != -1)
     usage (EXIT_FAILURE);
 
@@ -82,11 +82,11 @@ main (int argc, char **argv)
     {
       int i;
       for (i = optind; i < argc; i++)
-	if (fputs (argv[i], stdout) == EOF
-	    || putchar (i == argc - 1 ? '\n' : ' ') == EOF)
-	  {
-	    error (0, errno, _("standard output"));
-	    exit (EXIT_FAILURE);
-	  }
+        if (fputs (argv[i], stdout) == EOF
+            || putchar (i == argc - 1 ? '\n' : ' ') == EOF)
+          {
+            error (0, errno, _("standard output"));
+            exit (EXIT_FAILURE);
+          }
     }
 }

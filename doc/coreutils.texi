@@ -176,198 +176,198 @@ Free Documentation License''.
 @cindex file utilities
 
 @menu
-* Introduction::                       Caveats, overview, and authors.
-* Common options::                     Common options.
-* Output of entire files::             cat tac nl od
-* Formatting file contents::           fmt pr fold
-* Output of parts of files::           head tail split csplit
-* Summarizing files::                  wc sum cksum md5sum sha1sum sha2
-* Operating on sorted files::          sort shuf uniq comm ptx tsort
-* Operating on fields within a line::  cut paste join
-* Operating on characters::            tr expand unexpand
-* Directory listing::                  ls dir vdir dircolors
-* Basic operations::                   cp dd install mv rm shred
-* Special file types::                 ln mkdir rmdir mkfifo mknod
-* Changing file attributes::           chgrp chmod chown touch
-* Disk usage::                         df du stat sync truncate
-* Printing text::                      echo printf yes
-* Conditions::                         false true test expr
-* Redirection::                        tee
-* File name manipulation::             dirname basename pathchk
-* Working context::                    pwd stty printenv tty
-* User information::                   id logname whoami groups users who
-* System context::                     date uname hostname hostid uptime
-* SELinux context::                    chcon runcon
-* Modified command invocation::        chroot env nice nohup stdbuf su timeout
-* Process control::                    kill
-* Delaying::                           sleep
-* Numeric operations::                 factor seq
-* File permissions::                   Access modes.
-* Date input formats::                 Specifying date strings.
-* Opening the software toolbox::       The software tools philosophy.
-* GNU Free Documentation License::     Copying and sharing this manual.
-* Concept index::                      General index.
+* Introduction::                 Caveats, overview, and authors
+* Common options::               Common options
+* Output of entire files::       cat tac nl od base64
+* Formatting file contents::     fmt pr fold
+* Output of parts of files::     head tail split csplit
+* Summarizing files::            wc sum cksum md5sum sha1sum sha2
+* Operating on sorted files::    sort shuf uniq comm ptx tsort
+* Operating on fields::          cut paste join
+* Operating on characters::      tr expand unexpand
+* Directory listing::            ls dir vdir dircolors
+* Basic operations::             cp dd install mv rm shred
+* Special file types::         mkdir rmdir unlink mkfifo mknod ln link readlink
+* Changing file attributes::     chgrp chmod chown touch
+* Disk usage::                   df du stat sync truncate
+* Printing text::                echo printf yes
+* Conditions::                   false true test expr
+* Redirection::                  tee
+* File name manipulation::       dirname basename pathchk
+* Working context::              pwd stty printenv tty
+* User information::             id logname whoami groups users who
+* System context::               date arch uname hostname hostid uptime
+* SELinux context::              chcon runcon
+* Modified command invocation::  chroot env nice nohup stdbuf su timeout
+* Process control::              kill
+* Delaying::                     sleep
+* Numeric operations::           factor seq
+* File permissions::             Access modes
+* Date input formats::           Specifying date strings
+* Opening the software toolbox:: The software tools philosophy
+* GNU Free Documentation License:: Copying and sharing this manual
+* Concept index::                General index
 
 @detailmenu
  --- The Detailed Node Listing ---
 
 Common Options
 
-* Exit status::                 Indicating program success or failure.
-* Backup options::              Backup options
-* Block size::                  Block size
-* Signal specifications::       Specifying signals
+* Exit status::                  Indicating program success or failure
+* Backup options::               Backup options
+* Block size::                   Block size
+* Signal specifications::        Specifying signals
 * Disambiguating names and IDs:: chgrp and chown owner and group syntax
-* Random sources::              Sources of random data
-* Target directory::            Target directory
-* Trailing slashes::            Trailing slashes
-* Traversing symlinks::         Traversing symlinks to directories
-* Treating / specially::        Treating / specially
-* Standards conformance::       Standards conformance
+* Random sources::               Sources of random data
+* Target directory::             Target directory
+* Trailing slashes::             Trailing slashes
+* Traversing symlinks::          Traversing symlinks to directories
+* Treating / specially::         Treating / specially
+* Standards conformance::        Standards conformance
 
 Output of entire files
 
-* cat invocation::              Concatenate and write files.
-* tac invocation::              Concatenate and write files in reverse.
-* nl invocation::               Number lines and write files.
-* od invocation::               Write files in octal or other formats.
-* base64 invocation::           Transform data into printable data.
+* cat invocation::               Concatenate and write files
+* tac invocation::               Concatenate and write files in reverse
+* nl invocation::                Number lines and write files
+* od invocation::                Write files in octal or other formats
+* base64 invocation::            Transform data into printable data
 
 Formatting file contents
 
-* fmt invocation::              Reformat paragraph text.
-* pr invocation::               Paginate or columnate files for printing.
-* fold invocation::             Wrap input lines to fit in specified width.
+* fmt invocation::               Reformat paragraph text
+* pr invocation::                Paginate or columnate files for printing
+* fold invocation::              Wrap input lines to fit in specified width
 
 Output of parts of files
 
-* head invocation::             Output the first part of files.
-* tail invocation::             Output the last part of files.
-* split invocation::            Split a file into fixed-size pieces.
-* csplit invocation::           Split a file into context-determined pieces.
+* head invocation::              Output the first part of files
+* tail invocation::              Output the last part of files
+* split invocation::             Split a file into fixed-size pieces
+* csplit invocation::            Split a file into context-determined pieces
 
 Summarizing files
 
-* wc invocation::               Print newline, word, and byte counts.
-* sum invocation::              Print checksum and block counts.
-* cksum invocation::            Print CRC checksum and byte counts.
-* md5sum invocation::           Print or check MD5 digests.
-* sha1sum invocation::          Print or check SHA-1 digests.
-* sha2 utilities::              Print or check SHA-2 digests.
+* wc invocation::                Print newline, word, and byte counts
+* sum invocation::               Print checksum and block counts
+* cksum invocation::             Print CRC checksum and byte counts
+* md5sum invocation::            Print or check MD5 digests
+* sha1sum invocation::           Print or check SHA-1 digests
+* sha2 utilities::               Print or check SHA-2 digests
 
 Operating on sorted files
 
-* sort invocation::             Sort text files.
-* shuf invocation::             Shuffle text files.
-* uniq invocation::             Uniquify files.
-* comm invocation::             Compare two sorted files line by line.
-* ptx invocation::              Produce a permuted index of file contents.
-* tsort invocation::            Topological sort.
+* sort invocation::              Sort text files
+* shuf invocation::              Shuffle text files
+* uniq invocation::              Uniquify files
+* comm invocation::              Compare two sorted files line by line
+* ptx invocation::               Produce a permuted index of file contents
+* tsort invocation::             Topological sort
 
 @command{ptx}: Produce permuted indexes
 
-* General options in ptx::      Options which affect general program behavior.
-* Charset selection in ptx::    Underlying character set considerations.
-* Input processing in ptx::     Input fields, contexts, and keyword selection.
-* Output formatting in ptx::    Types of output format, and sizing the fields.
-* Compatibility in ptx::        The @acronym{GNU} extensions to @command{ptx}
+* General options in ptx::       Options which affect general program behavior
+* Charset selection in ptx::     Underlying character set considerations
+* Input processing in ptx::      Input fields, contexts, and keyword selection
+* Output formatting in ptx::     Types of output format, and sizing the fields
+* Compatibility in ptx::         The @acronym{GNU} extensions to @command{ptx}
 
-Operating on fields within a line
+Operating on fields
 
-* cut invocation::              Print selected parts of lines.
-* paste invocation::            Merge lines of files.
-* join invocation::             Join lines on a common field.
+* cut invocation::               Print selected parts of lines
+* paste invocation::             Merge lines of files
+* join invocation::              Join lines on a common field
 
 Operating on characters
 
-* tr invocation::               Translate, squeeze, and/or delete characters.
-* expand invocation::           Convert tabs to spaces.
-* unexpand invocation::         Convert spaces to tabs.
+* tr invocation::                Translate, squeeze, and/or delete characters
+* expand invocation::            Convert tabs to spaces
+* unexpand invocation::          Convert spaces to tabs
 
 @command{tr}: Translate, squeeze, and/or delete characters
 
-* Character sets::              Specifying sets of characters.
-* Translating::                 Changing one set of characters to another.
-* Squeezing::                   Squeezing repeats and deleting.
+* Character sets::               Specifying sets of characters
+* Translating::                  Changing one set of characters to another
+* Squeezing::                    Squeezing repeats and deleting
 
 Directory listing
 
-* ls invocation::               List directory contents
-* dir invocation::              Briefly list directory contents
-* vdir invocation::             Verbosely list directory contents
-* dircolors invocation::        Color setup for @command{ls}
+* ls invocation::                List directory contents
+* dir invocation::               Briefly list directory contents
+* vdir invocation::              Verbosely list directory contents
+* dircolors invocation::         Color setup for @command{ls}
 
 @command{ls}:  List directory contents
 
-* Which files are listed::      Which files are listed
-* What information is listed::  What information is listed
-* Sorting the output::          Sorting the output
-* More details about version sort::  More details about version sort
-* General output formatting::   General output formatting
-* Formatting the file names::   Formatting the file names
+* Which files are listed::       Which files are listed
+* What information is listed::   What information is listed
+* Sorting the output::           Sorting the output
+* Details about version sort::   More details about version sort
+* General output formatting::    General output formatting
+* Formatting the file names::    Formatting the file names
 
 Basic operations
 
-* cp invocation::               Copy files and directories
-* dd invocation::               Convert and copy a file
-* install invocation::          Copy files and set attributes
-* mv invocation::               Move (rename) files
-* rm invocation::               Remove files or directories
-* shred invocation::            Remove files more securely
+* cp invocation::                Copy files and directories
+* dd invocation::                Convert and copy a file
+* install invocation::           Copy files and set attributes
+* mv invocation::                Move (rename) files
+* rm invocation::                Remove files or directories
+* shred invocation::             Remove files more securely
 
 Special file types
 
-* link invocation::             Make a hard link via the link syscall
-* ln invocation::               Make links between files
-* mkdir invocation::            Make directories
-* mkfifo invocation::           Make FIFOs (named pipes)
-* mknod invocation::            Make block or character special files
-* readlink invocation::         Print value of a symlink or canonical file name
-* rmdir invocation::            Remove empty directories
-* unlink invocation::           Remove files via unlink syscall
+* link invocation::              Make a hard link via the link syscall
+* ln invocation::                Make links between files
+* mkdir invocation::             Make directories
+* mkfifo invocation::            Make FIFOs (named pipes)
+* mknod invocation::             Make block or character special files
+* readlink invocation::          Print value of a symlink or canonical file name
+* rmdir invocation::             Remove empty directories
+* unlink invocation::            Remove files via unlink syscall
 
 Changing file attributes
 
-* chown invocation::            Change file owner and group
-* chgrp invocation::            Change group ownership
-* chmod invocation::            Change access permissions
-* touch invocation::            Change file timestamps
+* chown invocation::             Change file owner and group
+* chgrp invocation::             Change group ownership
+* chmod invocation::             Change access permissions
+* touch invocation::             Change file timestamps
 
 Disk usage
 
-* df invocation::               Report file system disk space usage
-* du invocation::               Estimate file space usage
-* stat invocation::             Report file or file system status
-* sync invocation::             Synchronize data on disk with memory
-* truncate invocation::         Shrink or extend the size of a file
+* df invocation::                Report file system disk space usage
+* du invocation::                Estimate file space usage
+* stat invocation::              Report file or file system status
+* sync invocation::              Synchronize data on disk with memory
+* truncate invocation::          Shrink or extend the size of a file
 
 Printing text
 
-* echo invocation::             Print a line of text
-* printf invocation::           Format and print data
-* yes invocation::              Print a string until interrupted
+* echo invocation::              Print a line of text
+* printf invocation::            Format and print data
+* yes invocation::               Print a string until interrupted
 
 Conditions
 
-* false invocation::              Do nothing, unsuccessfully
-* true invocation::               Do nothing, successfully
-* test invocation::               Check file types and compare values
-* expr invocation::               Evaluate expressions
+* false invocation::             Do nothing, unsuccessfully
+* true invocation::              Do nothing, successfully
+* test invocation::              Check file types and compare values
+* expr invocation::              Evaluate expressions
 
 @command{test}: Check file types and compare values
 
-* File type tests::               File type tests
-* Access permission tests::       Access permission tests
-* File characteristic tests::     File characteristic tests
-* String tests::                  String tests
-* Numeric tests::                 Numeric tests
+* File type tests::              File type tests
+* Access permission tests::      Access permission tests
+* File characteristic tests::    File characteristic tests
+* String tests::                 String tests
+* Numeric tests::                Numeric tests
 
 @command{expr}: Evaluate expression
 
-* String expressions::         + : match substr index length
-* Numeric expressions::        + - * / %
-* Relations for expr::         | & < <= = == != >= >
-* Examples of expr::           Examples of using @command{expr}
+* String expressions::           + : match substr index length
+* Numeric expressions::          + - * / %
+* Relations for expr::           | & < <= = == != >= >
+* Examples of expr::             Examples of using @command{expr}
 
 Redirection
 
@@ -388,13 +388,13 @@ Working context
 
 @command{stty}: Print or change terminal characteristics
 
-* Control::                     Control settings
-* Input::                       Input settings
-* Output::                      Output settings
-* Local::                       Local settings
-* Combination::                 Combination settings
-* Characters::                  Special characters
-* Special::                     Special settings
+* Control::                      Control settings
+* Input::                        Input settings
+* Output::                       Output settings
+* Local::                        Local settings
+* Combination::                  Combination settings
+* Characters::                   Special characters
+* Special::                      Special settings
 
 User information
 
@@ -420,10 +420,10 @@ System context
 * Date conversion specifiers::   %[aAbBcCdDeFgGhjmuUVwWxyY]
 * Literal conversion specifiers:: %[%nt]
 * Padding and other flags::      Pad with zeros, spaces, etc.
-* Setting the time::             Changing the system clock.
-* Options for date::             Instead of the current time.
-* Date input formats::           Specifying date strings.
-* Examples of date::             Examples.
+* Setting the time::             Changing the system clock
+* Options for date::             Instead of the current time
+* Date input formats::           Specifying date strings
+* Examples of date::             Examples
 
 SELinux context
 
@@ -455,23 +455,23 @@ Numeric operations
 
 File permissions
 
-* Mode Structure::               Structure of file mode bits.
-* Symbolic Modes::               Mnemonic representation of file mode bits.
-* Numeric Modes::                File mode bits as octal numbers.
-* Directory Setuid and Setgid::  Set-user-ID and set-group-ID on directories.
+* Mode Structure::               Structure of file mode bits
+* Symbolic Modes::               Mnemonic representation of file mode bits
+* Numeric Modes::                File mode bits as octal numbers
+* Directory Setuid and Setgid::  Set-user-ID and set-group-ID on directories
 
 Date input formats
 
-* General date syntax::          Common rules.
-* Calendar date items::          19 Dec 1994.
-* Time of day items::            9:20pm.
-* Time zone items::              @sc{est}, @sc{pdt}, @sc{gmt}.
-* Day of week items::            Monday and others.
-* Relative items in date strings:: next tuesday, 2 years ago.
-* Pure numbers in date strings:: 19931219, 1440.
-* Seconds since the Epoch::      @@1078100502.
-* Specifying time zone rules::   TZ="America/New_York", TZ="UTC0".
-* Authors of get_date::          Bellovin, Eggert, Salz, Berets, et al.
+* General date syntax::          Common rules
+* Calendar date items::          19 Dec 1994
+* Time of day items::            9:20pm
+* Time zone items::              @sc{est}, @sc{pdt}, @sc{gmt}
+* Day of week items::            Monday and others
+* Relative items in date strings:: next tuesday, 2 years ago
+* Pure numbers in date strings:: 19931219, 1440
+* Seconds since the Epoch::      @@1078100502
+* Specifying time zone rules::   TZ="America/New_York", TZ="UTC0"
+* Authors of get_date::          Bellovin, Eggert, Salz, Berets, et al
 
 Opening the software toolbox
 
@@ -485,7 +485,7 @@ Opening the software toolbox
 
 Copying This Manual
 
-* GNU Free Documentation License::     Copying and sharing this manual.
+* GNU Free Documentation License::     Copying and sharing this manual
 
 @end detailmenu
 @end menu
@@ -618,15 +618,8 @@ from the shell.
 @end macro
 
 @macro multiplierSuffixes{varName}
-@ignore
-Appending @samp{b} multiplies @var{\varName\} by 512,
-@samp{kB} by 1000, @samp{K} by 1024,
-@samp{MB} by 1000*1000, @samp{M} by 1024*1024,
-@samp{GB} by 1000*1000*1000, @samp{G} by 1024*1024*1024,
-and so on for @samp{T}, @samp{P}, @samp{E}, @samp{Z}, and @samp{Y}.
-@end ignore
-@var{\varName\} is a number which may have one of the following
-multiplicative suffixes:
+@var{\varName\} may be, or may be an integer optionally followed by,
+one of the following multiplicative suffixes:
 @example
 @samp{b}  =>            512 ("blocks")
 @samp{KB} =>           1000 (KiloBytes)
@@ -641,8 +634,8 @@ and so on for @samp{T}, @samp{P}, @samp{E}, @samp{Z}, and @samp{Y}.
 
 @c FIXME: same as above, but no ``blocks'' line.
 @macro multiplierSuffixesNoBlocks{varName}
-@var{\varName\} is a number which may have one of the following
-multiplicative suffixes:
+@var{\varName\} may be, or may be an integer optionally followed by,
+one of the following multiplicative suffixes:
 @example
 @samp{KB} =>           1000 (KiloBytes)
 @samp{K}  =>           1024 (KibiBytes)
@@ -752,8 +745,8 @@ However, some of the programs documented here do produce
 other exit status values and a few associate different
 meanings with the values @samp{0} and @samp{1}.
 Here are some of the exceptions:
-@command{chroot}, @command{env}, @command{expr},
-@command{nice}, @command{nohup}, @command{printenv}, @command{sort},
+@command{chroot}, @command{env}, @command{expr}, @command{nice},
+@command{nohup}, @command{printenv}, @command{sort}, @command{stdbuf},
 @command{su}, @command{test}, @command{timeout}, @command{tty}.
 
 
@@ -2122,14 +2115,6 @@ The program accepts the following options.  Also see @ref{Common options}.
 
 @table @samp
 
-@item -C
-@itemx --compare
-@opindex -C
-@opindex --compare
-Compare each pair of source and destination files, and if the destination has
-identical content and any specified owner, group, permissions, and possibly
-SELinux context, then do not modify the destination at all.
-
 @item -c
 @itemx --crown-margin
 @opindex -c
@@ -2790,9 +2775,10 @@ growing.
 The option values @samp{descriptor} and @samp{name} may be specified only
 with the long form of the option, not with @option{-f}.
 
-@vindex POSIXLY_CORRECT
-If @env{POSIXLY_CORRECT} is set, the @option{-f} option is ignored if
+The @option{-f} option is ignored if
 no @var{file} operand is specified and standard input is a FIFO or a pipe.
+Likewise, the @option{-f} option has no effect for any
+operand specified as @samp{-}, when standard input is a FIFO or a pipe.
 
 @item -F
 @opindex -F
@@ -5250,8 +5236,8 @@ the way the linker handled archive files, which has since been solved
 in different ways.
 
 
-@node Operating on fields within a line
-@chapter Operating on fields within a line
+@node Operating on fields
+@chapter Operating on fields
 
 @menu
 * cut invocation::              Print selected parts of lines.
@@ -6127,8 +6113,9 @@ Exit status:
 1 minor problems  (e.g., failure to access a file or directory not
   specified as a command line argument.  This happens when listing a
   directory in which entries are actively being removed or renamed.)
-2 serious trouble (e.g., memory exhausted, invalid option or failure
-  to access file or directory specified as a command line argument)
+2 serious trouble (e.g., memory exhausted, invalid option, failure
+  to access a file or directory specified as a command line argument
+  or a directory loop)
 @end display
 
 Also see @ref{Common options}.
@@ -6137,7 +6124,7 @@ Also see @ref{Common options}.
 * Which files are listed::
 * What information is listed::
 * Sorting the output::
-* More details about version sort::
+* Details about version sort::
 * General output formatting::
 * Formatting file timestamps::
 * Formatting the file names::
@@ -6667,7 +6654,7 @@ directories, since not doing any sorting can be noticeably faster.
 @opindex version@r{, sorting option for @command{ls}}
 Sort by version name and number, lowest first.  It behaves like a default
 sort, except that each sequence of decimal digits is treated numerically
-as an index/version number.  (@xref{More details about version sort}.)
+as an index/version number.  (@xref{Details about version sort}.)
 
 @item -X
 @itemx --sort=extension
@@ -6680,8 +6667,8 @@ after the last @samp{.}); files with no extension are sorted first.
 @end table
 
 
-@node More details about version sort
-@subsection More details about version sort
+@node Details about version sort
+@subsection Details about version sort
 
 The version sort takes into account the fact that file names frequently include
 indices or version numbers.  Standard sorting functions usually do not produce
@@ -7445,12 +7432,10 @@ may preserve the group ownership of a file only if they happen to be
 a member of the desired group.
 @itemx timestamps
 Preserve the times of last access and last modification, when possible.
-In general, it is not possible to preserve these attributes
+On older systems, it is not possible to preserve these attributes
 when the affected file is a symbolic link.
-However, FreeBSD now provides the @code{lutimes} function, which makes
-it possible even for symbolic links.  However, this implementation does
-not yet take advantage of that.
-@c FIXME: once we provide lutimes support, update the above.
+However, many systems now provide the @code{utimensat} function,
+which makes it possible even for symbolic links.
 @itemx links
 Preserve in the destination files
 any links between corresponding source files.
@@ -7543,14 +7528,30 @@ Also, it is not portable to use @option{-R} to copy symbolic links
 unless you also specify @option{-P}, as @acronym{POSIX} allows
 implementations that dereference symbolic links by default.
 
-@item --reflink
-@opindex --reflink
+@item --reflink[=@var{when}]
+@opindex --reflink[=@var{when}]
+@cindex COW
+@cindex clone
+@cindex copy on write
 Perform a lightweight, copy-on-write (COW) copy.
-Copying with this option can succeed only on some relatively new file systems.
+Copying with this option can succeed only on some file systems.
 Once it has succeeded, beware that the source and destination files
 share the same disk data blocks as long as they remain unmodified.
 Thus, if a disk I/O error affects data blocks of one of the files,
 the other suffers the exact same fate.
+
+The @var{when} value can be one of the following:
+
+@table @samp
+@item always
+The default behavior: if the copy-on-write operation is not supported
+then report the failure for each file and exit with a failure status.
+
+@item auto
+If the copy-on-write operation is not supported then fall back
+to the standard copy behaviour.
+@end table
+
 
 @item --remove-destination
 @opindex --remove-destination
@@ -7768,8 +7769,8 @@ input newline with a space and padding with spaces as necessary.
 
 @item unblock
 @opindex unblock
-Replace trailing spaces in each @samp{cbs}-sized input block with a
-newline.
+Remove any trailing spaces in each @samp{cbs}-sized input block,
+and append a newline.
 
 The @samp{block} and @samp{unblock} conversions are mutually exclusive.
 
@@ -8057,6 +8058,14 @@ The program accepts the following options.  Also see @ref{Common options}.
 @table @samp
 
 @optBackup
+
+@item -C
+@itemx --compare
+@opindex -C
+@opindex --compare
+Compare each pair of source and destination files, and if the destination has
+identical content and any specified owner, group, permissions, and possibly
+SELinux context, then do not modify the destination at all.
 
 @item -c
 @opindex -c
@@ -8745,6 +8754,11 @@ On a @acronym{GNU} system, this command acts like @samp{ln --directory
 not specified by @acronym{POSIX}, and the @command{link} command is
 more portable in practice.
 
+If @var{filename} is a symbolic link, it is unspecified whether
+@var{linkname} will be a hard link to the symbolic link or to the
+target of the symbolic link.  Use @command{ln -P} or @command{ln -L}
+to specify which behavior is desired.
+
 @exitstatus
 
 
@@ -8800,8 +8814,10 @@ A @dfn{hard link} is another name for an existing file; the link and the
 original are indistinguishable.  Technically speaking, they share the
 same inode, and the inode contains all the information about a
 file---indeed, it is not incorrect to say that the inode @emph{is} the
-file.  On all existing implementations, you cannot make a hard link to
-a directory, and hard links cannot cross file system boundaries.  (These
+file.  Most systems prohibit making a hard link to
+a directory; on those where it is allowed, only the super-user can do
+so (and with caution, since creating a cycle will cause problems to many
+other utilities).  Hard links cannot cross file system boundaries.  (These
 restrictions are not mandated by @acronym{POSIX}, however.)
 
 @cindex dereferencing symbolic links
@@ -8813,9 +8829,13 @@ refers to a different file, by name.  When most operations (opening,
 reading, writing, and so on) are passed the symbolic link file, the
 kernel automatically @dfn{dereferences} the link and operates on the
 target of the link.  But some operations (e.g., removing) work on the
-link file itself, rather than on its target.  The owner, group, and
-mode of a symlink are not significant to file access performed through
-the link.  @xref{Symbolic Links,,,
+link file itself, rather than on its target.  The owner and group of a
+symlink are not significant to file access performed through
+the link, but do have implications on deleting a symbolic link from a
+directory with the restricted deletion bit set.  On the GNU system,
+the mode of a symlink has no significance and cannot be changed, but
+on some BSD systems, the mode can be changed and will affect whether
+the symlink will be traversed in file name resolution.  @xref{Symbolic Links,,,
 libc, The GNU C Library Reference Manual}.
 
 Symbolic links can contain arbitrary strings; a @dfn{dangling symlink}
@@ -8870,6 +8890,14 @@ Remove existing destination files.
 @cindex prompting, and @command{ln}
 Prompt whether to remove existing destination files.
 
+@item -L
+@itemx --logical
+@opindex -L
+@opindex --logical
+If @option{-s} is not in effect, and the source file is a symbolic
+link, create the hard link to the file referred to by the symbolic
+link, rather than the symbolic link itself.
+
 @item -n
 @itemx --no-dereference
 @opindex -n
@@ -8891,6 +8919,17 @@ just like a directory.
 This option is weaker than the @option{--no-target-directory}
 (@option{-T}) option, so it has no effect if both options are given.
 
+@item -P
+@itemx --physical
+@opindex -P
+@opindex --physical
+If @option{-s} is not in effect, and the source file is a symbolic
+link, create the hard link to the symbolic link itself.  On platforms
+where this is not supported by the kernel, this option creates a
+symbolic link with identical contents; since symbolic link contents
+cannot be edited, any file name resolution performed through either
+link will be the same as if a hard link had been created.
+
 @item -s
 @itemx --symbolic
 @opindex -s
@@ -8911,6 +8950,15 @@ an error message on systems that do not support symbolic links.
 Print the name of each file after linking it successfully.
 
 @end table
+
+@cindex hard links to symbolic links
+@cindex symbolic links and @command{ln}
+If @option{-L} and @option{-P} are both given, the last one takes
+precedence.  If @option{-s} is also given, @option{-L} and @option{-P}
+are silently ignored.  If neither option is given, then this
+implementation defaults to @option{-P} if the system @code{link} supports
+hard links to symbolic links (such as the GNU system), and @option{-L}
+if @code{link} follows symbolic links (such as on BSD).
 
 @exitstatus
 
@@ -9196,7 +9244,8 @@ The program accepts the following options.  Also see @ref{Common options}.
 @opindex --canonicalize
 Activate canonicalize mode.
 If any component of the file name except the last one is missing or unavailable,
-@command{readlink} produces no output and exits with a nonzero exit code.
+@command{readlink} produces no output and exits with a nonzero exit
+code.  A trailing slash is ignored.
 
 @item -e
 @itemx --canonicalize-existing
@@ -9204,7 +9253,8 @@ If any component of the file name except the last one is missing or unavailable,
 @opindex --canonicalize-existing
 Activate canonicalize mode.
 If any component is missing or unavailable, @command{readlink} produces
-no output and exits with a nonzero exit code.
+no output and exits with a nonzero exit code.  A trailing slash
+requires that the name resolve to a directory.
 
 @item -m
 @itemx --canonicalize-missing
@@ -9908,6 +9958,7 @@ If the year is specified with only two digits, then @var{cc}
 is 20 for years in the range 0 @dots{} 68, and 19 for years in
 69 @dots{} 99.  If no digits of the year are specified,
 the argument is interpreted as a date in the current year.
+Note that @var{ss} may be @samp{60}, to accommodate leap seconds.
 
 @end table
 
@@ -12817,9 +12868,13 @@ running it if no user is specified.  Synopsis:
 id [@var{option}]@dots{} [@var{username}]
 @end example
 
+@vindex POSIXLY_CORRECT
 By default, it prints the real user ID, real group ID, effective user ID
 if different from the real user ID, effective group ID if different from
 the real group ID, and supplemental group IDs.
+In addition, if SELinux
+is enabled and the @env{POSIXLY_CORRECT} environment variable is not set,
+then print @samp{context=@var{c}}, where @var{c} is the security context.
 
 Each of these numeric values is preceded by an identifying string and
 followed by the corresponding user or group name in parentheses.

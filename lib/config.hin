@@ -97,9 +97,6 @@
    language is requested. */
 #undef ENABLE_NLS
 
-/* Define if gnulib's fchdir() replacement is used. */
-#undef FCHDIR_REPLACEMENT
-
 /* Define on systems for which file names may have a so-called `drive letter'
    prefix, define this to compute the length of that prefix, including the
    colon. */
@@ -135,6 +132,13 @@
 /* Define as the word index where to find the sign of 'float'. */
 #undef FLT_SIGNBIT_WORD
 
+/* Define to 1 if fopen() fails to recognize a trailing slash. */
+#undef FOPEN_TRAILING_SLASH_BUG
+
+/* Define to 1 if realpath() can malloc memory, always gives an absolute path,
+   and handles trailing slash correctly. */
+#undef FUNC_REALPATH_WORKS
+
 /* Define to 1 if ungetc is broken when used on arbitrary bytes. */
 #undef FUNC_UNGETC_BROKEN
 
@@ -158,6 +162,12 @@
 /* Define to 1 when using the gnulib module close-stream. */
 #undef GNULIB_CLOSE_STREAM
 
+/* Define to 1 when using the gnulib module dirent-safer. */
+#undef GNULIB_DIRENT_SAFER
+
+/* Define to 1 when using the gnulib module faccessat. */
+#undef GNULIB_FACCESSAT
+
 /* Define to 1 when using the gnulib module fcntl-safer. */
 #undef GNULIB_FCNTL_SAFER
 
@@ -179,11 +189,20 @@
 /* Define to 1 when using the gnulib module open. */
 #undef GNULIB_OPEN
 
+/* Define to 1 when using the gnulib module openat-safer. */
+#undef GNULIB_OPENAT_SAFER
+
 /* enable some gnulib portability checks */
 #undef GNULIB_PORTCHECK
 
 /* Define to indicate the 'realloc' module. */
 #undef GNULIB_REALLOC_GNU
+
+/* Define to 1 when using the gnulib module stdlib-safer. */
+#undef GNULIB_STDLIB_SAFER
+
+/* Define to 1 when using the gnulib module unistd-safer. */
+#undef GNULIB_UNISTD_SAFER
 
 /* Define to 1 when using the gnulib module unistr/u8-uctomb. */
 #undef GNULIB_UNISTR_U8_UCTOMB
@@ -193,6 +212,9 @@
 
 /* Define if your system defines TIOCGWINSZ in sys/pty.h. */
 #undef GWINSZ_IN_SYS_PTY
+
+/* Define to 1 if you have the `access' function. */
+#undef HAVE_ACCESS
 
 /* Define to 1 if you have the `acl' function. */
 #undef HAVE_ACL
@@ -322,7 +344,7 @@
    the CoreFoundation framework. */
 #undef HAVE_CFPREFERENCESCOPYAPPVALUE
 
-/* Define to 1 if your system has a working `chown' function. */
+/* Define to 1 if you have the `chown' function. */
 #undef HAVE_CHOWN
 
 /* Define to 1 if you have the `chroot' function. */
@@ -362,10 +384,6 @@
 /* Define to 1 if you have the declaration of `alarm', and to 0 if you don't.
    */
 #undef HAVE_DECL_ALARM
-
-/* Define to 1 if you have the declaration of `canonicalize_file_name', and to
-   0 if you don't. */
-#undef HAVE_DECL_CANONICALIZE_FILE_NAME
 
 /* Define to 1 if you have the declaration of `clearerr_unlocked', and to 0 if
    you don't. */
@@ -547,6 +565,14 @@
    don't. */
 #undef HAVE_DECL_MEMRCHR
 
+/* Define to 1 if you have the declaration of `program_invocation_name', and
+   to 0 if you don't. */
+#undef HAVE_DECL_PROGRAM_INVOCATION_NAME
+
+/* Define to 1 if you have the declaration of `program_invocation_short_name',
+   and to 0 if you don't. */
+#undef HAVE_DECL_PROGRAM_INVOCATION_SHORT_NAME
+
 /* Define to 1 if you have the declaration of `putchar_unlocked', and to 0 if
    you don't. */
 #undef HAVE_DECL_PUTCHAR_UNLOCKED
@@ -688,6 +714,9 @@
 /* Define to 1 if you have the `euidaccess' function. */
 #undef HAVE_EUIDACCESS
 
+/* Define to 1 if you have the `faccessat' function. */
+#undef HAVE_FACCESSAT
+
 /* Define to 1 if you have the `fchdir' function. */
 #undef HAVE_FCHDIR
 
@@ -734,8 +763,14 @@
 /* Define to 1 if fseeko (and presumably ftello) exists and is declared. */
 #undef HAVE_FSEEKO
 
+/* Define to 1 if you have the `fstatat' function. */
+#undef HAVE_FSTATAT
+
 /* Define to 1 if you have the `fstatfs' function. */
 #undef HAVE_FSTATFS
+
+/* Define to 1 if you have the `fsync' function. */
+#undef HAVE_FSYNC
 
 /* Define to 1 if you have the <fs_info.h> header file. */
 #undef HAVE_FS_INFO_H
@@ -941,6 +976,12 @@
 /* Define to 1 if you have the `ypsec' library (-lypsec). */
 #undef HAVE_LIBYPSEC
 
+/* Define to 1 if you have the `link' function. */
+#undef HAVE_LINK
+
+/* Define to 1 if you have the `linkat' function. */
+#undef HAVE_LINKAT
+
 /* Define to 1 if you have the `listmntent' function. */
 #undef HAVE_LISTMNTENT
 
@@ -1100,6 +1141,15 @@
 /* Define to 1 if you have the `pstat_getstatic' function. */
 #undef HAVE_PSTAT_GETSTATIC
 
+/* Define to 1 if you have the `pthread_atfork' function. */
+#undef HAVE_PTHREAD_ATFORK
+
+/* Define if the <pthread.h> defines PTHREAD_MUTEX_RECURSIVE. */
+#undef HAVE_PTHREAD_MUTEX_RECURSIVE
+
+/* Define if the POSIX multithreading library has read/write locks. */
+#undef HAVE_PTHREAD_RWLOCK
+
 /* Define to 1 if you have the <pwd.h> header file. */
 #undef HAVE_PWD_H
 
@@ -1112,6 +1162,9 @@
 /* Define to 1 if you have the `readlink' function. */
 #undef HAVE_READLINK
 
+/* Define to 1 if you have the `readlinkat' function. */
+#undef HAVE_READLINKAT
+
 /* Define to 1 if your system has a GNU libc compatible `realloc' function,
    and to 0 otherwise. */
 #undef HAVE_REALLOC
@@ -1119,8 +1172,8 @@
 /* Define if the 'realloc' function is POSIX compliant. */
 #undef HAVE_REALLOC_POSIX
 
-/* Define to 1 if you have the `resolvepath' function. */
-#undef HAVE_RESOLVEPATH
+/* Define to 1 if you have the `realpath' function. */
+#undef HAVE_REALPATH
 
 /* Define to 1 if you have the `rmdir' function. */
 #undef HAVE_RMDIR
@@ -1253,7 +1306,7 @@
 /* Define to 1 if you have the <string.h> header file. */
 #undef HAVE_STRING_H
 
-/* Define if you have the strndup() function and it works. */
+/* Define to 1 if you have the `strndup' function. */
 #undef HAVE_STRNDUP
 
 /* Define to 1 if you have the `strnlen' function. */
@@ -1264,6 +1317,9 @@
 
 /* Define to 1 if you have the `strpbrk' function. */
 #undef HAVE_STRPBRK
+
+/* Define to 1 if you have the `strsignal' function. */
+#undef HAVE_STRSIGNAL
 
 /* Define to 1 if you have the `strtoimax' function. */
 #undef HAVE_STRTOIMAX
@@ -1439,6 +1495,12 @@
 /* Define if struct stat has an st_dm_mode member. */
 #undef HAVE_ST_DM_MODE
 
+/* Define to 1 if you have the `symlink' function. */
+#undef HAVE_SYMLINK
+
+/* Define to 1 if you have the `symlinkat' function. */
+#undef HAVE_SYMLINKAT
+
 /* Define to 1 if you have the `sync' function. */
 #undef HAVE_SYNC
 
@@ -1590,6 +1652,9 @@
 
 /* Define to 1 if you have the <unistd.h> header file. */
 #undef HAVE_UNISTD_H
+
+/* Define to 1 if you have the `unlinkat' function. */
+#undef HAVE_UNLINKAT
 
 /* Define to 1 if you have the `unsetenv' function. */
 #undef HAVE_UNSETENV
@@ -1745,7 +1810,8 @@
 /* Define as the word index where to find the sign of 'long double'. */
 #undef LDBL_SIGNBIT_WORD
 
-/* Define if `link(2)' dereferences symbolic links. */
+/* Define to 1 if `link(2)' dereferences symbolic links, 0 if it creates hard
+   links to symlinks, and -1 if unknown. */
 #undef LINK_FOLLOWS_SYMLINKS
 
 /* FIXME */
@@ -1947,20 +2013,49 @@
 /* Define to 1 if the C compiler supports function prototypes. */
 #undef PROTOTYPES
 
+/* Define if the pthread_in_use() detection is hard. */
+#undef PTHREAD_IN_USE_DETECTION_HARD
+
 /* Define to l, ll, u, ul, ull, etc., as suitable for constants of type
    'ptrdiff_t'. */
 #undef PTRDIFF_T_SUFFIX
 
+/* Define to 1 if readlink fails to recognize a trailing slash. */
+#undef READLINK_TRAILING_SLASH_BUG
+
 /* Define if rename does not work when the destination file exists, as on
-   Windows. */
+   Cygwin 1.5 or Windows. */
 #undef RENAME_DEST_EXISTS_BUG
 
-/* Define if rename does not work for source file names with a trailing slash,
-   like the one from SunOS 4.1.1_U1. */
-#undef RENAME_TRAILING_SLASH_BUG
+/* Define if rename fails to leave hard links alone, as on NetBSD 1.6 or
+   Cygwin 1.5. */
+#undef RENAME_HARD_LINK_BUG
+
+/* Define if rename does not correctly handle slashes on the destination
+   argument, such as on Solaris 10 or NetBSD 1.6. */
+#undef RENAME_TRAILING_SLASH_DEST_BUG
+
+/* Define if rename does not correctly handle slashes on the source argument,
+   such as on Solaris 9 or cygwin 1.5. */
+#undef RENAME_TRAILING_SLASH_SOURCE_BUG
 
 /* Define to 1 if dup2 returns 0 instead of the target fd. */
 #undef REPLACE_DUP2
+
+/* Define to 1 if gnulib's fchdir() replacement is used. */
+#undef REPLACE_FCHDIR
+
+/* Define to 1 if stat needs help when passed a directory name with a trailing
+   slash */
+#undef REPLACE_FUNC_STAT_DIR
+
+/* Define to 1 if stat needs help when passed a file name with a trailing
+   slash */
+#undef REPLACE_FUNC_STAT_FILE
+
+/* Define to 1 if open() should work around the inability to open a directory.
+   */
+#undef REPLACE_OPEN_DIRECTORY
 
 /* Define this to 1 if strerror is broken. */
 #undef REPLACE_STRERROR
@@ -1975,9 +2070,6 @@
 /* Define if vprintf is overridden by a POSIX compliant gnulib implementation.
    */
 #undef REPLACE_VPRINTF_POSIX
-
-/* the value to which errno is set when rmdir fails on a nonempty directory */
-#undef RMDIR_ERRNO_NOT_EMPTY
 
 /* Define to l, ll, u, ul, ull, etc., as suitable for constants of type
    'sig_atomic_t'. */
@@ -2053,6 +2145,9 @@
 /* FIXME */
 #undef TERMIOS_NEEDS_XOPEN_SOURCE
 
+/* Define to 1 if all 'time_t' values fit in a 'long int'. */
+#undef TIME_T_FITS_IN_LONG_INT
+
 /* Define to 1 if you can safely include both <sys/time.h> and <time.h>. */
 #undef TIME_WITH_SYS_TIME
 
@@ -2079,10 +2174,34 @@
 /* Define to nonzero if you want access control list support. */
 #undef USE_ACL
 
+/* Define if the POSIX multithreading library can be used. */
+#undef USE_POSIX_THREADS
+
+/* Define if references to the POSIX multithreading library should be made
+   weak. */
+#undef USE_POSIX_THREADS_WEAK
+
+/* Define if the GNU Pth multithreading library can be used. */
+#undef USE_PTH_THREADS
+
+/* Define if references to the GNU Pth multithreading library should be made
+   weak. */
+#undef USE_PTH_THREADS_WEAK
+
+/* Define if the old Solaris multithreading library can be used. */
+#undef USE_SOLARIS_THREADS
+
+/* Define if references to the old Solaris multithreading library should be
+   made weak. */
+#undef USE_SOLARIS_THREADS_WEAK
+
 /* Define to 1 if you want getc etc. to use unlocked I/O if available.
    Unlocked I/O can improve performance in unithreaded apps, but it is not
    safe for multithreaded apps. */
 #undef USE_UNLOCKED_IO
+
+/* Define if the Win32 multithreading API can be used. */
+#undef USE_WIN32_THREADS
 
 /* Define if you want extended attribute support. */
 #undef USE_XATTR
@@ -2170,9 +2289,6 @@
    used. */
 #undef __GETOPT_PREFIX
 
-/* Define to rpl_ if the openat replacement function should be used. */
-#undef __OPENAT_PREFIX
-
 /* Define like PROTOTYPES; this can be used by system headers. */
 #undef __PROTOTYPES
 
@@ -2185,9 +2301,6 @@
 
 /* Define to rpl_calloc if the replacement function should be used. */
 #undef calloc
-
-/* Define to rpl_fchownat if the replacement function should be used. */
-#undef fchownat
 
 /* Define to a replacement function name for fnmatch(). */
 #undef fnmatch
@@ -2316,10 +2429,6 @@
 
 /* Define to rpl_regfree if the replacement should be used. */
 #undef regfree
-
-/* Define to rpl_rename_dest_slash if the replacement function should be used.
-   */
-#undef rename
 
 /* Define to the equivalent of the C99 'restrict' keyword, or to
    nothing if this is not supported.  Do not define if restrict is

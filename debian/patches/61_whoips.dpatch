@@ -1,9 +1,9 @@
 #! /bin/sh /usr/share/dpatch/dpatch-run
 
 @DPATCH@
-diff -urNad coreutils-7.5~/src/who.c coreutils-7.5/src/who.c
---- coreutils-7.5~/src/who.c	2009-09-02 20:53:38.000000000 -0400
-+++ coreutils-7.5/src/who.c	2009-09-04 17:47:42.661391006 -0400
+diff -urNad coreutils-8.0~/src/who.c coreutils-8.0/src/who.c
+--- coreutils-8.0~/src/who.c	2009-09-23 04:25:44.000000000 -0400
++++ coreutils-8.0/src/who.c	2009-11-14 17:16:07.581713057 -0500
 @@ -28,6 +28,8 @@
  #include <stdio.h>
  
@@ -13,7 +13,7 @@ diff -urNad coreutils-7.5~/src/who.c coreutils-7.5/src/who.c
  #include "system.h"
  
  #include "c-ctype.h"
-@@ -100,6 +102,9 @@
+@@ -101,6 +103,9 @@
  /* If true, attempt to canonicalize hostnames via a DNS lookup. */
  static bool do_lookup;
  
@@ -23,7 +23,7 @@ diff -urNad coreutils-7.5~/src/who.c coreutils-7.5/src/who.c
  /* If true, display only a list of usernames and count of
     the users logged on.
     Ignored for `who am i'.  */
-@@ -155,7 +160,8 @@
+@@ -156,7 +161,8 @@
  /* for long options with no corresponding short option, use enum */
  enum
  {
@@ -33,7 +33,7 @@ diff -urNad coreutils-7.5~/src/who.c coreutils-7.5/src/who.c
  };
  
  static struct option const longopts[] =
-@@ -165,6 +171,7 @@
+@@ -166,6 +172,7 @@
    {"count", no_argument, NULL, 'q'},
    {"dead", no_argument, NULL, 'd'},
    {"heading", no_argument, NULL, 'H'},
@@ -41,7 +41,7 @@ diff -urNad coreutils-7.5~/src/who.c coreutils-7.5/src/who.c
    {"login", no_argument, NULL, 'l'},
    {"lookup", no_argument, NULL, LOOKUP_OPTION},
    {"message", no_argument, NULL, 'T'},
-@@ -417,6 +424,63 @@
+@@ -418,6 +425,63 @@
      }
  #endif
  
@@ -103,9 +103,9 @@ diff -urNad coreutils-7.5~/src/who.c coreutils-7.5/src/who.c
 +  }
 +
    print_line (sizeof UT_USER (utmp_ent), UT_USER (utmp_ent), mesg,
- 	      sizeof utmp_ent->ut_line, utmp_ent->ut_line,
- 	      time_string (utmp_ent), idlestr, pidstr,
-@@ -639,6 +703,11 @@
+               sizeof utmp_ent->ut_line, utmp_ent->ut_line,
+               time_string (utmp_ent), idlestr, pidstr,
+@@ -640,6 +704,11 @@
    -H, --heading     print line of column headings\n\
  "), stdout);
        fputs (_("\
@@ -117,14 +117,14 @@ diff -urNad coreutils-7.5~/src/who.c coreutils-7.5/src/who.c
    -l, --login       print system login processes\n\
  "), stdout);
        fputs (_("\
-@@ -768,6 +837,10 @@
- 	  do_lookup = true;
- 	  break;
+@@ -769,6 +838,10 @@
+           do_lookup = true;
+           break;
  
 +        case IPS_OPTION:
 +          do_ips = true;
 +          break;
 +
- 	  case_GETOPT_HELP_CHAR;
+           case_GETOPT_HELP_CHAR;
  
- 	  case_GETOPT_VERSION_CHAR (PROGRAM_NAME, AUTHORS);
+           case_GETOPT_VERSION_CHAR (PROGRAM_NAME, AUTHORS);

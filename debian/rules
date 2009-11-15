@@ -133,8 +133,8 @@ endif
 	sed s/\"1\"/\"8\"/1 $(d)/usr/share/man/man1/chroot.1 > $(d)/usr/share/man/man8/chroot.8
 	rm $(d)/usr/share/man/man1/chroot.1
 
-	# some build environments will leave a dangling info dir.gz
-	rm -f $(d)/usr/share/info/dir.gz
+	# some build environments will leave a dangling info dir
+	rm -f $(d)/usr/share/info/dir
 
 	cp AUTHORS \
 		NEWS README \

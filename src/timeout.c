@@ -153,13 +153,12 @@ Mandatory arguments to long options are mandatory for short options too.\n\
       fputs (HELP_OPTION_DESCRIPTION, stdout);
       fputs (VERSION_OPTION_DESCRIPTION, stdout);
       fputs (_("\n\
-If the command times out, then we exit with status 124,\n\
-otherwise the normal exit status of the command is returned.\n\
-If no signal is specified, the TERM signal is sent. The TERM signal\n\
-will kill processes which do not catch this signal. For other processes,\n\
-it may be necessary to use the KILL (9) signal, since this signal cannot\n\
-be caught.\n"), stdout);
-      emit_bug_reporting_address ();
+If the command times out, then exit with status 124.  Otherwise, exit\n\
+with the status of COMMAND.  If no signal is specified, send the TERM\n\
+signal upon timeout.  The TERM signal kills any process that does not\n\
+block or catch that signal.  For other processes, it may be necessary to\n\
+use the KILL (9) signal, since this signal cannot be caught.\n"), stdout);
+      emit_ancillary_info ();
     }
   exit (status);
 }
@@ -268,7 +267,6 @@ main (int argc, char **argv)
     }
   optind++;
 
-  argc -= optind;
   argv += optind;
 
   /* Ensure we're in our own group so all subprocesses can be killed.
@@ -317,12 +315,25 @@ main (int argc, char **argv)
          child exits, not on this process receiving a signal. Also we're not
          passing WUNTRACED | WCONTINUED to a waitpid() call and so will not get
          indication that the child has stopped or continued.  */
-      wait (&status);
-
-      if (WIFEXITED (status))
-        status = WEXITSTATUS (status);
-      else if (WIFSIGNALED (status))
-        status = WTERMSIG (status) + 128;     /* what sh does at least.  */
+      if (wait (&status) == -1)
+        {
+          /* shouldn't happen.  */
+          error (0, errno, _("error waiting for command"));
+          status = EXIT_CANCELED;
+        }
+      else
+        {
+          if (WIFEXITED (status))
+            status = WEXITSTATUS (status);
+          else if (WIFSIGNALED (status))
+            status = WTERMSIG (status) + 128; /* what sh does at least.  */
+          else
+            {
+              /* shouldn't happen.  */
+              error (0, 0, _("unknown status from command (0x%X)"), status);
+              status = EXIT_FAILURE;
+            }
+        }
 
       if (timed_out)
         return EXIT_TIMEDOUT;
@@ -330,9 +341,3 @@ main (int argc, char **argv)
         return status;
     }
 }
-
-/*
- * Local variables:
- *  indent-tabs-mode: nil
- * End:
- */

@@ -1,3 +1,20 @@
+coreutils (8.0-2) unstable; urgency=low
+
+  * inotify tail -F works (Closes: #548439)
+
+ -- Michael Stone <mstone@debian.org>  Sun, 15 Nov 2009 11:17:42 -0500
+
+coreutils (8.0-1) unstable; urgency=low
+
+  * New upstream version
+    * touch accepts leap seconds (Closes: #510347)
+    * ln adds -L and -P
+    * rm -rf should be faster
+  * remove usr/share/info/dir in build rules (Closes: #546016)
+  * replaces: timeout (Closes: #552509)
+
+ -- Michael Stone <mstone@debian.org>  Sat, 14 Nov 2009 16:41:02 -0500
+
 coreutils (7.5-6) unstable; urgency=low
 
   * remove usr/share/info/dir.gz in build rules (Closes: #546016)

@@ -1,5 +1,5 @@
 /* provide a chdir function that tries not to fail due to ENAMETOOLONG
-   Copyright (C) 2004, 2005, 2006, 2007, 2008 Free Software Foundation, Inc.
+   Copyright (C) 2004-2009 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -20,19 +20,22 @@
 
 #include "chdir-long.h"
 
+#include <assert.h>
+#include <errno.h>
 #include <fcntl.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
-#include <errno.h>
 #include <stdio.h>
-#include <assert.h>
-
-#include "openat.h"
 
 #ifndef PATH_MAX
 # error "compile this file only if your system defines PATH_MAX"
 #endif
+
+/* The results of openat() in this file are not leaked to any
+   single-threaded code that could use stdio.
+   FIXME - if the kernel ever adds support for multi-thread safety for
+   avoiding standard fds, then we should use openat_safer.  */
 
 struct cd_buf
 {

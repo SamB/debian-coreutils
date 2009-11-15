@@ -1,5 +1,146 @@
 GNU coreutils NEWS                                    -*- outline -*-
 
+* Noteworthy changes in release 8.0 (2009-10-06) [beta]
+
+** Bug fixes
+
+  cp --preserve=xattr and --archive now preserve extended attributes even
+  when the source file doesn't have write access.
+  [bug introduced in coreutils-7.1]
+
+  touch -t [[CC]YY]MMDDhhmm[.ss] now accepts a timestamp string ending in .60,
+  to accommodate leap seconds.
+  [the bug dates back to the initial implementation]
+
+  ls --color now reverts to the color of a base file type consistently
+  when the color of a more specific type is disabled.
+  [bug introduced in coreutils-5.90]
+
+  ls -LR exits with status 2, not 0, when it encounters a cycle
+
+  ls -is is now consistent with ls -lis in ignoring values returned
+  from a failed stat/lstat.  For example ls -Lis now prints "?", not "0",
+  for the inode number and allocated size of a dereferenced dangling symlink.
+
+  tail --follow --pid now avoids a race condition where data written
+  just before the process dies might not have been output by tail.
+  Also, tail no longer delays at all when the specified pid is not live.
+  [The race was introduced in coreutils-7.5,
+   and the unnecessary delay was present since textutils-1.22o]
+
+** Portability
+
+  On Solaris 9, many commands would mistakenly treat file/ the same as
+  file.  Now, even on such a system, path resolution obeys the POSIX
+  rules that a trailing slash ensures that the preceeding name is a
+  directory or a symlink to a directory.
+
+** Changes in behavior
+
+  id no longer prints SELinux " context=..." when the POSIXLY_CORRECT
+  environment variable is set.
+
+  readlink -f now ignores a trailing slash when deciding if the
+  last component (possibly via a dangling symlink) can be created,
+  since mkdir will succeed in that case.
+
+** New features
+
+  ln now accepts the options --logical (-L) and --physical (-P),
+  added by POSIX 2008.  The default behavior is -P on systems like
+  GNU/Linux where link(2) creates hard links to symlinks, and -L on
+  BSD systems where link(2) follows symlinks.
+
+  stat: without -f, a command-line argument of "-" now means standard input.
+  With --file-system (-f), an argument of "-" is now rejected.
+  If you really must operate on a file named "-", specify it as
+  "./-" or use "--" to separate options from arguments.
+
+** Improvements
+
+  rm: rewrite to use gnulib's fts
+  This makes rm -rf significantly faster (400-500%) in some pathological
+  cases, and slightly slower (20%) in at least one pathological case.
+
+  rm -r deletes deep hierarchies more efficiently.  Before, execution time
+  was quadratic in the depth of the hierarchy, now it is merely linear.
+  However, this improvement is not as pronounced as might be expected for
+  very deep trees, because prior to this change, for any relative name
+  length longer than 8KiB, rm -r would sacrifice official conformance to
+  avoid the disproportionate quadratic performance penalty.  Leading to
+  another improvement:
+
+  rm -r is now slightly more standards-conformant when operating on
+  write-protected files with relative names longer than 8KiB.
+
+
+* Noteworthy changes in release 7.6 (2009-09-11) [stable]
+
+** Bug fixes
+
+  cp, mv now ignore failure to preserve a symlink time stamp, when it is
+  due to their running on a kernel older than what was implied by headers
+  and libraries tested at configure time.
+  [bug introduced in coreutils-7.5]
+
+  cp --reflink --preserve now preserves attributes when cloning a file.
+  [bug introduced in coreutils-7.5]
+
+  cp --preserve=xattr no longer leaks resources on each preservation failure.
+  [bug introduced in coreutils-7.1]
+
+  dd now exits with non-zero status when it encounters a write error while
+  printing a summary to stderr.
+  [bug introduced in coreutils-6.11]
+
+  dd cbs=N conv=unblock would fail to print a final newline when the size
+  of the input was not a multiple of N bytes.
+  [the non-conforming behavior dates back to the initial implementation]
+
+  df no longer requires that each command-line argument be readable
+  [bug introduced in coreutils-7.3]
+
+  ls -i now prints consistent inode numbers also for mount points.
+  This makes ls -i DIR less efficient on systems with dysfunctional readdir,
+  because ls must stat every file in order to obtain a guaranteed-valid
+  inode number.  [bug introduced in coreutils-6.0]
+
+  tail -f (inotify-enabled) now flushes any initial output before blocking.
+  Before, this would print nothing and wait: stdbuf -o 4K tail -f /etc/passwd
+  Note that this bug affects tail -f only when its standard output is buffered,
+  which is relatively unusual.
+  [bug introduced in coreutils-7.5]
+
+  tail -f once again works with standard input.  inotify-enabled tail -f
+  would fail when operating on a nameless stdin.  I.e., tail -f < /etc/passwd
+  would say "tail: cannot watch `-': No such file or directory", yet the
+  relatively baroque tail -f /dev/stdin < /etc/passwd would work.  Now, the
+  offending usage causes tail to revert to its conventional sleep-based
+  (i.e., not inotify-based) implementation.
+  [bug introduced in coreutils-7.5]
+
+** Portability
+
+  ln, link: link f z/ would mistakenly succeed on Solaris 10, given an
+  existing file, f, and nothing named "z".  ln -T f z/ has the same problem.
+  Each would mistakenly create "z" as a link to "f".  Now, even on such a
+  system, each command reports the error, e.g.,
+  link: cannot create link `z/' to `f': Not a directory
+
+** New features
+
+  cp --reflink accepts a new "auto" parameter which falls back to
+  a standard copy if creating a copy-on-write clone is not possible.
+
+** Changes in behavior
+
+  tail -f now ignores "-" when stdin is a pipe or FIFO.
+  tail-with-no-args now ignores -f unconditionally when stdin is a pipe or FIFO.
+  Before, it would ignore -f only when no file argument was specified,
+  and then only when POSIXLY_CORRECT was set.  Now, :|tail -f - terminates
+  immediately.  Before, it would block indefinitely.
+
+
 * Noteworthy changes in release 7.5 (2009-08-20) [stable]
 
 ** Bug fixes
