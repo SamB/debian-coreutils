@@ -1,5 +1,5 @@
 /* su for GNU.  Run a shell with substitute user and group IDs.
-   Copyright (C) 1992-2006, 2008-2009 Free Software Foundation, Inc.
+   Copyright (C) 1992-2006, 2008-2010 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -112,8 +112,6 @@
 #define DEFAULT_USER "root"
 
 char *crypt (char const *key, char const *salt);
-
-extern char **environ;
 
 static void run_shell (char const *, char const *, char **, size_t)
      ATTRIBUTE_NORETURN;
@@ -286,13 +284,13 @@ change_identity (const struct passwd *pw)
 #ifdef HAVE_INITGROUPS
   errno = 0;
   if (initgroups (pw->pw_name, pw->pw_gid) == -1)
-    error (EXIT_FAILURE, errno, _("cannot set groups"));
+    error (EXIT_CANCELED, errno, _("cannot set groups"));
   endgrent ();
 #endif
   if (setgid (pw->pw_gid))
-    error (EXIT_FAILURE, errno, _("cannot set group id"));
+    error (EXIT_CANCELED, errno, _("cannot set group id"));
   if (setuid (pw->pw_uid))
-    error (EXIT_FAILURE, errno, _("cannot set user id"));
+    error (EXIT_CANCELED, errno, _("cannot set user id"));
 }
 
 /* Run SHELL, or DEFAULT_SHELL if SHELL is empty.
@@ -406,7 +404,7 @@ main (int argc, char **argv)
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
 
-  initialize_exit_failure (EXIT_FAILURE);
+  initialize_exit_failure (EXIT_CANCELED);
   atexit (close_stdout);
 
   fast_startup = false;
@@ -443,7 +441,7 @@ main (int argc, char **argv)
         case_GETOPT_VERSION_CHAR (PROGRAM_NAME, AUTHORS);
 
         default:
-          usage (EXIT_FAILURE);
+          usage (EXIT_CANCELED);
         }
     }
 
@@ -458,7 +456,7 @@ main (int argc, char **argv)
   pw = getpwnam (new_user);
   if (! (pw && pw->pw_name && pw->pw_name[0] && pw->pw_dir && pw->pw_dir[0]
          && pw->pw_passwd))
-    error (EXIT_FAILURE, 0, _("user %s does not exist"), new_user);
+    error (EXIT_CANCELED, 0, _("user %s does not exist"), new_user);
 
   /* Make a copy of the password information and point pw at the local
      copy instead.  Otherwise, some systems (e.g. GNU/Linux) would clobber
@@ -481,7 +479,7 @@ main (int argc, char **argv)
 #ifdef SYSLOG_FAILURE
       log_su (pw, false);
 #endif
-      error (EXIT_FAILURE, 0, _("incorrect password"));
+      error (EXIT_CANCELED, 0, _("incorrect password"));
     }
 #ifdef SYSLOG_SUCCESS
   else
@@ -507,6 +505,14 @@ main (int argc, char **argv)
   change_identity (pw);
   if (simulate_login && chdir (pw->pw_dir) != 0)
     error (0, errno, _("warning: cannot change directory to %s"), pw->pw_dir);
+
+  /* error() flushes stderr, but does not check for write failure.
+     Normally, we would catch this via our atexit() hook of
+     close_stdout, but execv() gets in the way.  If stderr
+     encountered a write failure, there is no need to try calling
+     error() again.  */
+  if (ferror (stderr))
+    exit (EXIT_CANCELED);
 
   run_shell (shell, command, argv + optind, MAX (0, argc - optind));
 }

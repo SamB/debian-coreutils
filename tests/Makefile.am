@@ -8,7 +8,6 @@ ASSORT = LC_ALL=C sort
 EXTRA_DIST =		\
   Coreutils.pm		\
   CuTmpdir.pm		\
-  README		\
   check.mk		\
   envvar-check		\
   lang-default		\
@@ -24,12 +23,12 @@ root_tests =					\
   cp/preserve-gid				\
   cp/special-bits				\
   cp/cp-mv-enotsup-xattr			\
-  chroot/credentials				\
   dd/skip-seek-past-dev				\
   install/install-C-root			\
   ls/capability					\
   ls/nameless-uid				\
   misc/chcon					\
+  misc/chroot-credentials			\
   misc/selinux					\
   misc/truncate-owned-by-other			\
   mkdir/writable-under-readonly			\
@@ -37,6 +36,7 @@ root_tests =					\
   rm/fail-2eperm				\
   rm/no-give-up					\
   rm/one-file-system				\
+  rm/read-only					\
   tail-2/append-only				\
   touch/now-owned-by-other
 
@@ -74,10 +74,15 @@ EXTRA_DIST += $(TESTS)
 
 TESTS =						\
   misc/help-version				\
+  tail-2/inotify-race				\
   misc/invalid-opt				\
   rm/ext3-perf					\
   rm/cycle					\
   cp/link-heap					\
+  tail-2/inotify-hash-abuse			\
+  tail-2/inotify-hash-abuse2			\
+  tail-2/F-vs-rename				\
+  tail-2/inotify-rotate				\
   chmod/no-x					\
   chgrp/basic					\
   rm/dangling-symlink				\
@@ -104,6 +109,7 @@ TESTS =						\
   rm/interactive-always				\
   rm/interactive-once				\
   rm/ir-1					\
+  rm/one-file-system2				\
   rm/r-1					\
   rm/r-2					\
   rm/r-3					\
@@ -125,6 +131,7 @@ TESTS =						\
   chgrp/no-x					\
   chgrp/posix-H					\
   chgrp/recurse					\
+  misc/env					\
   misc/ptx					\
   misc/test					\
   misc/seq					\
@@ -152,17 +159,20 @@ TESTS =						\
   misc/wc					\
   misc/wc-files0-from				\
   misc/wc-files0				\
+  misc/wc-parallel				\
   misc/cat-proc					\
   misc/cat-buf					\
   misc/base64					\
   misc/basename					\
   misc/close-stdout				\
+  misc/chroot-fail				\
   misc/comm					\
   misc/csplit					\
   misc/date-sec					\
   misc/dircolors				\
   misc/df					\
   misc/dirname					\
+  misc/env-null					\
   misc/expand					\
   misc/expr					\
   misc/factor					\
@@ -178,15 +188,20 @@ TESTS =						\
   misc/id-groups				\
   misc/md5sum					\
   misc/md5sum-newline				\
+  misc/md5sum-parallel				\
   misc/mknod					\
   misc/nice					\
+  misc/nice-fail				\
   misc/nl					\
   misc/nohup					\
+  misc/nproc-avail				\
+  misc/nproc-positive				\
   misc/od-N					\
   misc/od-multiple-t				\
   misc/od-x8					\
   misc/paste					\
   misc/pathchk1					\
+  misc/printenv					\
   misc/printf					\
   misc/printf-cov				\
   misc/printf-hex				\
@@ -218,10 +233,12 @@ TESTS =						\
   misc/stat-fmt					\
   misc/stat-hyphen				\
   misc/stat-printf				\
+  misc/stat-slash				\
   misc/stdbuf					\
   misc/stty					\
   misc/stty-invalid				\
   misc/stty-row-col				\
+  misc/su-fail					\
   misc/sum					\
   misc/sum-sysv					\
   misc/tac					\
@@ -444,11 +461,13 @@ TESTS =						\
   touch/fail-diag				\
   touch/fifo					\
   touch/no-create-missing			\
+  touch/no-dereference				\
   touch/no-rights				\
   touch/not-owner				\
   touch/obsolescent				\
   touch/read-only				\
   touch/relative				\
+  touch/trailing-slash				\
   $(root_tests)
 
 pr_data =					\

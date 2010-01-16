@@ -1,8 +1,18 @@
-coreutils (8.0-2) unstable; urgency=low
+coreutils (8.4-1) unstable; urgency=low
 
-  * inotify tail -F works (Closes: #548439)
+  * New upstream version
+    - fixes "Bad file descriptor" message from cp & touch (Closes: #563754)
+    - tail -F won't abort when file is moved (Closes: #561481, #561854)
+    - mktemp man page describes template (Closes: #548316)
 
- -- Michael Stone <mstone@debian.org>  Sun, 15 Nov 2009 11:17:42 -0500
+ -- Michael Stone <mstone@debian.org>  Sat, 16 Jan 2010 14:37:32 -0500
+
+coreutils (8.1-1) unstable; urgency=low
+
+  * New upstream version
+    - adds nproc(1)
+
+ -- Michael Stone <mstone@debian.org>  Sat, 21 Nov 2009 16:44:35 -0500
 
 coreutils (8.0-1) unstable; urgency=low
 

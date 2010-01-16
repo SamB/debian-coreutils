@@ -1,5 +1,5 @@
 /* chcon -- change security context of files
-   Copyright (C) 2005-2009 Free Software Foundation, Inc.
+   Copyright (C) 2005-2010 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -267,6 +267,14 @@ process_file (FTS *fts, FTSENT *ent)
       ok = false;
       break;
 
+    case FTS_DC:		/* directory that causes cycles */
+      if (cycle_warning_required (fts, ent))
+        {
+          emit_cycle_warning (file_full_name);
+          return false;
+        }
+      break;
+
     default:
       break;
     }
@@ -519,10 +527,6 @@ main (int argc, char **argv)
       usage (EXIT_FAILURE);
     }
 
-  if (is_selinux_enabled () != 1)
-    error (EXIT_FAILURE, 0,
-           _("%s may be used only on a SELinux kernel"), program_name);
-
   if (reference_file)
     {
       if (getfilecon (reference_file, &ref_context) < 0)
@@ -550,7 +554,7 @@ main (int argc, char **argv)
   if (reference_file && component_specified)
     {
       error (0, 0, _("conflicting security context specifiers given"));
-      usage (1);
+      usage (EXIT_FAILURE);
     }
 
   if (recurse && preserve_root)

@@ -1,7 +1,7 @@
 #!/bin/sh
 # Ensure that chgrp -R does not dereference symlinks.
 
-# Copyright (C) 2006-2009 Free Software Foundation, Inc.
+# Copyright (C) 2006-2010 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -29,7 +29,6 @@ g2=$2
 
 mkdir d && touch f && ln -s ../f d/s || framework_failure
 
-fail=0
 
 g_init=`stat --printf=%g f`
 chgrp -R $g2 d || fail=1

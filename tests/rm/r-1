@@ -1,8 +1,8 @@
 #!/bin/sh
 # Test "rm -r --verbose".
 
-# Copyright (C) 1997, 1998, 2000, 2002, 2004,
-# 2006-2009 Free Software Foundation, Inc.
+# Copyright (C) 1997-1998, 2000, 2002, 2004, 2006-2010 Free Software
+# Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -35,7 +35,6 @@ removed directory: `a'
 removed `b'
 EOF
 
-fail=0
 rm --verbose -r a b > $test.O || fail=1
 
 for d in $dirs; do

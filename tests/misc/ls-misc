@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# Copyright (C) 1998, 2000-2009 Free Software Foundation, Inc.
+# Copyright (C) 1998, 2000-2010 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -182,6 +182,44 @@ my @Tests =
               }},
       {POST => sub {unlink 'd/X' or die "d/X: $!\n";
                     rmdir 'd' or die "d: $!\n";
+                    restore_ls_colors; }},
+     ],
+
+     # Test for a bug fixed after coreutils-8.2.
+     ['sl-dangle2', '-o --color=always l',
+      {OUT_SUBST => 's/.*[0-9][0-9]:[0-9][0-9] //'},
+      {OUT => "l -> nowhere\n"},
+      {PRE => sub {symlink 'nowhere', 'l' or die "l: $!\n";
+                   push_ls_colors('ln=target')
+       }},
+      {POST => sub {unlink 'l' or die "l: $!\n";
+                    restore_ls_colors; }},
+     ],
+     ['sl-dangle3', '-o --color=always l',
+      {OUT_SUBST => 's/.*[0-9][0-9]:[0-9][0-9] //'},
+      {OUT => "$e\e[40ml$e -> \e[34mnowhere$e\n\e[m"},
+      {PRE => sub {symlink 'nowhere', 'l' or die "l: $!\n";
+                   push_ls_colors('ln=target:or=40:mi=34:')
+       }},
+      {POST => sub {unlink 'l' or die "l: $!\n";
+                    restore_ls_colors; }},
+     ],
+     ['sl-dangle4', '-o --color=always l',
+      {OUT_SUBST => 's/.*[0-9][0-9]:[0-9][0-9] //'},
+      {OUT => "$e\e[36ml$e -> \e[35mnowhere$e\n\e[m"},
+      {PRE => sub {symlink 'nowhere', 'l' or die "l: $!\n";
+                   push_ls_colors('ln=34:mi=35:or=36:')
+       }},
+      {POST => sub {unlink 'l' or die "l: $!\n";
+                    restore_ls_colors; }},
+     ],
+     ['sl-dangle5', '-o --color=always l',
+      {OUT_SUBST => 's/.*[0-9][0-9]:[0-9][0-9] //'},
+      {OUT => "$e\e[34ml$e -> \e[35mnowhere$e\n\e[m"},
+      {PRE => sub {symlink 'nowhere', 'l' or die "l: $!\n";
+                   push_ls_colors('ln=34:mi=35:')
+       }},
+      {POST => sub {unlink 'l' or die "l: $!\n";
                     restore_ls_colors; }},
      ],
 

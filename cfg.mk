@@ -1,5 +1,5 @@
 # Customize maint.mk                           -*- makefile -*-
-# Copyright (C) 2003-2009 Free Software Foundation, Inc.
+# Copyright (C) 2003-2010 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,21 +14,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# Use alpha.gnu.org for alpha and beta releases.
-# Use ftp.gnu.org for major releases.
-gnu_ftp_host-alpha = alpha.gnu.org
-gnu_ftp_host-beta = alpha.gnu.org
-gnu_ftp_host-major = ftp.gnu.org
-gnu_rel_host = $(gnu_ftp_host-$(RELEASE_TYPE))
-
 # Used in maint.mk's web-manual rule
 manual_title = Core GNU utilities
-
-url_dir_list = \
-  ftp://$(gnu_rel_host)/gnu/$(PACKAGE)
-
-# The GnuPG ID of the key used to sign the tarballs.
-gpg_key_ID = B9AB9A16
 
 # Tests not to run as part of "make distcheck".
 local-checks-to-skip =
@@ -39,7 +26,10 @@ bootstrap-tools = autoconf,automake,gnulib,bison
 # Now that we have better tests, make this the default.
 export VERBOSE = yes
 
-old_NEWS_hash = 0d22ab4ad3fedd9cf283b256b61e8080
+old_NEWS_hash = beab130e9d41bf8014a0594cfe8b28d4
+
+# Add an exemption for sc_makefile_at_at_check.
+_makefile_at_at_check_exceptions = ' && !/^cu_install_program =/'
 
 # Ensure that the list of O_ symbols used to compute O_FULLBLOCK is complete.
 dd = $(srcdir)/src/dd.c
@@ -191,6 +181,18 @@ sc_no_exec_perl_coreutils:
 	      exit 1; } || :;						\
 	fi
 
+# Don't use "readlink" or "readlinkat" directly
+sc_prohibit_readlink:
+	@re='\<readlink(at)? \('					\
+	msg='do not use readlink(at); use via xreadlink or areadlink*'	\
+	  $(_prohibit_regexp)
+
+# Don't use address of "stat" or "lstat" functions
+sc_prohibit_stat_macro_address:
+	@re='\<l?stat '':|&l?stat\>'					\
+	msg='stat() and lstat() may be function-like macros'		\
+	  $(_prohibit_regexp)
+
 # Ensure that date's --help output stays in sync with the info
 # documentation for GNU strftime.  The only exception is %N,
 # which date accepts but GNU strftime does not.
@@ -218,4 +220,33 @@ sc_prohibit_emacs__indent_tabs_mode__setting:
 	msg='use of emacs indent-tabs-mode: setting'			\
 	  $(_prohibit_regexp)
 
+# Ensure that each file that contains fail=1 also contains fail=0.
+# Otherwise, setting file=1 in the environment would make tests fail unexpectedly.
+sc_prohibit_fail_0:
+	@re='\<fail=0\>'						\
+	msg='fail=0 initialization'					\
+	  $(_prohibit_regexp)
+
+# Ensure that "stdio--.h" is used where appropriate.
+sc_require_stdio_safer:
+	@if $(VC_LIST_EXCEPT) | grep -l '\.[ch]$$' > /dev/null; then	\
+	  files=$$(grep -l '\bfreopen \?(' $$($(VC_LIST_EXCEPT)		\
+	      | grep '\.[ch]$$'));					\
+	  test -n "$$files" && grep -LE 'include "stdio--.h"' $$files	\
+	      | grep . &&						\
+	  { echo '$(ME): the above files should use "stdio--.h"'	\
+		1>&2; exit 1; } || :;					\
+	else :;								\
+	fi
+
+# Prefer xnanosleep over other less-precise sleep methods
+sc_prohibit_sleep:
+	@re='\<(nano|u)?sleep \('					\
+	msg='prefer xnanosleep over other sleep interfaces'		\
+	  $(_prohibit_regexp)
+
 include $(srcdir)/dist-check.mk
+
+update-copyright-env = \
+  UPDATE_COPYRIGHT_USE_INTERVALS=1 \
+  UPDATE_COPYRIGHT_MAX_LINE_LENGTH=79

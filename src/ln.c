@@ -1,5 +1,5 @@
 /* `ln' program to create links between files.
-   Copyright (C) 1986, 1989-1991, 1995-2009 Free Software Foundation, Inc.
+   Copyright (C) 1986, 1989-1991, 1995-2010 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -138,7 +138,7 @@ do_link (const char *source, const char *dest)
     {
        /* Which stat to use depends on whether linkat will follow the
           symlink.  We can't use the shorter
-          (logical ? stat : lstat) (source, &source_stats)
+          (logical?stat:lstat) (source, &source_stats)
           since stat might be a function-like macro.  */
       if ((logical ? stat (source, &source_stats)
            : lstat (source, &source_stats))

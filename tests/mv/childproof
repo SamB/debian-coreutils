@@ -3,7 +3,7 @@
 # With fileutils-4.1 and earlier, this test would fail for cp and mv.
 # With coreutils-6.9 and earlier, this test would fail for ln.
 
-# Copyright (C) 2001, 2004, 2006-2009 Free Software Foundation, Inc.
+# Copyright (C) 2001, 2004, 2006-2010 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -32,7 +32,6 @@ mkdir a b c || framework_failure
 echo a > a/f || framework_failure
 echo b > b/f || framework_failure
 
-fail=0
 
 cp a/f b/f c 2> /dev/null && fail=1
 test -f a/f || fail=1

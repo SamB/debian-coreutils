@@ -1,8 +1,7 @@
 #! /bin/sh
 # Test "mv" with special files.
 
-# Copyright (C) 1998, 1999, 2000, 2002,
-# 2004-2009 Free Software Foundation, Inc.
+# Copyright (C) 1998-2000, 2002, 2004-2010 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -41,7 +40,6 @@ touch $dir/a/b/c/file1 $dir/d/e/f/file2 || framework_failure
 # from an OpenBSD system, the above mknod fails.
 # It's not worth making an exception any more.
 
-fail=0
 mv --verbose $null $dir "$other_partition_tmpdir" > out || fail=1
 # Make sure the files are gone.
 test -p $null && fail=1

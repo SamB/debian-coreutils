@@ -1,5 +1,5 @@
 /* Permuted index for GNU, with keywords in their context.
-   Copyright (C) 1990, 1991, 1993, 1998-2009 Free Software Foundation, Inc.
+   Copyright (C) 1990-1991, 1993, 1998-2010 Free Software Foundation, Inc.
    François Pinard <pinard@iro.umontreal.ca>, 1988.
 
    This program is free software: you can redistribute it and/or modify
@@ -19,7 +19,6 @@
 
 #include <config.h>
 
-#include <stdio.h>
 #include <getopt.h>
 #include <sys/types.h>
 #include "system.h"
@@ -29,6 +28,7 @@
 #include "quote.h"
 #include "quotearg.h"
 #include "regex.h"
+#include "stdio--.h"
 #include "xstrtol.h"
 
 /* The official name of this program (e.g., no `g' prefix).  */

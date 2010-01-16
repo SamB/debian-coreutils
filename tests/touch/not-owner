@@ -2,7 +2,7 @@
 # Make sure that touch gives reasonable diagnostics when applied
 # to an unwritable directory owned by some other user.
 
-# Copyright (C) 2003-2009 Free Software Foundation, Inc.
+# Copyright (C) 2003-2010 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -34,7 +34,6 @@ fi
 
 skip_if_root_
 
-fail=0
 
 # Before fileutils-4.1, we'd get the following misleading
 # diagnostic instead of `...: Permission denied'.
@@ -43,7 +42,10 @@ touch / > out 2>&1 && fail=1
 
 # On SunOS4, EPERM is `Not owner'.
 # On some *BSD systems it's `Operation not permitted'.
-for msg in 'Not owner' 'Operation not permitted' 'Permission denied'; do
+# On a system where root file system is mounted read-only
+# it's `Read-only file system'.
+for msg in 'Not owner' 'Operation not permitted' 'Permission denied' \
+           'Read-only file system'; do
   cat > exp <<EOF
 touch: setting times of \`/': $msg
 EOF

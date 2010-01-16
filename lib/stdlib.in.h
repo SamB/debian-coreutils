@@ -1,6 +1,6 @@
 /* A GNU-like <stdlib.h>.
 
-   Copyright (C) 1995, 2001-2004, 2006-2009 Free Software Foundation, Inc.
+   Copyright (C) 1995, 2001-2004, 2006-2010 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -39,7 +39,7 @@
 #include <stddef.h>
 
 /* Solaris declares getloadavg() in <sys/loadavg.h>.  */
-#if @GNULIB_GETLOADAVG@ && @HAVE_SYS_LOADAVG_H@
+#if (@GNULIB_GETLOADAVG@ || defined GNULIB_POSIXCHECK) && @HAVE_SYS_LOADAVG_H@
 # include <sys/loadavg.h>
 #endif
 
@@ -49,24 +49,34 @@
 # include <random.h>
 #endif
 
-#if @GNULIB_RANDOM_R@ || !@HAVE_STRUCT_RANDOM_DATA@
+#if !@HAVE_STRUCT_RANDOM_DATA@ || (@GNULIB_RANDOM_R@ && !@HAVE_RANDOM_R@) \
+    || defined GNULIB_POSIXCHECK
 # include <stdint.h>
 #endif
 
 #if !@HAVE_STRUCT_RANDOM_DATA@
 struct random_data
 {
-  int32_t *fptr;		/* Front pointer.  */
-  int32_t *rptr;		/* Rear pointer.  */
-  int32_t *state;		/* Array of state values.  */
-  int rand_type;		/* Type of random number generator.  */
-  int rand_deg;			/* Degree of random number generator.  */
-  int rand_sep;			/* Distance between front and rear.  */
-  int32_t *end_ptr;		/* Pointer behind state table.  */
+  int32_t *fptr;                /* Front pointer.  */
+  int32_t *rptr;                /* Rear pointer.  */
+  int32_t *state;               /* Array of state values.  */
+  int rand_type;                /* Type of random number generator.  */
+  int rand_deg;                 /* Degree of random number generator.  */
+  int rand_sep;                 /* Distance between front and rear.  */
+  int32_t *end_ptr;             /* Pointer behind state table.  */
 };
 #endif
 
+#if (@GNULIB_MKSTEMP@ || @GNULIB_GETSUBOPT@ || defined GNULIB_POSIXCHECK) && ! defined __GLIBC__
+/* On MacOS X 10.3, only <unistd.h> declares mkstemp.  */
+/* On Cygwin 1.7.1, only <unistd.h> declares getsubopt.  */
+/* But avoid namespace pollution on glibc systems.  */
+# include <unistd.h>
+#endif
+
 /* The definition of GL_LINK_WARNING is copied here.  */
+
+/* The definition of _GL_ARG_NONNULL is copied here.  */
 
 
 /* Some systems do not define EXIT_*, despite otherwise supporting C89.  */
@@ -91,7 +101,7 @@ extern "C" {
 # if !@HAVE_ATOLL@
 /* Parse a signed decimal integer.
    Returns the value of the integer.  Errors are not detected.  */
-extern long long atoll (const char *string);
+extern long long atoll (const char *string) _GL_ARG_NONNULL ((1));
 # endif
 #elif defined GNULIB_POSIXCHECK
 # undef atoll
@@ -120,7 +130,7 @@ extern void * calloc (size_t nmemb, size_t size);
 #  define canonicalize_file_name rpl_canonicalize_file_name
 # endif
 # if !@HAVE_CANONICALIZE_FILE_NAME@ || @REPLACE_CANONICALIZE_FILE_NAME@
-extern char *canonicalize_file_name (const char *name);
+extern char *canonicalize_file_name (const char *name) _GL_ARG_NONNULL ((1));
 # endif
 #elif defined GNULIB_POSIXCHECK
 # undef canonicalize_file_name
@@ -136,7 +146,7 @@ extern char *canonicalize_file_name (const char *name);
    The three numbers are the load average of the last 1 minute, the last 5
    minutes, and the last 15 minutes, respectively.
    LOADAVG is an array of NELEM numbers.  */
-extern int getloadavg (double loadavg[], int nelem);
+extern int getloadavg (double loadavg[], int nelem) _GL_ARG_NONNULL ((1));
 # endif
 #elif defined GNULIB_POSIXCHECK
 # undef getloadavg
@@ -159,7 +169,8 @@ extern int getloadavg (double loadavg[], int nelem);
    For more details see the POSIX:2001 specification.
    http://www.opengroup.org/susv3xsh/getsubopt.html */
 # if !@HAVE_GETSUBOPT@
-extern int getsubopt (char **optionp, char *const *tokens, char **valuep);
+extern int getsubopt (char **optionp, char *const *tokens, char **valuep)
+     _GL_ARG_NONNULL ((1, 2, 3));
 # endif
 #elif defined GNULIB_POSIXCHECK
 # undef getsubopt
@@ -190,7 +201,7 @@ extern void * malloc (size_t size);
    they are replaced with a string that makes the directory name unique.
    Returns TEMPLATE, or a null pointer if it cannot get a unique name.
    The directory is created mode 700.  */
-extern char * mkdtemp (char * /*template*/);
+extern char * mkdtemp (char * /*template*/) _GL_ARG_NONNULL ((1));
 # endif
 #elif defined GNULIB_POSIXCHECK
 # undef mkdtemp
@@ -214,7 +225,7 @@ extern char * mkdtemp (char * /*template*/);
    implementation.
    Returns the open file descriptor if successful, otherwise -1 and errno
    set.  */
-extern int mkostemp (char * /*template*/, int /*flags*/);
+extern int mkostemp (char * /*template*/, int /*flags*/) _GL_ARG_NONNULL ((1));
 # endif
 #elif defined GNULIB_POSIXCHECK
 # undef mkostemp
@@ -222,6 +233,32 @@ extern int mkostemp (char * /*template*/, int /*flags*/);
     (GL_LINK_WARNING ("mkostemp is unportable - " \
                       "use gnulib module mkostemp for portability"), \
      mkostemp (t, f))
+#endif
+
+#if @GNULIB_MKOSTEMPS@
+# if !@HAVE_MKOSTEMPS@
+/* Create a unique temporary file from TEMPLATE.
+   The last six characters of TEMPLATE before a suffix of length
+   SUFFIXLEN must be "XXXXXX";
+   they are replaced with a string that makes the file name unique.
+   The flags are a bitmask, possibly including O_CLOEXEC (defined in <fcntl.h>)
+   and O_TEXT, O_BINARY (defined in "binary-io.h").
+   The file is then created, with the specified flags, ensuring it didn't exist
+   before.
+   The file is created read-write (mask at least 0600 & ~umask), but it may be
+   world-readable and world-writable (mask 0666 & ~umask), depending on the
+   implementation.
+   Returns the open file descriptor if successful, otherwise -1 and errno
+   set.  */
+extern int mkostemps (char * /*template*/, int /*suffixlen*/, int /*flags*/)
+     _GL_ARG_NONNULL ((1));
+# endif
+#elif defined GNULIB_POSIXCHECK
+# undef mkostemps
+# define mkostemps(t,s,f)                          \
+    (GL_LINK_WARNING ("mkostemps is unportable - " \
+                      "use gnulib module mkostemps for portability"), \
+     mkostemps (t, s, f))
 #endif
 
 #if @GNULIB_MKSTEMP@
@@ -236,10 +273,7 @@ extern int mkostemp (char * /*template*/, int /*flags*/);
    Returns the open file descriptor if successful, otherwise -1 and errno
    set.  */
 #  define mkstemp rpl_mkstemp
-extern int mkstemp (char * /*template*/);
-# else
-/* On MacOS X 10.3, only <unistd.h> declares mkstemp.  */
-#  include <unistd.h>
+extern int mkstemp (char * /*template*/) _GL_ARG_NONNULL ((1));
 # endif
 #elif defined GNULIB_POSIXCHECK
 # undef mkstemp
@@ -249,11 +283,34 @@ extern int mkstemp (char * /*template*/);
      mkstemp (t))
 #endif
 
+#if @GNULIB_MKSTEMPS@
+# if !@HAVE_MKSTEMPS@
+/* Create a unique temporary file from TEMPLATE.
+   The last six characters of TEMPLATE prior to a suffix of length
+   SUFFIXLEN must be "XXXXXX";
+   they are replaced with a string that makes the file name unique.
+   The file is then created, ensuring it didn't exist before.
+   The file is created read-write (mask at least 0600 & ~umask), but it may be
+   world-readable and world-writable (mask 0666 & ~umask), depending on the
+   implementation.
+   Returns the open file descriptor if successful, otherwise -1 and errno
+   set.  */
+extern int mkstemps (char * /*template*/, int /*suffixlen*/)
+     _GL_ARG_NONNULL ((1));
+# endif
+#elif defined GNULIB_POSIXCHECK
+# undef mkstemps
+# define mkstemps(t,s)                             \
+    (GL_LINK_WARNING ("mkstemps is unportable - " \
+                      "use gnulib module mkstemps for portability"), \
+     mkstemps (t, s))
+#endif
+
 #if @GNULIB_PUTENV@
 # if @REPLACE_PUTENV@
 #  undef putenv
 #  define putenv rpl_putenv
-extern int putenv (char *string);
+extern int putenv (char *string) _GL_ARG_NONNULL ((1));
 # endif
 #endif
 
@@ -264,30 +321,34 @@ extern int putenv (char *string);
 #   define RAND_MAX 2147483647
 #  endif
 
-int srandom_r (unsigned int seed, struct random_data *rand_state);
+int srandom_r (unsigned int seed, struct random_data *rand_state)
+     _GL_ARG_NONNULL ((2));
 int initstate_r (unsigned int seed, char *buf, size_t buf_size,
-		 struct random_data *rand_state);
-int setstate_r (char *arg_state, struct random_data *rand_state);
-int random_r (struct random_data *buf, int32_t *result);
+                 struct random_data *rand_state)
+     _GL_ARG_NONNULL ((2, 4));
+int setstate_r (char *arg_state, struct random_data *rand_state)
+     _GL_ARG_NONNULL ((1, 2));
+int random_r (struct random_data *buf, int32_t *result)
+     _GL_ARG_NONNULL ((1, 2));
 # endif
 #elif defined GNULIB_POSIXCHECK
 # undef random_r
-# define random_r(b,r)				  \
+# define random_r(b,r)                            \
     (GL_LINK_WARNING ("random_r is unportable - " \
                       "use gnulib module random_r for portability"), \
      random_r (b,r))
 # undef initstate_r
-# define initstate_r(s,b,sz,r)			     \
+# define initstate_r(s,b,sz,r)                       \
     (GL_LINK_WARNING ("initstate_r is unportable - " \
                       "use gnulib module random_r for portability"), \
      initstate_r (s,b,sz,r))
 # undef srandom_r
-# define srandom_r(s,r)				   \
+# define srandom_r(s,r)                            \
     (GL_LINK_WARNING ("srandom_r is unportable - " \
                       "use gnulib module random_r for portability"), \
      srandom_r (s,r))
 # undef setstate_r
-# define setstate_r(a,r)				    \
+# define setstate_r(a,r)                                    \
     (GL_LINK_WARNING ("setstate_r is unportable - " \
                       "use gnulib module random_r for portability"), \
      setstate_r (a,r))
@@ -312,7 +373,7 @@ extern void * realloc (void *ptr, size_t size);
 #  define realpath rpl_realpath
 # endif
 # if !@HAVE_REALPATH@ || @REPLACE_REALPATH@
-extern char *realpath (const char *name, char *resolved);
+extern char *realpath (const char *name, char *resolved) _GL_ARG_NONNULL ((1));
 # endif
 #elif defined GNULIB_POSIXCHECK
 # undef realpath
@@ -326,7 +387,7 @@ extern char *realpath (const char *name, char *resolved);
 # if !@HAVE_RPMATCH@
 /* Test a user response to a question.
    Return 1 if it is affirmative, 0 if it is negative, or -1 if not clear.  */
-extern int rpmatch (const char *response);
+extern int rpmatch (const char *response) _GL_ARG_NONNULL ((1));
 # endif
 #elif defined GNULIB_POSIXCHECK
 # undef rpmatch
@@ -337,11 +398,22 @@ extern int rpmatch (const char *response);
 #endif
 
 #if @GNULIB_SETENV@
-# if !@HAVE_SETENV@
+# if @REPLACE_SETENV@
+#  undef setenv
+#  define setenv rpl_setenv
+# endif
+# if !@HAVE_SETENV@ || @REPLACE_SETENV@
 /* Set NAME to VALUE in the environment.
    If REPLACE is nonzero, overwrite an existing value.  */
-extern int setenv (const char *name, const char *value, int replace);
+extern int setenv (const char *name, const char *value, int replace)
+     _GL_ARG_NONNULL ((1));
 # endif
+#elif defined GNULIB_POSIXCHECK
+# undef setenv
+# define setenv(n,v,o)                                                  \
+    (GL_LINK_WARNING ("setenv is unportable - "                         \
+                      "use gnulib module setenv for portability"),      \
+     setenv (n, v, o))
 #endif
 
 #if @GNULIB_STRTOD@
@@ -350,7 +422,7 @@ extern int setenv (const char *name, const char *value, int replace);
 # endif
 # if !@HAVE_STRTOD@ || @REPLACE_STRTOD@
  /* Parse a double from STRING, updating ENDP if appropriate.  */
-extern double strtod (const char *str, char **endp);
+extern double strtod (const char *str, char **endp) _GL_ARG_NONNULL ((1));
 # endif
 #elif defined GNULIB_POSIXCHECK
 # undef strtod
@@ -370,7 +442,8 @@ extern double strtod (const char *str, char **endp);
    stored in *ENDPTR.
    Upon overflow, the return value is LLONG_MAX or LLONG_MIN, and errno is set
    to ERANGE.  */
-extern long long strtoll (const char *string, char **endptr, int base);
+extern long long strtoll (const char *string, char **endptr, int base)
+     _GL_ARG_NONNULL ((1));
 # endif
 #elif defined GNULIB_POSIXCHECK
 # undef strtoll
@@ -390,7 +463,8 @@ extern long long strtoll (const char *string, char **endptr, int base);
    stored in *ENDPTR.
    Upon overflow, the return value is ULLONG_MAX, and errno is set to
    ERANGE.  */
-extern unsigned long long strtoull (const char *string, char **endptr, int base);
+extern unsigned long long strtoull (const char *string, char **endptr, int base)
+     _GL_ARG_NONNULL ((1));
 # endif
 #elif defined GNULIB_POSIXCHECK
 # undef strtoull
@@ -401,16 +475,20 @@ extern unsigned long long strtoull (const char *string, char **endptr, int base)
 #endif
 
 #if @GNULIB_UNSETENV@
-# if @HAVE_UNSETENV@
-#  if @VOID_UNSETENV@
-/* On some systems, unsetenv() returns void.
-   This is the case for MacOS X 10.3, FreeBSD 4.8, NetBSD 1.6, OpenBSD 3.4.  */
-#   define unsetenv(name) ((unsetenv)(name), 0)
-#  endif
-# else
-/* Remove the variable NAME from the environment.  */
-extern int unsetenv (const char *name);
+# if @REPLACE_UNSETENV@
+#  undef unsetenv
+#  define unsetenv rpl_unsetenv
 # endif
+# if !@HAVE_UNSETENV@ || @REPLACE_UNSETENV@
+/* Remove the variable NAME from the environment.  */
+extern int unsetenv (const char *name) _GL_ARG_NONNULL ((1));
+# endif
+#elif defined GNULIB_POSIXCHECK
+# undef unsetenv
+# define unsetenv(n)                                                    \
+    (GL_LINK_WARNING ("unsetenv is unportable - "                       \
+                      "use gnulib module unsetenv for portability"),    \
+     unsetenv (n))
 #endif
 
 #ifdef __cplusplus

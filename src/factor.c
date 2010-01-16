@@ -1,5 +1,5 @@
 /* factor -- print prime factors of n.
-   Copyright (C) 86, 1995-2005, 2007-2009 Free Software Foundation, Inc.
+   Copyright (C) 1986, 1995-2005, 2007-2010 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -60,6 +60,7 @@ debug (char const *fmt, ...)
       va_list ap;
       va_start (ap, fmt);
       vfprintf (stderr, fmt, ap);
+      va_end (ap);
     }
 }
 
@@ -67,7 +68,7 @@ static void
 emit_factor (mpz_t n)
 {
   if (nfactors_found == nfactors_allocated)
-    factor = x2nrealloc (factor, &nfactors_allocated, sizeof *factor);
+    factor = X2NREALLOC (factor, &nfactors_allocated);
   mpz_init (factor[nfactors_found]);
   mpz_set (factor[nfactors_found], n);
   ++nfactors_found;

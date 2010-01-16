@@ -1,5 +1,5 @@
 /* id -- print real and effective UIDs and GIDs
-   Copyright (C) 1989-2009 Free Software Foundation, Inc.
+   Copyright (C) 1989-2010 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -292,12 +292,11 @@ print_full_info (const char *username)
         printf ("(%s)", grp->gr_name);
     }
 
-#if HAVE_GETGROUPS
   {
-    GETGROUPS_T *groups;
+    gid_t *groups;
     int i;
 
-    int n_groups = mgetgroups (username, (pwd ? pwd->pw_gid : (gid_t) -1),
+    int n_groups = xgetgroups (username, (pwd ? pwd->pw_gid : (gid_t) -1),
                                &groups);
     if (n_groups < 0)
       {
@@ -327,7 +326,6 @@ print_full_info (const char *username)
       }
     free (groups);
   }
-#endif /* HAVE_GETGROUPS */
 
   /* POSIX mandates the precise output format, and that it not include
      any context=... part, so skip that if POSIXLY_CORRECT is set.  */

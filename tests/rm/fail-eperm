@@ -2,7 +2,7 @@
 # Ensure that rm gives the expected diagnostic when failing to remove a file
 # owned by some other user in a directory with the sticky bit set.
 
-# Copyright (C) 2002-2004, 2006-2009 Free Software Foundation, Inc.
+# Copyright (C) 2002-2004, 2006-2010 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -32,8 +32,13 @@ my $verbose = $ENV{VERBOSE} && $ENV{VERBOSE} eq 'yes';
 $ENV{LC_ALL} = 'C';
 
 # Set up a safe, well-known environment
-delete @ENV{qw(BASH_ENV CDPATH ENV PATH)};
+delete @ENV{qw(BASH_ENV CDPATH ENV)};
 $ENV{IFS}  = '';
+
+# Taint checking requires a sanitized $PATH.  This script performs no $PATH
+# search, so on most Unix-based systems, it is fine simply to clear $ENV{PATH}.
+# However, on Cygwin, it's used to find cygwin1.dll, so set it.
+$ENV{PATH} = '/bin:/usr/bin';
 
 my @dir_list = qw(/tmp /var/tmp /usr/tmp);
 my $rm = "$ENV{abs_top_builddir}/src/rm";

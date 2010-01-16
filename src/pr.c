@@ -1,5 +1,5 @@
 /* pr -- convert text files for printing.
-   Copyright (C) 88, 91, 1995-2009 Free Software Foundation, Inc.
+   Copyright (C) 1988, 1991, 1995-2010 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -2403,10 +2403,10 @@ print_header (void)
   lhs_spaces = available_width >> 1;
   rhs_spaces = available_width - lhs_spaces;
 
-  printf ("\n\n%*.*s%s%*.*s%s%*.*s%s\n\n\n",
-          chars_per_margin, chars_per_margin, " ",
-          date_text, lhs_spaces, lhs_spaces, " ",
-          file_text, rhs_spaces, rhs_spaces, " ", page_text);
+  printf ("\n\n%*s%s%*s%s%*s%s\n\n\n",
+          chars_per_margin, "",
+          date_text, lhs_spaces, " ",
+          file_text, rhs_spaces, " ", page_text);
 
   print_a_header = false;
   output_position = 0;
@@ -2835,7 +2835,7 @@ Mandatory arguments to long options are mandatory for short options too.\n\
                     omit warning when a file cannot be opened\n\
 "), stdout);
       fputs (_("\
-  -s[CHAR],--separator[=CHAR]\n\
+  -s[CHAR], --separator[=CHAR]\n\
                     separate columns by a single character, default for CHAR\n\
                     is the <TAB> character without -w and \'no char\' with -w\n\
                     -s[CHAR] turns off line truncation of all 3 column\n\
@@ -2868,8 +2868,8 @@ Mandatory arguments to long options are mandatory for short options too.\n\
       fputs (VERSION_OPTION_DESCRIPTION, stdout);
       fputs (_("\
 \n\
--t is implied if PAGE_LENGTH <= 10.  With no FILE, or when\n\
-FILE is -, read standard input.\n\
+-t is implied if PAGE_LENGTH <= 10.  With no FILE, or when FILE is -, read\n\
+standard input.\n\
 "), stdout);
       emit_ancillary_info ();
     }

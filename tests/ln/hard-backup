@@ -1,7 +1,7 @@
 #!/bin/sh
 # Ensure that 'ln --backup F F' gives a proper diagnostic.
 
-# Copyright (C) 2006-2009 Free Software Foundation, Inc.
+# Copyright (C) 2006-2010 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -25,7 +25,6 @@ fi
 
 touch f || framework_failure
 
-fail=0
 
 ln --backup f f 2> out && fail=1
 cat <<\EOF > exp || fail=1

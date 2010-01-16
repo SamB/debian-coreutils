@@ -1,7 +1,7 @@
 #!/bin/sh
 # tail -f - would fail with the initial inotify implementation
 
-# Copyright (C) 2009 Free Software Foundation, Inc.
+# Copyright (C) 2009-2010 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -26,7 +26,6 @@ fi
 echo line > exp || framework_failure
 echo line > in || framework_failure
 
-fail=0
 timeout 1 tail -f < in > out 2> err
 
 # tail from coreutils-7.5 would fail

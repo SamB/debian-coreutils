@@ -2,7 +2,7 @@
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
 #line 1
 /* Test argv iterator
-   Copyright (C) 2008-2009 Free Software Foundation, Inc.
+   Copyright (C) 2008-2010 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -20,25 +20,16 @@
 /* Written by Jim Meyering.  */
 
 #include <config.h>
-#include <stdlib.h>
+
+#include "argv-iter.h"
+
 #include <stdio.h>
 #include <string.h>
 
+#include "macros.h"
+
 #define ARRAY_CARDINALITY(Array) (sizeof (Array) / sizeof *(Array))
 #define STREQ(s1, s2) (strcmp (s1, s2) == 0)
-#define ASSERT(expr) \
-  do                                                                         \
-    {                                                                        \
-      if (!(expr))                                                           \
-        {                                                                    \
-          fprintf (stderr, "%s:%d: assertion failed\n", __FILE__, __LINE__); \
-          fflush (stderr);                                                   \
-          abort ();                                                          \
-        }                                                                    \
-    }                                                                        \
-  while (0)
-
-#include "argv-iter.h"
 
 static FILE *
 write_nul_delimited_argv (char **argv)
@@ -57,14 +48,17 @@ write_nul_delimited_argv (char **argv)
 }
 
 int
-main ()
+main (void)
 {
   /* set_program_name (argv[0]); placate overzealous "syntax-check" test.  */
+  static char one[] = "1";
+  static char two[] = "2";
+  static char three[] = "3";
   static char *av[][4] = {
     {NULL},
-    {"1", NULL},
-    {"1", "2", NULL},
-    {"1", "2", "3", NULL}
+    {one, NULL},
+    {one, two, NULL},
+    {one, two, three, NULL}
   };
 
   int use_stream;

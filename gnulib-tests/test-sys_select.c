@@ -2,7 +2,7 @@
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
 #line 1
 /* Test of <sys/select.h> substitute.
-   Copyright (C) 2007-2009 Free Software Foundation, Inc.
+   Copyright (C) 2007-2010 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@
 struct timeval t1;
 
 int
-main ()
+main (void)
 {
   /* Check that FD_ZERO can be used.  This should not yield a warning
      such as "warning: implicit declaration of function 'memset'".  */

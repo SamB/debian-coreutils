@@ -1,5 +1,6 @@
 /* `dir', `vdir' and `ls' directory listing programs for GNU.
-   Copyright (C) 85, 88, 90, 91, 1995-2009 Free Software Foundation, Inc.
+   Copyright (C) 1985, 1988, 1990-1991, 1995-2010 Free Software Foundation,
+   Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -37,10 +38,6 @@
 
 #include <config.h>
 #include <sys/types.h>
-
-#ifdef HAVE_CAP
-# include <sys/capability.h>
-#endif
 
 #if HAVE_TERMIOS_H
 # include <termios.h>
@@ -111,6 +108,13 @@
 #include "xstrtol.h"
 #include "areadlink.h"
 #include "mbsalign.h"
+
+/* Include <sys/capability.h> last to avoid a clash of <sys/types.h>
+   include guards with some premature versions of libcap.
+   For more details, see <http://bugzilla.redhat.com/483548>.  */
+#ifdef HAVE_CAP
+# include <sys/capability.h>
+#endif
 
 #define PROGRAM_NAME (ls_mode == LS_LS ? "ls" \
                       : (ls_mode == LS_MULTI_COL \
@@ -214,6 +218,9 @@ struct fileinfo
     /* For long listings, true if the file has an access control list,
        or an SELinux security context.  */
     enum acl_type acl_type;
+
+    /* For color listings, true if a regular file has capability info.  */
+    bool has_capability;
   };
 
 #define LEN_STR_PAIR(s) sizeof (s) - 1, s
@@ -241,9 +248,8 @@ static bool file_ignored (char const *name);
 static uintmax_t gobble_file (char const *name, enum filetype type,
                               ino_t inode, bool command_line_arg,
                               char const *dirname);
-static bool print_color_indicator (const char *name, mode_t mode, int linkok,
-                                   bool stat_ok, enum filetype type,
-                                   nlink_t nlink);
+static bool print_color_indicator (const struct fileinfo *f,
+                                   bool symlink_target);
 static void put_indicator (const struct bin_str *ind);
 static void add_ignore_pattern (const char *pattern);
 static void attach (char *dest, const char *dirname, const char *name);
@@ -264,11 +270,9 @@ static int format_user_width (uid_t u);
 static int format_group_width (gid_t g);
 static void print_long_format (const struct fileinfo *f);
 static void print_many_per_line (void);
-static size_t print_name_with_quoting (const char *p, mode_t mode,
-                                       int linkok, bool stat_ok,
-                                       enum filetype type,
+static size_t print_name_with_quoting (const struct fileinfo *f,
+                                       bool symlink_target,
                                        struct obstack *stack,
-                                       nlink_t nlink,
                                        size_t start_col);
 static void prep_non_filename_text (void);
 static bool print_type_indicator (bool stat_ok, mode_t mode,
@@ -2637,6 +2641,37 @@ unsigned_file_size (off_t size)
   return size + (size < 0) * ((uintmax_t) OFF_T_MAX - OFF_T_MIN + 1);
 }
 
+#ifdef HAVE_CAP
+/* Return true if NAME has a capability (see linux/capability.h) */
+static bool
+has_capability (char const *name)
+{
+  char *result;
+  bool has_cap;
+
+  cap_t cap_d = cap_get_file (name);
+  if (cap_d == NULL)
+    return false;
+
+  result = cap_to_text (cap_d, NULL);
+  cap_free (cap_d);
+  if (!result)
+    return false;
+
+  /* check if human-readable capability string is empty */
+  has_cap = !!*result;
+
+  cap_free (result);
+  return has_cap;
+}
+#else
+static bool
+has_capability (char const *name ATTRIBUTE_UNUSED)
+{
+  return false;
+}
+#endif
+
 /* Enter and remove entries in the table `cwd_file'.  */
 
 /* Empty the table of files.  */
@@ -2718,11 +2753,16 @@ gobble_file (char const *name, enum filetype type, ino_t inode,
                  to see if it's executable.  */
               || (type == normal && (indicator_style == classify
                                      /* This is so that --color ends up
-                                        highlighting files with the executable
-                                        bit set even when options like -F are
-                                        not specified.  */
+                                        highlighting files with these mode
+                                        bits set even when options like -F are
+                                        not specified.  Note we do a redundant
+                                        stat in the very unlikely case where
+                                        C_CAP is set but not the others. */
                                      || (print_with_color
-                                         && is_colored (C_EXEC))
+                                         && (is_colored (C_EXEC)
+                                             || is_colored (C_SETUID)
+                                             || is_colored (C_SETGID)
+                                             || is_colored (C_CAP)))
                                      )))))
 
     {
@@ -2793,6 +2833,11 @@ gobble_file (char const *name, enum filetype type, ino_t inode,
 
       f->stat_ok = true;
 
+      /* Note has_capability() adds around 30% runtime to `ls --color`  */
+      if ((type == normal || S_ISREG (f->stat.st_mode))
+          && print_with_color && is_colored (C_CAP))
+        f->has_capability = has_capability (absolute_name);
+
       if (format == long_format || print_scontext)
         {
           bool have_selinux = false;
@@ -2801,17 +2846,6 @@ gobble_file (char const *name, enum filetype type, ino_t inode,
                           ?  getfilecon (absolute_name, &f->scontext)
                           : lgetfilecon (absolute_name, &f->scontext));
           err = (attr_len < 0);
-
-          /* Contrary to its documented API, getfilecon may return 0,
-             yet set f->scontext to NULL (on at least Debian's libselinux1
-             2.0.15-2+b1), so work around that bug.
-             FIXME: remove this work-around in 2011, or whenever affected
-             versions of libselinux are long gone.  */
-          if (attr_len == 0)
-            {
-              err = 0;
-              f->scontext = xstrdup ("unlabeled");
-            }
 
           if (err == 0)
             have_selinux = ! STREQ ("unlabeled", f->scontext);
@@ -3242,8 +3276,7 @@ DEFINE_SORT_FUNCTIONS (extension, cmp_extension)
    All the other sort options, in fact, need xstrcoll and strcmp variants,
    because they all use a string comparison (either as the primary or secondary
    sort key), and xstrcoll has the ability to do a longjmp if strcoll fails for
-   locale reasons.  Last, strverscmp is ALWAYS available in coreutils,
-   thanks to the gnulib library. */
+   locale reasons.  Lastly, filevercmp is ALWAYS available with gnulib.  */
 static inline int
 cmp_version (struct fileinfo const *a, struct fileinfo const *b)
 {
@@ -3772,18 +3805,14 @@ print_long_format (const struct fileinfo *f)
     }
 
   DIRED_FPUTS (buf, stdout, p - buf);
-  size_t w = print_name_with_quoting (f->name, FILE_OR_LINK_MODE (f), f->linkok,
-                                      f->stat_ok, f->filetype, &dired_obstack,
-                                      f->stat.st_nlink, p - buf);
+  size_t w = print_name_with_quoting (f, false, &dired_obstack, p - buf);
 
   if (f->filetype == symbolic_link)
     {
       if (f->linkname)
         {
           DIRED_FPUTS_LITERAL (" -> ", stdout);
-          print_name_with_quoting (f->linkname, f->linkmode, f->linkok - 1,
-                                   f->stat_ok, f->filetype, NULL,
-                                   f->stat.st_nlink, (p - buf) + w + 4);
+          print_name_with_quoting (f, true, NULL, (p - buf) + w + 4);
           if (indicator_style != none)
             print_type_indicator (true, f->linkmode, unknown);
         }
@@ -3959,19 +3988,20 @@ quote_name (FILE *out, const char *name, struct quoting_options const *options,
 }
 
 static size_t
-print_name_with_quoting (const char *p, mode_t mode, int linkok,
-                         bool stat_ok, enum filetype type,
-                         struct obstack *stack, nlink_t nlink,
+print_name_with_quoting (const struct fileinfo *f,
+                         bool symlink_target,
+                         struct obstack *stack,
                          size_t start_col)
 {
+  const char* name = symlink_target ? f->linkname : f->name;
+
   bool used_color_this_time
-    = (print_with_color
-       && print_color_indicator (p, mode, linkok, stat_ok, type, nlink));
+    = (print_with_color && print_color_indicator (f, symlink_target));
 
   if (stack)
     PUSH_CURRENT_DIRED_POS (stack);
 
-  size_t width = quote_name (stdout, p, filename_quoting_options, NULL);
+  size_t width = quote_name (stdout, name, filename_quoting_options, NULL);
   dired_pos += width;
 
   if (stack)
@@ -4023,9 +4053,7 @@ print_file_name_and_frills (const struct fileinfo *f, size_t start_col)
   if (print_scontext)
     printf ("%*s ", format == with_commas ? 0 : scontext_width, f->scontext);
 
-  size_t width = print_name_with_quoting (f->name, FILE_OR_LINK_MODE (f),
-                                          f->linkok, f->stat_ok, f->filetype,
-                                          NULL, f->stat.st_nlink, start_col);
+  size_t width = print_name_with_quoting (f, false, NULL, start_col);
 
   if (indicator_style != none)
     width += print_type_indicator (f->stat_ok, f->stat.st_mode, f->filetype);
@@ -4076,55 +4104,38 @@ print_type_indicator (bool stat_ok, mode_t mode, enum filetype type)
   return !!c;
 }
 
-#ifdef HAVE_CAP
-/* Return true if NAME has a capability (see linux/capability.h) */
-static bool
-has_capability (char const *name)
-{
-  char *result;
-  bool has_cap;
-
-  cap_t cap_d = cap_get_file (name);
-  if (cap_d == NULL)
-    return false;
-
-  result = cap_to_text (cap_d, NULL);
-  cap_free (cap_d);
-  if (!result)
-    return false;
-
-  /* check if human-readable capability string is empty */
-  has_cap = !!*result;
-
-  cap_free (result);
-  return has_cap;
-}
-#else
-static bool
-has_capability (char const *name ATTRIBUTE_UNUSED)
-{
-  return false;
-}
-#endif
-
 /* Returns whether any color sequence was printed. */
 static bool
-print_color_indicator (const char *name, mode_t mode, int linkok,
-                       bool stat_ok, enum filetype filetype,
-                       nlink_t nlink)
+print_color_indicator (const struct fileinfo *f, bool symlink_target)
 {
   enum indicator_no type;
   struct color_ext_type *ext;	/* Color extension */
   size_t len;			/* Length of name */
 
+  const char* name;
+  mode_t mode;
+  int linkok;
+  if (symlink_target)
+    {
+      name = f->linkname;
+      mode = f->linkmode;
+      linkok = f->linkok - 1;
+    }
+  else
+    {
+      name = f->name;
+      mode = FILE_OR_LINK_MODE (f);
+      linkok = f->linkok;
+    }
+
   /* Is this a nonexistent file?  If so, linkok == -1.  */
 
   if (linkok == -1 && color_indicator[C_MISSING].string != NULL)
     type = C_MISSING;
-  else if (! stat_ok)
+  else if (!f->stat_ok)
     {
       static enum indicator_no filetype_indicator[] = FILETYPE_INDICATORS;
-      type = filetype_indicator[filetype];
+      type = filetype_indicator[f->filetype];
     }
   else
     {
@@ -4136,12 +4147,11 @@ print_color_indicator (const char *name, mode_t mode, int linkok,
             type = C_SETUID;
           else if ((mode & S_ISGID) != 0 && is_colored (C_SETGID))
             type = C_SETGID;
-          /* has_capability() called second for performance.  */
-          else if (is_colored (C_CAP) && has_capability (name))
+          else if (is_colored (C_CAP) && f->has_capability)
             type = C_CAP;
           else if ((mode & S_IXUGO) != 0 && is_colored (C_EXEC))
             type = C_EXEC;
-          else if ((1 < nlink) && is_colored (C_MULTIHARDLINK))
+          else if ((1 < f->stat.st_nlink) && is_colored (C_MULTIHARDLINK))
             type = C_MULTIHARDLINK;
         }
       else if (S_ISDIR (mode))
@@ -4157,7 +4167,9 @@ print_color_indicator (const char *name, mode_t mode, int linkok,
             type = C_STICKY;
         }
       else if (S_ISLNK (mode))
-        type = ((!linkok && color_indicator[C_ORPHAN].string)
+        type = ((!linkok
+                 && (!strncmp (color_indicator[C_LINK].string, "target", 6)
+                     || color_indicator[C_ORPHAN].string))
                 ? C_ORPHAN : C_LINK);
       else if (S_ISFIFO (mode))
         type = C_FIFO;

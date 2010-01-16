@@ -1,7 +1,7 @@
 #!/bin/sh
 # Ensure that rm -rf removes an empty-and-inaccessible directory.
 
-# Copyright (C) 2006-2009 Free Software Foundation, Inc.
+# Copyright (C) 2006-2010 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -30,7 +30,6 @@ mkdir -m0 inacc || framework_failure
 # that is empty (hence removable) and unreadable.
 mkdir -m a-r -p a/unreadable
 
-fail=0
 
 # This would fail for e.g., coreutils-5.93.
 rm -rf inacc || fail=1

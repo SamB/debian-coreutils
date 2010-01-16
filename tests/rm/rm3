@@ -1,7 +1,7 @@
 #!/bin/sh
 # exercise another small part of remove.c
 
-# Copyright (C) 2002-2004, 2006-2009 Free Software Foundation, Inc.
+# Copyright (C) 2002-2004, 2006-2010 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -34,7 +34,6 @@ mkdir d du || framework_failure
 chmod u-w fu du empty-u || framework_failure
 cd ..
 
-fail=0
 
 cat <<EOF > in
 y

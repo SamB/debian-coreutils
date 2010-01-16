@@ -22,29 +22,20 @@
 
 #include <string.h>
 
-#include <stdio.h>
+#include "signature.h"
+SIGNATURE_CHECK (memrchr, void *, (void const *, int, size_t));
+
 #include <stdlib.h>
 
 #include "zerosize-ptr.h"
-
-#define ASSERT(expr) \
-  do									     \
-    {									     \
-      if (!(expr))							     \
-	{								     \
-	  fprintf (stderr, "%s:%d: assertion failed\n", __FILE__, __LINE__); \
-	  fflush (stderr);						     \
-	  abort ();							     \
-	}								     \
-    }									     \
-  while (0)
+#include "macros.h"
 
 /* Calculating void * + int is not portable, so this wrapper converts
    to char * to make the tests easier to write.  */
 #define MEMRCHR (char *) memrchr
 
 int
-main ()
+main (void)
 {
   size_t n = 0x100000;
   char *input = malloc (n);
@@ -79,7 +70,7 @@ main ()
     size_t repeat = 10000;
     for (; repeat > 0; repeat--)
       {
-	ASSERT (MEMRCHR (input, 'c', n) == input + n - 3);
+        ASSERT (MEMRCHR (input, 'c', n) == input + n - 3);
       }
   }
 
@@ -88,12 +79,12 @@ main ()
     int i, j;
     for (i = 0; i < 32; i++)
       {
-	for (j = 0; j < 256; j++)
-	  input[i + j] = j;
-	for (j = 0; j < 256; j++)
-	  {
-	    ASSERT (MEMRCHR (input + i, j, 256) == input + i + j);
-	  }
+        for (j = 0; j < 256; j++)
+          input[i + j] = j;
+        for (j = 0; j < 256; j++)
+          {
+            ASSERT (MEMRCHR (input + i, j, 256) == input + i + j);
+          }
       }
   }
 

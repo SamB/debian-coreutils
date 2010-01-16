@@ -2,7 +2,7 @@
 # Exercise mv's file-descriptor-leak bug, reported against coreutils-5.2.1
 # and fixed (properly) on 2004-10-21.
 
-# Copyright (C) 2004, 2006-2009 Free Software Foundation, Inc.
+# Copyright (C) 2004, 2006-2010 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -48,7 +48,6 @@ sed 's,$,/f,' .dirs | xargs touch
 last_file=`tail -n1 .dirs`/f
 test -f $last_file || framework_failure
 
-fail=0
 
 mv * "$other_partition_tmpdir" || fail=1
 test -f $last_file/f && fail=1

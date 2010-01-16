@@ -1,7 +1,7 @@
 #!/bin/sh
 # Show that split -a works.
 
-# Copyright (C) 2002-2009 Free Software Foundation, Inc.
+# Copyright (C) 2002-2010 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -41,7 +41,6 @@ done > exp || framework_failure
 echo split: output file suffixes exhausted \
   > exp-too-short || framework_failure
 
-fail=0
 
 # This should fail.
 split -b 1 -a 1 in 2> err && fail=1

@@ -1,7 +1,7 @@
 #!/bin/sh
 # ensure that touch can operate on read-only files
 
-# Copyright (C) 2005-2009 Free Software Foundation, Inc.
+# Copyright (C) 2005-2010 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -27,7 +27,6 @@ skip_if_root_
 : > read-only || framework_failure
 chmod 444 read-only || framework_failure
 
-fail=0
 
 touch read-only || fail=1
 

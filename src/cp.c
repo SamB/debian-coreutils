@@ -1,5 +1,5 @@
 /* cp.c  -- file copying (main routines)
-   Copyright (C) 89, 90, 91, 1995-2009 Free Software Foundation, Inc.
+   Copyright (C) 1989-1991, 1995-2010 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -411,8 +411,8 @@ make_dir_parents_private (char const *const_dir, size_t src_offset,
           *slash = '\0';
           missing_dir = (stat (dir, &stats) != 0);
 
-          if (missing_dir | x->preserve_ownership | x->preserve_mode
-              | x->preserve_timestamps)
+          if (missing_dir || x->preserve_ownership || x->preserve_mode
+              || x->preserve_timestamps)
             {
               /* Add this directory to the list of directories whose
                  modes might need fixing later. */

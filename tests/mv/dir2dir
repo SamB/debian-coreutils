@@ -2,7 +2,7 @@
 # Ensure that mv prints the right diagnostic for a dir->dir move
 # where the destination directory is not empty.
 
-# Copyright (C) 2006-2009 Free Software Foundation, Inc.
+# Copyright (C) 2006-2010 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -27,7 +27,6 @@ fi
 mkdir -p a/t b/t || framework_failure
 touch a/t/f || framework_failure
 
-fail=0
 
 # Expect this to fail with the expected diagnostic.
 # For an interrim (pre-6.0) release, it would give an erroneous

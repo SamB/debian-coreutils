@@ -1,5 +1,5 @@
 /* df - summarize free disk space
-   Copyright (C) 91, 1995-2009 Free Software Foundation, Inc.
+   Copyright (C) 1991, 1995-2010 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -148,18 +148,26 @@ print_header (void)
   char buf[MAX (LONGEST_HUMAN_READABLE + 1, INT_BUFSIZE_BOUND (uintmax_t))];
 
   if (print_type)
+    /* TRANSLATORS:
+       For best results (df header/column alignment), ensure that
+       your translation has the same length as the original.  */
     fputs (_("Filesystem    Type"), stdout);
   else
     fputs (_("Filesystem        "), stdout);
 
   if (inode_format)
-    printf (_("    Inodes   IUsed   IFree IUse%%"));
+    /* TRANSLATORS:
+       For best results (df header/column alignment), ensure that
+       your translation has the same length as the original.
+       Also, each column name translation should end at the same
+       column as the corresponding original.  */
+    fputs (_("    Inodes   IUsed   IFree IUse%"), stdout);
   else if (human_output_opts & human_autoscale)
     {
       if (human_output_opts & human_base_1024)
-        printf (_("    Size  Used Avail Use%%"));
+        fputs (_("    Size  Used Avail Use%"), stdout);
       else
-        printf (_("     Size   Used  Avail Use%%"));
+        fputs (_("     Size   Used  Avail Use%"), stdout);
     }
   else if (posix_format)
     printf (_(" %s-blocks      Used Available Capacity"),
@@ -197,7 +205,7 @@ print_header (void)
               human_readable (output_block_size, buf, opts, 1, 1));
     }
 
-  printf (_(" Mounted on\n"));
+  fputs (_(" Mounted on\n"), stdout);
 }
 
 /* Is FSTYPE a type of file system that should be listed?  */

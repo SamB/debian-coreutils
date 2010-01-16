@@ -1,7 +1,7 @@
 #!/bin/sh
 # ensure that ls does not stat a symlink in an unusual case
 
-# Copyright (C) 2007-2009 Free Software Foundation, Inc.
+# Copyright (C) 2007-2010 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -28,7 +28,6 @@ touch x || framework_failure
 chmod a+x x || framework_failure
 ln -s x link-to-x || framework_failure
 
-fail=0
 
 # ls from coreutils 6.9 would unnecessarily stat a symlink in an unusual case:
 # When not coloring orphan and missing entries, and without ln=target,

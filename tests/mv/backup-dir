@@ -1,7 +1,7 @@
 #!/bin/sh
 # Ensure "mv --verbose --backup" works the same for dirs and non-dirs.
 
-# Copyright (C) 2006-2009 Free Software Foundation, Inc.
+# Copyright (C) 2006-2010 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -26,7 +26,6 @@ fi
 mkdir A B || framework_failure
 touch X Y || framework_failure
 
-fail=0
 
 # Before coreutils-6.2, the " (backup: `B.~1~')" suffix was not printed.
 mv --verbose --backup=numbered -T A B > out || fail=1

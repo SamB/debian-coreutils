@@ -2,7 +2,7 @@
    This function is probably useful only for choosing whether to issue
    a prompt in an implementation of POSIX-specified rm.
 
-   Copyright (C) 2005, 2006, 2009 Free Software Foundation, Inc.
+   Copyright (C) 2005-2006, 2009-2010 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -130,6 +130,6 @@ main (int argc, char **argv)
 
   ok = euidaccess_stat (&st, mode);
   printf ("%s: %s\n", file, ok ? "y" : "n");
-  exit (0);
+  return 0;
 }
 #endif

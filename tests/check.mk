@@ -1,5 +1,5 @@
 # Include this file at the end of each tests/*/Makefile.am.
-# Copyright (C) 2007-2009 Free Software Foundation, Inc.
+# Copyright (C) 2007-2010 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -80,7 +80,7 @@ TESTS_ENVIRONMENT =				\
   srcdir='$(srcdir)'				\
   top_srcdir='$(top_srcdir)'			\
   CONFIG_HEADER='$(abs_top_builddir)/lib/config.h' \
-  CU_TEST_NAME=`basename '$(abs_srcdir)'`,$$tst	\
+  CU_TEST_NAME=`basename '$(abs_srcdir)'`,`echo $$tst|sed 's,^\./,,;s,/,-,g'` \
   CC='$(CC)'					\
   AWK='$(AWK)'					\
   EGREP='$(EGREP)'				\
@@ -91,6 +91,7 @@ TESTS_ENVIRONMENT =				\
   PERL='$(PERL)'				\
   PREFERABLY_POSIX_SHELL='$(PREFERABLY_POSIX_SHELL)' \
   REPLACE_GETCWD=$(REPLACE_GETCWD)		\
+  ; test -d /usr/xpg4/bin && PATH='/usr/xpg4/bin$(PATH_SEPARATOR)'"$$PATH"; \
   PATH='$(abs_top_builddir)/src$(PATH_SEPARATOR)'"$$PATH" \
   ; shell_or_perl_
 

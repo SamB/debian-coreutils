@@ -3,7 +3,7 @@
 # Also check for the dtype-related (and fs-type dependent) bug
 # in coreutils-6.0 that made ls -CF columns misaligned.
 
-# Copyright (C) 2006-2009 Free Software Foundation, Inc.
+# Copyright (C) 2006-2010 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -44,7 +44,6 @@ chmod 600 d || framework_failure
 mkdir -p e/a2345 e/b || framework_failure
 chmod 600 e || framework_failure
 
-fail=0
 
 ls --file-type d > out || fail=1
 cat <<\EOF > exp || fail=1

@@ -1,6 +1,6 @@
 /* sum -- checksum and count the blocks in a file
-   Copyright (C) 86, 89, 91, 1995-2002, 2004, 2005,
-   2008-2009 Free Software Foundation, Inc.
+   Copyright (C) 1986, 1989, 1991, 1995-2002, 2004-2005, 2008-2010 Free
+   Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -232,6 +232,10 @@ main (int argc, char **argv)
   textdomain (PACKAGE);
 
   atexit (close_stdout);
+
+  /* Line buffer stdout to ensure lines are written atomically and immediately
+     so that processes running in parallel do not intersperse their output.  */
+  setvbuf (stdout, NULL, _IOLBF, 0);
 
   have_read_stdin = false;
 

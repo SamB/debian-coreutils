@@ -2,7 +2,7 @@
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
 #line 1
 /* Test of freadptr() function.
-   Copyright (C) 2007-2008 Free Software Foundation, Inc.
+   Copyright (C) 2007-2010 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -23,22 +23,11 @@
 
 #include "freadptr.h"
 
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 
-#define ASSERT(expr) \
-  do									     \
-    {									     \
-      if (!(expr))							     \
-        {								     \
-          fprintf (stderr, "%s:%d: assertion failed\n", __FILE__, __LINE__); \
-          fflush (stderr);						     \
-          abort ();							     \
-        }								     \
-    }									     \
-  while (0)
+#include "macros.h"
 
 int
 main (int argc, char **argv)
@@ -50,7 +39,7 @@ main (int argc, char **argv)
   if (lseek (0, 0, SEEK_CUR) == nbytes)
     {
       /* An unbuffered stdio, such as BeOS or on uClibc compiled without
-	 __STDIO_BUFFERS.  Or stdin is a pipe.  */
+         __STDIO_BUFFERS.  Or stdin is a pipe.  */
       size_t size;
       ASSERT (freadptr (stdin, &size) == NULL);
     }
@@ -58,7 +47,7 @@ main (int argc, char **argv)
     {
       /* Normal buffered stdio.  */
       const char stdin_contents[] =
-	"#!/bin/sh\n\n./test-freadptr${EXEEXT} 5 < \"$srcdir/test-freadptr.sh\" || exit 1\ncat \"$srcdir/test-freadptr.sh\" | ./test-freadptr${EXEEXT} 5 || exit 1\nexit 0\n";
+        "#!/bin/sh\n\n./test-freadptr${EXEEXT} 5 < \"$srcdir/test-freadptr.sh\" || exit 1\ncat \"$srcdir/test-freadptr.sh\" | ./test-freadptr${EXEEXT} 5 || exit 1\nexit 0\n";
       const char *expected = stdin_contents + nbytes;
       size_t available1;
       size_t available2;
@@ -66,41 +55,41 @@ main (int argc, char **argv)
 
       /* Test normal behaviour.  */
       {
-	const char *ptr = freadptr (stdin, &available1);
+        const char *ptr = freadptr (stdin, &available1);
 
-	ASSERT (ptr != NULL);
-	ASSERT (available1 != 0);
-	ASSERT (available1 <= strlen (expected));
-	ASSERT (memcmp (ptr, expected, available1) == 0);
+        ASSERT (ptr != NULL);
+        ASSERT (available1 != 0);
+        ASSERT (available1 <= strlen (expected));
+        ASSERT (memcmp (ptr, expected, available1) == 0);
       }
 
       /* Test behaviour after normal ungetc.  */
       ungetc (fgetc (stdin), stdin);
       {
-	const char *ptr = freadptr (stdin, &available2);
+        const char *ptr = freadptr (stdin, &available2);
 
-	if (ptr != NULL)
-	  {
-	    ASSERT (available2 == available1);
-	    ASSERT (memcmp (ptr, expected, available2) == 0);
-	  }
+        if (ptr != NULL)
+          {
+            ASSERT (available2 == available1);
+            ASSERT (memcmp (ptr, expected, available2) == 0);
+          }
       }
 
       /* Test behaviour after arbitrary ungetc.  */
       fgetc (stdin);
       ungetc ('@', stdin);
       {
-	const char *ptr = freadptr (stdin, &available3);
+        const char *ptr = freadptr (stdin, &available3);
 
-	if (ptr != NULL)
-	  {
-	    ASSERT (available3 == 1 || available3 == available1);
-	    ASSERT (ptr[0] == '@');
-	    if (available3 > 1)
-	      {
-		ASSERT (memcmp (ptr + 1, expected + 1, available3 - 1) == 0);
-	      }
-	  }
+        if (ptr != NULL)
+          {
+            ASSERT (available3 == 1 || available3 == available1);
+            ASSERT (ptr[0] == '@');
+            if (available3 > 1)
+              {
+                ASSERT (memcmp (ptr + 1, expected + 1, available3 - 1) == 0);
+              }
+          }
       }
     }
 

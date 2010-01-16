@@ -2,7 +2,7 @@
 # Ensure that even when run from an inaccessible directory, du can still
 # operate on accessible directories elsewhere.
 
-# Copyright (C) 2003, 2006-2009 Free Software Foundation, Inc.
+# Copyright (C) 2003, 2006-2010 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -33,7 +33,6 @@ mkdir -p no-x a/b || framework_failure
 cd no-x || framework_failure
 chmod 0 . || framework_failure
 
-fail=0
 
 du "$cwd/a" > /dev/null || fail=1
 

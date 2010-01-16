@@ -1,6 +1,6 @@
 # source this file; set up for tests
 
-# Copyright (C) 2009 Free Software Foundation, Inc.
+# Copyright (C) 2009-2010 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,6 +22,31 @@ if test $? != 11; then
   echo "$0: /bin/sh lacks support for functions; skipping this test." 1>&2
   Exit 77
 fi
+
+# Having an unsearchable directory in PATH causes execve to fail with EACCES
+# when applied to an unresolvable program name, contrary to the desired ENOENT.
+# Avoid the problem by rewriting PATH to exclude unsearchable directories.
+sanitize_path_()
+{
+  local saved_IFS=$IFS
+    IFS=:
+    set -- $PATH
+  IFS=$saved_IFS
+
+  local d d1
+  local colon=
+  local new_path=
+  for d in "$@"; do
+    test -z "$d" && d1=. || d1=$d
+    if ls -d "$d1/." > /dev/null 2>&1; then
+      new_path="$new_path$colon$d"
+      colon=':'
+    fi
+  done
+
+  PATH=$new_path
+  export PATH
+}
 
 skip_test_()
 {
@@ -53,7 +78,6 @@ require_selinux_enforcing_()
   test "$(getenforce)" = Enforcing \
     || skip_test_ "This test is useful only with SELinux in Enforcing mode."
 }
-
 
 require_openat_support_()
 {
@@ -395,3 +419,8 @@ elif ( cmp --version < /dev/null 2>&1 | grep GNU ) 2>&1 > /dev/null; then
 else
   compare() { cmp "$@"; }
 fi
+
+sanitize_path_
+
+# Initialize; all bourne shell scripts end with "Exit $fail".
+fail=0

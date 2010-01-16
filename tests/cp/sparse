@@ -1,7 +1,7 @@
 #!/bin/sh
 # Test cp --sparse=always
 
-# Copyright (C) 2006-2009 Free Software Foundation, Inc.
+# Copyright (C) 2006-2010 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -31,7 +31,6 @@ require_sparse_support_
 size=`expr 128 \* 1024 + 1`
 dd bs=1 seek=$size of=sparse < /dev/null 2> /dev/null || framework_failure
 
-fail=0
 
 cp --sparse=always sparse copy || fail=1
 

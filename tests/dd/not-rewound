@@ -2,7 +2,7 @@
 # Make sure dd does the right thing when the input file descriptor
 # is not rewound.
 
-# Copyright (C) 2000, 2004, 2006-2009 Free Software Foundation, Inc.
+# Copyright (C) 2000, 2004, 2006-2010 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,7 +24,6 @@ fi
 
 . $srcdir/test-lib.sh
 
-fail=0
 
 echo abcde > in
 (dd skip=1 count=1 bs=1; dd skip=1 bs=1) < in > out 2> /dev/null || fail=1

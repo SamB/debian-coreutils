@@ -2,7 +2,7 @@
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
 #line 1
 /* Tests of symlink.
-   Copyright (C) 2009 Free Software Foundation, Inc.
+   Copyright (C) 2009, 2010 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -31,18 +31,25 @@ test_symlink (int (*func) (char const *, char const *), bool print)
   if (func ("nowhere", BASE "link1"))
     {
       if (print)
-        fputs ("skipping test: symlinks not supported on this filesystem\n",
+        fputs ("skipping test: symlinks not supported on this file system\n",
                stderr);
       return 77;
     }
 
   /* Some systems allow the creation of 0-length symlinks as a synonym
      for "."; but most reject it.  */
-  errno = 0;
-  if (func ("", BASE "link2") == -1)
-    ASSERT (errno == ENOENT || errno == EINVAL);
-  else
-    ASSERT (unlink (BASE "link2") == 0);
+  {
+    int status;
+    errno = 0;
+    status = func ("", BASE "link2");
+    if (status == -1)
+      ASSERT (errno == ENOENT || errno == EINVAL);
+    else
+      {
+        ASSERT (status == 0);
+        ASSERT (unlink (BASE "link2") == 0);
+      }
+  }
 
   /* Sanity checks of failures.  */
   errno = 0;
@@ -63,15 +70,26 @@ test_symlink (int (*func) (char const *, char const *), bool print)
   ASSERT (errno == EEXIST);
   errno = 0;
   ASSERT (func ("nowhere", BASE "dir/") == -1);
-  ASSERT (errno == EEXIST);
+  ASSERT (errno == EEXIST || errno == EINVAL);
   ASSERT (close (creat (BASE "file", 0600)) == 0);
   errno = 0;
   ASSERT (func ("nowhere", BASE "file") == -1);
   ASSERT (errno == EEXIST);
   errno = 0;
   ASSERT (func ("nowhere", BASE "file/") == -1);
-  ASSERT (errno == EEXIST || errno == ENOTDIR);
+  ASSERT (errno == EEXIST || errno == ENOTDIR || errno == ENOENT);
 
+  /* Trailing slash must always be rejected.  */
+  ASSERT (unlink (BASE "link1") == 0);
+  ASSERT (func (BASE "link2", BASE "link1") == 0);
+  errno = 0;
+  ASSERT (func (BASE "nowhere", BASE "link1/") == -1);
+  ASSERT (errno == EEXIST || errno == ENOTDIR || errno == ENOENT);
+  errno = 0;
+  ASSERT (unlink (BASE "link2") == -1);
+  ASSERT (errno == ENOENT);
+
+  /* Cleanup.  */
   ASSERT (rmdir (BASE "dir") == 0);
   ASSERT (unlink (BASE "file") == 0);
   ASSERT (unlink (BASE "link1") == 0);

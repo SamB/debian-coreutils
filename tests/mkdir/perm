@@ -2,7 +2,7 @@
 # Verify that mkdir's `-m MODE' option works properly
 # with various umask settings.
 
-# Copyright (C) 2000, 2002-2009 Free Software Foundation, Inc.
+# Copyright (C) 2000, 2002-2010 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -27,7 +27,6 @@ skip_if_setgid_
 
 working_umask_or_skip_
 
-fail=0
 
 #                         parent        parent/dir
 # umask   -m option   resulting perm  resulting perm

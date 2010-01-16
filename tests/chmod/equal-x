@@ -1,7 +1,7 @@
 #!/bin/sh
 # Test "chmod =x" and the like.
 
-# Copyright (C) 1999, 2000, 2002, 2004-2009 Free Software Foundation, Inc.
+# Copyright (C) 1999-2000, 2002, 2004-2010 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -26,7 +26,6 @@ fi
 file=f
 touch $file || framework_failure
 
-fail=0
 umask 005
 for mode in =x =xX =Xx =x,=X =X,=x; do
   chmod a=r,$mode $file || fail=1

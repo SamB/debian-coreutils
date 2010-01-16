@@ -1,5 +1,5 @@
 /* chown-core.c -- core functions for changing ownership.
-   Copyright (C) 2000, 2002-2009 Free Software Foundation, Inc.
+   Copyright (C) 2000, 2002-2010 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -314,6 +314,14 @@ change_file_owner (FTS *fts, FTSENT *ent,
         error (0, ent->fts_errno, _("cannot read directory %s"),
                quote (file_full_name));
       ok = false;
+      break;
+
+    case FTS_DC:		/* directory that causes cycles */
+      if (cycle_warning_required (fts, ent))
+        {
+          emit_cycle_warning (file_full_name);
+          return false;
+        }
       break;
 
     default:

@@ -1,7 +1,7 @@
 #!/bin/sh
 # Show that mv doesn't preserve links to files the user has declined to move.
 
-# Copyright (C) 2002, 2004-2009 Free Software Foundation, Inc.
+# Copyright (C) 2002, 2004-2010 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -31,7 +31,6 @@ ln b/FUBAR b/bar || framework_failure
 chmod a-w b/bar || framework_failure
 echo n > no || framework_failure
 
-fail=0
 
 mv a/bar a/foo b < no > out 2> err || fail=1
 touch exp

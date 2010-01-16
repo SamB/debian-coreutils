@@ -1,7 +1,7 @@
 #!/bin/sh
 # Test "rm -i".
 
-# Copyright (C) 1997-1998, 2002, 2004, 2006-2009 Free Software Foundation, Inc.
+# Copyright (C) 1997-1998, 2002, 2004, 2006-2010 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -33,7 +33,6 @@ test -f $t/a || framework_failure
 echo y > $t/$test.Iy
 echo n > $t/$test.In
 
-fail=0
 rm -i $t/a < $t/$test.In > /dev/null 2>&1 || fail=1
 # The file should not have been removed.
 test -f $t/a || fail=1

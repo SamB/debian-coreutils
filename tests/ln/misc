@@ -1,7 +1,7 @@
 #!/bin/sh
 # Miscellaneous tests for "ln".
 
-# Copyright (C) 1998-2000, 2004, 2006-2009 Free Software Foundation, Inc.
+# Copyright (C) 1998-2000, 2004, 2006-2010 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -27,7 +27,6 @@ t=tln-symlink
 d=tln-subdir
 ld=tln-symlink-to-subdir
 f=tln-file
-fail=0
 
 # Create a simple symlink with both source and destination files
 # in current directory.

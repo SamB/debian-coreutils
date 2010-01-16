@@ -2,7 +2,7 @@
 # Make sure touch can update the times on a file that is neither
 # readable nor writable.
 
-# Copyright (C) 1999, 2000, 2002, 2006-2009 Free Software Foundation, Inc.
+# Copyright (C) 1999-2000, 2002, 2006-2010 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -31,7 +31,6 @@ touch -d '2000-01-02 00:00' t2 || framework_failure
 set x `ls -t t1 t2`
 test "$*" = "x t2 t1" || framework_failure
 
-fail=0
 
 chmod 0 t1
 touch -d '2000-01-03 00:00' -c t1 || fail=1

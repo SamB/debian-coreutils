@@ -2,7 +2,7 @@
 # verify that od -t x8 works properly
 # This would fail before coreutils-4.5.2.
 
-# Copyright (C) 2002, 2005-2009 Free Software Foundation, Inc.
+# Copyright (C) 2002, 2005-2010 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -29,7 +29,6 @@ od -t x8 /dev/null >/dev/null ||
 
 echo abcdefgh |tr -d '\n' > in || framework_failure
 
-fail=0
 
 od -An -t x8 in > out-raw || fail=1
 sed 's/^ //;s/\(..\)/\1 /g;s/ $//' out-raw \

@@ -2,7 +2,7 @@
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
 #line 1
 /* Tests of linkat.
-   Copyright (C) 2009 Free Software Foundation, Inc.
+   Copyright (C) 2009, 2010 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -23,6 +23,9 @@
 
 #include <unistd.h>
 
+#include "signature.h"
+SIGNATURE_CHECK (linkat, int, (int, char const *, int, char const *, int));
+
 #include <fcntl.h>
 #include <errno.h>
 #include <stdbool.h>
@@ -34,18 +37,7 @@
 #include "filenamecat.h"
 #include "same-inode.h"
 #include "xgetcwd.h"
-
-#define ASSERT(expr) \
-  do                                                                         \
-    {                                                                        \
-      if (!(expr))                                                           \
-	{                                                                    \
-	  fprintf (stderr, "%s:%d: assertion failed\n", __FILE__, __LINE__);  \
-	  fflush (stderr);                                                   \
-	  abort ();                                                          \
-	}                                                                    \
-    }                                                                        \
-  while (0)
+#include "macros.h"
 
 #define BASE "test-linkat.t"
 
@@ -84,7 +76,7 @@ check_same_link (char const *name1, char const *name2)
 }
 
 int
-main ()
+main (void)
 {
   int i;
   int dfd;
@@ -92,10 +84,10 @@ main ()
   int result;
 
   /* Clean up any trash from prior testsuite runs.  */
-  ASSERT (system ("rm -rf " BASE "*") == 0);
+  system ("rm -rf " BASE "*");
 
   /* Test basic link functionality, without mentioning symlinks.  */
-  result = test_link (do_link, false);
+  result = test_link (do_link, true);
   dfd1 = open (".", O_RDONLY);
   ASSERT (0 <= dfd1);
   ASSERT (test_link (do_link, false) == result);
@@ -137,11 +129,11 @@ main ()
      do the other variant after the loop.  */
   for (i = 0; i < 32; i++)
     {
-      int flag = (i & 0x10 ? AT_SYMLINK_FOLLOW : 0);
       int fd1 = (i & 8) ? dfd : AT_FDCWD;
       char *file1 = file_name_concat ((i & 4) ? ".." : cwd, BASE "xx", NULL);
       int fd2 = (i & 2) ? dfd : AT_FDCWD;
       char *file2 = file_name_concat ((i & 1) ? ".." : cwd, BASE "xx", NULL);
+      flag = (i & 0x10 ? AT_SYMLINK_FOLLOW : 0);
 
       ASSERT (sprintf (strchr (file1, '\0') - 2, "%02d", i) == 2);
       ASSERT (sprintf (strchr (file2, '\0') - 2, "%02d", i + 1) == 2);
@@ -169,8 +161,9 @@ main ()
       ASSERT (rmdir (BASE "sub1") == 0);
       ASSERT (rmdir (BASE "sub2") == 0);
       free (cwd);
-      fputs ("skipping test: symlinks not supported on this filesystem\n",
-             stderr);
+      if (!result)
+        fputs ("skipping test: symlinks not supported on this file system\n",
+               stderr);
       return result;
     }
   dfd = open (".", O_RDONLY);

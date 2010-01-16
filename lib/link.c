@@ -3,7 +3,7 @@
 #line 1
 /* Emulate link on platforms that lack it, namely native Windows platforms.
 
-   Copyright (C) 2009 Free Software Foundation, Inc.
+   Copyright (C) 2009, 2010 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -36,8 +36,8 @@
 
 /* CreateHardLink was introduced only in Windows 2000.  */
 typedef BOOL (WINAPI * CreateHardLinkFuncType) (LPCTSTR lpFileName,
-						LPCTSTR lpExistingFileName,
-						LPSECURITY_ATTRIBUTES lpSecurityAttributes);
+                                                LPCTSTR lpExistingFileName,
+                                                LPSECURITY_ATTRIBUTES lpSecurityAttributes);
 static CreateHardLinkFuncType CreateHardLinkFunc = NULL;
 static BOOL initialized = FALSE;
 
@@ -48,7 +48,7 @@ initialize (void)
   if (kernel32 != NULL)
     {
       CreateHardLinkFunc =
-	(CreateHardLinkFuncType) GetProcAddress (kernel32, "CreateHardLinkA");
+        (CreateHardLinkFuncType) GetProcAddress (kernel32, "CreateHardLinkA");
     }
   initialized = TRUE;
 }
@@ -106,39 +106,39 @@ link (const char *file1, const char *file2)
        * system. */
       DWORD err = GetLastError ();
       switch (err)
-	{
-	case ERROR_ACCESS_DENIED:
-	  errno = EACCES;
-	  break;
+        {
+        case ERROR_ACCESS_DENIED:
+          errno = EACCES;
+          break;
 
-	case ERROR_INVALID_FUNCTION:	/* fs does not support hard links */
-	  errno = EPERM;
-	  break;
+        case ERROR_INVALID_FUNCTION:    /* fs does not support hard links */
+          errno = EPERM;
+          break;
 
-	case ERROR_NOT_SAME_DEVICE:
-	  errno = EXDEV;
-	  break;
+        case ERROR_NOT_SAME_DEVICE:
+          errno = EXDEV;
+          break;
 
-	case ERROR_PATH_NOT_FOUND:
-	case ERROR_FILE_NOT_FOUND:
-	  errno = ENOENT;
-	  break;
+        case ERROR_PATH_NOT_FOUND:
+        case ERROR_FILE_NOT_FOUND:
+          errno = ENOENT;
+          break;
 
-	case ERROR_INVALID_PARAMETER:
-	  errno = ENAMETOOLONG;
-	  break;
+        case ERROR_INVALID_PARAMETER:
+          errno = ENAMETOOLONG;
+          break;
 
-	case ERROR_TOO_MANY_LINKS:
-	  errno = EMLINK;
-	  break;
+        case ERROR_TOO_MANY_LINKS:
+          errno = EMLINK;
+          break;
 
-	case ERROR_ALREADY_EXISTS:
-	  errno = EEXIST;
-	  break;
+        case ERROR_ALREADY_EXISTS:
+          errno = EEXIST;
+          break;
 
-	default:
-	  errno = EIO;
-	}
+        default:
+          errno = EIO;
+        }
       return -1;
     }
 

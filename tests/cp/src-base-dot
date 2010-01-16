@@ -1,7 +1,7 @@
 #!/bin/sh
 # Ensure that "mkdir x y; cd y; cp -ab ../x/. ." is a successful, silent, no-op.
 
-# Copyright (C) 2006-2009 Free Software Foundation, Inc.
+# Copyright (C) 2006-2010 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -25,7 +25,6 @@ fi
 
 mkdir x y || framework_failure
 
-fail=0
 
 cd y
 cp --verbose -ab ../x/. . > out 2>&1 || fail=1

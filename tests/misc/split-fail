@@ -1,7 +1,7 @@
 #!/bin/sh
 # split must fail when given length/count of zero.
 
-# Copyright (C) 2003, 2004, 2005-2009 Free Software Foundation, Inc.
+# Copyright (C) 2003-2010 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -26,7 +26,6 @@ getlimits_
 
 touch in || framework_failure
 
-fail=0
 
 split -a 0 in 2> /dev/null || fail=1
 split -b 0 in 2> /dev/null && fail=1

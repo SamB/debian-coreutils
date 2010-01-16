@@ -1,5 +1,5 @@
 /* remove.c -- core functions for removing files and directories
-   Copyright (C) 88, 90, 91, 1994-2009 Free Software Foundation, Inc.
+   Copyright (C) 1988, 1990-1991, 1994-2010 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -437,6 +437,18 @@ excise (FTS *fts, FTSENT *ent, struct rm_options const *x, bool is_dir)
       return RM_OK;
     }
 
+  /* The unlinkat from kernels like linux-2.6.32 reports EROFS even for
+     nonexistent files.  When the file is indeed missing, map that to ENOENT,
+     so that rm -f ignores it, as required.  Even without -f, this is useful
+     because it makes rm print the more precise diagnostic.  */
+  if (errno == EROFS)
+    {
+      struct stat st;
+      if ( ! (lstatat (fts->fts_cwd_fd, ent->fts_accpath, &st)
+                       && errno == ENOENT))
+        errno = EROFS;
+    }
+
   if (ignorable_missing (x, errno))
     return RM_OK;
 
@@ -536,7 +548,7 @@ rm_fts (FTS *fts, FTSENT *ent, struct rm_options const *x)
         if (ent->fts_info == FTS_DP
             && x->one_file_system
             && FTS_ROOTLEVEL < ent->fts_level
-            && ent->fts_statp->st_ino != fts->fts_dev)
+            && ent->fts_statp->st_dev != fts->fts_dev)
           {
             mark_ancestor_dirs (ent);
             error (0, 0, _("skipping %s, since it's on a different device"),
@@ -552,12 +564,7 @@ rm_fts (FTS *fts, FTSENT *ent, struct rm_options const *x)
       }
 
     case FTS_DC:		/* directory that causes cycles */
-      error (0, 0, _("\
-WARNING: Circular directory structure.\n\
-This almost certainly means that you have a corrupted file system.\n\
-NOTIFY YOUR SYSTEM MANAGER.\n\
-The following directory is part of the cycle:\n  %s\n"),
-             quote (ent->fts_path));
+      emit_cycle_warning (ent->fts_path);
       fts_skip_tree (fts, ent);
       return RM_ERROR;
 

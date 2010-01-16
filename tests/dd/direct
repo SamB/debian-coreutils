@@ -1,7 +1,7 @@
 #!/bin/sh
 # ensure that dd's oflag=direct works
 
-# Copyright (C) 2009 Free Software Foundation, Inc.
+# Copyright (C) 2009-2010 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -31,7 +31,6 @@ truncate -s 511 short || framework_failure
 truncate -s 8191 m1 || framework_failure
 truncate -s 8193 p1 || framework_failure
 
-fail=0
 for i in short m1 p1; do
   rm -f out
   dd if=$i oflag=direct of=out || fail=1

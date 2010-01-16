@@ -1,7 +1,7 @@
 #!/bin/sh
 # Ensure that cp works as documented, when the destination is a dangling symlink
 
-# Copyright (C) 2007-2009 Free Software Foundation, Inc.
+# Copyright (C) 2007-2010 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -29,7 +29,6 @@ echo hi > exp || framework_failure
 echo "cp: not writing through dangling symlink \`dangle'" \
     > exp-err || framework_failure
 
-fail=0
 
 # Starting with 6.9.90, this usage fails, by default:
 cp f dangle > err 2>&1 && fail=1

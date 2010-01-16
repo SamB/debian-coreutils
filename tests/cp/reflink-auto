@@ -1,7 +1,7 @@
 #!/bin/sh
 # Test cp --reflink=auto
 
-# Copyright (C) 2009 Free Software Foundation, Inc.
+# Copyright (C) 2009-2010 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@ cleanup_() { rm -rf "$other_partition_tmpdir"; }
 a_other="$other_partition_tmpdir/a"
 rm -f "$a_other" || framework_failure
 
-echo non_zero_size > "$a_other"
+echo non_zero_size > "$a_other" || framework_failure
 
 # we shouldn't be able to reflink() files on separate partitions
 cp --reflink      "$a_other" b && fail=1

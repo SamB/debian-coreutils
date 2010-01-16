@@ -2,7 +2,7 @@
 # Demonstrate using a combination of --reference and --date to
 # set the time of a file back by an arbitrary amount.
 
-# Copyright (C) 2004, 2006-2009 Free Software Foundation, Inc.
+# Copyright (C) 2004, 2006-2010 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -26,7 +26,6 @@ fi
 
 TZ=UTC0 touch --date='2004-01-16 12:00 +0000' f || framework_failure
 
-fail=0
 
 # Set times back by 5 days.
 touch --ref f --date='-5 days' f || fail=1

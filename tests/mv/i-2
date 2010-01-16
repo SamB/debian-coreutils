@@ -2,7 +2,7 @@
 # Test both cp and mv for their behavior with -if and -fi
 # The standards (POSIX and SuS) dictate annoyingly inconsistent behavior.
 
-# Copyright (C) 2000, 2001, 2006-2009 Free Software Foundation, Inc.
+# Copyright (C) 2000-2001, 2006-2010 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -35,7 +35,6 @@ done
 chmod 0 b d f h || framework_failure
 echo y > y || framework_failure
 
-fail=0
 mv -if a b || fail=1
 mv -fi c d < y >/dev/null 2>&1 || fail=1
 

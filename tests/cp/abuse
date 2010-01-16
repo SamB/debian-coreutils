@@ -1,7 +1,7 @@
 #!/bin/sh
 # ensure that cp does not write through a just-copied symlink
 
-# Copyright (C) 2007-2009 Free Software Foundation, Inc.
+# Copyright (C) 2007-2010 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -32,7 +32,6 @@ echo "cp: will not copy \`b/1' through just-created symlink \`c/1'" \
 
 # Check both cases: a dangling symlink, and one pointing to a writable file.
 
-fail=0
 for i in dangling-dest existing-dest; do
   test $i = existing-dest && echo i > t
   test $i = dangling-dest && rm -f t
