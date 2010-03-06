@@ -1,9 +1,17 @@
+coreutils (8.4-2) unstable; urgency=low
+
+  * Fix kfbsd build test problems (Closes: #569020)
+
+ -- Michael Stone <mstone@debian.org>  Fri, 05 Mar 2010 19:06:22 -0500
+
 coreutils (8.4-1) unstable; urgency=low
 
   * New upstream version
     - fixes "Bad file descriptor" message from cp & touch (Closes: #563754)
     - tail -F won't abort when file is moved (Closes: #561481, #561854)
     - mktemp man page describes template (Closes: #548316)
+  * temporarily disable tests/misc/ls-time to work around some spurious
+    build failures (on btrfs)
 
  -- Michael Stone <mstone@debian.org>  Sat, 16 Jan 2010 14:37:32 -0500
 
