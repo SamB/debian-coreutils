@@ -1,6 +1,6 @@
 /* A more useful interface to strtol.
 
-   Copyright (C) 1995-1996, 1998-1999, 2001-2004, 2006-2010 Free Software
+   Copyright (C) 1995-1996, 1998-1999, 2001-2004, 2006-2011 Free Software
    Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
@@ -46,14 +46,9 @@ _DECLARE_XSTRTOL (xstrtoul, unsigned long int)
 _DECLARE_XSTRTOL (xstrtoimax, intmax_t)
 _DECLARE_XSTRTOL (xstrtoumax, uintmax_t)
 
-#ifndef __attribute__
-# if __GNUC__ < 2 || (__GNUC__ == 2 && __GNUC_MINOR__ < 8)
-#  define __attribute__(x)
-# endif
-#endif
-
-#ifndef ATTRIBUTE_NORETURN
-# define ATTRIBUTE_NORETURN __attribute__ ((__noreturn__))
+#if HAVE_LONG_LONG_INT
+_DECLARE_XSTRTOL (xstrtoll, long long int)
+_DECLARE_XSTRTOL (xstrtoull, unsigned long long int)
 #endif
 
 /* Report an error for an invalid integer in an option argument.
@@ -71,8 +66,8 @@ _DECLARE_XSTRTOL (xstrtoumax, uintmax_t)
 
    After reporting an error, exit with a failure status.  */
 
-void xstrtol_fatal (enum strtol_error,
-                    int, char, struct option const *,
-                    char const *) ATTRIBUTE_NORETURN;
+void _Noreturn xstrtol_fatal (enum strtol_error,
+                              int, char, struct option const *,
+                              char const *);
 
 #endif /* not XSTRTOL_H_ */

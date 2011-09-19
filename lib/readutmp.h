@@ -1,6 +1,6 @@
 /* Declarations for GNU's read utmp module.
 
-   Copyright (C) 1992-2007, 2009-2010 Free Software Foundation, Inc.
+   Copyright (C) 1992-2007, 2009-2011 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -73,7 +73,7 @@
 
 #  include <utmp.h>
 #  if !HAVE_DECL_GETUTENT
-    struct utmp *getutent();
+    struct utmp *getutent (void);
 #  endif
 #  define UTMP_STRUCT_NAME utmp
 #  define UT_TIME_MEMBER(UT_PTR) ((UT_PTR)->ut_time)

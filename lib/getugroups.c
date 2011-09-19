@@ -1,6 +1,6 @@
 /* getugroups.c -- return a list of the groups a user is in
 
-   Copyright (C) 1990-1991, 1998-2000, 2003-2010 Free Software Foundation, Inc.
+   Copyright (C) 1990-1991, 1998-2000, 2003-2011 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -45,7 +45,7 @@ getugroups (int maxcount _GL_UNUSED,
 #else /* HAVE_GRP_H */
 # include <grp.h>
 
-# define STREQ(s1, s2) (strcmp (s1, s2) == 0)
+# define STREQ(a, b) (strcmp (a, b) == 0)
 
 /* Like `getgroups', but for user USERNAME instead of for the current
    process.  Store at most MAXCOUNT group IDs in the GROUPLIST array.

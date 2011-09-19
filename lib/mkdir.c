@@ -1,7 +1,7 @@
 /* On some systems, mkdir ("foo/", 0700) fails because of the trailing
    slash.  On those systems, this wrapper removes the trailing slash.
 
-   Copyright (C) 2001, 2003, 2006, 2008-2010 Free Software Foundation, Inc.
+   Copyright (C) 2001, 2003, 2006, 2008-2011 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -36,7 +36,8 @@
 
 /* mingw's _mkdir() function has 1 argument, but we pass 2 arguments.
    Additionally, it declares _mkdir (and depending on compile flags, an
-   alias mkdir), only in the nonstandard io.h.  */
+   alias mkdir), only in the nonstandard includes <direct.h> and <io.h>,
+   which are included in the <sys/stat.h> override.  */
 #if (defined _WIN32 || defined __WIN32__) && ! defined __CYGWIN__
 # define mkdir(name,mode) _mkdir (name)
 # define maybe_unused _GL_UNUSED

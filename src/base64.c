@@ -1,5 +1,5 @@
 /* Base64 encode/decode strings or files.
-   Copyright (C) 2004-2010 Free Software Foundation, Inc.
+   Copyright (C) 2004-2011 Free Software Foundation, Inc.
 
    This file is part of Base64.
 
@@ -26,9 +26,11 @@
 
 #include "system.h"
 #include "error.h"
+#include "fadvise.h"
 #include "xstrtol.h"
 #include "quote.h"
 #include "quotearg.h"
+#include "xfreopen.h"
 
 #include "base64.h"
 
@@ -61,11 +63,10 @@ Usage: %s [OPTION]... [FILE]\n\
 Base64 encode or decode FILE, or standard input, to standard output.\n\
 \n"), program_name);
       fputs (_("\
-  -w, --wrap=COLS       Wrap encoded lines after COLS character (default 76).\n\
-                        Use 0 to disable line wrapping.\n\
-\n\
-  -d, --decode          Decode data.\n\
-  -i, --ignore-garbage  When decoding, ignore non-alphabet characters.\n\
+  -d, --decode          decode data\n\
+  -i, --ignore-garbage  when decoding, ignore non-alphabet characters\n\
+  -w, --wrap=COLS       wrap encoded lines after COLS character (default 76).\n\
+                          Use 0 to disable line wrapping\n\
 \n\
 "), stdout);
       fputs (HELP_OPTION_DESCRIPTION, stdout);
@@ -269,9 +270,9 @@ main (int argc, char **argv)
         ignore_garbage = true;
         break;
 
-        case_GETOPT_HELP_CHAR;
+      case_GETOPT_HELP_CHAR;
 
-        case_GETOPT_VERSION_CHAR (PROGRAM_NAME, AUTHORS);
+      case_GETOPT_VERSION_CHAR (PROGRAM_NAME, AUTHORS);
 
       default:
         usage (EXIT_FAILURE);
@@ -290,13 +291,19 @@ main (int argc, char **argv)
     infile = "-";
 
   if (STREQ (infile, "-"))
-    input_fh = stdin;
+    {
+      if (O_BINARY)
+        xfreopen (NULL, "rb", stdin);
+      input_fh = stdin;
+    }
   else
     {
-      input_fh = fopen (infile, "r");
+      input_fh = fopen (infile, "rb");
       if (input_fh == NULL)
         error (EXIT_FAILURE, errno, "%s", infile);
     }
+
+  fadvise (input_fh, FADVISE_SEQUENTIAL);
 
   if (decode)
     do_decode (input_fh, stdout, ignore_garbage);

@@ -1,5 +1,5 @@
-# sys_ioctl_h.m4 serial 4
-dnl Copyright (C) 2008-2010 Free Software Foundation, Inc.
+# sys_ioctl_h.m4 serial 10
+dnl Copyright (C) 2008-2011 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
@@ -33,20 +33,24 @@ AC_DEFUN([gl_SYS_IOCTL_H],
   AC_SUBST([HAVE_SYS_IOCTL_H])
   dnl <sys/ioctl.h> is always overridden, because of GNULIB_POSIXCHECK.
   gl_CHECK_NEXT_HEADERS([sys/ioctl.h])
-])
 
-dnl Unconditionally enables the replacement of <sys/ioctl.h>.
-AC_DEFUN([gl_REPLACE_SYS_IOCTL_H],
-[
-  dnl This is a no-op, because <sys/ioctl.h> is always overridden.
-  :
+  dnl Check for declarations of anything we want to poison if the
+  dnl corresponding gnulib module is not in use.
+  gl_WARN_ON_USE_PREPARE([[#include <sys/ioctl.h>
+/* Some platforms declare ioctl in the wrong header.  */
+#if !(defined __GLIBC__ && !defined __UCLIBC__)
+# include <unistd.h>
+#endif
+    ]], [ioctl])
 ])
 
 AC_DEFUN([gl_SYS_IOCTL_MODULE_INDICATOR],
 [
   dnl Use AC_REQUIRE here, so that the default settings are expanded once only.
   AC_REQUIRE([gl_SYS_IOCTL_H_DEFAULTS])
-  GNULIB_[]m4_translit([$1],[abcdefghijklmnopqrstuvwxyz./-],[ABCDEFGHIJKLMNOPQRSTUVWXYZ___])=1
+  gl_MODULE_INDICATOR_SET_VARIABLE([$1])
+  dnl Define it also as a C macro, for the benefit of the unit tests.
+  gl_MODULE_INDICATOR_FOR_TESTS([$1])
 ])
 
 AC_DEFUN([gl_SYS_IOCTL_H_DEFAULTS],
@@ -56,4 +60,5 @@ AC_DEFUN([gl_SYS_IOCTL_H_DEFAULTS],
   SYS_IOCTL_H_HAVE_WINSOCK2_H=0; AC_SUBST([SYS_IOCTL_H_HAVE_WINSOCK2_H])
   SYS_IOCTL_H_HAVE_WINSOCK2_H_AND_USE_SOCKETS=0;
                         AC_SUBST([SYS_IOCTL_H_HAVE_WINSOCK2_H_AND_USE_SOCKETS])
+  REPLACE_IOCTL=0;      AC_SUBST([REPLACE_IOCTL])
 ])

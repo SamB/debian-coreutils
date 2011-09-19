@@ -1,8 +1,7 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* Test of vasprintf() and asprintf() functions.
-   Copyright (C) 2007-2010 Free Software Foundation, Inc.
+   Copyright (C) 2007-2011 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -59,6 +58,16 @@ test_vasprintf ()
       ASSERT (strcmp (result, "12345") == 0);
       free (result);
     }
+
+  for (repeat = 0; repeat <= 8; repeat++)
+    {
+      char *result;
+      int retval = my_asprintf (&result, "%08lx", 12345UL);
+      ASSERT (retval == 8);
+      ASSERT (result != NULL);
+      ASSERT (strcmp (result, "00003039") == 0);
+      free (result);
+    }
 }
 
 static void
@@ -73,6 +82,16 @@ test_asprintf ()
       ASSERT (retval == 5);
       ASSERT (result != NULL);
       ASSERT (strcmp (result, "12345") == 0);
+      free (result);
+    }
+
+  for (repeat = 0; repeat <= 8; repeat++)
+    {
+      char *result;
+      int retval = asprintf (&result, "%08lx", 12345UL);
+      ASSERT (retval == 8);
+      ASSERT (result != NULL);
+      ASSERT (strcmp (result, "00003039") == 0);
       free (result);
     }
 }

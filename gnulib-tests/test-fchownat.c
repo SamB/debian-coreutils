@@ -1,8 +1,7 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* Tests of fchownat.
-   Copyright (C) 2009, 2010 Free Software Foundation, Inc.
+   Copyright (C) 2009-2011 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -35,7 +34,9 @@ SIGNATURE_CHECK (fchownat, int, (int, char const *, uid_t, gid_t, int));
 
 #include "mgetgroups.h"
 #include "openat.h"
+#include "progname.h"
 #include "stat-time.h"
+#include "ignore-value.h"
 #include "macros.h"
 
 #define BASE "test-fchownat.t"
@@ -60,13 +61,15 @@ do_lchown (char const *name, uid_t user, gid_t group)
 }
 
 int
-main (void)
+main (int argc _GL_UNUSED, char *argv[])
 {
   int result1; /* Skip because of no chown/symlink support.  */
   int result2; /* Skip because of no lchown support.  */
 
+  set_program_name (argv[0]);
+
   /* Clean up any trash from prior testsuite runs.  */
-  system ("rm -rf " BASE "*");
+  ignore_value (system ("rm -rf " BASE "*"));
 
   /* Basic tests.  */
   result1 = test_chown (do_chown, true);

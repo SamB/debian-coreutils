@@ -1,5 +1,5 @@
-# arpa_inet_h.m4 serial 6
-dnl Copyright (C) 2006, 2008, 2009, 2010 Free Software Foundation, Inc.
+# arpa_inet_h.m4 serial 12
+dnl Copyright (C) 2006, 2008-2011 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
@@ -21,20 +21,28 @@ AC_DEFUN([gl_HEADER_ARPA_INET],
   AC_SUBST([HAVE_ARPA_INET_H])
   dnl <arpa/inet.h> is always overridden, because of GNULIB_POSIXCHECK.
   gl_CHECK_NEXT_HEADERS([arpa/inet.h])
-])
 
-dnl Unconditionally enables the replacement of <arpa/inet.h>.
-AC_DEFUN([gl_REPLACE_ARPA_INET_H],
-[
-  dnl This is a no-op, because <arpa/inet.h> is always overridden.
-  :
+  AC_REQUIRE([gl_FEATURES_H])
+
+  dnl Check for declarations of anything we want to poison if the
+  dnl corresponding gnulib module is not in use.
+  gl_WARN_ON_USE_PREPARE([[
+/* On some systems, this header is not self-consistent.  */
+#if !(defined __GLIBC__ || defined __UCLIBC__)
+# include <sys/socket.h>
+#endif
+#ifdef __TANDEM
+# include <netdb.h>
+#endif
+#include <arpa/inet.h>
+    ]], [inet_ntop inet_pton])
 ])
 
 AC_DEFUN([gl_ARPA_INET_MODULE_INDICATOR],
 [
   dnl Use AC_REQUIRE here, so that the default settings are expanded once only.
   AC_REQUIRE([gl_ARPA_INET_H_DEFAULTS])
-  GNULIB_[]m4_translit([$1],[abcdefghijklmnopqrstuvwxyz./-],[ABCDEFGHIJKLMNOPQRSTUVWXYZ___])=1
+  gl_MODULE_INDICATOR_SET_VARIABLE([$1])
 ])
 
 AC_DEFUN([gl_ARPA_INET_H_DEFAULTS],

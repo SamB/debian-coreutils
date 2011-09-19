@@ -1,8 +1,7 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* Test of fpurge() function.
-   Copyright (C) 2007-2010 Free Software Foundation, Inc.
+   Copyright (C) 2007-2011 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -111,6 +110,8 @@ main (void)
       if (check_filepos)
         ASSERT (ftell (fp) == 8);
       ASSERT (putc ('!', fp) == '!');
+      if (check_filepos)
+        ASSERT (ftell (fp) == 9);
       ASSERT (fclose (fp) == 0);
       fp = fopen (TESTFILE, "r");
       if (fp == NULL)

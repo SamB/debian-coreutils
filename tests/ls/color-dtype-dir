@@ -4,7 +4,7 @@
 # directories the same as the first one -- but only on a file system
 # with dirent.d_type support.
 
-# Copyright (C) 2006-2010 Free Software Foundation, Inc.
+# Copyright (C) 2006-2011 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,24 +19,19 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-if test "$VERBOSE" = yes; then
-  set -x
-  ls --version
-fi
-
-. $srcdir/test-lib.sh
+. "${srcdir=.}/init.sh"; path_prepend_ ../src
+print_ver_ ls
 
 # Don't let a different umask perturb the results.
 umask 22
 
-mkdir d other-writable sticky || framework_failure
-chmod o+w other-writable || framework_failure
-chmod o+t sticky || framework_failure
+mkdir d other-writable sticky || framework_failure_
+chmod o+w other-writable || framework_failure_
+chmod o+t sticky || framework_failure_
 
 
 ls --color=always > out || fail=1
 cat -A out > o1 || fail=1
-echo >> o1 || fail=1
 mv o1 out || fail=1
 
 cat <<\EOF > exp || fail=1
@@ -44,7 +39,6 @@ cat <<\EOF > exp || fail=1
 ^[[34;42mother-writable^[[0m$
 out$
 ^[[37;44msticky^[[0m$
-^[[m
 EOF
 
 compare out exp || fail=1
@@ -56,7 +50,6 @@ rm exp
 
 LS_COLORS="ow=:" ls --color=always > out || fail=1
 cat -A out > o1 || fail=1
-echo >> o1 || fail=1
 mv o1 out || fail=1
 
 cat <<\EOF > exp || fail=1
@@ -64,7 +57,6 @@ cat <<\EOF > exp || fail=1
 ^[[01;34mother-writable^[[0m$
 out$
 ^[[37;44msticky^[[0m$
-^[[m
 EOF
 
 compare out exp || fail=1

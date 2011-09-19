@@ -1,5 +1,5 @@
 /* chown -- change user and group ownership of files
-   Copyright (C) 1989-1991, 1995-2010 Free Software Foundation, Inc.
+   Copyright (C) 1989-1991, 1995-2011 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -100,7 +100,7 @@ With --reference, change the owner and group of each FILE to those of RFILE.\n\
                          change the owner and/or group of each file only if\n\
                          its current owner and/or group match those specified\n\
                          here.  Either may be omitted, in which case a match\n\
-                         is not required for the omitted attribute.\n\
+                         is not required for the omitted attribute\n\
 "), stdout);
       fputs (_("\
       --no-preserve-root  do not treat `/' specially (the default)\n\

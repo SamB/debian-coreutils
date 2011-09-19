@@ -1,8 +1,7 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* Self tests for base64.
-   Copyright (C) 2004, 2008, 2009, 2010 Free Software Foundation, Inc.
+   Copyright (C) 2004, 2008-2011 Free Software Foundation, Inc.
    Written by Simon Josefsson.
 
    This program is free software: you can redistribute it and/or modify
@@ -42,7 +41,7 @@ main (void)
 
   memset (out, 0x42, sizeof (out));
   base64_encode (in, 0, out, 0);
-  ASSERT(out[0] == '\x42');
+  ASSERT (out[0] == '\x42');
 
   memset (out, 0x42, sizeof (out));
   base64_encode (in, 1, out, 1);
@@ -187,9 +186,8 @@ main (void)
 
     ok = base64_decode_alloc_ctx (&ctx, "hp", 2, &p, &len);
     ASSERT (ok);
-    ASSERT (len == 2);
-    /* Actually this looks buggy.  Shouldn't output be 'ghi'? */
-    ASSERT (memcmp (p, "gh", len) == 0);
+    ASSERT (len == 3);
+    ASSERT (memcmp (p, "ghi", len) == 0);
     ok = base64_decode_alloc_ctx (&ctx, "", 0, &p, &len);
     ASSERT (ok);
   }

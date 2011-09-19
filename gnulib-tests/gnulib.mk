@@ -1,6 +1,6 @@
 ## DO NOT EDIT! GENERATED AUTOMATICALLY!
 ## Process this file with automake to produce Makefile.in.
-# Copyright (C) 2002-2010 Free Software Foundation, Inc.
+# Copyright (C) 2002-2011 Free Software Foundation, Inc.
 #
 # This file is free software, distributed under the terms of the GNU
 # General Public License.  As a special exception to the GNU General
@@ -12,7 +12,7 @@
 
 AUTOMAKE_OPTIONS = 1.5 foreign subdir-objects
 
-SUBDIRS =
+SUBDIRS = .
 TESTS =
 XFAIL_TESTS =
 TESTS_ENVIRONMENT =
@@ -31,6 +31,7 @@ DISTCLEANFILES =
 MAINTAINERCLEANFILES =
 
 AM_CPPFLAGS = \
+  -D@gltests_WITNESS@=1 \
   -I. -I$(srcdir) \
   -I.. -I$(srcdir)/.. \
   -I../lib -I$(srcdir)/../lib
@@ -43,6 +44,8 @@ libtests_a_DEPENDENCIES = $(gltests_LIBOBJS)
 EXTRA_libtests_a_SOURCES =
 AM_LIBTOOLFLAGS = --preserve-dup-deps
 
+TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@' srcdir='$(srcdir)'
+
 ## begin gnulib module accept
 
 
@@ -54,14 +57,17 @@ EXTRA_libtests_a_SOURCES += accept.c
 
 ## begin gnulib module acl-tests
 
-TESTS += test-file-has-acl.sh test-set-mode-acl.sh test-copy-acl.sh
-TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@' USE_ACL=$(USE_ACL)
+TESTS += \
+  test-file-has-acl.sh test-file-has-acl-1.sh test-file-has-acl-2.sh \
+  test-set-mode-acl.sh test-set-mode-acl-1.sh test-set-mode-acl-2.sh \
+  test-copy-acl.sh test-copy-acl-1.sh test-copy-acl-2.sh
+TESTS_ENVIRONMENT += USE_ACL=$(USE_ACL)
 check_PROGRAMS += test-file-has-acl test-set-mode-acl test-copy-acl test-sameacls
 test_file_has_acl_LDADD = $(LDADD) $(LIB_ACL)
 test_set_mode_acl_LDADD = $(LDADD) $(LIB_ACL) @LIBINTL@
 test_copy_acl_LDADD = $(LDADD) $(LIB_ACL) @LIBINTL@
 test_sameacls_LDADD = $(LDADD) $(LIB_ACL) @LIBINTL@
-EXTRA_DIST += test-file-has-acl.sh test-set-mode-acl.sh test-copy-acl.sh test-file-has-acl.c test-set-mode-acl.c test-copy-acl.c test-sameacls.c macros.h
+EXTRA_DIST += test-file-has-acl.sh test-file-has-acl-1.sh test-file-has-acl-2.sh test-set-mode-acl.sh test-set-mode-acl-1.sh test-set-mode-acl-2.sh test-copy-acl.sh test-copy-acl-1.sh test-copy-acl-2.sh test-file-has-acl.c test-set-mode-acl.c test-copy-acl.c test-sameacls.c macros.h
 
 ## end   gnulib module acl-tests
 
@@ -108,30 +114,6 @@ EXTRA_DIST += test-areadlink.h test-areadlinkat.c macros.h
 
 ## end   gnulib module areadlinkat-tests
 
-## begin gnulib module arg-nonnull
-
-# The BUILT_SOURCES created by this Makefile snippet are not used via #include
-# statements but through direct file reference. Therefore this snippet must be
-# present in all Makefile.am that need it. This is ensured by the applicability
-# 'all' defined above.
-
-BUILT_SOURCES += arg-nonnull.h
-# The arg-nonnull.h that gets inserted into generated .h files is the same as
-# build-aux/arg-nonnull.h, except that it has the copyright header cut off.
-arg-nonnull.h: $(top_srcdir)/build-aux/arg-nonnull.h
-	$(AM_V_GEN)rm -f $@-t $@ && \
-	sed -n -e '/GL_ARG_NONNULL/,$$p' \
-	  < $(top_srcdir)/build-aux/arg-nonnull.h \
-	  > $@-t && \
-	mv $@-t $@
-MOSTLYCLEANFILES += arg-nonnull.h arg-nonnull.h-t
-
-ARG_NONNULL_H=arg-nonnull.h
-
-EXTRA_DIST += $(top_srcdir)/build-aux/arg-nonnull.h
-
-## end   gnulib module arg-nonnull
-
 ## begin gnulib module argmatch-tests
 
 TESTS += test-argmatch
@@ -158,15 +140,6 @@ EXTRA_DIST += test-arpa_inet.c
 
 ## end   gnulib module arpa_inet-tests
 
-## begin gnulib module atexit-tests
-
-TESTS += test-atexit.sh
-TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@'
-check_PROGRAMS += test-atexit
-EXTRA_DIST += signature.h test-atexit.sh test-atexit.c
-
-## end   gnulib module atexit-tests
-
 ## begin gnulib module base64-tests
 
 TESTS += test-base64
@@ -184,7 +157,6 @@ libtests_a_SOURCES += binary-io.h
 ## begin gnulib module binary-io-tests
 
 TESTS += test-binary-io.sh
-TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@'
 check_PROGRAMS += test-binary-io
 
 EXTRA_DIST += test-binary-io.sh test-binary-io.c macros.h
@@ -211,7 +183,7 @@ EXTRA_DIST += test-bitrotate.c macros.h
 ## begin gnulib module btowc-tests
 
 TESTS += test-btowc1.sh test-btowc2.sh
-TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@' LOCALE_FR='@LOCALE_FR@' LOCALE_FR_UTF8='@LOCALE_FR_UTF8@'
+TESTS_ENVIRONMENT += LOCALE_FR='@LOCALE_FR@' LOCALE_FR_UTF8='@LOCALE_FR_UTF8@'
 check_PROGRAMS += test-btowc
 
 EXTRA_DIST += test-btowc1.sh test-btowc2.sh test-btowc.c signature.h macros.h
@@ -230,11 +202,19 @@ EXTRA_DIST += test-c-ctype.c macros.h
 ## begin gnulib module c-strcase-tests
 
 TESTS += test-c-strcase.sh
-TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@' LOCALE_FR='@LOCALE_FR@' LOCALE_TR_UTF8='@LOCALE_TR_UTF8@'
+TESTS_ENVIRONMENT += LOCALE_FR='@LOCALE_FR@' LOCALE_TR_UTF8='@LOCALE_TR_UTF8@'
 check_PROGRAMS += test-c-strcasecmp test-c-strncasecmp
 EXTRA_DIST += test-c-strcase.sh test-c-strcasecmp.c test-c-strncasecmp.c macros.h
 
 ## end   gnulib module c-strcase-tests
+
+## begin gnulib module calloc-gnu-tests
+
+TESTS += test-calloc-gnu
+check_PROGRAMS += test-calloc-gnu
+EXTRA_DIST += test-calloc-gnu.c
+
+## end   gnulib module calloc-gnu-tests
 
 ## begin gnulib module canonicalize-tests
 
@@ -249,7 +229,6 @@ EXTRA_DIST += test-canonicalize.c macros.h
 
 TESTS += test-chown
 check_PROGRAMS += test-chown
-test_chown_LDADD = $(LDADD) @LIBINTL@
 EXTRA_DIST += nap.h test-chown.h test-chown.c signature.h macros.h
 
 ## end   gnulib module chown-tests
@@ -265,10 +244,9 @@ EXTRA_DIST += test-cloexec.c macros.h
 ## begin gnulib module closein-tests
 
 TESTS += test-closein.sh
-TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@'
 check_PROGRAMS += test-closein
 test_closein_LDADD = $(LDADD) @LIBINTL@
-EXTRA_DIST += test-closein.sh test-closein.c
+EXTRA_DIST += init.sh test-closein.sh test-closein.c
 
 ## end   gnulib module closein-tests
 
@@ -305,10 +283,21 @@ EXTRA_DIST += test-ctype.c
 
 ## end   gnulib module ctype-tests
 
+## begin gnulib module di-set-tests
+
+TESTS += test-di-set
+check_PROGRAMS += test-di-set
+EXTRA_DIST += test-di-set.c macros.h
+
+## end   gnulib module di-set-tests
+
 ## begin gnulib module dirent-safer-tests
 
 TESTS += test-dirent-safer
 check_PROGRAMS += test-dirent-safer
+# Link with libintl when needed. dirent-safer uses fdopendir if it is present,
+# and fdopendir indirectly depends on openat-die -> gettext-h.
+test_dirent_safer_LDADD = $(LDADD) $(LIBINTL)
 EXTRA_DIST += test-dirent-safer.c macros.h
 
 ## end   gnulib module dirent-safer-tests
@@ -365,14 +354,22 @@ TESTS += \
  test-exclude4.sh\
  test-exclude5.sh\
  test-exclude6.sh\
- test-exclude7.sh
+ test-exclude7.sh\
+ test-exclude8.sh
 
-TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@'
 check_PROGRAMS += test-exclude
 test_exclude_LDADD = $(LDADD) @LIBINTL@
-EXTRA_DIST += test-exclude.c test-exclude1.sh test-exclude2.sh test-exclude3.sh test-exclude4.sh test-exclude5.sh test-exclude6.sh test-exclude7.sh
+EXTRA_DIST += test-exclude.c test-exclude1.sh test-exclude2.sh test-exclude3.sh test-exclude4.sh test-exclude5.sh test-exclude6.sh test-exclude7.sh test-exclude8.sh
 
 ## end   gnulib module exclude-tests
+
+## begin gnulib module fadvise-tests
+
+TESTS += test-fadvise
+check_PROGRAMS += test-fadvise
+EXTRA_DIST += test-fadvise.c
+
+## end   gnulib module fadvise-tests
 
 ## begin gnulib module fchdir-tests
 
@@ -381,6 +378,14 @@ check_PROGRAMS += test-fchdir
 EXTRA_DIST += test-fchdir.c signature.h macros.h
 
 ## end   gnulib module fchdir-tests
+
+## begin gnulib module fclose-tests
+
+TESTS += test-fclose
+check_PROGRAMS += test-fclose
+EXTRA_DIST += test-fclose.c
+
+## end   gnulib module fclose-tests
 
 ## begin gnulib module fcntl-h-tests
 
@@ -415,10 +420,18 @@ EXTRA_DIST += test-fdopendir.c signature.h macros.h
 
 ## end   gnulib module fdopendir-tests
 
+## begin gnulib module fdutimensat-tests
+
+TESTS += test-fdutimensat
+check_PROGRAMS += test-fdutimensat
+test_fdutimensat_LDADD = $(LDADD) $(LIB_CLOCK_GETTIME) @LIBINTL@
+EXTRA_DIST += nap.h test-futimens.h test-lutimens.h test-utimens.h test-utimens-common.h test-fdutimensat.c macros.h
+
+## end   gnulib module fdutimensat-tests
+
 ## begin gnulib module fflush-tests
 
 TESTS += test-fflush test-fflush2.sh
-TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@' srcdir='$(srcdir)'
 check_PROGRAMS += test-fflush test-fflush2
 MOSTLYCLEANFILES += test-fflush.txt
 EXTRA_DIST += test-fflush.c test-fflush2.sh test-fflush2.c signature.h macros.h
@@ -441,6 +454,14 @@ check_PROGRAMS += test-filevercmp
 EXTRA_DIST += test-filevercmp.c macros.h
 
 ## end   gnulib module filevercmp-tests
+
+## begin gnulib module float-tests
+
+TESTS += test-float
+check_PROGRAMS += test-float
+EXTRA_DIST += test-float.c macros.h
+
+## end   gnulib module float-tests
 
 ## begin gnulib module fnmatch-tests
 
@@ -470,7 +491,6 @@ EXTRA_DIST += test-fopen.h test-fopen.c signature.h macros.h
 ## begin gnulib module fpending-tests
 
 TESTS += test-fpending.sh
-TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@'
 check_PROGRAMS += test-fpending
 MOSTLYCLEANFILES += test-fpending.t
 EXTRA_DIST += test-fpending.c test-fpending.sh macros.h
@@ -489,7 +509,6 @@ EXTRA_DIST += test-fpurge.c macros.h
 ## begin gnulib module freadahead-tests
 
 TESTS += test-freadahead.sh
-TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@' srcdir='$(srcdir)'
 check_PROGRAMS += test-freadahead
 EXTRA_DIST += test-freadahead.c test-freadahead.sh macros.h
 
@@ -507,7 +526,6 @@ EXTRA_DIST += test-freading.c macros.h
 ## begin gnulib module freadptr-tests
 
 TESTS += test-freadptr.sh test-freadptr2.sh
-TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@' srcdir='$(srcdir)'
 check_PROGRAMS += test-freadptr test-freadptr2
 EXTRA_DIST += test-freadptr.c test-freadptr.sh test-freadptr2.c test-freadptr2.sh macros.h
 
@@ -516,7 +534,6 @@ EXTRA_DIST += test-freadptr.c test-freadptr.sh test-freadptr2.c test-freadptr2.s
 ## begin gnulib module freadseek-tests
 
 TESTS += test-freadseek.sh
-TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@' srcdir='$(srcdir)'
 check_PROGRAMS += test-freadseek
 EXTRA_DIST += test-freadseek.c test-freadseek.sh macros.h
 
@@ -544,7 +561,7 @@ EXTRA_DIST += test-freopen.c signature.h macros.h
 TESTS += test-frexp-nolibm
 check_PROGRAMS += test-frexp-nolibm
 test_frexp_nolibm_SOURCES = test-frexp.c
-EXTRA_DIST += test-frexp.c signature.h macros.h
+EXTRA_DIST += test-frexp.c minus-zero.h nan.h signature.h macros.h
 
 ## end   gnulib module frexp-nolibm-tests
 
@@ -553,16 +570,23 @@ EXTRA_DIST += test-frexp.c signature.h macros.h
 TESTS += test-frexpl-nolibm
 check_PROGRAMS += test-frexpl-nolibm
 test_frexpl_nolibm_SOURCES = test-frexpl.c
-EXTRA_DIST += test-frexpl.c signature.h macros.h
+EXTRA_DIST += test-frexpl.c minus-zero.h nan.h signature.h macros.h
 
 ## end   gnulib module frexpl-nolibm-tests
 
+## begin gnulib module fseek-tests
+
+TESTS += test-fseek.sh test-fseek2.sh
+check_PROGRAMS += test-fseek
+EXTRA_DIST += test-fseek.c test-fseek.sh test-fseek2.sh signature.h macros.h
+
+## end   gnulib module fseek-tests
+
 ## begin gnulib module fseeko-tests
 
-TESTS += test-fseeko.sh test-fseeko2.sh
-TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@' srcdir='$(srcdir)'
-check_PROGRAMS += test-fseeko
-EXTRA_DIST += test-fseeko.c test-fseeko.sh test-fseeko2.sh signature.h macros.h
+TESTS += test-fseeko.sh test-fseeko2.sh test-fseeko3.sh
+check_PROGRAMS += test-fseeko test-fseeko3
+EXTRA_DIST += test-fseeko.c test-fseeko.sh test-fseeko2.sh test-fseeko3.c test-fseeko3.sh signature.h macros.h
 
 ## end   gnulib module fseeko-tests
 
@@ -583,14 +607,32 @@ EXTRA_DIST += test-fsync.c signature.h macros.h
 
 ## end   gnulib module fsync-tests
 
+## begin gnulib module ftell-tests
+
+TESTS += test-ftell.sh test-ftell2.sh test-ftell3
+check_PROGRAMS += test-ftell test-ftell3
+MOSTLYCLEANFILES += t-ftell3.tmp
+EXTRA_DIST += test-ftell.c test-ftell.sh test-ftell2.sh test-ftell3.c signature.h macros.h
+
+## end   gnulib module ftell-tests
+
 ## begin gnulib module ftello-tests
 
-TESTS += test-ftello.sh test-ftello2.sh
-TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@' srcdir='$(srcdir)'
-check_PROGRAMS += test-ftello
-EXTRA_DIST += test-ftello.c test-ftello.sh test-ftello2.sh signature.h macros.h
+TESTS += test-ftello.sh test-ftello2.sh test-ftello3
+check_PROGRAMS += test-ftello test-ftello3
+MOSTLYCLEANFILES += t-ftello3.tmp
+EXTRA_DIST += test-ftello.c test-ftello.sh test-ftello2.sh test-ftello3.c signature.h macros.h
 
 ## end   gnulib module ftello-tests
+
+## begin gnulib module futimens-tests
+
+TESTS += test-futimens
+check_PROGRAMS += test-futimens
+test_futimens_LDADD = $(LDADD) $(LIB_CLOCK_GETTIME)
+EXTRA_DIST += nap.h test-futimens.h test-utimens-common.h test-futimens.c signature.h macros.h
+
+## end   gnulib module futimens-tests
 
 ## begin gnulib module getaddrinfo-tests
 
@@ -601,22 +643,21 @@ EXTRA_DIST += signature.h test-getaddrinfo.c
 
 ## end   gnulib module getaddrinfo-tests
 
+## begin gnulib module getcwd-lgpl-tests
+
+TESTS += test-getcwd-lgpl
+check_PROGRAMS += test-getcwd-lgpl
+EXTRA_DIST += test-getcwd-lgpl.c signature.h macros.h
+
+## end   gnulib module getcwd-lgpl-tests
+
 ## begin gnulib module getcwd-tests
 
 TESTS += test-getcwd
 check_PROGRAMS += test-getcwd
-EXTRA_DIST += test-getcwd.c signature.h macros.h
+EXTRA_DIST += test-getcwd.c
 
 ## end   gnulib module getcwd-tests
-
-## begin gnulib module getdate-tests
-
-TESTS += test-getdate
-check_PROGRAMS += test-getdate
-test_getdate_LDADD = $(LDADD) @LIBINTL@ $(LIB_CLOCK_GETTIME)
-EXTRA_DIST += test-getdate.c macros.h
-
-## end   gnulib module getdate-tests
 
 ## begin gnulib module getdelim-tests
 
@@ -626,15 +667,6 @@ MOSTLYCLEANFILES += test-getdelim.txt
 EXTRA_DIST += test-getdelim.c signature.h macros.h
 
 ## end   gnulib module getdelim-tests
-
-## begin gnulib module getdtablesize
-
-
-EXTRA_DIST += getdtablesize.c
-
-EXTRA_libtests_a_SOURCES += getdtablesize.c
-
-## end   gnulib module getdtablesize
 
 ## begin gnulib module getdtablesize-tests
 
@@ -670,6 +702,15 @@ EXTRA_DIST += test-getline.c signature.h macros.h
 
 ## end   gnulib module getline-tests
 
+## begin gnulib module getloadavg-tests
+
+TESTS += test-getloadavg
+check_PROGRAMS += test-getloadavg
+test_getloadavg_LDADD = $(LDADD) @GETLOADAVG_LIBS@
+EXTRA_DIST += test-getloadavg.c signature.h
+
+## end   gnulib module getloadavg-tests
+
 ## begin gnulib module getndelim2-tests
 
 TESTS += test-getndelim2
@@ -701,7 +742,6 @@ EXTRA_DIST += signature.h test-gettimeofday.c
 
 TESTS += test-hash
 check_PROGRAMS += test-hash
-test_hash_LDADD = $(LDADD) @LIBINTL@
 EXTRA_DIST += test-hash.c macros.h
 
 ## end   gnulib module hash-tests
@@ -714,6 +754,14 @@ EXTRA_DIST += test-i-ring.c macros.h
 
 ## end   gnulib module i-ring-tests
 
+## begin gnulib module iconv-h-tests
+
+TESTS += test-iconv-h
+check_PROGRAMS += test-iconv-h
+EXTRA_DIST += test-iconv-h.c
+
+## end   gnulib module iconv-h-tests
+
 ## begin gnulib module iconv-tests
 
 TESTS += test-iconv
@@ -723,6 +771,14 @@ test_iconv_LDADD = $(LDADD) @LIBICONV@
 EXTRA_DIST += test-iconv.c signature.h macros.h
 
 ## end   gnulib module iconv-tests
+
+## begin gnulib module ignore-value-tests
+
+TESTS += test-ignore-value
+check_PROGRAMS += test-ignore-value
+EXTRA_DIST += test-ignore-value.c
+
+## end   gnulib module ignore-value-tests
 
 ## begin gnulib module inet_ntop-tests
 
@@ -750,6 +806,30 @@ test_inet_pton_LDADD = $(LDADD) @INET_PTON_LIB@
 EXTRA_DIST += test-inet_pton.c signature.h macros.h
 
 ## end   gnulib module inet_pton-tests
+
+## begin gnulib module ino-map-tests
+
+TESTS += test-ino-map
+check_PROGRAMS += test-ino-map
+EXTRA_DIST += test-ino-map.c macros.h
+
+## end   gnulib module ino-map-tests
+
+## begin gnulib module intprops-tests
+
+TESTS += test-intprops
+check_PROGRAMS += test-intprops
+EXTRA_DIST += test-intprops.c macros.h
+
+## end   gnulib module intprops-tests
+
+## begin gnulib module inttostr-tests
+
+TESTS += test-inttostr
+check_PROGRAMS += test-inttostr
+EXTRA_DIST += macros.h test-inttostr.c
+
+## end   gnulib module inttostr-tests
 
 ## begin gnulib module inttypes-tests
 
@@ -781,7 +861,7 @@ EXTRA_DIST += test-isblank.c signature.h macros.h
 TESTS += test-isnand-nolibm
 check_PROGRAMS += test-isnand-nolibm
 
-EXTRA_DIST += test-isnand-nolibm.c test-isnand.h nan.h macros.h
+EXTRA_DIST += test-isnand-nolibm.c test-isnand.h minus-zero.h nan.h macros.h
 
 ## end   gnulib module isnand-nolibm-tests
 
@@ -790,7 +870,7 @@ EXTRA_DIST += test-isnand-nolibm.c test-isnand.h nan.h macros.h
 TESTS += test-isnanf-nolibm
 check_PROGRAMS += test-isnanf-nolibm
 
-EXTRA_DIST += test-isnanf-nolibm.c test-isnanf.h nan.h macros.h
+EXTRA_DIST += test-isnanf-nolibm.c test-isnanf.h minus-zero.h nan.h macros.h
 
 ## end   gnulib module isnanf-nolibm-tests
 
@@ -799,9 +879,17 @@ EXTRA_DIST += test-isnanf-nolibm.c test-isnanf.h nan.h macros.h
 TESTS += test-isnanl-nolibm
 check_PROGRAMS += test-isnanl-nolibm
 
-EXTRA_DIST += test-isnanl-nolibm.c test-isnanl.h nan.h macros.h
+EXTRA_DIST += test-isnanl-nolibm.c test-isnanl.h minus-zero.h nan.h macros.h
 
 ## end   gnulib module isnanl-nolibm-tests
+
+## begin gnulib module iswblank-tests
+
+TESTS += test-iswblank
+check_PROGRAMS += test-iswblank
+EXTRA_DIST += test-iswblank.c macros.h
+
+## end   gnulib module iswblank-tests
 
 ## begin gnulib module langinfo-tests
 
@@ -815,7 +903,6 @@ EXTRA_DIST += test-langinfo.c
 
 TESTS += test-lchown
 check_PROGRAMS += test-lchown
-test_lchown_LDADD = $(LDADD) @LIBINTL@
 EXTRA_DIST += nap.h test-lchown.h test-lchown.c signature.h macros.h
 
 ## end   gnulib module lchown-tests
@@ -828,30 +915,6 @@ test_link_LDADD = $(LDADD) @LIBINTL@
 EXTRA_DIST += test-link.h test-link.c signature.h macros.h
 
 ## end   gnulib module link-tests
-
-## begin gnulib module link-warning
-
-# The BUILT_SOURCES created by this Makefile snippet are not used via #include
-# statements but through direct file reference. Therefore this snippet must be
-# present in all Makefile.am that need it. This is ensured by the applicability
-# 'all' defined above.
-
-BUILT_SOURCES += link-warning.h
-# The link-warning.h that gets inserted into generated .h files is the same as
-# build-aux/link-warning.h, except that it has the copyright header cut off.
-link-warning.h: $(top_srcdir)/build-aux/link-warning.h
-	$(AM_V_GEN)rm -f $@-t $@ && \
-	sed -n -e '/GL_LINK_WARNING/,$$p' \
-	  < $(top_srcdir)/build-aux/link-warning.h \
-	  > $@-t && \
-	mv $@-t $@
-MOSTLYCLEANFILES += link-warning.h link-warning.h-t
-
-LINK_WARNING_H=link-warning.h
-
-EXTRA_DIST += $(top_srcdir)/build-aux/link-warning.h
-
-## end   gnulib module link-warning
 
 ## begin gnulib module linkat-tests
 
@@ -879,6 +942,24 @@ EXTRA_DIST += test-locale.c
 
 ## end   gnulib module locale-tests
 
+## begin gnulib module localename
+
+libtests_a_SOURCES += localename.c
+
+EXTRA_DIST += localename.h
+
+## end   gnulib module localename
+
+## begin gnulib module localename-tests
+
+TESTS += test-localename
+check_PROGRAMS += test-localename
+test_localename_LDADD = $(LDADD) @INTL_MACOSX_LIBS@ $(LIBTHREAD)
+
+EXTRA_DIST += test-localename.c macros.h
+
+## end   gnulib module localename-tests
+
 ## begin gnulib module lock-tests
 
 TESTS += test-lock
@@ -891,7 +972,6 @@ EXTRA_DIST += test-lock.c
 ## begin gnulib module lseek-tests
 
 TESTS += test-lseek.sh
-TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@' srcdir='$(srcdir)'
 check_PROGRAMS += test-lseek
 EXTRA_DIST += test-lseek.c test-lseek.sh signature.h macros.h
 
@@ -904,6 +984,14 @@ check_PROGRAMS += test-lstat
 EXTRA_DIST += test-lstat.h test-lstat.c signature.h macros.h
 
 ## end   gnulib module lstat-tests
+
+## begin gnulib module malloc-gnu-tests
+
+TESTS += test-malloc-gnu
+check_PROGRAMS += test-malloc-gnu
+EXTRA_DIST += test-malloc-gnu.c
+
+## end   gnulib module malloc-gnu-tests
 
 ## begin gnulib module malloca-tests
 
@@ -924,23 +1012,33 @@ EXTRA_DIST += test-math.c
 
 ## begin gnulib module mbrtowc-tests
 
-TESTS += test-mbrtowc1.sh test-mbrtowc2.sh test-mbrtowc3.sh test-mbrtowc4.sh
+TESTS += \
+  test-mbrtowc1.sh test-mbrtowc2.sh test-mbrtowc3.sh test-mbrtowc4.sh \
+  test-mbrtowc-w32-1.sh test-mbrtowc-w32-2.sh test-mbrtowc-w32-3.sh \
+  test-mbrtowc-w32-4.sh test-mbrtowc-w32-5.sh
 TESTS_ENVIRONMENT += \
-  EXEEXT='@EXEEXT@' \
   LOCALE_FR='@LOCALE_FR@' \
   LOCALE_FR_UTF8='@LOCALE_FR_UTF8@' \
   LOCALE_JA='@LOCALE_JA@' \
   LOCALE_ZH_CN='@LOCALE_ZH_CN@'
-check_PROGRAMS += test-mbrtowc
+check_PROGRAMS += test-mbrtowc test-mbrtowc-w32
 
-EXTRA_DIST += test-mbrtowc1.sh test-mbrtowc2.sh test-mbrtowc3.sh test-mbrtowc4.sh test-mbrtowc.c signature.h macros.h
+EXTRA_DIST += test-mbrtowc1.sh test-mbrtowc2.sh test-mbrtowc3.sh test-mbrtowc4.sh test-mbrtowc.c test-mbrtowc-w32-1.sh test-mbrtowc-w32-2.sh test-mbrtowc-w32-3.sh test-mbrtowc-w32-4.sh test-mbrtowc-w32-5.sh test-mbrtowc-w32.c signature.h macros.h
 
 ## end   gnulib module mbrtowc-tests
+
+## begin gnulib module mbsalign-tests
+
+TESTS += test-mbsalign
+check_PROGRAMS += test-mbsalign
+EXTRA_DIST += test-mbsalign.c macros.h
+
+## end   gnulib module mbsalign-tests
 
 ## begin gnulib module mbscasecmp-tests
 
 TESTS += test-mbscasecmp.sh
-TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@' LOCALE_TR_UTF8='@LOCALE_TR_UTF8@'
+TESTS_ENVIRONMENT += LOCALE_TR_UTF8='@LOCALE_TR_UTF8@'
 check_PROGRAMS += test-mbscasecmp
 
 EXTRA_DIST += test-mbscasecmp.sh test-mbscasecmp.c macros.h
@@ -950,7 +1048,7 @@ EXTRA_DIST += test-mbscasecmp.sh test-mbscasecmp.c macros.h
 ## begin gnulib module mbsinit-tests
 
 TESTS += test-mbsinit.sh
-TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@' LOCALE_FR_UTF8='@LOCALE_FR_UTF8@'
+TESTS_ENVIRONMENT += LOCALE_FR_UTF8='@LOCALE_FR_UTF8@'
 check_PROGRAMS += test-mbsinit
 
 EXTRA_DIST += test-mbsinit.sh test-mbsinit.c signature.h macros.h
@@ -961,7 +1059,6 @@ EXTRA_DIST += test-mbsinit.sh test-mbsinit.c signature.h macros.h
 
 TESTS += test-mbsrtowcs1.sh test-mbsrtowcs2.sh test-mbsrtowcs3.sh test-mbsrtowcs4.sh
 TESTS_ENVIRONMENT += \
-  EXEEXT='@EXEEXT@' \
   LOCALE_FR='@LOCALE_FR@' \
   LOCALE_FR_UTF8='@LOCALE_FR_UTF8@' \
   LOCALE_JA='@LOCALE_JA@' \
@@ -975,12 +1072,20 @@ EXTRA_DIST += test-mbsrtowcs1.sh test-mbsrtowcs2.sh test-mbsrtowcs3.sh test-mbsr
 ## begin gnulib module mbsstr-tests
 
 TESTS += test-mbsstr1 test-mbsstr2.sh test-mbsstr3.sh
-TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@' LOCALE_FR_UTF8='@LOCALE_FR_UTF8@' LOCALE_ZH_CN='@LOCALE_ZH_CN@'
+TESTS_ENVIRONMENT += LOCALE_FR_UTF8='@LOCALE_FR_UTF8@' LOCALE_ZH_CN='@LOCALE_ZH_CN@'
 check_PROGRAMS += test-mbsstr1 test-mbsstr2 test-mbsstr3
 
 EXTRA_DIST += test-mbsstr1.c test-mbsstr2.sh test-mbsstr2.c test-mbsstr3.sh test-mbsstr3.c macros.h
 
 ## end   gnulib module mbsstr-tests
+
+## begin gnulib module memcasecmp-tests
+
+TESTS += test-memcasecmp
+check_PROGRAMS += test-memcasecmp
+EXTRA_DIST += test-memcasecmp.c zerosize-ptr.h macros.h
+
+## end   gnulib module memcasecmp-tests
 
 ## begin gnulib module memchr-tests
 
@@ -998,13 +1103,13 @@ EXTRA_DIST += test-memchr2.c zerosize-ptr.h macros.h
 
 ## end   gnulib module memchr2-tests
 
-## begin gnulib module memcmp-tests
+## begin gnulib module memcoll-tests
 
-TESTS += test-memcmp
-check_PROGRAMS += test-memcmp
-EXTRA_DIST += test-memcmp.c zerosize-ptr.h signature.h macros.h
+TESTS += test-memcoll
+check_PROGRAMS += test-memcoll
+EXTRA_DIST += test-memcoll.c macros.h
 
-## end   gnulib module memcmp-tests
+## end   gnulib module memcoll-tests
 
 ## begin gnulib module memrchr-tests
 
@@ -1050,7 +1155,7 @@ EXTRA_DIST += test-netinet_in.c
 ## begin gnulib module nl_langinfo-tests
 
 TESTS += test-nl_langinfo.sh
-TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@' LOCALE_FR='@LOCALE_FR@' LOCALE_FR_UTF8='@LOCALE_FR_UTF8@'
+TESTS_ENVIRONMENT += LOCALE_FR='@LOCALE_FR@' LOCALE_FR_UTF8='@LOCALE_FR_UTF8@'
 check_PROGRAMS += test-nl_langinfo
 EXTRA_DIST += test-nl_langinfo.sh test-nl_langinfo.c signature.h macros.h
 
@@ -1087,6 +1192,23 @@ EXTRA_DIST += nap.h test-chown.h test-lchown.h test-lstat.h test-mkdir.h test-rm
 
 ## end   gnulib module openat-tests
 
+## begin gnulib module parse-datetime-tests
+
+TESTS += test-parse-datetime
+check_PROGRAMS += test-parse-datetime
+test_parse_datetime_LDADD = $(LDADD) @LIBINTL@ $(LIB_CLOCK_GETTIME)
+EXTRA_DIST += test-parse-datetime.c macros.h
+
+## end   gnulib module parse-datetime-tests
+
+## begin gnulib module pathmax-tests
+
+TESTS += test-pathmax
+check_PROGRAMS += test-pathmax
+EXTRA_DIST += test-pathmax.c
+
+## end   gnulib module pathmax-tests
+
 ## begin gnulib module perror
 
 
@@ -1098,12 +1220,28 @@ EXTRA_libtests_a_SOURCES += perror.c
 
 ## begin gnulib module perror-tests
 
-TESTS += test-perror.sh
-TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@' srcdir='$(srcdir)'
-check_PROGRAMS += test-perror
-EXTRA_DIST += signature.h test-perror.c test-perror.sh
+TESTS += test-perror.sh test-perror2
+check_PROGRAMS += test-perror test-perror2
+EXTRA_DIST += init.sh macros.h signature.h test-perror.c test-perror2.c test-perror.sh
 
 ## end   gnulib module perror-tests
+
+## begin gnulib module pipe-posix
+
+
+EXTRA_DIST += pipe.c
+
+EXTRA_libtests_a_SOURCES += pipe.c
+
+## end   gnulib module pipe-posix
+
+## begin gnulib module pipe-posix-tests
+
+TESTS += test-pipe
+check_PROGRAMS += test-pipe
+EXTRA_DIST += test-pipe.c signature.h macros.h
+
+## end   gnulib module pipe-posix-tests
 
 ## begin gnulib module posixtm-tests
 
@@ -1137,24 +1275,22 @@ EXTRA_DIST += test-priv-set.c macros.h
 
 ## end   gnulib module priv-set-tests
 
-## begin gnulib module quotearg-tests
+## begin gnulib module quotearg-simple-tests
 
-TESTS += test-quotearg.sh
-TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@' srcdir='$(srcdir)' LOCALE_FR='@LOCALE_FR@' LOCALE_FR_UTF8='@LOCALE_FR_UTF8@'
-check_PROGRAMS += test-quotearg
-test_quotearg_LDADD = $(LDADD) @LIBINTL@
-EXTRA_DIST += test-quotearg.sh test-quotearg.c macros.h locale/fr/LC_MESSAGES/test-quotearg.po locale/fr/LC_MESSAGES/test-quotearg.mo
+TESTS += test-quotearg-simple
+check_PROGRAMS += test-quotearg-simple
+test_quotearg_simple_LDADD = $(LDADD) @LIBINTL@
+EXTRA_DIST += test-quotearg-simple.c test-quotearg.h macros.h
 
-## end   gnulib module quotearg-tests
+## end   gnulib module quotearg-simple-tests
 
-## begin gnulib module read-file
+## begin gnulib module randread-tests
 
+TESTS += test-rand-isaac
+check_PROGRAMS += test-rand-isaac
+EXTRA_DIST += test-rand-isaac.c macros.h
 
-EXTRA_DIST += read-file.c read-file.h
-
-EXTRA_libtests_a_SOURCES += read-file.c
-
-## end   gnulib module read-file
+## end   gnulib module randread-tests
 
 ## begin gnulib module read-file-tests
 
@@ -1171,6 +1307,23 @@ check_PROGRAMS += test-readlink
 EXTRA_DIST += test-readlink.h test-readlink.c signature.h macros.h
 
 ## end   gnulib module readlink-tests
+
+## begin gnulib module readlinkat-tests
+
+TESTS += test-readlinkat
+check_PROGRAMS += test-readlinkat
+test_readlinkat_LDADD = $(LDADD) @LIBINTL@
+EXTRA_DIST += test-readlink.h test-readlinkat.c signature.h macros.h
+
+## end   gnulib module readlinkat-tests
+
+## begin gnulib module realloc-gnu-tests
+
+TESTS += test-realloc-gnu
+check_PROGRAMS += test-realloc-gnu
+EXTRA_DIST += test-realloc-gnu.c
+
+## end   gnulib module realloc-gnu-tests
 
 ## begin gnulib module remove-tests
 
@@ -1197,16 +1350,23 @@ EXTRA_DIST += test-rmdir.h test-rmdir.c signature.h macros.h
 
 ## end   gnulib module rmdir-tests
 
+## begin gnulib module sched-tests
+
+TESTS += test-sched
+check_PROGRAMS += test-sched
+EXTRA_DIST += test-sched.c
+
+## end   gnulib module sched-tests
+
 ## begin gnulib module select-tests
 
 TESTS += test-select test-select-in.sh test-select-out.sh
 # test-select-stdin has to be run by hand.
-TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@'
 check_PROGRAMS += test-select test-select-fd test-select-stdin
 test_select_LDADD = $(LDADD) @LIBSOCKET@ $(INET_PTON_LIB)
 test_select_fd_LDADD = $(LDADD) @LIBSOCKET@
 test_select_stdin_LDADD = $(LDADD) @LIBSOCKET@
-EXTRA_DIST += signature.h test-select.c test-select-fd.c test-select-in.sh test-select-out.sh test-select-stdin.c
+EXTRA_DIST += macros.h signature.h test-select.c test-select.h test-select-fd.c test-select-in.sh test-select-out.sh test-select-stdin.c
 
 ## end   gnulib module select-tests
 
@@ -1217,6 +1377,28 @@ check_PROGRAMS += test-setenv
 EXTRA_DIST += test-setenv.c signature.h macros.h
 
 ## end   gnulib module setenv-tests
+
+## begin gnulib module setlocale
+
+
+EXTRA_DIST += setlocale.c
+
+EXTRA_libtests_a_SOURCES += setlocale.c
+
+## end   gnulib module setlocale
+
+## begin gnulib module setlocale-tests
+
+TESTS += test-setlocale1.sh test-setlocale2.sh
+TESTS_ENVIRONMENT += \
+  LOCALE_FR='@LOCALE_FR@' \
+  LOCALE_FR_UTF8='@LOCALE_FR_UTF8@' \
+  LOCALE_JA='@LOCALE_JA@' \
+  LOCALE_ZH_CN='@LOCALE_ZH_CN@'
+check_PROGRAMS += test-setlocale1 test-setlocale2
+EXTRA_DIST += test-setlocale1.sh test-setlocale1.c test-setlocale2.sh test-setlocale2.c signature.h macros.h
+
+## end   gnulib module setlocale-tests
 
 ## begin gnulib module setsockopt
 
@@ -1248,9 +1430,17 @@ EXTRA_DIST += test-signal.c
 TESTS += test-signbit
 check_PROGRAMS += test-signbit
 
-EXTRA_DIST += test-signbit.c macros.h
+EXTRA_DIST += test-signbit.c minus-zero.h macros.h
 
 ## end   gnulib module signbit-tests
+
+## begin gnulib module sigprocmask-tests
+
+TESTS += test-sigprocmask
+check_PROGRAMS += test-sigprocmask
+EXTRA_DIST += test-sigprocmask.c signature.h macros.h
+
+## end   gnulib module sigprocmask-tests
 
 ## begin gnulib module sleep
 
@@ -1268,6 +1458,112 @@ check_PROGRAMS += test-sleep
 EXTRA_DIST += test-sleep.c signature.h macros.h
 
 ## end   gnulib module sleep-tests
+
+## begin gnulib module snippet/_Noreturn
+
+# Because this Makefile snippet defines a variable used by other
+# gnulib Makefile snippets, it must be present in all Makefile.am that
+# need it. This is ensured by the applicability 'all' defined above.
+
+_NORETURN_H=$(top_srcdir)/build-aux/snippet/_Noreturn.h
+
+EXTRA_DIST += $(top_srcdir)/build-aux/snippet/_Noreturn.h
+
+## end   gnulib module snippet/_Noreturn
+
+## begin gnulib module snippet/arg-nonnull
+
+# The BUILT_SOURCES created by this Makefile snippet are not used via #include
+# statements but through direct file reference. Therefore this snippet must be
+# present in all Makefile.am that need it. This is ensured by the applicability
+# 'all' defined above.
+
+BUILT_SOURCES += arg-nonnull.h
+# The arg-nonnull.h that gets inserted into generated .h files is the same as
+# build-aux/snippet/arg-nonnull.h, except that it has the copyright header cut
+# off.
+arg-nonnull.h: $(top_srcdir)/build-aux/snippet/arg-nonnull.h
+	$(AM_V_GEN)rm -f $@-t $@ && \
+	sed -n -e '/GL_ARG_NONNULL/,$$p' \
+	  < $(top_srcdir)/build-aux/snippet/arg-nonnull.h \
+	  > $@-t && \
+	mv $@-t $@
+MOSTLYCLEANFILES += arg-nonnull.h arg-nonnull.h-t
+
+ARG_NONNULL_H=arg-nonnull.h
+
+EXTRA_DIST += $(top_srcdir)/build-aux/snippet/arg-nonnull.h
+
+## end   gnulib module snippet/arg-nonnull
+
+## begin gnulib module snippet/c++defs
+
+# The BUILT_SOURCES created by this Makefile snippet are not used via #include
+# statements but through direct file reference. Therefore this snippet must be
+# present in all Makefile.am that need it. This is ensured by the applicability
+# 'all' defined above.
+
+BUILT_SOURCES += c++defs.h
+# The c++defs.h that gets inserted into generated .h files is the same as
+# build-aux/snippet/c++defs.h, except that it has the copyright header cut off.
+c++defs.h: $(top_srcdir)/build-aux/snippet/c++defs.h
+	$(AM_V_GEN)rm -f $@-t $@ && \
+	sed -n -e '/_GL_CXXDEFS/,$$p' \
+	  < $(top_srcdir)/build-aux/snippet/c++defs.h \
+	  > $@-t && \
+	mv $@-t $@
+MOSTLYCLEANFILES += c++defs.h c++defs.h-t
+
+CXXDEFS_H=c++defs.h
+
+EXTRA_DIST += $(top_srcdir)/build-aux/snippet/c++defs.h
+
+## end   gnulib module snippet/c++defs
+
+## begin gnulib module snippet/unused-parameter
+
+# The BUILT_SOURCES created by this Makefile snippet are not used via #include
+# statements but through direct file reference. Therefore this snippet must be
+# present in all Makefile.am that need it. This is ensured by the applicability
+# 'all' defined above.
+
+BUILT_SOURCES += unused-parameter.h
+# The unused-parameter.h that gets inserted into generated .h files is the same
+# as build-aux/snippet/unused-parameter.h, except that it has the copyright
+# header cut off.
+unused-parameter.h: $(top_srcdir)/build-aux/snippet/unused-parameter.h
+	$(AM_V_GEN)rm -f $@-t $@ && \
+	sed -n -e '/GL_UNUSED_PARAMETER/,$$p' \
+	  < $(top_srcdir)/build-aux/snippet/unused-parameter.h \
+	  > $@-t && \
+	mv $@-t $@
+MOSTLYCLEANFILES += unused-parameter.h unused-parameter.h-t
+
+UNUSED_PARAMETER_H=unused-parameter.h
+
+EXTRA_DIST += $(top_srcdir)/build-aux/snippet/unused-parameter.h
+
+## end   gnulib module snippet/unused-parameter
+
+## begin gnulib module snippet/warn-on-use
+
+BUILT_SOURCES += warn-on-use.h
+# The warn-on-use.h that gets inserted into generated .h files is the same as
+# build-aux/snippet/warn-on-use.h, except that it has the copyright header cut
+# off.
+warn-on-use.h: $(top_srcdir)/build-aux/snippet/warn-on-use.h
+	$(AM_V_GEN)rm -f $@-t $@ && \
+	sed -n -e '/^.ifndef/,$$p' \
+	  < $(top_srcdir)/build-aux/snippet/warn-on-use.h \
+	  > $@-t && \
+	mv $@-t $@
+MOSTLYCLEANFILES += warn-on-use.h warn-on-use.h-t
+
+WARN_ON_USE_H=warn-on-use.h
+
+EXTRA_DIST += $(top_srcdir)/build-aux/snippet/warn-on-use.h
+
+## end   gnulib module snippet/warn-on-use
 
 ## begin gnulib module snprintf-tests
 
@@ -1348,7 +1644,7 @@ EXTRA_DIST += test-stdio.c
 
 TESTS += test-stdlib
 check_PROGRAMS += test-stdlib
-EXTRA_DIST += test-stdlib.c
+EXTRA_DIST += test-stdlib.c test-sys_wait.h
 
 ## end   gnulib module stdlib-tests
 
@@ -1359,6 +1655,31 @@ check_PROGRAMS += test-strerror
 EXTRA_DIST += test-strerror.c signature.h macros.h
 
 ## end   gnulib module strerror-tests
+
+## begin gnulib module strerror_r-posix
+
+
+EXTRA_DIST += strerror_r.c
+
+EXTRA_libtests_a_SOURCES += strerror_r.c
+
+## end   gnulib module strerror_r-posix
+
+## begin gnulib module strerror_r-posix-tests
+
+TESTS += test-strerror_r
+check_PROGRAMS += test-strerror_r
+EXTRA_DIST += test-strerror_r.c signature.h macros.h
+
+## end   gnulib module strerror_r-posix-tests
+
+## begin gnulib module strftime-tests
+
+TESTS += test-strftime
+check_PROGRAMS += test-strftime
+EXTRA_DIST += test-strftime.c macros.h
+
+## end   gnulib module strftime-tests
 
 ## begin gnulib module striconv-tests
 
@@ -1378,23 +1699,46 @@ EXTRA_DIST += test-string.c
 
 ## end   gnulib module string-tests
 
+## begin gnulib module strnlen-tests
+
+TESTS += test-strnlen
+check_PROGRAMS += test-strnlen
+EXTRA_DIST += test-strnlen.c zerosize-ptr.h signature.h macros.h
+
+## end   gnulib module strnlen-tests
+
 ## begin gnulib module strsignal-tests
 
 TESTS += test-strsignal
 check_PROGRAMS += test-strsignal
-test_strsignal_LDADD = $(LDADD) @LIBINTL@
+test_strsignal_LDADD = $(LDADD) @LIBINTL@ $(LIBTHREAD)
 EXTRA_DIST += test-strsignal.c signature.h macros.h
 
 ## end   gnulib module strsignal-tests
 
 ## begin gnulib module strtod-tests
 
-LIBS += $(POW_LIB)
 TESTS += test-strtod
 check_PROGRAMS += test-strtod
-EXTRA_DIST += test-strtod.c signature.h macros.h
+EXTRA_DIST += test-strtod.c signature.h minus-zero.h macros.h
 
 ## end   gnulib module strtod-tests
+
+## begin gnulib module strtoimax-tests
+
+TESTS += test-strtoimax
+check_PROGRAMS += test-strtoimax
+EXTRA_DIST += test-strtoimax.c signature.h macros.h
+
+## end   gnulib module strtoimax-tests
+
+## begin gnulib module strtoumax-tests
+
+TESTS += test-strtoumax
+check_PROGRAMS += test-strtoumax
+EXTRA_DIST += test-strtoumax.c signature.h macros.h
+
+## end   gnulib module strtoumax-tests
 
 ## begin gnulib module symlink-tests
 
@@ -1404,42 +1748,23 @@ EXTRA_DIST += test-symlink.h test-symlink.c signature.h macros.h
 
 ## end   gnulib module symlink-tests
 
+## begin gnulib module symlinkat
+
+
+EXTRA_DIST += symlinkat.c
+
+EXTRA_libtests_a_SOURCES += symlinkat.c
+
+## end   gnulib module symlinkat
+
 ## begin gnulib module symlinkat-tests
 
 TESTS += test-symlinkat
 check_PROGRAMS += test-symlinkat
 test_symlinkat_LDADD = $(LDADD) @LIBINTL@
-EXTRA_DIST += test-readlink.h test-symlink.h test-symlinkat.c signature.h macros.h
+EXTRA_DIST += test-symlink.h test-symlinkat.c signature.h macros.h
 
 ## end   gnulib module symlinkat-tests
-
-## begin gnulib module sys_ioctl
-
-BUILT_SOURCES += sys/ioctl.h
-
-# We need the following in order to create <sys/ioctl.h> when the system
-# does not have a complete one.
-sys/ioctl.h: sys_ioctl.in.h $(LINK_WARNING_H)
-	$(AM_V_at)$(MKDIR_P) sys
-	$(AM_V_GEN)rm -f $@-t $@ && \
-	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
-	  sed -e 's|@''HAVE_SYS_IOCTL_H''@|$(HAVE_SYS_IOCTL_H)|g' \
-	      -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
-	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|@PRAGMA_SYSTEM_HEADER@|g' \
-	      -e 's|@''NEXT_SYS_IOCTL_H''@|$(NEXT_SYS_IOCTL_H)|g' \
-	      -e 's|@''GNULIB_IOCTL''@|$(GNULIB_IOCTL)|g' \
-	      -e 's|@''SYS_IOCTL_H_HAVE_WINSOCK2_H''@|$(SYS_IOCTL_H_HAVE_WINSOCK2_H)|g' \
-	      -e 's|@''SYS_IOCTL_H_HAVE_WINSOCK2_H_AND_USE_SOCKETS''@|$(SYS_IOCTL_H_HAVE_WINSOCK2_H_AND_USE_SOCKETS)|g' \
-	      -e '/definition of GL_LINK_WARNING/r $(LINK_WARNING_H)' \
-	      < $(srcdir)/sys_ioctl.in.h; \
-	} > $@-t && \
-	mv $@-t $@
-MOSTLYCLEANFILES += sys/ioctl.h sys/ioctl.h-t
-MOSTLYCLEANDIRS += sys
-
-EXTRA_DIST += sys_ioctl.in.h
-
-## end   gnulib module sys_ioctl
 
 ## begin gnulib module sys_ioctl-tests
 
@@ -1453,7 +1778,7 @@ EXTRA_DIST += test-sys_ioctl.c
 
 TESTS += test-sys_select
 check_PROGRAMS += test-sys_select
-EXTRA_DIST += test-sys_select.c
+EXTRA_DIST += test-sys_select.c signature.h
 
 ## end   gnulib module sys_select-tests
 
@@ -1481,6 +1806,14 @@ EXTRA_DIST += test-sys_time.c
 
 ## end   gnulib module sys_time-tests
 
+## begin gnulib module sys_uio-tests
+
+TESTS += test-sys_uio
+check_PROGRAMS += test-sys_uio
+EXTRA_DIST += test-sys_uio.c
+
+## end   gnulib module sys_uio-tests
+
 ## begin gnulib module sys_utsname-tests
 
 TESTS += test-sys_utsname
@@ -1489,11 +1822,37 @@ EXTRA_DIST += test-sys_utsname.c
 
 ## end   gnulib module sys_utsname-tests
 
+## begin gnulib module sys_wait-tests
+
+TESTS += test-sys_wait
+check_PROGRAMS += test-sys_wait
+EXTRA_DIST += test-sys_wait.c test-sys_wait.h
+
+## end   gnulib module sys_wait-tests
+
+## begin gnulib module termios-tests
+
+TESTS += test-termios
+check_PROGRAMS += test-termios
+EXTRA_DIST += test-termios.c
+
+## end   gnulib module termios-tests
+
 ## begin gnulib module thread
 
 libtests_a_SOURCES += glthread/thread.h glthread/thread.c
 
 ## end   gnulib module thread
+
+## begin gnulib module thread-tests
+
+TESTS += test-thread_self test-thread_create
+check_PROGRAMS += test-thread_self test-thread_create
+test_thread_self_LDADD = $(LDADD) @LIBTHREAD@
+test_thread_create_LDADD = $(LDADD) @LIBMULTITHREAD@
+EXTRA_DIST += test-thread_self.c test-thread_create.c macros.h
+
+## end   gnulib module thread-tests
 
 ## begin gnulib module time-tests
 
@@ -1546,11 +1905,22 @@ EXTRA_DIST += test-unistd.c
 
 ## end   gnulib module unistd-tests
 
+## begin gnulib module unistr/u8-mbtoucr-tests
+
+TESTS += test-u8-mbtoucr
+check_PROGRAMS += test-u8-mbtoucr
+test_u8_mbtoucr_SOURCES = unistr/test-u8-mbtoucr.c
+test_u8_mbtoucr_LDADD = $(LDADD) $(LIBUNISTRING)
+EXTRA_DIST += unistr/test-u8-mbtoucr.c macros.h
+
+## end   gnulib module unistr/u8-mbtoucr-tests
+
 ## begin gnulib module unistr/u8-uctomb-tests
 
 TESTS += test-u8-uctomb
 check_PROGRAMS += test-u8-uctomb
 test_u8_uctomb_SOURCES = unistr/test-u8-uctomb.c
+test_u8_uctomb_LDADD = $(LDADD) $(LIBUNISTRING)
 EXTRA_DIST += unistr/test-u8-uctomb.c macros.h
 
 ## end   gnulib module unistr/u8-uctomb-tests
@@ -1558,11 +1928,11 @@ EXTRA_DIST += unistr/test-u8-uctomb.c macros.h
 ## begin gnulib module uniwidth/width-tests
 
 TESTS += test-uc_width uniwidth/test-uc_width2.sh
-TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@'
 check_PROGRAMS += test-uc_width test-uc_width2
 test_uc_width_SOURCES = uniwidth/test-uc_width.c
+test_uc_width_LDADD = $(LDADD) $(LIBUNISTRING)
 test_uc_width2_SOURCES = uniwidth/test-uc_width2.c
-
+test_uc_width2_LDADD = $(LDADD) $(LIBUNISTRING)
 EXTRA_DIST += uniwidth/test-uc_width.c uniwidth/test-uc_width2.c uniwidth/test-uc_width2.sh macros.h
 
 ## end   gnulib module uniwidth/width-tests
@@ -1577,10 +1947,9 @@ EXTRA_DIST += test-unlink.h test-unlink.c signature.h macros.h
 
 ## begin gnulib module unlinkdir
 
+libtests_a_SOURCES += unlinkdir.c
 
-EXTRA_DIST += unlinkdir.c unlinkdir.h
-
-EXTRA_libtests_a_SOURCES += unlinkdir.c
+EXTRA_DIST += unlinkdir.h
 
 ## end   gnulib module unlinkdir
 
@@ -1592,38 +1961,22 @@ EXTRA_DIST += test-unsetenv.c signature.h macros.h
 
 ## end   gnulib module unsetenv-tests
 
-## begin gnulib module unused-parameter
-
-# The BUILT_SOURCES created by this Makefile snippet are not used via #include
-# statements but through direct file reference. Therefore this snippet must be
-# present in all Makefile.am that need it. This is ensured by the applicability
-# 'all' defined above.
-
-BUILT_SOURCES += unused-parameter.h
-# The unused-parameter.h that gets inserted into generated .h files is the same
-# as build-aux/unused-parameter.h, except that it has the copyright header cut
-# off.
-unused-parameter.h: $(top_srcdir)/build-aux/unused-parameter.h
-	$(AM_V_GEN)rm -f $@-t $@ && \
-	sed -n -e '/GL_UNUSED_PARAMETER/,$$p' \
-	  < $(top_srcdir)/build-aux/unused-parameter.h \
-	  > $@-t && \
-	mv $@-t $@
-MOSTLYCLEANFILES += unused-parameter.h unused-parameter.h-t
-
-UNUSED_PARAMETER_H=unused-parameter.h
-
-EXTRA_DIST += $(top_srcdir)/build-aux/unused-parameter.h
-
-## end   gnulib module unused-parameter
-
 ## begin gnulib module update-copyright-tests
 
 TESTS += test-update-copyright.sh
-TESTS_ENVIRONMENT += PATH='$(abs_aux_dir)'$(PATH_SEPARATOR)"$$PATH"
+TESTS_ENVIRONMENT += abs_aux_dir='$(abs_aux_dir)'
 EXTRA_DIST += test-update-copyright.sh
 
 ## end   gnulib module update-copyright-tests
+
+## begin gnulib module userspec-tests
+
+TESTS += test-userspec
+check_PROGRAMS += test-userspec
+test_userspec_LDADD = $(LDADD) @LIBINTL@
+EXTRA_DIST += test-userspec.c
+
+## end   gnulib module userspec-tests
 
 ## begin gnulib module usleep
 
@@ -1646,10 +1999,19 @@ EXTRA_DIST += test-usleep.c signature.h macros.h
 
 TESTS += test-utimens
 check_PROGRAMS += test-utimens
-test_utimens_LDADD = $(LDADD) $(LIB_CLOCK_GETTIME) @LIBINTL@
+test_utimens_LDADD = $(LDADD) $(LIB_CLOCK_GETTIME)
 EXTRA_DIST += nap.h test-futimens.h test-lutimens.h test-utimens.h test-utimens-common.h test-utimens.c macros.h
 
 ## end   gnulib module utimens-tests
+
+## begin gnulib module utimensat-tests
+
+TESTS += test-utimensat
+check_PROGRAMS += test-utimensat
+test_utimensat_LDADD = $(LDADD) $(LIB_CLOCK_GETTIME) @LIBINTL@
+EXTRA_DIST += nap.h test-lutimens.h test-utimens.h test-utimens-common.h test-utimensat.c signature.h macros.h
+
+## end   gnulib module utimensat-tests
 
 ## begin gnulib module vasnprintf-tests
 
@@ -1665,7 +2027,7 @@ EXTRA_DIST += test-vasnprintf.c macros.h
 TESTS += test-vasprintf-posix
 check_PROGRAMS += test-vasprintf-posix
 
-EXTRA_DIST += test-vasprintf-posix.c nan.h macros.h
+EXTRA_DIST += test-vasprintf-posix.c minus-zero.h nan.h macros.h
 
 ## end   gnulib module vasprintf-posix-tests
 
@@ -1682,15 +2044,23 @@ EXTRA_DIST += test-vasprintf.c signature.h macros.h
 
 TESTS += test-vc-list-files-git.sh
 TESTS += test-vc-list-files-cvs.sh
-TESTS_ENVIRONMENT += PATH='$(abs_aux_dir)'$(PATH_SEPARATOR)"$$PATH"
-EXTRA_DIST += test-vc-list-files-git.sh test-vc-list-files-cvs.sh
+TESTS_ENVIRONMENT += abs_aux_dir='$(abs_aux_dir)'
+EXTRA_DIST += test-vc-list-files-git.sh test-vc-list-files-cvs.sh init.sh
 
 ## end   gnulib module vc-list-files-tests
+
+## begin gnulib module verify-tests
+
+TESTS_ENVIRONMENT += MAKE='$(MAKE)'
+TESTS += test-verify test-verify.sh
+check_PROGRAMS += test-verify
+EXTRA_DIST += test-verify.c test-verify.sh init.sh
+
+## end   gnulib module verify-tests
 
 ## begin gnulib module version-etc-tests
 
 TESTS += test-version-etc.sh
-TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@'
 check_PROGRAMS += test-version-etc
 test_version_etc_LDADD = $(LDADD) @LIBINTL@
 EXTRA_DIST += test-version-etc.c test-version-etc.sh
@@ -1700,7 +2070,6 @@ EXTRA_DIST += test-version-etc.c test-version-etc.sh
 ## begin gnulib module vfprintf-posix-tests
 
 TESTS += test-vfprintf-posix.sh
-TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@' srcdir='$(srcdir)'
 check_PROGRAMS += test-vfprintf-posix
 EXTRA_DIST += test-vfprintf-posix.sh test-vfprintf-posix.c test-fprintf-posix.h test-printf-posix.output signature.h macros.h
 
@@ -1709,30 +2078,10 @@ EXTRA_DIST += test-vfprintf-posix.sh test-vfprintf-posix.c test-fprintf-posix.h 
 ## begin gnulib module vprintf-posix-tests
 
 TESTS += test-vprintf-posix.sh
-TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@' srcdir='$(srcdir)'
 check_PROGRAMS += test-vprintf-posix
 EXTRA_DIST += test-vprintf-posix.sh test-vprintf-posix.c test-printf-posix.h test-printf-posix.output signature.h macros.h
 
 ## end   gnulib module vprintf-posix-tests
-
-## begin gnulib module warn-on-use
-
-BUILT_SOURCES += warn-on-use.h
-# The warn-on-use.h that gets inserted into generated .h files is the same as
-# build-aux/warn-on-use.h, except that it has the copyright header cut off.
-warn-on-use.h: $(top_srcdir)/build-aux/warn-on-use.h
-	$(AM_V_GEN)rm -f $@-t $@ && \
-	sed -n -e '/^.ifndef/,$$p' \
-	  < $(top_srcdir)/build-aux/warn-on-use.h \
-	  > $@-t && \
-	mv $@-t $@
-MOSTLYCLEANFILES += warn-on-use.h warn-on-use.h-t
-
-WARN_ON_USE_H=warn-on-use.h
-
-EXTRA_DIST += $(top_srcdir)/build-aux/warn-on-use.h
-
-## end   gnulib module warn-on-use
 
 ## begin gnulib module wchar-tests
 
@@ -1744,16 +2093,18 @@ EXTRA_DIST += test-wchar.c
 
 ## begin gnulib module wcrtomb-tests
 
-TESTS += test-wcrtomb.sh
+TESTS += \
+  test-wcrtomb.sh \
+  test-wcrtomb-w32-1.sh test-wcrtomb-w32-2.sh test-wcrtomb-w32-3.sh \
+  test-wcrtomb-w32-4.sh test-wcrtomb-w32-5.sh
 TESTS_ENVIRONMENT += \
-  EXEEXT='@EXEEXT@' \
   LOCALE_FR='@LOCALE_FR@' \
   LOCALE_FR_UTF8='@LOCALE_FR_UTF8@' \
   LOCALE_JA='@LOCALE_JA@' \
   LOCALE_ZH_CN='@LOCALE_ZH_CN@'
-check_PROGRAMS += test-wcrtomb
+check_PROGRAMS += test-wcrtomb test-wcrtomb-w32
 
-EXTRA_DIST += test-wcrtomb.sh test-wcrtomb.c signature.h macros.h
+EXTRA_DIST += test-wcrtomb.sh test-wcrtomb.c test-wcrtomb-w32-1.sh test-wcrtomb-w32-2.sh test-wcrtomb-w32-3.sh test-wcrtomb-w32-4.sh test-wcrtomb-w32-5.sh test-wcrtomb-w32.c signature.h macros.h
 
 ## end   gnulib module wcrtomb-tests
 
@@ -1766,13 +2117,22 @@ EXTRA_libtests_a_SOURCES += wctob.c
 
 ## end   gnulib module wctob
 
-## begin gnulib module wctype-tests
+## begin gnulib module wctomb
 
-TESTS += test-wctype
-check_PROGRAMS += test-wctype
-EXTRA_DIST += test-wctype.c macros.h
 
-## end   gnulib module wctype-tests
+EXTRA_DIST += wctomb-impl.h wctomb.c
+
+EXTRA_libtests_a_SOURCES += wctomb.c
+
+## end   gnulib module wctomb
+
+## begin gnulib module wctype-h-tests
+
+TESTS += test-wctype-h
+check_PROGRAMS += test-wctype-h
+EXTRA_DIST += test-wctype-h.c macros.h
+
+## end   gnulib module wctype-h-tests
 
 ## begin gnulib module wcwidth-tests
 
@@ -1786,7 +2146,6 @@ EXTRA_DIST += test-wcwidth.c signature.h macros.h
 ## begin gnulib module xalloc-die-tests
 
 TESTS += test-xalloc-die.sh
-TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@'
 check_PROGRAMS += test-xalloc-die
 test_xalloc_die_LDADD = $(LDADD) @LIBINTL@
 EXTRA_DIST += test-xalloc-die.c test-xalloc-die.sh init.sh
@@ -1796,7 +2155,6 @@ EXTRA_DIST += test-xalloc-die.c test-xalloc-die.sh init.sh
 ## begin gnulib module xprintf-posix-tests
 
 TESTS += test-xprintf-posix.sh
-TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@' srcdir='$(srcdir)'
 check_PROGRAMS += test-xfprintf-posix test-xprintf-posix
 test_xfprintf_posix_LDADD = $(LDADD) @LIBINTL@
 test_xprintf_posix_LDADD = $(LDADD) @LIBINTL@
@@ -1807,31 +2165,28 @@ EXTRA_DIST += test-xprintf-posix.sh test-xfprintf-posix.c test-xprintf-posix.c t
 ## begin gnulib module xstrtoimax-tests
 
 TESTS += test-xstrtoimax.sh
-TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@'
 check_PROGRAMS += test-xstrtoimax
 test_xstrtoimax_LDADD = $(LDADD) @LIBINTL@
-EXTRA_DIST += test-xstrtoimax.c test-xstrtoimax.sh
+EXTRA_DIST += init.sh test-xstrtoimax.c test-xstrtoimax.sh
 
 ## end   gnulib module xstrtoimax-tests
 
 ## begin gnulib module xstrtol-tests
 
 TESTS += test-xstrtol.sh
-TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@'
 check_PROGRAMS += test-xstrtol test-xstrtoul
 test_xstrtol_LDADD = $(LDADD) @LIBINTL@
 test_xstrtoul_LDADD = $(LDADD) @LIBINTL@
-EXTRA_DIST += test-xstrtol.c test-xstrtoul.c test-xstrtol.sh
+EXTRA_DIST += init.sh test-xstrtol.c test-xstrtoul.c test-xstrtol.sh
 
 ## end   gnulib module xstrtol-tests
 
 ## begin gnulib module xstrtoumax-tests
 
 TESTS += test-xstrtoumax.sh
-TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@'
 check_PROGRAMS += test-xstrtoumax
 test_xstrtoumax_LDADD = $(LDADD) @LIBINTL@
-EXTRA_DIST += test-xstrtoumax.c test-xstrtoumax.sh
+EXTRA_DIST += init.sh test-xstrtoumax.c test-xstrtoumax.sh
 
 ## end   gnulib module xstrtoumax-tests
 
@@ -1848,10 +2203,9 @@ EXTRA_DIST += test-xvasprintf.c macros.h
 ## begin gnulib module yesno-tests
 
 TESTS += test-yesno.sh
-TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@'
 check_PROGRAMS += test-yesno
 test_yesno_LDADD = $(LDADD) @LIBINTL@
-EXTRA_DIST += test-yesno.c test-yesno.sh
+EXTRA_DIST += init.sh test-yesno.c test-yesno.sh
 
 ## end   gnulib module yesno-tests
 

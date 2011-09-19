@@ -1,10 +1,9 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* Emulation for select(2)
    Contributed by Paolo Bonzini.
 
-   Copyright 2008-2010 Free Software Foundation, Inc.
+   Copyright 2008-2011 Free Software Foundation, Inc.
 
    This file is part of gnulib.
 
@@ -83,7 +82,7 @@ typedef DWORD (WINAPI *PNtQueryInformationFile)
 #define IsConsoleHandle(h) (((long) (h) & 3) == 3)
 
 static BOOL
-IsSocketHandle(HANDLE h)
+IsSocketHandle (HANDLE h)
 {
   WSANETWORKEVENTS ev;
 
@@ -135,6 +134,8 @@ win32_poll_handle (HANDLE h, int fd, struct bitset *rbits, struct bitset *wbits,
           if (avail)
             read = TRUE;
         }
+      else if (GetLastError () == ERROR_BROKEN_PIPE)
+        ;
 
       else
         {
@@ -249,7 +250,7 @@ rpl_select (int nfds, fd_set *rfds, fd_set *wfds, fd_set *xfds,
     wait_timeout = INFINITE;
   else
     {
-      wait_timeout = timeout->tv_sec + timeout->tv_usec / 1000;
+      wait_timeout = timeout->tv_sec * 1000 + timeout->tv_usec / 1000;
 
       /* select is also used as a portable usleep.  */
       if (!rfds && !wfds && !xfds)

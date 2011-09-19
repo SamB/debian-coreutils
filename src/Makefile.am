@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in -*-Makefile-*-
 
-## Copyright (C) 1990-1991, 1993-2010 Free Software Foundation, Inc.
+## Copyright (C) 1990-1991, 1993-2011 Free Software Foundation, Inc.
 
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -138,15 +138,18 @@ bin_PROGRAMS = $(OPTIONAL_BIN_PROGS)
 
 noinst_PROGRAMS = setuidgid getlimits
 
-pkglib_PROGRAMS = $(OPTIONAL_PKGLIB_PROGS)
+pkglibexec_PROGRAMS = $(OPTIONAL_PKGLIB_PROGS)
 
 noinst_HEADERS =	\
   chown-core.h		\
   copy.h		\
   cp-hash.h		\
   dircolors.h		\
+  fiemap.h		\
+  find-mount-point.h	\
   fs.h			\
   group-list.h		\
+  ioblksize.h		\
   ls.h			\
   operand2sig.h		\
   prog-fprintf.h	\
@@ -162,13 +165,16 @@ BUILT_SOURCES =
 CLEANFILES = $(SCRIPTS) su
 
 # Also remove these sometimes-built programs.
-# For example, even when excluded, they're built via sc_check-AUTHORS.
+# For example, even when excluded, they're built via _sc_check-AUTHORS.
 CLEANFILES += $(no_install__progs)
 
 AM_CPPFLAGS = -I$(top_srcdir)/lib
 
 noinst_LIBRARIES = libver.a
 nodist_libver_a_SOURCES = version.c version.h
+
+# Tell the linker to omit references to unused shared libraries.
+AM_LDFLAGS = $(IGNORE_UNUSED_LIBRARIES_CFLAGS)
 
 # Sometimes, the expansion of $(LIBINTL) includes -lc which may
 # include modules defining variables like `optind', so libcoreutils.a
@@ -323,15 +329,11 @@ date_LDADD += $(LIB_CLOCK_GETTIME)
 ginstall_LDADD += $(LIB_CLOCK_GETTIME)
 ls_LDADD += $(LIB_CLOCK_GETTIME)
 pr_LDADD += $(LIB_CLOCK_GETTIME)
+timeout_LDADD += $(LIB_TIMER_TIME)
 touch_LDADD += $(LIB_CLOCK_GETTIME)
 
-# for gethrxtime, randint, randread, gen_tempname, mkstemp
+# for gethrxtime
 dd_LDADD += $(LIB_GETHRXTIME)
-mktemp_LDADD += $(LIB_GETHRXTIME)
-shred_LDADD += $(LIB_GETHRXTIME)
-shuf_LDADD += $(LIB_GETHRXTIME)
-sort_LDADD += $(LIB_GETHRXTIME)
-tac_LDADD += $(LIB_GETHRXTIME)
 
 # for cap_get_file
 ls_LDADD += $(LIB_CAP)
@@ -339,14 +341,6 @@ ls_LDADD += $(LIB_CAP)
 # for fdatasync
 dd_LDADD += $(LIB_FDATASYNC)
 shred_LDADD += $(LIB_FDATASYNC)
-
-# for strtod, strtold
-printf_LDADD += $(POW_LIB)
-seq_LDADD += $(POW_LIB)
-sleep_LDADD += $(POW_LIB)
-sort_LDADD += $(POW_LIB)
-tail_LDADD += $(POW_LIB)
-uptime_LDADD += $(POW_LIB)
 
 # for xnanosleep
 sleep_LDADD += $(LIB_NANOSLEEP)
@@ -390,6 +384,12 @@ who_LDADD += $(GETADDRINFO_LIB)
 # for gethostname, uname
 hostname_LDADD += $(GETHOSTNAME_LIB)
 uname_LDADD += $(GETHOSTNAME_LIB)
+
+# for strsignal
+kill_LDADD += $(LIBTHREAD)
+
+# for pthread
+sort_LDADD += $(LIB_PTHREAD)
 
 $(PROGRAMS): ../lib/libcoreutils.a
 
@@ -452,7 +452,7 @@ uninstall-local:
 	  fi; \
 	fi
 
-copy_sources = copy.c cp-hash.c
+copy_sources = copy.c cp-hash.c extent-scan.c extent-scan.h
 
 # Use `ginstall' in the definition of PROGRAMS and in dependencies to avoid
 # confusion with the `install' target.  The install rule transforms `ginstall'
@@ -481,6 +481,9 @@ rm_SOURCES = rm.c remove.c
 
 mkdir_SOURCES = mkdir.c prog-fprintf.c
 rmdir_SOURCES = rmdir.c prog-fprintf.c
+
+df_SOURCES = df.c find-mount-point.c
+stat_SOURCES = stat.c find-mount-point.c
 
 uname_SOURCES = uname.c uname-uname.c
 arch_SOURCES = uname.c uname-arch.c
@@ -551,7 +554,7 @@ fs-magic-compare: fs-magic fs-kernel-magic fs-def
 
 CLEANFILES += fs-def
 fs-def: fs.h
-	grep '^# *define ' $< > $@-t && mv $@-t $@
+	grep '^# *define ' $< | $(ASSORT) > $@-t && mv $@-t $@
 
 # Massage bits of the statfs man page and definitions from
 # /usr/include/linux/magic.h to be in a form consistent with what's in fs.h.
@@ -578,21 +581,21 @@ fs_normalize_perl_subst =			\
 CLEANFILES += fs-magic
 fs-magic: Makefile
 	man statfs \
-          |perl -ne '/File system types:/.../Nobody kno/ and print'	\
-          |grep 0x | perl -p						\
-            $(fs_normalize_perl_subst)					\
-          | grep -Ev 'S_MAGIC_EXT[34]|STACK_END'			\
-          | LC_ALL=C sort						\
-          > $@-t && mv $@-t $@
+	  |perl -ne '/File system types:/.../Nobody kno/ and print'	\
+	  |grep 0x | perl -p						\
+	    $(fs_normalize_perl_subst)					\
+	  | grep -Ev 'S_MAGIC_EXT[34]|STACK_END'			\
+	  | LC_ALL=C sort						\
+	  > $@-t && mv $@-t $@
 
 CLEANFILES += fs-kernel-magic
 fs-kernel-magic: Makefile
 	perl -ne '/^#define.*0x/ and print' /usr/include/linux/magic.h	\
-          | perl -p							\
-            $(fs_normalize_perl_subst)					\
-          | grep -Ev 'S_MAGIC_EXT[34]|STACK_END'			\
-          | LC_ALL=C sort						\
-          > $@-t && mv $@-t $@
+	  | perl -p							\
+	    $(fs_normalize_perl_subst)					\
+	  | grep -Ev 'S_MAGIC_EXT[34]|STACK_END'			\
+	  | LC_ALL=C sort						\
+	  > $@-t && mv $@-t $@
 
 BUILT_SOURCES += fs.h
 fs.h: stat.c extract-magic
@@ -635,12 +638,18 @@ built_programs.list:
 
 all_programs.list:
 	@echo $(all_programs) | tr ' ' '\n' | sed -e 's,$(EXEEXT)$$,,' \
+	  | sed /libstdbuf/d \
 	  | $(ASSORT) -u
 
 # This is required because we have broken inter-directory dependencies:
 # in order to generate all man pages, even those for which we don't
 # install a binary, require that all programs be built at distribution time.
 dist-hook: $(all_programs)
+
+# Ensure that all programs are built so we can for example
+# subsequently syntax check all man pages.
+.PHONY: all_programs
+all_programs: $(all_programs)
 
 pm = progs-makefile
 pr = progs-readme
@@ -670,10 +679,10 @@ check-duplicate-no-install: tr
 # translation inhibits printing of UTF-8 names, just skip this test.
 au_dotdot = authors-dotdot
 au_actual = authors-actual
-.PHONY: sc_check-AUTHORS
-sc_check-AUTHORS: $(all_programs)
-	$(AM_V_GEN)locale=en_US.UTF-8;			\
-	LC_ALL="$$locale" ./cat --version		\
+.PHONY: _sc_check-AUTHORS
+_sc_check-AUTHORS: $(all_programs)
+	@locale=en_US.UTF-8;				\
+	LC_ALL=$$locale ./cat --version			\
 	    | grep ' Torbjorn '	> /dev/null		\
 	  && { echo "$@: skipping this check"; exit 0; }; \
 	rm -f $(au_actual) $(au_dotdot);		\
@@ -687,53 +696,13 @@ sc_check-AUTHORS: $(all_programs)
 	  elif test "$$i" = test; then			\
 	    exe='[';					\
 	  fi;						\
-	  LC_ALL="$$locale" ./$$exe --version		\
+	  LC_ALL=$$locale ./$$exe --version		\
 	    | perl -0 -pi -e 's/,\n/, /gm'		\
 	    | sed -n -e '/Written by /{ s//'"$$i"': /;'	\
 		  -e 's/,* and /, /; s/\.$$//; p; }';	\
 	done > $(au_actual) &&				\
 	sed -n '/^[^ ][^ ]*:/p' $(top_srcdir)/AUTHORS > $(au_dotdot) && \
 	diff $(au_actual) $(au_dotdot) && rm -f $(au_actual) $(au_dotdot)
-
-# The following rule is not designed to be portable,
-# and relies on tools that not everyone has.
-
-# Most functions in src/*.c should have static scope.
-# Any that don't must be marked with `extern', but `main'
-# and `usage' are exceptions.  They're always extern, but
-# don't need to be marked. Also functions starting with __
-# are exempted due to possibly being added by the compiler
-# (when compiled as a shared library for example).
-#
-# The second nm|grep checks for file-scope variables with `extern' scope.
-.PHONY: sc_tight_scope
-sc_tight_scope: $(bin_PROGRAMS)
-	$(AM_V_GEN)t=exceptions-$$$$;					\
-	trap "s=$$?; rm -f $$t; exit $$s" 0 1 2 13 15;			\
-	src=`for f in $(SOURCES); do					\
-	       test -f $$f && d= || d=$(srcdir)/; echo $$d$$f; done`;	\
-	hdr=`for f in $(noinst_HEADERS); do				\
-	       test -f $$f && d= || d=$(srcdir)/; echo $$d$$f; done`;	\
-	( printf 'main\nusage\n_.*\n';					\
-	  grep -h -A1 '^extern .*[^;]$$' $$src				\
-	    | grep -vE '^(extern |--)' | sed 's/ .*//';			\
-	  perl -ne '/^extern (?:enum )?\S+ (\S*) \(/ and print "$$1\n"' $$hdr;	\
-	) | $(ASSORT) -u | sed 's/^/^/;s/$$/$$/' > $$t;			\
-	nm -e *.$(OBJEXT)						\
-	    | sed -n 's/.* T //p'					\
-	    | sed 's/^_//'						\
-	    | grep -Ev -f $$t &&					\
-	  { echo 'the above functions should have static scope' 1>&2;	\
-	    exit 1; } || : ;						\
-	( printf '^program_name$$\n';					\
-	  perl -ne '/^extern .*?\**(\w+);/ and print "^$$1\$$\n"'	\
-	    $$hdr *.h ) | $(ASSORT) -u > $$t;				\
-	nm -e *.$(OBJEXT)						\
-	    | sed -n 's/.* [BD] //p'					\
-	    | sed 's/^_//'						\
-	    | grep -Ev -f $$t &&					\
-	  { echo 'the above variables should have static scope' 1>&2;	\
-	    exit 1; } || :
 
 # Use the just-built ./ginstall, when not cross-compiling.
 if CROSS_COMPILING

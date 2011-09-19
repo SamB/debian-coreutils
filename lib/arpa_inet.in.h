@@ -1,9 +1,8 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* A GNU-like <arpa/inet.h>.
 
-   Copyright (C) 2005-2006, 2008-2010 Free Software Foundation, Inc.
+   Copyright (C) 2005-2006, 2008-2011 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -19,36 +18,46 @@
    along with this program; if not, write to the Free Software Foundation,
    Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  */
 
-#ifndef _GL_ARPA_INET_H
+#ifndef _@GUARD_PREFIX@_ARPA_INET_H
 
-/* Gnulib's sys/socket.h is responsible for pulling in winsock2.h etc
-   under MinGW.
+#if __GNUC__ >= 3
+@PRAGMA_SYSTEM_HEADER@
+#endif
+@PRAGMA_COLUMNS@
+
+#if @HAVE_FEATURES_H@
+# include <features.h> /* for __GLIBC__ */
+#endif
+
+/* Gnulib's sys/socket.h is responsible for defining socklen_t (used below) and
+   for pulling in winsock2.h etc. under MinGW.
    But avoid namespace pollution on glibc systems.  */
 #ifndef __GLIBC__
 # include <sys/socket.h>
 #endif
 
-#if @HAVE_ARPA_INET_H@
+/* On NonStop Kernel, inet_ntop and inet_pton are declared in <netdb.h>.
+   But avoid namespace pollution on glibc systems.  */
+#if defined __TANDEM && !defined __GLIBC__
+# include <netdb.h>
+#endif
 
-# if __GNUC__ >= 3
-@PRAGMA_SYSTEM_HEADER@
-# endif
+#if @HAVE_ARPA_INET_H@
 
 /* The include_next requires a split double-inclusion guard.  */
 # @INCLUDE_NEXT@ @NEXT_ARPA_INET_H@
 
 #endif
 
-#ifndef _GL_ARPA_INET_H
-#define _GL_ARPA_INET_H
+#ifndef _@GUARD_PREFIX@_ARPA_INET_H
+#define _@GUARD_PREFIX@_ARPA_INET_H
 
-/* The definition of GL_LINK_WARNING is copied here.  */
+/* The definitions of _GL_FUNCDECL_RPL etc. are copied here.  */
 
 /* The definition of _GL_ARG_NONNULL is copied here.  */
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+/* The definition of _GL_WARN_ON_USE is copied here.  */
+
 
 #if @GNULIB_INET_NTOP@
 # if !@HAVE_DECL_INET_NTOP@
@@ -67,34 +76,42 @@ extern "C" {
 
    For more details, see the POSIX:2001 specification
    <http://www.opengroup.org/susv3xsh/inet_ntop.html>.  */
-extern const char *inet_ntop (int af, const void *restrict src,
-                              char *restrict dst, socklen_t cnt)
-     _GL_ARG_NONNULL ((2, 3));
+_GL_FUNCDECL_SYS (inet_ntop, const char *,
+                  (int af, const void *restrict src,
+                   char *restrict dst, socklen_t cnt)
+                  _GL_ARG_NONNULL ((2, 3)));
 # endif
+/* Need to cast, because on NonStop Kernel, the fourth parameter is
+                                            size_t cnt.  */
+_GL_CXXALIAS_SYS_CAST (inet_ntop, const char *,
+                       (int af, const void *restrict src,
+                        char *restrict dst, socklen_t cnt));
+_GL_CXXALIASWARN (inet_ntop);
 #elif defined GNULIB_POSIXCHECK
 # undef inet_ntop
-# define inet_ntop(af,src,dst,cnt) \
-    (GL_LINK_WARNING ("inet_ntop is unportable - " \
-                      "use gnulib module inet_ntop for portability"), \
-     inet_ntop (af, src, dst, cnt))
+# if HAVE_RAW_DECL_INET_NTOP
+_GL_WARN_ON_USE (inet_ntop, "inet_ntop is unportable - "
+                 "use gnulib module inet_ntop for portability");
+# endif
 #endif
 
 #if @GNULIB_INET_PTON@
 # if !@HAVE_DECL_INET_PTON@
-extern int inet_pton (int af, const char *restrict src, void *restrict dst)
-     _GL_ARG_NONNULL ((2, 3));
+_GL_FUNCDECL_SYS (inet_pton, int,
+                  (int af, const char *restrict src, void *restrict dst)
+                  _GL_ARG_NONNULL ((2, 3)));
 # endif
+_GL_CXXALIAS_SYS (inet_pton, int,
+                  (int af, const char *restrict src, void *restrict dst));
+_GL_CXXALIASWARN (inet_pton);
 #elif defined GNULIB_POSIXCHECK
 # undef inet_pton
-# define inet_pton(af,src,dst) \
-  (GL_LINK_WARNING ("inet_pton is unportable - " \
-                    "use gnulib module inet_pton for portability"), \
-   inet_pton (af, src, dst))
+# if HAVE_RAW_DECL_INET_PTON
+_GL_WARN_ON_USE (inet_pton, "inet_pton is unportable - "
+                 "use gnulib module inet_pton for portability");
+# endif
 #endif
 
-#ifdef __cplusplus
-}
-#endif
 
-#endif /* _GL_ARPA_INET_H */
-#endif /* _GL_ARPA_INET_H */
+#endif /* _@GUARD_PREFIX@_ARPA_INET_H */
+#endif /* _@GUARD_PREFIX@_ARPA_INET_H */

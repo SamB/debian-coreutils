@@ -34,6 +34,9 @@ printf:
   platforms where the native *printf(3) is deficient.
   Suggestion from Eric Blake.
 
+consider adding some implementation of the "col" utility
+  Suggested by Karl Berry.
+
 renice: POSIX utility, needs implementing.
   suggestion from Karl Berry (among others).
   Bob Proulx is working on this.
@@ -165,7 +168,7 @@ pr's use of nstrftime can make it malloc a very large (up to SIZE_MAX) buffer
 
 -----
 
-Copyright (C) 2002-2010 Free Software Foundation, Inc.
+Copyright (C) 2002-2011 Free Software Foundation, Inc.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

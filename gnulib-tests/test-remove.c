@@ -1,8 +1,7 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* Tests of remove.
-   Copyright (C) 2009, 2010 Free Software Foundation, Inc.
+   Copyright (C) 2009-2011 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -33,6 +32,7 @@ SIGNATURE_CHECK (remove, int, (char const *));
 #include <sys/stat.h>
 #include <unistd.h>
 
+#include "ignore-value.h"
 #include "macros.h"
 
 #define BASE "test-remove.t"
@@ -41,7 +41,7 @@ int
 main (void)
 {
   /* Remove any leftovers from a previous partial run.  */
-  system ("rm -rf " BASE "*");
+  ignore_value (system ("rm -rf " BASE "*"));
 
   /* Setup.  */
   ASSERT (mkdir (BASE "dir", 0700) == 0);
@@ -80,7 +80,7 @@ main (void)
   /* Empty directory.  */
   errno = 0;
   ASSERT (remove (BASE "dir/.//") == -1);
-  ASSERT (errno == EINVAL || errno == EBUSY);
+  ASSERT (errno == EINVAL || errno == EBUSY || errno == EEXIST);
   ASSERT (remove (BASE "dir") == 0);
 
   /* Test symlink behavior.  Specifying trailing slash should remove

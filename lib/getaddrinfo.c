@@ -1,8 +1,7 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* Get address information (partial implementation).
-   Copyright (C) 1997, 2001-2002, 2004-2010 Free Software Foundation, Inc.
+   Copyright (C) 1997, 2001-2002, 2004-2011 Free Software Foundation, Inc.
    Contributed by Simon Josefsson <simon@josefsson.org>.
 
    This program is free software; you can redistribute it and/or modify
@@ -62,6 +61,9 @@
 # define WIN32_NATIVE
 #endif
 
+/* gl_sockets_startup */
+#include "sockets.h"
+
 #ifdef WIN32_NATIVE
 typedef int (WSAAPI *getaddrinfo_func) (const char*, const char*,
                                         const struct addrinfo*,
@@ -103,6 +105,8 @@ use_win32_p (void)
       getnameinfo_ptr = NULL;
       return 0;
     }
+
+  gl_sockets_startup (SOCKETS_1_1);
 
   return 1;
 }
@@ -354,10 +358,11 @@ freeaddrinfo (struct addrinfo *ai)
     }
 }
 
-int getnameinfo(const struct sockaddr *restrict sa, socklen_t salen,
-                char *restrict node, socklen_t nodelen,
-                char *restrict service, socklen_t servicelen,
-                int flags)
+int
+getnameinfo (const struct sockaddr *restrict sa, socklen_t salen,
+             char *restrict node, socklen_t nodelen,
+             char *restrict service, socklen_t servicelen,
+             int flags)
 {
 #ifdef WIN32_NATIVE
   if (use_win32_p ())

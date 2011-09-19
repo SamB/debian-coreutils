@@ -1,8 +1,7 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* Test of lstat() function.
-   Copyright (C) 2008, 2009, 2010 Free Software Foundation, Inc.
+   Copyright (C) 2008-2011 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -38,6 +37,7 @@ SIGNATURE_CHECK (lstat, int, (char const *, struct stat *));
 #include <unistd.h>
 
 #include "same-inode.h"
+#include "ignore-value.h"
 #include "macros.h"
 
 #define BASE "test-lstat.t"
@@ -56,7 +56,7 @@ int
 main (void)
 {
   /* Remove any leftovers from a previous partial run.  */
-  system ("rm -rf " BASE "*");
+  ignore_value (system ("rm -rf " BASE "*"));
 
   return test_lstat_func (do_lstat, true);
 }

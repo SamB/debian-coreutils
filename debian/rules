@@ -22,15 +22,23 @@ endif
 
 # implement no optimization build option
 ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
-CFLAGS = -g -DSYSLOG_SUCCESS -DSYSLOG_FAILURE -DSYSLOG_NON_ROOT -O0
+CFLAGS = -g -O0
 else
-CFLAGS = -g -DSYSLOG_SUCCESS -DSYSLOG_FAILURE -DSYSLOG_NON_ROOT -O2
+CFLAGS ?= -g -O2
 endif
-LDFLAGS =
+CFLAGS += -DSYSLOG_SUCCESS -DSYSLOG_FAILURE -DSYSLOG_NON_ROOT
 
 # Renesas SH(sh4) need -mieee option.
 ifeq ($(DEB_HOST_ARCH_CPU),sh4)
   CFLAGS += -mieee
+endif
+
+# PPC needs -mlong-double-64 to prevent test failures 
+ifeq ($(DEB_HOST_ARCH_CPU),powerpc)
+  CFLAGS += -mlong-double-64
+endif
+ifeq ($(DEB_HOST_ARCH_CPU),ppc64)
+  CFLAGS += -mlong-double-64
 endif
 
 # programs to include/not include
@@ -52,20 +60,25 @@ configure-stamp:
 	dh_testdir
 
 	CFLAGS="$(CFLAGS)" \
-		LDFLAGS=$(LDFLAGS) ./configure \
+		LDFLAGS='$(LDFLAGS)' ./configure \
 		--build=$(DEB_BUILD_GNU_TYPE) --host=$(DEB_HOST_GNU_TYPE) \
 		--prefix=/usr -v \
+		--libexecdir=/usr/lib \
 		--infodir=/usr/share/info --mandir=/usr/share/man \
 		$(BUILDPROG_OPTS)
 
 	echo configured > configure-stamp
 
-build: patch configure build-stamp
+build: patch configure build-arch build-indep
+build-arch: build-stamp
+build-indep: build-stamp
 build-stamp: 
 	dh_testdir
 	$(MAKE)
 ifeq (,$(findstring nocheck,$(DEB_BUILD_OPTIONS)))
+  ifeq (,$(findstring mips,$(DEB_BUILD_ARCH)))
 	$(MAKE) check VERBOSE=yes 
+  endif
 endif
 	echo built > build-stamp
 
@@ -75,7 +88,6 @@ clean1:
 	rm -f build-stamp configure-stamp
 	rm -rf debian/buildinfo
 	make distclean || true
-	rm -f man/*.1
 	rm -f config.log
 	rm -f config.status
 	dh_clean
@@ -84,6 +96,7 @@ patch: patch-stamp
 patch-stamp: 
 	dpatch apply-all
 	dpatch cat-all > patch-stamp
+	touch man/*.1
 	touch patch-stamp
 
 unpatch: 
@@ -135,6 +148,9 @@ endif
 
 	# some build environments will leave a dangling info dir
 	rm -f $(d)/usr/share/info/dir
+
+	# unneeded
+	rm -rf $(d)/usr/share/locale/*/LC_TIME
 
 	cp AUTHORS \
 		NEWS README \

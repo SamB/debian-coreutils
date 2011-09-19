@@ -1,8 +1,7 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* Tests of symlink.
-   Copyright (C) 2009, 2010 Free Software Foundation, Inc.
+   Copyright (C) 2009-2011 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -33,6 +32,7 @@ SIGNATURE_CHECK (symlink, int, (char const *, char const *));
 #include <stdlib.h>
 #include <sys/stat.h>
 
+#include "ignore-value.h"
 #include "macros.h"
 
 #define BASE "test-symlink.t"
@@ -43,7 +43,7 @@ int
 main (void)
 {
   /* Remove any leftovers from a previous partial run.  */
-  system ("rm -rf " BASE "*");
+  ignore_value (system ("rm -rf " BASE "*"));
 
   return test_symlink (symlink, true);
 }
