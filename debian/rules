@@ -33,14 +33,6 @@ ifeq ($(DEB_HOST_ARCH_CPU),sh4)
   CFLAGS += -mieee
 endif
 
-# PPC needs -mlong-double-64 to prevent test failures 
-ifeq ($(DEB_HOST_ARCH_CPU),powerpc)
-  CFLAGS += -mlong-double-64
-endif
-ifeq ($(DEB_HOST_ARCH_CPU),ppc64)
-  CFLAGS += -mlong-double-64
-endif
-
 # programs to include/not include
 ifeq ($(DEB_HOST_ARCH_OS),hurd)
   BUILDPROG_OPTS := --enable-install-program=su,arch
