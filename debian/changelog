@@ -1,3 +1,12 @@
+coreutils (8.13-3.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Use architecture wildcards instead of type-handling virtual packages in
+    Build-Depends (closes: #587859). Thanks to Sebastian Andrzej Siewior for
+    the bug report and Guillem Jover for the patch.
+
+ -- Jakub Wilk <jwilk@debian.org>  Wed, 29 Feb 2012 00:11:27 +0100
+
 coreutils (8.13-3) unstable; urgency=low
 
   * [86] upstream patch for ppc float issue (Closes: #642291)
