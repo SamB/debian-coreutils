@@ -20,12 +20,10 @@ ifeq ($(DEB_HOST_ARCH_OS),)
   endif
 endif
 
-# implement no optimization build option
-ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
-CFLAGS = -g -O0
-else
-CFLAGS ?= -g -O2
-endif
+CFLAGS = $(shell dpkg-buildflags --get CFLAGS)
+LDFLAGS = $(shell dpkg-buildflags --get LDFLAGS)
+CPPFLAGS = $(shell dpkg-buildflags --get CPPFLAGS)
+
 CFLAGS += -DSYSLOG_SUCCESS -DSYSLOG_FAILURE -DSYSLOG_NON_ROOT
 
 # Renesas SH(sh4) need -mieee option.
@@ -51,7 +49,7 @@ configure: patch configure-stamp
 configure-stamp: 
 	dh_testdir
 
-	CFLAGS="$(CFLAGS)" \
+	CFLAGS="$(CFLAGS)" CPPFLAGS="$(CPPFLAGS)" \
 		LDFLAGS='$(LDFLAGS)' ./configure \
 		--build=$(DEB_BUILD_GNU_TYPE) --host=$(DEB_HOST_GNU_TYPE) \
 		--prefix=/usr -v \
@@ -61,9 +59,7 @@ configure-stamp:
 
 	echo configured > configure-stamp
 
-build: patch configure build-arch build-indep
-build-arch: build-stamp
-build-indep: build-stamp
+build: patch configure build-stamp
 build-stamp: 
 	dh_testdir
 	$(MAKE)

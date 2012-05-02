@@ -7,6 +7,7 @@ Build-Depends: gettext (>= 0.10.37), debhelper (>= 5.0.0), dh-buildinfo, texinfo
 
 Package: coreutils
 Architecture: any
+Multi-Arch: foreign
 Pre-Depends: ${shlibs:Depends}
 Essential: yes
 Replaces: mktemp, timeout

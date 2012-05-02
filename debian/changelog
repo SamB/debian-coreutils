@@ -1,3 +1,23 @@
+coreutils (8.13-3.2) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Don't declare separate build-arch/build-indep targets when they just
+    fall through to the same common build rule, since they don't have correct
+    target dependencies themselves.  Closes: #670481.
+  * Enable hardening build flags.  Thanks to Moritz Muehlenhoff for the
+    patch.  Closes: #653743.
+  * debian/patches/99_Werror-format-string.dpatch: fix the gnulib test suite
+    so that it doesn't fail to build with hardening flags on.
+  * Mark coreutils Multi-Arch: foreign.  Thanks to Colin Watson.
+    Closes: #649397.
+  * debian/patches/99_tests-misc-sort-continue-Port-to-Fedora-15.dpatch:
+    cherry-pick from upstream to fix a build failure whenever the build
+    system happens to be holding an fd open, as happens when running in
+    certain environments (e.g., Lucas's test rebuild farm, or bzr-builddeb).
+    Closes: #669555.
+
+ -- Steve Langasek <vorlon@debian.org>  Wed, 02 May 2012 02:27:43 +0000
+
 coreutils (8.13-3.1) unstable; urgency=low
 
   * Non-maintainer upload.

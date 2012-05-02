@@ -8,3 +8,5 @@
 99_kfbsd_build_tests
 99_kfbsd_fstat_patch
 99_arch.man
+99_tests-misc-sort-continue-Port-to-Fedora-15
+99_Werror-format-string
