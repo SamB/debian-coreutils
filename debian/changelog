@@ -1,3 +1,17 @@
+coreutils (8.13-3.3) unstable; urgency=low
+
+  * Non-maintainer upload
+  * [50] Updates to Danish, German, Spanish, French, and Vietnamese
+    translations from translationproject.org (Closes: #671807)
+  * [51] (Etienne Millon) Fix typo in "/usr/bin/[ --help" output with
+    LANG=fr (Closes: #598481)
+  * [52] (Michael Below) Fix typos in ln -s "permission denied"
+    message with LANG=de (Closes: #683401)
+  * [55] Touch pot file to ensure binary message catalogs are
+    regenerated during the build.
+
+ -- Jonathan Nieder <jrnieder@gmail.com>  Mon, 10 Sep 2012 22:02:19 -0700
+
 coreutils (8.13-3.2) unstable; urgency=low
 
   * Non-maintainer upload.
