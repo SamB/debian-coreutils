@@ -1,6 +1,6 @@
 @c GNU date syntax documentation
 
-@c Copyright (C) 1994-2006, 2009-2011 Free Software Foundation, Inc.
+@c Copyright (C) 1994-2006, 2009-2012 Free Software Foundation, Inc.
 
 @c Permission is granted to copy, distribute and/or modify this document
 @c under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -117,10 +117,10 @@ abbreviations like @samp{AM}, @samp{DST}, @samp{EST}, @samp{first},
 The output of the @command{date} command
 is not always acceptable as a date string,
 not only because of the language problem, but also because there is no
-standard meaning for time zone items like @samp{IST}.  When using
+standard meaning for time zone items like @samp{IST}@.  When using
 @command{date} to generate a date string intended to be parsed later,
 specify a date format that is independent of language and that does not
-use time zone items other than @samp{UTC} and @samp{Z}.  Here are some
+use time zone items other than @samp{UTC} and @samp{Z}@.  Here are some
 ways to do this:
 
 @example
@@ -145,6 +145,7 @@ between round parentheses, as long as included parentheses are properly
 nested.  Hyphens not followed by a digit are currently ignored.  Leading
 zeros on numbers are ignored.
 
+@cindex leap seconds
 Invalid dates like @samp{2005-02-29} or times like @samp{24:00} are
 rejected.  In the typical case of a host that does not support leap
 seconds, a time like @samp{23:59:60} is rejected even if it
@@ -237,6 +238,7 @@ day.  Here are some examples, all of which represent the same time:
 20:02-0500      # In @sc{est} (U.S. Eastern Standard Time).
 @end example
 
+@cindex leap seconds
 More generally, the time of day may be given as
 @samp{@var{hour}:@var{minute}:@var{second}}, where @var{hour} is
 a number between 0 and 23, @var{minute} is a number between 0 and
@@ -480,15 +482,15 @@ supported by the internal representation is truncated toward minus
 infinity.  Such a number cannot be combined with any other date
 item, as it specifies a complete time stamp.
 
-@cindex beginning of time, for @acronym{POSIX}
-@cindex epoch, for @acronym{POSIX}
+@cindex beginning of time, for POSIX
+@cindex epoch, for POSIX
 Internally, computer times are represented as a count of seconds since
-an epoch---a well-defined point of time.  On @acronym{GNU} and
-@acronym{POSIX} systems, the epoch is 1970-01-01 00:00:00 @sc{utc}, so
+an epoch---a well-defined point of time.  On GNU and
+POSIX systems, the epoch is 1970-01-01 00:00:00 @sc{utc}, so
 @samp{@@0} represents this time, @samp{@@1} represents 1970-01-01
-00:00:01 @sc{utc}, and so forth.  @acronym{GNU} and most other
-@acronym{POSIX}-compliant systems support such times as an extension
-to @acronym{POSIX}, using negative counts, so that @samp{@@-1}
+00:00:01 @sc{utc}, and so forth.  GNU and most other
+POSIX-compliant systems support such times as an extension
+to POSIX, using negative counts, so that @samp{@@-1}
 represents 1969-12-31 23:59:59 @sc{utc}.
 
 Traditional Unix systems count seconds with 32-bit two's-complement
@@ -497,6 +499,7 @@ integers and can represent times from 1901-12-13 20:45:52 through
 of seconds with nanosecond subcounts, and can represent all the times
 in the known lifetime of the universe to a resolution of 1 nanosecond.
 
+@cindex leap seconds
 On most hosts, these counts ignore the presence of leap seconds.
 For example, on most hosts @samp{@@915148799} represents 1998-12-31
 23:59:59 @sc{utc}, @samp{@@915148800} represents 1999-01-01 00:00:00
@@ -516,7 +519,7 @@ two quote characters (@samp{"}) must be present in the date, and any
 quotes or backslashes within @var{rule} must be escaped by a
 backslash.
 
-For example, with the @acronym{GNU} @command{date} command you can
+For example, with the GNU @command{date} command you can
 answer the question ``What time is it in New York when a Paris clock
 shows 6:30am on October 31, 2004?'' by using a date beginning with
 @samp{TZ="Europe/Paris"} as shown in the following shell transcript:
@@ -540,16 +543,16 @@ A @env{TZ} value is a rule that typically names a location in the
 @uref{http://www.twinsun.com/tz/tz-link.htm, @samp{tz} database}.
 A recent catalog of location names appears in the
 @uref{http://twiki.org/cgi-bin/xtra/tzdate, TWiki Date and Time
-Gateway}.  A few non-@acronym{GNU} hosts require a colon before a
+Gateway}.  A few non-GNU hosts require a colon before a
 location name in a @env{TZ} setting, e.g.,
 @samp{TZ=":America/New_York"}.
 
 The @samp{tz} database includes a wide variety of locations ranging
 from @samp{Arctic/Longyearbyen} to @samp{Antarctica/South_Pole}, but
 if you are at sea and have your own private time zone, or if you are
-using a non-@acronym{GNU} host that does not support the @samp{tz}
-database, you may need to use a @acronym{POSIX} rule instead.  Simple
-@acronym{POSIX} rules like @samp{UTC0} specify a time zone without
+using a non-GNU host that does not support the @samp{tz}
+database, you may need to use a POSIX rule instead.  Simple
+POSIX rules like @samp{UTC0} specify a time zone without
 daylight saving time; other rules can specify simple daylight saving
 regimes.  @xref{TZ Variable,, Specifying the Time Zone with @code{TZ},
 libc, The GNU C Library}.
@@ -585,4 +588,4 @@ file, and lacks the thread-safety of @code{parse_datetime}.
 @cindex Berry, K.
 This chapter was originally produced by Fran@,{c}ois Pinard
 (@email{pinard@@iro.umontreal.ca}) from the @file{parse_datetime.y} source code,
-and then edited by K.@: Berry (@email{kb@@cs.umb.edu}).
+and then edited by K. Berry (@email{kb@@cs.umb.edu}).

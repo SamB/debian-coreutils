@@ -1,5 +1,5 @@
 /* mkdir -- make directories
-   Copyright (C) 1990, 1995-2002, 2004-2011 Free Software Foundation, Inc.
+   Copyright (C) 1990-2012 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@
 #include "quote.h"
 #include "savewd.h"
 
-/* The official name of this program (e.g., no `g' prefix).  */
+/* The official name of this program (e.g., no 'g' prefix).  */
 #define PROGRAM_NAME "mkdir"
 
 #define AUTHORS proper_name ("David MacKenzie")
@@ -50,8 +50,7 @@ void
 usage (int status)
 {
   if (status != EXIT_SUCCESS)
-    fprintf (stderr, _("Try `%s --help' for more information.\n"),
-             program_name);
+    emit_try_help ();
   else
     {
       printf (_("Usage: %s [OPTION]... DIRECTORY...\n"), program_name);

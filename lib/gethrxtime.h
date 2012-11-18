@@ -1,6 +1,6 @@
 /* gethrxtime -- get high resolution real time
 
-   Copyright (C) 2005, 2009-2011 Free Software Foundation, Inc.
+   Copyright (C) 2005, 2009-2012 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -22,6 +22,10 @@
 
 # include "xtime.h"
 
+#ifdef  __cplusplus
+extern "C" {
+#endif
+
 /* Get the current time, as a count of the number of nanoseconds since
    an arbitrary epoch (e.g., the system boot time).  Prefer a
    high-resolution clock that is not subject to resetting or
@@ -33,5 +37,9 @@ static inline xtime_t gethrxtime (void) { return gethrtime (); }
 # else
 xtime_t gethrxtime (void);
 # endif
+
+#ifdef  __cplusplus
+}
+#endif
 
 #endif

@@ -1,5 +1,5 @@
 /* nl -- number lines of files
-   Copyright (C) 1989, 1992, 1995-2011 Free Software Foundation, Inc.
+   Copyright (C) 1989-2012 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -33,7 +33,7 @@
 #include "quote.h"
 #include "xstrtol.h"
 
-/* The official name of this program (e.g., no `g' prefix).  */
+/* The official name of this program (e.g., no 'g' prefix).  */
 #define PROGRAM_NAME "nl"
 
 #define AUTHORS \
@@ -176,8 +176,7 @@ void
 usage (int status)
 {
   if (status != EXIT_SUCCESS)
-    fprintf (stderr, _("Try `%s --help' for more information.\n"),
-             program_name);
+    emit_try_help ();
   else
     {
       printf (_("\
@@ -238,7 +237,7 @@ FORMAT is one of:\n\
 }
 
 /* Set the command line flag TYPEP and possibly the regex pointer REGEXP,
-   according to `optarg'.  */
+   according to 'optarg'.  */
 
 static bool
 build_type_arg (char const **typep,
@@ -320,7 +319,7 @@ proc_footer (void)
   putchar ('\n');
 }
 
-/* Process a regular text line in `line_buf'. */
+/* Process a regular text line in 'line_buf'. */
 
 static void
 proc_text (void)
@@ -371,7 +370,7 @@ proc_text (void)
   fwrite (line_buf.buffer, sizeof (char), line_buf.length, stdout);
 }
 
-/* Return the type of line in `line_buf'. */
+/* Return the type of line in 'line_buf'. */
 
 static enum section
 check_section (void)

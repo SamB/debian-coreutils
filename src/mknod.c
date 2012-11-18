@@ -1,5 +1,5 @@
 /* mknod -- make special files
-   Copyright (C) 1990-1991, 1995-2011 Free Software Foundation, Inc.
+   Copyright (C) 1990-2012 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@
 #include "quote.h"
 #include "xstrtol.h"
 
-/* The official name of this program (e.g., no `g' prefix).  */
+/* The official name of this program (e.g., no 'g' prefix).  */
 #define PROGRAM_NAME "mknod"
 
 #define AUTHORS proper_name ("David MacKenzie")
@@ -46,8 +46,7 @@ void
 usage (int status)
 {
   if (status != EXIT_SUCCESS)
-    fprintf (stderr, _("Try `%s --help' for more information.\n"),
-             program_name);
+    emit_try_help ();
   else
     {
       printf (_("Usage: %s [OPTION]... NAME TYPE [MAJOR MINOR]\n"),
@@ -121,7 +120,7 @@ main (int argc, char **argv)
         }
     }
 
-  newmode = (S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH);
+  newmode = MODE_RW_UGO;
   if (specified_mode)
     {
       struct mode_change *change = mode_compile (specified_mode);
@@ -135,7 +134,7 @@ main (int argc, char **argv)
     }
 
   /* If the number of arguments is 0 or 1,
-     or (if it's 2 or more and the second one starts with `p'), then there
+     or (if it's 2 or more and the second one starts with 'p'), then there
      must be exactly two operands.  Otherwise, there must be four.  */
   expected_operands = (argc <= optind
                        || (optind + 1 < argc && argv[optind + 1][0] == 'p')
@@ -169,11 +168,11 @@ main (int argc, char **argv)
            quote (scontext));
 
   /* Only check the first character, to allow mnemonic usage like
-     `mknod /dev/rst0 character 18 0'. */
+     'mknod /dev/rst0 character 18 0'. */
 
   switch (argv[optind + 1][0])
     {
-    case 'b':			/* `block' or `buffered' */
+    case 'b':			/* 'block' or 'buffered' */
 #ifndef S_IFBLK
       error (EXIT_FAILURE, 0, _("block special files not supported"));
 #else
@@ -181,8 +180,8 @@ main (int argc, char **argv)
 #endif
       goto block_or_character;
 
-    case 'c':			/* `character' */
-    case 'u':			/* `unbuffered' */
+    case 'c':			/* 'character' */
+    case 'u':			/* 'unbuffered' */
 #ifndef S_IFCHR
       error (EXIT_FAILURE, 0, _("character special files not supported"));
 #else
@@ -218,7 +217,7 @@ main (int argc, char **argv)
       }
       break;
 
-    case 'p':			/* `pipe' */
+    case 'p':			/* 'pipe' */
       if (mkfifo (argv[optind], newmode) != 0)
         error (EXIT_FAILURE, errno, "%s", quote (argv[optind]));
       break;

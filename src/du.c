@@ -1,5 +1,5 @@
 /* du -- summarize disk usage
-   Copyright (C) 1988-1991, 1995-2011 Free Software Foundation, Inc.
+   Copyright (C) 1988-2012 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -35,6 +35,7 @@
 #include "exclude.h"
 #include "fprintftime.h"
 #include "human.h"
+#include "mountlist.h"
 #include "quote.h"
 #include "quotearg.h"
 #include "stat-size.h"
@@ -45,7 +46,7 @@
 
 extern bool fts_debug;
 
-/* The official name of this program (e.g., no `g' prefix).  */
+/* The official name of this program (e.g., no 'g' prefix).  */
 #define PROGRAM_NAME "du"
 
 #define AUTHORS \
@@ -60,8 +61,12 @@ extern bool fts_debug;
 # define FTS_CROSS_CHECK(Fts)
 #endif
 
-/* A set of dev/ino pairs.  */
-static struct di_set *di_set;
+/* A set of dev/ino pairs to help identify files and directories
+   whose sizes have already been counted.  */
+static struct di_set *di_files;
+
+/* A set containing a dev/ino pair for each local mount point directory.  */
+static struct di_set *di_mnt;
 
 /* Keep track of the preceding "level" (depth in hierarchy)
    from one call of process_file to the next.  */
@@ -99,7 +104,8 @@ duinfo_set (struct duinfo *a, uintmax_t size, struct timespec tmax)
 static inline void
 duinfo_add (struct duinfo *a, struct duinfo const *b)
 {
-  a->size += b->size;
+  uintmax_t sum = a->size + b->size;
+  a->size = a->size <= sum ? sum : UINTMAX_MAX;
   if (timespec_cmp (a->tmax, b->tmax) < 0)
     a->tmax = b->tmax;
 }
@@ -138,7 +144,7 @@ static bool opt_separate_dirs = false;
 
 /* Show the total for each directory (and file if --all) that is at
    most MAX_DEPTH levels down from the root of the hierarchy.  The root
-   is at level 0, so `du --max-depth=0' is equivalent to `du -s'.  */
+   is at level 0, so 'du --max-depth=0' is equivalent to 'du -s'.  */
 static size_t max_depth = SIZE_MAX;
 
 /* Human-readable options for output.  */
@@ -229,8 +235,8 @@ static enum time_type const time_types[] =
 };
 ARGMATCH_VERIFY (time_args, time_types);
 
-/* `full-iso' uses full ISO-style dates and times.  `long-iso' uses longer
-   ISO-style time stamps, though shorter than `full-iso'.  `iso' uses shorter
+/* 'full-iso' uses full ISO-style dates and times.  'long-iso' uses longer
+   ISO-style time stamps, though shorter than 'full-iso'.  'iso' uses shorter
    ISO-style time stamps.  */
 enum time_style
   {
@@ -253,8 +259,7 @@ void
 usage (int status)
 {
   if (status != EXIT_SUCCESS)
-    fprintf (stderr, _("Try `%s --help' for more information.\n"),
-             program_name);
+    emit_try_help ();
   else
     {
       printf (_("\
@@ -273,14 +278,14 @@ Mandatory arguments to long options are mandatory for short options too.\n\
       --apparent-size   print apparent sizes, rather than disk usage; although\
 \n\
                           the apparent size is usually smaller, it may be\n\
-                          larger due to holes in (`sparse') files, internal\n\
+                          larger due to holes in ('sparse') files, internal\n\
                           fragmentation, indirect blocks, and the like\n\
 "), stdout);
       fputs (_("\
   -B, --block-size=SIZE  scale sizes by SIZE before printing them.  E.g.,\n\
-                           `-BM' prints sizes in units of 1,048,576 bytes.\n\
+                           '-BM' prints sizes in units of 1,048,576 bytes.\n\
                            See SIZE format below.\n\
-  -b, --bytes           equivalent to `--apparent-size --block-size=1'\n\
+  -b, --bytes           equivalent to '--apparent-size --block-size=1'\n\
   -c, --total           produce a grand total\n\
   -D, --dereference-args  dereference only symlinks that are listed on the\n\
                           command line\n\
@@ -322,7 +327,7 @@ Mandatory arguments to long options are mandatory for short options too.\n\
                           atime, access, use, ctime or status\n\
       --time-style=STYLE  show times using style STYLE:\n\
                           full-iso, long-iso, iso, +FORMAT\n\
-                          FORMAT is interpreted like `date'\n\
+                          FORMAT is interpreted like 'date'\n\
 "), stdout);
       fputs (HELP_OPTION_DESCRIPTION, stdout);
       fputs (VERSION_OPTION_DESCRIPTION, stdout);
@@ -333,11 +338,11 @@ Mandatory arguments to long options are mandatory for short options too.\n\
   exit (status);
 }
 
-/* Try to insert the INO/DEV pair into the global table, HTAB.
+/* Try to insert the INO/DEV pair into DI_SET.
    Return true if the pair is successfully inserted,
-   false if the pair is already in the table.  */
+   false if the pair was already there.  */
 static bool
-hash_ins (ino_t ino, dev_t dev)
+hash_ins (struct di_set *di_set, ino_t ino, dev_t dev)
 {
   int inserted = di_set_insert (di_set, dev, ino);
   if (inserted < 0)
@@ -371,8 +376,11 @@ static void
 print_only_size (uintmax_t n_bytes)
 {
   char buf[LONGEST_HUMAN_READABLE + 1];
-  fputs (human_readable (n_bytes, buf, human_output_opts,
-                         1, output_block_size), stdout);
+  fputs ((n_bytes == UINTMAX_MAX
+          ? _("Infinity")
+          : human_readable (n_bytes, buf, human_output_opts,
+                            1, output_block_size)),
+         stdout);
 }
 
 /* Print size (and optionally time) indicated by *PDUI, followed by STRING.  */
@@ -443,12 +451,22 @@ process_file (FTS *fts, FTSENT *ent)
               error (0, ent->fts_errno, _("cannot access %s"), quote (file));
               return false;
             }
+
+          /* The --one-file-system (-x) option cannot exclude anything
+             specified on the command-line.  By definition, it can exclude
+             a file or directory only when its device number is different
+             from that of its just-processed parent directory, and du does
+             not process the parent of a command-line argument.  */
+          if (fts->fts_options & FTS_XDEV
+              && FTS_ROOTLEVEL < ent->fts_level
+              && fts->fts_dev != sb->st_dev)
+            excluded = true;
         }
 
       if (excluded
           || (! opt_count_all
               && (hash_all || (! S_ISDIR (sb->st_mode) && 1 < sb->st_nlink))
-              && ! hash_ins (sb->st_ino, sb->st_dev)))
+              && ! hash_ins (di_files, sb->st_ino, sb->st_dev)))
         {
           /* If ignoring a directory in preorder, skip its children.
              Ignore the next fts_read output too, as it's a postorder
@@ -477,7 +495,13 @@ process_file (FTS *fts, FTSENT *ent)
         case FTS_DC:
           if (cycle_warning_required (fts, ent))
             {
-              emit_cycle_warning (file);
+              /* If this is a mount point, then diagnose it and avoid
+                 the cycle.  */
+              if (di_set_lookup (di_mnt, sb->st_dev, sb->st_ino))
+                error (0, 0, _("mount point %s already traversed"),
+                       quote (file));
+              else
+                emit_cycle_warning (file);
               return false;
             }
           return true;
@@ -486,7 +510,7 @@ process_file (FTS *fts, FTSENT *ent)
 
   duinfo_set (&dui,
               (apparent_size
-               ? sb->st_size
+               ? MAX (0, sb->st_size)
                : (uintmax_t) ST_NBLOCKS (*sb) * ST_NBLOCKSIZE),
               (time_type == time_mtime ? get_stat_mtime (sb)
                : time_type == time_atime ? get_stat_atime (sb)
@@ -608,6 +632,38 @@ du_files (char **files, int bit_flags)
     }
 
   return ok;
+}
+
+/* Fill the di_mnt set with local mount point dev/ino pairs.  */
+
+static void
+fill_mount_table (void)
+{
+  struct mount_entry *mnt_ent = read_file_system_list (false);
+  while (mnt_ent)
+    {
+      struct mount_entry *mnt_free;
+      if (!mnt_ent->me_remote && !mnt_ent->me_dummy)
+        {
+          struct stat buf;
+          if (!stat (mnt_ent->me_mountdir, &buf))
+            hash_ins (di_mnt, buf.st_ino, buf.st_dev);
+          else
+            {
+              /* Ignore stat failure.  False positives are too common.
+                 E.g., "Permission denied" on /run/user/<name>/gvfs.  */
+            }
+        }
+
+      mnt_free = mnt_ent;
+      mnt_ent = mnt_ent->me_next;
+
+      free (mnt_free->me_devname);
+      free (mnt_free->me_mountdir);
+      if (mnt_free->me_type_malloced)
+        free (mnt_free->me_type);
+      free (mnt_free);
+    }
 }
 
 int
@@ -909,8 +965,15 @@ main (int argc, char **argv)
     xalloc_die ();
 
   /* Initialize the set of dev,inode pairs.  */
-  di_set = di_set_alloc ();
-  if (!di_set)
+
+  di_mnt = di_set_alloc ();
+  if (!di_mnt)
+    xalloc_die ();
+
+  fill_mount_table ();
+
+  di_files = di_set_alloc ();
+  if (!di_files)
     xalloc_die ();
 
   /* If not hashing everything, process_file won't find cycles on its
@@ -967,7 +1030,7 @@ main (int argc, char **argv)
             error (0, 0, "%s", _("invalid zero-length file name"));
           else
             {
-              /* Using the standard `filename:line-number:' prefix here is
+              /* Using the standard 'filename:line-number:' prefix here is
                  not totally appropriate, since NUL is the separator, not NL,
                  but it might be better than nothing.  */
               unsigned long int file_number = argv_iter_n_args (ai);
@@ -988,7 +1051,8 @@ main (int argc, char **argv)
  argv_iter_done:
 
   argv_iter_free (ai);
-  di_set_free (di_set);
+  di_set_free (di_files);
+  di_set_free (di_mnt);
 
   if (files_from && (ferror (stdin) || fclose (stdin) != 0) && ok)
     error (EXIT_FAILURE, 0, _("error reading %s"), quote (files_from));

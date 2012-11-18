@@ -1,5 +1,5 @@
 /* od -- dump files in octal and other formats
-   Copyright (C) 1992, 1995-2011 Free Software Foundation, Inc.
+   Copyright (C) 1992-2012 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@
 #include "xprintf.h"
 #include "xstrtol.h"
 
-/* The official name of this program (e.g., no `g' prefix).  */
+/* The official name of this program (e.g., no 'g' prefix).  */
 #define PROGRAM_NAME "od"
 
 #define AUTHORS proper_name ("Jim Meyering")
@@ -41,7 +41,7 @@
 #if HAVE_UNSIGNED_LONG_LONG_INT
 typedef unsigned long long int unsigned_long_long_int;
 #else
-/* This is just a place-holder to avoid a few `#if' directives.
+/* This is just a place-holder to avoid a few '#if' directives.
    In this case, the type isn't actually used.  */
 typedef unsigned long int unsigned_long_long_int;
 #endif
@@ -92,7 +92,7 @@ enum
 /* Ensure that our choice for FMT_BYTES_ALLOCATED is reasonable.  */
 verify (MAX_INTEGRAL_TYPE_SIZE * CHAR_BIT / 3 <= 99);
 
-/* Each output format specification (from `-t spec' or from
+/* Each output format specification (from '-t spec' or from
    old-style options) is represented by one of these structures.  */
 struct tspec
   {
@@ -156,7 +156,7 @@ static const int width_bytes[] =
   sizeof (long double)
 };
 
-/* Ensure that for each member of `enum size_spec' there is an
+/* Ensure that for each member of 'enum size_spec' there is an
    initializer in the width_bytes array.  */
 verify (ARRAY_CARDINALITY (width_bytes) == N_SIZE_SPECS);
 
@@ -192,7 +192,7 @@ static bool flag_dump_strings;
    offset and pseudo-start address.  */
 static bool traditional;
 
-/* True if an old-style `pseudo-address' was specified.  */
+/* True if an old-style 'pseudo-address' was specified.  */
 static bool flag_pseudo_start;
 
 /* The difference between the old-style pseudo starting address and
@@ -288,8 +288,7 @@ void
 usage (int status)
 {
   if (status != EXIT_SUCCESS)
-    fprintf (stderr, _("Try `%s --help' for more information.\n"),
-             program_name);
+    emit_try_help ();
   else
     {
       printf (_("\
@@ -314,10 +313,10 @@ All arguments to long options are mandatory for short options.\n\
 "), stdout);
       fputs (_("\
   -N, --read-bytes=BYTES      limit dump to BYTES input bytes\n\
-  -S, --strings[=BYTES]       output strings of at least BYTES graphic chars\n\
+  -S BYTES, --strings[=BYTES]  output strings of at least BYTES graphic chars\n\
   -t, --format=TYPE           select output format or formats\n\
   -v, --output-duplicates     do not use * to mark line suppression\n\
-  -w, --width[=BYTES]         output BYTES bytes per output line\n\
+  -w[BYTES], --width[=BYTES]  output BYTES bytes per output line\n\
       --traditional           accept arguments in traditional form\n\
 "), stdout);
       fputs (HELP_OPTION_DESCRIPTION, stdout);
@@ -641,8 +640,9 @@ decode_one_format (const char *s_orig, const char *s, const char **next,
               if (MAX_INTEGRAL_TYPE_SIZE < size
                   || integral_type_size[size] == NO_SIZE)
                 {
-                  error (0, 0, _("invalid type string %s;\n\
-this system doesn't provide a %lu-byte integral type"), quote (s_orig), size);
+                  error (0, 0, _("invalid type string %s;\nthis system"
+                                 " doesn't provide a %lu-byte integral type"),
+                         quote (s_orig), size);
                   return false;
                 }
               s = p;
@@ -760,8 +760,10 @@ this system doesn't provide a %lu-byte integral type"), quote (s_orig), size);
               if (size > MAX_FP_TYPE_SIZE
                   || fp_type_size[size] == NO_SIZE)
                 {
-                  error (0, 0, _("invalid type string %s;\n\
-this system doesn't provide a %lu-byte floating point type"),
+                  error (0, 0,
+                         _("invalid type string %s;\n"
+                           "this system doesn't provide a %lu-byte"
+                           " floating point type"),
                          quote (s_orig), size);
                   return false;
                 }
@@ -771,32 +773,34 @@ this system doesn't provide a %lu-byte floating point type"),
         }
       size_spec = fp_type_size[size];
 
-      struct lconv const *locale = localeconv ();
-      size_t decimal_point_len =
-        (locale->decimal_point[0] ? strlen (locale->decimal_point) : 1);
+      {
+        struct lconv const *locale = localeconv ();
+        size_t decimal_point_len =
+          (locale->decimal_point[0] ? strlen (locale->decimal_point) : 1);
 
-      switch (size_spec)
-        {
-        case FLOAT_SINGLE:
-          print_function = print_float;
-          field_width = FLT_STRLEN_BOUND_L (decimal_point_len);
-          break;
+        switch (size_spec)
+          {
+          case FLOAT_SINGLE:
+            print_function = print_float;
+            field_width = FLT_STRLEN_BOUND_L (decimal_point_len);
+            break;
 
-        case FLOAT_DOUBLE:
-          print_function = print_double;
-          field_width = DBL_STRLEN_BOUND_L (decimal_point_len);
-          break;
+          case FLOAT_DOUBLE:
+            print_function = print_double;
+            field_width = DBL_STRLEN_BOUND_L (decimal_point_len);
+            break;
 
-        case FLOAT_LONG_DOUBLE:
-          print_function = print_long_double;
-          field_width = LDBL_STRLEN_BOUND_L (decimal_point_len);
-          break;
+          case FLOAT_LONG_DOUBLE:
+            print_function = print_long_double;
+            field_width = LDBL_STRLEN_BOUND_L (decimal_point_len);
+            break;
 
-        default:
-          abort ();
-        }
+          default:
+            abort ();
+          }
 
-      break;
+        break;
+      }
 
     case 'a':
       ++s;
@@ -815,7 +819,7 @@ this system doesn't provide a %lu-byte floating point type"),
       break;
 
     default:
-      error (0, 0, _("invalid character `%c' in type string %s"),
+      error (0, 0, _("invalid character '%c' in type string %s"),
              *s, quote (s_orig));
       return false;
     }
@@ -979,8 +983,7 @@ skip (uintmax_t n_skip)
 
       if (fstat (fileno (in_stream), &file_stats) == 0)
         {
-          /* The st_size field is valid only for regular files
-             (and for symbolic links, which cannot occur here).
+          /* The st_size field is valid for regular files.
              If the number of bytes left to skip is larger than
              the size of the current file, we can decrement n_skip
              and go on to the next file.  Skip this optimization also
@@ -1283,8 +1286,8 @@ parse_old_offset (const char *s, uintmax_t *offset)
   if (s[0] == '+')
     ++s;
 
-  /* Determine the radix we'll use to interpret S.  If there is a `.',
-     it's decimal, otherwise, if the string begins with `0X'or `0x',
+  /* Determine the radix we'll use to interpret S.  If there is a '.',
+     it's decimal, otherwise, if the string begins with '0X'or '0x',
      it's hexadecimal, else octal.  */
   if (strchr (s, '.') != NULL)
     radix = 10;
@@ -1389,7 +1392,7 @@ dump (void)
 }
 
 /* STRINGS mode.  Find each "string constant" in the input.
-   A string constant is a run of at least `string_min' ASCII
+   A string constant is a run of at least 'string_min' ASCII
    graphic (or formatting) characters terminated by a null.
    Based on a function written by Richard Stallman for a
    traditional version of od.  Return true if successful.  */
@@ -1407,7 +1410,7 @@ dump_strings (void)
       size_t i;
       int c;
 
-      /* See if the next `string_min' chars are all printing chars.  */
+      /* See if the next 'string_min' chars are all printing chars.  */
     tryline:
 
       if (limit_bytes_to_format
@@ -1429,7 +1432,7 @@ dump_strings (void)
           buf[i] = c;
         }
 
-      /* We found a run of `string_min' printable characters.
+      /* We found a run of 'string_min' printable characters.
          Now see if it is terminated with a null byte.  */
       while (!limit_bytes_to_format || address < end_offset)
         {
@@ -1452,7 +1455,7 @@ dump_strings (void)
         }
 
       /* If we get here, the string is all printable and null-terminated,
-         so print it.  It is all in `buf' and `i' is its length.  */
+         so print it.  It is all in 'buf' and 'i' is its length.  */
       buf[i] = 0;
       format_address (address - i - 1, ' ');
 
@@ -1517,7 +1520,7 @@ main (int argc, char **argv)
   size_t width_per_block = 0;
   static char const multipliers[] = "bEGKkMmPTYZ0";
 
-  /* The old-style `pseudo starting address' to be printed in parentheses
+  /* The old-style 'pseudo starting address' to be printed in parentheses
      after any true address.  */
   uintmax_t pseudo_start IF_LINT ( = 0);
 
@@ -1537,8 +1540,8 @@ main (int argc, char **argv)
   integral_type_size[sizeof (int)] = INT;
   integral_type_size[sizeof (long int)] = LONG;
 #if HAVE_UNSIGNED_LONG_LONG_INT
-  /* If `long int' and `long long int' have the same size, it's fine
-     to overwrite the entry for `long' with this one.  */
+  /* If 'long int' and 'long long int' have the same size, it's fine
+     to overwrite the entry for 'long' with this one.  */
   integral_type_size[sizeof (unsigned_long_long_int)] = LONG_LONG;
 #endif
 
@@ -1546,7 +1549,7 @@ main (int argc, char **argv)
     fp_type_size[i] = NO_SIZE;
 
   fp_type_size[sizeof (float)] = FLOAT_SINGLE;
-  /* The array entry for `double' is filled in after that for `long double'
+  /* The array entry for 'double' is filled in after that for 'long double'
      so that if they are the same size, we avoid any overhead of
      long double computation in libc.  */
   fp_type_size[sizeof (long double)] = FLOAT_LONG_DOUBLE;
@@ -1597,8 +1600,8 @@ main (int argc, char **argv)
               break;
             default:
               error (EXIT_FAILURE, 0,
-                     _("invalid output address radix `%c'; \
-it must be one character from [doxn]"),
+                     _("invalid output address radix '%c';\
+ it must be one character from [doxn]"),
                      optarg[0]);
               break;
             }

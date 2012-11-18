@@ -1,6 +1,6 @@
 /* xtime -- extended-resolution integer time stamps
 
-   Copyright (C) 2005-2006, 2009-2011 Free Software Foundation, Inc.
+   Copyright (C) 2005-2006, 2009-2012 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -36,6 +36,10 @@ typedef long int xtime_t;
 #   define XTIME_PRECISION 1000000000
 #  endif
 # endif
+
+#ifdef  __cplusplus
+extern "C" {
+#endif
 
 /* Return an extended time value that contains S seconds and NS
    nanoseconds, without any overflow checking.  */
@@ -82,5 +86,9 @@ xtime_nsec (xtime_t t)
     ns += XTIME_PRECISION;
   return ns;
 }
+
+#ifdef  __cplusplus
+}
+#endif
 
 #endif

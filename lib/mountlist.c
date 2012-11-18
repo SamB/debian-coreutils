@@ -1,6 +1,6 @@
 /* mountlist.c -- return a list of mounted file systems
 
-   Copyright (C) 1991-1992, 1997-2011 Free Software Foundation, Inc.
+   Copyright (C) 1991-1992, 1997-2012 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -164,7 +164,7 @@
 #ifdef __CYGWIN__
 # include <windows.h>
 # define ME_REMOTE me_remote
-/* All cygwin mount points include `:' or start with `//'; so it
+/* All cygwin mount points include ':' or start with '//'; so it
    requires a native Windows call to determine remote disks.  */
 static bool
 me_remote (char const *fs_name, char const *fs_type _GL_UNUSED)
@@ -187,8 +187,8 @@ me_remote (char const *fs_name, char const *fs_type _GL_UNUSED)
 #endif
 
 #ifndef ME_REMOTE
-/* A file system is `remote' if its Fs_name contains a `:'
-   or if (it is of type (smbfs or cifs) and its Fs_name starts with `//').  */
+/* A file system is "remote" if its Fs_name contains a ':'
+   or if (it is of type (smbfs or cifs) and its Fs_name starts with '//').  */
 # define ME_REMOTE(Fs_name, Fs_type)            \
     (strchr (Fs_name, ':') != NULL              \
      || ((Fs_name)[0] == '/'                    \

@@ -1,5 +1,5 @@
 /* df - summarize free disk space
-   Copyright (C) 1991, 1995-2011 Free Software Foundation, Inc.
+   Copyright (C) 1991-2012 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -25,6 +25,7 @@
 #include <assert.h>
 
 #include "system.h"
+#include "canonicalize.h"
 #include "error.h"
 #include "fsusage.h"
 #include "human.h"
@@ -34,7 +35,7 @@
 #include "quote.h"
 #include "find-mount-point.h"
 
-/* The official name of this program (e.g., no `g' prefix).  */
+/* The official name of this program (e.g., no 'g' prefix).  */
 #define PROGRAM_NAME "df"
 
 #define AUTHORS \
@@ -68,7 +69,7 @@ static bool posix_format;
 /* True if a file system has been processed for output.  */
 static bool file_systems_processed;
 
-/* If true, invoke the `sync' system call before getting any usage data.
+/* If true, invoke the 'sync' system call before getting any usage data.
    Using this option can make df very slow, especially with many or very
    busy disks.  Note that this may make a difference on some systems --
    SunOS 4.1.3, for one.  It is *not* necessary on GNU/Linux.  */
@@ -86,7 +87,7 @@ struct fs_type_list
 };
 
 /* Linked list of file system types to display.
-   If `fs_select_list' is NULL, list all types.
+   If 'fs_select_list' is NULL, list all types.
    This table is generated dynamically from command-line options,
    rather than hardcoding into the program what it thinks are the
    valid file system types; let the user specify any file system type
@@ -166,7 +167,8 @@ static size_t nrows;
 enum
 {
   NO_SYNC_OPTION = CHAR_MAX + 1,
-  SYNC_OPTION
+  SYNC_OPTION,
+  MEGABYTES_OPTION  /* FIXME: remove long opt in Aug 2013 */
 };
 
 static struct option const long_options[] =
@@ -177,7 +179,7 @@ static struct option const long_options[] =
   {"human-readable", no_argument, NULL, 'h'},
   {"si", no_argument, NULL, 'H'},
   {"local", no_argument, NULL, 'l'},
-  {"megabytes", no_argument, NULL, 'm'}, /* obsolescent */
+  {"megabytes", no_argument, NULL, MEGABYTES_OPTION}, /* obsolescent,  */
   {"portability", no_argument, NULL, 'P'},
   {"print-type", no_argument, NULL, 'T'},
   {"sync", no_argument, NULL, SYNC_OPTION},
@@ -189,6 +191,23 @@ static struct option const long_options[] =
   {GETOPT_VERSION_OPTION_DECL},
   {NULL, 0, NULL, 0}
 };
+
+/* Replace problematic chars with '?'.
+   Since only control characters are currently considered,
+   this should work in all encodings.  */
+
+static char*
+hide_problematic_chars (char *cell)
+{
+  char *p = cell;
+  while (*p)
+    {
+      if (iscntrl (to_uchar (*p)))
+        *p = '?';
+      p++;
+    }
+  return cell;
+}
 
 /* Dynamically allocate a row of pointers in TABLE, which
    can then be accessed with standard 2D array notation.  */
@@ -296,7 +315,8 @@ get_header (void)
 
           char *num = human_readable (output_block_size, buf, opts, 1, 1);
 
-          if (asprintf (&cell, "%s-%s", num, header) == -1)
+          /* TRANSLATORS: this is the "1K-blocks" header in "df" output.  */
+          if (asprintf (&cell, _("%s-%s"), num, header) == -1)
             cell = NULL;
         }
       else if (header_mode == POSIX_MODE && field == TOTAL_FIELD)
@@ -304,7 +324,8 @@ get_header (void)
           char buf[INT_BUFSIZE_BOUND (uintmax_t)];
           char *num = umaxtostr (output_block_size, buf);
 
-          if (asprintf (&cell, "%s-%s", num, header) == -1)
+          /* TRANSLATORS: this is the "1024-blocks" header in "df -P".  */
+          if (asprintf (&cell, _("%s-%s"), num, header) == -1)
             cell = NULL;
         }
       else
@@ -312,6 +333,8 @@ get_header (void)
 
       if (!cell)
         xalloc_die ();
+
+      hide_problematic_chars (cell);
 
       table[nrows-1][field] = cell;
 
@@ -417,6 +440,17 @@ add_uint_with_neg_flag (uintmax_t *dest, bool *dest_neg,
     *dest = -*dest;
 }
 
+/* Return true if S ends in a string that may be a 36-byte UUID,
+   i.e., of the form HHHHHHHH-HHHH-HHHH-HHHH-HHHHHHHHHHHH, where
+   each H is an upper or lower case hexadecimal digit.  */
+static bool _GL_ATTRIBUTE_PURE
+has_uuid_suffix (char const *s)
+{
+  size_t len = strlen (s);
+  return (36 < len
+          && strspn (s + len - 36, "-0123456789abcdefABCDEF") == 36);
+}
+
 /* Obtain a space listing for the disk device with absolute file name DISK.
    If MOUNT_POINT is non-NULL, it is the name of the root of the
    file system on DISK.
@@ -428,13 +462,16 @@ add_uint_with_neg_flag (uintmax_t *dest, bool *dest_neg,
    If FSTYPE is non-NULL, it is the type of the file system on DISK.
    If MOUNT_POINT is non-NULL, then DISK may be NULL -- certain systems may
    not be able to produce statistics in this case.
-   ME_DUMMY and ME_REMOTE are the mount entry flags.  */
+   ME_DUMMY and ME_REMOTE are the mount entry flags.
+   Caller must set PROCESS_ALL to true when iterating over all entries, as
+   when df is invoked with no non-option argument.  See below for details.  */
 
 static void
 get_dev (char const *disk, char const *mount_point,
          char const *stat_file, char const *fstype,
          bool me_dummy, bool me_remote,
-         const struct fs_usage *force_fsu)
+         const struct fs_usage *force_fsu,
+         bool process_all)
 {
   struct fs_usage fsu;
   char buf[LONGEST_HUMAN_READABLE + 2];
@@ -480,7 +517,8 @@ get_dev (char const *disk, char const *mount_point,
 
   if (! file_systems_processed)
     {
-      file_systems_processed = true;
+      if (! force_fsu)
+        file_systems_processed = true;
       get_header ();
     }
 
@@ -488,6 +526,24 @@ get_dev (char const *disk, char const *mount_point,
 
   if (! disk)
     disk = "-";			/* unknown */
+
+  char *dev_name = xstrdup (disk);
+  char *resolved_dev;
+
+  /* On some systems, dev_name is a long-named symlink like
+     /dev/disk/by-uuid/828fc648-9f30-43d8-a0b1-f7196a2edb66 pointing to a
+     much shorter and more useful name like /dev/sda1.  It may also look
+     like /dev/mapper/luks-828fc648-9f30-43d8-a0b1-f7196a2edb66 and point to
+     /dev/dm-0.  When process_all is true and dev_name is a symlink whose
+     name ends with a UUID use the resolved name instead.  */
+  if (process_all
+      && has_uuid_suffix (dev_name)
+      && (resolved_dev = canonicalize_filename_mode (dev_name, CAN_EXISTING)))
+    {
+      free (dev_name);
+      dev_name = resolved_dev;
+    }
+
   if (! fstype)
     fstype = "-";		/* unknown */
 
@@ -537,7 +593,7 @@ get_dev (char const *disk, char const *mount_point,
       switch (field)
         {
         case DEV_FIELD:
-          cell = xstrdup (disk);
+          cell = dev_name;
           break;
 
         case TYPE_FIELD:
@@ -584,7 +640,7 @@ get_dev (char const *disk, char const *mount_point,
                   long int lipct = pct = u * 100 / nonroot_total;
                   double ipct = lipct;
 
-                  /* Like `pct = ceil (dpct);', but avoid ceil so that
+                  /* Like 'pct = ceil (dpct);', but avoid ceil so that
                      the math library needn't be linked.  */
                   if (ipct - 1 < pct && pct <= ipct + 1)
                     pct = ipct + (ipct < pct);
@@ -627,7 +683,10 @@ get_dev (char const *disk, char const *mount_point,
         }
 
       if (cell)
-        widths[field] = MAX (widths[field], mbswidth (cell, 0));
+        {
+          hide_problematic_chars (cell);
+          widths[field] = MAX (widths[field], mbswidth (cell, 0));
+        }
       table[nrows-1][field] = cell;
     }
 }
@@ -648,7 +707,7 @@ get_disk (char const *disk)
     {
       get_dev (best_match->me_devname, best_match->me_mountdir, NULL,
                best_match->me_type, best_match->me_dummy,
-               best_match->me_remote, NULL);
+               best_match->me_remote, NULL, false);
       return true;
     }
 
@@ -657,7 +716,7 @@ get_disk (char const *disk)
 
 /* Figure out which device file or directory POINT is mounted on
    and show its disk usage.
-   STATP must be the result of `stat (POINT, STATP)'.  */
+   STATP must be the result of 'stat (POINT, STATP)'.  */
 static void
 get_point (const char *point, const struct stat *statp)
 {
@@ -734,7 +793,7 @@ get_point (const char *point, const struct stat *statp)
   if (best_match)
     get_dev (best_match->me_devname, best_match->me_mountdir, point,
              best_match->me_type, best_match->me_dummy, best_match->me_remote,
-             NULL);
+             NULL, false);
   else
     {
       /* We couldn't find the mount entry corresponding to POINT.  Go ahead and
@@ -745,14 +804,14 @@ get_point (const char *point, const struct stat *statp)
       char *mp = find_mount_point (point, statp);
       if (mp)
         {
-          get_dev (NULL, mp, NULL, NULL, false, false, NULL);
+          get_dev (NULL, mp, NULL, NULL, false, false, NULL, false);
           free (mp);
         }
     }
 }
 
 /* Determine what kind of node NAME is and show the disk usage
-   for it.  STATP is the results of `stat' on NAME.  */
+   for it.  STATP is the results of 'stat' on NAME.  */
 
 static void
 get_entry (char const *name, struct stat const *statp)
@@ -774,7 +833,7 @@ get_all_entries (void)
 
   for (me = mount_list; me; me = me->me_next)
     get_dev (me->me_devname, me->me_mountdir, NULL, me->me_type,
-              me->me_dummy, me->me_remote, NULL);
+             me->me_dummy, me->me_remote, NULL, true);
 }
 
 /* Add FSTYPE to the list of file system types to display. */
@@ -807,8 +866,7 @@ void
 usage (int status)
 {
   if (status != EXIT_SUCCESS)
-    fprintf (stderr, _("Try `%s --help' for more information.\n"),
-             program_name);
+    emit_try_help ();
   else
     {
       printf (_("Usage: %s [OPTION]... [FILE]...\n"), program_name);
@@ -823,7 +881,7 @@ Mandatory arguments to long options are mandatory for short options too.\n\
       fputs (_("\
   -a, --all             include dummy file systems\n\
   -B, --block-size=SIZE  scale sizes by SIZE before printing them.  E.g.,\n\
-                           `-BM' prints sizes in units of 1,048,576 bytes.\n\
+                           '-BM' prints sizes in units of 1,048,576 bytes.\n\
                            See SIZE format below.\n\
       --total           produce a grand total\n\
   -h, --human-readable  print sizes in human readable format (e.g., 1K 234M 2G)\
@@ -919,7 +977,14 @@ main (int argc, char **argv)
         case 'l':
           show_local_fs = true;
           break;
-        case 'm': /* obsolescent */
+        case MEGABYTES_OPTION:
+          /* Distinguish between the long and the short option.
+             As we want to remove the long option soon,
+             give a warning when the long form is used.  */
+          error (0, 0, "%s%s", _("warning: "),
+            _("long option '--megabytes' is deprecated"
+              " and will soon be removed"));
+        case 'm': /* obsolescent, exists for BSD compatibility */
           human_output_opts = 0;
           output_block_size = 1024 * 1024;
           break;
@@ -1037,10 +1102,19 @@ main (int argc, char **argv)
   if (mount_list == NULL)
     {
       /* Couldn't read the table of mounted file systems.
-         Fail if df was invoked with no file name arguments;
-         Otherwise, merely give a warning and proceed.  */
-      int status =          (optind < argc ? 0 : EXIT_FAILURE);
-      const char *warning = (optind < argc ? _("Warning: ") : "");
+         Fail if df was invoked with no file name arguments,
+         or when either of -a, -l, -t or -x is used with file name
+         arguments. Otherwise, merely give a warning and proceed.  */
+      int status = 0;
+      if ( ! (optind < argc)
+           || (show_all_fs
+               || show_local_fs
+               || fs_select_list != NULL
+               || fs_exclude_list != NULL))
+        {
+          status = EXIT_FAILURE;
+        }
+      const char *warning = (status == 0 ? _("Warning: ") : "");
       error (status, errno, "%s%s", warning,
              _("cannot read table of mounted file systems"));
     }
@@ -1062,16 +1136,18 @@ main (int argc, char **argv)
   else
     get_all_entries ();
 
-  if (print_grand_total)
+  if (print_grand_total && file_systems_processed)
     {
       if (inode_format)
         grand_fsu.fsu_blocks = 1;
-      get_dev ("total", NULL, NULL, NULL, false, false, &grand_fsu);
+      get_dev ("total", NULL, NULL, NULL, false, false, &grand_fsu, false);
     }
 
   print_table ();
 
-  if (! file_systems_processed)
+  /* Print the "no FS processed" diagnostic only if there was no preceding
+     diagnostic, e.g., if all have been excluded.  */
+  if (exit_status == EXIT_SUCCESS && ! file_systems_processed)
     error (EXIT_FAILURE, 0, _("no file systems processed"));
 
   exit (exit_status);
