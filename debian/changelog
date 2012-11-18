@@ -1,3 +1,9 @@
+coreutils (8.20-3) unstable; urgency=low
+
+  * actually include autopkgtest changes
+
+ -- Michael Stone <mstone@debian.org>  Sun, 18 Nov 2012 10:17:12 -0500
+
 coreutils (8.20-2) unstable; urgency=low
 
   * Add upstream patch to fix build failure on hppa (Closes: #693578)
