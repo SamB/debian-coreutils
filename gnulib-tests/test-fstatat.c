@@ -1,7 +1,5 @@
-/* -*- buffer-read-only: t -*- vi: set ro: */
-/* DO NOT EDIT! GENERATED AUTOMATICALLY! */
 /* Tests of fstatat.
-   Copyright (C) 2009-2011 Free Software Foundation, Inc.
+   Copyright (C) 2009-2012 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -68,6 +66,22 @@ main (int argc _GL_UNUSED, char *argv[])
 
   /* Remove any leftovers from a previous partial run.  */
   ignore_value (system ("rm -rf " BASE "*"));
+
+  /* Test behaviour for invalid file descriptors.  */
+  {
+    struct stat statbuf;
+
+    errno = 0;
+    ASSERT (fstatat (-1, "foo", &statbuf, 0) == -1);
+    ASSERT (errno == EBADF);
+  }
+  {
+    struct stat statbuf;
+
+    errno = 0;
+    ASSERT (fstatat (99, "foo", &statbuf, 0) == -1);
+    ASSERT (errno == EBADF);
+  }
 
   result = test_stat_func (do_stat, false);
   ASSERT (test_lstat_func (do_lstat, false) == result);

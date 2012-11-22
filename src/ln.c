@@ -1,5 +1,5 @@
-/* `ln' program to create links between files.
-   Copyright (C) 1986, 1989-1991, 1995-2011 Free Software Foundation, Inc.
+/* 'ln' program to create links between files.
+   Copyright (C) 1986-2012 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -29,10 +29,12 @@
 #include "hash.h"
 #include "hash-triple.h"
 #include "quote.h"
+#include "relpath.h"
 #include "same.h"
 #include "yesno.h"
+#include "canonicalize.h"
 
-/* The official name of this program (e.g., no `g' prefix).  */
+/* The official name of this program (e.g., no 'g' prefix).  */
 #define PROGRAM_NAME "ln"
 
 #define AUTHORS \
@@ -44,6 +46,9 @@ static enum backup_type backup_type;
 
 /* If true, make symbolic links; otherwise, make hard links.  */
 static bool symbolic_link;
+
+/* If true, make symbolic links relative  */
+static bool relative;
 
 /* If true, hard links are logical rather than physical.  */
 static bool logical = !!LINK_FOLLOWS_SYMLINKS;
@@ -65,7 +70,7 @@ static bool hard_dir_link;
 
 /* If nonzero, and the specified destination is a symbolic link to a
    directory, treat it just as if it were a directory.  Otherwise, the
-   command `ln --force --no-dereference file symlink-to-dir' deletes
+   command 'ln --force --no-dereference file symlink-to-dir' deletes
    symlink-to-dir before creating the new link.  */
 static bool dereference_dest_dir_symlinks = true;
 
@@ -90,6 +95,7 @@ static struct option const long_options[] =
   {"target-directory", required_argument, NULL, 't'},
   {"logical", no_argument, NULL, 'L'},
   {"physical", no_argument, NULL, 'P'},
+  {"relative", no_argument, NULL, 'r'},
   {"symbolic", no_argument, NULL, 's'},
   {"verbose", no_argument, NULL, 'v'},
   {GETOPT_HELP_OPTION_DECL},
@@ -120,6 +126,33 @@ target_directory_operand (char const *file)
   return is_a_dir;
 }
 
+/* Return FROM represented as relative to the dir of TARGET.
+   The result is malloced.  */
+
+static char *
+convert_abs_rel (const char *from, const char *target)
+{
+  char *realtarget = canonicalize_filename_mode (target, CAN_MISSING);
+  char *realfrom = canonicalize_filename_mode (from, CAN_MISSING);
+
+  /* Write to a PATH_MAX buffer.  */
+  char *relative_from = xmalloc (PATH_MAX);
+
+  /* Get dirname to generate paths relative to.  */
+  realtarget[dir_len (realtarget)] = '\0';
+
+  if (!relpath (realfrom, realtarget, relative_from, PATH_MAX))
+    {
+      free (relative_from);
+      relative_from = NULL;
+    }
+
+  free (realtarget);
+  free (realfrom);
+
+  return relative_from ? relative_from : xstrdup (from);
+}
+
 /* Make a link DEST to the (usually) existing file SOURCE.
    Symbolic links to nonexistent files are allowed.
    Return true if successful.  */
@@ -130,6 +163,7 @@ do_link (const char *source, const char *dest)
   struct stat source_stats;
   struct stat dest_stats;
   char *dest_backup = NULL;
+  char *rel_source = NULL;
   bool dest_lstat_ok = false;
   bool source_is_dir = false;
   bool ok;
@@ -195,9 +229,9 @@ do_link (const char *source, const char *dest)
           the command in question doesn't use --force.  */
        || (!symbolic_link && backup_type != no_backups))
       && dest_lstat_ok
-      /* Allow `ln -sf --backup k k' to succeed in creating the
+      /* Allow 'ln -sf --backup k k' to succeed in creating the
          self-referential symlink, but don't allow the hard-linking
-         equivalent: `ln -f k k' (with or without --backup) to get
+         equivalent: 'ln -f k k' (with or without --backup) to get
          beyond this point, because the error message you'd get is
          misleading.  */
       && (backup_type == no_backups || !symbolic_link)
@@ -246,6 +280,9 @@ do_link (const char *source, const char *dest)
         }
     }
 
+  if (relative)
+    source = rel_source = convert_abs_rel (source, dest);
+
   ok = ((symbolic_link ? symlink (source, dest)
          : linkat (AT_FDCWD, source, AT_FDCWD, dest,
                    logical ? AT_SYMLINK_FOLLOW : 0))
@@ -276,6 +313,7 @@ do_link (const char *source, const char *dest)
         {
           error (0, errno, _("cannot remove %s"), quote (dest));
           free (dest_backup);
+          free (rel_source);
           return false;
         }
 
@@ -322,6 +360,7 @@ do_link (const char *source, const char *dest)
     }
 
   free (dest_backup);
+  free (rel_source);
   return ok;
 }
 
@@ -329,8 +368,7 @@ void
 usage (int status)
 {
   if (status != EXIT_SUCCESS)
-    fprintf (stderr, _("Try `%s --help' for more information.\n"),
-             program_name);
+    emit_try_help ();
   else
     {
       printf (_("\
@@ -345,6 +383,7 @@ In the 1st form, create a link to TARGET with the name LINK_NAME.\n\
 In the 2nd form, create a link to TARGET in the current directory.\n\
 In the 3rd and 4th forms, create links to each TARGET in DIRECTORY.\n\
 Create hard links by default, symbolic links with --symbolic.\n\
+By default, each destination (name of new link) should not already exist.\n\
 When creating hard links, each TARGET must exist.  Symbolic links\n\
 can hold arbitrary text; if later resolved, a relative link is\n\
 interpreted in relation to its parent directory.\n\
@@ -363,39 +402,40 @@ Mandatory arguments to long options are mandatory for short options too.\n\
 "), stdout);
       fputs (_("\
   -i, --interactive           prompt whether to remove destinations\n\
-  -L, --logical               make hard links to symbolic link references\n\
-  -n, --no-dereference        treat destination that is a symlink to a\n\
-                                directory as if it were a normal file\n\
+  -L, --logical               dereference TARGETs that are symbolic links\n\
+  -n, --no-dereference        treat LINK_NAME as a normal file if\n\
+                                it is a symbolic link to a directory\n\
   -P, --physical              make hard links directly to symbolic links\n\
+  -r, --relative              create symbolic links relative to link location\n\
   -s, --symbolic              make symbolic links instead of hard links\n\
 "), stdout);
       fputs (_("\
   -S, --suffix=SUFFIX         override the usual backup suffix\n\
   -t, --target-directory=DIRECTORY  specify the DIRECTORY in which to create\n\
                                 the links\n\
-  -T, --no-target-directory   treat LINK_NAME as a normal file\n\
+  -T, --no-target-directory   treat LINK_NAME as a normal file always\n\
   -v, --verbose               print name of each linked file\n\
 "), stdout);
       fputs (HELP_OPTION_DESCRIPTION, stdout);
       fputs (VERSION_OPTION_DESCRIPTION, stdout);
       fputs (_("\
 \n\
-The backup suffix is `~', unless set with --suffix or SIMPLE_BACKUP_SUFFIX.\n\
+The backup suffix is '~', unless set with --suffix or SIMPLE_BACKUP_SUFFIX.\n\
 The version control method may be selected via the --backup option or through\n\
 the VERSION_CONTROL environment variable.  Here are the values:\n\
 \n\
 "), stdout);
-      printf (_("\
-Using -s ignores -L and -P.  Otherwise, the last option specified controls\n\
-behavior when the source is a symbolic link, defaulting to %s.\n\
-\n\
-"), LINK_FOLLOWS_SYMLINKS ? "-L" : "-P");
       fputs (_("\
   none, off       never make backups (even if --backup is given)\n\
   numbered, t     make numbered backups\n\
   existing, nil   numbered if numbered backups exist, simple otherwise\n\
   simple, never   always make simple backups\n\
+\n\
 "), stdout);
+      printf (_("\
+Using -s ignores -L and -P.  Otherwise, the last option specified controls\n\
+behavior when a TARGET is a symbolic link, defaulting to %s.\n\
+"), LINK_FOLLOWS_SYMLINKS ? "-L" : "-P");
       emit_ancillary_info ();
     }
   exit (status);
@@ -429,7 +469,7 @@ main (int argc, char **argv)
   symbolic_link = remove_existing_files = interactive = verbose
     = hard_dir_link = false;
 
-  while ((c = getopt_long (argc, argv, "bdfinst:vFLPS:T", long_options, NULL))
+  while ((c = getopt_long (argc, argv, "bdfinrst:vFLPS:T", long_options, NULL))
          != -1)
     {
       switch (c)
@@ -459,6 +499,9 @@ main (int argc, char **argv)
           break;
         case 'P':
           logical = false;
+          break;
+        case 'r':
+          relative = true;
           break;
         case 's':
           symbolic_link = true;
@@ -538,6 +581,13 @@ main (int argc, char **argv)
   backup_type = (make_backups
                  ? xget_version (_("backup type"), version_control_string)
                  : no_backups);
+
+  if (relative && !symbolic_link)
+    {
+        error (EXIT_FAILURE, 0,
+               _("cannot do --relative without --symbolic"));
+    }
+
 
   if (target_directory)
     {

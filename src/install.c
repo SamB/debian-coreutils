@@ -1,5 +1,5 @@
 /* install - copy files and set attributes
-   Copyright (C) 1989-1991, 1995-2011 Free Software Foundation, Inc.
+   Copyright (C) 1989-2012 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -44,7 +44,7 @@
 #include "utimens.h"
 #include "xstrtol.h"
 
-/* The official name of this program (e.g., no `g' prefix).  */
+/* The official name of this program (e.g., no 'g' prefix).  */
 #define PROGRAM_NAME "install"
 
 #define AUTHORS proper_name ("David MacKenzie")
@@ -72,14 +72,14 @@ static bool use_default_selinux_context = true;
    the current user ID. */
 static char *owner_name;
 
-/* The user ID corresponding to `owner_name'. */
+/* The user ID corresponding to 'owner_name'. */
 static uid_t owner_id;
 
 /* The group name that will own the files, or NULL to make the group
    the current group ID. */
 static char *group_name;
 
-/* The group ID corresponding to `group_name'. */
+/* The group ID corresponding to 'group_name'. */
 static gid_t group_id;
 
 #define DEFAULT_MODE (S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH)
@@ -192,9 +192,27 @@ need_copy (const char *src_name, const char *dest_name,
     return true;
 
   if (src_sb.st_size != dest_sb.st_size
-      || (dest_sb.st_mode & CHMOD_MODE_BITS) != mode
-      || dest_sb.st_uid != (owner_id == (uid_t) -1 ? getuid () : owner_id)
-      || dest_sb.st_gid != (group_id == (gid_t) -1 ? getgid () : group_id))
+      || (dest_sb.st_mode & CHMOD_MODE_BITS) != mode)
+    return true;
+
+  if (owner_id == (uid_t) -1)
+    {
+      errno = 0;
+      uid_t ruid = getuid ();
+      if ((ruid == (uid_t) -1 && errno) || dest_sb.st_uid != ruid)
+        return true;
+    }
+  else if (dest_sb.st_uid != owner_id)
+    return true;
+
+  if (group_id == (uid_t) -1)
+    {
+      errno = 0;
+      gid_t rgid = getgid ();
+      if ((rgid == (uid_t) -1 && errno) || dest_sb.st_gid != rgid)
+        return true;
+    }
+  else if (dest_sb.st_gid != group_id)
     return true;
 
   /* compare SELinux context if preserving */
@@ -257,6 +275,7 @@ cp_option_init (struct cp_options *x)
   x->preserve_links = false;
   x->preserve_mode = false;
   x->preserve_timestamps = false;
+  x->explicit_no_preserve_mode = false;
   x->reduce_diagnostics=false;
   x->data_copy_required = true;
   x->require_preserve = false;
@@ -341,8 +360,8 @@ setdefaultfilecon (char const *file)
 
   /* If there's an error determining the context, or it has none,
      return to allow default context */
-  if ((matchpathcon (file, st.st_mode, &scontext) != 0) ||
-      STREQ (scontext, "<<none>>"))
+  if ((matchpathcon (file, st.st_mode, &scontext) != 0)
+      || STREQ (scontext, "<<none>>"))
     {
       if (scontext != NULL)
         freecon (scontext);
@@ -569,8 +588,7 @@ void
 usage (int status)
 {
   if (status != EXIT_SUCCESS)
-    fprintf (stderr, _("Try `%s --help' for more information.\n"),
-             program_name);
+    emit_try_help ();
   else
     {
       printf (_("\
@@ -631,7 +649,7 @@ Mandatory arguments to long options are mandatory for short options too.\n\
       fputs (VERSION_OPTION_DESCRIPTION, stdout);
       fputs (_("\
 \n\
-The backup suffix is `~', unless set with --suffix or SIMPLE_BACKUP_SUFFIX.\n\
+The backup suffix is '~', unless set with --suffix or SIMPLE_BACKUP_SUFFIX.\n\
 The version control method may be selected via the --backup option or through\n\
 the VERSION_CONTROL environment variable.  Here are the values:\n\
 \n\
