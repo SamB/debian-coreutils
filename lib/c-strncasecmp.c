@@ -1,6 +1,5 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* c-strncasecmp.c -- case insensitive string comparator in C locale
    Copyright (C) 1998-1999, 2005-2006, 2009-2010 Free Software Foundation, Inc.
 

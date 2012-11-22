@@ -1,6 +1,5 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* Tests of readlink.
    Copyright (C) 2009, 2010 Free Software Foundation, Inc.
 
@@ -34,6 +33,7 @@ SIGNATURE_CHECK (readlink, ssize_t, (char const *, char *, size_t));
 #include <string.h>
 #include <sys/stat.h>
 
+#include "ignore-value.h"
 #include "macros.h"
 
 #define BASE "test-readlink.t"
@@ -44,7 +44,7 @@ int
 main (void)
 {
   /* Remove any leftovers from a previous partial run.  */
-  system ("rm -rf " BASE "*");
+  ignore_value (system ("rm -rf " BASE "*"));
 
   return test_readlink (readlink, true);
 }

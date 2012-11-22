@@ -30,7 +30,7 @@ START-INFO-DIR-ENTRY
 * df: (coreutils)df invocation.                 Report file system disk usage.
 * dir: (coreutils)dir invocation.               List directories briefly.
 * dircolors: (coreutils)dircolors invocation.   Color setup for ls.
-* dirname: (coreutils)dirname invocation.       Strip non-directory suffix.
+* dirname: (coreutils)dirname invocation.       Strip last file name component.
 * du: (coreutils)du invocation.                 Report on disk usage.
 * echo: (coreutils)echo invocation.             Print a line of text.
 * env: (coreutils)env invocation.               Modify the environment.
@@ -112,7 +112,7 @@ START-INFO-DIR-ENTRY
 * yes: (coreutils)yes invocation.               Print a string indefinitely.
 END-INFO-DIR-ENTRY
 
-   This manual documents version 8.4 of the GNU core utilities,
+   This manual documents version 8.5 of the GNU core utilities,
 including the standard programs for text and file manipulation.
 
    Copyright (C) 1994-1996, 2000-2010 Free Software Foundation, Inc.
@@ -130,7 +130,7 @@ File: coreutils.info,  Node: Top,  Next: Introduction,  Up: (dir)
 GNU Coreutils
 *************
 
-This manual documents version 8.4 of the GNU core utilities, including
+This manual documents version 8.5 of the GNU core utilities, including
 the standard programs for text and file manipulation.
 
    Copyright (C) 1994-1996, 2000-2010 Free Software Foundation, Inc.
@@ -164,7 +164,7 @@ the standard programs for text and file manipulation.
 * File name manipulation::       dirname basename pathchk mktemp
 * Working context::              pwd stty printenv tty
 * User information::             id logname whoami groups users who
-* System context::               date arch uname hostname hostid uptime
+* System context::               date arch nproc uname hostname hostid uptime
 * SELinux context::              chcon runcon
 * Modified command invocation::  chroot env nice nohup stdbuf su timeout
 * Process control::              kill
@@ -343,7 +343,7 @@ Redirection
 File name manipulation
 
 * basename invocation::          Strip directory and suffix from a file name
-* dirname invocation::           Strip non-directory suffix from a file name
+* dirname invocation::           Strip last file name component
 * pathchk invocation::           Check file name validity and portability
 * mktemp invocation::            Create temporary file or directory
 
@@ -3297,11 +3297,14 @@ option was specified, the `.C' part of a field specification is counted
 from the first nonblank character of the field.
 
    On older systems, `sort' supports an obsolete origin-zero syntax
-`+POS1 [-POS2]' for specifying sort keys.  This obsolete behavior can
-be enabled or disabled with the `_POSIX2_VERSION' environment variable
-(*note Standards conformance::); it can also be enabled when
-`POSIXLY_CORRECT' is not set by using the obsolete syntax with `-POS2'
-present.
+`+POS1 [-POS2]' for specifying sort keys.  The obsolete sequence `sort
++A.X -B.Y' is equivalent to `sort -k A+1.X+1,B' if Y is `0' or absent,
+otherwise it is equivalent to `sort -k A+1.X+1,B+1.Y'.
+
+   This obsolete behavior can be enabled or disabled with the
+`_POSIX2_VERSION' environment variable (*note Standards conformance::);
+it can also be enabled when `POSIXLY_CORRECT' is not set by using the
+obsolete syntax with `-POS2' present.
 
    Scripts intended for use on standard hosts should avoid obsolete
 syntax and should use `-k' instead.  For example, avoid `sort +2',
@@ -4333,7 +4336,11 @@ options::.
      Select for printing only the fields listed in FIELD-LIST.  Fields
      are separated by a TAB character by default.  Also print any line
      that contains no delimiter character, unless the
-     `--only-delimited' (`-s') option is specified
+     `--only-delimited' (`-s') option is specified.  Note `cut' does
+     not support specifying runs of whitespace as a delimiter, so to
+     achieve that common functionality one can pre-process with `tr'
+     like:
+          tr -s '[:blank:]' '\t' | cut -f...
 
 `-d INPUT_DELIM_BYTE'
 `--delimiter=INPUT_DELIM_BYTE'
@@ -4449,7 +4456,8 @@ options if the output of `sort' is fed to `join'.  You can use a
 command like `sort -k 1b,1' to sort a file on its default join field,
 but if you select a non-default locale, join field, separator, or
 comparison options, then you should do so consistently between `join'
-and `sort'.
+and `sort'.  If `join -t ''' is specified then the whole line is
+considered which matches the default operation of sort.
 
    If the input has no unpairable lines, a GNU extension is available;
 the sort order can be any order that considers two fields to be equal
@@ -4511,6 +4519,15 @@ options::.
      Replace those output fields that are missing in the input with
      STRING.
 
+`--header'
+     Treat the first line of each input file as a header line. The
+     header lines will be joined and printed as the first output line.
+     If `-o' is used to specify output format, the header line will be
+     printed according to the specified format.  The header lines will
+     not be checked for ordering even if `--check-order' is specified.
+     Also if the header lines from each file do not match, the heading
+     fields from the first file will be used.
+
 `-i'
 `--ignore-case'
      Ignore differences in case when comparing keys.  With this option,
@@ -4553,7 +4570,10 @@ options::.
      Use character CHAR as the input and output field separator.  Treat
      as significant each occurrence of CHAR in the input file.  Use
      `sort -t CHAR', without the `-b' option of `sort', to produce this
-     ordering.
+     ordering.  If `join -t ''' is specified, the whole line is
+     considered, matching the default operation of sort.  If `-t '\0''
+     is specified then the ASCII NUL character is used to delimit the
+     fields.
 
 `-v FILE-NUMBER'
      Print a line for each unpairable line in file FILE-NUMBER (either
@@ -6148,22 +6168,22 @@ options::.
                74163295 b
 
     `context'
-          Preserve SELinux security context of the file. `cp' will fail
-          if the preserving of SELinux security context is not
-          succesful.
+          Preserve SELinux security context of the file, or fail with
+          full diagnostics.
 
     `xattr'
-          Preserve extended attributes if `cp' is built with xattr
-          support, and xattrs are supported and enabled on your file
-          system.  If SELinux context and/or ACLs are implemented using
-          xattrs, they are preserved by this option as well.
+          Preserve extended attributes of the file, or fail with full
+          diagnostics.  If `cp' is built without xattr support, ignore
+          this option.  If SELinux context, ACLs or Capabilities are
+          implemented using xattrs, they are preserved by this option
+          as well.
 
     `all'
           Preserve all file attributes.  Equivalent to specifying all
           of the above, but with the difference that failure to
           preserve SELinux security context or extended attributes does
-          not change `cp''s exit status.  `cp' does diagnose such
-          failures.
+          not change `cp''s exit status.  In contrast to `-a', all but
+          `Operation not supported' warnings are output.
 
      Using `--preserve' with no ATTRIBUTE_LIST is equivalent to
      `--preserve=mode,ownership,timestamps'.
@@ -6753,7 +6773,9 @@ the first directory succeeded, but the second didn't, the first would
 be left on the destination partition and the second and third would be
 left on the original partition.
 
-   `mv' always tries to copy extended attributes (xattr).
+   `mv' always tries to copy extended attributes (xattr), which may
+include SELinux context, ACLs or Capabilities.  Upon failure all but
+`Operation not supported' warnings are output.
 
    If a destination file exists but is normally unwritable, standard
 input is a terminal, and the `-f' or `--force' option is not given,
@@ -7116,7 +7138,7 @@ disk, you could give a command like this:
    A FILE of `-' denotes standard output.  The intended use of this is
 to shred a removed temporary file.  For example:
 
-     i=`tempfile -m 0600`
+     i=`mktemp`
      exec 3<>"$i"
      rm -- "$i"
      echo "Hello, world" >&3
@@ -9692,7 +9714,7 @@ This section describes commands that manipulate file names.
 * Menu:
 
 * basename invocation::         Strip directory and suffix from a file name.
-* dirname invocation::          Strip non-directory suffix from a file name.
+* dirname invocation::          Strip last file name component.
 * pathchk invocation::          Check file name validity and portability.
 * mktemp invocation::           Create temporary file or directory.
 
@@ -9739,11 +9761,12 @@ indicates failure.
 
 File: coreutils.info,  Node: dirname invocation,  Next: pathchk invocation,  Prev: basename invocation,  Up: File name manipulation
 
-18.2 `dirname': Strip non-directory suffix from a file name
-===========================================================
+18.2 `dirname': Strip last file name component
+==============================================
 
 `dirname' prints all but the final slash-delimited component of a
-string (presumably a file name).  Synopsis:
+string (presumably a file name, but also works on directories).
+Synopsis:
 
      dirname NAME
 
@@ -12284,28 +12307,20 @@ File: coreutils.info,  Node: timeout invocation,  Prev: su invocation,  Up: Modi
 `timeout' runs the given COMMAND and kills it if it is still running
 after the specified time interval.  Synopsis:
 
-     timeout [OPTION] NUMBER[smhd] COMMAND [ARG]...
-
-   NUMBER is an integer followed by an optional unit; the default is
-seconds.  The units are:
-
-`s'
-     seconds
-
-`m'
-     minutes
-
-`h'
-     hours
-
-`d'
-     days
+     timeout [OPTION] DURATION COMMAND [ARG]...
 
    COMMAND must not be a special built-in utility (*note Special
 built-in utilities::).
 
-   The program accepts the following option.  Also see *note Common
+   The program accepts the following options.  Also see *note Common
 options::.  Options must precede operands.
+
+`-k DURATION'
+`--kill-after=DURATION'
+     Ensure the monitored COMMAND is killed by also sending a `KILL'
+     signal, after the specified DURATION.  Without this option, if the
+     selected signal proves not to be fatal, `timeout' does not kill
+     the COMMAND.
 
 `-s SIGNAL'
 `--signal=SIGNAL'
@@ -12313,6 +12328,12 @@ options::.  Options must precede operands.
      `TERM' signal. SIGNAL may be a name like `HUP' or a number. Also
      see *Note Signal specifications::.
 
+   DURATION is an integer followed by an optional unit:
+     `s' for seconds (the default)
+     `m' for minutes
+     `h' for hours
+     `d' for days
+   A duration of 0 disables the associated timeout.
 
    Exit status:
 
@@ -14654,7 +14675,7 @@ Index
 * --author:                              What information is listed.
                                                               (line  10)
 * --backup <1>:                          ln invocation.       (line  84)
-* --backup <2>:                          mv invocation.       (line  56)
+* --backup <2>:                          mv invocation.       (line  58)
 * --backup <3>:                          install invocation.  (line  42)
 * --backup <4>:                          cp invocation.       (line  75)
 * --backup:                              Backup options.      (line  13)
@@ -14696,7 +14717,7 @@ Index
 * --columns:                             pr invocation.       (line  68)
 * --command:                             su invocation.       (line  39)
 * --compare:                             install invocation.  (line  47)
-* --complement:                          cut invocation.      (line  71)
+* --complement:                          cut invocation.      (line  75)
 * --compute:                             runcon invocation.   (line  27)
 * --context <1>:                         id invocation.       (line  48)
 * --context <2>:                         mknod invocation.    (line  54)
@@ -14715,7 +14736,7 @@ Index
 * --date:                                touch invocation.    (line  61)
 * --dead:                                who invocation.      (line  44)
 * --decode:                              base64 invocation.   (line  30)
-* --delimiter:                           cut invocation.      (line  51)
+* --delimiter:                           cut invocation.      (line  55)
 * --delimiters:                          paste invocation.    (line  43)
 * --dereference <1>:                     stat invocation.     (line  22)
 * --dereference <2>:                     du invocation.       (line 101)
@@ -14767,7 +14788,7 @@ Index
 * --force <1>:                           ln invocation.       (line  96)
 * --force <2>:                           shred invocation.    (line 101)
 * --force <3>:                           rm invocation.       (line  35)
-* --force <4>:                           mv invocation.       (line  61)
+* --force <4>:                           mv invocation.       (line  63)
 * --force:                               cp invocation.       (line 110)
 * --form-feed:                           pr invocation.       (line 126)
 * --format <1>:                          General output formatting.
@@ -14789,6 +14810,7 @@ Index
 * --groups:                              id invocation.       (line  30)
 * --hardware-platform:                   uname invocation.    (line  35)
 * --head-count:                          shuf invocation.     (line  32)
+* --header <1>:                          join invocation.     (line  89)
 * --header:                              pr invocation.       (line 131)
 * --header-numbering:                    nl invocation.       (line  79)
 * --heading:                             who invocation.      (line  48)
@@ -14806,7 +14828,7 @@ Index
 * --ignore:                              nproc invocation.    (line  25)
 * --ignore-backups:                      Which files are listed.
                                                               (line  23)
-* --ignore-case <1>:                     join invocation.     (line  89)
+* --ignore-case <1>:                     join invocation.     (line  99)
 * --ignore-case <2>:                     uniq invocation.     (line  59)
 * --ignore-case:                         sort invocation.     (line  94)
 * --ignore-environment:                  env invocation.      (line  96)
@@ -14828,7 +14850,7 @@ Index
 * --input-range:                         shuf invocation.     (line  23)
 * --interactive <1>:                     ln invocation.       (line 100)
 * --interactive <2>:                     rm invocation.       (line  50)
-* --interactive <3>:                     mv invocation.       (line  67)
+* --interactive <3>:                     mv invocation.       (line  69)
 * --interactive:                         cp invocation.       (line 133)
 * --io-blocks:                           truncate invocation. (line  26)
 * --iterations=NUMBER:                   shred invocation.    (line 106)
@@ -14839,6 +14861,7 @@ Index
 * --kernel-release:                      uname invocation.    (line  61)
 * --kernel-version:                      uname invocation.    (line  76)
 * --key:                                 sort invocation.     (line 231)
+* --kill-after:                          timeout invocation.  (line  19)
 * --length:                              pr invocation.       (line 153)
 * --line-bytes:                          split invocation.    (line  47)
 * --line-increment:                      nl invocation.       (line  83)
@@ -14869,7 +14892,7 @@ Index
 * --mode:                                install invocation.  (line  74)
 * --month-sort:                          sort invocation.     (line 149)
 * --name:                                id invocation.       (line  34)
-* --no-clobber <1>:                      mv invocation.       (line  74)
+* --no-clobber <1>:                      mv invocation.       (line  76)
 * --no-clobber:                          cp invocation.       (line 150)
 * --no-create <1>:                       truncate invocation. (line  22)
 * --no-create:                           touch invocation.    (line  57)
@@ -14891,7 +14914,7 @@ Index
 * --no-renumber:                         nl invocation.       (line 108)
 * --no-sync:                             df invocation.       (line  73)
 * --no-target-directory <1>:             ln invocation.       (line 153)
-* --no-target-directory <2>:             mv invocation.       (line 107)
+* --no-target-directory <2>:             mv invocation.       (line 109)
 * --no-target-directory <3>:             install invocation.  (line 124)
 * --no-target-directory <4>:             cp invocation.       (line 340)
 * --no-target-directory:                 Target directory.    (line  15)
@@ -14914,12 +14937,12 @@ Index
 * --one-file-system <1>:                 du invocation.       (line 201)
 * --one-file-system <2>:                 rm invocation.       (line  63)
 * --one-file-system:                     cp invocation.       (line 359)
-* --only-delimited:                      cut invocation.      (line  59)
+* --only-delimited:                      cut invocation.      (line  63)
 * --operating-system:                    uname invocation.    (line  57)
 * --output <1>:                          stdbuf invocation.   (line  23)
 * --output <2>:                          shuf invocation.     (line  37)
 * --output:                              sort invocation.     (line 276)
-* --output-delimiter:                    cut invocation.      (line  64)
+* --output-delimiter:                    cut invocation.      (line  68)
 * --output-duplicates:                   od invocation.       (line 155)
 * --output-tabs:                         pr invocation.       (line 137)
 * --owner:                               install invocation.  (line  86)
@@ -15023,7 +15046,7 @@ Index
 * --si <3>:                              What information is listed.
                                                               (line 260)
 * --si:                                  Block size.          (line 138)
-* --signal:                              timeout invocation.  (line  34)
+* --signal:                              timeout invocation.  (line  26)
 * --silent <1>:                          tty invocation.      (line  18)
 * --silent <2>:                          chmod invocation.    (line  45)
 * --silent <3>:                          chgrp invocation.    (line  26)
@@ -15052,11 +15075,11 @@ Index
 * --strings:                             od invocation.       (line  76)
 * --strip:                               install invocation.  (line 108)
 * --strip-program:                       install invocation.  (line 111)
-* --strip-trailing-slashes <1>:          mv invocation.       (line  93)
+* --strip-trailing-slashes <1>:          mv invocation.       (line  95)
 * --strip-trailing-slashes:              cp invocation.       (line 318)
 * --suffix <1>:                          mktemp invocation.   (line 114)
 * --suffix <2>:                          ln invocation.       (line 144)
-* --suffix <3>:                          mv invocation.       (line  98)
+* --suffix <3>:                          mv invocation.       (line 100)
 * --suffix <4>:                          install invocation.  (line 115)
 * --suffix <5>:                          cp invocation.       (line 331)
 * --suffix <6>:                          csplit invocation.   (line  66)
@@ -15073,7 +15096,7 @@ Index
                                                               (line  92)
 * --tagged-paragraph:                    fmt invocation.      (line  40)
 * --target-directory <1>:                ln invocation.       (line 149)
-* --target-directory <2>:                mv invocation.       (line 103)
+* --target-directory <2>:                mv invocation.       (line 105)
 * --target-directory <3>:                install invocation.  (line 120)
 * --target-directory <4>:                cp invocation.       (line 336)
 * --target-directory:                    Target directory.    (line  31)
@@ -15099,7 +15122,7 @@ Index
 * --unique:                              sort invocation.     (line 345)
 * --universal:                           Options for date.    (line  87)
 * --unset:                               env invocation.      (line  90)
-* --update <1>:                          mv invocation.       (line  80)
+* --update <1>:                          mv invocation.       (line  82)
 * --update:                              cp invocation.       (line 345)
 * --user <1>:                            runcon invocation.   (line  31)
 * --user <2>:                            chcon invocation.    (line  51)
@@ -15116,7 +15139,7 @@ Index
 * --verbose <8>:                         ln invocation.       (line 158)
 * --verbose <9>:                         shred invocation.    (line 129)
 * --verbose <10>:                        rm invocation.       (line  95)
-* --verbose <11>:                        mv invocation.       (line  90)
+* --verbose <11>:                        mv invocation.       (line  92)
 * --verbose <12>:                        install invocation.  (line 129)
 * --verbose <13>:                        cp invocation.       (line 355)
 * --verbose <14>:                        split invocation.    (line  61)
@@ -15143,9 +15166,9 @@ Index
 * -0:                                    du invocation.       (line 121)
 * -1 <1>:                                General output formatting.
                                                               (line  10)
-* -1 <2>:                                join invocation.     (line  94)
+* -1 <2>:                                join invocation.     (line 104)
 * -1:                                    comm invocation.     (line  23)
-* -2 <1>:                                join invocation.     (line  97)
+* -2 <1>:                                join invocation.     (line 107)
 * -2:                                    comm invocation.     (line  23)
 * -3:                                    comm invocation.     (line  23)
 * -a <1>:                                uname invocation.    (line  30)
@@ -15163,7 +15186,7 @@ Index
 * -a <1>:                                Which files are listed.
                                                               (line  13)
 * -a <2>:                                unexpand invocation. (line  37)
-* -a <3>:                                join invocation.     (line  73)
+* -a <3>:                                join invocation.     (line  74)
 * -a <4>:                                split invocation.    (line  54)
 * -a <5>:                                pr invocation.       (line  82)
 * -a:                                    od invocation.       (line 175)
@@ -15175,7 +15198,7 @@ Index
 * -b:                                    du invocation.       (line  46)
 * -B:                                    df invocation.       (line  38)
 * -b <1>:                                ln invocation.       (line  84)
-* -b <2>:                                mv invocation.       (line  56)
+* -b <2>:                                mv invocation.       (line  58)
 * -b <3>:                                install invocation.  (line  42)
 * -b <4>:                                cp invocation.       (line  75)
 * -b <5>:                                dircolors invocation.
@@ -15239,7 +15262,7 @@ Index
 * -d <1>:                                Which files are listed.
                                                               (line  28)
 * -d <2>:                                paste invocation.    (line  43)
-* -d:                                    cut invocation.      (line  51)
+* -d:                                    cut invocation.      (line  55)
 * -D:                                    uniq invocation.     (line  69)
 * -d <1>:                                uniq invocation.     (line  63)
 * -d <2>:                                sort invocation.     (line  87)
@@ -15254,7 +15277,7 @@ Index
 * -E:                                    echo invocation.     (line  71)
 * -e <1>:                                echo invocation.     (line  25)
 * -e <2>:                                readlink invocation. (line  36)
-* -e <3>:                                join invocation.     (line  84)
+* -e <3>:                                join invocation.     (line  85)
 * -e:                                    pr invocation.       (line 118)
 * -E:                                    cat invocation.      (line  27)
 * -e:                                    cat invocation.      (line  23)
@@ -15275,7 +15298,7 @@ Index
 * -F:                                    ln invocation.       (line  90)
 * -f <1>:                                shred invocation.    (line 101)
 * -f <2>:                                rm invocation.       (line  35)
-* -f <3>:                                mv invocation.       (line  61)
+* -f <3>:                                mv invocation.       (line  63)
 * -f:                                    cp invocation.       (line 110)
 * -F:                                    General output formatting.
                                                               (line  36)
@@ -15337,14 +15360,14 @@ Index
 * -i:                                    ln invocation.       (line 100)
 * -I:                                    rm invocation.       (line  44)
 * -i <1>:                                rm invocation.       (line  39)
-* -i <2>:                                mv invocation.       (line  67)
+* -i <2>:                                mv invocation.       (line  69)
 * -i <3>:                                cp invocation.       (line 133)
 * -i:                                    What information is listed.
                                                               (line 123)
 * -I:                                    Which files are listed.
                                                               (line  70)
 * -i <1>:                                expand invocation.   (line  34)
-* -i <2>:                                join invocation.     (line  89)
+* -i <2>:                                join invocation.     (line  99)
 * -i <3>:                                uniq invocation.     (line  59)
 * -i <4>:                                shuf invocation.     (line  23)
 * -i <5>:                                sort invocation.     (line 142)
@@ -15354,14 +15377,15 @@ Index
 * -i:                                    nl invocation.       (line  83)
 * -J:                                    pr invocation.       (line 144)
 * -j:                                    od invocation.       (line  55)
-* -k <1>:                                Access permission tests.
+* -k <1>:                                timeout invocation.  (line  19)
+* -k <2>:                                Access permission tests.
                                                               (line  12)
-* -k <2>:                                du invocation.       (line  90)
-* -k <3>:                                df invocation.       (line  63)
-* -k <4>:                                General output formatting.
+* -k <3>:                                du invocation.       (line  90)
+* -k <4>:                                df invocation.       (line  63)
+* -k <5>:                                General output formatting.
                                                               (line  72)
-* -k <5>:                                sort invocation.     (line 231)
-* -k <6>:                                csplit invocation.   (line  85)
+* -k <6>:                                sort invocation.     (line 231)
+* -k <7>:                                csplit invocation.   (line  85)
 * -k:                                    Block size.          (line 138)
 * -l <1>:                                su invocation.       (line  53)
 * -l <2>:                                runcon invocation.   (line  43)
@@ -15415,13 +15439,13 @@ Index
 * -n <5>:                                echo invocation.     (line  22)
 * -n <6>:                                readlink invocation. (line  48)
 * -n <7>:                                ln invocation.       (line 110)
-* -n <8>:                                mv invocation.       (line  74)
+* -n <8>:                                mv invocation.       (line  76)
 * -n:                                    cp invocation.       (line 150)
 * -N:                                    Formatting the file names.
                                                               (line  17)
 * -n <1>:                                What information is listed.
                                                               (line 234)
-* -n <2>:                                cut invocation.      (line  55)
+* -n <2>:                                cut invocation.      (line  59)
 * -n <3>:                                shuf invocation.     (line  32)
 * -n <4>:                                sort invocation.     (line 159)
 * -n <5>:                                csplit invocation.   (line  80)
@@ -15514,7 +15538,7 @@ Index
 * -r <2>:                                sum invocation.      (line  25)
 * -r <3>:                                pr invocation.       (line 207)
 * -r:                                    tac invocation.      (line  26)
-* -s <1>:                                timeout invocation.  (line  34)
+* -s <1>:                                timeout invocation.  (line  26)
 * -s <2>:                                su invocation.       (line  75)
 * -s <3>:                                uname invocation.    (line  65)
 * -s <4>:                                Options for date.    (line  82)
@@ -15529,7 +15553,7 @@ Index
 * -s:                                    readlink invocation. (line  54)
 * -S:                                    ln invocation.       (line 144)
 * -s:                                    ln invocation.       (line 138)
-* -S <1>:                                mv invocation.       (line  98)
+* -S <1>:                                mv invocation.       (line 100)
 * -S:                                    install invocation.  (line 115)
 * -s:                                    install invocation.  (line 108)
 * -S:                                    cp invocation.       (line 331)
@@ -15538,7 +15562,7 @@ Index
 * -s <1>:                                What information is listed.
                                                               (line 244)
 * -s <2>:                                paste invocation.    (line  34)
-* -s <3>:                                cut invocation.      (line  59)
+* -s <3>:                                cut invocation.      (line  63)
 * -s:                                    uniq invocation.     (line  41)
 * -S:                                    sort invocation.     (line 300)
 * -s <1>:                                sort invocation.     (line 294)
@@ -15567,8 +15591,8 @@ Index
 * -t:                                    df invocation.       (line 113)
 * -T:                                    ln invocation.       (line 153)
 * -t:                                    ln invocation.       (line 149)
-* -T:                                    mv invocation.       (line 107)
-* -t:                                    mv invocation.       (line 103)
+* -T:                                    mv invocation.       (line 109)
+* -t:                                    mv invocation.       (line 105)
 * -T:                                    install invocation.  (line 124)
 * -t:                                    install invocation.  (line 120)
 * -T:                                    cp invocation.       (line 340)
@@ -15597,7 +15621,7 @@ Index
 * -u <8>:                                Access permission tests.
                                                               (line  18)
 * -u <9>:                                shred invocation.    (line 123)
-* -u <10>:                               mv invocation.       (line  80)
+* -u <10>:                               mv invocation.       (line  82)
 * -u:                                    cp invocation.       (line 345)
 * -U:                                    Sorting the output.  (line  49)
 * -u <1>:                                Sorting the output.  (line  42)
@@ -15616,7 +15640,7 @@ Index
 * -v <9>:                                ln invocation.       (line 158)
 * -v <10>:                               shred invocation.    (line 129)
 * -v <11>:                               rm invocation.       (line  95)
-* -v <12>:                               mv invocation.       (line  90)
+* -v <12>:                               mv invocation.       (line  92)
 * -v <13>:                               install invocation.  (line 129)
 * -v <14>:                               cp invocation.       (line 355)
 * -v:                                    Sorting the output.  (line  56)
@@ -15762,7 +15786,7 @@ Index
 * backup options:                        Backup options.      (line   6)
 * backup suffix:                         Backup options.      (line  50)
 * backups, making <1>:                   ln invocation.       (line  84)
-* backups, making <2>:                   mv invocation.       (line  56)
+* backups, making <2>:                   mv invocation.       (line  58)
 * backups, making <3>:                   install invocation.  (line  42)
 * backups, making <4>:                   cp invocation.       (line  75)
 * backups, making:                       Backup options.      (line  13)
@@ -16014,7 +16038,7 @@ Index
 * dereferencing symbolic links:          ln invocation.       (line  42)
 * descriptor follow option:              tail invocation.     (line  48)
 * destination directory <1>:             ln invocation.       (line 149)
-* destination directory <2>:             mv invocation.       (line 103)
+* destination directory <2>:             mv invocation.       (line 105)
 * destination directory <3>:             install invocation.  (line 120)
 * destination directory <4>:             cp invocation.       (line 336)
 * destination directory:                 Target directory.    (line  15)
@@ -16154,7 +16178,7 @@ Index
 * exit status of stdbuf:                 stdbuf invocation.   (line  61)
 * exit status of su:                     su invocation.       (line  80)
 * exit status of test:                   test invocation.     (line  41)
-* exit status of timeout:                timeout invocation.  (line  39)
+* exit status of timeout:                timeout invocation.  (line  37)
 * exit status of true:                   true invocation.     (line   6)
 * exit status of tty:                    tty invocation.      (line  21)
 * expand:                                expand invocation.   (line   6)
@@ -16531,7 +16555,7 @@ Index
 * network node name:                     uname invocation.    (line  46)
 * never interactive option:              rm invocation.       (line  52)
 * newer files, copying only:             cp invocation.       (line 345)
-* newer files, moving only:              mv invocation.       (line  80)
+* newer files, moving only:              mv invocation.       (line  82)
 * newer-than file check:                 File characteristic tests.
                                                               (line  15)
 * newline echoing after kill:            Local.               (line  26)
@@ -16752,10 +16776,10 @@ Index
 * process zero-terminated items:         sort invocation.     (line 359)
 * processes, commands for controlling:   Process control.     (line   6)
 * prompting, and ln:                     ln invocation.       (line 100)
-* prompting, and mv:                     mv invocation.       (line  36)
+* prompting, and mv:                     mv invocation.       (line  38)
 * prompting, and rm:                     rm invocation.       (line  11)
-* prompts, forcing:                      mv invocation.       (line  67)
-* prompts, omitting:                     mv invocation.       (line  61)
+* prompts, forcing:                      mv invocation.       (line  69)
+* prompts, omitting:                     mv invocation.       (line  63)
 * prterase:                              Local.               (line  46)
 * ptx:                                   ptx invocation.      (line   6)
 * punct:                                 Character sets.      (line 115)
@@ -16978,7 +17002,7 @@ Index
                                                               (line   6)
 * stripping non-directory suffix:        dirname invocation.  (line   6)
 * stripping symbol table information:    install invocation.  (line 108)
-* stripping trailing slashes <1>:        mv invocation.       (line  93)
+* stripping trailing slashes <1>:        mv invocation.       (line  95)
 * stripping trailing slashes:            cp invocation.       (line 318)
 * stty:                                  stty invocation.     (line   6)
 * su:                                    su invocation.       (line   6)
@@ -17069,7 +17093,7 @@ Index
 * tail:                                  tail invocation.     (line   6)
 * tandem:                                Input.               (line  45)
 * target directory <1>:                  ln invocation.       (line 149)
-* target directory <2>:                  mv invocation.       (line 103)
+* target directory <2>:                  mv invocation.       (line 105)
 * target directory <3>:                  install invocation.  (line 120)
 * target directory <4>:                  cp invocation.       (line 336)
 * target directory:                      Target directory.    (line   6)
@@ -17110,7 +17134,7 @@ Index
 * time style:                            Formatting file timestamps.
                                                               (line  26)
 * time units <1>:                        sleep invocation.    (line  11)
-* time units:                            timeout invocation.  (line  11)
+* time units:                            timeout invocation.  (line  30)
 * time zone correction:                  Time of day items.   (line  30)
 * time zone item <1>:                    Time zone items.     (line   6)
 * time zone item:                        General date syntax. (line  44)
@@ -17203,7 +17227,7 @@ Index
 * version, sorting option for ls:        Sorting the output.  (line  56)
 * version-control Emacs variable:        Backup options.      (line  24)
 * VERSION_CONTROL <1>:                   ln invocation.       (line  84)
-* VERSION_CONTROL <2>:                   mv invocation.       (line  56)
+* VERSION_CONTROL <2>:                   mv invocation.       (line  58)
 * VERSION_CONTROL <3>:                   install invocation.  (line  42)
 * VERSION_CONTROL <4>:                   cp invocation.       (line  75)
 * VERSION_CONTROL:                       Backup options.      (line  13)
@@ -17248,221 +17272,221 @@ Index
 
 
 Tag Table:
-Node: Top8355
-Node: Introduction22129
-Node: Common options23688
-Node: Exit status26902
-Node: Backup options27653
-Node: Block size29577
-Node: Signal specifications34486
-Node: Disambiguating names and IDs36536
-Ref: Disambiguating names and IDs-Footnote-138105
-Node: Random sources38175
-Node: Target directory39792
-Node: Trailing slashes43277
-Node: Traversing symlinks44298
-Node: Treating / specially45369
-Node: Special built-in utilities46916
-Node: Standards conformance48051
-Node: Output of entire files49567
-Node: cat invocation50168
-Node: tac invocation51924
-Node: nl invocation53186
-Node: od invocation57065
-Node: base64 invocation63913
-Node: Formatting file contents65292
-Node: fmt invocation65743
-Node: pr invocation68556
-Node: fold invocation81013
-Node: Output of parts of files82473
-Node: head invocation82981
-Node: tail invocation85166
-Node: split invocation93765
-Node: csplit invocation96126
-Node: Summarizing files100877
-Node: wc invocation101525
-Node: sum invocation104599
-Node: cksum invocation106004
-Node: md5sum invocation107144
-Node: sha1sum invocation112205
-Node: sha2 utilities112985
-Node: Operating on sorted files113609
-Node: sort invocation114196
-Ref: sort invocation-Footnote-1137090
-Node: shuf invocation137642
-Node: uniq invocation140221
-Node: comm invocation144913
-Node: ptx invocation147334
-Node: General options in ptx150138
-Node: Charset selection in ptx150719
-Node: Input processing in ptx151621
-Node: Output formatting in ptx157042
-Node: Compatibility in ptx163608
-Node: tsort invocation166841
-Node: tsort background170000
-Node: Operating on fields171648
-Node: cut invocation172010
-Node: paste invocation175313
-Node: join invocation176627
-Node: Operating on characters181748
-Node: tr invocation182170
-Node: Character sets183888
-Node: Translating188319
-Node: Squeezing190410
-Node: expand invocation193477
-Node: unexpand invocation194959
-Node: Directory listing196777
-Node: ls invocation197263
-Ref: ls invocation-Footnote-1199359
-Node: Which files are listed199581
-Node: What information is listed203321
-Node: Sorting the output212568
-Node: Details about version sort214878
-Node: General output formatting216646
-Node: Formatting file timestamps220549
-Node: Formatting the file names225890
-Node: dir invocation228806
-Node: vdir invocation229217
-Node: dircolors invocation229595
-Node: Basic operations231293
-Node: cp invocation231913
-Node: dd invocation247191
-Node: install invocation256909
-Node: mv invocation262184
-Node: rm invocation266620
-Node: shred invocation270924
-Node: Special file types278437
-Node: link invocation279943
-Node: ln invocation281162
-Node: mkdir invocation288954
-Node: mkfifo invocation291325
-Node: mknod invocation292445
-Node: readlink invocation294575
-Node: rmdir invocation296546
-Node: unlink invocation297820
-Node: Changing file attributes298779
-Node: chown invocation299593
-Node: chgrp invocation305779
-Node: chmod invocation308829
-Node: touch invocation311584
-Node: Disk usage317438
-Node: df invocation318099
-Node: du invocation324041
-Node: stat invocation332561
-Node: sync invocation336543
-Node: truncate invocation337498
-Node: Printing text339257
-Node: echo invocation339631
-Node: printf invocation342087
-Node: yes invocation347323
-Node: Conditions347935
-Node: false invocation348526
-Node: true invocation349561
-Node: test invocation350840
-Node: File type tests352880
-Node: Access permission tests353762
-Node: File characteristic tests354647
-Node: String tests355412
-Node: Numeric tests356077
-Node: Connectives for test356883
-Node: expr invocation357236
-Node: String expressions359677
-Node: Numeric expressions362261
-Node: Relations for expr362958
-Node: Examples of expr364152
-Node: Redirection364876
-Node: tee invocation365334
-Node: File name manipulation370124
-Node: basename invocation370653
-Node: dirname invocation372100
-Node: pathchk invocation373306
-Node: mktemp invocation375070
-Node: Working context380690
-Node: pwd invocation381334
-Node: stty invocation382678
-Node: Control385438
-Node: Input386198
-Node: Output387871
-Node: Local389191
-Node: Combination390773
-Node: Characters392994
-Node: Special394548
-Node: printenv invocation396205
-Node: tty invocation397215
-Node: User information397921
-Node: id invocation398556
-Node: logname invocation400479
-Node: whoami invocation401106
-Node: groups invocation401593
-Node: users invocation402798
-Node: who invocation403745
-Node: System context406681
-Node: date invocation407346
-Node: Time conversion specifiers409063
-Node: Date conversion specifiers411463
-Node: Literal conversion specifiers414587
-Node: Padding and other flags414945
-Node: Setting the time417136
-Node: Options for date418142
-Node: Examples of date421618
-Ref: %s-examples423036
-Node: arch invocation425221
-Node: nproc invocation425670
-Node: uname invocation426780
-Node: hostname invocation429354
-Node: hostid invocation429967
-Node: uptime invocation430678
-Node: SELinux context431801
-Node: chcon invocation432176
-Node: runcon invocation433998
-Node: Modified command invocation435464
-Node: chroot invocation436214
-Ref: chroot invocation-Footnote-1438782
-Node: env invocation439084
-Node: nice invocation443328
-Node: nohup invocation447042
-Node: stdbuf invocation449325
-Node: su invocation451526
-Node: timeout invocation456027
-Node: Process control457186
-Node: kill invocation457409
-Node: Delaying460480
-Node: sleep invocation460677
-Node: Numeric operations461797
-Node: factor invocation462129
-Node: seq invocation463880
-Node: File permissions467500
-Node: Mode Structure468118
-Node: Symbolic Modes471813
-Node: Setting Permissions472911
-Node: Copying Permissions475524
-Node: Changing Special Mode Bits476343
-Node: Conditional Executability478165
-Node: Multiple Changes478709
-Node: Umask and Protection480376
-Node: Numeric Modes481481
-Node: Directory Setuid and Setgid483381
-Node: Date input formats485643
-Node: General date syntax487996
-Node: Calendar date items490955
-Node: Time of day items492960
-Node: Time zone items495164
-Node: Day of week items496406
-Node: Relative items in date strings497403
-Node: Pure numbers in date strings500213
-Node: Seconds since the Epoch501202
-Node: Specifying time zone rules502831
-Node: Authors of get_date505203
-Node: Opening the software toolbox505963
-Node: Toolbox introduction506635
-Node: I/O redirection509358
-Node: The who command512192
-Node: The cut command513089
-Node: The sort command514152
-Node: The uniq command514856
-Node: Putting the tools together515546
-Ref: Putting the tools together-Footnote-1527498
-Node: GNU Free Documentation License527572
-Node: Concept index552765
+Node: Top8359
+Node: Introduction22126
+Node: Common options23685
+Node: Exit status26899
+Node: Backup options27650
+Node: Block size29574
+Node: Signal specifications34483
+Node: Disambiguating names and IDs36533
+Ref: Disambiguating names and IDs-Footnote-138102
+Node: Random sources38172
+Node: Target directory39789
+Node: Trailing slashes43274
+Node: Traversing symlinks44295
+Node: Treating / specially45366
+Node: Special built-in utilities46913
+Node: Standards conformance48048
+Node: Output of entire files49564
+Node: cat invocation50165
+Node: tac invocation51921
+Node: nl invocation53183
+Node: od invocation57062
+Node: base64 invocation63910
+Node: Formatting file contents65289
+Node: fmt invocation65740
+Node: pr invocation68553
+Node: fold invocation81010
+Node: Output of parts of files82470
+Node: head invocation82978
+Node: tail invocation85163
+Node: split invocation93762
+Node: csplit invocation96123
+Node: Summarizing files100874
+Node: wc invocation101522
+Node: sum invocation104596
+Node: cksum invocation106001
+Node: md5sum invocation107141
+Node: sha1sum invocation112202
+Node: sha2 utilities112982
+Node: Operating on sorted files113606
+Node: sort invocation114193
+Ref: sort invocation-Footnote-1137245
+Node: shuf invocation137797
+Node: uniq invocation140376
+Node: comm invocation145068
+Node: ptx invocation147489
+Node: General options in ptx150293
+Node: Charset selection in ptx150874
+Node: Input processing in ptx151776
+Node: Output formatting in ptx157197
+Node: Compatibility in ptx163763
+Node: tsort invocation166996
+Node: tsort background170155
+Node: Operating on fields171803
+Node: cut invocation172165
+Node: paste invocation175680
+Node: join invocation176994
+Node: Operating on characters182907
+Node: tr invocation183329
+Node: Character sets185047
+Node: Translating189478
+Node: Squeezing191569
+Node: expand invocation194636
+Node: unexpand invocation196118
+Node: Directory listing197936
+Node: ls invocation198422
+Ref: ls invocation-Footnote-1200518
+Node: Which files are listed200740
+Node: What information is listed204480
+Node: Sorting the output213727
+Node: Details about version sort216037
+Node: General output formatting217805
+Node: Formatting file timestamps221708
+Node: Formatting the file names227049
+Node: dir invocation229965
+Node: vdir invocation230376
+Node: dircolors invocation230754
+Node: Basic operations232452
+Node: cp invocation233072
+Node: dd invocation248364
+Node: install invocation258082
+Node: mv invocation263357
+Node: rm invocation267919
+Node: shred invocation272223
+Node: Special file types279726
+Node: link invocation281232
+Node: ln invocation282451
+Node: mkdir invocation290243
+Node: mkfifo invocation292614
+Node: mknod invocation293734
+Node: readlink invocation295864
+Node: rmdir invocation297835
+Node: unlink invocation299109
+Node: Changing file attributes300068
+Node: chown invocation300882
+Node: chgrp invocation307068
+Node: chmod invocation310118
+Node: touch invocation312873
+Node: Disk usage318727
+Node: df invocation319388
+Node: du invocation325330
+Node: stat invocation333850
+Node: sync invocation337832
+Node: truncate invocation338787
+Node: Printing text340546
+Node: echo invocation340920
+Node: printf invocation343376
+Node: yes invocation348612
+Node: Conditions349224
+Node: false invocation349815
+Node: true invocation350850
+Node: test invocation352129
+Node: File type tests354169
+Node: Access permission tests355051
+Node: File characteristic tests355936
+Node: String tests356701
+Node: Numeric tests357366
+Node: Connectives for test358172
+Node: expr invocation358525
+Node: String expressions360966
+Node: Numeric expressions363550
+Node: Relations for expr364247
+Node: Examples of expr365441
+Node: Redirection366165
+Node: tee invocation366623
+Node: File name manipulation371413
+Node: basename invocation371929
+Node: dirname invocation373376
+Node: pathchk invocation374586
+Node: mktemp invocation376350
+Node: Working context381970
+Node: pwd invocation382614
+Node: stty invocation383958
+Node: Control386718
+Node: Input387478
+Node: Output389151
+Node: Local390471
+Node: Combination392053
+Node: Characters394274
+Node: Special395828
+Node: printenv invocation397485
+Node: tty invocation398495
+Node: User information399201
+Node: id invocation399836
+Node: logname invocation401759
+Node: whoami invocation402386
+Node: groups invocation402873
+Node: users invocation404078
+Node: who invocation405025
+Node: System context407961
+Node: date invocation408626
+Node: Time conversion specifiers410343
+Node: Date conversion specifiers412743
+Node: Literal conversion specifiers415867
+Node: Padding and other flags416225
+Node: Setting the time418416
+Node: Options for date419422
+Node: Examples of date422898
+Ref: %s-examples424316
+Node: arch invocation426501
+Node: nproc invocation426950
+Node: uname invocation428060
+Node: hostname invocation430634
+Node: hostid invocation431247
+Node: uptime invocation431958
+Node: SELinux context433081
+Node: chcon invocation433456
+Node: runcon invocation435278
+Node: Modified command invocation436744
+Node: chroot invocation437494
+Ref: chroot invocation-Footnote-1440062
+Node: env invocation440364
+Node: nice invocation444608
+Node: nohup invocation448322
+Node: stdbuf invocation450605
+Node: su invocation452806
+Node: timeout invocation457307
+Node: Process control458769
+Node: kill invocation458992
+Node: Delaying462063
+Node: sleep invocation462260
+Node: Numeric operations463380
+Node: factor invocation463712
+Node: seq invocation465463
+Node: File permissions469083
+Node: Mode Structure469701
+Node: Symbolic Modes473396
+Node: Setting Permissions474494
+Node: Copying Permissions477107
+Node: Changing Special Mode Bits477926
+Node: Conditional Executability479748
+Node: Multiple Changes480292
+Node: Umask and Protection481959
+Node: Numeric Modes483064
+Node: Directory Setuid and Setgid484964
+Node: Date input formats487226
+Node: General date syntax489579
+Node: Calendar date items492538
+Node: Time of day items494543
+Node: Time zone items496747
+Node: Day of week items497989
+Node: Relative items in date strings498986
+Node: Pure numbers in date strings501796
+Node: Seconds since the Epoch502785
+Node: Specifying time zone rules504414
+Node: Authors of get_date506786
+Node: Opening the software toolbox507546
+Node: Toolbox introduction508218
+Node: I/O redirection510941
+Node: The who command513775
+Node: The cut command514672
+Node: The sort command515735
+Node: The uniq command516439
+Node: Putting the tools together517129
+Ref: Putting the tools together-Footnote-1529081
+Node: GNU Free Documentation License529155
+Node: Concept index554348
 
 End Tag Table

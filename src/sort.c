@@ -32,6 +32,7 @@
 #include "filevercmp.h"
 #include "hard-locale.h"
 #include "hash.h"
+#include "ignore-value.h"
 #include "md5.h"
 #include "physmem.h"
 #include "posixver.h"
@@ -166,7 +167,7 @@ struct keyfield
 {
   size_t sword;			/* Zero-origin 'word' to start at. */
   size_t schar;			/* Additional characters to skip. */
-  size_t eword;			/* Zero-origin first word after field. */
+  size_t eword;			/* Zero-origin last 'word' of key. */
   size_t echar;			/* Additional characters in field. */
   bool const *ignore;		/* Boolean array of characters to ignore. */
   char const *translate;	/* Translation applied to characters. */
@@ -180,7 +181,7 @@ struct keyfield
                                    Handle numbers in exponential notation. */
   bool human_numeric;		/* Flag for sorting by human readable
                                    units with either SI xor IEC prefixes. */
-  int si_present;		/* Flag for checking for mixed SI and IEC. */
+  int iec_present;		/* Flag for checking for mixed SI and IEC. */
   bool month;			/* Flag for comparison by month name. */
   bool reverse;			/* Reverse the sense of comparison. */
   bool version;			/* sort by version number */
@@ -209,7 +210,7 @@ static bool nonprinting[UCHAR_LIM];
 static bool nondictionary[UCHAR_LIM];
 
 /* Translation table folding lower case to upper.  */
-static char fold_toupper[UCHAR_LIM];
+static unsigned char fold_toupper[UCHAR_LIM];
 
 #define MONTHS_PER_YEAR 12
 
@@ -794,6 +795,61 @@ create_temp_file (int *pfd, bool survive_fd_exhaustion)
   return node;
 }
 
+/* Predeclare an access pattern for input files.
+   Ignore any errors -- this is only advisory.
+
+   There are a few hints we could possibly provide,
+   and after careful testing it was decided that
+   specifying POSIX_FADV_SEQUENTIAL was not detrimental
+   to any cases.  On Linux 2.6.31, this option doubles
+   the size of read ahead performed and thus was seen to
+   benefit these cases:
+     Merging
+     Sorting with a smaller internal buffer
+     Reading from faster flash devices
+
+   In _addition_ one could also specify other hints...
+
+   POSIX_FADV_WILLNEED was tested, but Linux 2.6.31
+   at least uses that to _synchronously_ prepopulate the cache
+   with the specified range.  While sort does need to
+   read all of its input before outputting, a synchronous
+   read of the whole file up front precludes any processing
+   that sort could do in parallel with the system doing
+   read ahead of the data. This was seen to have negative effects
+   in a couple of cases:
+     Merging
+     Sorting with a smaller internal buffer
+   Note this option was seen to shorten the runtime for sort
+   on a multicore system with lots of RAM and other processes
+   competing for CPU.  It could be argued that more explicit
+   scheduling hints with `nice` et. al. are more appropriate
+   for this situation.
+
+   POSIX_FADV_NOREUSE is a possibility as it could lower
+   the priority of input data in the cache as sort will
+   only need to process it once.  However its functionality
+   has changed over Linux kernel versions and as of 2.6.31
+   it does nothing and thus we can't depend on what it might
+   do in future.
+
+   POSIX_FADV_DONTNEED is not appropriate for user specified
+   input files, but for temp files we do want to drop the
+   cache immediately after processing.  This is done implicitly
+   however when the files are unlinked.  */
+
+static void
+fadvise_input (FILE *fp)
+{
+#if HAVE_POSIX_FADVISE
+  if (fp)
+    {
+      int fd = fileno (fp);
+      ignore_value (posix_fadvise (fd, 0, 0, POSIX_FADV_SEQUENTIAL));
+    }
+#endif
+}
+
 /* Return a stream for FILE, opened with mode HOW.  A null FILE means
    standard output; HOW should be "w".  When opening for input, "-"
    means standard input.  To avoid confusion, do not return file
@@ -805,10 +861,18 @@ stream_open (const char *file, const char *how)
 {
   if (!file)
     return stdout;
-  if (STREQ (file, "-") && *how == 'r')
+  if (*how == 'r')
     {
-      have_read_stdin = true;
-      return stdin;
+      FILE *fp;
+      if (STREQ (file, "-"))
+        {
+          have_read_stdin = true;
+          fp = stdin;
+        }
+      else
+        fp = fopen (file, how);
+      fadvise_input (fp);
+      return fp;
     }
   return fopen (file, how);
 }
@@ -1129,7 +1193,7 @@ inittables (void)
         {
           char const *s;
           size_t s_len;
-          size_t j;
+          size_t j, k;
           char *name;
 
           s = (char *) nl_langinfo (ABMON_1 + i);
@@ -1137,9 +1201,10 @@ inittables (void)
           monthtab[i].name = name = xmalloc (s_len + 1);
           monthtab[i].val = i + 1;
 
-          for (j = 0; j < s_len; j++)
-            name[j] = fold_toupper[to_uchar (s[j])];
-          name[j] = '\0';
+          for (j = k = 0; j < s_len; j++)
+            if (! isblank (to_uchar (s[j])))
+              name[k++] = fold_toupper[to_uchar (s[j])];
+          name[k] = '\0';
         }
       qsort ((void *) monthtab, MONTHS_PER_YEAR,
              sizeof *monthtab, struct_month_cmp);
@@ -1175,10 +1240,10 @@ specify_nmerge (int oi, char c, char const *s)
           if (nmerge < 2)
             {
               error (0, 0, _("invalid --%s argument %s"),
-                     long_options[oi].name, quote(s));
+                     long_options[oi].name, quote (s));
               error (SORT_FAILURE, 0,
                      _("minimum --%s argument is %s"),
-                     long_options[oi].name, quote("2"));
+                     long_options[oi].name, quote ("2"));
             }
           else if (max_nmerge < nmerge)
             {
@@ -1193,7 +1258,7 @@ specify_nmerge (int oi, char c, char const *s)
     {
       char max_nmerge_buf[INT_BUFSIZE_BOUND (unsigned int)];
       error (0, 0, _("--%s argument %s too large"),
-             long_options[oi].name, quote(s));
+             long_options[oi].name, quote (s));
       error (SORT_FAILURE, 0,
              _("maximum --%s argument with current rlimit is %s"),
              long_options[oi].name,
@@ -1689,10 +1754,10 @@ numcompare (const char *a, const char *b)
 static void
 check_mixed_SI_IEC (char prefix, struct keyfield *key)
 {
-  int si_present = prefix == 'i';
-  if (key->si_present != -1 && si_present != key->si_present)
+  int iec_present = prefix == 'i';
+  if (key->iec_present != -1 && iec_present != key->iec_present)
     error (SORT_FAILURE, 0, _("both SI and IEC prefixes present on units"));
-  key->si_present = si_present;
+  key->iec_present = iec_present;
 }
 
 /* Return an integer which represents the order of magnitude of
@@ -2521,11 +2586,11 @@ mergefps (struct sortfile *files, size_t ntemps, size_t nfiles,
     }
 
   xfclose (ofp, output_file);
-  free(fps);
-  free(buffer);
-  free(ord);
-  free(base);
-  free(cur);
+  free (fps);
+  free (buffer);
+  free (ord);
+  free (base);
+  free (cur);
 }
 
 /* Merge lines from FILES onto OFP.  NTEMPS is the number of temporary
@@ -2724,8 +2789,8 @@ avoid_trashing_input (struct sortfile *files, size_t ntemps,
               files[i].pid = pid;
 
               if (i + num_merged < nfiles)
-                memmove(&files[i + 1], &files[i + num_merged],
-                        num_merged * sizeof *files);
+                memmove (&files[i + 1], &files[i + num_merged],
+                         num_merged * sizeof *files);
               ntemps += 1;
               nfiles -= num_merged - 1;;
               i += num_merged;
@@ -2799,7 +2864,7 @@ merge (struct sortfile *files, size_t ntemps, size_t nfiles,
 
       /* Put the remaining input files into the last NMERGE-sized output
          window, so they will be merged in the next pass.  */
-      memmove(&files[out], &files[in], (nfiles - in) * sizeof *files);
+      memmove (&files[out], &files[in], (nfiles - in) * sizeof *files);
       ntemps += out;
       nfiles -= in - out;
     }
@@ -3146,7 +3211,7 @@ key_init (struct keyfield *key)
 {
   memset (key, 0, sizeof *key);
   key->eword = SIZE_MAX;
-  key->si_present = -1;
+  key->iec_present = -1;
   return key;
 }
 
@@ -3263,7 +3328,7 @@ main (int argc, char **argv)
   gkey.ignore = NULL;
   gkey.translate = NULL;
   gkey.numeric = gkey.general_numeric = gkey.human_numeric = false;
-  gkey.si_present = -1;
+  gkey.iec_present = -1;
   gkey.random = gkey.version = false;
   gkey.month = gkey.reverse = false;
   gkey.skipsblanks = gkey.skipeblanks = false;
@@ -3324,6 +3389,16 @@ main (int argc, char **argv)
                           if (*s == '.')
                             s = parse_field_count (s + 1, &key->echar,
                                                N_("invalid number after `.'"));
+                          if (!key->echar && key->eword)
+                            {
+                              /* obsolescent syntax +A.x -B.y is equivalent to:
+                                   -k A+1.x+1,B.y   (when y = 0)
+                                   -k A+1.x+1,B+1.y (when y > 0)
+                                 So eword is decremented as in the -k case
+                                 only when the end field (B) is specified and
+                                 echar (y) is 0.  */
+                              key->eword--;
+                            }
                           if (*set_ordering (s, key, bl_end))
                             badfieldspec (optarg1,
                                       N_("stray character in field spec"));

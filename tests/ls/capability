@@ -24,7 +24,7 @@ fi
 . $srcdir/test-lib.sh
 require_root_
 
-grep '^#define HAVE_CAP 1$' $CONFIG_HEADER > /dev/null \
+grep '^#define HAVE_CAP 1' $CONFIG_HEADER > /dev/null \
   || skip_test_ "configured without libcap support"
 
 (setcap --help) 2>&1 |grep 'usage: setcap' > /dev/null \
@@ -59,7 +59,7 @@ for ex in '' ex=:; do
 dir:
 \e[${code}mcap_neg\e[0m
 cap_pos
-\e[m" > out_ok || framework_failure
+" > out_ok || framework_failure
 
   compare out out_ok || fail=1
 done

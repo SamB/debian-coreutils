@@ -1915,10 +1915,10 @@ init_store_cols (void)
 
   free (line_vector);
   /* FIXME: here's where it was allocated.  */
-  line_vector = xmalloc ((total_lines + 1) * sizeof (int *));
+  line_vector = xmalloc ((total_lines + 1) * sizeof *line_vector);
 
   free (end_vector);
-  end_vector = xmalloc (total_lines * sizeof (int *));
+  end_vector = xmalloc (total_lines * sizeof *end_vector);
 
   free (buff);
   buff_allocated = (use_col_separator
@@ -2783,7 +2783,7 @@ Mandatory arguments to long options are mandatory for short options too.\n\
   -COLUMN, --columns=COLUMN\n\
                     output COLUMN columns and print columns down,\n\
                     unless -a is used. Balance number of lines in the\n\
-                    columns on each page.\n\
+                    columns on each page\n\
 "), stdout);
       fputs (_("\
   -a, --across      print columns across rather than down, used together\n\

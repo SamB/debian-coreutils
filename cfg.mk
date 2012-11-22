@@ -18,7 +18,8 @@
 manual_title = Core GNU utilities
 
 # Tests not to run as part of "make distcheck".
-local-checks-to-skip =
+local-checks-to-skip = \
+  sc_texinfo_acronym
 
 # Tools used to bootstrap this package, used for "announcement".
 bootstrap-tools = autoconf,automake,gnulib,bison
@@ -26,10 +27,13 @@ bootstrap-tools = autoconf,automake,gnulib,bison
 # Now that we have better tests, make this the default.
 export VERBOSE = yes
 
-old_NEWS_hash = beab130e9d41bf8014a0594cfe8b28d4
+old_NEWS_hash = 9518f4930d702a9fa6ac6b9fd06cca94
 
 # Add an exemption for sc_makefile_at_at_check.
 _makefile_at_at_check_exceptions = ' && !/^cu_install_program =/'
+
+# Our help-version script is in a slightly different location.
+_hv_file ?= $(srcdir)/tests/misc/help-version
 
 # Ensure that the list of O_ symbols used to compute O_FULLBLOCK is complete.
 dd = $(srcdir)/src/dd.c
@@ -93,7 +97,8 @@ sc_root_tests:
 # stays in sync with corresponding files in the repository.
 sce = syntax_check_exceptions
 sc_x_sc_dist_check:
-	@test "$$( ($(VC_LIST) | sed -n '/^.x-sc_/p';			\
+	@test "$$( ($(VC_LIST) | sed -n '/\.x-sc_/p'			\
+		     | sed 's|^$(_dot_escaped_srcdir)/||';		\
 		   sed -n '/^$(sce) =[	 ]*\\$$/,/[^\]$$/p'		\
 		     $(srcdir)/Makefile.am				\
 		       | sed 's/^  *//;/^$(sce) =/d'			\
@@ -129,7 +134,10 @@ headers_with_interesting_macro_defs = \
 # Don't define macros that we already get from gnulib header files.
 sc_always_defined_macros: .re-defmac
 	@if test -f $(srcdir)/src/system.h; then			\
-	  trap 'rc=$$?; rm -f .re-defmac; exit $$rc' 0 1 2 3 15;	\
+	  trap 'rc=$$?; rm -f .re-defmac; exit $$rc' 0;			\
+	  am__exit='(exit $rc); exit $rc';				\
+	  trap "rc=129; $$am__exit" 1; trap "rc=130; $$am__exit" 2;	\
+	  trap "rc=131; $$am__exit" 3; trap "rc=143; $$am__exit" 15;	\
 	  grep -f .re-defmac $$($(VC_LIST))				\
 	    && { echo '$(ME): define the above via some gnulib .h file'	\
 		  1>&2;  exit 1; } || :;				\
@@ -148,7 +156,10 @@ sc_always_defined_macros: .re-defmac
 # the headers already included via system.h.
 sc_system_h_headers: .re-list
 	@if test -f $(srcdir)/src/system.h; then			\
-	  trap 'rc=$$?; rm -f .re-list; exit $$rc' 0 1 2 3 15;		\
+	  trap 'rc=$$?; rm -f .re-list; exit $$rc' 0;			\
+	  am__exit='(exit $rc); exit $rc';				\
+	  trap "rc=129; $$am__exit" 1; trap "rc=130; $$am__exit" 2;	\
+	  trap "rc=131; $$am__exit" 3; trap "rc=143; $$am__exit" 15;	\
 	  grep -nE -f .re-list						\
 	      $$($(VC_LIST_EXCEPT) | grep '^src/')			\
 	    && { echo '$(ME): the above are already included via system.h'\
@@ -164,11 +175,26 @@ sc_sun_os_names:
 
 ALL_RECURSIVE_TARGETS += sc_tight_scope
 sc_tight_scope:
-	@$(MAKE) -C src $@
+	@$(MAKE) -s -C src $@
 
 ALL_RECURSIVE_TARGETS += sc_check-AUTHORS
 sc_check-AUTHORS:
-	@$(MAKE) -C src $@
+	@$(MAKE) -s -C src $@
+
+# Option descriptions should not start with a capital letter
+# One could grep source directly as follows:
+# grep -E " {2,6}-.*[^.]  [A-Z][a-z]" $$($(VC_LIST_EXCEPT) | grep '\.c$$')
+# but that would miss descriptions not on the same line as the -option.
+ALL_RECURSIVE_TARGETS += sc_option_desc_uppercase
+sc_option_desc_uppercase:
+	@$(MAKE) -s -C src all_programs
+	@$(MAKE) -s -C man $@
+
+# Ensure all man/*.[1x] files are present
+ALL_RECURSIVE_TARGETS += sc_man_file_correlation
+sc_man_file_correlation:
+	@$(MAKE) -s -C src all_programs
+	@$(MAKE) -s -C man $@
 
 # Perl-based tests used to exec perl from a #!/bin/sh script.
 # Now they all start with #!/usr/bin/perl and the portability
@@ -183,15 +209,15 @@ sc_no_exec_perl_coreutils:
 
 # Don't use "readlink" or "readlinkat" directly
 sc_prohibit_readlink:
-	@re='\<readlink(at)? \('					\
-	msg='do not use readlink(at); use via xreadlink or areadlink*'	\
-	  $(_prohibit_regexp)
+	@prohibit='\<readlink(at)? \('					\
+	halt='do not use readlink(at); use via xreadlink or areadlink*'	\
+	  $(_sc_search_regexp)
 
 # Don't use address of "stat" or "lstat" functions
 sc_prohibit_stat_macro_address:
-	@re='\<l?stat '':|&l?stat\>'					\
-	msg='stat() and lstat() may be function-like macros'		\
-	  $(_prohibit_regexp)
+	@prohibit='\<l?stat '':|&l?stat\>'				\
+	halt='stat() and lstat() may be function-like macros'		\
+	  $(_sc_search_regexp)
 
 # Ensure that date's --help output stays in sync with the info
 # documentation for GNU strftime.  The only exception is %N,
@@ -202,7 +228,7 @@ sc_strftime_check:
 	  grep '^  %.  ' $(srcdir)/src/date.c | sort			\
 	    | $(extract_char) > $@-src;					\
 	  { echo N;							\
-	    info libc date calendar format | grep '^    `%.'\'		\
+	    info libc date calendar format 2>/dev/null|grep '^    `%.'\'\
 	      | $(extract_char); } | sort > $@-info;			\
 	  diff -u $@-src $@-info || exit 1;				\
 	  rm -f $@-src $@-info;						\
@@ -210,22 +236,22 @@ sc_strftime_check:
 
 # Indent only with spaces.
 sc_prohibit_tab_based_indentation:
-	@re='^ *	'						\
-	msg='TAB in indentation; use only spaces'			\
-	  $(_prohibit_regexp)
+	@prohibit='^ *	'						\
+	halt='TAB in indentation; use only spaces'			\
+	  $(_sc_search_regexp)
 
 # Don't use "indent-tabs-mode: nil" anymore.  No longer needed.
 sc_prohibit_emacs__indent_tabs_mode__setting:
-	@re='^( *[*#] *)?indent-tabs-mode:'				\
-	msg='use of emacs indent-tabs-mode: setting'			\
-	  $(_prohibit_regexp)
+	@prohibit='^( *[*#] *)?indent-tabs-mode:'			\
+	halt='use of emacs indent-tabs-mode: setting'			\
+	  $(_sc_search_regexp)
 
 # Ensure that each file that contains fail=1 also contains fail=0.
 # Otherwise, setting file=1 in the environment would make tests fail unexpectedly.
 sc_prohibit_fail_0:
-	@re='\<fail=0\>'						\
-	msg='fail=0 initialization'					\
-	  $(_prohibit_regexp)
+	@prohibit='\<fail=0\>'						\
+	halt='fail=0 initialization'					\
+	  $(_sc_search_regexp)
 
 # Ensure that "stdio--.h" is used where appropriate.
 sc_require_stdio_safer:
@@ -241,9 +267,62 @@ sc_require_stdio_safer:
 
 # Prefer xnanosleep over other less-precise sleep methods
 sc_prohibit_sleep:
-	@re='\<(nano|u)?sleep \('					\
-	msg='prefer xnanosleep over other sleep interfaces'		\
-	  $(_prohibit_regexp)
+	@prohibit='\<(nano|u)?sleep \('					\
+	halt='prefer xnanosleep over other sleep interfaces'		\
+	  $(_sc_search_regexp)
+
+###########################################################
+_p0 = \([^"'/]\|"\([^\"]\|[\].\)*"\|'\([^\']\|[\].\)*'
+_pre = $(_p0)\|[/][^"'/*]\|[/]"\([^\"]\|[\].\)*"\|[/]'\([^\']\|[\].\)*'\)*
+_pre_anchored = ^\($(_pre)\)
+_comment_and_close = [^*]\|[*][^/*]\)*[*][*]*/
+# help font-lock mode: '
+
+# A sed expression that removes ANSI C and ISO C99 comments.
+# Derived from the one in GNU gettext's 'moopp' preprocessor.
+_sed_remove_comments =					\
+/[/][/*]/{						\
+  ta;							\
+  :a;							\
+  s,$(_pre_anchored)//.*,\1,;				\
+  te;							\
+  s,$(_pre_anchored)/[*]\($(_comment_and_close),\1 ,;	\
+  ta;							\
+  /^$(_pre)[/][*]/{					\
+    s,$(_pre_anchored)/[*].*,\1 ,;			\
+    tu;							\
+    :u;							\
+    n;							\
+    s,^\($(_comment_and_close),,;			\
+    tv;							\
+    s,^.*$$,,;						\
+    bu;							\
+    :v;							\
+  };							\
+  :e;							\
+}
+# Quote all single quotes.
+_sed_rm_comments_q = $(subst ','\'',$(_sed_remove_comments))
+# help font-lock mode: '
+
+_space_before_paren_exempt =? \\n\\$$
+_space_before_paren_exempt = \
+  (^ *\#|\\n\\$$|%s\(to %s|(date|group|character)\(s\))
+# Ensure that there is a space before each open parenthesis in C code.
+sc_space_before_open_paren:
+	@if $(VC_LIST_EXCEPT) | grep -l '\.[ch]$$' > /dev/null; then	\
+	  fail=0;							\
+	  for c in $$($(VC_LIST_EXCEPT) | grep '\.[ch]$$'); do		\
+	    sed '$(_sed_rm_comments_q)' $$c 2>/dev/null			\
+	      | grep -i '[[:alnum:]]('					\
+	      | grep -vE '$(_space_before_paren_exempt)'		\
+	      | grep . && { fail=1; echo "*** $$c"; };			\
+	  done;								\
+	  test $$fail = 1 &&						\
+	    { echo '$(ME): the above files lack a space-before-open-paren' \
+		1>&2; exit 1; } || :;					\
+	else :;								\
+	fi
 
 include $(srcdir)/dist-check.mk
 

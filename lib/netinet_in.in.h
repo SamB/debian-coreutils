@@ -1,6 +1,5 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* Substitute for <netinet/in.h>.
    Copyright (C) 2007-2010 Free Software Foundation, Inc.
 
@@ -20,11 +19,11 @@
 
 #ifndef _GL_NETINET_IN_H
 
-#if @HAVE_NETINET_IN_H@
-
-# if __GNUC__ >= 3
+#if __GNUC__ >= 3
 @PRAGMA_SYSTEM_HEADER@
-# endif
+#endif
+
+#if @HAVE_NETINET_IN_H@
 
 /* On many platforms, <netinet/in.h> assumes prior inclusion of
    <sys/types.h>.  */

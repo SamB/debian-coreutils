@@ -1,4 +1,4 @@
-# inttypes.m4 serial 16
+# inttypes.m4 serial 18
 dnl Copyright (C) 2006-2010 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -233,6 +233,11 @@ const char *l = /* implicit string concatenation */
   else
     UINT64_MAX_EQ_ULONG_MAX=-1
   fi
+
+  dnl Check for declarations of anything we want to poison if the
+  dnl corresponding gnulib module is not in use.
+  gl_WARN_ON_USE_PREPARE([[#include <inttypes.h>
+    ]], [imaxabs imaxdiv strtoimax strtoumax])
 ])
 
 # Define the symbol $1 to be 1 if the condition is true, 0 otherwise.
@@ -280,7 +285,7 @@ AC_DEFUN([gl_INTTYPES_MODULE_INDICATOR],
 [
   dnl Use AC_REQUIRE here, so that the default settings are expanded once only.
   AC_REQUIRE([gl_INTTYPES_H_DEFAULTS])
-  GNULIB_[]m4_translit([$1],[abcdefghijklmnopqrstuvwxyz./-],[ABCDEFGHIJKLMNOPQRSTUVWXYZ___])=1
+  gl_MODULE_INDICATOR_SET_VARIABLE([$1])
 ])
 
 AC_DEFUN([gl_INTTYPES_H_DEFAULTS],

@@ -1,5 +1,5 @@
-# locale_h.m4 serial 6
-dnl Copyright (C) 2007, 2009, 2010 Free Software Foundation, Inc.
+# locale_h.m4 serial 10
+dnl Copyright (C) 2007, 2009-2010 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
@@ -56,6 +56,15 @@ locale_t x;], [],
      || test $gl_cv_header_locale_h_needs_xlocale_h = yes; then
     gl_REPLACE_LOCALE_H
   fi
+
+  dnl Check for declarations of anything we want to poison if the
+  dnl corresponding gnulib module is not in use.
+  gl_WARN_ON_USE_PREPARE([[#include <locale.h>
+/* Some systems provide declarations in a non-standard header.  */
+#if HAVE_XLOCALE_H
+# include <xlocale.h>
+#endif
+   ]], [duplocale])
 ])
 
 dnl Unconditionally enables the replacement of <locale.h>.
@@ -69,12 +78,15 @@ AC_DEFUN([gl_LOCALE_MODULE_INDICATOR],
 [
   dnl Use AC_REQUIRE here, so that the default settings are expanded once only.
   AC_REQUIRE([gl_LOCALE_H_DEFAULTS])
-  GNULIB_[]m4_translit([$1],[abcdefghijklmnopqrstuvwxyz./-],[ABCDEFGHIJKLMNOPQRSTUVWXYZ___])=1
+  gl_MODULE_INDICATOR_SET_VARIABLE([$1])
+  dnl Define it also as a C macro, for the benefit of the unit tests.
+  gl_MODULE_INDICATOR_FOR_TESTS([$1])
 ])
 
 AC_DEFUN([gl_LOCALE_H_DEFAULTS],
 [
   GNULIB_DUPLOCALE=0;  AC_SUBST([GNULIB_DUPLOCALE])
   dnl Assume proper GNU behavior unless another module says otherwise.
+  HAVE_DUPLOCALE=1;    AC_SUBST([HAVE_DUPLOCALE])
   REPLACE_DUPLOCALE=0; AC_SUBST([REPLACE_DUPLOCALE])
 ])

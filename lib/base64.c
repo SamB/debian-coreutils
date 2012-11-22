@@ -1,6 +1,5 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* base64.c -- Encode binary data using printable characters.
    Copyright (C) 1999, 2000, 2001, 2004, 2005, 2006, 2009, 2010 Free Software
    Foundation, Inc.

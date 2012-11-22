@@ -29,6 +29,7 @@
 #include "xstrtol.h"
 #include "quote.h"
 #include "quotearg.h"
+#include "xfreopen.h"
 
 #include "base64.h"
 
@@ -61,11 +62,10 @@ Usage: %s [OPTION]... [FILE]\n\
 Base64 encode or decode FILE, or standard input, to standard output.\n\
 \n"), program_name);
       fputs (_("\
-  -w, --wrap=COLS       Wrap encoded lines after COLS character (default 76).\n\
-                        Use 0 to disable line wrapping.\n\
-\n\
-  -d, --decode          Decode data.\n\
-  -i, --ignore-garbage  When decoding, ignore non-alphabet characters.\n\
+  -d, --decode          decode data\n\
+  -i, --ignore-garbage  when decoding, ignore non-alphabet characters\n\
+  -w, --wrap=COLS       wrap encoded lines after COLS character (default 76).\n\
+                          Use 0 to disable line wrapping\n\
 \n\
 "), stdout);
       fputs (HELP_OPTION_DESCRIPTION, stdout);
@@ -290,10 +290,14 @@ main (int argc, char **argv)
     infile = "-";
 
   if (STREQ (infile, "-"))
-    input_fh = stdin;
+    {
+      if (O_BINARY)
+        xfreopen (NULL, "rb", stdin);
+      input_fh = stdin;
+    }
   else
     {
-      input_fh = fopen (infile, "r");
+      input_fh = fopen (infile, "rb");
       if (input_fh == NULL)
         error (EXIT_FAILURE, errno, "%s", infile);
     }

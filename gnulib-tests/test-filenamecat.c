@@ -1,6 +1,5 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* Test of concatenation of two arbitrary file names.
 
    Copyright (C) 1996-2007, 2009-2010 Free Software Foundation, Inc.

@@ -1,6 +1,5 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* Test of <stdbool.h> substitute.
    Copyright (C) 2002-2007, 2009-2010 Free Software Foundation, Inc.
 
@@ -49,11 +48,12 @@ struct s { _Bool s: 1; _Bool t; } s;
 char a[true == 1 ? 1 : -1];
 char b[false == 0 ? 1 : -1];
 char c[__bool_true_false_are_defined == 1 ? 1 : -1];
-#if 0 /* Cannot be guaranteed with gnulib's <stdbool.h>.  */
+#if 0 /* Cannot be guaranteed with gnulib's <stdbool.h>, at least,
+not for all compilers.  */
 char d[(bool) 0.5 == true ? 1 : -1];
 bool e = &s;
-#endif
 char f[(_Bool) 0.0 == false ? 1 : -1];
+#endif
 char g[true];
 char h[sizeof (_Bool)];
 #if 0 /* See above.  */

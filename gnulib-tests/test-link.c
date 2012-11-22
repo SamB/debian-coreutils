@@ -1,6 +1,5 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* Test of link() function.
    Copyright (C) 2009, 2010 Free Software Foundation, Inc.
 
@@ -33,6 +32,7 @@ SIGNATURE_CHECK (link, int, (char const *, char const *));
 #include <sys/stat.h>
 #include <unistd.h>
 
+#include "ignore-value.h"
 #include "macros.h"
 
 #define BASE "test-link.t"
@@ -43,7 +43,7 @@ int
 main (void)
 {
   /* Remove any garbage left from previous partial runs.  */
-  system ("rm -rf " BASE "*");
+  ignore_value (system ("rm -rf " BASE "*"));
 
   return test_link (link, true);
 }

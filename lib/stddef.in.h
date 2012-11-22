@@ -1,6 +1,5 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* A substitute for POSIX 2008 <stddef.h>, for platforms that have issues.
 
    Copyright (C) 2009, 2010 Free Software Foundation, Inc.

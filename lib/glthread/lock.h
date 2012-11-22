@@ -1,6 +1,5 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* Locking in multithreaded situations.
    Copyright (C) 2005-2010 Free Software Foundation, Inc.
 
@@ -421,11 +420,11 @@ typedef pth_mutex_t gl_lock_t;
 # define gl_lock_initializer \
     PTH_MUTEX_INIT
 # define glthread_lock_init(LOCK) \
-    (pth_in_use() && !pth_mutex_init (LOCK) ? errno : 0)
+    (pth_in_use () && !pth_mutex_init (LOCK) ? errno : 0)
 # define glthread_lock_lock(LOCK) \
-    (pth_in_use() && !pth_mutex_acquire (LOCK, 0, NULL) ? errno : 0)
+    (pth_in_use () && !pth_mutex_acquire (LOCK, 0, NULL) ? errno : 0)
 # define glthread_lock_unlock(LOCK) \
-    (pth_in_use() && !pth_mutex_release (LOCK) ? errno : 0)
+    (pth_in_use () && !pth_mutex_release (LOCK) ? errno : 0)
 # define glthread_lock_destroy(LOCK) \
     ((void)(LOCK), 0)
 
@@ -439,13 +438,13 @@ typedef pth_rwlock_t gl_rwlock_t;
 #  define gl_rwlock_initializer \
      PTH_RWLOCK_INIT
 #  define glthread_rwlock_init(LOCK) \
-     (pth_in_use() && !pth_rwlock_init (LOCK) ? errno : 0)
+     (pth_in_use () && !pth_rwlock_init (LOCK) ? errno : 0)
 #  define glthread_rwlock_rdlock(LOCK) \
-     (pth_in_use() && !pth_rwlock_acquire (LOCK, PTH_RWLOCK_RD, 0, NULL) ? errno : 0)
+     (pth_in_use () && !pth_rwlock_acquire (LOCK, PTH_RWLOCK_RD, 0, NULL) ? errno : 0)
 #  define glthread_rwlock_wrlock(LOCK) \
-     (pth_in_use() && !pth_rwlock_acquire (LOCK, PTH_RWLOCK_RW, 0, NULL) ? errno : 0)
+     (pth_in_use () && !pth_rwlock_acquire (LOCK, PTH_RWLOCK_RW, 0, NULL) ? errno : 0)
 #  define glthread_rwlock_unlock(LOCK) \
-     (pth_in_use() && !pth_rwlock_release (LOCK) ? errno : 0)
+     (pth_in_use () && !pth_rwlock_release (LOCK) ? errno : 0)
 #  define glthread_rwlock_destroy(LOCK) \
      ((void)(LOCK), 0)
 
@@ -460,11 +459,11 @@ typedef pth_mutex_t gl_recursive_lock_t;
 #  define gl_recursive_lock_initializer \
      PTH_MUTEX_INIT
 #  define glthread_recursive_lock_init(LOCK) \
-     (pth_in_use() && !pth_mutex_init (LOCK) ? errno : 0)
+     (pth_in_use () && !pth_mutex_init (LOCK) ? errno : 0)
 #  define glthread_recursive_lock_lock(LOCK) \
-     (pth_in_use() && !pth_mutex_acquire (LOCK, 0, NULL) ? errno : 0)
+     (pth_in_use () && !pth_mutex_acquire (LOCK, 0, NULL) ? errno : 0)
 #  define glthread_recursive_lock_unlock(LOCK) \
-     (pth_in_use() && !pth_mutex_release (LOCK) ? errno : 0)
+     (pth_in_use () && !pth_mutex_release (LOCK) ? errno : 0)
 #  define glthread_recursive_lock_destroy(LOCK) \
      ((void)(LOCK), 0)
 

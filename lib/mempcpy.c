@@ -1,6 +1,5 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* Copy memory area and return pointer after last written byte.
    Copyright (C) 2003, 2007, 2009, 2010 Free Software Foundation, Inc.
 

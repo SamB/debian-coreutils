@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coreutils 6.5\n"
 "Report-Msgid-Bugs-To: bug-coreutils@gnu.org\n"
-"POT-Creation-Date: 2010-01-13 22:03+0100\n"
+"POT-Creation-Date: 2010-04-23 17:24+0200\n"
 "PO-Revision-Date: 2006-11-23 22:41+0200\n"
 "Last-Translator: Anton Zinoviev <zinoviev@debian.org>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
@@ -47,14 +47,14 @@ msgstr "затваряне на входния файл %s"
 #: src/base64.c:168 src/base64.c:224 src/cat.c:187 src/cat.c:203 src/cat.c:287
 #: src/cksum.c:248 src/expand.c:330 src/expand.c:355 src/head.c:300
 #: src/head.c:350 src/head.c:758 src/head.c:799 src/mktemp.c:348 src/od.c:919
-#: src/paste.c:159 src/shuf.c:405 src/tail.c:345 src/tail.c:1192
-#: src/tail.c:1298 src/tail.c:2156 src/tr.c:1549 src/tr.c:1772 src/tr.c:1886
+#: src/paste.c:159 src/shuf.c:405 src/tail.c:347 src/tail.c:1194
+#: src/tail.c:1300 src/tail.c:2158 src/tr.c:1549 src/tr.c:1772 src/tr.c:1886
 #: src/unexpand.c:427 src/unexpand.c:443
 #, c-format
 msgid "write error"
 msgstr "грешка при запис"
 
-#: lib/copy-acl.c:547 src/copy.c:883 src/copy.c:2217
+#: lib/copy-acl.c:548 src/copy.c:882 src/copy.c:2217
 #, c-format
 msgid "preserving permissions for %s"
 msgstr "режимът за достъп до %s е запазен"
@@ -63,9 +63,9 @@ msgstr "режимът за достъп до %s е запазен"
 msgid "Unknown system error"
 msgstr "Непозната системна грешка"
 
-#: lib/euidaccess-stat.c:129 src/copy.c:1267 src/copy.c:1319 src/copy.c:1901
+#: lib/euidaccess-stat.c:129 src/copy.c:1266 src/copy.c:1318 src/copy.c:1901
 #: src/copy.c:2204 src/df.c:582 src/install.c:737 src/stat.c:928
-#: src/truncate.c:367
+#: src/truncate.c:362
 #, c-format
 msgid "cannot stat %s"
 msgstr "не могат да се получат атрибутите на %s"
@@ -122,132 +122,137 @@ msgstr "типизиран обект в паметта"
 msgid "weird file"
 msgstr "непознат тип файл"
 
-#: lib/gai_strerror.c:45
+#: lib/gai_strerror.c:44
 msgid "Address family for hostname not supported"
 msgstr "Този тип адреси не се поддържа за името на хоста"
 
-#: lib/gai_strerror.c:46
+#: lib/gai_strerror.c:45
 msgid "Temporary failure in name resolution"
 msgstr "Временен проблем при намиране IP-адреса на хост"
 
-#: lib/gai_strerror.c:47
+#: lib/gai_strerror.c:46
 msgid "Bad value for ai_flags"
 msgstr "Неправилна стойност за ai_flags"
 
-#: lib/gai_strerror.c:48
+#: lib/gai_strerror.c:47
 msgid "Non-recoverable failure in name resolution"
 msgstr "Окончателен неуспех при намиране IP-адреса на хост"
 
-#: lib/gai_strerror.c:49
+#: lib/gai_strerror.c:48
 msgid "ai_family not supported"
 msgstr "не се поддържа посочването на тип адреси (ai_family)"
 
-#: lib/gai_strerror.c:50
+#: lib/gai_strerror.c:49
 msgid "Memory allocation failure"
 msgstr "Неуспешно заделяне на памет"
 
-#: lib/gai_strerror.c:51
+#: lib/gai_strerror.c:50
 msgid "No address associated with hostname"
 msgstr "Няма IP-адрес с посоченото име на хост"
 
-#: lib/gai_strerror.c:52
+#: lib/gai_strerror.c:51
 msgid "Name or service not known"
 msgstr "Името или услугата са непознати"
 
-#: lib/gai_strerror.c:53
+#: lib/gai_strerror.c:52
 msgid "Servname not supported for ai_socktype"
 msgstr ""
 "Името на услугата не се поддържа за използваното тип гнездо (ai_socktype)"
 
-#: lib/gai_strerror.c:54
+#: lib/gai_strerror.c:53
 msgid "ai_socktype not supported"
 msgstr "не се поддържа посочването на тип гнездо (ai_socktype)"
 
-#: lib/gai_strerror.c:55
+#: lib/gai_strerror.c:54
 msgid "System error"
 msgstr "грешка в системата"
 
-#: lib/gai_strerror.c:56
+#: lib/gai_strerror.c:55
 msgid "Argument buffer too small"
 msgstr ""
 
-#: lib/gai_strerror.c:58
+#: lib/gai_strerror.c:57
 msgid "Processing request in progress"
 msgstr "Заявката е в процес на изпълнение"
 
-#: lib/gai_strerror.c:59
+#: lib/gai_strerror.c:58
 msgid "Request canceled"
 msgstr "Заявката е отменена"
 
-#: lib/gai_strerror.c:60
+#: lib/gai_strerror.c:59
 msgid "Request not canceled"
 msgstr "Заявката не е отменена"
 
-#: lib/gai_strerror.c:61
+#: lib/gai_strerror.c:60
 msgid "All requests done"
 msgstr "Изпълнени са всички заявки"
 
-#: lib/gai_strerror.c:62
+#: lib/gai_strerror.c:61
 msgid "Interrupted by a signal"
 msgstr "Прекъснат със сигнал"
 
-#: lib/gai_strerror.c:63
+#: lib/gai_strerror.c:62
 msgid "Parameter string not correctly encoded"
 msgstr "Неправилно кодиран низ на аргумент"
 
-#: lib/gai_strerror.c:75
+#: lib/gai_strerror.c:74
 msgid "Unknown error"
 msgstr "Непозната грешка"
 
-#: lib/getopt.c:529 lib/getopt.c:545
+#: lib/getopt.c:527 lib/getopt.c:543
 #, fuzzy, c-format
 msgid "%s: option '%s' is ambiguous\n"
 msgstr "%s: опцията „%s“ е двусмислена\n"
 
-#: lib/getopt.c:578 lib/getopt.c:582
+#: lib/getopt.c:576 lib/getopt.c:580
 #, fuzzy, c-format
 msgid "%s: option '--%s' doesn't allow an argument\n"
 msgstr "%s: опцията „--%s“ не допуска аргумент\n"
 
-#: lib/getopt.c:591 lib/getopt.c:596
+#: lib/getopt.c:589 lib/getopt.c:594
 #, fuzzy, c-format
 msgid "%s: option '%c%s' doesn't allow an argument\n"
 msgstr "%s: опцията „%c%s“ не допуска аргумент\n"
 
-#: lib/getopt.c:639 lib/getopt.c:658 lib/getopt.c:961 lib/getopt.c:980
+#: lib/getopt.c:637 lib/getopt.c:656
 #, fuzzy, c-format
-msgid "%s: option '%s' requires an argument\n"
+msgid "%s: option '--%s' requires an argument\n"
 msgstr "%s: опцията „%s“ изисква аргумент\n"
 
-#: lib/getopt.c:696 lib/getopt.c:699
+#: lib/getopt.c:694 lib/getopt.c:697
 #, fuzzy, c-format
 msgid "%s: unrecognized option '--%s'\n"
 msgstr "%s: непозната опция „--%s“\n"
 
-#: lib/getopt.c:707 lib/getopt.c:710
+#: lib/getopt.c:705 lib/getopt.c:708
 #, fuzzy, c-format
 msgid "%s: unrecognized option '%c%s'\n"
 msgstr "%s: непозната опция „%c%s“\n"
 
-#: lib/getopt.c:759 lib/getopt.c:762
+#: lib/getopt.c:757 lib/getopt.c:760
 #, fuzzy, c-format
 msgid "%s: invalid option -- '%c'\n"
 msgstr "%s: неправилна опция -- %c\n"
 
-#: lib/getopt.c:812 lib/getopt.c:829 lib/getopt.c:1032 lib/getopt.c:1050
+#: lib/getopt.c:810 lib/getopt.c:827 lib/getopt.c:1035 lib/getopt.c:1053
 #, fuzzy, c-format
 msgid "%s: option requires an argument -- '%c'\n"
 msgstr "%s: опцията изисква аргумент -- %c\n"
 
-#: lib/getopt.c:882 lib/getopt.c:898
+#: lib/getopt.c:883 lib/getopt.c:899
 #, fuzzy, c-format
 msgid "%s: option '-W %s' is ambiguous\n"
 msgstr "%s: опцията „-W %s“ е двусмислена\n"
 
-#: lib/getopt.c:922 lib/getopt.c:940
+#: lib/getopt.c:923 lib/getopt.c:941
 #, fuzzy, c-format
 msgid "%s: option '-W %s' doesn't allow an argument\n"
 msgstr "%s: опцията „-W %s“ не допуска аргумент\n"
+
+#: lib/getopt.c:962 lib/getopt.c:980
+#, fuzzy, c-format
+msgid "%s: option '-W %s' requires an argument\n"
+msgstr "%s: опцията „%s“ изисква аргумент\n"
 
 #: lib/mkdir-p.c:196 src/install.c:808
 #, c-format
@@ -305,75 +310,75 @@ msgstr "“"
 msgid "%s: end of file"
 msgstr "%s: край на файла"
 
-#: lib/regcomp.c:137
+#: lib/regcomp.c:134
 msgid "Success"
 msgstr "Успех"
 
-#: lib/regcomp.c:140
+#: lib/regcomp.c:137
 msgid "No match"
 msgstr "Няма съответствие"
 
-#: lib/regcomp.c:143
+#: lib/regcomp.c:140
 msgid "Invalid regular expression"
 msgstr "Неправилен регулярен израз"
 
-#: lib/regcomp.c:146
+#: lib/regcomp.c:143
 msgid "Invalid collation character"
 msgstr "Неправилен знак за съпоставяне"
 
-#: lib/regcomp.c:149
+#: lib/regcomp.c:146
 msgid "Invalid character class name"
 msgstr "Неправилно име на клас символи"
 
-#: lib/regcomp.c:152
+#: lib/regcomp.c:149
 msgid "Trailing backslash"
 msgstr "Завършваща обратно наклонена черта"
 
-#: lib/regcomp.c:155
+#: lib/regcomp.c:152
 msgid "Invalid back reference"
 msgstr "Неправилно обратно позоваване"
 
-#: lib/regcomp.c:158
+#: lib/regcomp.c:155
 msgid "Unmatched [ or [^"
 msgstr "Незатворена [ или [^"
 
-#: lib/regcomp.c:161
+#: lib/regcomp.c:158
 msgid "Unmatched ( or \\("
 msgstr "Незатворена ( или \\("
 
-#: lib/regcomp.c:164
+#: lib/regcomp.c:161
 msgid "Unmatched \\{"
 msgstr "Незатворена \\{"
 
-#: lib/regcomp.c:167
+#: lib/regcomp.c:164
 msgid "Invalid content of \\{\\}"
 msgstr "Неправилно съдържание на \\{\\}"
 
-#: lib/regcomp.c:170
+#: lib/regcomp.c:167
 msgid "Invalid range end"
 msgstr "Неправилен край на диапазон"
 
-#: lib/regcomp.c:173
+#: lib/regcomp.c:170
 msgid "Memory exhausted"
 msgstr "Паметта е изчерпана"
 
-#: lib/regcomp.c:176
+#: lib/regcomp.c:173
 msgid "Invalid preceding regular expression"
 msgstr "Неправилен предхождащ регулярен израз"
 
-#: lib/regcomp.c:179
+#: lib/regcomp.c:176
 msgid "Premature end of regular expression"
 msgstr "Неочакван край на регулярен израз"
 
-#: lib/regcomp.c:182
+#: lib/regcomp.c:179
 msgid "Regular expression too big"
 msgstr "Регулярният израз е твърде голям"
 
-#: lib/regcomp.c:185
+#: lib/regcomp.c:182
 msgid "Unmatched ) or \\)"
 msgstr "Неотворена ) или \\)"
 
-#: lib/regcomp.c:706
+#: lib/regcomp.c:703
 msgid "No previous regular expression"
 msgstr "Няма предходен регулярен израз"
 
@@ -857,37 +862,37 @@ msgid "%s%s argument `%s' too large"
 msgstr "%s: броят „%.*s“ е твърде голям"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/base64.c:38
+#: src/base64.c:39
 msgid "Simon Josefsson"
 msgstr ""
 
-#: src/base64.c:55 src/basename.c:46 src/cat.c:85 src/chcon.c:348
-#: src/chgrp.c:106 src/chmod.c:360 src/chown.c:76 src/chroot.c:119
+#: src/base64.c:56 src/basename.c:46 src/cat.c:85 src/chcon.c:348
+#: src/chgrp.c:106 src/chmod.c:360 src/chown.c:76 src/chroot.c:118
 #: src/cksum.c:257 src/comm.c:100 src/cp.c:151 src/csplit.c:1442 src/cut.c:185
 #: src/date.c:120 src/dd.c:464 src/df.c:807 src/dircolors.c:94
 #: src/dirname.c:41 src/du.c:262 src/echo.c:39 src/env.c:49 src/expand.c:100
 #: src/expr.c:200 src/factor.c:490 src/fmt.c:265 src/fold.c:62
 #: src/getlimits.c:62 src/groups.c:50 src/head.c:103 src/hostid.c:39
-#: src/hostname.c:53 src/id.c:78 src/install.c:936 src/join.c:164
-#: src/kill.c:83 src/link.c:42 src/ln.c:332 src/logname.c:36 src/ls.c:4553
+#: src/hostname.c:53 src/id.c:78 src/install.c:936 src/join.c:170
+#: src/kill.c:83 src/link.c:42 src/ln.c:332 src/logname.c:36 src/ls.c:4580
 #: src/md5sum.c:149 src/mkdir.c:53 src/mkfifo.c:48 src/mknod.c:49
-#: src/mktemp.c:65 src/mv.c:280 src/nice.c:68 src/nl.c:178 src/nohup.c:50
+#: src/mktemp.c:65 src/mv.c:280 src/nice.c:69 src/nl.c:178 src/nohup.c:50
 #: src/nproc.c:53 src/od.c:304 src/paste.c:429 src/pathchk.c:93
 #: src/pinky.c:503 src/pr.c:2764 src/printenv.c:59 src/printf.c:85
 #: src/ptx.c:1880 src/pwd.c:53 src/readlink.c:59 src/rm.c:132 src/rmdir.c:161
 #: src/runcon.c:80 src/seq.c:66 src/setuidgid.c:46 src/shred.c:154
-#: src/shuf.c:43 src/sleep.c:42 src/sort.c:314 src/split.c:99 src/stat.c:971
+#: src/shuf.c:43 src/sleep.c:42 src/sort.c:315 src/split.c:99 src/stat.c:971
 #: src/stdbuf.c:88 src/stty.c:510 src/su.c:365 src/sum.c:55 src/sync.c:37
-#: src/tac.c:129 src/tail.c:252 src/tee.c:58 src/test.c:681 src/timeout.c:123
-#: src/touch.c:211 src/tr.c:282 src/truncate.c:98 src/tsort.c:78 src/tty.c:61
+#: src/tac.c:129 src/tail.c:254 src/tee.c:58 src/test.c:681 src/timeout.c:133
+#: src/touch.c:211 src/tr.c:282 src/truncate.c:93 src/tsort.c:78 src/tty.c:61
 #: src/uname.c:118 src/unexpand.c:110 src/uniq.c:130 src/unlink.c:42
-#: src/uptime.c:197 src/users.c:102 src/wc.c:108 src/who.c:627 src/whoami.c:42
+#: src/uptime.c:197 src/users.c:102 src/wc.c:108 src/who.c:647 src/whoami.c:42
 #: src/yes.c:38
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Използвайте „%s --help“ за повече информация.\n"
 
-#: src/base64.c:59
+#: src/base64.c:60
 #, fuzzy, c-format
 msgid ""
 "Usage: %s [OPTION]... [FILE]\n"
@@ -899,24 +904,15 @@ msgstr ""
 "изход\n"
 "\n"
 
-#: src/base64.c:63
+#: src/base64.c:64
 msgid ""
-"  -w, --wrap=COLS       Wrap encoded lines after COLS character (default "
+"  -d, --decode          decode data\n"
+"  -i, --ignore-garbage  when decoding, ignore non-alphabet characters\n"
+"  -w, --wrap=COLS       wrap encoded lines after COLS character (default "
 "76).\n"
-"                        Use 0 to disable line wrapping.\n"
-"\n"
-"  -d, --decode          Decode data.\n"
-"  -i, --ignore-garbage  When decoding, ignore non-alphabet characters.\n"
+"                          Use 0 to disable line wrapping\n"
 "\n"
 msgstr ""
-"  -w, --wrap=ШИРИНА     Пренася кодираните редове след ШИРИНА знаци "
-"(подразбира\n"
-"                        се 76).  Използвайте 0, за да забраните "
-"пренасянето.\n"
-"\n"
-"  -d, --decode          Декодира данните.\n"
-"  -i, --ignore-garbage  При декодиране пренебрегва небуквените знаци.\n"
-"\n"
 
 #: src/base64.c:73 src/cat.c:111 src/fmt.c:292 src/shuf.c:70 src/sum.c:71
 msgid ""
@@ -943,7 +939,7 @@ msgstr ""
 "във входния поток.\n"
 
 #: src/base64.c:171 src/base64.c:208 src/csplit.c:263 src/csplit.c:1431
-#: src/join.c:415 src/shuf.c:397 src/tac-pipe.c:75 src/tee.c:204 src/tr.c:1573
+#: src/join.c:427 src/shuf.c:397 src/tac-pipe.c:75 src/tee.c:204 src/tr.c:1573
 #, c-format
 msgid "read error"
 msgstr "грешка при четене"
@@ -961,17 +957,17 @@ msgstr "неправилен размер за пренасяне: %s"
 #: src/base64.c:283 src/basename.c:119 src/comm.c:434 src/cp.c:601
 #: src/date.c:426 src/dircolors.c:448 src/dirname.c:97 src/du.c:928
 #: src/hostid.c:75 src/hostname.c:112 src/id.c:169 src/install.c:612
-#: src/join.c:897 src/link.c:86 src/ln.c:520 src/logname.c:72 src/mknod.c:158
+#: src/join.c:914 src/link.c:86 src/ln.c:520 src/logname.c:72 src/mknod.c:158
 #: src/mv.c:446 src/od.c:1802 src/ptx.c:2148 src/readlink.c:152 src/seq.c:410
-#: src/shuf.c:377 src/sort.c:3536 src/split.c:531 src/tr.c:1726
+#: src/shuf.c:377 src/sort.c:3611 src/split.c:531 src/tr.c:1726
 #: src/tsort.c:548 src/tty.c:113 src/uname.c:253 src/uniq.c:453 src/uniq.c:470
-#: src/unlink.c:82 src/uptime.c:255 src/users.c:147 src/wc.c:658 src/who.c:818
+#: src/unlink.c:82 src/uptime.c:255 src/users.c:147 src/wc.c:659 src/who.c:838
 #: src/whoami.c:80
 #, c-format
 msgid "extra operand %s"
 msgstr "излишен операнд „%s“"
 
-#: src/base64.c:309 src/cat.c:779
+#: src/base64.c:313 src/cat.c:779
 #, c-format
 msgid "closing standard input"
 msgstr "затваряне на стандартния вход"
@@ -982,12 +978,12 @@ msgstr "затваряне на стандартния вход"
 #: src/dd.c:47 src/df.c:40 src/dirname.c:34 src/du.c:53 src/env.c:33
 #: src/expand.c:49 src/fold.c:35 src/groups.c:35 src/head.c:46 src/id.c:39
 #: src/install.c:49 src/ln.c:40 src/ls.c:125 src/mkdir.c:36 src/mkfifo.c:33
-#: src/mknod.c:34 src/mv.c:42 src/nice.c:40 src/nl.c:40 src/paste.c:52
+#: src/mknod.c:34 src/mv.c:42 src/nice.c:39 src/nl.c:40 src/paste.c:52
 #: src/pathchk.c:40 src/pinky.c:37 src/printenv.c:44 src/printf.c:63
 #: src/rm.c:42 src/rmdir.c:38 src/stty.c:69 src/su.c:88 src/sum.c:38
-#: src/tac.c:58 src/tail.c:67 src/tee.c:35 src/touch.c:45 src/tty.c:43
+#: src/tac.c:58 src/tail.c:69 src/tee.c:35 src/touch.c:45 src/tty.c:43
 #: src/uname.c:61 src/unexpand.c:50 src/uniq.c:41 src/uptime.c:46
-#: src/users.c:36 src/wc.c:50 src/who.c:45 src/yes.c:32
+#: src/users.c:36 src/wc.c:50 src/who.c:49 src/yes.c:32
 #, fuzzy
 msgid "David MacKenzie"
 msgstr "Paul Rubin и David MacKenzie"
@@ -1025,8 +1021,8 @@ msgstr ""
 "  %s include/stdio.h .h  извежда „stdio“.\n"
 
 #: src/basename.c:113 src/chcon.c:524 src/chgrp.c:273 src/chmod.c:511
-#: src/chown.c:275 src/chroot.c:185 src/comm.c:426 src/csplit.c:1369
-#: src/dirname.c:91 src/expr.c:325 src/join.c:1075 src/link.c:78
+#: src/chown.c:275 src/chroot.c:187 src/comm.c:426 src/csplit.c:1369
+#: src/dirname.c:91 src/expr.c:325 src/join.c:1096 src/link.c:78
 #: src/mkdir.c:184 src/mkfifo.c:109 src/mknod.c:147 src/nohup.c:112
 #: src/pathchk.c:156 src/printf.c:675 src/readlink.c:144 src/rm.c:323
 #: src/rmdir.c:223 src/seq.c:404 src/setuidgid.c:137 src/sleep.c:121
@@ -1048,8 +1044,8 @@ msgid "Richard M. Stallman"
 msgstr "Torbjorn Granlund и Richard M. Stallman"
 
 #: src/cat.c:89 src/df.c:811 src/expand.c:104 src/fold.c:66 src/head.c:107
-#: src/ls.c:4557 src/nl.c:182 src/paste.c:433 src/pr.c:2768 src/sum.c:59
-#: src/tac.c:133 src/tail.c:256 src/tee.c:62 src/unexpand.c:114
+#: src/ls.c:4584 src/nl.c:182 src/paste.c:433 src/pr.c:2768 src/sum.c:59
+#: src/tac.c:133 src/tail.c:258 src/tee.c:62 src/unexpand.c:114
 #, c-format
 msgid "Usage: %s [OPTION]... [FILE]...\n"
 msgstr "Използване: %s [ОПЦИЯ]... [ФАЙЛ]...\n"
@@ -1108,7 +1104,7 @@ msgstr ""
 msgid "cannot do ioctl on %s"
 msgstr "не може да се изпълни ioctl за „%s“"
 
-#: src/cat.c:637 src/dd.c:1883 src/sort.c:306 src/tee.c:163 src/yes.c:88
+#: src/cat.c:637 src/dd.c:1883 src/sort.c:307 src/tee.c:163 src/yes.c:88
 #, c-format
 msgid "standard output"
 msgstr "стандартният изход"
@@ -1128,7 +1124,7 @@ msgstr ""
 #: src/cut.c:45 src/dirname.c:35 src/du.c:55 src/head.c:47 src/hostid.c:33
 #: src/hostname.c:33 src/mktemp.c:36 src/mv.c:43 src/nohup.c:37 src/od.c:35
 #: src/pathchk.c:41 src/pwd.c:31 src/rm.c:44 src/setuidgid.c:38 src/sleep.c:35
-#: src/sync.c:31 src/tail.c:69 src/tr.c:36 src/true.c:33
+#: src/sync.c:31 src/tail.c:71 src/tr.c:36 src/true.c:33
 #, fuzzy
 msgid "Jim Meyering"
 msgstr "Jim Meyering и Paul Eggert"
@@ -1160,7 +1156,7 @@ msgid "failed to change context of %s to %s"
 msgstr "собственик на %s не можа да се промени на %s\n"
 
 #: src/chcon.c:255 src/chmod.c:208 src/chown-core.c:301 src/copy.c:295
-#: src/du.c:481 src/ls.c:2824
+#: src/du.c:481 src/ls.c:2843
 #, c-format
 msgid "cannot access %s"
 msgstr "няма достъп до %s"
@@ -1181,13 +1177,13 @@ msgid "changing security context of %s\n"
 msgstr "променят се правата за достъп до %s"
 
 #: src/chcon.c:326 src/chmod.c:338 src/chown-core.c:510 src/du.c:640
-#: src/remove.c:616
+#: src/remove.c:617
 #, c-format
 msgid "fts_read failed"
 msgstr "неуспешен fts_read"
 
 #: src/chcon.c:337 src/chmod.c:349 src/chown-core.c:522 src/du.c:652
-#: src/remove.c:630
+#: src/remove.c:631
 #, fuzzy, c-format
 msgid "fts_close failed"
 msgstr "неуспешно затваряне на файл"
@@ -1204,7 +1200,6 @@ msgstr ""
 "    или:    %s [ОПЦИЯ]... --reference=ЕТФАЙЛ ФАЙЛ...\n"
 
 #: src/chcon.c:358
-#, fuzzy
 msgid ""
 "Change the security context of each FILE to CONTEXT.\n"
 "With --reference, change the security context of each FILE to that of "
@@ -1213,14 +1208,6 @@ msgid ""
 "  -h, --no-dereference   affect symbolic links instead of any referenced "
 "file\n"
 msgstr ""
-"Прави ГРУПА да бъде групата на всеки ФАЙЛ.\n"
-"При --reference прави групата на всеки ФАЙЛ да бъде същата като тази на "
-"ЕТФАЙЛ.\n"
-"\n"
-"  -c, --changes          подобно на verbose, но съобщава само при промени\n"
-"      --dereference      действа върху файловете, сочени от символни връзки\n"
-"                         (по подразбиране), вместо върху самите символни "
-"връзки\n"
 
 #: src/chcon.c:364
 #, fuzzy
@@ -1283,7 +1270,7 @@ msgid "-R -h requires -P"
 msgstr "-R -h изисква -P"
 
 #: src/chcon.c:526 src/chgrp.c:275 src/chmod.c:513 src/chown.c:277
-#: src/comm.c:428 src/csplit.c:1371 src/join.c:1077 src/link.c:80
+#: src/comm.c:428 src/csplit.c:1371 src/join.c:1098 src/link.c:80
 #: src/mknod.c:149 src/setuidgid.c:139 src/tr.c:1714
 #, c-format
 msgid "missing operand after %s"
@@ -1580,6 +1567,7 @@ msgstr ""
 "връзка\n"
 
 #: src/chown.c:98
+#, fuzzy
 msgid ""
 "      --from=CURRENT_OWNER:CURRENT_GROUP\n"
 "                         change the owner and/or group of each file only if\n"
@@ -1587,7 +1575,7 @@ msgid ""
 "specified\n"
 "                         here.  Either may be omitted, in which case a "
 "match\n"
-"                         is not required for the omitted attribute.\n"
+"                         is not required for the omitted attribute\n"
 msgstr ""
 "      --from=ТЕКУЩ_СОБСТВЕНИК:ТЕКУЩА_ГРУПА\n"
 "                         собственикът и/или групата на всеки файл се "
@@ -1646,26 +1634,26 @@ msgstr ""
 "  %s -hR root /u   прави собственика на /u и файловете в /u да е „root“.\n"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/chroot.c:35
+#: src/chroot.c:34
 msgid "Roland McGrath"
 msgstr ""
 
-#: src/chroot.c:87 src/install.c:900 src/setuidgid.c:110 src/setuidgid.c:120
+#: src/chroot.c:86 src/install.c:900 src/setuidgid.c:110 src/setuidgid.c:120
 #, c-format
 msgid "invalid group %s"
 msgstr "неправилна група %s"
 
-#: src/chroot.c:99
+#: src/chroot.c:98
 #, fuzzy, c-format
 msgid "invalid group list %s"
 msgstr "неправилна група %s"
 
-#: src/chroot.c:107
+#: src/chroot.c:106
 #, fuzzy, c-format
 msgid "failed to set additional groups"
-msgstr "не може да се установи допълнителна група"
+msgstr "не може да се изпълни stat за %s"
 
-#: src/chroot.c:123
+#: src/chroot.c:122
 #, fuzzy, c-format
 msgid ""
 "Usage: %s [OPTION] NEWROOT [COMMAND [ARG]...]\n"
@@ -1674,7 +1662,7 @@ msgstr ""
 "Използване: %s НОВКОРЕНОВ [КОМАНДА...]\n"
 "    или:    %s ОПЦИЯ\n"
 
-#: src/chroot.c:128
+#: src/chroot.c:127
 msgid ""
 "Run COMMAND with root directory set to NEWROOT.\n"
 "\n"
@@ -1682,13 +1670,13 @@ msgstr ""
 "Изпълнява КОМАНДА с коренов каталог НОВКОРЕНОВ.\n"
 "\n"
 
-#: src/chroot.c:133
+#: src/chroot.c:132
 msgid ""
 "  --userspec=USER:GROUP  specify user and group (ID or name) to use\n"
 "  --groups=G_LIST        specify supplementary groups as g1,g2,..,gN\n"
 msgstr ""
 
-#: src/chroot.c:140
+#: src/chroot.c:139
 msgid ""
 "\n"
 "If no command is given, run ``${SHELL} -i'' (default: /bin/sh).\n"
@@ -1697,28 +1685,28 @@ msgstr ""
 "Ако не е посочена команда, изпълнява „${SHELL} -i“ (по подразбиране: /bin/"
 "sh).\n"
 
-#: src/chroot.c:190
+#: src/chroot.c:192
 #, c-format
 msgid "cannot change root directory to %s"
 msgstr "кореновият каталог не може да се смени на %s"
 
-#: src/chroot.c:194
+#: src/chroot.c:196
 #, c-format
 msgid "cannot chdir to root directory"
 msgstr "с chdir не може да се влиза в главния каталог"
 
-#: src/chroot.c:235
+#: src/chroot.c:237
 #, fuzzy, c-format
 msgid "failed to set group-ID"
-msgstr "не може да се отвори %s"
+msgstr "не може да се изпълни stat за %s"
 
-#: src/chroot.c:241
+#: src/chroot.c:243
 #, fuzzy, c-format
 msgid "failed to set user-ID"
-msgstr "не може да се отвори %s"
+msgstr "не може да се изпълни stat за %s"
 
-#: src/chroot.c:263 src/nohup.c:237 src/setuidgid.c:213 src/stdbuf.c:366
-#: src/timeout.c:298
+#: src/chroot.c:265 src/nohup.c:237 src/setuidgid.c:213 src/stdbuf.c:366
+#: src/timeout.c:327
 #, fuzzy, c-format
 msgid "failed to run command %s"
 msgstr "неуспешно изпълнение на командата %s"
@@ -1750,7 +1738,7 @@ msgstr ""
 "Отпечатва контролна сума CRC и броя байтове на всеки ФАЙЛ.\n"
 "\n"
 
-#: src/comm.c:104 src/join.c:168
+#: src/comm.c:104 src/join.c:174
 #, c-format
 msgid "Usage: %s [OPTION]... FILE1 FILE2\n"
 msgstr "Използване: %s [ОПЦИЯ]... ФАЙЛ1 ФАЙЛ2\n"
@@ -1811,7 +1799,7 @@ msgid ""
 "  %s -3  file1 file2  Print lines in file1 not in file2, and vice versa.\n"
 msgstr ""
 
-#: src/comm.c:223 src/join.c:368
+#: src/comm.c:223 src/join.c:380
 #, c-format
 msgid "file %d is not in sorted order"
 msgstr ""
@@ -1847,13 +1835,13 @@ msgid "failed to preserve authorship for %s"
 msgstr "не можа да се запази авторството на %s"
 
 #: src/copy.c:495 src/csplit.c:630 src/du.c:935 src/fmt.c:427 src/head.c:849
-#: src/sort.c:3548 src/split.c:538 src/tac.c:544 src/tail.c:1711 src/wc.c:670
+#: src/sort.c:3623 src/split.c:538 src/tac.c:544 src/tail.c:1713 src/wc.c:671
 #, c-format
 msgid "cannot open %s for reading"
 msgstr "не може да се отвори %s за четене"
 
-#: src/copy.c:501 src/copy.c:629 src/dd.c:1298 src/dd.c:1926 src/tail.c:1547
-#: src/tail.c:1613 src/truncate.c:150 src/truncate.c:234
+#: src/copy.c:501 src/copy.c:632 src/dd.c:1298 src/dd.c:1926 src/tail.c:1549
+#: src/tail.c:1615 src/truncate.c:145 src/truncate.c:229
 #, c-format
 msgid "cannot fstat %s"
 msgstr "не може да се получи режимът за достъп до %s"
@@ -1863,171 +1851,176 @@ msgstr "не може да се получи режимът за достъп д
 msgid "skipping file %s, as it was replaced while being copied"
 msgstr "файлът %s се пропуска, тъй като бе заместен по време на копирането"
 
-#: src/copy.c:535
+#: src/copy.c:536
 #, fuzzy, c-format
 msgid "failed to get file system create context"
 msgstr "не успешно затваряне на стандартната грешка"
 
-#: src/copy.c:549
+#: src/copy.c:551
 #, fuzzy, c-format
 msgid "failed to set the security context of %s to %s"
 msgstr "групата на %s не можа да се промени на %s\n"
 
-#: src/copy.c:566 src/copy.c:1388 src/copy.c:1542 src/copy.c:1692 src/ln.c:277
-#: src/remove.c:292 src/remove.c:318 src/remove.c:461 src/remove.c:482
+#: src/copy.c:568 src/copy.c:1387 src/copy.c:1541 src/copy.c:1691 src/ln.c:277
+#: src/remove.c:293 src/remove.c:319 src/remove.c:462 src/remove.c:483
 #, c-format
 msgid "cannot remove %s"
 msgstr "не може да се изтрие %s"
 
-#: src/copy.c:571 src/copy.c:1383 src/copy.c:1547 src/copy.c:1696
-#: src/remove.c:435
+#: src/copy.c:573 src/copy.c:1382 src/copy.c:1546 src/copy.c:1695
+#: src/remove.c:436
 #, c-format
 msgid "removed %s\n"
 msgstr "%s е изтрит\n"
 
-#: src/copy.c:608
+#: src/copy.c:611
 #, c-format
 msgid "not writing through dangling symlink %s"
 msgstr ""
 
-#: src/copy.c:621
+#: src/copy.c:624
 #, c-format
 msgid "cannot create regular file %s"
 msgstr "не може да се създаде обикновен файл %s"
 
-#: src/copy.c:641
+#: src/copy.c:644
 #, fuzzy, c-format
 msgid "failed to clone %s"
 msgstr "не може да се отвори %s"
 
-#: src/copy.c:720 src/dd.c:1358 src/dd.c:1683
+#: src/copy.c:723 src/dd.c:1358 src/dd.c:1683
 #, c-format
 msgid "reading %s"
 msgstr "чете се %s"
 
-#: src/copy.c:766 src/head.c:428
+#: src/copy.c:769 src/head.c:428
 #, c-format
 msgid "cannot lseek %s"
 msgstr "не може да се обработи непоследователно %s"
 
-#: src/copy.c:779 src/copy.c:808 src/dd.c:1740 src/dd.c:1803
+#: src/copy.c:782 src/dd.c:1740 src/dd.c:1803
 #, c-format
 msgid "writing %s"
 msgstr "записва се %s"
 
-#: src/copy.c:823 src/copy.c:2146
+#: src/copy.c:805
+#, fuzzy, c-format
+msgid "truncating %s"
+msgstr "създава се %s"
+
+#: src/copy.c:820 src/copy.c:2146
 #, c-format
 msgid "preserving times for %s"
 msgstr "времената за %s се запазват"
 
-#: src/copy.c:893 src/copy.c:899 src/head.c:857 src/touch.c:174
-#: src/truncate.c:408
+#: src/copy.c:892 src/copy.c:898 src/head.c:857 src/touch.c:174
+#: src/truncate.c:403
 #, c-format
 msgid "closing %s"
 msgstr "затваря се %s"
 
-#: src/copy.c:1133
+#: src/copy.c:1132
 #, fuzzy, c-format
 msgid "%s: try to overwrite %s, overriding mode %04lo (%s)? "
 msgstr "%s: да се замести ли %s (режимът за достъп е %04lo)? "
 
-#: src/copy.c:1140
+#: src/copy.c:1139
 #, c-format
 msgid "%s: overwrite %s? "
 msgstr "%s: да се замести ли %s? "
 
-#: src/copy.c:1209
+#: src/copy.c:1208
 #, c-format
 msgid " (backup: %s)"
 msgstr " (резервно копие: %s)"
 
-#: src/copy.c:1219
+#: src/copy.c:1218
 #, c-format
 msgid "failed to restore the default file creation context"
 msgstr ""
 
-#: src/copy.c:1275
+#: src/copy.c:1274
 #, c-format
 msgid "omitting directory %s"
 msgstr "каталогът %s се пропуска"
 
-#: src/copy.c:1289
+#: src/copy.c:1288
 #, c-format
 msgid "warning: source file %s specified more than once"
 msgstr "внимание: изходния файл %s е посочен повече от веднъж"
 
-#: src/copy.c:1337 src/ln.c:212
+#: src/copy.c:1336 src/ln.c:212
 #, c-format
 msgid "%s and %s are the same file"
 msgstr "%s и %s са един и същ файл"
 
-#: src/copy.c:1417
+#: src/copy.c:1416
 #, c-format
 msgid "cannot overwrite non-directory %s with directory %s"
 msgstr "%s не е каталог и не може да се замести с каталога %s"
 
-#: src/copy.c:1435 src/ln.c:180
+#: src/copy.c:1434 src/ln.c:180
 #, c-format
 msgid "will not overwrite just-created %s with %s"
 msgstr "току що създаденият %s няма да бъде заместен с %s"
 
-#: src/copy.c:1453
+#: src/copy.c:1452
 #, c-format
 msgid "cannot overwrite directory %s with non-directory"
 msgstr "каталогът %s не може да се замести с файл, който не е каталог"
 
-#: src/copy.c:1467
+#: src/copy.c:1466
 #, c-format
 msgid "cannot move directory onto non-directory: %s -> %s"
 msgstr ""
 "каталог не може да се премести върху файл, който не е каталог: %s -> %s"
 
-#: src/copy.c:1497
+#: src/copy.c:1496
 #, c-format
 msgid "backing up %s would destroy source;  %s not moved"
 msgstr "резервното копиране на %s би разрушило източника;  %s не бе преместен"
 
-#: src/copy.c:1498
+#: src/copy.c:1497
 #, c-format
 msgid "backing up %s would destroy source;  %s not copied"
 msgstr "резервното копиране на %s би разрушило източника;  %s не бе копиран"
 
-#: src/copy.c:1517 src/ln.c:242
+#: src/copy.c:1516 src/ln.c:242
 #, c-format
 msgid "cannot backup %s"
 msgstr "не може да се направи резервно копие на %s"
 
-#: src/copy.c:1581
+#: src/copy.c:1580
 #, fuzzy, c-format
 msgid "will not copy %s through just-created symlink %s"
 msgstr "току що създаденият %s няма да бъде заместен с %s"
 
-#: src/copy.c:1658
+#: src/copy.c:1657
 #, c-format
 msgid "cannot copy a directory, %s, into itself, %s"
 msgstr "не може да се копира каталог (%s) в самия себе си (%s)"
 
-#: src/copy.c:1675
+#: src/copy.c:1674
 #, c-format
 msgid "will not create hard link %s to directory %s"
 msgstr "няма да се направи твърда връзка %s към каталога %s"
 
-#: src/copy.c:1703
+#: src/copy.c:1702
 #, c-format
 msgid "cannot create hard link %s to %s"
 msgstr "не може да се направи твърда връзка %s към %s"
 
-#: src/copy.c:1748
+#: src/copy.c:1747
 #, c-format
 msgid "cannot move %s to a subdirectory of itself, %s"
 msgstr "не може да се премести %s в своя подкаталог %s"
 
-#: src/copy.c:1791
+#: src/copy.c:1790
 #, c-format
 msgid "cannot move %s to %s"
 msgstr "не може да се премести %s в %s"
 
-#: src/copy.c:1803
+#: src/copy.c:1802
 #, c-format
 msgid "inter-device move failed: %s to %s; unable to remove target"
 msgstr ""
@@ -2071,7 +2064,7 @@ msgstr "не може да се създаде именуван канал %s"
 msgid "cannot create special file %s"
 msgstr "не може да се създаде специален файл %s"
 
-#: src/copy.c:2043 src/ls.c:3036 src/stat.c:622
+#: src/copy.c:2043 src/ls.c:3055 src/stat.c:622
 #, c-format
 msgid "cannot read symbolic link %s"
 msgstr "не може да се чете символната връзка %s"
@@ -2117,12 +2110,11 @@ msgstr ""
 
 #: src/cp.c:165 src/csplit.c:1455 src/cut.c:197 src/df.c:817 src/du.c:274
 #: src/expand.c:113 src/fmt.c:275 src/fold.c:75 src/head.c:117
-#: src/install.c:959 src/kill.c:97 src/ln.c:353 src/ls.c:4563 src/mkdir.c:62
+#: src/install.c:959 src/kill.c:97 src/ln.c:353 src/ls.c:4590 src/mkdir.c:62
 #: src/mkfifo.c:57 src/mknod.c:59 src/mv.c:294 src/nl.c:191 src/paste.c:443
-#: src/pr.c:2777 src/ptx.c:1892 src/shred.c:164 src/shuf.c:57 src/sort.c:327
-#: src/split.c:113 src/stdbuf.c:97 src/tac.c:142 src/tail.c:266
-#: src/timeout.c:138 src/touch.c:226 src/truncate.c:113 src/unexpand.c:123
-#: src/uniq.c:145
+#: src/pr.c:2777 src/ptx.c:1892 src/shred.c:164 src/shuf.c:57 src/sort.c:328
+#: src/split.c:113 src/stdbuf.c:97 src/tac.c:142 src/tail.c:268
+#: src/touch.c:226 src/truncate.c:108 src/unexpand.c:123 src/uniq.c:145
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too.\n"
 msgstr ""
@@ -2219,7 +2211,7 @@ msgstr ""
 #, fuzzy
 msgid ""
 "  -R, -r, --recursive          copy directories recursively\n"
-"      --reflink[=WHEN]         control clone/CoW copies. See below.\n"
+"      --reflink[=WHEN]         control clone/CoW copies. See below\n"
 "      --remove-destination     remove each existing destination file before\n"
 "                                 attempting to open it (contrast with --"
 "force)\n"
@@ -2231,7 +2223,7 @@ msgstr ""
 #: src/cp.c:209
 #, fuzzy
 msgid ""
-"      --sparse=WHEN            control creation of sparse files. See below.\n"
+"      --sparse=WHEN            control creation of sparse files. See below\n"
 "      --strip-trailing-slashes  remove any trailing slashes from each "
 "SOURCE\n"
 "                                 argument\n"
@@ -2365,7 +2357,7 @@ msgid "accessing %s"
 msgstr "достъп до %s"
 
 #: src/cp.c:586 src/install.c:597 src/ln.c:503 src/mv.c:431 src/shred.c:1189
-#: src/touch.c:432 src/truncate.c:359
+#: src/touch.c:432 src/truncate.c:354
 #, c-format
 msgid "missing file operand"
 msgstr "липсващ файлов операнд"
@@ -3017,8 +3009,8 @@ msgstr ""
 
 #: src/date.c:260 src/dd.c:1867 src/head.c:840 src/md5sum.c:445
 #: src/md5sum.c:749 src/od.c:863 src/od.c:1914 src/pr.c:1176 src/pr.c:1372
-#: src/pr.c:1494 src/stty.c:847 src/tac.c:535 src/tail.c:338 src/tee.c:126
-#: src/tr.c:1892 src/tsort.c:523 src/wc.c:193
+#: src/pr.c:1494 src/stty.c:847 src/tac.c:535 src/tail.c:340 src/tee.c:126
+#: src/tr.c:1892 src/tsort.c:523 src/wc.c:194
 #, c-format
 msgid "standard input"
 msgstr "стандартният вход"
@@ -3068,7 +3060,7 @@ msgid "time %s is out of range"
 msgstr "времето %s е извън допустимия диапазон"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/dd.c:46 src/factor.c:43 src/rm.c:41 src/tail.c:66 src/touch.c:42
+#: src/dd.c:46 src/factor.c:43 src/rm.c:41 src/tail.c:68 src/touch.c:42
 #: src/wc.c:49
 msgid "Paul Rubin"
 msgstr ""
@@ -3392,7 +3384,7 @@ msgstr "непознат изходен флаг: %s"
 msgid "invalid status flag"
 msgstr "непознат флаг за състояние: %s"
 
-#: src/dd.c:1074 src/truncate.c:322
+#: src/dd.c:1074 src/truncate.c:317
 #, c-format
 msgid "invalid number %s"
 msgstr "недопустимо число %s"
@@ -3493,7 +3485,7 @@ msgstr "съкращаване до %<PRIuMAX> байта в изходния ф
 
 #. This is a proper name. See the gettext manual, section Names.
 #: src/df.c:41 src/du.c:54 src/expr.c:153 src/kill.c:43 src/pathchk.c:39
-#: src/shuf.c:37 src/sleep.c:36 src/sort.c:63
+#: src/shuf.c:37 src/sleep.c:36 src/sort.c:64
 msgid "Paul Eggert"
 msgstr ""
 
@@ -3741,7 +3733,7 @@ msgstr ""
 "  %s /usr/bin/sort  извежда „/usr/bin“.\n"
 "  %s stdio.h        извежда „.“.\n"
 
-#: src/du.c:266 src/sort.c:318 src/wc.c:112
+#: src/du.c:266 src/sort.c:319 src/wc.c:112
 #, c-format
 msgid ""
 "Usage: %s [OPTION]... [FILE]...\n"
@@ -3909,36 +3901,36 @@ msgstr "внимание: резюмирането е еквивалентно �
 msgid "warning: summarizing conflicts with --max-depth=%lu"
 msgstr "внимание: резюмирането влиза в конфликт с --max-depth=%lu"
 
-#: src/du.c:930 src/sort.c:3538 src/wc.c:660
+#: src/du.c:930 src/sort.c:3613 src/wc.c:661
 #, fuzzy
 msgid "file operands cannot be combined with --files0-from"
 msgstr "Не може да се комбинират файлови операнди с --files0-from."
 
 #: src/du.c:967 src/md5sum.c:551 src/od.c:903 src/tac.c:239 src/tac.c:350
-#: src/tac.c:481 src/tac.c:557 src/wc.c:722
+#: src/tac.c:481 src/tac.c:557 src/wc.c:723
 #, c-format
 msgid "%s: read error"
 msgstr "%s: грешка при четене"
 
-#: src/du.c:981 src/sort.c:3567 src/wc.c:735
+#: src/du.c:981 src/sort.c:3642 src/wc.c:736
 #, c-format
 msgid "when reading file names from stdin, no file name of %s allowed"
 msgstr ""
 "при четене на файлови имена от stdin, никое файлово име не може да бъде %s"
 
-#: src/du.c:998 src/du.c:1006 src/wc.c:748 src/wc.c:756
+#: src/du.c:998 src/du.c:1006 src/wc.c:749 src/wc.c:757
 msgid "invalid zero-length file name"
 msgstr "неправилно файлово име с дължина нула"
 
 #: src/du.c:1023 src/head.c:151 src/head.c:264 src/head.c:336 src/head.c:540
-#: src/head.c:622 src/head.c:694 src/head.c:752 src/head.c:776 src/tail.c:407
-#: src/tail.c:495 src/tail.c:544 src/tail.c:637 src/tail.c:765 src/tail.c:813
-#: src/tail.c:852 src/tail.c:1737 src/tail.c:1767 src/uniq.c:394
+#: src/head.c:622 src/head.c:694 src/head.c:752 src/head.c:776 src/tail.c:409
+#: src/tail.c:497 src/tail.c:546 src/tail.c:639 src/tail.c:767 src/tail.c:815
+#: src/tail.c:854 src/tail.c:1739 src/tail.c:1769 src/uniq.c:394
 #, c-format
 msgid "error reading %s"
 msgstr "грешка при четене на %s"
 
-#: src/du.c:1026 src/ls.c:2581 src/wc.c:778
+#: src/du.c:1026 src/ls.c:2600 src/wc.c:779
 msgid "total"
 msgstr "общо"
 
@@ -4277,11 +4269,11 @@ msgid "error in regular expression matcher"
 msgstr "грешка при пасването на регулярния израз"
 
 #: src/expr.c:790 src/expr.c:827
-#, c-format
-msgid "non-numeric argument"
+#, fuzzy, c-format
+msgid "non-integer argument"
 msgstr "нечислов аргумент"
 
-#: src/expr.c:792 src/truncate.c:326
+#: src/expr.c:792 src/truncate.c:321
 #, c-format
 msgid "division by zero"
 msgstr "делене на нула"
@@ -4415,7 +4407,7 @@ msgid "invalid number of columns: %s"
 msgstr "неправилен номер стълбове: %s"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/getlimits.c:29 src/stdbuf.c:38 src/timeout.c:74 src/truncate.c:42
+#: src/getlimits.c:29 src/stdbuf.c:38 src/timeout.c:73 src/truncate.c:37
 msgid "Padraig Brady"
 msgstr ""
 
@@ -4534,7 +4526,7 @@ msgstr "%s: твърде голям брой байтове"
 msgid "%s: cannot lseek back to original position"
 msgstr "%s: не може да се отиде на първоначалното място във файла"
 
-#: src/head.c:615 src/head.c:686 src/tail.c:445
+#: src/head.c:615 src/head.c:686 src/tail.c:447
 #, c-format
 msgid "%s: cannot seek to offset %s"
 msgstr "%s: не може да се отиде на отместване %s във файла"
@@ -4557,11 +4549,11 @@ msgstr "брой на редовете"
 msgid "number of bytes"
 msgstr "количество байтове"
 
-#: src/head.c:888 src/tail.c:1902
+#: src/head.c:888 src/tail.c:1904
 msgid "invalid number of lines"
 msgstr "недопустим брой редове"
 
-#: src/head.c:889 src/tail.c:1903
+#: src/head.c:889 src/tail.c:1905
 msgid "invalid number of bytes"
 msgstr "недопустимо количество байтове"
 
@@ -4771,7 +4763,7 @@ msgstr "опциите --string и --check не може да се използ�
 #: src/install.c:648
 #, fuzzy, c-format
 msgid "options --compare (-C) and --strip are mutually exclusive"
-msgstr "опциите --string и --check не може да се използват едновременно"
+msgstr "посочените опции за дати за отпечатване са взаимно изключващи се"
 
 #: src/install.c:654
 #, c-format
@@ -4790,7 +4782,7 @@ msgstr "не може да се смени собствеността на %s"
 msgid "cannot set time stamps for %s"
 msgstr "не може да се зададе времето на %s"
 
-#: src/install.c:851 src/timeout.c:283
+#: src/install.c:851 src/timeout.c:312
 #, c-format
 msgid "fork system call failed"
 msgstr "системната функция за нов процес (fork) не успя"
@@ -4926,12 +4918,12 @@ msgid ""
 msgstr ""
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/join.c:39 src/sort.c:62
+#: src/join.c:39 src/sort.c:63
 #, fuzzy
 msgid "Mike Haertel"
 msgstr "Mike Haertel и Paul Eggert"
 
-#: src/join.c:172
+#: src/join.c:178
 msgid ""
 "For each pair of input lines with identical join fields, write a line to\n"
 "standard output.  The default join field is the first, delimited\n"
@@ -4951,7 +4943,7 @@ msgstr ""
 "                      ФАЙЛНОМ е 1 или 2 съответно за ФАЙЛ1 и ФАЙЛ2\n"
 "  -e ПРАЗНО         заменя липсващите входни полета с ПРАЗНО\n"
 
-#: src/join.c:181
+#: src/join.c:187
 msgid ""
 "  -i, --ignore-case  ignore differences in case when comparing fields\n"
 "  -j FIELD          equivalent to `-1 FIELD -2 FIELD'\n"
@@ -4965,7 +4957,7 @@ msgstr ""
 "  -t ЗНАК           ползва ЗНАК като разделител на входните и изходни "
 "полета\n"
 
-#: src/join.c:187
+#: src/join.c:193
 #, fuzzy
 msgid ""
 "  -v FILENUM        like -a FILENUM, but suppress joined output lines\n"
@@ -4974,13 +4966,15 @@ msgid ""
 "  --check-order     check that the input is correctly sorted, even\n"
 "                      if all input lines are pairable\n"
 "  --nocheck-order   do not check that the input is correctly sorted\n"
+"  --header          treat the first line in each file as field headers,\n"
+"                      print them without trying to pair them\n"
 msgstr ""
 "  -v ФАЙЛНОМ        като -a ФАЙЛНОМ, но потиска съответстващите входни "
 "редове\n"
 "  -1 ПОЛЕ           свързва според това ПОЛЕ във файл 1\n"
 "  -2 ПОЛЕ           свързва според това ПОЛЕ във файл 2\n"
 
-#: src/join.c:197
+#: src/join.c:205
 #, fuzzy
 msgid ""
 "\n"
@@ -4992,7 +4986,8 @@ msgid ""
 "separated by CHAR.\n"
 "\n"
 "Important: FILE1 and FILE2 must be sorted on the join fields.\n"
-"E.g., use `sort -k 1b,1' if `join' has no options.\n"
+"E.g., use ` sort -k 1b,1 ' if `join' has no options,\n"
+"or use ` join -t '' ' if `sort' has no options.\n"
 "Note, comparisons honor the rules specified by `LC_COLLATE'.\n"
 "If the input is not sorted and some lines cannot be joined, a\n"
 "warning message will be given.\n"
@@ -5012,47 +5007,42 @@ msgstr ""
 "Например\n"
 "ако на join не са подадени опции, ползвайте „sort -k 1b,1“.\n"
 
-#: src/join.c:776 src/join.c:975
+#: src/join.c:793 src/join.c:992
 #, c-format
 msgid "invalid field number: %s"
 msgstr "неправилен номер на поле: %s"
 
-#: src/join.c:797 src/join.c:806
+#: src/join.c:814 src/join.c:823
 #, c-format
 msgid "invalid field specifier: %s"
 msgstr "неправилен означител за поле: %s"
 
-#: src/join.c:813
+#: src/join.c:830
 #, c-format
 msgid "invalid file number in field spec: %s"
 msgstr "неправилен номер на файл при означител на поле: %s"
 
-#: src/join.c:856
+#: src/join.c:873
 #, c-format
 msgid "incompatible join fields %lu, %lu"
 msgstr "неправилни свързващи полета %lu, %lu"
 
-#: src/join.c:986
+#: src/join.c:1003
 #, c-format
 msgid "conflicting empty-field replacement strings"
 msgstr "несъвместими заменящи низове за празно поле"
 
-#: src/join.c:1027 src/sort.c:3466
-#, c-format
-msgid "empty tab"
-msgstr "празна табулация"
-
-#: src/join.c:1033 src/sort.c:3477
+#: src/join.c:1050 src/sort.c:3552
 #, c-format
 msgid "multi-character tab %s"
 msgstr "многосимволна табулация %s"
 
-#: src/join.c:1037 src/sort.c:3482
+#: src/join.c:1054 src/sort.c:3557
 #, c-format
 msgid "incompatible tabs"
 msgstr "несъвместими табулации"
 
-#: src/join.c:1102
+#: src/join.c:1123
 #, c-format
 msgid "both files cannot be standard input"
 msgstr "не може и двата файла да са стандартният вход"
@@ -5150,7 +5140,7 @@ msgid "could not set buffering of %s to mode %s\n"
 msgstr ""
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/link.c:36 src/unlink.c:36 src/who.c:46
+#: src/link.c:36 src/unlink.c:36 src/who.c:50
 msgid "Michael Stone"
 msgstr ""
 
@@ -5360,87 +5350,87 @@ msgstr "%e %b  %Y"
 msgid "%b %e %H:%M"
 msgstr "%e %b %k,%M"
 
-#: src/ls.c:1561
+#: src/ls.c:1580
 #, c-format
 msgid "ignoring invalid value of environment variable QUOTING_STYLE: %s"
 msgstr ""
 "пренебрегва се неправилната стойност на променливата от обкръжението "
 "QUOTING_STYLE: %s"
 
-#: src/ls.c:1588
+#: src/ls.c:1607
 #, c-format
 msgid "ignoring invalid width in environment variable COLUMNS: %s"
 msgstr ""
 "пренебрегва се неправилната ширина в променливата от обкръжението COLUMNS: %s"
 
-#: src/ls.c:1618
+#: src/ls.c:1637
 #, c-format
 msgid "ignoring invalid tab size in environment variable TABSIZE: %s"
 msgstr ""
 "пренебрегва се неправилният размер на табулациите в променливата от "
 "обкръжението TABSIZE: %s"
 
-#: src/ls.c:1739 src/ptx.c:2043
+#: src/ls.c:1758 src/ptx.c:2043
 #, c-format
 msgid "invalid line width: %s"
 msgstr "неправилна дължина на реда: %s"
 
-#: src/ls.c:1813
+#: src/ls.c:1832
 #, c-format
 msgid "invalid tab size: %s"
 msgstr "неправилен размер на табулациите: %s"
 
-#: src/ls.c:2003
+#: src/ls.c:2022
 #, c-format
 msgid "invalid time style format %s"
 msgstr "неправилен формат за времето %s"
 
-#: src/ls.c:2049
+#: src/ls.c:2068
 #, c-format
 msgid "error initializing month strings"
 msgstr ""
 
-#: src/ls.c:2351
+#: src/ls.c:2370
 #, c-format
 msgid "unrecognized prefix: %s"
 msgstr "непознат префикс: %s"
 
-#: src/ls.c:2374
+#: src/ls.c:2393
 #, c-format
 msgid "unparsable value for LS_COLORS environment variable"
 msgstr "неразбираема стойност на променливата от обкръжението LS_COLORS"
 
-#: src/ls.c:2451 src/pwd.c:162
+#: src/ls.c:2470 src/pwd.c:162
 #, c-format
 msgid "cannot open directory %s"
 msgstr "не може да се отвори каталогът %s"
 
-#: src/ls.c:2466
+#: src/ls.c:2485
 #, c-format
 msgid "cannot determine device and inode of %s"
 msgstr "не може да се установи устройството и i-възлите на %s"
 
-#: src/ls.c:2475
+#: src/ls.c:2494
 #, c-format
 msgid "%s: not listing already-listed directory"
 msgstr "%s: вече изведеният каталог не се извежда"
 
-#: src/ls.c:2552 src/pwd.c:230
+#: src/ls.c:2571 src/pwd.c:230
 #, c-format
 msgid "reading directory %s"
 msgstr "чете се каталогът %s"
 
-#: src/ls.c:2562
+#: src/ls.c:2581
 #, c-format
 msgid "closing directory %s"
 msgstr "затваря се каталогът %s"
 
-#: src/ls.c:3151
+#: src/ls.c:3170
 #, c-format
 msgid "cannot compare file names %s and %s"
 msgstr "не може да се сравнят файловите имена %s и %s"
 
-#: src/ls.c:4558
+#: src/ls.c:4585
 msgid ""
 "List information about the FILEs (the current directory by default).\n"
 "Sort entries alphabetically if none of -cftuvSUX nor --sort.\n"
@@ -5450,19 +5440,21 @@ msgstr ""
 "Сортира елементите азбучно, освен ако има опция -cftuSUX или --sort.\n"
 "\n"
 
-#: src/ls.c:4566
+#: src/ls.c:4593
+#, fuzzy
 msgid ""
 "  -a, --all                  do not ignore entries starting with .\n"
 "  -A, --almost-all           do not list implied . and ..\n"
 "      --author               with -l, print the author of each file\n"
-"  -b, --escape               print octal escapes for nongraphic characters\n"
+"  -b, --escape               print C-style escapes for nongraphic "
+"characters\n"
 msgstr ""
 "  -a, --all                  не скрива елементите, започващи с .\n"
 "  -A, --almost-all           не извежда подразбиращите се . и ..\n"
 "      --author               с -l извежда автора на всеки файл\n"
 "  -b, --escape               извежда осмични числа за неграфичните знаци\n"
 
-#: src/ls.c:4572
+#: src/ls.c:4599
 #, fuzzy
 msgid ""
 "      --block-size=SIZE      use SIZE-byte blocks.  See SIZE format below\n"
@@ -5481,7 +5473,7 @@ msgstr ""
 "                               с -l: показва ctime и сортира според името\n"
 "                               иначе: сортира според ctime\n"
 
-#: src/ls.c:4580
+#: src/ls.c:4607
 #, fuzzy
 msgid ""
 "  -C                         list entries by columns\n"
@@ -5504,7 +5496,7 @@ msgstr ""
 "                               и символните връзки, вместо сочените файлове\n"
 "  -D, --dired                генерира изход за режима „dired“ на Емакс\n"
 
-#: src/ls.c:4588
+#: src/ls.c:4615
 msgid ""
 "  -f                         do not sort, enable -aU, disable -ls --color\n"
 "  -F, --classify             append indicator (one of */=>@|) to entries\n"
@@ -5522,11 +5514,11 @@ msgstr ""
 "                               single-column -1, verbose -l, vertical -C\n"
 "      --full-time            като -l --time-style=full-iso\n"
 
-#: src/ls.c:4596
+#: src/ls.c:4623
 msgid "  -g                         like -l, but do not list owner\n"
 msgstr "  -g                         като -l, но не извежда собственика\n"
 
-#: src/ls.c:4599
+#: src/ls.c:4626
 msgid ""
 "      --group-directories-first\n"
 "                             group directories before files.\n"
@@ -5534,7 +5526,7 @@ msgid ""
 "                               use of --sort=none (-U) disables grouping\n"
 msgstr ""
 
-#: src/ls.c:4605
+#: src/ls.c:4632
 #, fuzzy
 msgid ""
 "  -G, --no-group             in a long listing, don't print group names\n"
@@ -5547,7 +5539,7 @@ msgstr ""
 "  -h, --human-readable  извежда размерите като за хора (напр. 1K, 234M, 2G)\n"
 "  -H, --si              подобно, но с множител 1000 вместо 1024\n"
 
-#: src/ls.c:4611
+#: src/ls.c:4638
 #, fuzzy
 msgid ""
 "  -H, --dereference-command-line\n"
@@ -5573,7 +5565,7 @@ msgstr ""
 "                               (пренебрегва се, ако има -a или -A)\n"
 
 # TODO: превод на shell-ОБРАЗЕЦ?
-#: src/ls.c:4620
+#: src/ls.c:4647
 #, fuzzy
 msgid ""
 "      --indicator-style=WORD  append indicator with style WORD to entry "
@@ -5593,7 +5585,7 @@ msgstr ""
 "ОБРАЗЕЦ\n"
 "  -k                         като --block-size=1K\n"
 
-#: src/ls.c:4628
+#: src/ls.c:4655
 msgid ""
 "  -l                         use a long listing format\n"
 "  -L, --dereference          when showing file information for a symbolic\n"
@@ -5610,7 +5602,7 @@ msgstr ""
 "  -m                         попълва в широчина с разделени със запетая "
 "елементи\n"
 
-#: src/ls.c:4635
+#: src/ls.c:4662
 msgid ""
 "  -n, --numeric-uid-gid      like -l, but list numeric user and group IDs\n"
 "  -N, --literal              print raw entry names (don't treat e.g. "
@@ -5631,7 +5623,7 @@ msgstr ""
 "  -p, --indicator-style=slash\n"
 "                             добавя знак / към каталозите\n"
 
-#: src/ls.c:4643
+#: src/ls.c:4670
 msgid ""
 "  -q, --hide-control-chars   print ? instead of non graphic characters\n"
 "      --show-control-chars   show non graphic characters as-is (default\n"
@@ -5652,7 +5644,7 @@ msgstr ""
 "                               literal, locale, shell, shell-always, c, "
 "escape\n"
 
-#: src/ls.c:4651
+#: src/ls.c:4678
 #, fuzzy
 msgid ""
 "  -r, --reverse              reverse order while sorting\n"
@@ -5664,7 +5656,7 @@ msgstr ""
 "  -R, --recursive            извежда подкаталозите рекурсивно\n"
 "  -s, --size                 извежда размера в блокове на всеки файл\n"
 
-#: src/ls.c:4656
+#: src/ls.c:4683
 msgid ""
 "  -S                         sort by file size\n"
 "      --sort=WORD            sort by WORD instead of name: none -U,\n"
@@ -5684,7 +5676,7 @@ msgstr ""
 "ctime,\n"
 "                               или status; по това време се и сортира\n"
 
-#: src/ls.c:4665
+#: src/ls.c:4692
 #, fuzzy
 msgid ""
 "      --time-style=STYLE     with -l, show times using style STYLE:\n"
@@ -5709,13 +5701,13 @@ msgstr ""
 "  -T, --tabsize=КОЛОНИ       приема, че табулациите са през КОЛОНИ вместо "
 "през 8\n"
 
-#: src/ls.c:4674
+#: src/ls.c:4701
 msgid ""
 "  -t                         sort by modification time\n"
 "  -T, --tabsize=COLS         assume tab stops at each COLS instead of 8\n"
 msgstr ""
 
-#: src/ls.c:4678
+#: src/ls.c:4705
 #, fuzzy
 msgid ""
 "  -u                         with -lt: sort by, and show, access time\n"
@@ -5733,7 +5725,7 @@ msgstr ""
 "каталога\n"
 "  -v                         сортира според версията\n"
 
-#: src/ls.c:4685
+#: src/ls.c:4712
 #, fuzzy
 msgid ""
 "  -w, --width=COLS           assume screen width instead of current value\n"
@@ -5748,8 +5740,7 @@ msgstr ""
 "  -X                         сортира в азбучен ред според разширението\n"
 "  -1                         извежда по един файл на ред\n"
 
-#: src/ls.c:4695
-#, fuzzy
+#: src/ls.c:4722
 msgid ""
 "\n"
 "Using color to distinguish file types is disabled both by default and\n"
@@ -5757,19 +5748,8 @@ msgid ""
 "standard output is connected to a terminal.  The LS_COLORS environment\n"
 "variable can change the settings.  Use the dircolors command to set it.\n"
 msgstr ""
-"\n"
-"По подразбиране не се използват цветове за отличаване на типовете.  Това е "
-"все\n"
-"едно да се използва --color=none.  Използването на --color без "
-"незадължителния\n"
-"аргумент КОГА е еквивалентно на --color=always.  С --color=auto цветове се\n"
-"използват само, ако стандартният изход е свързан с терминал (tty).  "
-"Променливата\n"
-"от обкръжението LS_COLORS може да влияе на цветовете, а стойност може лесно "
-"да и\n"
-"бъде зададена посредством командата dircolors.\n"
 
-#: src/ls.c:4702
+#: src/ls.c:4729
 msgid ""
 "\n"
 "Exit status:\n"
@@ -6133,7 +6113,7 @@ msgid ""
 "                        specified, use $TMPDIR if set, else /tmp.  With\n"
 "                        this option, TEMPLATE must not be an absolute name.\n"
 "                        Unlike with -t, TEMPLATE may contain slashes, but\n"
-"                        mktemp creates only the final component.\n"
+"                        mktemp creates only the final component\n"
 msgstr ""
 
 #: src/mktemp.c:93
@@ -6245,12 +6225,12 @@ msgstr ""
 "                                 файл, или ако целевият файл липсва\n"
 "  -v, --verbose                съобщава какво се прави\n"
 
-#: src/nice.c:72
+#: src/nice.c:73
 #, c-format
 msgid "Usage: %s [OPTION] [COMMAND [ARG]...]\n"
 msgstr "Използване: %s [ОПЦИЯ] [КОМАНДА [АРГУМЕНТ]...]\n"
 
-#: src/nice.c:73
+#: src/nice.c:74
 #, c-format
 msgid ""
 "Run COMMAND with an adjusted niceness, which affects process scheduling.\n"
@@ -6268,22 +6248,22 @@ msgstr ""
 "\n"
 "  -n, --adjustment=N   добавя N към стойността на nice (по подразбиране 10)\n"
 
-#: src/nice.c:157
+#: src/nice.c:169
 #, c-format
 msgid "invalid adjustment %s"
 msgstr "неправилна настройка: %s"
 
-#: src/nice.c:166
+#: src/nice.c:178
 #, c-format
 msgid "a command must be given with an adjustment"
 msgstr "заедно с корекцията трябва да се посочи команда"
 
-#: src/nice.c:173 src/nice.c:184
+#: src/nice.c:185 src/nice.c:196
 #, c-format
 msgid "cannot get niceness"
 msgstr "не може да се получи стойността на nice"
 
-#: src/nice.c:190
+#: src/nice.c:202
 #, c-format
 msgid "cannot set niceness"
 msgstr "не може да се настрои стойността на nice"
@@ -6881,7 +6861,7 @@ msgstr ""
 "име %s"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/pinky.c:36 src/uptime.c:45 src/users.c:35 src/who.c:44
+#: src/pinky.c:36 src/uptime.c:45 src/users.c:35 src/who.c:48
 #, fuzzy
 msgid "Joseph Arceneaux"
 msgstr "Joseph Arceneaux и David MacKenzie"
@@ -7105,13 +7085,14 @@ msgstr ""
 "\n"
 
 #: src/pr.c:2780
+#, fuzzy
 msgid ""
 "  +FIRST_PAGE[:LAST_PAGE], --pages=FIRST_PAGE[:LAST_PAGE]\n"
 "                    begin [stop] printing with page FIRST_[LAST_]PAGE\n"
 "  -COLUMN, --columns=COLUMN\n"
 "                    output COLUMN columns and print columns down,\n"
 "                    unless -a is used. Balance number of lines in the\n"
-"                    columns on each page.\n"
+"                    columns on each page\n"
 msgstr ""
 "  +ПЪРВА_СТР[:ПОСЛ_СТР], --pages=ПЪРВА_СТР[:ПОСЛ_СТР]\n"
 "                    започва/свършва печата при ПЪРВА_СТР/ПОСЛ_СТР\n"
@@ -7661,12 +7642,12 @@ msgstr ""
 "  -s, --silent            потиска повечето съобщения за грешка\n"
 "  -v, --verbose           съобщава при наличие на грешка\n"
 
-#: src/remove.c:311
+#: src/remove.c:312
 #, c-format
 msgid "%s: descend into write-protected directory %s? "
 msgstr "%s: да се навлезе ли в защитения срещу запис каталог %s? "
 
-#: src/remove.c:312
+#: src/remove.c:313
 #, c-format
 msgid "%s: descend into directory %s? "
 msgstr "%s: да се навлезе ли в каталога %s? "
@@ -7675,37 +7656,37 @@ msgstr "%s: да се навлезе ли в каталога %s? "
 #. translate "%s: remove %s (write-protected) %s? "
 #. instead.  It should avoid grammatical problems
 #. with the output of file_type.
-#: src/remove.c:328
+#: src/remove.c:329
 #, c-format
 msgid "%s: remove write-protected %s %s? "
 msgstr "%s: да се изтрие ли %s със защита срещу запис %s? "
 
-#: src/remove.c:329
+#: src/remove.c:330
 #, c-format
 msgid "%s: remove %s %s? "
 msgstr "%s: да се изтрие ли %s %s? "
 
-#: src/remove.c:434
+#: src/remove.c:435
 #, c-format
 msgid "removed directory: %s\n"
 msgstr "каталогът %s е изтрит\n"
 
-#: src/remove.c:498
+#: src/remove.c:499
 #, fuzzy, c-format
 msgid "cannot remove directory: %s"
 msgstr "не може да се изтрие каталогът %s"
 
-#: src/remove.c:554
+#: src/remove.c:555
 #, c-format
 msgid "skipping %s, since it's on a different device"
 msgstr "пропуска се %s тъй като е на друго устройство"
 
-#: src/remove.c:574
+#: src/remove.c:575
 #, fuzzy, c-format
 msgid "traversal failed: %s"
 msgstr "не може да се чете"
 
-#: src/remove.c:580
+#: src/remove.c:581
 #, c-format
 msgid ""
 "unexpected failure: fts_info=%d: %s\n"
@@ -7809,12 +7790,12 @@ msgstr ""
 "  %s ./-трънки\n"
 
 #: src/rm.c:177
+#, fuzzy
 msgid ""
 "\n"
-"Note that if you use rm to remove a file, it is usually possible to recover\n"
-"the contents of that file.  If you want more assurance that the contents "
-"are\n"
-"truly unrecoverable, consider using shred.\n"
+"Note that if you use rm to remove a file, it might be possible to recover\n"
+"some of its contents, given sufficient expertise and/or time.  For greater\n"
+"assurance that the contents are truly unrecoverable, consider using shred.\n"
 msgstr ""
 "\n"
 "Забележете, че ако използвате rm, за да изтриете даден файл, обикновено е\n"
@@ -8406,7 +8387,7 @@ msgstr "%s: не може да се отвори в режим за писане
 msgid "%s: invalid number of passes"
 msgstr "%s: неправилен брой итерации"
 
-#: src/shred.c:1142 src/shuf.c:329 src/sort.c:3450
+#: src/shred.c:1142 src/shuf.c:329 src/sort.c:3525
 #, c-format
 msgid "multiple random sources specified"
 msgstr "посочени са много случайни източници"
@@ -8471,7 +8452,7 @@ msgstr "неправилен входен диапазон: %s"
 msgid "invalid line count %s"
 msgstr "неправилен брой редове: %s"
 
-#: src/shuf.c:323 src/sort.c:3444
+#: src/shuf.c:323 src/sort.c:3519
 #, c-format
 msgid "multiple output files specified"
 msgstr "посочени са твърде много изходни файлове"
@@ -8510,17 +8491,17 @@ msgstr ""
 "от посочените времена.\n"
 "\n"
 
-#: src/sleep.c:137 src/timeout.c:260
+#: src/sleep.c:137 src/timeout.c:226
 #, c-format
 msgid "invalid time interval %s"
 msgstr "неправилен интервал за време %s"
 
-#: src/sleep.c:148 src/tail.c:1210
+#: src/sleep.c:148 src/tail.c:1212
 #, c-format
 msgid "cannot read realtime clock"
 msgstr "не може да се чете часовникът в реално време"
 
-#: src/sort.c:323
+#: src/sort.c:324
 msgid ""
 "Write sorted concatenation of all FILE(s) to standard output.\n"
 "\n"
@@ -8528,7 +8509,7 @@ msgstr ""
 "Извежда на стандартния изход сортирана конкатенация на всички ФАЙЛ(ове).\n"
 "\n"
 
-#: src/sort.c:330
+#: src/sort.c:331
 msgid ""
 "Ordering options:\n"
 "\n"
@@ -8536,7 +8517,7 @@ msgstr ""
 "Опции, определящи наредбата:\n"
 "\n"
 
-#: src/sort.c:334
+#: src/sort.c:335
 msgid ""
 "  -b, --ignore-leading-blanks  ignore leading blanks\n"
 "  -d, --dictionary-order      consider only blanks and alphanumeric "
@@ -8548,27 +8529,49 @@ msgstr ""
 "знаци\n"
 "  -f, --ignore-case           приравнява малките с главните букви\n"
 
-#: src/sort.c:339
+#: src/sort.c:340
+#, fuzzy
 msgid ""
 "  -g, --general-numeric-sort  compare according to general numerical value\n"
 "  -i, --ignore-nonprinting    consider only printable characters\n"
 "  -M, --month-sort            compare (unknown) < `JAN' < ... < `DEC'\n"
 msgstr ""
+"  -g, --general-numeric-sort  сравнява според общата числова стойност\n"
+"  -i, --ignore-nonprinting    отчита само печатните знаци\n"
+"  -M, --month-sort            сравнява (неизвестно) < `ЯНУ' < ... < `ДЕК'\n"
+"  -n, --numeric-sort          сравнява според числовата стойност на "
+"низовете\n"
+"  -R, --random-sort           сортира според случаен хеш\n"
+"      --random-source=FILE   чете случайни байтове от ФАЙЛ (вместо /dev/"
+"urandom)\n"
+"  -r, --reverse               сортира в обратен ред\n"
+"\n"
 
-#: src/sort.c:344
+#: src/sort.c:345
 msgid ""
 "  -h, --human-numeric-sort    compare human readable numbers (e.g., 2K 1G)\n"
 msgstr ""
 
-#: src/sort.c:347
+#: src/sort.c:348
+#, fuzzy
 msgid ""
 "  -n, --numeric-sort          compare according to string numerical value\n"
 "  -R, --random-sort           sort by random hash of keys\n"
 "      --random-source=FILE    get random bytes from FILE\n"
 "  -r, --reverse               reverse the result of comparisons\n"
 msgstr ""
+"  -g, --general-numeric-sort  сравнява според общата числова стойност\n"
+"  -i, --ignore-nonprinting    отчита само печатните знаци\n"
+"  -M, --month-sort            сравнява (неизвестно) < `ЯНУ' < ... < `ДЕК'\n"
+"  -n, --numeric-sort          сравнява според числовата стойност на "
+"низовете\n"
+"  -R, --random-sort           сортира според случаен хеш\n"
+"      --random-source=FILE   чете случайни байтове от ФАЙЛ (вместо /dev/"
+"urandom)\n"
+"  -r, --reverse               сортира в обратен ред\n"
+"\n"
 
-#: src/sort.c:353
+#: src/sort.c:354
 msgid ""
 "      --sort=WORD             sort according to WORD:\n"
 "                                general-numeric -g, human-numeric -h, month -"
@@ -8578,7 +8581,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: src/sort.c:360
+#: src/sort.c:361
 #, fuzzy
 msgid ""
 "Other options:\n"
@@ -8587,13 +8590,13 @@ msgstr ""
 "Опции, определящи наредбата:\n"
 "\n"
 
-#: src/sort.c:364
+#: src/sort.c:365
 msgid ""
 "      --batch-size=NMERGE   merge at most NMERGE inputs at once;\n"
 "                            for more use temp files\n"
 msgstr ""
 
-#: src/sort.c:368
+#: src/sort.c:369
 msgid ""
 "  -c, --check, --check=diagnose-first  check for sorted input; do not sort\n"
 "  -C, --check=quiet, --check=silent  like -c, but do not report first bad "
@@ -8605,14 +8608,14 @@ msgid ""
 "                            If F is - then read names from standard input\n"
 msgstr ""
 
-#: src/sort.c:377
+#: src/sort.c:378
 msgid ""
 "  -k, --key=POS1[,POS2]     start a key at POS1 (origin 1), end it at POS2\n"
 "                            (default end of line)\n"
 "  -m, --merge               merge already sorted files; do not sort\n"
 msgstr ""
 
-#: src/sort.c:382
+#: src/sort.c:383
 #, fuzzy
 msgid ""
 "  -o, --output=FILE         write result to FILE instead of standard output\n"
@@ -8631,8 +8634,8 @@ msgstr ""
 "comparison\n"
 "  -S, --buffer-size=РАЗМ    използва буфер в паметта с размер РАЗМ\n"
 
-#: src/sort.c:387
-#, fuzzy, c-format
+#: src/sort.c:388
+#, c-format
 msgid ""
 "  -t, --field-separator=SEP  use SEP instead of non-blank to blank "
 "transition\n"
@@ -8652,12 +8655,12 @@ msgstr ""
 "                              извежда само първия от група еквивалентни "
 "редове\n"
 
-#: src/sort.c:394
+#: src/sort.c:395
 msgid "  -z, --zero-terminated     end lines with 0 byte, not newline\n"
 msgstr ""
 "  -z, --zero-terminated     завършва редовете с байт 0 вместо с нов ред\n"
 
-#: src/sort.c:399
+#: src/sort.c:400
 msgid ""
 "\n"
 "POS is F[.C][OPTS], where F is the field number and C the character "
@@ -8681,7 +8684,7 @@ msgstr ""
 "\n"
 "РАЗМ може да бъде следван от някой от следните множители:\n"
 
-#: src/sort.c:409
+#: src/sort.c:410
 msgid ""
 "% 1% of memory, b 1, K 1024 (default), and so on for M, G, T, P, E, Z, Y.\n"
 "\n"
@@ -8701,174 +8704,179 @@ msgstr ""
 "Използвайте LC_ALL=C, за да получите традиционната наредба,\n"
 "която сравнява според кодовете на знаците.\n"
 
-#: src/sort.c:611
+#: src/sort.c:612
 #, fuzzy, c-format
 msgid "waiting for %s [-d]"
 msgstr "запис в %s"
 
-#: src/sort.c:616
+#: src/sort.c:617
 #, c-format
 msgid "%s [-d] terminated abnormally"
 msgstr ""
 
-#: src/sort.c:787 src/tac.c:458
+#: src/sort.c:788 src/tac.c:458
 #, fuzzy, c-format
 msgid "cannot create temporary file in %s"
 msgstr "не може да се направи временен файл %s"
 
-#: src/sort.c:824 src/sort.c:2548 src/sort.c:2828 src/sort.c:2831
-#: src/sort.c:3641
+#: src/sort.c:888 src/sort.c:2613 src/sort.c:2893 src/sort.c:2896
+#: src/sort.c:3716
 msgid "open failed"
 msgstr "неуспешно отваряне на файл"
 
-#: src/sort.c:844
+#: src/sort.c:908
 msgid "fflush failed"
 msgstr "неуспешно извикване на fflush"
 
-#: src/sort.c:849 src/sort.c:3696
+#: src/sort.c:913 src/sort.c:3771
 msgid "close failed"
 msgstr "неуспешно затваряне на файл"
 
-#: src/sort.c:858
+#: src/sort.c:922
 #, fuzzy, c-format
 msgid "dup2 failed"
 msgstr "неуспешно отваряне на файл"
 
-#: src/sort.c:967
+#: src/sort.c:1031
 #, c-format
 msgid "couldn't execute %s"
 msgstr ""
 
-#: src/sort.c:976
+#: src/sort.c:1040
 #, fuzzy
 msgid "couldn't create temporary file"
 msgstr "не може да се направи временен файл"
 
-#: src/sort.c:1016
+#: src/sort.c:1080
 #, fuzzy, c-format
 msgid "couldn't create process for %s -d"
 msgstr "не може да се създаде каталог %s"
 
-#: src/sort.c:1030
+#: src/sort.c:1094
 #, c-format
 msgid "couldn't execute %s -d"
 msgstr ""
 
-#: src/sort.c:1054
+#: src/sort.c:1118
 msgid "write failed"
 msgstr "неуспешен запис"
 
-#: src/sort.c:1091
+#: src/sort.c:1155
 #, c-format
 msgid "warning: cannot remove: %s"
 msgstr "внимание: не може да се изтрие: %s"
 
-#: src/sort.c:1177
+#: src/sort.c:1242
 #, fuzzy, c-format
 msgid "invalid --%s argument %s"
 msgstr "неправилен аргумент %s"
 
-#: src/sort.c:1180
+#: src/sort.c:1245
 #, fuzzy, c-format
 msgid "minimum --%s argument is %s"
 msgstr "двусмислен аргумент %s за %s"
 
-#: src/sort.c:1195
+#: src/sort.c:1260
 #, fuzzy, c-format
 msgid "--%s argument %s too large"
 msgstr "%s: броят „%.*s“ е твърде голям"
 
-#: src/sort.c:1198
+#: src/sort.c:1263
 #, c-format
 msgid "maximum --%s argument with current rlimit is %s"
 msgstr ""
 
-#: src/sort.c:1343
+#: src/sort.c:1408
 msgid "stat failed"
 msgstr "файл не може да бъде открит"
 
-#: src/sort.c:1604
+#: src/sort.c:1669
 msgid "read failed"
 msgstr "не може да се чете"
 
-#: src/sort.c:1694
+#: src/sort.c:1759
 #, c-format
 msgid "both SI and IEC prefixes present on units"
 msgstr ""
 
-#: src/sort.c:2257
+#: src/sort.c:2322
 #, c-format
 msgid "%s: %s:%s: disorder: "
 msgstr "%s: %s:%s: разбърканост: "
 
-#: src/sort.c:2261
+#: src/sort.c:2326
 msgid "standard error"
 msgstr "стандартната грешка"
 
-#: src/sort.c:2983
+#: src/sort.c:3048
 #, c-format
 msgid "%s: invalid field specification %s"
 msgstr "%s: неправилна спецификация на поле %s"
 
-#: src/sort.c:2994
+#: src/sort.c:3059
 #, c-format
 msgid "options `-%s' are incompatible"
 msgstr "опциите „-%s“ са несъвместими"
 
-#: src/sort.c:3063
+#: src/sort.c:3128
 #, c-format
 msgid "%s: invalid count at start of %s"
 msgstr "%s: неправилен брой в началото на %s"
 
-#: src/sort.c:3323
+#: src/sort.c:3388
 msgid "invalid number after `-'"
 msgstr "неправилно число след „-“"
 
-#: src/sort.c:3326 src/sort.c:3397 src/sort.c:3425
+#: src/sort.c:3391 src/sort.c:3472 src/sort.c:3500
 msgid "invalid number after `.'"
 msgstr "неправилно число след „.“"
 
-#: src/sort.c:3329 src/sort.c:3430
+#: src/sort.c:3404 src/sort.c:3505
 msgid "stray character in field spec"
 msgstr "неочакван знак в спецификация на поле"
 
-#: src/sort.c:3375
+#: src/sort.c:3450
 #, fuzzy, c-format
 msgid "multiple compress programs specified"
 msgstr "посочени са много формати за изхода"
 
-#: src/sort.c:3388
+#: src/sort.c:3463
 msgid "invalid number at field start"
 msgstr "неправилно число в началото на поле"
 
-#: src/sort.c:3392 src/sort.c:3420
+#: src/sort.c:3467 src/sort.c:3495
 msgid "field number is zero"
 msgstr "номерът на поле е нула"
 
-#: src/sort.c:3401
+#: src/sort.c:3476
 msgid "character offset is zero"
 msgstr "отместването в знаци е нула"
 
-#: src/sort.c:3416
+#: src/sort.c:3491
 msgid "invalid number after `,'"
 msgstr "неправилно число след „,“"
 
-#: src/sort.c:3555 src/wc.c:684
+#: src/sort.c:3541
+#, c-format
+msgid "empty tab"
+msgstr "празна табулация"
+
+#: src/sort.c:3630 src/wc.c:685
 #, c-format
 msgid "cannot read file names from %s"
 msgstr "не може да се четат файлови имена от %s"
 
-#: src/sort.c:3577
+#: src/sort.c:3652
 #, fuzzy, c-format
 msgid "%s:%lu: invalid zero-length file name"
 msgstr "неправилно файлово име с дължина нула"
 
-#: src/sort.c:3583
+#: src/sort.c:3658
 #, fuzzy, c-format
 msgid "no input from %s"
 msgstr "затваряне на входния файл %s"
 
-#: src/sort.c:3666
+#: src/sort.c:3741
 #, fuzzy, c-format
 msgid "extra operand %s not allowed with -%c"
 msgstr "допълнителният операнд %s не е позволен с -c"
@@ -9005,12 +9013,13 @@ msgstr ""
 "файла\n"
 
 #: src/stat.c:982
+#, fuzzy
 msgid ""
 "  -c  --format=FORMAT   use the specified FORMAT instead of the default;\n"
 "                          output a newline after each use of FORMAT\n"
 "      --printf=FORMAT   like --format, but interpret backslash escapes,\n"
 "                          and do not output a mandatory trailing newline.\n"
-"                          If you want a newline, include \\n in FORMAT.\n"
+"                          If you want a newline, include \\n in FORMAT\n"
 "  -t, --terse           print the information in terse form\n"
 msgstr ""
 "  -c  --format=ФОРМАТ   да се използва посоченият ФОРМАТ, вместо "
@@ -9160,9 +9169,9 @@ msgstr ""
 
 #: src/stdbuf.c:100
 msgid ""
-"  -i, --input=MODE   Adjust standard input stream buffering\n"
-"  -o, --output=MODE  Adjust standard output stream buffering\n"
-"  -e, --error=MODE   Adjust standard error stream buffering\n"
+"  -i, --input=MODE   adjust standard input stream buffering\n"
+"  -o, --output=MODE  adjust standard output stream buffering\n"
+"  -e, --error=MODE   adjust standard error stream buffering\n"
 msgstr ""
 
 #: src/stdbuf.c:107
@@ -9179,7 +9188,6 @@ msgid ""
 msgstr ""
 
 #: src/stdbuf.c:113
-#, fuzzy
 msgid ""
 "\n"
 "Otherwise MODE is a number which may be followed by one of the following:\n"
@@ -9188,10 +9196,6 @@ msgid ""
 "buffer\n"
 "size set to MODE bytes.\n"
 msgstr ""
-"\n"
-"РАЗМ се състои от незадължително цяло число, следвано от едно от:\n"
-"kB=1000, K=1024, MB=1000*1000, M=1024*1024 и аналогично за G, T, P, E, Z и "
-"Y.\n"
 
 #: src/stdbuf.c:119
 msgid ""
@@ -9204,9 +9208,9 @@ msgid ""
 msgstr ""
 
 #: src/stdbuf.c:247 src/stdbuf.c:279
-#, fuzzy, c-format
+#, c-format
 msgid "failed to update the environment with %s"
-msgstr "групата на %s не можа да се промени на %s\n"
+msgstr ""
 
 #: src/stdbuf.c:321
 #, c-format
@@ -9952,7 +9956,7 @@ msgstr "%s: неуспешно позициониране (seek) във файл
 msgid "record too large"
 msgstr "твърде дълъг запис"
 
-#: src/tac.c:466 src/truncate.c:395
+#: src/tac.c:466 src/truncate.c:390
 #, c-format
 msgid "cannot open %s for writing"
 msgstr "не може да се отвори %s за запис"
@@ -9968,11 +9972,11 @@ msgid "separator cannot be empty"
 msgstr "разделителят не може да бъде празен"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/tail.c:68
+#: src/tail.c:70
 msgid "Ian Lance Taylor"
 msgstr ""
 
-#: src/tail.c:260
+#: src/tail.c:262
 #, c-format
 msgid ""
 "Print the last %d lines of each FILE to standard output.\n"
@@ -9985,7 +9989,7 @@ msgstr ""
 "Без ФАЙЛ или ако ФАЙЛ е -, се чете от стандартния вход.\n"
 "\n"
 
-#: src/tail.c:269
+#: src/tail.c:271
 msgid ""
 "  -c, --bytes=K            output the last K bytes; alternatively, use -c "
 "+K\n"
@@ -9993,7 +9997,7 @@ msgid ""
 "file\n"
 msgstr ""
 
-#: src/tail.c:273
+#: src/tail.c:275
 msgid ""
 "  -f, --follow[={name|descriptor}]\n"
 "                           output appended data as the file grows;\n"
@@ -10008,7 +10012,7 @@ msgstr ""
 "еквивалентни\n"
 "  -F                       същото като --follow=name --retry\n"
 
-#: src/tail.c:280
+#: src/tail.c:282
 #, fuzzy, c-format
 msgid ""
 "  -n, --lines=K            output the last K lines, instead of the last %d;\n"
@@ -10030,7 +10034,7 @@ msgstr ""
 "                           преименуван (което е обичайно при завъртане на\n"
 "                           журналните файлове)\n"
 
-#: src/tail.c:292
+#: src/tail.c:294
 #, fuzzy
 msgid ""
 "      --pid=PID            with -f, terminate after process ID, PID dies\n"
@@ -10047,7 +10051,7 @@ msgstr ""
 "                           (стандартно 1.0)\n"
 "  -v, --verbose            винаги извежда заглавия с файловите имена\n"
 
-#: src/tail.c:299
+#: src/tail.c:301
 #, fuzzy
 msgid ""
 "  -s, --sleep-interval=N   with -f, sleep for approximately N seconds\n"
@@ -10062,7 +10066,7 @@ msgstr ""
 "                           (стандартно 1.0)\n"
 "  -v, --verbose            винаги извежда заглавия с файловите имена\n"
 
-#: src/tail.c:306
+#: src/tail.c:308
 #, fuzzy
 msgid ""
 "\n"
@@ -10080,7 +10084,7 @@ msgstr ""
 "суфикс-множител: b за 512, k за 1024, m за 1024*1024.\n"
 "\n"
 
-#: src/tail.c:315
+#: src/tail.c:317
 #, fuzzy
 msgid ""
 "With --follow (-f), tail defaults to following the file descriptor, which\n"
@@ -10098,155 +10102,155 @@ msgstr ""
 "многократно файла, за да провери дали той не е бил отстранен или създаден\n"
 "нов файл със същото име от друга програма.\n"
 
-#: src/tail.c:374
+#: src/tail.c:376
 #, c-format
 msgid "closing %s (fd=%d)"
 msgstr "Затваряне на %s (файлов дескриптор=%d)"
 
-#: src/tail.c:449
+#: src/tail.c:451
 #, c-format
 msgid "%s: cannot seek to relative offset %s"
 msgstr "%s: не може да се отиде на относително отместване %s във файла"
 
-#: src/tail.c:453
+#: src/tail.c:455
 #, c-format
 msgid "%s: cannot seek to end-relative offset %s"
 msgstr "%s: не може да се отиде на отместване %s относно края на файла"
 
-#: src/tail.c:886
+#: src/tail.c:888
 #, c-format
 msgid "cannot determine location of %s. reverting to polling"
 msgstr ""
 
-#: src/tail.c:955
+#: src/tail.c:957
 #, c-format
 msgid "%s has become inaccessible"
 msgstr "%s е станал недостъпен"
 
-#: src/tail.c:972
+#: src/tail.c:974
 #, c-format
 msgid "%s has been replaced with an untailable file; giving up on this name"
 msgstr ""
 "%s е бил заменен с файл, който е недостъпен за tail; tail повече няма да го "
 "следи"
 
-#: src/tail.c:981
+#: src/tail.c:983
 #, fuzzy, c-format
 msgid "%s has been replaced with a remote file. giving up on this name"
 msgstr ""
 "%s е бил заменен с файл, който е недостъпен за tail; tail повече няма да го "
 "следи"
 
-#: src/tail.c:1002
+#: src/tail.c:1004
 #, c-format
 msgid "%s has become accessible"
 msgstr "%s е станал достъпен"
 
-#: src/tail.c:1010
+#: src/tail.c:1012
 #, c-format
 msgid "%s has appeared;  following end of new file"
 msgstr "%s се е появил;  следва се краят на новия файл"
 
-#: src/tail.c:1021
+#: src/tail.c:1023
 #, c-format
 msgid "%s has been replaced;  following end of new file"
 msgstr "%s е бил заменен; следва се краят на новия файл"
 
-#: src/tail.c:1122
+#: src/tail.c:1124
 #, c-format
 msgid "%s: cannot change nonblocking mode"
 msgstr "%s: не може да се смени режимът non-blocking"
 
-#: src/tail.c:1163 src/tail.c:1278
+#: src/tail.c:1165 src/tail.c:1280
 #, c-format
 msgid "%s: file truncated"
 msgstr "%s: файлът е съкратен"
 
-#: src/tail.c:1187
+#: src/tail.c:1189
 #, c-format
 msgid "no files remaining"
 msgstr "няма повече файлове"
 
-#: src/tail.c:1356
+#: src/tail.c:1358
 #, fuzzy, c-format
 msgid "cannot watch parent directory of %s"
 msgstr "не може да се намери текущият каталог (сега %s)"
 
-#: src/tail.c:1367 src/tail.c:1475
+#: src/tail.c:1369 src/tail.c:1477
 #, fuzzy, c-format
 msgid "cannot watch %s"
 msgstr "не може да се въздейства на %s"
 
-#: src/tail.c:1429
-#, fuzzy, c-format
+#: src/tail.c:1431
+#, c-format
 msgid "error monitoring inotify event"
-msgstr "грешка при четене на %s"
+msgstr ""
 
-#: src/tail.c:1449
+#: src/tail.c:1451
 #, fuzzy, c-format
 msgid "error reading inotify event"
 msgstr "грешка при четене на %s"
 
-#: src/tail.c:1741
+#: src/tail.c:1743
 #, c-format
 msgid "%s: cannot follow end of this type of file; giving up on this name"
 msgstr ""
 "%s: не може да се следва края на този тип файлове; tail няма да следи този "
 "файл"
 
-#: src/tail.c:1858
+#: src/tail.c:1860
 #, c-format
 msgid "number in %s is too large"
 msgstr "номерът в %s е твърде голям"
 
-#: src/tail.c:1930
+#: src/tail.c:1932
 #, c-format
 msgid "%s: invalid maximum number of unchanged stats between opens"
 msgstr "%s: неправилен максимален брой достъпи без промяна между отварянията"
 
-#: src/tail.c:1946
+#: src/tail.c:1948
 #, c-format
 msgid "%s: invalid PID"
 msgstr "%s: неправилен номер на процес"
 
-#: src/tail.c:1965
+#: src/tail.c:1967
 #, c-format
 msgid "%s: invalid number of seconds"
 msgstr "%s: неправилен брой секунди"
 
-#: src/tail.c:1981
+#: src/tail.c:1983
 #, c-format
 msgid "option used in invalid context -- %c"
 msgstr "опция, използване в грешен контекст -- %c"
 
-#: src/tail.c:1989
+#: src/tail.c:1991
 #, c-format
 msgid "warning: --retry is useful mainly when following by name"
 msgstr "внимание: опцията --retry обикновено е полезна само с --follow=name"
 
-#: src/tail.c:1993
+#: src/tail.c:1995
 #, c-format
 msgid "warning: PID ignored; --pid=PID is useful only when following"
 msgstr ""
 "внимание: пренебрегва се номера на процес; --pid=PID е полезно само при "
 "следване"
 
-#: src/tail.c:1996
+#: src/tail.c:1998
 #, c-format
 msgid "warning: --pid=PID is not supported on this system"
 msgstr "внимание: --pid=PID не се поддържа на тази система"
 
-#: src/tail.c:2097
+#: src/tail.c:2099
 #, c-format
 msgid "cannot follow %s by name"
 msgstr "не може да се следва %s според името"
 
-#: src/tail.c:2103
+#: src/tail.c:2105
 #, c-format
 msgid "warning: following standard input indefinitely is ineffective"
 msgstr "внимание: безкрайното следване на стандартния вход е безполезно"
 
-#: src/tail.c:2149
+#: src/tail.c:2151
 #, c-format
 msgid "inotify cannot be used, reverting to polling"
 msgstr ""
@@ -10514,32 +10518,44 @@ msgstr "липсва „]“"
 msgid "extra argument %s"
 msgstr "излишен аргумент %s"
 
-#: src/timeout.c:127
+#: src/timeout.c:137
 #, fuzzy, c-format
 msgid ""
-"Usage: %s [OPTION] NUMBER[SUFFIX] COMMAND [ARG]...\n"
+"Usage: %s [OPTION] DURATION COMMAND [ARG]...\n"
 "  or:  %s [OPTION]\n"
 msgstr ""
-"Използване: %s КОМАНДА [АРГУМЕНТ]...\n"
+"Използване: %s НОВКОРЕНОВ [КОМАНДА...]\n"
 "    или:    %s ОПЦИЯ\n"
 
-#: src/timeout.c:131
-msgid ""
-"Start COMMAND, and kill it if still running after NUMBER seconds.\n"
-"SUFFIX may be `s' for seconds (the default), `m' for minutes,\n"
-"`h' for hours or `d' for days.\n"
-"\n"
-msgstr ""
-
 #: src/timeout.c:141
+#, fuzzy
 msgid ""
+"Start COMMAND, and kill it if still running after DURATION.\n"
+"\n"
+"Mandatory arguments to long options are mandatory for short options too.\n"
+msgstr ""
+"Аргументите, задължителни за дългите опции, са задължителни и за късите.\n"
+
+#: src/timeout.c:146
+msgid ""
+"  -k, --kill-after=DURATION\n"
+"                   also send a KILL signal if COMMAND is still running\n"
+"                   this long after the initial signal was sent.\n"
 "  -s, --signal=SIGNAL\n"
 "                   specify the signal to be sent on timeout.\n"
 "                   SIGNAL may be a name like `HUP' or a number.\n"
 "                   See `kill -l` for a list of signals\n"
 msgstr ""
 
-#: src/timeout.c:149
+#: src/timeout.c:158
+msgid ""
+"\n"
+"DURATION is an integer with an optional suffix:\n"
+"`s' for seconds(the default), `m' for minutes, `h' for hours or `d' for "
+"days.\n"
+msgstr ""
+
+#: src/timeout.c:163
 msgid ""
 "\n"
 "If the command times out, then exit with status 124.  Otherwise, exit\n"
@@ -10549,12 +10565,12 @@ msgid ""
 "use the KILL (9) signal, since this signal cannot be caught.\n"
 msgstr ""
 
-#: src/timeout.c:317
+#: src/timeout.c:346
 #, fuzzy, c-format
 msgid "error waiting for command"
 msgstr "грешка при запис в %s"
 
-#: src/timeout.c:329
+#: src/timeout.c:358
 #, c-format
 msgid "unknown status from command (0x%X)"
 msgstr ""
@@ -10914,12 +10930,12 @@ msgstr "Завършва с код-състояние, посочващ успе
 msgid "Exit with a status code indicating failure."
 msgstr "Завършва с код-състояние, посочващ неуспех."
 
-#: src/truncate.c:102
+#: src/truncate.c:97
 #, fuzzy, c-format
 msgid "Usage: %s OPTION... FILE...\n"
 msgstr "Използване: %s [ОПЦИЯ]... ФАЙЛ...\n"
 
-#: src/truncate.c:103
+#: src/truncate.c:98
 msgid ""
 "Shrink or extend the size of each FILE to the specified size\n"
 "\n"
@@ -10931,22 +10947,22 @@ msgid ""
 "\n"
 msgstr ""
 
-#: src/truncate.c:116
+#: src/truncate.c:111
 msgid "  -c, --no-create        do not create any files\n"
 msgstr ""
 
-#: src/truncate.c:119
+#: src/truncate.c:114
 msgid ""
-"  -o, --io-blocks        Treat SIZE as number of IO blocks instead of bytes\n"
+"  -o, --io-blocks        treat SIZE as number of IO blocks instead of bytes\n"
 msgstr ""
 
-#: src/truncate.c:122
+#: src/truncate.c:117
 msgid ""
 "  -r, --reference=FILE   use this FILE's size\n"
 "  -s, --size=SIZE        use this SIZE\n"
 msgstr ""
 
-#: src/truncate.c:128
+#: src/truncate.c:123
 msgid ""
 "\n"
 "SIZE may also be prefixed by one of the following modifying characters:\n"
@@ -10954,49 +10970,49 @@ msgid ""
 "`/' round down to multiple of, `%' round up to multiple of.\n"
 msgstr ""
 
-#: src/truncate.c:132
+#: src/truncate.c:127
 #, fuzzy
 msgid ""
 "\n"
 "Note that the -r and -s options are mutually exclusive.\n"
 msgstr "опциите --string и --check не може да се използват едновременно"
 
-#: src/truncate.c:159
+#: src/truncate.c:154
 #, c-format
 msgid "overflow in %<PRIdMAX> * %<PRIdMAX> byte blocks for file %s"
 msgstr ""
 
-#: src/truncate.c:181
+#: src/truncate.c:176
 #, fuzzy, c-format
 msgid "%s has unusable, apparently negative size"
 msgstr "%s: файлът има отрицателен размер"
 
-#: src/truncate.c:202
+#: src/truncate.c:197
 #, fuzzy, c-format
 msgid "overflow rounding up size of file %s"
 msgstr "препълване на отместването при четене на файла %s"
 
-#: src/truncate.c:212
+#: src/truncate.c:207
 #, fuzzy, c-format
 msgid "overflow extending size of file %s"
 msgstr "препълване на отместването при четене на файла %s"
 
-#: src/truncate.c:241
+#: src/truncate.c:236
 #, fuzzy, c-format
 msgid "truncating %s at %<PRIdMAX> bytes"
 msgstr "съкращаване до %<PRIuMAX> байта в изходния файл %s"
 
-#: src/truncate.c:315
+#: src/truncate.c:310
 #, fuzzy, c-format
 msgid "multiple relative modifiers specified"
 msgstr "посочени са много целеви каталози"
 
-#: src/truncate.c:345
+#: src/truncate.c:340
 #, fuzzy, c-format
 msgid "you must specify one of %s or %s"
 msgstr "режимът трябва да определя само битовете за достъп до файла"
 
-#: src/truncate.c:352
+#: src/truncate.c:347
 #, c-format
 msgid "%s was specified but %s was not"
 msgstr ""
@@ -11151,7 +11167,7 @@ msgstr ""
 msgid ""
 "  -D, --all-repeated[=delimit-method]  print all duplicate lines\n"
 "                        delimit-method={none(default),prepend,separate}\n"
-"                        Delimiting is done with blank lines.\n"
+"                        Delimiting is done with blank lines\n"
 "  -f, --skip-fields=N   avoid comparing the first N fields\n"
 "  -i, --ignore-case     ignore differences in case when comparing\n"
 "  -s, --skip-chars=N    avoid comparing the first N characters\n"
@@ -11242,9 +11258,8 @@ msgstr "не може да се получи времето на начално 
 
 #. TRANSLATORS: This prints the current clock time.
 #: src/uptime.c:136
-#, fuzzy
 msgid " %H:%M%P  "
-msgstr " %2d:%02d%s  включен "
+msgstr ""
 
 #: src/uptime.c:138
 #, fuzzy, c-format
@@ -11325,10 +11340,12 @@ msgstr ""
 "\n"
 
 #: src/wc.c:117
+#, fuzzy
 msgid ""
 "Print newline, word, and byte counts for each FILE, and a total line if\n"
 "more than one FILE is specified.  With no FILE, or when FILE is -,\n"
-"read standard input.\n"
+"read standard input.  A word is a non-zero-length sequence of characters\n"
+"delimited by white space.\n"
 "  -c, --bytes            print the byte counts\n"
 "  -m, --chars            print the character counts\n"
 "  -l, --lines            print the newline counts\n"
@@ -11341,7 +11358,7 @@ msgstr ""
 "  -m, --chars            извежда броя букви\n"
 "  -l, --lines            извежда броя редове\n"
 
-#: src/wc.c:125
+#: src/wc.c:126
 #, fuzzy
 msgid ""
 "      --files0-from=F    read input from the files specified by\n"
@@ -11356,45 +11373,45 @@ msgstr ""
 "  -L, --max-line-length  извежда дължината на най-дългия ред\n"
 "  -w, --words            извежда броя думи\n"
 
-#: src/who.c:210
+#: src/who.c:214
 msgid " old "
 msgstr " стар "
 
-#: src/who.c:430
+#: src/who.c:450
 #, fuzzy
 msgid "system boot"
 msgstr "грешка в системата"
 
-#: src/who.c:437 src/who.c:439
+#: src/who.c:457 src/who.c:459
 msgid "id="
 msgstr "id="
 
-#: src/who.c:452 src/who.c:457
+#: src/who.c:472 src/who.c:477
 msgid "term="
 msgstr "term="
 
-#: src/who.c:454 src/who.c:458
+#: src/who.c:474 src/who.c:478
 msgid "exit="
 msgstr "exit="
 
-#: src/who.c:475
+#: src/who.c:495
 #, fuzzy
 msgid "LOGIN"
 msgstr "ЛИНИЯ"
 
-#: src/who.c:495
+#: src/who.c:515
 msgid "clock change"
 msgstr "смяна на часа"
 
-#: src/who.c:507 src/who.c:508
+#: src/who.c:527 src/who.c:528
 msgid "run-level"
 msgstr "стартниво"
 
-#: src/who.c:511 src/who.c:512
+#: src/who.c:531 src/who.c:532
 msgid "last="
 msgstr "last="
 
-#: src/who.c:543
+#: src/who.c:563
 #, c-format
 msgid ""
 "\n"
@@ -11403,44 +11420,44 @@ msgstr ""
 "\n"
 "брой потребители - %lu\n"
 
-#: src/who.c:549
+#: src/who.c:569
 msgid "NAME"
 msgstr "ИМЕ"
 
-#: src/who.c:549
+#: src/who.c:569
 msgid "LINE"
 msgstr "ЛИНИЯ"
 
-#: src/who.c:549
+#: src/who.c:569
 msgid "TIME"
 msgstr "ВРЕМЕ"
 
-#: src/who.c:549
+#: src/who.c:569
 msgid "IDLE"
 msgstr "БЕЗДЕЕН"
 
-#: src/who.c:550
+#: src/who.c:570
 msgid "PID"
 msgstr "PID"
 
-#: src/who.c:550
+#: src/who.c:570
 msgid "COMMENT"
 msgstr "КОМЕНТАР"
 
-#: src/who.c:550
+#: src/who.c:570
 msgid "EXIT"
 msgstr "ИЗХОД"
 
-#: src/who.c:631
+#: src/who.c:651
 #, c-format
 msgid "Usage: %s [OPTION]... [ FILE | ARG1 ARG2 ]\n"
 msgstr "Използване: %s [ОПЦИЯ]... [ ФАЙЛ | АРГ1 АРГ2 ]\n"
 
-#: src/who.c:632
+#: src/who.c:652
 msgid "Print information about users who are currently logged in.\n"
 msgstr ""
 
-#: src/who.c:635
+#: src/who.c:655
 msgid ""
 "\n"
 "  -a, --all         same as -b -d --login -p -r -t -T -u\n"
@@ -11454,11 +11471,11 @@ msgstr ""
 "  -d, --dead        извежда броя умрели процеси\n"
 "  -H, --heading     извежда антетка\n"
 
-#: src/who.c:642
+#: src/who.c:662
 msgid "  -l, --login       print system login processes\n"
 msgstr "  -l, --login       извежда процесите за влизане в системата\n"
 
-#: src/who.c:645
+#: src/who.c:665
 msgid ""
 "      --lookup      attempt to canonicalize hostnames via DNS\n"
 "  -m                only hostname and user associated with stdin\n"
@@ -11470,7 +11487,7 @@ msgstr ""
 "вход\n"
 "  -p, --process     извежда активните процеси, породени от init\n"
 
-#: src/who.c:650
+#: src/who.c:670
 msgid ""
 "  -q, --count       all login names and number of users logged on\n"
 "  -r, --runlevel    print current runlevel\n"
@@ -11483,7 +11500,7 @@ msgstr ""
 "  -s, --short       извежда само името, линията и времето (по подразбиране)\n"
 "  -t, --time        извежда последната промяна на системния часовник\n"
 
-#: src/who.c:656
+#: src/who.c:676
 msgid ""
 "  -T, -w, --mesg    add user's message status as +, - or ?\n"
 "  -u, --users       list users logged in\n"
@@ -11496,7 +11513,7 @@ msgstr ""
 "      --message     същото като -T\n"
 "      --writable    същото като -T\n"
 
-#: src/who.c:664
+#: src/who.c:684
 #, c-format
 msgid ""
 "\n"
@@ -11539,6 +11556,32 @@ msgstr ""
 "Непрекъснато извежда ред, състоящ се от посочените НИЗ(ове) или „y“.\n"
 "\n"
 
+#, fuzzy
+#~ msgid ""
+#~ "Usage: %s [OPTION] NUMBER[SUFFIX] COMMAND [ARG]...\n"
+#~ "  or:  %s [OPTION]\n"
+#~ msgstr ""
+#~ "Използване: %s КОМАНДА [АРГУМЕНТ]...\n"
+#~ "    или:    %s ОПЦИЯ\n"
+
+#~ msgid ""
+#~ "  -w, --wrap=COLS       Wrap encoded lines after COLS character (default "
+#~ "76).\n"
+#~ "                        Use 0 to disable line wrapping.\n"
+#~ "\n"
+#~ "  -d, --decode          Decode data.\n"
+#~ "  -i, --ignore-garbage  When decoding, ignore non-alphabet characters.\n"
+#~ "\n"
+#~ msgstr ""
+#~ "  -w, --wrap=ШИРИНА     Пренася кодираните редове след ШИРИНА знаци "
+#~ "(подразбира\n"
+#~ "                        се 76).  Използвайте 0, за да забраните "
+#~ "пренасянето.\n"
+#~ "\n"
+#~ "  -d, --decode          Декодира данните.\n"
+#~ "  -i, --ignore-garbage  При декодиране пренебрегва небуквените знаци.\n"
+#~ "\n"
+
 #~ msgid ""
 #~ "With --follow (-f), tail defaults to following the file descriptor, "
 #~ "which\n"
@@ -11552,16 +11595,6 @@ msgstr ""
 #~ msgid "%s: illegal option -- %c\n"
 #~ msgstr "%s: неправилна опция -- %c\n"
 
-#~ msgid ""
-#~ "      --help            Display this help and exit.\n"
-#~ "      --version         Output version information and exit.\n"
-#~ msgstr ""
-#~ "      --help            Извежда тази справка и завършва.\n"
-#~ "      --version         Извежда информация за версията и завършва.\n"
-
-#~ msgid "invalid argument: %s"
-#~ msgstr "неправилен аргумент: %s"
-
 #, fuzzy
 #~ msgid "Report %s bugs to <%s>.\n"
 #~ msgstr ""
@@ -11569,9 +11602,15 @@ msgstr ""
 #~ "Съобщавайте за програмни грешки на <%s>.\n"
 #~ "За грешки в българския превод на <dict@fsa-bg.org>\n"
 
-#, fuzzy
-#~ msgid "  -d, --directory  create a directory, not a file\n"
-#~ msgstr "  directory отказва да работи, освен при каталог\n"
+#~ msgid "invalid argument: %s"
+#~ msgstr "неправилен аргумент: %s"
+
+#~ msgid ""
+#~ "      --help            Display this help and exit.\n"
+#~ "      --version         Output version information and exit.\n"
+#~ msgstr ""
+#~ "      --help            Извежда тази справка и завършва.\n"
+#~ "      --version         Извежда информация за версията и завършва.\n"
 
 #~ msgid "the --megabytes option is deprecated; use -m instead"
 #~ msgstr "опцията --megabytes е остаряла; ползвайте -m вместо нея"
@@ -11594,6 +11633,39 @@ msgstr ""
 #~ "  \\a     звуков сигнал (BEL)\n"
 #~ "  \\b     връщане назад (backspace)\n"
 
+#~ msgid "%s: warning: making a hard link to a symbolic link is not portable"
+#~ msgstr ""
+#~ "%s: внимание: създаването на твърда връзка към символна връзка не е "
+#~ "преносимо"
+
+#~ msgid ""
+#~ "\n"
+#~ "By default, color is not used to distinguish types of files.  That is\n"
+#~ "equivalent to using --color=none.  Using the --color option without the\n"
+#~ "optional WHEN argument is equivalent to using --color=always.  With\n"
+#~ "--color=auto, color codes are output only if standard output is "
+#~ "connected\n"
+#~ "to a terminal (tty).  The environment variable LS_COLORS can influence "
+#~ "the\n"
+#~ "colors, and can be set easily by the dircolors command.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "По подразбиране не се използват цветове за отличаване на типовете.  Това "
+#~ "е все\n"
+#~ "едно да се използва --color=none.  Използването на --color без "
+#~ "незадължителния\n"
+#~ "аргумент КОГА е еквивалентно на --color=always.  С --color=auto цветове "
+#~ "се\n"
+#~ "използват само, ако стандартният изход е свързан с терминал (tty).  "
+#~ "Променливата\n"
+#~ "от обкръжението LS_COLORS може да влияе на цветовете, а стойност може "
+#~ "лесно да и\n"
+#~ "бъде зададена посредством командата dircolors.\n"
+
+#, fuzzy
+#~ msgid "  -d, --directory  create a directory, not a file\n"
+#~ msgstr "  directory отказва да работи, освен при каталог\n"
+
 #~ msgid ""
 #~ "  \\a      alert (BEL)\n"
 #~ "  \\b      backspace\n"
@@ -11615,9 +11687,6 @@ msgstr ""
 #~ "  \\r      връщане на курсора\n"
 #~ "  \\t      хоризонтална табулация\n"
 #~ "  \\v      вертикална табулация\n"
-
-#~ msgid "creating %s"
-#~ msgstr "създава се %s"
 
 #~ msgid "FATAL: failed to close directory %s"
 #~ msgstr "КРИТИЧНА ГРЕШКА: каталогът %s не може да се затвори"
@@ -11685,35 +11754,63 @@ msgstr ""
 #~ "kB=1000, K=1024, MB=1000*1000, M=1024*1024 и аналогично за G, T, P, E, Z "
 #~ "и Y.\n"
 
-#~ msgid "%s: warning: making a hard link to a symbolic link is not portable"
-#~ msgstr ""
-#~ "%s: внимание: създаването на твърда връзка към символна връзка не е "
-#~ "преносимо"
-
-#, fuzzy
-#~ msgid "cannot find group %s"
-#~ msgstr "не може да се зададат групите"
+#~ msgid "block size"
+#~ msgstr "блоковият размер"
 
 #~ msgid ""
-#~ "Discard all but one of successive identical lines from INPUT (or\n"
-#~ "standard input), writing to OUTPUT (or standard output).\n"
+#~ "\n"
+#~ "This is free software.  You may redistribute copies of it under the terms "
+#~ "of\n"
+#~ "the GNU General Public License <http://www.gnu.org/licenses/gpl.html>.\n"
+#~ "There is NO WARRANTY, to the extent permitted by law.\n"
 #~ "\n"
 #~ msgstr ""
-#~ "Отстранява всички освен един от съседни повтарящи се редове от ВХОД\n"
-#~ "(или стандартния вход); извежда в ИЗХОД (или стандартния изход).\n"
 #~ "\n"
+#~ "Това е свободен софтуер.  Можете да разпространявате негови копия "
+#~ "съгласно\n"
+#~ "условията на Основната общодостъпна лицензия на ГНУ\n"
+#~ "      <http://www.gnu.org/licenses/gpl.html>.\n"
+#~ "Не се дават НИКАКВИ ГАРАНЦИИ до степента, позволявана от закона.\n"
 
-#, fuzzy
-#~ msgid "couldn't open temporary file"
-#~ msgstr "не може да се направи временен файл"
+#~ msgid "invalid %s `%s'"
+#~ msgstr "неправилен %s „%s“"
 
-#, fuzzy
-#~ msgid ""
-#~ "  -P, --no-dereference         never follow symbolic links in SOURCE\n"
+#~ msgid "invalid character following %s in `%s'"
+#~ msgstr "неправилен писмен знак, следващ  %s в „%s“"
+
+#~ msgid "%s `%s' too large"
+#~ msgstr "%s „%s“ е твърде дълго"
+
+#~ msgid "Usage: %s [OPTION] [FILE]...\n"
+#~ msgstr "Използване: %s [ОПЦИЯ] [ФАЙЛ]...\n"
+
+#~ msgid "  -P, --no-dereference         never follow symbolic links\n"
 #~ msgstr "  -P, --no-dereference         не проследява символните връзки\n"
 
-#~ msgid "Usage: %s [OPTION]... [STRING]...\n"
-#~ msgstr "Използване: %s [ОПЦИЯ]... [НИЗ]...\n"
+#~ msgid ""
+#~ "The backup suffix is `~', unless set with --suffix or "
+#~ "SIMPLE_BACKUP_SUFFIX.\n"
+#~ "The version control method may be selected via the --backup option or "
+#~ "through\n"
+#~ "the VERSION_CONTROL environment variable.  Here are the values:\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Суфиксът за резервни копия е „~“, освен при промяна с --suffix или с "
+#~ "променлива\n"
+#~ "от обкръжението SIMPLE_BACKUP_SUFFIX. Методът за управление на версиите "
+#~ "може да\n"
+#~ "се посочва с --backup или с променливата VERSION_CONTROL. Ето "
+#~ "стойностите:\n"
+#~ "\n"
+
+#~ msgid "the --reply option is deprecated; use -i or -f instead"
+#~ msgstr "опцията --reply е остаряла; ползвайте -i или -f вместо нея"
+
+#~ msgid "unrecognized operand %s=%s"
+#~ msgstr "непознат операнд %s=%s"
+
+#~ msgid "the --kilobytes option is deprecated; use -k instead"
+#~ msgstr "опцията --kilobytes е остаряла; ползвайте -k вместо нея"
 
 #~ msgid ""
 #~ "WARNING: use --si, not -H; the meaning of the -H option will soon\n"
@@ -11723,35 +11820,41 @@ msgstr ""
 #~ "бъде\n"
 #~ "променено да бъде същото като това на опцията --dereference-args (-D)"
 
-#~ msgid "the --reply option is deprecated; use -i or -f instead"
-#~ msgstr "опцията --reply е остаряла; ползвайте -i или -f вместо нея"
+#~ msgid "Usage: %s [OPTION]... [STRING]...\n"
+#~ msgstr "Използване: %s [ОПЦИЯ]... [НИЗ]...\n"
 
-#, fuzzy
-#~ msgid "no %% directive in format string %s"
-#~ msgstr "неправилен низ за формат: %s"
+#~ msgid ""
+#~ "Print the prime factors of each NUMBER.\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Отпечатва простите множители на всяко ЧИСЛО.\n"
+#~ "\n"
 
-#, fuzzy
-#~ msgid "too many %% directives in format string %s"
-#~ msgstr "твърде много означители за преобразуване %% в суфикса"
+#~ msgid ""
+#~ "\n"
+#~ "N may have a multiplier suffix: b 512, k 1024, m 1024*1024.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "N може да има суфикс-множител: b за 512, k за 1024, m за 1024*1024.\n"
 
-#~ msgid "invalid format string: %s"
-#~ msgstr "неправилен низ за формат: %s"
+#~ msgid "cannot print only user and only group"
+#~ msgstr "не може да се извежда хем само потребителят, хем само групата"
 
-#, fuzzy
-#~ msgid "string too long"
-#~ msgstr "Твърде дълго потребителско име"
+#~ msgid "cannot get supplemental group list"
+#~ msgstr "не може да се получи списъка от допълнителни групи"
 
-#, fuzzy
-#~ msgid "arbitrary-precision support is not available"
-#~ msgstr "функцията iconv е недостъпна"
+#~ msgid "strip failed"
+#~ msgstr "strip не успя"
 
-#, fuzzy
-#~ msgid "string offset is too large"
-#~ msgstr "байтовото отместване %s е твърде дълго"
+#~ msgid "value %s is so large that it is not representable"
+#~ msgstr "стойността %s е толкова голяма, че не може да се изведе"
 
-#, fuzzy
-#~ msgid "substring length too large"
-#~ msgstr "%s: файлът е твърде дълъг"
+#~ msgid ""
+#~ "      --group-directories-first\n"
+#~ "                             group directories before files\n"
+#~ msgstr ""
+#~ "      --group-directories-first\n"
+#~ "                             извежда каталозите преди другите файлове\n"
 
 #~ msgid ""
 #~ "\n"
@@ -11761,49 +11864,55 @@ msgstr ""
 #~ "Кодът на завършване е 0 при успех, 1 при малък проблем и 2 при по-"
 #~ "сериозен.\n"
 
-#, fuzzy
-#~ msgid "%d: fmt=\"%s\" in_width=%d out_width=%d pad=%d\n"
+#~ msgid "Usage: %s [OPTION] DIRECTORY...\n"
+#~ msgstr "Използване: %s [ОПЦИЯ] КАТАЛОГ...\n"
+
+#~ msgid "Usage: %s [OPTION] NAME...\n"
+#~ msgstr "Използване: %s [ОПЦИЯ] ИМЕ...\n"
+
+#~ msgid "skip argument"
+#~ msgstr "пропускане на аргумент"
+
+#~ msgid "limit argument"
+#~ msgstr "ограничаване на аргумента"
+
+#~ msgid "minimum string length"
+#~ msgstr "минимална дължина на низа"
+
+#~ msgid "width specification"
+#~ msgstr "спецификация за ширина"
+
+#~ msgid "%d: fmt=\"%s\" width=%d\n"
 #~ msgstr "%d: формат=„%s“ ширина=%d\n"
+
+#~ msgid "page range"
+#~ msgstr "диапазон страници"
 
 #~ msgid "  -SSTRING, --sep-string[=STRING]\n"
 #~ msgstr "  -SНИЗ, --sep-string[=НИЗ]\n"
 
-#, fuzzy
+#~ msgid "invalid format string: %s"
+#~ msgstr "неправилен низ за формат: %s"
+
+#~ msgid "Usage: %s [OPTIONS] FILE [...]\n"
+#~ msgstr "Използване: %s [ОПЦИИ] ФАЙЛ [...]\n"
+
+#~ msgid "sort size"
+#~ msgstr "сортировка размер"
+
 #~ msgid ""
-#~ "  -g, --general-numeric-sort  compare according to general numerical "
-#~ "value\n"
-#~ "  -i, --ignore-nonprinting    consider only printable characters\n"
-#~ "  -M, --month-sort            compare (unknown) < `JAN' < ... < `DEC'\n"
-#~ "  -n, --numeric-sort          compare according to string numerical "
-#~ "value\n"
-#~ "  -R, --random-sort           sort by random hash of keys\n"
-#~ "  -V, --version-sort          sort by numeric version (see strverscmp"
-#~ "(3C))\n"
-#~ "      --random-source=FILE    get random bytes from FILE (default /dev/"
-#~ "urandom)\n"
-#~ "      --sort=WORD             sort according to WORD:\n"
-#~ "                                general-numeric -g, month -M, numeric -"
-#~ "n,\n"
-#~ "                                random -R, version -V\n"
-#~ "  -r, --reverse               reverse the result of comparisons\n"
 #~ "\n"
+#~ "SIZE may have a multiplier suffix: b for 512, k for 1K, m for 1 Meg.\n"
 #~ msgstr ""
-#~ "  -g, --general-numeric-sort  сравнява според общата числова стойност\n"
-#~ "  -i, --ignore-nonprinting    отчита само печатните знаци\n"
-#~ "  -M, --month-sort            сравнява (неизвестно) < `ЯНУ' < ... < "
-#~ "`ДЕК'\n"
-#~ "  -n, --numeric-sort          сравнява според числовата стойност на "
-#~ "низовете\n"
-#~ "  -R, --random-sort           сортира според случаен хеш\n"
-#~ "      --random-source=FILE   чете случайни байтове от ФАЙЛ (вместо /dev/"
-#~ "urandom)\n"
-#~ "  -r, --reverse               сортира в обратен ред\n"
 #~ "\n"
+#~ "РАЗМ може да има суфикс-множител: b за 512, k за 1 Kб, m за 1 Мб.\n"
+
+#~ msgid "Usage: %s [OPTION] FILE...\n"
+#~ msgstr "Използване: %s [ОПЦИЯ] ФАЙЛ...\n"
 
 #~ msgid "new_mode: mode\n"
 #~ msgstr "new_mode: mode\n"
 
-#, fuzzy
 #~ msgid ""
 #~ "      --retry              keep trying to open a file even if it is\n"
 #~ "                           inaccessible when tail starts or if it "
@@ -11811,10 +11920,7 @@ msgstr ""
 #~ "                           inaccessible later; useful when following by "
 #~ "name,\n"
 #~ "                           i.e., with --follow=name\n"
-#~ "  -c, --bytes=N            output the last N bytes; alternatively, use +N "
-#~ "to\n"
-#~ "                           output bytes starting with the Nth of each "
-#~ "file\n"
+#~ "  -c, --bytes=N            output the last N bytes\n"
 #~ msgstr ""
 #~ "      --retry              продължава опитите да отвори файла, дори ако "
 #~ "той\n"
@@ -11824,6 +11930,14 @@ msgstr ""
 #~ "с\n"
 #~ "                           --follow=name\n"
 #~ "  -c, --bytes=N            извежда последните N байта\n"
+
+#~ msgid ""
+#~ "Update the access and modification times of each FILE to the current "
+#~ "time.\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Прави времето на достъп и последна промяна на всеки ФАЙЛовете текущото "
+#~ "време.\n"
 
 #~ msgid ""
 #~ "\n"
@@ -11861,146 +11975,28 @@ msgstr ""
 #~ "повторните\n"
 #~ "знаци от МНОЖ2, като това става след преводa или изтриването.\n"
 
-#~ msgid "%ld day"
-#~ msgid_plural "%ld days"
-#~ msgstr[0] "%ld ден"
-#~ msgstr[1] "%ld дена"
-
-#~ msgid "block size"
-#~ msgstr "блоковият размер"
-
 #~ msgid ""
-#~ "\n"
-#~ "This is free software.  You may redistribute copies of it under the terms "
-#~ "of\n"
-#~ "the GNU General Public License <http://www.gnu.org/licenses/gpl.html>.\n"
-#~ "There is NO WARRANTY, to the extent permitted by law.\n"
+#~ "Discard all but one of successive identical lines from INPUT (or\n"
+#~ "standard input), writing to OUTPUT (or standard output).\n"
 #~ "\n"
 #~ msgstr ""
-#~ "\n"
-#~ "Това е свободен софтуер.  Можете да разпространявате негови копия "
-#~ "съгласно\n"
-#~ "условията на Основната общодостъпна лицензия на ГНУ\n"
-#~ "      <http://www.gnu.org/licenses/gpl.html>.\n"
-#~ "Не се дават НИКАКВИ ГАРАНЦИИ до степента, позволявана от закона.\n"
-
-#~ msgid "invalid %s `%s'"
-#~ msgstr "неправилен %s „%s“"
-
-#~ msgid "invalid character following %s in `%s'"
-#~ msgstr "неправилен писмен знак, следващ  %s в „%s“"
-
-#~ msgid "%s `%s' too large"
-#~ msgstr "%s „%s“ е твърде дълго"
-
-#~ msgid "Usage: %s [OPTION] [FILE]...\n"
-#~ msgstr "Използване: %s [ОПЦИЯ] [ФАЙЛ]...\n"
-
-#~ msgid ""
-#~ "The backup suffix is `~', unless set with --suffix or "
-#~ "SIMPLE_BACKUP_SUFFIX.\n"
-#~ "The version control method may be selected via the --backup option or "
-#~ "through\n"
-#~ "the VERSION_CONTROL environment variable.  Here are the values:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Суфиксът за резервни копия е „~“, освен при промяна с --suffix или с "
-#~ "променлива\n"
-#~ "от обкръжението SIMPLE_BACKUP_SUFFIX. Методът за управление на версиите "
-#~ "може да\n"
-#~ "се посочва с --backup или с променливата VERSION_CONTROL. Ето "
-#~ "стойностите:\n"
+#~ "Отстранява всички освен един от съседни повтарящи се редове от ВХОД\n"
+#~ "(или стандартния вход); извежда в ИЗХОД (или стандартния изход).\n"
 #~ "\n"
 
-#~ msgid "unrecognized operand %s=%s"
-#~ msgstr "непознат операнд %s=%s"
-
-#~ msgid "the --kilobytes option is deprecated; use -k instead"
-#~ msgstr "опцията --kilobytes е остаряла; ползвайте -k вместо нея"
-
-#~ msgid ""
-#~ "Print the prime factors of each NUMBER.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Отпечатва простите множители на всяко ЧИСЛО.\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "N may have a multiplier suffix: b 512, k 1024, m 1024*1024.\n"
-#~ msgstr ""
-#~ "\n"
-#~ "N може да има суфикс-множител: b за 512, k за 1024, m за 1024*1024.\n"
-
-#~ msgid "cannot print only user and only group"
-#~ msgstr "не може да се извежда хем само потребителят, хем само групата"
-
-#~ msgid "cannot get supplemental group list"
-#~ msgstr "не може да се получи списъка от допълнителни групи"
-
-#~ msgid "strip failed"
-#~ msgstr "strip не успя"
-
-#~ msgid "value %s is so large that it is not representable"
-#~ msgstr "стойността %s е толкова голяма, че не може да се изведе"
-
-#~ msgid ""
-#~ "      --group-directories-first\n"
-#~ "                             group directories before files\n"
-#~ msgstr ""
-#~ "      --group-directories-first\n"
-#~ "                             извежда каталозите преди другите файлове\n"
-
-#~ msgid "Usage: %s [OPTION] DIRECTORY...\n"
-#~ msgstr "Използване: %s [ОПЦИЯ] КАТАЛОГ...\n"
-
-#~ msgid "Usage: %s [OPTION] NAME...\n"
-#~ msgstr "Използване: %s [ОПЦИЯ] ИМЕ...\n"
-
-#~ msgid "skip argument"
-#~ msgstr "пропускане на аргумент"
-
-#~ msgid "limit argument"
-#~ msgstr "ограничаване на аргумента"
-
-#~ msgid "minimum string length"
-#~ msgstr "минимална дължина на низа"
-
-#~ msgid "width specification"
-#~ msgstr "спецификация за ширина"
-
-#~ msgid "page range"
-#~ msgstr "диапазон страници"
-
-#~ msgid "Usage: %s [OPTIONS] FILE [...]\n"
-#~ msgstr "Използване: %s [ОПЦИИ] ФАЙЛ [...]\n"
-
-#~ msgid "sort size"
-#~ msgstr "сортировка размер"
-
-#~ msgid ""
-#~ "\n"
-#~ "SIZE may have a multiplier suffix: b for 512, k for 1K, m for 1 Meg.\n"
-#~ msgstr ""
-#~ "\n"
-#~ "РАЗМ може да има суфикс-множител: b за 512, k за 1 Kб, m за 1 Мб.\n"
-
-#~ msgid "Usage: %s [OPTION] FILE...\n"
-#~ msgstr "Използване: %s [ОПЦИЯ] ФАЙЛ...\n"
-
-#~ msgid ""
-#~ "Update the access and modification times of each FILE to the current "
-#~ "time.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Прави времето на достъп и последна промяна на всеки ФАЙЛовете текущото "
-#~ "време.\n"
+#~ msgid " %2d:%02d%s  up "
+#~ msgstr " %2d:%02d%s  включен "
 
 #~ msgid "am"
 #~ msgstr "пр.обед"
 
 #~ msgid "pm"
 #~ msgstr "сл.обед"
+
+#~ msgid "%ld day"
+#~ msgid_plural "%ld days"
+#~ msgstr[0] "%ld ден"
+#~ msgstr[1] "%ld дена"
 
 #~ msgid "Usage: %s [OPTION]... [ FILE ]\n"
 #~ msgstr "Използване: %s [ОПЦИЯ]... [ ФАЙЛ ]\n"
@@ -12404,6 +12400,9 @@ msgstr ""
 #~ msgid "when making multiple links, last argument must be a directory"
 #~ msgstr ""
 #~ "при правене на няколко връзки последният аргумент трябва да бъде каталог"
+
+#~ msgid "User name too long"
+#~ msgstr "Твърде дълго потребителско име"
 
 #~ msgid ""
 #~ "\n"

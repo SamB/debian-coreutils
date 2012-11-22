@@ -1,6 +1,5 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* Test of conversion of multibyte character to wide character.
    Copyright (C) 2008, 2009, 2010 Free Software Foundation, Inc.
 

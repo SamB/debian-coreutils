@@ -1,6 +1,5 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* Test of safe automatic memory allocation.
    Copyright (C) 2005, 2007, 2009, 2010 Free Software Foundation, Inc.
 

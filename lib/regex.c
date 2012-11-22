@@ -1,6 +1,5 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* Extended regular expression matching and search library.
    Copyright (C) 2002, 2003, 2005, 2006, 2009, 2010 Free Software Foundation,
    Inc.

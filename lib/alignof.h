@@ -1,6 +1,5 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* Determine alignment of types.
    Copyright (C) 2003-2004, 2006, 2009-2010 Free Software Foundation, Inc.
 

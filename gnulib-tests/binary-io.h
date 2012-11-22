@@ -1,6 +1,5 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* Binary mode I/O.
    Copyright (C) 2001, 2003, 2005, 2008, 2009, 2010 Free Software Foundation,
    Inc.

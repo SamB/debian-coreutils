@@ -1,6 +1,5 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* Ensure that __fpending works.
 
    Copyright (C) 2004, 2007-2010 Free Software Foundation, Inc.

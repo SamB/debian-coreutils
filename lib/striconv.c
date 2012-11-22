@@ -1,6 +1,5 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* Charset conversion.
    Copyright (C) 2001-2007, 2009-2010 Free Software Foundation, Inc.
    Written by Bruno Haible and Simon Josefsson.
@@ -236,8 +235,7 @@ str_cd_iconv (const char *src, iconv_t cd)
     (result != NULL ? realloc (result, length + 1) : malloc (length + 1));
   if (final_result == NULL)
     {
-      if (result != NULL)
-        free (result);
+      free (result);
       errno = ENOMEM;
       return NULL;
     }

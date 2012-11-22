@@ -1,6 +1,5 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* Test of exact or abbreviated match search.
    Copyright (C) 1990, 1998-1999, 2001-2010 Free Software Foundation, Inc.
 

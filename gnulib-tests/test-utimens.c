@@ -1,6 +1,5 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* Tests of utimens.
    Copyright (C) 2009, 2010 Free Software Foundation, Inc.
 
@@ -27,6 +26,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "ignore-value.h"
 #include "macros.h"
 
 #define BASE "test-utimens.t"
@@ -69,7 +69,7 @@ main (void)
   int result3; /* Skip because of no lutimens support.  */
 
   /* Clean up any trash from prior testsuite runs.  */
-  system ("rm -rf " BASE "*");
+  ignore_value (system ("rm -rf " BASE "*"));
 
   result1 = test_utimens (utimens, true);
   ASSERT (test_utimens (do_fdutimens, false) == result1);

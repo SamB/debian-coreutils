@@ -1,6 +1,5 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* Emulate link on platforms that lack it, namely native Windows platforms.
 
    Copyright (C) 2009, 2010 Free Software Foundation, Inc.

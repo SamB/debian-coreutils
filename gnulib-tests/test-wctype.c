@@ -1,6 +1,5 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* Test of <wctype.h> substitute.
    Copyright (C) 2007-2010 Free Software Foundation, Inc.
 
@@ -36,9 +35,7 @@ main (void)
   /* Check that the isw* functions exist as functions or as macros.  */
   (void) iswalnum (0);
   (void) iswalpha (0);
-#if 0 /* not portable: missing on mingw */
   (void) iswblank (0);
-#endif
   (void) iswcntrl (0);
   (void) iswdigit (0);
   (void) iswgraph (0);
@@ -52,9 +49,7 @@ main (void)
   /* Check that the isw* functions map WEOF to 0.  */
   ASSERT (!iswalnum (e));
   ASSERT (!iswalpha (e));
-#if 0 /* not portable: missing on mingw */
   ASSERT (!iswblank (e));
-#endif
   ASSERT (!iswcntrl (e));
   ASSERT (!iswdigit (e));
   ASSERT (!iswgraph (e));

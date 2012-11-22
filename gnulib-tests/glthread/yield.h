@@ -1,6 +1,5 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* Yielding the processor to other threads and processes.
    Copyright (C) 2005-2010 Free Software Foundation, Inc.
 

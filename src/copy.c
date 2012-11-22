@@ -531,7 +531,8 @@ copy_reg (char const *src_name, char const *dst_name,
           security_context_t con = NULL;
           if (getfscreatecon (&con) < 0)
             {
-              if (!x->reduce_diagnostics || x->require_preserve_context)
+              if (x->require_preserve_context ||
+                  (!x->reduce_diagnostics && !errno_unsupported (errno)))
                 error (0, errno, _("failed to get file system create context"));
               if (x->require_preserve_context)
                 {
@@ -544,7 +545,8 @@ copy_reg (char const *src_name, char const *dst_name,
             {
               if (fsetfilecon (dest_desc, con) < 0)
                 {
-                  if (!x->reduce_diagnostics || x->require_preserve_context)
+                  if (x->require_preserve_context ||
+                      (!x->reduce_diagnostics && !errno_unsupported (errno)))
                     error (0, errno,
                            _("failed to set the security context of %s to %s"),
                            quote_n (0, dst_name), quote_n (1, con));
@@ -587,10 +589,11 @@ copy_reg (char const *src_name, char const *dst_name,
          lstat'ing the DST_NAME shows that it is a symlink, then we
          have a problem: trying to resolve this dangling symlink to
          a directory/destination-entry pair is fundamentally racy,
-         so punt.  If POSIXLY_CORRECT is set, simply call open again,
-         but without O_EXCL (potentially dangerous).  If not, fail
-         with a diagnostic.  These shenanigans are necessary only
-         when copying, i.e., not in move_mode.  */
+         so punt.  If x->open_dangling_dest_symlink is set (cp sets
+         that when POSIXLY_CORRECT is set in the environment), simply
+         call open again, but without O_EXCL (potentially dangerous).
+         If not, fail with a diagnostic.  These shenanigans are necessary
+         only when copying, i.e., not in move_mode.  */
       if (dest_desc < 0 && dest_errno == EEXIST && ! x->move_mode)
         {
           struct stat dangling_link_sb;
@@ -797,15 +800,9 @@ copy_reg (char const *src_name, char const *dst_name,
 
       if (last_write_made_hole)
         {
-          if (HAVE_FTRUNCATE
-              ? /* ftruncate sets the file size,
-                   so there is no need for a write.  */
-              ftruncate (dest_desc, n_read_total) < 0
-              : /* Seek backwards one character and write a null.  */
-              (lseek (dest_desc, (off_t) -1, SEEK_CUR) < 0L
-               || full_write (dest_desc, "", 1) != 1))
+          if (ftruncate (dest_desc, n_read_total) < 0)
             {
-              error (0, errno, _("writing %s"), quote (dst_name));
+              error (0, errno, _("truncating %s"), quote (dst_name));
               return_val = false;
               goto close_src_and_dst_desc;
             }
@@ -829,24 +826,8 @@ copy_reg (char const *src_name, char const *dst_name,
         }
     }
 
-  /* To allow copying xattrs on read-only files, temporarily chmod u+rw.
-     This workaround is required as an inode permission check is done
-     by xattr_permission() in fs/xattr.c of the GNU/Linux kernel tree.  */
-  if (x->preserve_xattr)
-    {
-      bool access_changed = false;
-
-      if (!(sb.st_mode & S_IWUSR) && geteuid() != 0)
-        access_changed = fchmod_or_lchmod (dest_desc, dst_name, 0600) == 0;
-
-      if (!copy_attr_by_fd (src_name, source_desc, dst_name, dest_desc, x)
-          && x->require_preserve_xattr)
-        return_val = false;
-
-      if (access_changed)
-        fchmod_or_lchmod (dest_desc, dst_name, dst_mode & ~omitted_permissions);
-    }
-
+  /* Set ownership before xattrs as changing owners will
+     clear capabilities.  */
   if (x->preserve_ownership && ! SAME_OWNER_AND_GROUP (*src_sb, sb))
     {
       switch (set_owner (x, dst_name, dest_desc, src_sb, *new_dst, &sb))
@@ -859,6 +840,24 @@ copy_reg (char const *src_name, char const *dst_name,
           src_mode &= ~ (S_ISUID | S_ISGID | S_ISVTX);
           break;
         }
+    }
+
+  /* To allow copying xattrs on read-only files, temporarily chmod u+rw.
+     This workaround is required as an inode permission check is done
+     by xattr_permission() in fs/xattr.c of the GNU/Linux kernel tree.  */
+  if (x->preserve_xattr)
+    {
+      bool access_changed = false;
+
+      if (!(sb.st_mode & S_IWUSR) && geteuid () != 0)
+        access_changed = fchmod_or_lchmod (dest_desc, dst_name, 0600) == 0;
+
+      if (!copy_attr_by_fd (src_name, source_desc, dst_name, dest_desc, x)
+          && x->require_preserve_xattr)
+        return_val = false;
+
+      if (access_changed)
+        fchmod_or_lchmod (dest_desc, dst_name, dst_mode & ~omitted_permissions);
     }
 
   set_author (dst_name, dest_desc, src_sb);
@@ -1830,7 +1829,8 @@ copy_internal (char const *src_name, char const *dst_name,
         {
           if (setfscreatecon (con) < 0)
             {
-              if (!x->reduce_diagnostics || x->require_preserve_context)
+              if (x->require_preserve_context ||
+                  (!x->reduce_diagnostics && !errno_unsupported (errno)))
                 error (0, errno,
                        _("failed to set default file creation context to %s"),
                        quote (con));
@@ -1844,15 +1844,15 @@ copy_internal (char const *src_name, char const *dst_name,
         }
       else
         {
-          if (!errno_unsupported (errno) || x->require_preserve_context)
+          if (x->require_preserve_context ||
+              (!x->reduce_diagnostics && !errno_unsupported (errno)))
             {
-              if (!x->reduce_diagnostics || x->require_preserve_context)
-                error (0, errno,
-                       _("failed to get security context of %s"),
-                       quote (src_name));
-              if (x->require_preserve_context)
-                return false;
+              error (0, errno,
+                     _("failed to get security context of %s"),
+                     quote (src_name));
             }
+          if (x->require_preserve_context)
+            return false;
         }
     }
 

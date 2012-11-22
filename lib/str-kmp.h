@@ -1,6 +1,5 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* Substring search in a NUL terminated string of 'char' elements,
    using the Knuth-Morris-Pratt algorithm.
    Copyright (C) 2005-2010 Free Software Foundation, Inc.

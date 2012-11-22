@@ -1,6 +1,5 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* Tests of unlinkat.
    Copyright (C) 2009, 2010 Free Software Foundation, Inc.
 
@@ -34,6 +33,7 @@ SIGNATURE_CHECK (unlinkat, int, (int, char const *, int));
 #include <sys/stat.h>
 
 #include "unlinkdir.h"
+#include "ignore-value.h"
 #include "macros.h"
 
 #define BASE "test-unlinkat.t"
@@ -65,7 +65,7 @@ main (void)
   int result2;
 
   /* Remove any leftovers from a previous partial run.  */
-  system ("rm -rf " BASE "*");
+  ignore_value (system ("rm -rf " BASE "*"));
 
   result1 = test_rmdir_func (rmdirat, false);
   result2 = test_unlink_func (unlinker, false);

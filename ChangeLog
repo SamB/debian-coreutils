@@ -1,4 +1,869 @@
+2010-04-23  Jim Meyering  <meyering@redhat.com>
+
+	version 8.5
+	* NEWS: Record release date.
+
+2010-04-23  Dmitry V. Levin  <ldv@altlinux.org>
+
+	tests: fix exit status of signal handlers in shell scripts
+	The value of `$?' on entrance to signal handlers in shell scripts
+	cannot be relied upon, so set the exit code explicitly.
+
+	* cfg.mk (sc_always_defined_macros, sc_system_h_headers): Set
+	the exit code in signal handler explicitly to 128 + SIG<SIGNAL>.
+	* src/Makefile.am (sc_tight_scope): Likewise.
+	* tests/test-lib.sh: Likewise.
+
+2010-04-22  Eric Blake  <eblake@redhat.com>
+
+	base64: always treat input in binary mode
+	Necessary for cygwin.  Technically, this patch is not correct,
+	in that it clobbers O_APPEND, but it is no different than any
+	other use of xfreopen to force binary mode, so all such uses
+	should be fixed at once in a later patch.
+
+	* src/base64.c (main): Open input in binary mode.
+	* THANKS: Update.
+	Reported by Yutaka Amanai.
+
+2010-04-21  Jim Meyering  <meyering@redhat.com>
+
+	build: update gnulib submodule to latest
+
+2010-04-21  Eric Blake  <eblake@redhat.com>
+
+	docs: document transformation of obsolete sort syntax
+	* doc/coreutils.texi (sort invocation): Mention the conversion.
+
+2010-04-21  Pádraig Brady  <P@draigBrady.com>
+
+	maint: update a couple of NEWS items for the pending release
+	* NEWS: Mention that cp and mv from the previous release did
+	not support preserving extended attributes (fixed in e489fd04).
+	Improve the grammar for the "cp capabilities" item.
+
+2010-04-20  Pádraig Brady  <P@draigBrady.com>
+
+	sort: fix parsing of end field in obsolescent key formats
+	This regression was introduced in commit 224a69b5, 2009-02-24,
+	"sort: Fix two bugs with determining the end of field".
+	The specific regression being that we include 1 field too many when
+	an end field is specified using obsolescent key syntax (+POS -POS).
+
+	* src/sort.c (struct keyfield): Clarify the description of the eword
+	member, as suggested by Alan Curry.
+	(main): When processing obsolescent format key specifications,
+	normalize eword to a zero based count when no specific end char is given
+	for an end field. This matches what's done when keys are specified with -k.
+	* tests/misc/sort: Add a few more tests for the obsolescent key formats,
+	with test 07i being the particular failure addressed by this change.
+	* THANKS: Add Alan Curry who precisely identified the issue.
+	* NEWS: Mention the fix.
+	Reported by Santiago Rodríguez
+
+2010-04-17  Pádraig Brady  <P@draigBrady.com>
+
+	cp: preserve "capabilities" when also preserving file ownership
+	* src/copy.c (copy_reg): Copy xattrs _after_ setting file ownership
+	so that capabilities are not cleared when setting ownership.
+	* tests/cp/capability: A new root test.
+	* tests/Makefile.am (root_tests): Reference the new test.
+	* NEWS: Mention the fix.
+
+2010-04-16  Jim Meyering  <meyering@redhat.com>
+
+	* HACKING (Add tests): Change example name, "newtest" to "new-test".
+	Not that anyone would confuse with something newt-related, but just
+	because it is more readable that way.
+
+	doc: tweak HACKING
+
+	doc: tweak HACKING
+	* HACKING (Curly braces): Tweak a sentence.  Filter a few
+	paragraphs through "fmt".
+
+2010-04-16  Pádraig Brady  <P@draigBrady.com>
+
+	maint: fix build on platforms that replace strsignal
+	* src/Makefile.am (kill_LDADD): Add $(LIBTHREAD) so that
+	we link with the appropriate libraries to provide Thread Local Storage
+	on platforms that replace strsignal (like AIX for example).
+
+	Tested-by: Daniel Richard G. <danielg@teragram.com>
+
+	tests: avoid spurious failure of ls/color-norm test
+	* tests/ls/color-norm: Use the "time" output by `ls -l`
+	to check normal style.  Previously we used the size from `ls -s`,
+	but the size of "empty" files can vary depending on whether
+	SELinux is enabled for example.
+
+2010-04-15  Jim Meyering  <meyering@redhat.com>
+
+	doc: document our code formatting policy regarding curly braces
+	* HACKING (Curly braces: use judiciously): New section.
+
+2010-04-14  Jim Meyering  <meyering@redhat.com>
+
+	tests: avoid spurious failure of root-only ls/capability test
+	* tests/ls/capability: Adjust this test not to expect the no-op escape
+	sequence that was removed from all other tests by 2010-01-30 commit
+	5d43617e, "ls --color: don't emit a final no-op escape sequence".
+
+2010-04-13  Pádraig Brady  <P@draigBrady.com>
+
+	cp: treat selinux warnings consistently
+	* src/copy.c (copy_reg): Suppress SELinux ENOTSUP warnings consistently
+	between the destination being present or not.  Previously we did
+	not suppress ENOTSUP messages when the destination was present.
+	(copy_internal): Use the same ENOTSUP supression method as
+	copy_reg() even though the issue was not seen in this case.
+	* tests/cp/cp-a-selinux: Add a test case for the issue and
+	group the other test cases in the file more coherently.
+	* tests/cp/cp-mv-enotsup-xattr: Do the same check for xattr
+	warnings, even though they did not have the issue.
+
+2010-04-12  Pádraig Brady  <P@draigBrady.com>
+
+	doc: clarify when cp and mv output xattr warnings
+	The 2010-03-26 commit, 4c38625e, "doc: fix info on cp --preserve..."
+	was not entirely correct as cp --preserve=all does produce some
+	xattr warnings.
+
+	* src/copy.h: Update and clarify the comments for reduce_diagnostics
+	and require_preserve_{xattr,context}.
+	* doc/coreutils.texi (cp invocation): Update the -a and
+	--preserve=xattr,context options to say when and which
+	xattr warnings are output.
+	(mv invocation): Mention that some warnings are output
+	when preserving xattrs.
+
+2010-04-11  Pádraig Brady  <P@draigBrady.com>
+
+	doc: mention that "capabilities" are preserved by cp/mv
+	* doc/coreutils.texi (cp invocation): Mention that
+	"capabilities" are preserved when implemented using
+	extended attributes.
+	(mv invocation): Mention ACLs etc. are maintained
+	due to xattrs being copied.
+
+2010-04-11  Jie Liu  <jeff.liu@oracle.com>
+
+	build: tell ./bootstrap to check for xz up-front
+	* bootstrap.conf (buildreq): Add xz to the list.
+
+2010-04-11  Jim Meyering  <meyering@redhat.com>
+
+	tests: more syntax-checks
+	* gnulib: update to latest
+	* cfg.mk (sc_prohibit_empty_lines_at_EOF): Remove, now that it's
+	in gnulib's maint.mk.
+	(_hv_file): Override the default.
+
+2010-04-10  Jim Meyering  <meyering@redhat.com>
+
+	maint: new syntax-check rule: prohibit empty lines at EOF
+	* cfg.mk (detect_empty_lines_at_EOF_): Define.
+	(sc_prohibit_empty_lines_at_EOF): New rule.
+	* .x-sc_prohibit_empty_lines_at_EOF: New file.  Exempt pr test inputs.
+	* Makefile.am (syntax_check_exceptions): Add it.
+	Pádraig Brady suggested to parse the output of tail -n1.
+
+2010-04-09  Mike Frysinger  <vapier@gentoo.org>
+
+	dircolors: add rxvt-256color and rxvt-unicode256
+	* src/dircolors.hin: Add them.
+
+2010-04-09  Jim Meyering  <meyering@redhat.com>
+
+	maint: ftruncate is always available, even without gnulib
+	Now that even MinGW provides ftruncate, we know that all
+	reasonable portability targets provide this function.
+	Remove the workaround code.  We nearly removed the gnulib
+	module three years ago:
+	  http://thread.gmane.org/gmane.comp.lib.gnulib.bugs/9203
+	and it is now officially "obsolete".
+	* bootstrap.conf (gnulib_modules): Remove ftruncate.
+	* src/copy.c (copy_reg): Remove use of HAVE_FTRUNCATE and its
+	no-longer-used workaround code.
+	* src/truncate.c: Remove a comment about handling missing ftruncate.
+
+2010-04-08  James Youngman  <jay@gnu.org>
+
+	doc: make wc --help say how it defines a 'word'
+	* src/wc.c (usage): Add wc's definition of "word".
+
+2010-04-08  Jim Meyering  <meyering@redhat.com>
+
+	doc: adjust a header in announcement email template
+	* README-release: Use Mail-Followup-To: rather than Reply-To:.
+	The former works more reliably, at least with Gnus.
+
+2010-04-07  Jim Meyering  <meyering@redhat.com>
+
+	tests: add a PATH-sanity-check to help-version
+	* tests/misc/help-version: Sync from gzip's version.
+	* tests/check.mk (TESTS_ENVIRONMENT): Export VERSION, as required
+	for new help-version test.
+
+2010-04-06  Jim Meyering  <meyering@redhat.com>
+
+	maint: fix a masked syntax-check violation
+	* m4/jm-macros.m4 (ARGMATCH_DIE): Use usage(EXIT_FAILURE), not usage(1).
+	* .x-sc_prohibit_magic_number_exit: Remove *.m4 exemption that was
+	masking the above.
+
+	build: update gnulib submodule to latest
+
+2010-04-05  Jim Meyering  <meyering@redhat.com>
+
+	build: update gnulib submodule to latest
+
+2010-04-04  Marc Kleine-Budde  <mkl@pengutronix.de>
+
+	tail: include sys/vfs.h (if possible) when sys/statfs.h is absent
+	* src/tail.c [HAVE_INOTIFY && !HAVE_SYS_STATFS_H]: Include <sys/vfs.h>.
+
+2010-04-02  Jim Meyering  <meyering@redhat.com>
+
+	build: update gnulib submodule to latest
+	* cfg.mk: Update to use new _sc_search_regexp interface.  Run this:
+	perl -pi -e 's/\b_prohibit_regexp\b/_sc_search_regexp/;'
+	  -e 's/\bmsg=/halt=/; s/\bre=/prohibit=/;' cfg.mk
+	and then adjust backslashes so they still line up.
+
+2010-03-31  Jim Meyering  <meyering@redhat.com>
+
+	doc: synchronize parts of README-release from grep's version
+	* README-release (FIXME): Add Reply-To, use coreutils@gnu.org
+	for announcements.  Update savannah-verbatim-announcement procedure.
+
+2010-03-29  Jim Meyering  <meyering@redhat.com>
+
+	build: update gnulib submodule to latest
+
+	tests: disable new texinfo-acronym syntax-check from gnulib
+	* cfg.mk (local-checks-to-skip): Add new sc_texinfo_acronym, to skip it.
+
+2010-03-29  Bruno Haible  <bruno@clisp.org>
+
+	build: update after change in gnulib's lib-ignore module
+	* src/Makefile.am (AM_LDFLAGS): Define.  Use gnulib's new
+	$(IGNORE_UNUSED_LIBRARIES_CFLAGS).
+
+2010-03-29  Jim Meyering  <meyering@redhat.com>
+
+	tests: avoid spurious sc_prohibit_test_minus_ao syntax-check failures
+	* tests/misc/ls-time: Change comments and diagnostics.
+	* tests/misc/xattr: Likewise.
+
+2010-03-26  Jim Meyering  <meyering@redhat.com>
+
+	tests: fix typos in envvar-check script
+	* tests/envvar-check: Fix variable name typos.
+	Probably harmless, since no selected shell would fail to unset.
+
+2010-03-26  Pádraig Brady  <P@draigBrady.com>
+
+	nice,chroot: use more standard option parsing
+	Related to the 2010-03-25 commit, 88d4b346,
+	"timeout: use more standard option parsing".
+	* src/nice.c (main): Don't use parse_long_options()
+	which is a helper for commands that don't have any
+	long options specific to them.
+	* src/chroot.c (main): Likewise.
+	* tests/misc/nice-fail: Remove a case that now
+	passes due to us accepting multiple instances of the
+	--help and --version options.
+	* tests/misc/chroot-fail: Likewise.
+
+2010-03-26  Kim Hansen  <kim@i9.dk>
+
+	timeout: use more standard option parsing
+	* src/timeout.c (main): Don't use parse_long_options()
+	which is a helper for commands that don't have any
+	long options specific to them.
+	* tests/misc/timeout-parameters: Remove a case that now
+	passes due to us accepting multiple instances of the
+	--help and --version options.
+	* THANKS: Add the author.
+
+2010-03-26  Pádraig Brady  <P@draigBrady.com>
+
+	doc: fix info on cp --preserve=all, which does _not_ give xattr warnings
+	The info docs have been inaccurate since 2009-04-17, commit 941bd482,
+	"mv: ignore xattr-preservation failure when not supported by filesystem"
+	* doc/coreutils.texi (cp invocation): Say that cp --preserve=all
+	does _not_ output errors when failing to copy xattrs.
+
+2010-03-21  Jim Meyering  <meyering@redhat.com>
+
+	cfg.mk: remove comments with sed rather than cpp -fpreprocessed
+	* cfg.mk (_sed_remove_comments): Define, starting with gettext's
+	moopp sed code, but factoring it to be more understandable.
+	(sc_space_before_open_paren): Adapt.
+	Prompted by Bruno Haible's suggestion to use gettext's moopp code.
+
+2010-03-20  Jim Meyering  <meyering@redhat.com>
+
+	cfg.mk: fix copy-paste-o in a diagnostic
+	* cfg.mk (sc_space_before_open_paren): Mention cpp -fpreprocessed,
+	not cppi, when cpp -fpreprocessed doesn't work.
+	Spotted by Eric Blake.
+
+	maint: enforce one small aspect of formatting style: space-before-"("
+	* cfg.mk (sc_space_before_open_paren): New rule.
+
+	maint: code formatting nit
+	* src/system.h (ST_NBLOCKS): Add space before paren.
+
+2010-03-19  Pádraig Brady  <P@draigBrady.com>
+
+	maint: mbsalign: fix an edge case where we truncate too much
+	* gl/lib/mbsalign.c (mbsalign): Ensure the temporary destination buffer
+	is big enough, as it may need to be bigger than the source buffer
+	in the presence of single byte non printable chars.
+	* gl/tests/test-mbsalign.c (main): Add a test to trigger the issue.
+
+	maint: update the mbsalign module
+	* gl/lib/mbsalign.c (mbsalign):  Support the MBA_UNIBYTE_FALLBACK
+	flag which reverts to unibyte mode if one can't allocate memory
+	or if there are invalid multibyte characters present.
+	Note memory is no longer dynamically allocated in unibyte mode so
+	one can assume that mbsalign() will not return an error if this
+	flag is present.  Don't calculate twice, the number of spaces,
+	when centering.  Suppress a signed/unsigned comparison warning.
+	(ambsalign): A new wrapper function to dynamically allocate
+	the minimum memory required to hold the aligned string.
+	* gl/lib/mbsalign.h: Add the MBA_UNIBYTE_FALLBACK flag and
+	also document others that may be implemented in future.
+	(ambsalign): A prototype for the new wrapper.
+	* gl/tests/test-mbsalign.c (main): New test program.
+	* gl/modules/mbsalign-tests: A new index to reference the tests.
+	* .x-sc_program_name: Exclude test-mbsalign.c from this check.
+
+2010-03-19  Paolo Bonzini  <bonzini@gnu.org>
+
+	tests: change help-version to per-program functions
+	* help-version: Change each *_args variable to a *_setup function.
+
+2010-03-19  Jim Meyering  <meyering@redhat.com>
+
+	doc: tweak README-prereq again
+	* README-prereq: Change one more: s/coreutils/This package/
+
+	doc: make README-prereq more generic
+	* README-prereq: Adjust wording and reduce number of mentions of
+	"coreutils", so it's easier to reuse in another package: grep.
+
+2010-03-18  Eric Blake  <eblake@redhat.com>
+
+	rm: tweak wording about loss of data warning
+	* src/rm.c (usage): Update wording to make two points more
+	apparent: undelete is not trivial, and partial recovery should be
+	a consideration factor in deciding whether rm is secure enough.
+	Initially suggested by Reuben Thomas.
+
+2010-03-18  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+
+	revert "maint: mark makefile "dist-hook" target as PHONY"
+	* src/Makefile.am (dist-hook): Do not mark this target
+	as PHONY, explicitly.  Automake does it for us.
+
+2010-03-18  Eric Blake  <eblake@redhat.com>
+
+	doc: improve ls --help's description of --escape (-b)
+	* src/ls.c (usage): Be more precise about how --escape (-b) works:
+	say "C-style escapes", not "octal escapes".  Reported by Jacky Fong.
+
+2010-03-18  Jim Meyering  <meyering@redhat.com>
+
+	maint: mark makefile "dist-hook" target as PHONY
+	* src/Makefile.am (dist-hook): Mark target as PHONY.
+
+2010-03-17  Jim Meyering  <meyering@redhat.com>
+
+	maint: add a space before open-paren, where lacking
+	* src/copy.c (copy_reg): Likewise.
+	* src/cut.c (main): Likewise.
+	* src/dd.c (main): Likewise.
+	* src/getlimits.c (print_int): Likewise.
+	* src/join.c (join): Likewise.
+	* src/pwd.c (logical_getcwd): Likewise.
+	* src/sort.c (specify_nmerge, mergefps, avoid_trashing_input): Likewise.
+	(merge): Likewise.
+	* src/uptime.c (usage): Likewise.
+
+2010-03-17  Pádraig Brady  <P@draigBrady.com>
+
+	timeout: add the --kill-after option
+	Based on a report from Kim Hansen who wanted to
+	send a KILL signal to the monitored command
+	when `timeout` itself received a termination signal.
+	Rather than changing such a signal into a KILL,
+	we provide the more general mechanism of sending
+	the KILL after the specified grace period.
+
+	* src/timeout.c (cleanup): If a non zero kill delay
+	is specified, (re)set the alarm to that delay, after
+	which a KILL signal will be sent to the process group.
+	(usage): Mention the new option.  Separate the description
+	of DURATION since it's now specified in 2 places.
+	Clarify that the duration is an integer.
+	(parse_duration): A new function refactored from main(),
+	since this logic is now called for two parameters.
+	(main): Parse the -k option.
+	* doc/coreutils.texi (timeout invocation): Describe the
+	new --kill-after option and use @display rather than
+	@table to show the duration suffixes.  Clarify that
+	a duration of 0 disables the associated timeout.
+	* tests/misc/timeout-parameters: Check invalid --kill-after.
+	* tests/misc/timeout: Check a valid --kill-after works.
+	* NEWS: Mention the new feature.
+
+2010-03-13  Jim Meyering  <meyering@redhat.com>
+
+	build: update gnulib submodule to latest
+	The latest from gnulib once again passes all tests.
+
+	revert to previous working version of gnulib
+	This reverts commit 0c31cdc2d13a1e47106ce708ca9c94df8d21f764.
+
+2010-03-13  Thien-Thi Nguyen  <ttn@gnuvola.org>
+
+	doc: use mktemp, not tempfile, in a shred usage example
+	* doc/coreutils.texi (shred invocation):
+	Use mktemp(1) instead of Debian-specific tempfile(1).
+
+2010-03-12  Jim Meyering  <meyering@redhat.com>
+
+	build: update gnulib submodule to latest
+
+2010-03-11  Eric Blake  <eblake@redhat.com>
+
+	maint: drop *.lzma suport
+	* .gitignore: Remove *.lzma lines.
+
+	maint: ignore *.xz files
+	* .gitignore: Ignore *.xz created by 'make dist', now that we
+	no longer produce *.lzma.
+
+2010-03-10  Jim Meyering  <meyering@redhat.com>
+
+	remove: without -f, avoid unnecessary-expense/issues with euidaccess
+	* src/remove.c (write_protected_non_symlink): If faccessat fails,
+	return 1 or -1 directly, rather than falling back on euidaccess*.
+
+2010-03-09  Pádraig Brady  <P@draigBrady.com>
+
+	doc: Add an example for cutting fields separated by runs of blanks
+	* doc/coreutils.texi (cut invocation): Show how tr can be used
+	to process the input for cut in this case.
+	Suggestion from Dan Jacobson.
+
+2010-03-04  Pádraig Brady  <P@draigBrady.com>
+
+	maint: rename the si_present variable in sort to iec_present
+	* src/sort.c: The units containing 'i' are actually IEC not SI.
+
+2010-03-04  Joey Degges  <jdegges@gmail.com>
+
+	sort: inform the system about our input access pattern
+	Tell the system that we'll access input sequentially,
+	so that we more efficiently process uncached files in a few cases:
+
+	Reading from faster flash devices. E.g. 21 MB/s key:
+	  NORMAL     31.6s (26.8 user)
+	  SEQUENTIAL 27.7s
+	  WILLNEED   27.7s
+
+	Processing in parallel with readahead when using a small 1M buffer:
+	  NORMAL     24.7s (21.1 user)
+	  SEQUENTIAL 22.7s
+	  WILLNEED   25.6s
+
+	A small benefit when merging:
+	  NORMAL     25.0s (16.9 user)
+	  SEQUENTIAL 24.6s (16.6 user)
+	  WILLNEED   38.4s (13.1 user)
+
+	Note WILLNEED is presented above for comparison to show it
+	has some unwanted characteristics due to its synchronous
+	prepopulation of the cache. It has a good benefit on a
+	mechanical disk @ 80MB/s and a multicore system with
+	competing processes:
+	  NORMAL     14.73s
+	  SEQUENTIAL 10.95s
+	  WILLNEED   05.22s
+	However the scheduling differences causing this result
+	are probably best explicitly managed using `nice` etc.
+
+	* m4/jm-macros.m4 (coreutils_MACROS): check for posix_fadvise().
+	* src/sort.c (fadvise_input): A new function to apply
+	the POSIX_FADV_SEQUENTIAL hint to an input stream.
+	(stream_open): Call the above function for all input streams.
+
+2010-03-04  Jim Meyering  <meyering@redhat.com>
+
+	tests: don't let the LANGUAGE envvar perturb tests
+	* tests/envvar-check (vars): Add LANGUAGE to the list of envvars
+	to unset.  At least in glibc (as an extension to POSIX), its value
+	actually trumps LC_ALL:
+
+	  $ LC_ALL=es_ES LANGUAGE=fr_FR.UTF-8 /bin/cat no-such
+	  /bin/cat: no-such: Aucun fichier ou dossier de ce type
+
+	but only when the default locale is not C:
+
+	  $ LC_ALL=C LANGUAGE=fr_FR.UTF-8 /bin/cat no-such
+	  /bin/cat: no-such: No such file or directory
+
+	Prompted by a report from Mads Kiilerich.
+
+2010-03-01  Pádraig Brady  <P@draigBrady.com>
+
+	sort: fix issues with month sorting in some locales
+	* src/sort.c (char fold_toupper[]): Change to unsigned
+	so as the correct comparisons are made in getmonth().
+	This fixes unibyte locales where abbreviated months
+	have characters that are > 0x7F, but it also works for
+	multibyte locales with the caveat that multibyte characters
+	are matched case sensitively.
+	With this change, the following example sorts correctly:
+	  $ echo -e "1 márta\n2 Feabhra" | LANG=ga_IE.utf8 sort -k2,2M
+	  2 Feabhra
+	  1 márta
+	* src/sort.c (inittables): Since we ignore blanks around months
+	in the input, don't include them when they're present in the locale.
+	With this change, the following example sorts correctly:
+	  $ echo -e "1 2月\n2 1月" | LANG=ja_JP.utf8 sort -k2,2M
+	  2 1月
+	  1 2月
+	* tests/misc/sort-month: A new test to exercise the above cases.
+	* tests/Makefile.am: Reference the new test.
+	* NEWS: Mention the fix.
+
+2010-02-25  Eric Blake  <eblake@redhat.com>
+
+	bootstrap: resynchronize from gnulib
+	* gnulib: Update to latest.
+	* bootstrap: Copy from gnulib/build-aux/bootstrap.
+	* README-hacking: Describe how to use GNULIB_SRCDIR.
+
+	expr: clarify error message
+	* src/expr.c (eval4, eval3): Clarify that expr expects integers,
+	and not the broader category of numbers.
+	* tests/misc/expr: Update test accordingly.
+	Suggested by Dan Jacobson.
+
+2010-02-19  Pádraig Brady  <P@draigBrady.com>
+
+	maint: clean up the output from syntax-check rules
+	* cfg.mk (sc_tight_scope): Pass the -s (silent) flag to `make`
+	so that it doesn't report about calling sub makes.
+	(sc_check-AUTHORS): Likewise.
+	(sc_strftime_check): Don't display stderr from `info`.
+	* src/Makefile.am (sc_tight_scope): Don't annotate with "GEN".
+	(sc_check-AUTHORS): Likewise.
+
+2010-02-18  Moritz Orbach  <ml-coreutils@apfelboymchen.homeunix.net>
+
+	ls: fix a regression by honoring NORMAL attributes again
+	Output the NORMAL attribute before non file name text.
+	This attribute will continue into file names that would
+	not otherwise be colored unless FILE is also set.
+	The regression was introduced with commit 483297d5, 28-02-2009,
+	"ls --color no longer outputs unnecessary escape sequences".
+
+	* src/ls.c (set_normal_color): A new function to output the
+	NORMAL attribute sequence if it's enabled.
+	(print_current_files): Output NORMAL before printing long format info.
+	(print_file_name_and_frills): Output NORMAL before printing file name.
+	(print_color_indicator): Reset the attributes before a file name with
+	attributes so that NORMAL attributes will not combine with them.
+	(print_name_with_quoting): Ensure attributes are reset after printing
+	the file name if NORMAL attributes were output.
+	* tests/ls/color-norm: A new test for NORMAL and FILE combinations.
+	* tests/Makefile.am: Reference the new test.
+	* NEWS: Mention the fix.
+	Reported in https://savannah.gnu.org/bugs/?26512
+
+2010-02-16  Pádraig Brady  <P@draigBrady.com>
+
+	maint: fix the man page correlation tests
+	These checks were not being run as distcheck-hook targets
+	are only supported in the top-level Makefile.  Instead
+	these tests are now run during a syntax-check.
+
+	* cfg.mk (sc_man_file_correlation):  A new syntax check to
+	call the 2 existing tests to check the correlation between
+	the programs and man/*.[1x].
+	* man/Makefile.am (sc_man_file_correlation): Call the 2 existing
+	man page correlation tests.
+	(check-x-vs-1): Remove the "GEN" annotation as it's a bit verbose.
+	(check-programs-vs-x): Likewise.
+	* src/Makefile.am (all_programs.list): Exclude libstdbuf.so
+	from the list of programs.  This issue was not noticed as
+	the checks were not actually being run.
+
+	tests: fix an unlikely race in tail-2/inotify-hash-abuse2
+	* tests/tail-2/inotify-hash-abuse2: Explicitly kill the process
+	by using cleanup_() rather than using a timeout which may trigger
+	a failure on very slow systems (< 20 iterations of the loop per second).
+
+	doc: fix inconsistent capitalization in --help output
+	* src/base64.c (usage): Don't capitalize the first character
+	in an --option description.
+	* src/stdbuf.c (usage): Likewise.
+	* src/truncate.c (usage): Likewise.
+	* cfg.mk (sc_option_desc_uppercase): A new syntax check to
+	stop this happening in future.
+	* man/Makefile.am (sc_option_desc_uppercase): Ensure all
+	man pages are generated, then search for erroneous uppercase chars.
+	* src/Makefile.am (all_programs): Ensure all
+	commands are built so that all man pages can be generated.
+
+2010-02-15  Jim Meyering  <meyering@redhat.com>
+
+	remove.c: remove three unnecessary #include directives
+	* src/remove.c: Don't include hash.h, hash-pjw.h or obstack.h.
+	They have been unused since the fts rewrite.
+
+2010-02-15  Eric Blake  <ebb9@byu.net>
+
+	build: ignore another gnulib artifact
+	* .gitignore: Add lib/warn-on-use.h.
+
+	dirname: improve man page description
+	* doc/coreutils.texi (dirname invocation): Properly cover behavior
+	on directory.
+	* man/dirname.x: Likewise.
+	* THANKS: Update.
+	Reported by Emmanuel Lacour.
+
+2010-02-11  Pádraig Brady  <P@draigBrady.com>
+
+	doc: remove extraneous periods from --help output
+	* src/join.c (usage): Mention "fields" rather than repeating "line"
+	so that it's more obvious that the fields are still parsed, and
+	thus -o is still honored for headers.  Also remove an extraneous
+	'.' reported by Stéphane Raimbault.
+	* src/base64.c (usage): Remove extraneous blank line and order
+	the options alphabetically.  Also remove an extraneous '.'
+	* src/chown.c (usage): Remove extraneous '.'
+	* src/cp.c (usage): Likewise.
+	* src/mktemp.c (usage): Likewise.
+	* src/pr.c (usage): Likewise.
+	* src/stat.c (usage): Likewise.
+	* src/uniq.c (usage): Likewise.
+
+2010-02-10  Jim Meyering  <meyering@redhat.com>
+
+	doc: add a TODO item
+	* TODO: Consider adding a col implementation.
+
+2010-02-07  Jim Meyering  <meyering@redhat.com>
+
+	copy.c: improve a comment
+	* src/copy.c (copy_reg): The comment about POSIXLY_CORRECT refers
+	only to cp, not to any other application that uses copy.c.
+
+2010-02-07  James R. Van Zandt  <jrv@debian.org>
+
+	doc: add a cross reference from tac's man page to "rev"
+	* man/tac.x: See also "rev".
+
+2010-02-07  Jim Meyering  <meyering@redhat.com>
+
+	tests: include help-version test settings used by gzip and grep
+	* tests/misc/help-version: ...the better to keep this file in sync.
+
+	doc: rewrite part of README-release
+	* README-release (Pre-release testing): Reorganize.
+
+2010-02-05  Jim Meyering  <meyering@redhat.com>
+
+	sync with gnulib
+	* gl/lib/regcomp.c.diff: Update to apply to changed version in gnulib.
+	* gnulib: Update submodule to latest.
+
+2010-02-02  Pádraig Brady  <P@draigBrady.com>
+
+	tests: fix various timeout races
+	Prompted by the continuous integration build failure at:
+	http://hydra.nixos.org/build/277485
+
+	* tests/misc/timeout: Set all expected timeouts to 1s and all
+	unexpected timeouts to 10s. In this way, tests normally proceed
+	quickly but may delay up to 10s before reporting failures.
+	* tests/ls/infloop: Likewise.
+	* tests/tail-2/pid: Likewise.
+	* tests/tail-2/pipe-f: Likewise.
+	* tests/tail-2/wait: Likewise.
+	* tests/dd/skip-seek-past-dev: Likewise.
+
+2010-02-01  Ondřej Vašík  <ovasik@redhat.com>
+
+	tests: cp-a-selinux: skip the test if mounting a loop device fails
+	* tests/cp/cp-a-selinux: Skip the test (instead of fail) if we
+	fail to mount a loop device (e.g., none available).
+
+2010-02-01  Pádraig Brady  <P@draigBrady.com>
+
+	maint: fix a typo in NEWS
+	* NEWS: s/contains/contain/
+
+	join: make -t '' operate on the whole line
+	Previously passing an empty parameter to -t would
+	raise an error, but now it means to treat each line
+	as a single field for matching.  This matches the
+	default operation of `sort` which is usually used
+	in conjunction with join.
+
+	* src/join.c (main): Set the field delimiter to '\n' if
+	an empty parameter is passed to -t.
+	(usage): Mention the operation of -t ''.
+	* tests/misc/join: Add 2 new tests, for the existing -t '\0'
+	and the new -t '' functionality.
+	* doc/coreutils.texi (join invocation): Mention that
+	join -t '' always operates on the whole line, while
+	join -t '\0' usually does.
+	* NEWS: Mention the change in behavior.
+
+2010-02-01  Assaf Gordon  <assafgordon@gmail.com>
+
+	join: add --header option to always output the first line
+	This essentially allows one to use --check-order with headings.
+	Note join without --check-order will already handle the common case
+	where headings do match in each file, however using --check-order will fail
+	often when the header sorts after the first line of data.
+
+	Note also that this will join header lines from each file even if
+	they don't match, with headings from the first file being used.
+
+	* NEWS: Mention the new option.
+	* doc/coreutils.texi (join invocation): Describe the new option.
+	* src/join.c (usage): Likewise.
+	(join): Join the header lines unconditionally.
+	* tests/misc/join: Add 5 new tests.
+
+2010-02-01  Pádraig Brady  <P@draigBrady.com>
+
+	maint: fix an inconsequential memory leak in join
+	* src/join.c (join): Refactor the code that checks for misorder
+	at the tail of the files.  The most significant change here is
+	that freeline() is called thus silencing a valgrind warning about
+	a definite but inconsequential memory leak.
+	(freeline): Make more general by doing nothing when passed NULL,
+	and setting freed pointers to NULL.
+
+	maint: use $(CONFIG_INCLUDE) rather than the hardcoding lib/config.h
+	* tests/check.mk (TESTS_ENVIRONMENT): Use the generated CONFIG_INCLUDE
+	variable.  Note $(abs_builddir)/$(CONFIG_HEADER) also currently works,
+	but $(CONFIG_HEADER) is deprecated and may not be generated in future.
+	$(CONFIG_INCLUDE) was made available by gnulib in commit, 22970f8a,
+	"syntax-check: detect incorrect boolean macro values in config.h"
+
+2010-02-01  Jim Meyering  <meyering@redhat.com>
+
+	ls --color: don't emit a final no-op escape sequence
+	* src/ls.c (main): With --color, avoid emitting the final color-
+	resetting escape sequence when it would be a no-op.
+	* tests/ls/color-clear-to-eol: Adjust expected output accordingly.
+	* tests/ls/color-dtype-dir: Likewise.
+	* tests/ls/multihardlink: Likewise.
+	* tests/ls/stat-free-symlinks: Likewise.
+	* tests/misc/ls-misc: Likewise.
+	* NEWS (Changes in behavior): Mention it.
+	C de-Avillez rebased and adapted four of the new sl-dangle*
+	tests in tests/misc/ls-misc.
+	Reported by Jim Avera in
+	http://bugs.launchpad.net/ubuntu/+source/coreutils/+bug/494663
+
+2010-01-28  Jim Meyering  <meyering@redhat.com>
+
+	maint: move vulnerable-Makefile.in-check to gnulib
+	* cfg.mk (sc_vulnerable_makefile_CVE-2009-4029): Move rule to...
+	* gnulib: Update to latest, to get updated "maint.mk".
+
+2010-01-27  Jim Meyering  <meyering@redhat.com>
+
+	maint: add a syntax-check rule to check for vulnerable Makefile.in
+	* cfg.mk (sc_vulnerable_makefile_CVE-2009-4029): New rule.
+
+2010-01-25  Kamil Dudka  <kdudka@redhat.com>
+
+	who --mesg (-T) can use a more accurate test for TTY writability
+	Enabled when coreutils is configured with --with-tty-group.
+	Based on a patch written by Piotr Gackiewicz.  Details at
+	http://bugzilla.redhat.com/454261
+
+	* src/who.c (is_tty_writable): A new function returning true if a TTY
+	device is writable by the group.  Additionally it checks the group to be
+	the same as TTY_GROUP_NAME when compiled with --with-tty-group.
+	* m4/jm-macros.m4: Introduce a new configure option --with-tty-group.
+	* NEWS: Mention the change.
+
+2010-01-24  Jim Meyering  <meyering@redhat.com>
+
+	tests: fix a syntax-check rule to pass in non-srcdir build
+	* cfg.mk (sc_x_sc_dist_check): This coreutils-specific syntax-check
+	rule would fail in a non-srcdir build, since in that case, each name
+	from $(VC_LIST) starts with "$(srcdir)/".  Fix that.
+	* gnulib: Update to latest, to pull in a required maint.mk change.
+
+2010-01-24  Pádraig Brady  <P@draigBrady.com>
+
+	tests: make cp-mv-enotsup-xattr independent of the host file system
+	* tests/cp-mv-enotsup-xattr: Create a file system from which to copy
+	the xattrs so that the test is not skipped if the host file system
+	does not have user_xattr support.  Also don't erroneously fail when
+	built without xattr support.
+
+	doc: add nproc to the texinfo overview menu
+	* doc/coreutils.texi: Add nproc to the System context
+	command list in the overview menu.
+
+2010-01-23  Pádraig Brady  <P@draigBrady.com>
+
+	maint: ensure test independence from config macro format
+	* tests/cp/acl: Support USE_ACL not being defined.
+	* tests/mv/acl: Likewise. Also fix typo in skip message.
+	* tests/cp/preserve-slink-time: Support HAVE_UTIMENSAT being 0.
+	* tests/touch/no-dereference: Likewise.
+	* tests/ls/capability: Normalize so 1 is not required to be last char.
+
+2010-01-19  Eric Blake  <ebb9@byu.net>
+
+	build: fix failure from bogus USE_XATTR definition
+	* m4/xattr.m4 (gl_FUNC_ADDR): Fix regression introduced in commit
+	6beca4248.
+	* THANKS: Update.
+	Reported by Adam Sampson.
+
+2010-01-18  Jim Meyering  <meyering@redhat.com>
+
+	libstdbuf: plug a very unlikely leak
+	* src/libstdbuf.c (apply_mode): Don't leak "buf" upon setvbuf failure.
+
+	pr: avoid two over-allocations
+	* src/pr.c (init_store_cols): Allocate N*sizeof(*VAR) bytes,
+	not N*sizeof(int*).  The latter would mistakenly allocate double
+	the required space on a system with 8-byte pointers.
+
+2010-01-14  Jim Meyering  <meyering@redhat.com>
+
+	maint: add missing "post-release push" step to release procedure
+	* README-release: Push the automated release and post-release
+	NEWS-updating commits.
+	Pádraig Brady reported that I'd pushed the tag without also
+	pushing the followup commit.
+
 2010-01-13  Jim Meyering  <meyering@redhat.com>
+
+	post-release administrivia
+	* NEWS: Add header line for next release.
+	* .prev-version: Record previous version.
+	* cfg.mk (old_NEWS_hash): Auto-update.
 
 	version 8.4
 	* NEWS: Record release date.

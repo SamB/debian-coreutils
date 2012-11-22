@@ -170,6 +170,9 @@ AM_CPPFLAGS = -I$(top_srcdir)/lib
 noinst_LIBRARIES = libver.a
 nodist_libver_a_SOURCES = version.c version.h
 
+# Tell the linker to omit references to unused shared libraries.
+AM_LDFLAGS = $(IGNORE_UNUSED_LIBRARIES_CFLAGS)
+
 # Sometimes, the expansion of $(LIBINTL) includes -lc which may
 # include modules defining variables like `optind', so libcoreutils.a
 # must precede $(LIBINTL) in order to ensure we use GNU getopt.
@@ -390,6 +393,9 @@ who_LDADD += $(GETADDRINFO_LIB)
 # for gethostname, uname
 hostname_LDADD += $(GETHOSTNAME_LIB)
 uname_LDADD += $(GETHOSTNAME_LIB)
+
+# for strsignal
+kill_LDADD += $(LIBTHREAD)
 
 $(PROGRAMS): ../lib/libcoreutils.a
 
@@ -635,12 +641,18 @@ built_programs.list:
 
 all_programs.list:
 	@echo $(all_programs) | tr ' ' '\n' | sed -e 's,$(EXEEXT)$$,,' \
+	  | sed /libstdbuf/d \
 	  | $(ASSORT) -u
 
 # This is required because we have broken inter-directory dependencies:
 # in order to generate all man pages, even those for which we don't
 # install a binary, require that all programs be built at distribution time.
 dist-hook: $(all_programs)
+
+# Ensure that all programs are built so we can for example
+# subsequently syntax check all man pages.
+.PHONY: all_programs
+all_programs: $(all_programs)
 
 pm = progs-makefile
 pr = progs-readme
@@ -672,7 +684,7 @@ au_dotdot = authors-dotdot
 au_actual = authors-actual
 .PHONY: sc_check-AUTHORS
 sc_check-AUTHORS: $(all_programs)
-	$(AM_V_GEN)locale=en_US.UTF-8;			\
+	@locale=en_US.UTF-8;				\
 	LC_ALL="$$locale" ./cat --version		\
 	    | grep ' Torbjorn '	> /dev/null		\
 	  && { echo "$@: skipping this check"; exit 0; }; \
@@ -708,8 +720,11 @@ sc_check-AUTHORS: $(all_programs)
 # The second nm|grep checks for file-scope variables with `extern' scope.
 .PHONY: sc_tight_scope
 sc_tight_scope: $(bin_PROGRAMS)
-	$(AM_V_GEN)t=exceptions-$$$$;					\
-	trap "s=$$?; rm -f $$t; exit $$s" 0 1 2 13 15;			\
+	@t=exceptions-$$$$;						\
+	trap 's=$$?; rm -f $$t; exit $$s' 0;				\
+	am__exit='(exit $s); exit $s';					\
+	trap "s=129; $$am__exit" 1; trap "s=130; $$am__exit" 2;		\
+	trap "s=141; $$am__exit" 13; trap "s=143; $$am__exit" 15;	\
 	src=`for f in $(SOURCES); do					\
 	       test -f $$f && d= || d=$(srcdir)/; echo $$d$$f; done`;	\
 	hdr=`for f in $(noinst_HEADERS); do				\

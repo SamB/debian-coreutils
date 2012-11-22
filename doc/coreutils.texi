@@ -53,7 +53,7 @@
 * df: (coreutils)df invocation.                 Report file system disk usage.
 * dir: (coreutils)dir invocation.               List directories briefly.
 * dircolors: (coreutils)dircolors invocation.   Color setup for ls.
-* dirname: (coreutils)dirname invocation.       Strip non-directory suffix.
+* dirname: (coreutils)dirname invocation.       Strip last file name component.
 * du: (coreutils)du invocation.                 Report on disk usage.
 * echo: (coreutils)echo invocation.             Print a line of text.
 * env: (coreutils)env invocation.               Modify the environment.
@@ -197,7 +197,7 @@ Free Documentation License''.
 * File name manipulation::       dirname basename pathchk mktemp
 * Working context::              pwd stty printenv tty
 * User information::             id logname whoami groups users who
-* System context::               date arch uname hostname hostid uptime
+* System context::               date arch nproc uname hostname hostid uptime
 * SELinux context::              chcon runcon
 * Modified command invocation::  chroot env nice nohup stdbuf su timeout
 * Process control::              kill
@@ -377,7 +377,7 @@ Redirection
 File name manipulation
 
 * basename invocation::          Strip directory and suffix from a file name
-* dirname invocation::           Strip non-directory suffix from a file name
+* dirname invocation::           Strip last file name component
 * pathchk invocation::           Check file name validity and portability
 * mktemp invocation::            Create temporary file or directory
 
@@ -4126,6 +4126,11 @@ is counted from the first nonblank character of the field.
 @vindex POSIXLY_CORRECT
 On older systems, @command{sort} supports an obsolete origin-zero
 syntax @samp{+@var{pos1} [-@var{pos2}]} for specifying sort keys.
+The obsolete sequence @samp{sort +@var{a}.@var{x} -@var{b}.@var{y}}
+is equivalent to @samp{sort -k @var{a+1}.@var{x+1},@var{b}} if @var{y}
+is @samp{0} or absent, otherwise it is equivalent to @samp{sort -k
+@var{a+1}.@var{x+1},@var{b+1}.@var{y}}.
+
 This obsolete behavior can be enabled or disabled with the
 @env{_POSIX2_VERSION} environment variable (@pxref{Standards
 conformance}); it can also be enabled when @env{POSIXLY_CORRECT} is
@@ -5318,7 +5323,13 @@ of selected bytes.
 Select for printing only the fields listed in @var{field-list}.
 Fields are separated by a TAB character by default.  Also print any
 line that contains no delimiter character, unless the
-@option{--only-delimited} (@option{-s}) option is specified
+@option{--only-delimited} (@option{-s}) option is specified.
+Note @command{cut} does not support specifying runs of whitespace as a
+delimiter, so to achieve that common functionality one can pre-process
+with @command{tr} like:
+@example
+tr -s '[:blank:]' '\t' | cut -f@dots{}
+@end example
 
 @item -d @var{input_delim_byte}
 @itemx --delimiter=@var{input_delim_byte}
@@ -5462,6 +5473,8 @@ locales and options if the output of @command{sort} is fed to
 sort a file on its default join field, but if you select a non-default
 locale, join field, separator, or comparison options, then you should
 do so consistently between @command{join} and @command{sort}.
+If @samp{join -t ''} is specified then the whole line is considered which
+matches the default operation of sort.
 
 If the input has no unpairable lines, a @acronym{GNU} extension is
 available; the sort order can be any order that considers two fields
@@ -5515,6 +5528,15 @@ Do not check that both input files are in sorted order.  This is the default.
 Replace those output fields that are missing in the input with
 @var{string}.
 
+@item --header
+@opindex --header
+Treat the first line of each input file as a header line. The header lines will
+be joined and printed as the first output line.  If @option{-o} is used to
+specify output format, the header line will be printed according to the
+specified format.  The header lines will not be checked for ordering even if
+@option{--check-order} is specified.  Also if the header lines from each file
+do not match, the heading fields from the first file will be used.
+
 @item -i
 @itemx --ignore-case
 @opindex -i
@@ -5563,7 +5585,10 @@ option---are subject to the specified @var{field-list}.
 Use character @var{char} as the input and output field separator.
 Treat as significant each occurrence of @var{char} in the input file.
 Use @samp{sort -t @var{char}}, without the @option{-b} option of
-@samp{sort}, to produce this ordering.
+@samp{sort}, to produce this ordering.  If @samp{join -t ''} is specified,
+the whole line is considered, matching the default operation of sort.
+If @samp{-t '\0'} is specified then the @acronym{ASCII} @sc{nul}
+character is used to delimit the fields.
 
 @item -v @var{file-number}
 Print a line for each unpairable line in file @var{file-number}
@@ -7487,19 +7512,18 @@ $ mkdir b c; (cd b; : > a; ln -s a b); cp -aL b c; ls -i1 c/b
 @end smallexample
 
 @itemx context
-Preserve SELinux security context of the file. @command{cp} will fail
-if the preserving of SELinux security context is not succesful.
+Preserve SELinux security context of the file, or fail with full diagnostics.
 @itemx xattr
-Preserve extended attributes if @command{cp} is built with xattr support,
-and xattrs are supported and enabled on your file system.
-If SELinux context and/or ACLs are implemented using xattrs,
+Preserve extended attributes of the file, or fail with full diagnostics.
+If @command{cp} is built without xattr support, ignore this option.
+If SELinux context, ACLs or Capabilities are implemented using xattrs,
 they are preserved by this option as well.
 @itemx all
 Preserve all file attributes.
 Equivalent to specifying all of the above, but with the difference
 that failure to preserve SELinux security context or extended attributes
-does not change @command{cp}'s exit status.
-@command{cp} does diagnose such failures.
+does not change @command{cp}'s exit status.  In contrast to @option{-a},
+all but @samp{Operation not supported} warnings are output.
 @end table
 
 Using @option{--preserve} with no @var{attribute_list} is equivalent
@@ -8255,7 +8279,9 @@ the destination partition and the second and third would be left on the
 original partition.
 
 @cindex extended attributes, xattr
-@command{mv} always tries to copy extended attributes (xattr).
+@command{mv} always tries to copy extended attributes (xattr), which may
+include SELinux context, ACLs or Capabilities.
+Upon failure all but @samp{Operation not supported} warnings are output.
 
 @cindex prompting, and @command{mv}
 If a destination file exists but is normally unwritable, standard input
@@ -8698,7 +8724,7 @@ The intended use of this is to shred a removed temporary file.
 For example:
 
 @example
-i=`tempfile -m 0600`
+i=`mktemp`
 exec 3<>"$i"
 rm -- "$i"
 echo "Hello, world" >&3
@@ -11888,7 +11914,7 @@ This section describes commands that manipulate file names.
 
 @menu
 * basename invocation::         Strip directory and suffix from a file name.
-* dirname invocation::          Strip non-directory suffix from a file name.
+* dirname invocation::          Strip last file name component.
 * pathchk invocation::          Check file name validity and portability.
 * mktemp invocation::           Create temporary file or directory.
 @end menu
@@ -11949,7 +11975,7 @@ basename include/stdio.h .h
 
 
 @node dirname invocation
-@section @command{dirname}: Strip non-directory suffix from a file name
+@section @command{dirname}: Strip last file name component
 
 @pindex dirname
 @cindex directory components, printing
@@ -11957,7 +11983,7 @@ basename include/stdio.h .h
 @cindex non-directory suffix, stripping
 
 @command{dirname} prints all but the final slash-delimited component of
-a string (presumably a file name).  Synopsis:
+a string (presumably a file name, but also works on directories).  Synopsis:
 
 @example
 dirname @var{name}
@@ -15201,31 +15227,25 @@ might find this idea strange at first.
 still running after the specified time interval.  Synopsis:
 
 @example
-timeout [@var{option}] @var{number}[smhd] @var{command} [@var{arg}]@dots{}
+timeout [@var{option}] @var{duration} @var{command} [@var{arg}]@dots{}
 @end example
-
-@cindex time units
-@var{number} is an integer followed by an optional unit; the default
-is seconds.  The units are:
-
-@table @samp
-@item s
-seconds
-@item m
-minutes
-@item h
-hours
-@item d
-days
-@end table
 
 @var{command} must not be a special built-in utility (@pxref{Special
 built-in utilities}).
 
-The program accepts the following option.  Also see @ref{Common options}.
+The program accepts the following options.  Also see @ref{Common options}.
 Options must precede operands.
 
 @table @samp
+@item -k @var{duration}
+@itemx --kill-after=@var{duration}
+@opindex -k
+@opindex --kill-after
+Ensure the monitored @var{command} is killed by also sending a @samp{KILL}
+signal, after the specified @var{duration}.  Without this option, if the
+selected signal proves not to be fatal, @command{timeout} does not kill
+the @var{command}.
+
 @item -s @var{signal}
 @itemx --signal=@var{signal}
 @opindex -s
@@ -15233,8 +15253,17 @@ Options must precede operands.
 Send this @var{signal} to @var{command} on timeout, rather than the
 default @samp{TERM} signal. @var{signal} may be a name like @samp{HUP}
 or a number. Also see @xref{Signal specifications}.
-
 @end table
+
+@cindex time units
+@var{duration} is an integer followed by an optional unit:
+@display
+@samp{s} for seconds (the default)
+@samp{m} for minutes
+@samp{h} for hours
+@samp{d} for days
+@end display
+A duration of 0 disables the associated timeout.
 
 @cindex exit status of @command{timeout}
 Exit status:

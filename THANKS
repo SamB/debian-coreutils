@@ -12,10 +12,12 @@ Aaron Hawley                        ashawley@uvm.edu
 Achim Blumensath                    blume@corona.oche.de
 Adam Jimerson                       vendion@charter.net
 Adam Klein                          aklein@debian.org
+Adam Sampson                        ats@offog.org
 Adrian Bunk                         bunk@stusta.de
 AIDA Shinra                         shinra@j10n.org
 Akim Demaille                       demaille@inf.enst.fr
 Alain Magloire                      alain@qnx.com
+Alan Curry                          pacman@kosh.dhis.org
 Alan Iwi                            iwi@atm.ox.ac.uk
 Albert Chin-A-Young                 china@thewrittenword.com
 Albert Hopkins                      ahopkins@dynacare.com
@@ -177,6 +179,7 @@ Elbert Pol                          elbert.pol@gmail.com
 Eli Zaretskii                       eliz@is.elta.co.il
 Elias Pipping                       pipping@gentoo.org
 Emile LeBlanc                       leblanc@math.toronto.edu
+Emmanuel Lacour                     elacour@home-dn.net
 Erik Auerswald                      auerswal@unix-ag.uni-kl.de
 Eric Backus                         ericb@lsid.hp.com
 Eric Blake                          ebb9@byu.net
@@ -253,6 +256,7 @@ Ilya N. Golubev                     gin@mo.msk.ru
 Ingo Saitz                          ingo@debian.org
 Ivan Labath                         labath3@st.fmph.uniba.sk
 Ivo Timmermans                      ivo@debian.org
+Jacky Fong                          jacky.fong@utoronto.ca
 James                               james@albion.glarp.com
 James Antill                        jmanti%essex.ac.uk@seralph21.essex.ac.uk
 James Lemley                        James.Lemley@acxiom.com
@@ -334,6 +338,7 @@ Keith Owens                         kaos@audio.apana.org.au
 Keith Thompson                      kst@cts.com
 Ken Pizzini                         kenp@halcyon.com
 Kevin Mudrick                       kmudrick@healthmarketscience.com
+Kim Hansen                          kim@i9.dk
 Kirk Kelsey                         kirk.kelsey@0x4b.net
 Kristin E Thomas                    kristint@us.ibm.com
 Kjetil Torgrim Homme                kjetilho@ifi.uio.no
@@ -494,6 +499,7 @@ Philippe Schnoebelen                Philippe.Schnoebelen@imag.fr
 Phillip Jones                       mouse@datastacks.com
 Piergiorgio Sartor                  sartor@sony.de
 Pieter Bowman                       bowman@math.utah.edu
+Piotr Gackiewicz                    gacek@intertele.pl
 Piotr Kwapulinski                   kwap@univ.gda.pl
 Prashant TR                         tr@eth.net
 Priit Jõerüüt                       jemm4jemm@yahoo.com
@@ -630,6 +636,7 @@ Wolfram Kleff                       kleff@cs.uni-bonn.de
 Won-kyu Park                        wkpark@chem.skku.ac.kr
 Yanko Kaneti                        yaneti@declera.com
 Yann Dirson                         dirson@debian.org
+Yutaka Amanai                       yasai-itame1942@jade.plala.or.jp
 Zvi Har'El                          rl@math.technion.ac.il
 
 ;; Local Variables:

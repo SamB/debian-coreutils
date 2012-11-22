@@ -35,8 +35,8 @@ AC_DEFUN([coreutils_MACROS],
 
   AC_REQUIRE([AC_FUNC_FSEEKO])
 
-  # By default, argmatch should fail calling usage (1).
-  AC_DEFINE([ARGMATCH_DIE], [usage (1)],
+  # By default, argmatch should fail calling usage (EXIT_FAILURE).
+  AC_DEFINE([ARGMATCH_DIE], [usage (EXIT_FAILURE)],
             [Define to the function xargmatch calls on failures.])
   AC_DEFINE([ARGMATCH_DIE_DECL], [void usage (int _e)],
             [Define to the declaration of the xargmatch failure function.])
@@ -64,6 +64,7 @@ AC_DEFUN([coreutils_MACROS],
   LIBS=$coreutils_saved_libs
 
   # Used by sort.c.
+  AC_CHECK_FUNCS_ONCE([posix_fadvise])
   AC_CHECK_FUNCS_ONCE([nl_langinfo])
 
   # Used by tail.c.
@@ -144,6 +145,25 @@ AC_DEFUN([coreutils_MACROS],
     ])
 
   AC_REQUIRE([AM_LANGINFO_CODESET])
+
+  # Accept configure options: --with-tty-group[=GROUP], --without-tty-group
+  # You can determine the group of a TTY via 'stat --format %G /dev/tty'
+  # Omitting this option is equivalent to using --without-tty-group.
+  AC_ARG_WITH([tty-group],
+    AS_HELP_STRING([--with-tty-group[[[=NAME]]]],
+      [group used by system for TTYs, "tty" when not specified]
+      [ (default: do not rely on any group used for TTYs)]),
+    [tty_group_name=$withval],
+    [tty_group_name=no])
+
+  if test "x$tty_group_name" != xno; then
+    if test "x$tty_group_name" = xyes; then
+      tty_group_name=tty
+    fi
+    AC_MSG_NOTICE([TTY group used by system set to "$tty_group_name"])
+    AC_DEFINE_UNQUOTED([TTY_GROUP_NAME], ["$tty_group_name"],
+      [group used by system for TTYs])
+  fi
 ])
 
 AC_DEFUN([gl_CHECK_ALL_HEADERS],

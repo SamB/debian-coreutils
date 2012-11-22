@@ -1,6 +1,5 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* Test of closein module.
    Copyright (C) 2007, 2008, 2009, 2010 Free Software Foundation, Inc.
 
@@ -29,6 +28,7 @@
 #include <unistd.h>
 
 #include "binary-io.h"
+#include "ignore-value.h"
 
 char *program_name;
 
@@ -50,6 +50,6 @@ main (int argc, char **argv)
     close (0);
 
   if (argc > 1)
-    fread (buf, 1, 6, stdin);
+    ignore_value (fread (buf, 1, 6, stdin));
   return 0;
 }

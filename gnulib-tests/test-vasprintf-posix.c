@@ -1,6 +1,5 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* Test of POSIX compatible vasprintf() and asprintf() functions.
    Copyright (C) 2007-2010 Free Software Foundation, Inc.
 

@@ -1,6 +1,5 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* Emulation for select(2)
    Contributed by Paolo Bonzini.
 
@@ -83,7 +82,7 @@ typedef DWORD (WINAPI *PNtQueryInformationFile)
 #define IsConsoleHandle(h) (((long) (h) & 3) == 3)
 
 static BOOL
-IsSocketHandle(HANDLE h)
+IsSocketHandle (HANDLE h)
 {
   WSANETWORKEVENTS ev;
 

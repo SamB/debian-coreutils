@@ -18,12 +18,7 @@
 
    This is backwards compatible with the FreeBSD utility, but is more
    flexible wrt the size specifications and the use of long options,
-   to better fit the "GNU" environment.
-
-   Note if !defined(HAVE_FTRUNCATE) then the --skip-ftruncate configure flag
-   was specified or we're in a mingw environment. In these cases gnulib
-   emulation will be used and GNULIB_FTRUNCATE is defined. Note if emulation
-   can't even be provided ftruncate() will return EIO.  */
+   to better fit the "GNU" environment.  */
 
 #include <config.h>             /* sets _FILE_OFFSET_BITS=64 etc. */
 #include <stdio.h>
@@ -117,7 +112,7 @@ Mandatory arguments to long options are mandatory for short options too.\n\
   -c, --no-create        do not create any files\n\
 "), stdout);
       fputs (_("\
-  -o, --io-blocks        Treat SIZE as number of IO blocks instead of bytes\n\
+  -o, --io-blocks        treat SIZE as number of IO blocks instead of bytes\n\
 "), stdout);
       fputs (_("\
   -r, --reference=FILE   use this FILE's size\n\

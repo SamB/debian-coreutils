@@ -20,15 +20,16 @@
  * <http://www.opengroup.org/susv3xbd/inttypes.h.html>
  */
 
+#if __GNUC__ >= 3
+@PRAGMA_SYSTEM_HEADER@
+#endif
+
 /* Include the original <inttypes.h> if it exists, and if this file
    has not been included yet or if this file includes gnulib stdint.h
    which in turn includes this file.
    The include_next requires a split double-inclusion guard.  */
 #if ! defined INTTYPES_H || defined _GL_JUST_INCLUDE_SYSTEM_INTTYPES_H
 # if @HAVE_INTTYPES_H@
-#  if __GNUC__ >= 3
-@PRAGMA_SYSTEM_HEADER@
-#  endif
 #  @INCLUDE_NEXT@ @NEXT_INTTYPES_H@
 # endif
 #endif
@@ -48,9 +49,9 @@
 # error "This file assumes that 'int' has exactly 32 bits. Please report your platform and compiler to <bug-gnulib@gnu.org>."
 #endif
 
-/* The definition of GL_LINK_WARNING is copied here.  */
-
 /* The definition of _GL_ARG_NONNULL is copied here.  */
+
+/* The definition of _GL_WARN_ON_USE is copied here.  */
 
 /* 7.8.1 Macros for format specifiers */
 
@@ -1050,10 +1051,10 @@ extern intmax_t imaxabs (intmax_t);
 # endif
 #elif defined GNULIB_POSIXCHECK
 # undef imaxabs
-# define imaxabs(a) \
-    (GL_LINK_WARNING ("imaxabs is unportable - " \
-                      "use gnulib module imaxabs for portability"), \
-     imaxabs (a))
+# if HAVE_RAW_DECL_IMAXABS
+_GL_WARN_ON_USE (imaxabs, "imaxabs is unportable - "
+                 "use gnulib module imaxabs for portability");
+# endif
 #endif
 
 #if @GNULIB_IMAXDIV@
@@ -1063,10 +1064,10 @@ extern imaxdiv_t imaxdiv (intmax_t, intmax_t);
 # endif
 #elif defined GNULIB_POSIXCHECK
 # undef imaxdiv
-# define imaxdiv(a,b) \
-    (GL_LINK_WARNING ("imaxdiv is unportable - " \
-                      "use gnulib module imaxdiv for portability"), \
-     imaxdiv (a, b))
+# if HAVE_RAW_DECL_IMAXDIV
+_GL_WARN_ON_USE (imaxdiv, "imaxdiv is unportable - "
+                 "use gnulib module imaxdiv for portability");
+# endif
 #endif
 
 #if @GNULIB_STRTOIMAX@
@@ -1075,10 +1076,10 @@ extern intmax_t strtoimax (const char *, char **, int) _GL_ARG_NONNULL ((1));
 # endif
 #elif defined GNULIB_POSIXCHECK
 # undef strtoimax
-# define strtoimax(p,e,b) \
-    (GL_LINK_WARNING ("strtoimax is unportable - " \
-                      "use gnulib module strtoimax for portability"), \
-     strtoimax (p, e, b))
+# if HAVE_RAW_DECL_STRTOIMAX
+_GL_WARN_ON_USE (strtoimax, "strtoimax is unportable - "
+                 "use gnulib module strtoimax for portability");
+# endif
 #endif
 
 #if @GNULIB_STRTOUMAX@
@@ -1087,10 +1088,10 @@ extern uintmax_t strtoumax (const char *, char **, int) _GL_ARG_NONNULL ((1));
 # endif
 #elif defined GNULIB_POSIXCHECK
 # undef strtoumax
-# define strtoumax(p,e,b) \
-    (GL_LINK_WARNING ("strtoumax is unportable - " \
-                      "use gnulib module strtoumax for portability"), \
-     strtoumax (p, e, b))
+# if HAVE_RAW_DECL_STRTOUMAX
+_GL_WARN_ON_USE (strtoumax, "strtoumax is unportable - "
+                 "use gnulib module strtoumax for portability");
+# endif
 #endif
 
 /* Don't bother defining or declaring wcstoimax and wcstoumax, since

@@ -69,6 +69,7 @@ TESTS_ENVIRONMENT =				\
     fi;						\
   };						\
   export					\
+  VERSION='$(VERSION)'				\
   LOCALE_FR='$(LOCALE_FR)'			\
   LOCALE_FR_UTF8='$(LOCALE_FR_UTF8)'		\
   abs_top_builddir='$(abs_top_builddir)'	\
@@ -79,7 +80,7 @@ TESTS_ENVIRONMENT =				\
   host_triplet='$(host_triplet)'		\
   srcdir='$(srcdir)'				\
   top_srcdir='$(top_srcdir)'			\
-  CONFIG_HEADER='$(abs_top_builddir)/lib/config.h' \
+  CONFIG_HEADER='$(abs_top_builddir)/$(CONFIG_INCLUDE)' \
   CU_TEST_NAME=`basename '$(abs_srcdir)'`,`echo $$tst|sed 's,^\./,,;s,/,-,g'` \
   CC='$(CC)'					\
   AWK='$(AWK)'					\

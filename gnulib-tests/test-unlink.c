@@ -1,6 +1,5 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* Tests of unlink.
    Copyright (C) 2009, 2010 Free Software Foundation, Inc.
 
@@ -35,6 +34,7 @@ SIGNATURE_CHECK (unlink, int, (char const *));
 #include <sys/stat.h>
 
 #include "unlinkdir.h"
+#include "ignore-value.h"
 #include "macros.h"
 
 #define BASE "test-unlink.t"
@@ -45,7 +45,7 @@ int
 main (void)
 {
   /* Remove any leftovers from a previous partial run.  */
-  system ("rm -rf " BASE "*");
+  ignore_value (system ("rm -rf " BASE "*"));
 
   return test_unlink_func (unlink, true);
 }

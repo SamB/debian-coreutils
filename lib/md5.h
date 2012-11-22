@@ -1,6 +1,5 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* Declaration of functions and data types used for MD5 sum computing
    library functions.
    Copyright (C) 1995-1997, 1999-2001, 2004-2006, 2008-2010 Free Software

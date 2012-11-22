@@ -1,6 +1,5 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* Test of execution of file name canonicalization.
    Copyright (C) 2007-2010 Free Software Foundation, Inc.
 
@@ -32,6 +31,7 @@
 #include <unistd.h>
 
 #include "same-inode.h"
+#include "ignore-value.h"
 #include "macros.h"
 
 #define BASE "t-can.tmp"
@@ -49,7 +49,7 @@ main (void)
      any leftovers from a previous partial run.  */
   {
     int fd;
-    system ("rm -rf " BASE " ise");
+    ignore_value (system ("rm -rf " BASE " ise"));
     ASSERT (mkdir (BASE, 0700) == 0);
     fd = creat (BASE "/tra", 0600);
     ASSERT (0 <= fd);

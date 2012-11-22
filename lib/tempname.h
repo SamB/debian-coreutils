@@ -1,6 +1,5 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* Create a temporary file or directory.
 
    Copyright (C) 2006, 2009-2010 Free Software Foundation, Inc.

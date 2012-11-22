@@ -1,6 +1,5 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* Definitions for data structures and routines for the regular
    expression library.
    Copyright (C) 1985, 1989, 1990, 1991, 1992, 1993, 1995, 1996, 1997, 1998,

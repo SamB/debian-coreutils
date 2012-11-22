@@ -1,6 +1,5 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* Substitute for <sys/utsname.h>.
    Copyright (C) 2009, 2010 Free Software Foundation, Inc.
 
@@ -30,9 +29,9 @@
 
 #define _GL_SYS_UTSNAME_H
 
-/* The definition of GL_LINK_WARNING is copied here.  */
-
 /* The definition of _GL_ARG_NONNULL is copied here.  */
+
+/* The definition of _GL_WARN_ON_USE is copied here.  */
 
 
 #ifdef __cplusplus
@@ -84,10 +83,10 @@ extern int uname (struct utsname *buf) _GL_ARG_NONNULL ((1));
 # endif
 #elif defined GNULIB_POSIXCHECK
 # undef uname
-# define uname(b) \
-    (GL_LINK_WARNING ("uname is unportable - " \
-                      "use gnulib module uname for portability"), \
-     uname (b))
+# if HAVE_RAW_DECL_UNAME
+_GL_WARN_ON_USE (uname, "uname is unportable - "
+                 "use gnulib module uname for portability");
+# endif
 #endif
 
 

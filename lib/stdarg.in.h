@@ -1,6 +1,5 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* Substitute for and wrapper around <stdarg.h>.
    Copyright (C) 2008, 2009, 2010 Free Software Foundation, Inc.
 

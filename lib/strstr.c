@@ -1,6 +1,5 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* Copyright (C) 1991, 1992, 1993, 1994, 1996, 1997, 1998, 2000, 2004, 2007,
    2008, 2009, 2010 Free Software Foundation, Inc.
    This file is part of the GNU C Library.

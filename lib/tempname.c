@@ -1,6 +1,5 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* tempname.c - generate the name of a temporary file.
 
    Copyright (C) 1991-2003, 2005-2007, 2009-2010 Free Software Foundation, Inc.

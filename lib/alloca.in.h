@@ -1,6 +1,5 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* Memory allocation on the stack.
 
    Copyright (C) 1995, 1999, 2001-2004, 2006-2010 Free Software Foundation,

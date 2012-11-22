@@ -1,6 +1,5 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* A C macro for declaring that specific function parameters are not used.
    Copyright (C) 2008-2010 Free Software Foundation, Inc.
 

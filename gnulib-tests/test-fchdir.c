@@ -1,6 +1,5 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-#line 1
 /* Test changing to a directory named by a file descriptor.
    Copyright (C) 2009, 2010 Free Software Foundation, Inc.
 
@@ -87,7 +86,7 @@ main (void)
           ASSERT (close (fd) == 0);
           ASSERT (fcntl (new_fd, F_DUPFD, fd) == fd);
           ASSERT (close (new_fd) == 0);
-#if GNULIB_DUP3
+#if GNULIB_TEST_DUP3
           ASSERT (dup3 (fd, new_fd, 0) == new_fd);
           ASSERT (dup3 (new_fd, fd, 0) == fd);
           ASSERT (close (new_fd) == 0);
