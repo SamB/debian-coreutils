@@ -24,7 +24,6 @@
    Rewritten to use nftw, then to use fts by Jim Meyering.  */
 
 #include <config.h>
-#include <stdio.h>
 #include <getopt.h>
 #include <sys/types.h>
 #include <assert.h>
@@ -40,6 +39,7 @@
 #include "quotearg.h"
 #include "same.h"
 #include "stat-time.h"
+#include "stdio--.h"
 #include "xfts.h"
 #include "xstrtol.h"
 
@@ -67,7 +67,6 @@ extern bool fts_debug;
 
 /* Hash structure for inode and device numbers.  The separate entry
    structure makes it easier to rehash "in place".  */
-
 struct entry
 {
   ino_t st_ino;
@@ -194,7 +193,6 @@ enum
   FILES0_FROM_OPTION,
   HUMAN_SI_OPTION,
   MAX_DEPTH_OPTION,
-  MEGABYTES_LONG_OPTION,
   TIME_OPTION,
   TIME_STYLE_OPTION
 };
@@ -495,6 +493,15 @@ process_file (FTS *fts, FTSENT *ent)
       ok = false;
       break;
 
+    case FTS_DC:		/* directory that causes cycles */
+      if (cycle_warning_required (fts, ent))
+        {
+          emit_cycle_warning (file);
+          return false;
+        }
+      ok = true;
+      break;
+
     default:
       ok = true;
       break;
@@ -755,10 +762,6 @@ main (int argc, char **argv)
           }
           break;
 
-        case MEGABYTES_LONG_OPTION: /* FIXME: remove in 2009 */
-          error (0, 0,
-                 _("the --megabytes option is deprecated; use -m instead"));
-          /* fall through */
         case 'm':
           human_output_opts = 0;
           output_block_size = 1024 * 1024;

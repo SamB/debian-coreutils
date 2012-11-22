@@ -2,7 +2,7 @@
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
 #line 1
 /* Test of strverscmp() function.
-   Copyright (C) 2008 Free Software Foundation, Inc.
+   Copyright (C) 2008, 2009 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -40,7 +40,7 @@
   while (0)
 
 int
-main (int argc, char **argv)
+main (void)
 {
   ASSERT (strverscmp ("", "") == 0);
   ASSERT (strverscmp ("a", "a") == 0);

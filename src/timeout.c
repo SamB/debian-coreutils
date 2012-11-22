@@ -73,12 +73,6 @@
 
 #define AUTHORS proper_name_utf8 ("Padraig Brady", "P\303\241draig Brady")
 
-/* Note ETIMEDOUT is 110 on GNU/Linux systems but this is non standard */
-#define EXIT_TIMEDOUT 124
-
-/* Internal failure.  */
-#define EXIT_CANCELED 125
-
 static int timed_out;
 static int term_signal = SIGTERM;  /* same default as kill command.  */
 static int monitored_pid;
@@ -202,7 +196,7 @@ apply_time_suffix (unsigned long *x, char suffix_char)
 }
 
 static void
-install_signal_handlers (void)
+install_signal_handlers (int sigterm)
 {
   struct sigaction sa;
   sigemptyset(&sa.sa_mask);  /* Allow concurrent calls to handler */
@@ -212,8 +206,9 @@ install_signal_handlers (void)
   sigaction (SIGALRM, &sa, NULL); /* our timeout.  */
   sigaction (SIGINT, &sa, NULL);  /* Ctrl-C at terminal for example.  */
   sigaction (SIGQUIT, &sa, NULL); /* Ctrl-\ at terminal for example.  */
-  sigaction (SIGTERM, &sa, NULL); /* if we're killed, stop monitored proc.  */
   sigaction (SIGHUP, &sa, NULL);  /* terminal closed for example.  */
+  sigaction (SIGTERM, &sa, NULL); /* if we're killed, stop monitored proc.  */
+  sigaction (sigterm, &sa, NULL); /* user specified termination signal.  */
 }
 
 int
@@ -277,7 +272,7 @@ main (int argc, char **argv)
 
   /* Setup handlers before fork() so that we
      handle any signals caused by child, without races.  */
-  install_signal_handlers ();
+  install_signal_handlers (term_signal);
   signal (SIGTTIN, SIG_IGN);    /* don't sTop if background child needs tty.  */
   signal (SIGTTOU, SIG_IGN);    /* don't sTop if background child needs tty.  */
 

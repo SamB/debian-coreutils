@@ -224,6 +224,31 @@ extern int mkostemp (char * /*template*/, int /*flags*/);
      mkostemp (t, f))
 #endif
 
+#if @GNULIB_MKOSTEMPS@
+# if !@HAVE_MKOSTEMPS@
+/* Create a unique temporary file from TEMPLATE.
+   The last six characters of TEMPLATE before a suffix of length
+   SUFFIXLEN must be "XXXXXX";
+   they are replaced with a string that makes the file name unique.
+   The flags are a bitmask, possibly including O_CLOEXEC (defined in <fcntl.h>)
+   and O_TEXT, O_BINARY (defined in "binary-io.h").
+   The file is then created, with the specified flags, ensuring it didn't exist
+   before.
+   The file is created read-write (mask at least 0600 & ~umask), but it may be
+   world-readable and world-writable (mask 0666 & ~umask), depending on the
+   implementation.
+   Returns the open file descriptor if successful, otherwise -1 and errno
+   set.  */
+extern int mkostemps (char * /*template*/, int /*suffixlen*/, int /*flags*/);
+# endif
+#elif defined GNULIB_POSIXCHECK
+# undef mkostemps
+# define mkostemps(t,s,f)                          \
+    (GL_LINK_WARNING ("mkostemps is unportable - " \
+                      "use gnulib module mkostemps for portability"), \
+     mkostemps (t, s, f))
+#endif
+
 #if @GNULIB_MKSTEMP@
 # if @REPLACE_MKSTEMP@
 /* Create a unique temporary file from TEMPLATE.
@@ -247,6 +272,28 @@ extern int mkstemp (char * /*template*/);
     (GL_LINK_WARNING ("mkstemp is unportable - " \
                       "use gnulib module mkstemp for portability"), \
      mkstemp (t))
+#endif
+
+#if @GNULIB_MKSTEMPS@
+# if !@HAVE_MKSTEMPS@
+/* Create a unique temporary file from TEMPLATE.
+   The last six characters of TEMPLATE prior to a suffix of length
+   SUFFIXLEN must be "XXXXXX";
+   they are replaced with a string that makes the file name unique.
+   The file is then created, ensuring it didn't exist before.
+   The file is created read-write (mask at least 0600 & ~umask), but it may be
+   world-readable and world-writable (mask 0666 & ~umask), depending on the
+   implementation.
+   Returns the open file descriptor if successful, otherwise -1 and errno
+   set.  */
+extern int mkstemps (char * /*template*/, int /*suffixlen*/);
+# endif
+#elif defined GNULIB_POSIXCHECK
+# undef mkstemps
+# define mkstemps(t,s)                             \
+    (GL_LINK_WARNING ("mkstemps is unportable - " \
+                      "use gnulib module mkstemps for portability"), \
+     mkstemps (t, s))
 #endif
 
 #if @GNULIB_PUTENV@
@@ -337,11 +384,21 @@ extern int rpmatch (const char *response);
 #endif
 
 #if @GNULIB_SETENV@
-# if !@HAVE_SETENV@
+# if @REPLACE_SETENV@
+#  undef setenv
+#  define setenv rpl_setenv
+# endif
+# if !@HAVE_SETENV@ || @REPLACE_SETENV@
 /* Set NAME to VALUE in the environment.
    If REPLACE is nonzero, overwrite an existing value.  */
 extern int setenv (const char *name, const char *value, int replace);
 # endif
+#elif defined GNULIB_POSIXCHECK
+# undef setenv
+# define setenv(n,v,o)                                                  \
+    (GL_LINK_WARNING ("setenv is unportable - "                         \
+                      "use gnulib module setenv for portability"),      \
+     setenv (n, v, o))
 #endif
 
 #if @GNULIB_STRTOD@
@@ -401,16 +458,20 @@ extern unsigned long long strtoull (const char *string, char **endptr, int base)
 #endif
 
 #if @GNULIB_UNSETENV@
-# if @HAVE_UNSETENV@
-#  if @VOID_UNSETENV@
-/* On some systems, unsetenv() returns void.
-   This is the case for MacOS X 10.3, FreeBSD 4.8, NetBSD 1.6, OpenBSD 3.4.  */
-#   define unsetenv(name) ((unsetenv)(name), 0)
-#  endif
-# else
+# if @REPLACE_UNSETENV@
+#  undef unsetenv
+#  define unsetenv rpl_unsetenv
+# endif
+# if !@HAVE_UNSETENV@ || @REPLACE_UNSETENV@
 /* Remove the variable NAME from the environment.  */
 extern int unsetenv (const char *name);
 # endif
+#elif defined GNULIB_POSIXCHECK
+# undef unsetenv
+# define unsetenv(n)                                                    \
+    (GL_LINK_WARNING ("unsetenv is unportable - "                       \
+                      "use gnulib module unsetenv for portability"),    \
+     unsetenv (n))
 #endif
 
 #ifdef __cplusplus

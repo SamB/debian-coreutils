@@ -50,7 +50,7 @@
 #include "test-unlink.h"
 
 int
-main ()
+main (void)
 {
   return test_unlink_func (unlink, true);
 }

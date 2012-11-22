@@ -2,7 +2,7 @@
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
 #line 1
 /* Test of xvasprintf() and xasprintf() functions.
-   Copyright (C) 2007-2008 Free Software Foundation, Inc.
+   Copyright (C) 2007-2009 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -55,35 +55,77 @@ my_xasprintf (const char *format, ...)
 }
 
 static void
-test_xvasprintf ()
+test_xvasprintf (void)
 {
   int repeat;
+  char *result;
 
   for (repeat = 0; repeat <= 8; repeat++)
     {
-      char *result = my_xasprintf ("%d", 12345);
+      result = my_xasprintf ("%d", 12345);
       ASSERT (result != NULL);
       ASSERT (strcmp (result, "12345") == 0);
       free (result);
     }
+
+  result = my_xasprintf ("");
+  ASSERT (result != NULL);
+  ASSERT (strcmp (result, "") == 0);
+  free (result);
+
+  result = my_xasprintf ("%s", "foo");
+  ASSERT (result != NULL);
+  ASSERT (strcmp (result, "foo") == 0);
+  free (result);
+
+  result = my_xasprintf ("%s%s", "foo", "bar");
+  ASSERT (result != NULL);
+  ASSERT (strcmp (result, "foobar") == 0);
+  free (result);
+
+  result = my_xasprintf ("%s%sbaz", "foo", "bar");
+  ASSERT (result != NULL);
+  ASSERT (strcmp (result, "foobarbaz") == 0);
+  free (result);
 }
 
 static void
 test_xasprintf ()
 {
   int repeat;
+  char *result;
 
   for (repeat = 0; repeat <= 8; repeat++)
     {
-      char *result = xasprintf ("%d", 12345);
+      result = xasprintf ("%d", 12345);
       ASSERT (result != NULL);
       ASSERT (strcmp (result, "12345") == 0);
       free (result);
     }
+
+  result = xasprintf ("");
+  ASSERT (result != NULL);
+  ASSERT (strcmp (result, "") == 0);
+  free (result);
+
+  result = xasprintf ("%s", "foo");
+  ASSERT (result != NULL);
+  ASSERT (strcmp (result, "foo") == 0);
+  free (result);
+
+  result = xasprintf ("%s%s", "foo", "bar");
+  ASSERT (result != NULL);
+  ASSERT (strcmp (result, "foobar") == 0);
+  free (result);
+
+  result = my_xasprintf ("%s%sbaz", "foo", "bar");
+  ASSERT (result != NULL);
+  ASSERT (strcmp (result, "foobarbaz") == 0);
+  free (result);
 }
 
 int
-main (int argc, char *argv[])
+main (int argc _UNUSED_PARAMETER_, char *argv[])
 {
   set_program_name (argv[0]);
 

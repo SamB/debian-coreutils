@@ -48,7 +48,7 @@
 #define BASE "t-can.tmp"
 
 int
-main ()
+main (void)
 {
   /* Setup some hierarchy to be used by this test.  Start by removing
      any leftovers from a previous partial run.  */
@@ -124,7 +124,7 @@ main ()
     {
       ASSERT (remove (BASE "/tra") == 0);
       ASSERT (rmdir (BASE) == 0);
-      fputs ("skipping test: symlinks not supported on this filesystem\n",
+      fputs ("skipping test: symlinks not supported on this file system\n",
 	     stderr);
       return 77;
     }

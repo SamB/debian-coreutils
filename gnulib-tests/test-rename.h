@@ -141,7 +141,8 @@ test_rename (int (*func) (char const *, char const *), bool print)
   ASSERT (mkdir (BASE "dir", 0700) == 0);
   errno = 0;
   ASSERT (func (BASE "dir2", BASE "dir/.") == -1);
-  ASSERT (errno == EINVAL || errno == EBUSY || errno == EISDIR);
+  ASSERT (errno == EINVAL || errno == EBUSY || errno == EISDIR
+          || errno == ENOTEMPTY);
   errno = 0;
   ASSERT (func (BASE "dir2/.", BASE "dir") == -1);
   ASSERT (errno == EINVAL || errno == EBUSY);
@@ -152,7 +153,8 @@ test_rename (int (*func) (char const *, char const *), bool print)
   ASSERT (mkdir (BASE "dir", 0700) == 0);
   errno = 0;
   ASSERT (func (BASE "dir2", BASE "dir/.//") == -1);
-  ASSERT (errno == EINVAL || errno == EBUSY || errno == EISDIR);
+  ASSERT (errno == EINVAL || errno == EBUSY || errno == EISDIR
+          || errno == ENOTEMPTY);
   errno = 0;
   ASSERT (func (BASE "dir2/.//", BASE "dir") == -1);
   ASSERT (errno == EINVAL || errno == EBUSY);
@@ -248,7 +250,7 @@ test_rename (int (*func) (char const *, char const *), bool print)
   if (symlink (BASE "file", BASE "link1"))
     {
       if (print)
-        fputs ("skipping test: symlinks not supported on this filesystem\n",
+        fputs ("skipping test: symlinks not supported on this file system\n",
                stderr);
       ASSERT (unlink (BASE "file") == 0);
       ASSERT (rmdir (BASE "dir") == 0);

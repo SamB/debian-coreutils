@@ -1,5 +1,102 @@
 GNU coreutils NEWS                                    -*- outline -*-
 
+* Noteworthy changes in release 8.1 (2009-11-18) [stable]
+
+** Bug fixes
+
+  chcon no longer exits immediately just because SELinux is disabled.
+  Even then, chcon may still be useful.
+  [bug introduced in coreutils-8.0]
+
+  chcon, chgrp, chmod, chown and du now diagnose an ostensible directory cycle
+  and arrange to exit nonzero.  Before, they would silently ignore the
+  offending directory and all "contents."
+
+  env -u A=B now fails, rather than silently adding A to the
+  environment.  Likewise, printenv A=B silently ignores the invalid
+  name.  [the bugs date back to the initial implementation]
+
+  ls --color now handles files with capabilities correctly.  Previously
+  files with capabilities were often not colored, and also sometimes, files
+  without capabilites were colored in error. [bug introduced in coreutils-7.0]
+
+  md5sum now prints checksums atomically so that concurrent
+  processes will not intersperse their output.
+  This also affected sum, sha1sum, sha224sum, sha384sum and sha512sum.
+  [the bug dates back to the initial implementation]
+
+  mktemp no longer leaves a temporary file behind if it was unable to
+  output the name of the file to stdout.
+  [the bug dates back to the initial implementation]
+
+  nice -n -1 PROGRAM now runs PROGRAM even when its internal setpriority
+  call fails with errno == EACCES.
+  [the bug dates back to the initial implementation]
+
+  nice, nohup, and su now refuse to execute the subsidiary program if
+  they detect write failure in printing an otherwise non-fatal warning
+  message to stderr.
+
+  stat -f recognizes more file system types: afs, cifs, anon-inode FS,
+  btrfs, cgroupfs, cramfs-wend, debugfs, futexfs, hfs, inotifyfs, minux3,
+  nilfs, securityfs, selinux, xenfs
+
+  tail -f (inotify-enabled) now avoids a race condition.
+  Before, any data appended in the tiny interval between the initial
+  read-to-EOF and the inotify watch initialization would be ignored
+  initially (until more data was appended), or forever, if the file
+  were first renamed or unlinked or never modified.
+  [The race was introduced in coreutils-7.5]
+
+  tail -F (inotify-enabled) now consistently tails a file that has been
+  replaced via renaming.  That operation provokes either of two sequences
+  of inotify events.  The less common sequence is now handled as well.
+  [The bug came with the implementation change in coreutils-7.5]
+
+  timeout now doesn't exit unless the command it is monitoring does,
+  for any specified signal. [bug introduced in coreutils-7.0].
+
+** Changes in behavior
+
+  chroot, env, nice, and su fail with status 125, rather than 1, on
+  internal error such as failure to parse command line arguments; this
+  is for consistency with stdbuf and timeout, and avoids ambiguity
+  with the invoked command failing with status 1.  Likewise, nohup
+  fails with status 125 instead of 127.
+
+  du (due to a change in gnulib's fts) can now traverse NFSv4 automounted
+  directories in which the stat'd device number of the mount point differs
+  during a traversal.  Before, it would fail, because such a mismatch would
+  usually represent a serious error or a subversion attempt.
+
+  echo and printf now interpret \e as the Escape character (0x1B).
+
+  rm -f /read-only-fs/nonexistent now succeeds and prints no diagnostic
+  on systems with an unlinkat syscall that sets errno to EROFS in that case.
+  Before, it would fail with a "Read-only file system" diagnostic.
+  Also, "rm /read-only-fs/nonexistent" now reports "file not found" rather
+  than the less precise "Read-only file system" error.
+
+** New programs
+
+  nproc: Print the number of processing units available to a process.
+
+** New features
+
+  env and printenv now accept the option --null (-0), as a means to
+  avoid ambiguity with newlines embedded in the environment.
+
+  md5sum --check now also accepts openssl-style checksums.
+  So do sha1sum, sha224sum, sha384sum and sha512sum.
+
+  mktemp now accepts the option --suffix to provide a known suffix
+  after the substitution in the template.  Additionally, uses such as
+  "mktemp fileXXXXXX.txt" are able to infer an appropriate --suffix.
+
+  touch now accepts the option --no-dereference (-h), as a means to
+  change symlink timestamps on platforms with enough support.
+
+
 * Noteworthy changes in release 8.0 (2009-10-06) [beta]
 
 ** Bug fixes

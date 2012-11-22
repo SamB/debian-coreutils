@@ -44,7 +44,7 @@
 #define MEMCHR (char *) memchr
 
 int
-main ()
+main (void)
 {
   size_t n = 0x100000;
   char *input = malloc (n);
@@ -105,8 +105,6 @@ main ()
 
     if (page_boundary != NULL)
       {
-	int n;
-
 	for (n = 1; n <= 500; n++)
 	  {
 	    char *mem = page_boundary - n;
@@ -114,7 +112,7 @@ main ()
 	    ASSERT (MEMCHR (mem, 'U', n) == NULL);
 
 	    {
-	      int i;
+	      size_t i;
 
 	      for (i = 0; i < n; i++)
 		{

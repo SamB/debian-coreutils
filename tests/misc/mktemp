@@ -60,11 +60,18 @@ my @Tests =
        . "Try `$prog --help' for more information.\n"}, {EXIT => 1} ],
      ['too-many-q', '-q a b', {EXIT => 1} ],
 
-     ['too-few-x', 'foo.XX',
-      {ERR=>"$prog: too few X's in template `foo.XX'\n"}, {EXIT => 1} ],
+     ['too-few-x', 'foo.XX', {EXIT => 1},
+      {ERR=>"$prog: too few X's in template `foo.XX'\n"}],
+     ['too-few-xq', '-q foo.XX', {EXIT => 1} ],
 
      ['1f', 'bar.XXXX', {OUT => "bar.ZZZZ\n"},
       {OUT_SUBST => 's,\.....$,.ZZZZ,'},
+      {POST => sub { my ($f) = @_; defined $f or return; chomp $f;
+       check_tmp $f, 'F'; }}
+     ],
+
+     ['2f', '-- -XXXX', {OUT => "-ZZZZ\n"},
+      {OUT_SUBST => 's,-....$,-ZZZZ,'},
       {POST => sub { my ($f) = @_; defined $f or return; chomp $f;
        check_tmp $f, 'F'; }}
      ],
@@ -78,12 +85,24 @@ my @Tests =
 
      # Use a template consisting solely of X's
      ['1d-allX', '-d XXXX', {OUT => "ZZZZ\n"},
+      {PRE => sub {mkdir 'XXXX',0755 or die "XXXX: $!\n"}},
       {OUT_SUBST => 's,^....$,ZZZZ,'},
       {POST => sub { my ($f) = @_; defined $f or return; chomp $f;
-       check_tmp $f, 'D'; }}
+       check_tmp $f, 'D'; rmdir 'XXXX' or die "rmdir XXXX: $!\n"; }}
      ],
 
-     ['invalid-tmpl', '-t a/bXXXX',
+     # Test -u
+     ['uf', '-u f.XXXX', {OUT => "f.ZZZZ\n"},
+      {OUT_SUBST => 's,\.....$,.ZZZZ,'},
+      {POST => sub { my ($f) = @_; defined $f or return; chomp $f;
+       -e $f and die "dry-run created file"; }}],
+     ['ud', '-d --dry-run d.XXXX', {OUT => "d.ZZZZ\n"},
+      {OUT_SUBST => 's,\.....$,.ZZZZ,'},
+      {POST => sub { my ($f) = @_; defined $f or return; chomp $f;
+       -e $f and die "dry-run created directory"; }}],
+
+     # Test bad templates
+     ['invalid-tl', '-t a/bXXXX',
       {ERR=>"$prog: invalid template, `a/bXXXX', "
        . "contains directory separator\n"}, {EXIT => 1} ],
 
@@ -91,6 +110,75 @@ my @Tests =
       {ERR=>"$prog: invalid template, `/bXXXX'; "
        . "with --tmpdir, it may not be absolute\n"}, {EXIT => 1} ],
 
+     # Suffix after X.
+     ['suffix1f', 'aXXXXb', {OUT=>"aZZZZb\n"},
+      {OUT_SUBST=>'s,a....b,aZZZZb,'},
+      {POST => sub { my ($f) = @_; defined $f or return; chomp $f;
+       check_tmp $f, 'F'; }}],
+     ['suffix1d', '-d aXXXXb', {OUT=>"aZZZZb\n"},
+      {OUT_SUBST=>'s,a....b,aZZZZb,'},
+      {POST => sub { my ($f) = @_; defined $f or return; chomp $f;
+       check_tmp $f, 'D'; }}],
+     ['suffix1u', '-u aXXXXb', {OUT=>"aZZZZb\n"},
+      {OUT_SUBST=>'s,a....b,aZZZZb,'},
+      {POST => sub { my ($f) = @_; defined $f or return; chomp $f;
+       -e $f and die "dry-run created file"; }}],
+
+     ['suffix2f', 'aXXXXaaXXXXa', {OUT=>"aXXXXaaZZZZa\n"},
+      {OUT_SUBST=>'s,a....a$,aZZZZa,'},
+      {POST => sub { my ($f) = @_; defined $f or return; chomp $f;
+       check_tmp $f, 'F'; }}],
+     ['suffix2d', '-d --suffix= aXXXXaaXXXX', {OUT=>"aXXXXaaZZZZ\n"},
+      {OUT_SUBST=>'s,a....$,aZZZZ,'},
+      {POST => sub { my ($f) = @_; defined $f or return; chomp $f;
+       check_tmp $f, 'D'; }}],
+
+     ['suffix3f', '--suffix=b aXXXX', {OUT=>"aZZZZb\n"},
+      {OUT_SUBST=>'s,a....b,aZZZZb,'},
+      {POST => sub { my ($f) = @_; defined $f or return; chomp $f;
+       check_tmp $f, 'F'; }}],
+
+     ['suffix4f', '--suffix=X aXXXX', {OUT=>"aZZZZX\n"},
+      {OUT_SUBST=>'s,^a....,aZZZZ,'},
+      {POST => sub { my ($f) = @_; defined $f or return; chomp $f;
+       check_tmp $f, 'F'; }}],
+
+     ['suffix5f', '--suffix /b aXXXX', {EXIT=>1},
+      {ERR=>"$prog: invalid suffix `/b', contains directory separator\n"}],
+
+     ['suffix6f', 'aXXXX/b', {EXIT=>1},
+      {ERR=>"$prog: invalid suffix `/b', contains directory separator\n"}],
+     ['suffix6f-q', '-q aXXXX/b', {EXIT=>1}],
+
+     ['suffix7f', '--suffix= aXXXXb', {EXIT=>1},
+      {ERR=>"$prog: with --suffix, template `aXXXXb' must end in X\n"}],
+     ['suffix7f-q', '-q --suffix= aXXXXb', {EXIT=>1}],
+     ['suffix7d', '-d --suffix=aXXXXb ""', {EXIT=>1},
+      {ERR=>"$prog: with --suffix, template `' must end in X\n"}],
+
+     ['suffix8f', 'aXXXX --suffix=b', {OUT=>"aZZZZb\n"},
+      {OUT_SUBST=>'s,^a....,aZZZZ,'},
+      {POST => sub { my ($f) = @_; defined $f or return; chomp $f;
+       check_tmp $f, 'F'; }}],
+
+     ['suffix9f', 'aXXXX --suffix=b', {EXIT=>1},
+      {ENV=>"POSIXLY_CORRECT=1"},
+      {ERR=>"$prog: too many templates\n"
+       . "Try `$prog --help' for more information.\n"}],
+
+     ['suffix10f', 'aXXb', {EXIT => 1},
+      {ERR=>"$prog: too few X's in template `aXXb'\n"}],
+     ['suffix10d', '-d --suffix=X aXX', {EXIT => 1},
+      {ERR=>"$prog: too few X's in template `aXXX'\n"}],
+
+     ['suffix11f', '--suffix=.txt', {OUT=>"./tmp.ZZZZZZZZZZ.txt\n"},
+      {ENV=>"TMPDIR=."},
+      {OUT_SUBST=>'s,\..{10}\.,.ZZZZZZZZZZ.,'},
+      {POST => sub { my ($f) = @_; defined $f or return; chomp $f;
+       check_tmp $f, 'F'; }}],
+
+
+     # Test template with subdirectory
      ['tmp-w-slash', '--tmpdir=. a/bXXXX',
       {PRE => sub {mkdir 'a',0755 or die "a: $!\n"}},
       {OUT_SUBST => 's,b....$,bZZZZ,'},
@@ -104,6 +192,9 @@ my @Tests =
       {ERR_SUBST => "s,($bad_dir/)[^']+': .*,\$1...,"},
       {ERR => "$prog: failed to create file via template `$bad_dir/...\n"},
       {EXIT => 1}],
+     ['pipe-bad-tmpdir-u', '-u', {OUT => "$bad_dir/tmp.ZZZZZZZZZZ\n"},
+      {ENV => "TMPDIR=$bad_dir"},
+      {OUT_SUBST => 's,\..{10}$,.ZZZZZZZZZZ,'}],
     );
 
 my $save_temps = $ENV{DEBUG};

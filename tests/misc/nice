@@ -48,11 +48,6 @@ NA LAST NA
 '
 set $tests
 
-if test "$VERBOSE" = yes; then
-  nice --version
-  set -x
-fi
-
 # Require that this test be run at `nice' level 0.
 niceness=`nice`
 if test "$niceness" = 0; then
@@ -61,7 +56,6 @@ else
   skip_test_ "this test must be run at nice level 0"
 fi
 
-fail=0
 while :; do
   test_name=$1
   args=$2
@@ -76,8 +70,29 @@ while :; do
   test x`nice $args nice 2> /dev/null` = x$expected_result \
     && ok=ok || ok=FAIL fail=1
   test "$VERBOSE" = yes && echo $ok
-  test x`nice $args nice 2> /dev/null` = x$expected_result || fail=1
   shift; shift; shift
 done
+
+# Test negative niceness - command must be run whether or not change happens.
+if test x`nice -n -1 nice 2> /dev/null` = x0 ; then
+  # unprivileged user - warn about failure to change
+  nice -n -1 true 2> err || fail=1
+  test -s err || fail=1
+  mv err exp || framework_failure
+  nice --1 true 2> err || fail=1
+  compare exp err || fail=1
+  # Failure to write advisory message is fatal.  Buggy through coreutils 8.0.
+  if test -w /dev/full && test -c /dev/full; then
+    nice -n -1 nice > out 2> /dev/full
+    test $? = 125 || fail=1
+    test -s out && fail=1
+  fi
+else
+  # superuser - change succeeds
+  nice -n -1 nice 2> err || fail=1
+  test -s err && fail=1
+  test x`nice -n -1 nice` = x-1 || fail=1
+  test x`nice --1 nice` = x-1 || fail=1
+fi
 
 Exit $fail

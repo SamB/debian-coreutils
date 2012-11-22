@@ -89,14 +89,12 @@ AC_DEFUN([coreutils_MACROS],
     tcgetpgrp \
   )
 
-  # for cp.c
-  AC_CHECK_FUNCS_ONCE([utimensat])
-
   dnl This can't use AC_REQUIRE; I'm not quite sure why.
   cu_PREREQ_STAT_PROG
 
   # for dd.c and shred.c
   coreutils_saved_libs=$LIBS
+    LIB_FDATASYNC=
     AC_SEARCH_LIBS([fdatasync], [rt posix4],
                    [test "$ac_cv_search_fdatasync" = "none required" ||
                     LIB_FDATASYNC=$ac_cv_search_fdatasync])
@@ -118,7 +116,8 @@ AC_DEFUN([coreutils_MACROS],
       if test "X$enable_libcap" = "Xyes"; then
         AC_MSG_ERROR([libcap library was not found or not usable])
       else
-        AC_MSG_WARN([libcap library was not found or not usable, support for libcap will not be built])
+        AC_MSG_WARN([libcap library was not found or not usable.])
+        AC_MSG_WARN([AC_PACKAGE_NAME will be built without capability support.])
       fi
     fi
   else

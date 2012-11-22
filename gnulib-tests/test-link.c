@@ -47,7 +47,7 @@
 #include "test-link.h"
 
 int
-main (int argc, char **argv)
+main (void)
 {
   /* Remove any garbage left from previous partial runs.  */
   ASSERT (system ("rm -rf " BASE "*") == 0);

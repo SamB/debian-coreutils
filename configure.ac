@@ -106,6 +106,7 @@ if test "$gl_gcc_warnings" = yes; then
   gl_WARN_ADD([-Wno-logical-op])
 
   gl_WARN_ADD([-fdiagnostics-show-option])
+  gl_WARN_ADD([-funit-at-a-time])
 
   AC_SUBST([WARN_CFLAGS])
 
@@ -113,13 +114,21 @@ if test "$gl_gcc_warnings" = yes; then
   AC_DEFINE([_FORTIFY_SOURCE], [2],
     [enable compile-time and run-time bounds-checking, and some warnings])
   AC_DEFINE([GNULIB_PORTCHECK], [1], [enable some gnulib portability checks])
+
+  # We use a slightly smaller set of warning options for lib/.
+  # Remove the following and save the result in GNULIB_WARN_CFLAGS.
+  nw=
+  nw="$nw -Wuninitialized"
+  nw="$nw -Wunused-macros"
+  nw="$nw -Wmissing-prototypes"
+  nw="$nw -Wold-style-definition"
+  gl_MANYWARN_COMPLEMENT([GNULIB_WARN_CFLAGS], [$WARN_CFLAGS], [$nw])
+  AC_SUBST([GNULIB_WARN_CFLAGS])
 fi
 
 AC_FUNC_FORK
 
 optional_bin_progs=
-AC_CHECK_FUNCS([uname],
-        gl_ADD_PROG([optional_bin_progs], [uname]))
 AC_CHECK_FUNCS([chroot],
         gl_ADD_PROG([optional_bin_progs], [chroot]))
 AC_CHECK_FUNCS([gethostid],
@@ -420,8 +429,10 @@ CONFIG_STATUS_DEPENDENCIES='$(top_srcdir)/src/Makefile.am'
 AC_SUBST([CONFIG_STATUS_DEPENDENCIES])
 ############################################################################
 
+# As long as "grep 'PRI[diouxX]' po/*.pot" reports matches in
+# translatable strings, we must use need-formatstring-macros here.
 AM_GNU_GETTEXT([external], [need-formatstring-macros])
-AM_GNU_GETTEXT_VERSION([0.15])
+AM_GNU_GETTEXT_VERSION([0.17])
 
 # For a test of uniq: it uses the $LOCALE_FR envvar.
 gt_LOCALE_FR

@@ -59,7 +59,7 @@
 # define SWAP(n) (n)
 #endif
 
-#define BLOCKSIZE 4096
+#define BLOCKSIZE 32768
 #if BLOCKSIZE % 64 != 0
 # error "invalid BLOCKSIZE"
 #endif
@@ -139,8 +139,11 @@ int
 md5_stream (FILE *stream, void *resblock)
 {
   struct md5_ctx ctx;
-  char buffer[BLOCKSIZE + 72];
   size_t sum;
+
+  char *buffer = malloc (BLOCKSIZE + 72);
+  if (!buffer)
+    return 1;
 
   /* Initialize the computation context.  */
   md5_init_ctx (&ctx);
@@ -170,7 +173,10 @@ md5_stream (FILE *stream, void *resblock)
 	         exit the loop after a partial read due to e.g., EAGAIN
 	         or EWOULDBLOCK.  */
 	      if (ferror (stream))
-		return 1;
+		{
+		  free (buffer);
+		  return 1;
+		}
 	      goto process_partial_block;
 	    }
 
@@ -195,6 +201,7 @@ process_partial_block:
 
   /* Construct result in desired memory.  */
   md5_finish_ctx (&ctx, resblock);
+  free (buffer);
   return 0;
 }
 

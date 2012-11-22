@@ -425,6 +425,9 @@ excluded_file_name (struct exclude const *ex, char const *f)
 	    filename = xmalloc (strlen (f) + 1);
 	  rc = excluded_file_name_p (seg, f, filename);
 	  break;
+
+	default:
+	  abort ();
 	}
       if (rc != excluded)
 	{

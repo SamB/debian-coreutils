@@ -1,4 +1,4 @@
-# serial 24
+# serial 26
 # See if we need to use our replacement for Solaris' openat et al functions.
 
 dnl Copyright (C) 2004-2009 Free Software Foundation, Inc.
@@ -27,8 +27,14 @@ AC_DEFUN([gl_FUNC_OPENAT],
   AC_CHECK_FUNCS_ONCE([lchmod])
   AC_REPLACE_FUNCS([fchmodat fstatat mkdirat openat unlinkat])
   AC_REQUIRE([AC_FUNC_LSTAT_FOLLOWS_SLASHED_SYMLINK])
+  AC_REQUIRE([gl_FUNC_UNLINK])
   case $ac_cv_func_openat+$ac_cv_func_lstat_dereferences_slashed_symlink in
-  yes+yes) ;;
+  yes+yes)
+    # GNU/Hurd has unlinkat, but it has the same bug as unlink.
+    if test $REPLACE_UNLINK = 1; then
+      AC_LIBOBJ([unlinkat])
+      REPLACE_UNLINKAT=1
+    fi ;;
   yes+*)
     # Solaris 9 has *at functions, but uniformly mishandles trailing
     # slash in all of them.
@@ -96,9 +102,15 @@ main ()
 # Also use the replacement function if fchownat is simply not available.
 AC_DEFUN([gl_FUNC_FCHOWNAT],
 [
+  AC_REQUIRE([gl_FUNC_CHOWN])
   AC_CHECK_FUNC([fchownat],
-    [gl_FUNC_FCHOWNAT_DEREF_BUG([REPLACE_FCHOWNAT=1])],
+    [gl_FUNC_FCHOWNAT_DEREF_BUG([REPLACE_FCHOWNAT=1
+      AC_DEFINE([FCHOWNAT_NOFOLLOW_BUG], [1], [Define to 1 if your
+      platform has fchownat, but it cannot perform lchown tasks.])])],
     [HAVE_FCHOWNAT=0])
+  if test $REPLACE_CHOWN = 1; then
+    REPLACE_FCHOWNAT=1
+  fi
   if test $HAVE_FCHOWNAT = 0 || test $REPLACE_FCHOWNAT = 1; then
     AC_LIBOBJ([fchownat])
   fi

@@ -219,25 +219,39 @@ human_fstype (STRUCT_STATVFS const *statfsbuf)
       return "adfs";
     case S_MAGIC_AFFS: /* 0xADFF */
       return "affs";
-    case S_MAGIC_AUTOFS: /* 0x187 */
+    case S_MAGIC_AFS: /* 0x5346414F */
+      return "afs";
+    case S_MAGIC_ANON_INODE_FS: /* 0x09041934 */
+      return "anon-inode FS";
+    case S_MAGIC_AUTOFS: /* 0x0187 */
       return "autofs";
     case S_MAGIC_BEFS: /* 0x42465331 */
       return "befs";
     case S_MAGIC_BFS: /* 0x1BADFACE */
       return "bfs";
-    case S_MAGIC_BINFMT_MISC: /* 0x42494e4d */
+    case S_MAGIC_BINFMT_MISC: /* 0x42494E4D */
       return "binfmt_misc";
+    case S_MAGIC_BTRFS: /* 0x9123683E */
+      return "btrfs";
+    case S_MAGIC_CGROUP: /* 0x0027E0EB */
+      return "cgroupfs";
+    case S_MAGIC_CIFS: /* 0xFF534D42 */
+      return "cifs";
     case S_MAGIC_CODA: /* 0x73757245 */
       return "coda";
     case S_MAGIC_COH: /* 0x012FF7B7 */
       return "coh";
     case S_MAGIC_CRAMFS: /* 0x28CD3D45 */
       return "cramfs";
+    case S_MAGIC_CRAMFS_WEND: /* 0x453DCD28 */
+      return "cramfs-wend";
+    case S_MAGIC_DEBUGFS: /* 0x64626720 */
+      return "debugfs";
     case S_MAGIC_DEVFS: /* 0x1373 */
       return "devfs";
     case S_MAGIC_DEVPTS: /* 0x1CD1 */
       return "devpts";
-    case S_MAGIC_EFS: /* 0x414A53 */
+    case S_MAGIC_EFS: /* 0x00414A53 */
       return "efs";
     case S_MAGIC_EXT: /* 0x137D */
       return "ext";
@@ -249,20 +263,26 @@ human_fstype (STRUCT_STATVFS const *statfsbuf)
       return "fat";
     case S_MAGIC_FUSECTL: /* 0x65735543 */
       return "fusectl";
+    case S_MAGIC_FUTEXFS: /* 0x0BAD1DEA */
+      return "futexfs";
+    case S_MAGIC_HFS: /* 0x4244 */
+      return "hfs";
     case S_MAGIC_HPFS: /* 0xF995E849 */
       return "hpfs";
-    case S_MAGIC_HUGETLBFS: /* 0x958458f6 */
+    case S_MAGIC_HUGETLBFS: /* 0x958458F6 */
       return "hugetlbfs";
+    case S_MAGIC_INOTIFYFS: /* 0x2BAD1DEA */
+      return "inotifyfs";
     case S_MAGIC_ISOFS: /* 0x9660 */
       return "isofs";
     case S_MAGIC_ISOFS_R_WIN: /* 0x4004 */
       return "isofs";
     case S_MAGIC_ISOFS_WIN: /* 0x4000 */
       return "isofs";
-    case S_MAGIC_JFFS2: /* 0x72B6 */
-      return "jffs2";
     case S_MAGIC_JFFS: /* 0x07C0 */
       return "jffs";
+    case S_MAGIC_JFFS2: /* 0x72B6 */
+      return "jffs2";
     case S_MAGIC_JFS: /* 0x3153464A */
       return "jfs";
     case S_MAGIC_LUSTRE: /* 0x0BD00BD0 */
@@ -275,6 +295,8 @@ human_fstype (STRUCT_STATVFS const *statfsbuf)
       return "minix v2";
     case S_MAGIC_MINIX_V2_30: /* 0x2478 */
       return "minix v2 (30 char.)";
+    case S_MAGIC_MINIX_V3: /* 0x4D5A */
+      return "minux3";
     case S_MAGIC_MSDOS: /* 0x4D44 */
       return "msdos";
     case S_MAGIC_NCP: /* 0x564C */
@@ -283,9 +305,11 @@ human_fstype (STRUCT_STATVFS const *statfsbuf)
       return "nfs";
     case S_MAGIC_NFSD: /* 0x6E667364 */
       return "nfsd";
+    case S_MAGIC_NILFS: /* 0x3434 */
+      return "nilfs";
     case S_MAGIC_NTFS: /* 0x5346544E */
       return "ntfs";
-    case S_MAGIC_OPENPROM: /* 0x9fa1 */
+    case S_MAGIC_OPENPROM: /* 0x9FA1 */
       return "openprom";
     case S_MAGIC_PROC: /* 0x9FA0 */
       return "proc";
@@ -297,6 +321,10 @@ human_fstype (STRUCT_STATVFS const *statfsbuf)
       return "reiserfs";
     case S_MAGIC_ROMFS: /* 0x7275 */
       return "romfs";
+    case S_MAGIC_SECURITYFS: /* 0x73636673 */
+      return "securityfs";
+    case S_MAGIC_SELINUX: /* 0xF97CFF8C */
+      return "selinux";
     case S_MAGIC_SMB: /* 0x517B */
       return "smb";
     case S_MAGIC_SQUASHFS: /* 0x73717368 */
@@ -307,7 +335,7 @@ human_fstype (STRUCT_STATVFS const *statfsbuf)
       return "sysv2";
     case S_MAGIC_SYSV4: /* 0x012FF7B5 */
       return "sysv4";
-    case S_MAGIC_TMPFS: /* 0x1021994 */
+    case S_MAGIC_TMPFS: /* 0x01021994 */
       return "tmpfs";
     case S_MAGIC_UDF: /* 0x15013346 */
       return "udf";
@@ -319,6 +347,8 @@ human_fstype (STRUCT_STATVFS const *statfsbuf)
       return "usbdevfs";
     case S_MAGIC_VXFS: /* 0xA501FCF5 */
       return "vxfs";
+    case S_MAGIC_XENFS: /* 0xABBA1974 */
+      return "xenfs";
     case S_MAGIC_XENIX: /* 0x012FF7B4 */
       return "xenix";
     case S_MAGIC_XFS: /* 0x58465342 */
@@ -693,6 +723,9 @@ print_esc_char (char c)
     case 'b':			/* Backspace. */
       c ='\b';
       break;
+    case 'e':			/* Escape. */
+      c ='\x1B';
+      break;
     case 'f':			/* Form feed. */
       c ='\f';
       break;
@@ -872,7 +905,12 @@ do_stat (char const *filename, bool terse, char const *format)
           return false;
         }
     }
-  else if ((follow_links ? stat : lstat) (filename, &statbuf) != 0)
+  /* We can't use the shorter
+     (follow_links?stat:lstat) (filename, &statbug)
+     since stat might be a function-like macro.  */
+  else if ((follow_links
+            ? stat (filename, &statbuf)
+            : lstat (filename, &statbuf)) != 0)
     {
       error (0, errno, _("cannot stat %s"), quote (filename));
       return false;

@@ -1,4 +1,4 @@
-/* mgetgroups.c -- return a list of the groups a user is in
+/* mgetgroups.c -- return a list of the groups a user or current process is in
 
    Copyright (C) 2007-2009 Free Software Foundation, Inc.
 
@@ -29,36 +29,38 @@
 #if HAVE_GETGROUPLIST
 # include <grp.h>
 #endif
+
 #include "getugroups.h"
 #include "xalloc.h"
 
-
-static GETGROUPS_T *
-realloc_groupbuf (GETGROUPS_T *g, size_t num)
+static gid_t *
+realloc_groupbuf (gid_t *g, size_t num)
 {
-  if (xalloc_oversized (num, sizeof (*g)))
+  if (xalloc_oversized (num, sizeof *g))
     {
       errno = ENOMEM;
       return NULL;
     }
 
-  return realloc (g, num * sizeof (*g));
+  return realloc (g, num * sizeof *g);
 }
 
 /* Like getugroups, but store the result in malloc'd storage.
    Set *GROUPS to the malloc'd list of all group IDs of which USERNAME
    is a member.  If GID is not -1, store it first.  GID should be the
    group ID (pw_gid) obtained from getpwuid, in case USERNAME is not
-   listed in the groups database (e.g., /etc/groups).  Upon failure,
+   listed in the groups database (e.g., /etc/groups).  If USERNAME is
+   NULL, store the supplementary groups of the current process, and GID
+   should be -1 or the effective group ID (getegid).  Upon failure,
    don't modify *GROUPS, set errno, and return -1.  Otherwise, return
    the number of groups.  */
 
 int
-mgetgroups (char const *username, gid_t gid, GETGROUPS_T **groups)
+mgetgroups (char const *username, gid_t gid, gid_t **groups)
 {
   int max_n_groups;
   int ng;
-  GETGROUPS_T *g;
+  gid_t *g;
 
 #if HAVE_GETGROUPLIST
   /* We prefer to use getgrouplist if available, because it has better
@@ -80,7 +82,7 @@ mgetgroups (char const *username, gid_t gid, GETGROUPS_T **groups)
 
       while (1)
         {
-          GETGROUPS_T *h;
+          gid_t *h;
           int last_n_groups = max_n_groups;
 
           /* getgrouplist updates max_n_groups to num required.  */
@@ -114,7 +116,7 @@ mgetgroups (char const *username, gid_t gid, GETGROUPS_T **groups)
 
   max_n_groups = (username
                   ? getugroups (0, NULL, username, gid)
-                  : getgroups (0, NULL));
+                  : getgroups (0, NULL) + (gid != -1));
 
   /* If we failed to count groups with NULL for a buffer,
      try again with a non-NULL one, just in case.  */
@@ -127,7 +129,7 @@ mgetgroups (char const *username, gid_t gid, GETGROUPS_T **groups)
 
   ng = (username
         ? getugroups (max_n_groups, g, username, gid)
-        : getgroups (max_n_groups, g));
+        : getgroups (max_n_groups, g + (gid != -1)));
 
   if (ng < 0)
     {
@@ -137,6 +139,11 @@ mgetgroups (char const *username, gid_t gid, GETGROUPS_T **groups)
       return -1;
     }
 
+  if (!username && gid != -1)
+    {
+      *g = gid;
+      ng++;
+    }
   *groups = g;
   return ng;
 }

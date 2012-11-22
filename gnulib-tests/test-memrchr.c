@@ -44,7 +44,7 @@
 #define MEMRCHR (char *) memrchr
 
 int
-main ()
+main (void)
 {
   size_t n = 0x100000;
   char *input = malloc (n);

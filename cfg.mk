@@ -39,7 +39,7 @@ bootstrap-tools = autoconf,automake,gnulib,bison
 # Now that we have better tests, make this the default.
 export VERBOSE = yes
 
-old_NEWS_hash = 0d22ab4ad3fedd9cf283b256b61e8080
+old_NEWS_hash = 785e51bc9af87e7eb004f9ba24a0ca27
 
 # Ensure that the list of O_ symbols used to compute O_FULLBLOCK is complete.
 dd = $(srcdir)/src/dd.c
@@ -191,6 +191,18 @@ sc_no_exec_perl_coreutils:
 	      exit 1; } || :;						\
 	fi
 
+# Don't use "readlink" or "readlinkat" directly
+sc_prohibit_readlink:
+	@re='\<readlink(at)? \('					\
+	msg='do not use readlink(at); use via xreadlink or areadlink*'	\
+	  $(_prohibit_regexp)
+
+# Don't use address of "stat" or "lstat" functions
+sc_prohibit_stat_macro_address:
+	@re='\<l?stat '':|&l?stat\>'					\
+	msg='stat() and lstat() may be function-like macros'		\
+	  $(_prohibit_regexp)
+
 # Ensure that date's --help output stays in sync with the info
 # documentation for GNU strftime.  The only exception is %N,
 # which date accepts but GNU strftime does not.
@@ -217,5 +229,24 @@ sc_prohibit_emacs__indent_tabs_mode__setting:
 	@re='^( *[*#] *)?indent-tabs-mode:'				\
 	msg='use of emacs indent-tabs-mode: setting'			\
 	  $(_prohibit_regexp)
+
+# Ensure that each file that contains fail=1 also contains fail=0.
+# Otherwise, setting file=1 in the environment would make tests fail unexpectedly.
+sc_prohibit_fail_0:
+	@re='\<fail=0\>'						\
+	msg='fail=0 initialization'					\
+	  $(_prohibit_regexp)
+
+# Ensure that "stdio--.h" is used where appropriate.
+sc_require_stdio_safer:
+	@if $(VC_LIST_EXCEPT) | grep -l '\.[ch]$$' > /dev/null; then	\
+	  files=$$(grep -l '\bfreopen \?(' $$($(VC_LIST_EXCEPT)		\
+	      | grep '\.[ch]$$'));					\
+	  test -n "$$files" && grep -LE 'include "stdio--.h"' $$files	\
+	      | grep . &&						\
+	  { echo '$(ME): the above files should use "stdio--.h"'	\
+		1>&2; exit 1; } || :;					\
+	else :;								\
+	fi
 
 include $(srcdir)/dist-check.mk

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coreutils 6.5\n"
 "Report-Msgid-Bugs-To: bug-coreutils@gnu.org\n"
-"POT-Creation-Date: 2009-10-06 11:17+0200\n"
+"POT-Creation-Date: 2009-11-18 19:42+0100\n"
 "PO-Revision-Date: 2006-11-23 12:07+0200\n"
 "Last-Translator: Toomas Soome <Toomas.Soome@microlink.ee>\n"
 "Language-Team: Estonian <et@li.org>\n"
@@ -38,15 +38,15 @@ msgstr "sulgen sisendfaili %s"
 #: lib/closeout.c:112 src/base64.c:110 src/base64.c:122 src/base64.c:128
 #: src/base64.c:169 src/base64.c:225 src/cat.c:187 src/cat.c:203 src/cat.c:287
 #: src/cksum.c:248 src/expand.c:329 src/expand.c:354 src/head.c:301
-#: src/head.c:351 src/head.c:759 src/head.c:800 src/od.c:919 src/paste.c:159
-#: src/shuf.c:405 src/tail.c:342 src/tail.c:1130 src/tail.c:1402
-#: src/tail.c:2007 src/tr.c:1549 src/tr.c:1772 src/tr.c:1886
+#: src/head.c:351 src/head.c:759 src/head.c:800 src/mktemp.c:348 src/od.c:919
+#: src/paste.c:159 src/shuf.c:405 src/tail.c:342 src/tail.c:1130
+#: src/tail.c:1209 src/tail.c:2028 src/tr.c:1549 src/tr.c:1772 src/tr.c:1886
 #: src/unexpand.c:426 src/unexpand.c:442
 #, c-format
 msgid "write error"
 msgstr "viga kirjutamisel"
 
-#: lib/copy-acl.c:547 src/copy.c:891 src/copy.c:2225
+#: lib/copy-acl.c:547 src/copy.c:883 src/copy.c:2217
 #, c-format
 msgid "preserving permissions for %s"
 msgstr "säilitan %s õigused"
@@ -55,8 +55,8 @@ msgstr "säilitan %s õigused"
 msgid "Unknown system error"
 msgstr "Tundmatu süsteemne viga"
 
-#: lib/euidaccess-stat.c:129 src/copy.c:1275 src/copy.c:1327 src/copy.c:1909
-#: src/copy.c:2212 src/df.c:574 src/install.c:737 src/stat.c:877
+#: lib/euidaccess-stat.c:129 src/copy.c:1267 src/copy.c:1319 src/copy.c:1901
+#: src/copy.c:2204 src/df.c:574 src/install.c:737 src/stat.c:915
 #: src/truncate.c:367
 #, c-format
 msgid "cannot stat %s"
@@ -190,57 +190,57 @@ msgstr "Parameetersõne ei ole korrektselt kodeeritud"
 msgid "Unknown error"
 msgstr "Tundmatu viga"
 
-#: lib/getopt.c:526 lib/getopt.c:542
+#: lib/getopt.c:527 lib/getopt.c:543
 #, c-format
 msgid "%s: option `%s' is ambiguous\n"
 msgstr "%s: võti `%s' on segane\n"
 
-#: lib/getopt.c:575 lib/getopt.c:579
+#: lib/getopt.c:576 lib/getopt.c:580
 #, c-format
 msgid "%s: option `--%s' doesn't allow an argument\n"
 msgstr "%s: võti `--%s' ei luba kasutada argumenti\n"
 
-#: lib/getopt.c:588 lib/getopt.c:593
+#: lib/getopt.c:589 lib/getopt.c:594
 #, c-format
 msgid "%s: option `%c%s' doesn't allow an argument\n"
 msgstr "%s: võti `%c%s' ei luba kasutada argumenti\n"
 
-#: lib/getopt.c:636 lib/getopt.c:655 lib/getopt.c:971 lib/getopt.c:990
+#: lib/getopt.c:637 lib/getopt.c:656 lib/getopt.c:972 lib/getopt.c:991
 #, c-format
 msgid "%s: option `%s' requires an argument\n"
 msgstr "%s: võti `%s' nõuab argumenti\n"
 
-#: lib/getopt.c:693 lib/getopt.c:696
+#: lib/getopt.c:694 lib/getopt.c:697
 #, c-format
 msgid "%s: unrecognized option `--%s'\n"
 msgstr "%s: tundmatu võti `--%s'\n"
 
-#: lib/getopt.c:704 lib/getopt.c:707
+#: lib/getopt.c:705 lib/getopt.c:708
 #, c-format
 msgid "%s: unrecognized option `%c%s'\n"
 msgstr "%s: tundmatu võti `%c%s'\n"
 
-#: lib/getopt.c:759 lib/getopt.c:762
+#: lib/getopt.c:760 lib/getopt.c:763
 #, c-format
 msgid "%s: illegal option -- %c\n"
 msgstr "%s: lubamatu võti -- %c\n"
 
-#: lib/getopt.c:768 lib/getopt.c:771
+#: lib/getopt.c:769 lib/getopt.c:772
 #, c-format
 msgid "%s: invalid option -- %c\n"
 msgstr "%s: vigane võti -- %c\n"
 
-#: lib/getopt.c:823 lib/getopt.c:839 lib/getopt.c:1043 lib/getopt.c:1061
+#: lib/getopt.c:824 lib/getopt.c:840 lib/getopt.c:1044 lib/getopt.c:1062
 #, c-format
 msgid "%s: option requires an argument -- %c\n"
 msgstr "%s: võti nõuab argumenti -- %c\n"
 
-#: lib/getopt.c:892 lib/getopt.c:908
+#: lib/getopt.c:893 lib/getopt.c:909
 #, c-format
 msgid "%s: option `-W %s' is ambiguous\n"
 msgstr "%s: võti `-W %s' on segane\n"
 
-#: lib/getopt.c:932 lib/getopt.c:950
+#: lib/getopt.c:933 lib/getopt.c:951
 #, c-format
 msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s: võti `-W %s' ei luba kasutada argumenti\n"
@@ -250,7 +250,7 @@ msgstr "%s: võti `-W %s' ei luba kasutada argumenti\n"
 msgid "cannot change permissions of %s"
 msgstr "ei õnnestu muuta %s õigusi"
 
-#: lib/mkdir-p.c:206 src/copy.c:1898 src/install.c:705 src/install.c:718
+#: lib/mkdir-p.c:206 src/copy.c:1890 src/install.c:705 src/install.c:718
 #, c-format
 msgid "cannot create directory %s"
 msgstr "kataloogi `%s' ei õnnestu luua"
@@ -301,75 +301,75 @@ msgstr "'"
 msgid "%s: end of file"
 msgstr "%s: faili lõpp"
 
-#: lib/regcomp.c:135
+#: lib/regcomp.c:137
 msgid "Success"
 msgstr "Õnnestumine"
 
-#: lib/regcomp.c:138
+#: lib/regcomp.c:140
 msgid "No match"
 msgstr "Ei leitud"
 
-#: lib/regcomp.c:141
+#: lib/regcomp.c:143
 msgid "Invalid regular expression"
 msgstr "Vigane regulaaravaldis"
 
-#: lib/regcomp.c:144
+#: lib/regcomp.c:146
 msgid "Invalid collation character"
 msgstr "Vigane järjestamise sümbol"
 
-#: lib/regcomp.c:147
+#: lib/regcomp.c:149
 msgid "Invalid character class name"
 msgstr "Vigane sümbolite klassi nimi"
 
-#: lib/regcomp.c:150
+#: lib/regcomp.c:152
 msgid "Trailing backslash"
 msgstr "Lõpetav langkriips"
 
-#: lib/regcomp.c:153
+#: lib/regcomp.c:155
 msgid "Invalid back reference"
 msgstr "Vigane tagasiviide"
 
-#: lib/regcomp.c:156
+#: lib/regcomp.c:158
 msgid "Unmatched [ or [^"
 msgstr "Puudub [ või [^"
 
-#: lib/regcomp.c:159
+#: lib/regcomp.c:161
 msgid "Unmatched ( or \\("
 msgstr "Puudub ( või \\("
 
-#: lib/regcomp.c:162
+#: lib/regcomp.c:164
 msgid "Unmatched \\{"
 msgstr "Puudub \\{"
 
-#: lib/regcomp.c:165
+#: lib/regcomp.c:167
 msgid "Invalid content of \\{\\}"
 msgstr "Vigane \\{\\} kontekst"
 
-#: lib/regcomp.c:168
+#: lib/regcomp.c:170
 msgid "Invalid range end"
 msgstr "Vigane vahemiku lõpp"
 
-#: lib/regcomp.c:171
+#: lib/regcomp.c:173
 msgid "Memory exhausted"
 msgstr "Mälu on otsas"
 
-#: lib/regcomp.c:174
+#: lib/regcomp.c:176
 msgid "Invalid preceding regular expression"
 msgstr "Vigane eelnev regulaaravaldis"
 
-#: lib/regcomp.c:177
+#: lib/regcomp.c:179
 msgid "Premature end of regular expression"
 msgstr "Enneaegne regulaaravaldise lõpp"
 
-#: lib/regcomp.c:180
+#: lib/regcomp.c:182
 msgid "Regular expression too big"
 msgstr "Regulaaravaldis on liiga suur"
 
-#: lib/regcomp.c:183
+#: lib/regcomp.c:185
 msgid "Unmatched ) or \\)"
 msgstr "Puudub ) või \\)"
 
-#: lib/regcomp.c:704
+#: lib/regcomp.c:706
 msgid "No previous regular expression"
 msgstr "Eelmist regulaaravaldist pole"
 
@@ -408,7 +408,7 @@ msgstr "^[jJ]"
 msgid "^[nN]"
 msgstr "^[eE]"
 
-#: lib/set-mode-acl.c:591 src/copy.c:1921 src/cp.c:512
+#: lib/set-mode-acl.c:591 src/copy.c:1913 src/cp.c:512
 #, c-format
 msgid "setting permissions for %s"
 msgstr "sean %s õigusi"
@@ -565,24 +565,24 @@ msgstr "vigane ajaintervall %s"
 msgid "Unknown signal %d"
 msgstr ""
 
-#: lib/unicodeio.c:102
+#: lib/unicodeio.c:103
 msgid "iconv function not usable"
 msgstr "iconv funktsioon ei ole kasutatav"
 
-#: lib/unicodeio.c:104
+#: lib/unicodeio.c:105
 msgid "iconv function not available"
 msgstr "iconv funktsioon puudub"
 
-#: lib/unicodeio.c:111
+#: lib/unicodeio.c:112
 msgid "character out of range"
 msgstr "sümbol on piirkonnast väljas"
 
-#: lib/unicodeio.c:175
+#: lib/unicodeio.c:180
 #, c-format
 msgid "cannot convert U+%04X to local character set"
 msgstr "U+%04X ei saa lokaalsesse kooditabelisse teisendada"
 
-#: lib/unicodeio.c:177
+#: lib/unicodeio.c:182
 #, c-format
 msgid "cannot convert U+%04X to local character set: %s"
 msgstr "U+%04X ei saa lokaalsesse kooditabelisse teisendada: %s"
@@ -747,46 +747,51 @@ msgstr ""
 #, fuzzy, c-format
 msgid ""
 "\n"
-"Report bugs to <%s>.\n"
+"Report bugs to: %s\n"
 msgstr ""
 "\n"
 "Vigadest teatage palun aadressil <%s>.\n"
 
 #: lib/version-etc.c:241
 #, fuzzy, c-format
-msgid "Report %s bugs to <%s>.\n"
+msgid "Report %s bugs to: %s\n"
 msgstr ""
 "\n"
 "Vigadest teatage palun aadressil <%s>.\n"
 
-#: lib/version-etc.c:244
+#: lib/version-etc.c:245
+#, fuzzy, c-format
+msgid "%s home page: <%s>\n"
+msgstr "Kasutamine: %s [VÕTI]\n"
+
+#: lib/version-etc.c:247 src/system.h:591
 #, c-format
-msgid "%s home page: <http://www.gnu.org/software/%s/>.\n"
+msgid "%s home page: <http://www.gnu.org/software/%s/>\n"
 msgstr ""
 
-#: lib/version-etc.c:246
-msgid "General help using GNU software: <http://www.gnu.org/gethelp/>.\n"
-msgstr ""
-
-#: lib/xfreopen.c:34
-msgid "stdin"
+#: lib/version-etc.c:250 src/system.h:593
+msgid "General help using GNU software: <http://www.gnu.org/gethelp/>\n"
 msgstr ""
 
 #: lib/xfreopen.c:35
-msgid "stdout"
+msgid "stdin"
 msgstr ""
 
 #: lib/xfreopen.c:36
+msgid "stdout"
+msgstr ""
+
+#: lib/xfreopen.c:37
 #, fuzzy
 msgid "stderr"
 msgstr "standard veavoog"
 
-#: lib/xfreopen.c:37
+#: lib/xfreopen.c:38
 #, fuzzy
 msgid "unknown stream"
 msgstr "Tundmatu süsteemne viga"
 
-#: lib/xfreopen.c:38
+#: lib/xfreopen.c:39
 #, fuzzy, c-format
 msgid "failed to reopen %s with mode %s"
 msgstr "%s avamine ebaõnnestus"
@@ -851,27 +856,28 @@ msgstr "%s: loendur `%.*s' on liiga suur"
 msgid "Simon Josefsson"
 msgstr ""
 
-#: src/base64.c:55 src/basename.c:46 src/cat.c:85 src/chcon.c:340
-#: src/chgrp.c:106 src/chmod.c:351 src/chown.c:87 src/chroot.c:120
+#: src/base64.c:55 src/basename.c:46 src/cat.c:85 src/chcon.c:348
+#: src/chgrp.c:106 src/chmod.c:360 src/chown.c:87 src/chroot.c:120
 #: src/cksum.c:257 src/comm.c:99 src/cp.c:151 src/csplit.c:1442 src/cut.c:185
 #: src/date.c:120 src/dd.c:464 src/df.c:799 src/dircolors.c:94
-#: src/dirname.c:41 src/du.c:264 src/echo.c:39 src/env.c:109 src/expand.c:99
+#: src/dirname.c:41 src/du.c:262 src/echo.c:39 src/env.c:49 src/expand.c:99
 #: src/expr.c:200 src/factor.c:489 src/fmt.c:265 src/fold.c:62
 #: src/getlimits.c:62 src/groups.c:50 src/head.c:104 src/hostid.c:40
 #: src/hostname.c:53 src/id.c:78 src/install.c:936 src/join.c:164
-#: src/kill.c:83 src/link.c:42 src/ln.c:332 src/logname.c:36 src/ls.c:4541
+#: src/kill.c:83 src/link.c:42 src/ln.c:332 src/logname.c:36 src/ls.c:4548
 #: src/md5sum.c:149 src/mkdir.c:53 src/mkfifo.c:48 src/mknod.c:49
-#: src/mktemp.c:60 src/mv.c:280 src/nice.c:68 src/nl.c:178 src/nohup.c:50
-#: src/od.c:304 src/paste.c:429 src/pathchk.c:93 src/pinky.c:503 src/pr.c:2764
-#: src/printenv.c:54 src/printf.c:84 src/ptx.c:1880 src/pwd.c:53
-#: src/readlink.c:59 src/rm.c:132 src/rmdir.c:161 src/runcon.c:80 src/seq.c:66
-#: src/setuidgid.c:46 src/shred.c:154 src/shuf.c:43 src/sleep.c:42
-#: src/sort.c:313 src/split.c:99 src/stat.c:920 src/stdbuf.c:91 src/stty.c:510
-#: src/su.c:367 src/sum.c:55 src/sync.c:37 src/tac.c:129 src/tail.c:245
-#: src/tee.c:58 src/test.c:681 src/timeout.c:129 src/touch.c:229 src/tr.c:282
-#: src/truncate.c:98 src/tsort.c:78 src/tty.c:61 src/uname.c:118
-#: src/unexpand.c:109 src/uniq.c:130 src/unlink.c:42 src/uptime.c:197
-#: src/users.c:102 src/wc.c:108 src/who.c:627 src/whoami.c:42 src/yes.c:38
+#: src/mktemp.c:65 src/mv.c:280 src/nice.c:68 src/nl.c:178 src/nohup.c:50
+#: src/nproc.c:53 src/od.c:304 src/paste.c:429 src/pathchk.c:93
+#: src/pinky.c:503 src/pr.c:2764 src/printenv.c:59 src/printf.c:85
+#: src/ptx.c:1880 src/pwd.c:53 src/readlink.c:59 src/rm.c:132 src/rmdir.c:161
+#: src/runcon.c:80 src/seq.c:66 src/setuidgid.c:46 src/shred.c:154
+#: src/shuf.c:43 src/sleep.c:42 src/sort.c:313 src/split.c:99 src/stat.c:958
+#: src/stdbuf.c:88 src/stty.c:510 src/su.c:365 src/sum.c:55 src/sync.c:37
+#: src/tac.c:129 src/tail.c:245 src/tee.c:58 src/test.c:681 src/timeout.c:123
+#: src/touch.c:211 src/tr.c:282 src/truncate.c:98 src/tsort.c:78 src/tty.c:61
+#: src/uname.c:118 src/unexpand.c:109 src/uniq.c:130 src/unlink.c:42
+#: src/uptime.c:197 src/users.c:102 src/wc.c:108 src/who.c:627 src/whoami.c:42
+#: src/yes.c:38
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Lisainfo saamiseks proovige `%s --help'.\n"
@@ -952,7 +958,7 @@ msgid "invalid wrap size: %s"
 msgstr "vigane murdmise veerg: %s"
 
 #: src/base64.c:284 src/basename.c:119 src/comm.c:433 src/cp.c:601
-#: src/date.c:426 src/dircolors.c:448 src/dirname.c:97 src/du.c:925
+#: src/date.c:426 src/dircolors.c:448 src/dirname.c:97 src/du.c:928
 #: src/hostid.c:76 src/hostname.c:112 src/id.c:169 src/install.c:612
 #: src/join.c:897 src/link.c:86 src/ln.c:520 src/logname.c:72 src/mknod.c:158
 #: src/mv.c:446 src/od.c:1802 src/ptx.c:2148 src/readlink.c:152 src/seq.c:410
@@ -972,13 +978,13 @@ msgstr "sulen standardsisendi"
 #. This is a proper name. See the gettext manual, section Names.
 #: src/basename.c:40 src/chgrp.c:38 src/chmod.c:39 src/chown.c:47
 #: src/comm.c:37 src/cp.c:57 src/csplit.c:42 src/cut.c:44 src/date.c:39
-#: src/dd.c:47 src/df.c:40 src/dirname.c:34 src/du.c:53 src/env.c:92
+#: src/dd.c:47 src/df.c:40 src/dirname.c:34 src/du.c:53 src/env.c:33
 #: src/expand.c:48 src/fold.c:35 src/groups.c:35 src/head.c:47 src/id.c:39
 #: src/install.c:49 src/ln.c:40 src/ls.c:121 src/mkdir.c:36 src/mkfifo.c:33
 #: src/mknod.c:34 src/mv.c:42 src/nice.c:40 src/nl.c:40 src/paste.c:52
-#: src/pathchk.c:40 src/pinky.c:37 src/printenv.c:45 src/printf.c:62
+#: src/pathchk.c:40 src/pinky.c:37 src/printenv.c:44 src/printf.c:63
 #: src/rm.c:42 src/rmdir.c:38 src/stty.c:69 src/su.c:88 src/sum.c:38
-#: src/tac.c:58 src/tail.c:62 src/tee.c:35 src/touch.c:44 src/tty.c:43
+#: src/tac.c:58 src/tail.c:62 src/tee.c:35 src/touch.c:45 src/tty.c:43
 #: src/uname.c:61 src/unexpand.c:49 src/uniq.c:41 src/uptime.c:46
 #: src/users.c:36 src/wc.c:50 src/who.c:45 src/yes.c:32
 msgid "David MacKenzie"
@@ -1016,13 +1022,13 @@ msgstr ""
 "  %s /usr/bin/sort       Väljasta \"sort\".\n"
 "  %s include/stdio.h .h  Väljasta \"stdio\".\n"
 
-#: src/basename.c:113 src/chcon.c:516 src/chgrp.c:273 src/chmod.c:502
+#: src/basename.c:113 src/chcon.c:524 src/chgrp.c:273 src/chmod.c:511
 #: src/chown.c:286 src/chroot.c:186 src/comm.c:425 src/csplit.c:1369
 #: src/dirname.c:91 src/expr.c:325 src/join.c:1075 src/link.c:78
-#: src/mkdir.c:184 src/mkfifo.c:109 src/mknod.c:147 src/nohup.c:105
-#: src/pathchk.c:156 src/printf.c:672 src/readlink.c:144 src/rm.c:323
+#: src/mkdir.c:184 src/mkfifo.c:109 src/mknod.c:147 src/nohup.c:112
+#: src/pathchk.c:156 src/printf.c:675 src/readlink.c:144 src/rm.c:323
 #: src/rmdir.c:223 src/seq.c:404 src/setuidgid.c:137 src/sleep.c:121
-#: src/stat.c:1072 src/stdbuf.c:357 src/tr.c:1711 src/unlink.c:76
+#: src/stat.c:1110 src/stdbuf.c:346 src/tr.c:1711 src/unlink.c:76
 #, c-format
 msgid "missing operand"
 msgstr "puudub operand"
@@ -1039,7 +1045,7 @@ msgid "Richard M. Stallman"
 msgstr ""
 
 #: src/cat.c:89 src/df.c:803 src/expand.c:103 src/fold.c:66 src/head.c:108
-#: src/ls.c:4545 src/nl.c:182 src/paste.c:433 src/pr.c:2768 src/sum.c:59
+#: src/ls.c:4552 src/nl.c:182 src/paste.c:433 src/pr.c:2768 src/sum.c:59
 #: src/tac.c:133 src/tail.c:249 src/tee.c:62 src/unexpand.c:113
 #, c-format
 msgid "Usage: %s [OPTION]... [FILE]...\n"
@@ -1115,7 +1121,7 @@ msgstr ""
 #. This is a proper name. See the gettext manual, section Names.
 #: src/chcon.c:37 src/chgrp.c:39 src/chmod.c:40 src/chown.c:48 src/cp.c:58
 #: src/cut.c:45 src/dirname.c:35 src/du.c:55 src/head.c:48 src/hostid.c:34
-#: src/hostname.c:33 src/mktemp.c:34 src/mv.c:43 src/nohup.c:37 src/od.c:35
+#: src/hostname.c:33 src/mktemp.c:36 src/mv.c:43 src/nohup.c:37 src/od.c:35
 #: src/pathchk.c:41 src/pwd.c:31 src/rm.c:44 src/setuidgid.c:38 src/sleep.c:35
 #: src/sync.c:31 src/tail.c:64 src/tr.c:36 src/true.c:33
 msgid "Jim Meyering"
@@ -1131,8 +1137,8 @@ msgstr "ei õnnestu muuta %s omanikku\n"
 msgid "failed to set %s security context component to %s"
 msgstr ""
 
-#: src/chcon.c:156 src/chcon.c:529 src/copy.c:1859 src/runcon.c:218
-#: src/stat.c:461
+#: src/chcon.c:156 src/chcon.c:533 src/copy.c:1851 src/runcon.c:218
+#: src/stat.c:491
 #, fuzzy, c-format
 msgid "failed to get security context of %s"
 msgstr "%s atribuutide lugemine ebaõnnestus"
@@ -1147,40 +1153,40 @@ msgstr ""
 msgid "failed to change context of %s to %s"
 msgstr "ei õnnestu seada %s omanikuks %s\n"
 
-#: src/chcon.c:255 src/chmod.c:208 src/chown-core.c:301 src/copy.c:303
-#: src/du.c:483 src/ls.c:2784
+#: src/chcon.c:255 src/chmod.c:208 src/chown-core.c:301 src/copy.c:295
+#: src/du.c:481 src/ls.c:2820
 #, c-format
 msgid "cannot access %s"
 msgstr "%s ei saa kasutada"
 
-#: src/chcon.c:260 src/chmod.c:215 src/chown-core.c:308 src/du.c:488
+#: src/chcon.c:260 src/chmod.c:215 src/chown-core.c:308 src/du.c:486
 #, c-format
 msgid "%s"
 msgstr "%s"
 
-#: src/chcon.c:265 src/chmod.c:221 src/chown-core.c:314 src/du.c:494
+#: src/chcon.c:265 src/chmod.c:221 src/chown-core.c:314 src/du.c:492
 #, c-format
 msgid "cannot read directory %s"
 msgstr "kataloogi %s ei õnnestu lugeda"
 
-#: src/chcon.c:284
+#: src/chcon.c:292
 #, fuzzy, c-format
 msgid "changing security context of %s\n"
 msgstr "muudan %s õigusi"
 
-#: src/chcon.c:318 src/chmod.c:329 src/chown-core.c:502 src/du.c:633
-#: src/remove.c:609
+#: src/chcon.c:326 src/chmod.c:338 src/chown-core.c:510 src/du.c:640
+#: src/remove.c:616
 #, c-format
 msgid "fts_read failed"
 msgstr "fts_read ebaõnnestus"
 
-#: src/chcon.c:329 src/chmod.c:340 src/chown-core.c:514 src/du.c:645
-#: src/remove.c:623
+#: src/chcon.c:337 src/chmod.c:349 src/chown-core.c:522 src/du.c:652
+#: src/remove.c:630
 #, fuzzy, c-format
 msgid "fts_close failed"
 msgstr "close ebaõnnestus"
 
-#: src/chcon.c:344
+#: src/chcon.c:352
 #, fuzzy, c-format
 msgid ""
 "Usage: %s [OPTION]... CONTEXT FILE...\n"
@@ -1191,7 +1197,7 @@ msgstr ""
 "       või: %s [VÕTI]... KAHEKSAND-MOOD FAIL...\n"
 "       või: %s [VÕTI]... --reference=VFAIL FAIL...\n"
 
-#: src/chcon.c:350
+#: src/chcon.c:358
 #, fuzzy
 msgid ""
 "Change the security context of each FILE to CONTEXT.\n"
@@ -1208,7 +1214,7 @@ msgstr ""
 "      --dereference      muuda nimeviite poolt viidatatvat, mitte viidet\n"
 "                         (seda tehakse vaikimisi)\n"
 
-#: src/chcon.c:356
+#: src/chcon.c:364
 #, fuzzy
 msgid ""
 "      --reference=RFILE  use RFILE's security context rather than "
@@ -1222,7 +1228,7 @@ msgstr ""
 "  -R, --recursive        töötle faile ja katalooge rekursiivselt\n"
 "  -v, --verbose          väljasta infot iga töödeldava faili kohta\n"
 
-#: src/chcon.c:362
+#: src/chcon.c:370
 msgid ""
 "  -u, --user=USER        set user USER in the target security context\n"
 "  -r, --role=ROLE        set role ROLE in the target security context\n"
@@ -1231,7 +1237,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: src/chcon.c:369 src/chgrp.c:140 src/chown.c:128
+#: src/chcon.c:377 src/chgrp.c:140 src/chown.c:128
 msgid ""
 "The following options modify how a hierarchy is traversed when the -R\n"
 "option is also specified.  If more than one is specified, only the final\n"
@@ -1253,41 +1259,36 @@ msgstr ""
 "  -P                     ära lahenda nimeviiteid (vaikimisi)\n"
 "\n"
 
-#: src/chcon.c:497 src/chgrp.c:260 src/chown.c:273
+#: src/chcon.c:505 src/chgrp.c:260 src/chown.c:273
 #, c-format
 msgid "-R --dereference requires either -H or -L"
 msgstr "-R --dereference nõuab kas -H või -L"
 
-#: src/chcon.c:503
+#: src/chcon.c:511
 #, c-format
 msgid "-R -h requires -P"
 msgstr "-R -h nõuab -P"
 
-#: src/chcon.c:518 src/chgrp.c:275 src/chmod.c:504 src/chown.c:288
+#: src/chcon.c:526 src/chgrp.c:275 src/chmod.c:513 src/chown.c:288
 #: src/comm.c:427 src/csplit.c:1371 src/join.c:1077 src/link.c:80
 #: src/mknod.c:149 src/setuidgid.c:139 src/tr.c:1714
 #, c-format
 msgid "missing operand after %s"
 msgstr "%s järel puudub operand"
 
-#: src/chcon.c:524 src/runcon.c:198
-#, c-format
-msgid "%s may be used only on a SELinux kernel"
-msgstr ""
-
-#: src/chcon.c:545 src/runcon.c:248
+#: src/chcon.c:549 src/runcon.c:248
 #, fuzzy, c-format
 msgid "invalid context: %s"
 msgstr "vigane mood: %s"
 
-#: src/chcon.c:552
+#: src/chcon.c:556
 #, c-format
 msgid "conflicting security context specifiers given"
 msgstr ""
 
-#: src/chcon.c:561 src/chgrp.c:283 src/chgrp.c:301 src/chmod.c:512
-#: src/chmod.c:531 src/chown.c:296 src/chown.c:325 src/cp.c:427 src/cp.c:487
-#: src/mv.c:96 src/pwd.c:274 src/rm.c:333 src/touch.c:159 src/touch.c:361
+#: src/chcon.c:565 src/chgrp.c:283 src/chgrp.c:301 src/chmod.c:521
+#: src/chmod.c:540 src/chown.c:296 src/chown.c:325 src/cp.c:427 src/cp.c:487
+#: src/mv.c:96 src/pwd.c:274 src/rm.c:333 src/touch.c:356
 #, c-format
 msgid "failed to get attributes of %s"
 msgstr "%s atribuutide lugemine ebaõnnestus"
@@ -1398,17 +1399,17 @@ msgstr "%s õigused jäeti %04lo (%s)\n"
 msgid "cannot operate on dangling symlink %s"
 msgstr "ei õnnestu luua nimeviidet %s"
 
-#: src/chmod.c:259
+#: src/chmod.c:268
 #, c-format
 msgid "changing permissions of %s"
 msgstr "muudan %s õigusi"
 
-#: src/chmod.c:294
+#: src/chmod.c:303
 #, c-format
 msgid "%s: new permissions are %s, not %s"
 msgstr "%s: uued õigused on %s, mitte %s"
 
-#: src/chmod.c:355
+#: src/chmod.c:364
 #, c-format
 msgid ""
 "Usage: %s [OPTION]... MODE[,MODE]... FILE...\n"
@@ -1419,7 +1420,7 @@ msgstr ""
 "       või: %s [VÕTI]... KAHEKSAND-MOOD FAIL...\n"
 "       või: %s [VÕTI]... --reference=VFAIL FAIL...\n"
 
-#: src/chmod.c:361
+#: src/chmod.c:370
 msgid ""
 "Change the mode of each FILE to MODE.\n"
 "\n"
@@ -1430,7 +1431,7 @@ msgstr ""
 "\n"
 "  -c, --changes           nagu verbaalselt, aga teata ainult muudatustest\n"
 
-#: src/chmod.c:366
+#: src/chmod.c:375
 msgid ""
 "      --no-preserve-root  do not treat `/' specially (the default)\n"
 "      --preserve-root     fail to operate recursively on `/'\n"
@@ -1438,7 +1439,7 @@ msgstr ""
 "      --no-preserve-root  ära käsitle `/' eriliselt (vaikimisi)\n"
 "      --preserve-root     ära töötle `/' rekursiivselt\n"
 
-#: src/chmod.c:370
+#: src/chmod.c:379
 msgid ""
 "  -f, --silent, --quiet   suppress most error messages\n"
 "  -v, --verbose           output a diagnostic for every file processed\n"
@@ -1450,7 +1451,7 @@ msgstr ""
 "      --reference=VFAIL   kasuta esitatud õiguste asemel VFAIL õiguseid\n"
 "  -R, --recursive         töötle faile ja katalooge rekursiivselt\n"
 
-#: src/chmod.c:378
+#: src/chmod.c:387
 msgid ""
 "\n"
 "Each MODE is of the form `[ugoa]*([-+=]([rwxXst]*|[ugo]))+'.\n"
@@ -1458,12 +1459,12 @@ msgstr ""
 "\n"
 "Iga MOOD on kujul `[ugoa]*([-+=]([rwxXst]*|[ugo]))+'.\n"
 
-#: src/chmod.c:489
+#: src/chmod.c:498
 #, c-format
 msgid "cannot combine mode and --reference options"
 msgstr "moodi ja --reference võtmeid ei saa kombineerida"
 
-#: src/chmod.c:520
+#: src/chmod.c:529
 #, c-format
 msgid "invalid mode: %s"
 msgstr "vigane mood: %s"
@@ -1513,17 +1514,17 @@ msgstr "%s grupp säilitati kui %s\n"
 msgid "ownership of %s retained\n"
 msgstr "%s omanik säilitati\n"
 
-#: src/chown-core.c:347
+#: src/chown-core.c:355
 #, c-format
 msgid "cannot dereference %s"
 msgstr "%s ei saa lahendada"
 
-#: src/chown-core.c:435
+#: src/chown-core.c:443
 #, c-format
 msgid "changing ownership of %s"
 msgstr "muudan %s omanikku"
 
-#: src/chown-core.c:436
+#: src/chown-core.c:444
 #, c-format
 msgid "changing group of %s"
 msgstr "muudan %s gruppi"
@@ -1686,8 +1687,8 @@ msgstr "%s avamine ebaõnnestus"
 msgid "failed to set user-ID"
 msgstr "%s avamine ebaõnnestus"
 
-#: src/chroot.c:264 src/nohup.c:216 src/setuidgid.c:213 src/stdbuf.c:377
-#: src/timeout.c:302
+#: src/chroot.c:264 src/nohup.c:233 src/setuidgid.c:213 src/stdbuf.c:366
+#: src/timeout.c:297
 #, fuzzy, c-format
 msgid "failed to run command %s"
 msgstr "käsklust %s ei saa käivitada"
@@ -1795,270 +1796,270 @@ msgstr "kasutati mitut -i võtit"
 msgid "empty %s not allowed"
 msgstr "võtmega -c ei lubata täiendavat operandi %s"
 
-#: src/copy.c:379
+#: src/copy.c:371
 #, fuzzy, c-format
 msgid "clearing permissions for %s"
 msgstr "sean %s õigusi"
 
-#: src/copy.c:413 src/copy.c:2095 src/cp.c:325
+#: src/copy.c:405 src/copy.c:2087 src/cp.c:325
 #, c-format
 msgid "failed to preserve ownership for %s"
 msgstr "%s omanikku ei õnnestu säilitada"
 
-#: src/copy.c:439
+#: src/copy.c:431
 #, c-format
 msgid "failed to lookup file %s"
 msgstr "ei õnnestu leida faili %s"
 
-#: src/copy.c:444
+#: src/copy.c:436
 #, c-format
 msgid "failed to preserve authorship for %s"
 msgstr "%s autorit ei õnnestu säilitada"
 
-#: src/copy.c:503 src/csplit.c:630 src/du.c:932 src/fmt.c:427 src/head.c:850
-#: src/sort.c:3546 src/split.c:538 src/tac.c:544 src/tail.c:1582 src/wc.c:666
+#: src/copy.c:495 src/csplit.c:630 src/du.c:935 src/fmt.c:427 src/head.c:850
+#: src/sort.c:3546 src/split.c:538 src/tac.c:544 src/tail.c:1603 src/wc.c:666
 #, c-format
 msgid "cannot open %s for reading"
 msgstr "ei õnnestu avada %s lugemiseks"
 
-#: src/copy.c:509 src/copy.c:637 src/dd.c:1298 src/dd.c:1926 src/tail.c:1418
-#: src/tail.c:1484 src/truncate.c:150 src/truncate.c:234
+#: src/copy.c:501 src/copy.c:629 src/dd.c:1298 src/dd.c:1926 src/tail.c:1439
+#: src/tail.c:1505 src/truncate.c:150 src/truncate.c:234
 #, c-format
 msgid "cannot fstat %s"
 msgstr "fstat %s ei õnnestu"
 
-#: src/copy.c:519
+#: src/copy.c:511
 #, c-format
 msgid "skipping file %s, as it was replaced while being copied"
 msgstr "jätan %s vahele, kuna see asendati kopeerimise ajal"
 
-#: src/copy.c:543
+#: src/copy.c:535
 #, fuzzy, c-format
 msgid "failed to get file system create context"
 msgstr "stderr koopiale ei õnnestu seada omadust 'close on exec'"
 
-#: src/copy.c:557
+#: src/copy.c:549
 #, fuzzy, c-format
 msgid "failed to set the security context of %s to %s"
 msgstr "%s grupi muutmine grupiks %s ebaõnnestus\n"
 
-#: src/copy.c:574 src/copy.c:1396 src/copy.c:1550 src/copy.c:1700 src/ln.c:277
-#: src/remove.c:292 src/remove.c:318 src/remove.c:449 src/remove.c:470
+#: src/copy.c:566 src/copy.c:1388 src/copy.c:1542 src/copy.c:1692 src/ln.c:277
+#: src/remove.c:292 src/remove.c:318 src/remove.c:461 src/remove.c:482
 #, c-format
 msgid "cannot remove %s"
 msgstr "%s ei saa kustutada"
 
-#: src/copy.c:579 src/copy.c:1391 src/copy.c:1555 src/copy.c:1704
+#: src/copy.c:571 src/copy.c:1383 src/copy.c:1547 src/copy.c:1696
 #: src/remove.c:435
 #, c-format
 msgid "removed %s\n"
 msgstr "%s eemaldatud\n"
 
-#: src/copy.c:616
+#: src/copy.c:608
 #, c-format
 msgid "not writing through dangling symlink %s"
 msgstr ""
 
-#: src/copy.c:629
+#: src/copy.c:621
 #, c-format
 msgid "cannot create regular file %s"
 msgstr "ei õnnestu luua tavalist faili %s"
 
-#: src/copy.c:649
+#: src/copy.c:641
 #, fuzzy, c-format
 msgid "failed to clone %s"
 msgstr "%s avamine ebaõnnestus"
 
-#: src/copy.c:728 src/dd.c:1358 src/dd.c:1683
+#: src/copy.c:720 src/dd.c:1358 src/dd.c:1683
 #, c-format
 msgid "reading %s"
 msgstr "loen %s"
 
-#: src/copy.c:774 src/head.c:429
+#: src/copy.c:766 src/head.c:429
 #, c-format
 msgid "cannot lseek %s"
 msgstr "lseek %s ei õnnestu"
 
-#: src/copy.c:787 src/copy.c:816 src/dd.c:1740 src/dd.c:1803
+#: src/copy.c:779 src/copy.c:808 src/dd.c:1740 src/dd.c:1803
 #, c-format
 msgid "writing %s"
 msgstr "kirjutan %s"
 
-#: src/copy.c:831 src/copy.c:2154
+#: src/copy.c:823 src/copy.c:2146
 #, c-format
 msgid "preserving times for %s"
 msgstr "jätan %s ajad muutmata"
 
-#: src/copy.c:901 src/copy.c:907 src/head.c:858 src/touch.c:191
+#: src/copy.c:893 src/copy.c:899 src/head.c:858 src/touch.c:174
 #: src/truncate.c:408
 #, c-format
 msgid "closing %s"
 msgstr "sulgen %s"
 
-#: src/copy.c:1141
+#: src/copy.c:1133
 #, fuzzy, c-format
 msgid "%s: try to overwrite %s, overriding mode %04lo (%s)? "
 msgstr "%s: kirjutan %s üle, kirjutan üle ka õigused %04lo? "
 
-#: src/copy.c:1148
+#: src/copy.c:1140
 #, c-format
 msgid "%s: overwrite %s? "
 msgstr "%s: kirjutan %s üle? "
 
-#: src/copy.c:1217
+#: src/copy.c:1209
 #, c-format
 msgid " (backup: %s)"
 msgstr " (varukoopia: %s)"
 
-#: src/copy.c:1227
+#: src/copy.c:1219
 #, c-format
 msgid "failed to restore the default file creation context"
 msgstr ""
 
-#: src/copy.c:1283
+#: src/copy.c:1275
 #, c-format
 msgid "omitting directory %s"
 msgstr "jätan kataloogi %s vahele"
 
-#: src/copy.c:1297
+#: src/copy.c:1289
 #, c-format
 msgid "warning: source file %s specified more than once"
 msgstr "hoiatus: lähtefail %s on esitatur enam kui korra"
 
-#: src/copy.c:1345 src/ln.c:212
+#: src/copy.c:1337 src/ln.c:212
 #, c-format
 msgid "%s and %s are the same file"
 msgstr "%s ja %s on üks ja sama fail"
 
-#: src/copy.c:1425
+#: src/copy.c:1417
 #, c-format
 msgid "cannot overwrite non-directory %s with directory %s"
 msgstr "ei saa üle kirjutada mitte-katataloogi %s kataloogiga %s"
 
-#: src/copy.c:1443 src/ln.c:180
+#: src/copy.c:1435 src/ln.c:180
 #, c-format
 msgid "will not overwrite just-created %s with %s"
 msgstr "ei kirjuta üle just loodud faili %s failiga %s"
 
-#: src/copy.c:1461
+#: src/copy.c:1453
 #, c-format
 msgid "cannot overwrite directory %s with non-directory"
 msgstr "kataloogi %s ei saa üle kirjutada mitte kataloogiga"
 
-#: src/copy.c:1475
+#: src/copy.c:1467
 #, c-format
 msgid "cannot move directory onto non-directory: %s -> %s"
 msgstr "kataloogi ei saa tõsta mitte-kataloogi: %s -> %s"
 
-#: src/copy.c:1505
+#: src/copy.c:1497
 #, c-format
 msgid "backing up %s would destroy source;  %s not moved"
 msgstr "%s varundamine hävitaks allika; %s ei teisaldatud"
 
-#: src/copy.c:1506
+#: src/copy.c:1498
 #, c-format
 msgid "backing up %s would destroy source;  %s not copied"
 msgstr "%s varundamine hävitaks allika; %s ei kopeeritud"
 
-#: src/copy.c:1525 src/ln.c:242
+#: src/copy.c:1517 src/ln.c:242
 #, c-format
 msgid "cannot backup %s"
 msgstr "ei õnnestu luua %s varukoopiat"
 
-#: src/copy.c:1589
+#: src/copy.c:1581
 #, fuzzy, c-format
 msgid "will not copy %s through just-created symlink %s"
 msgstr "ei kirjuta üle just loodud faili %s failiga %s"
 
-#: src/copy.c:1666
+#: src/copy.c:1658
 #, c-format
 msgid "cannot copy a directory, %s, into itself, %s"
 msgstr "kataloogi %s ei saa iseendasse, %s, kopeerida"
 
-#: src/copy.c:1683
+#: src/copy.c:1675
 #, c-format
 msgid "will not create hard link %s to directory %s"
 msgstr "ei loo viidet %s kataloogile %s"
 
-#: src/copy.c:1711
+#: src/copy.c:1703
 #, c-format
 msgid "cannot create hard link %s to %s"
 msgstr "ei õnnestu luua viidet %s -> %s"
 
-#: src/copy.c:1756
+#: src/copy.c:1748
 #, c-format
 msgid "cannot move %s to a subdirectory of itself, %s"
 msgstr "%s ei saa tõsta iseenda alamkataloogi %s"
 
-#: src/copy.c:1799
+#: src/copy.c:1791
 #, c-format
 msgid "cannot move %s to %s"
 msgstr "ei õnnestu tõsta %s -> %s"
 
-#: src/copy.c:1811
+#: src/copy.c:1803
 #, c-format
 msgid "inter-device move failed: %s to %s; unable to remove target"
 msgstr ""
 "seadmete-vaheline teisaldamine ebaõnnestus: %s -> %s; allikat ei saa "
 "kustutada"
 
-#: src/copy.c:1843 src/install.c:588 src/mkdir.c:190 src/mkfifo.c:115
+#: src/copy.c:1835 src/install.c:588 src/mkdir.c:190 src/mkfifo.c:115
 #: src/mknod.c:168
 #, fuzzy, c-format
 msgid "failed to set default file creation context to %s"
 msgstr "%s atribuutide lugemine ebaõnnestus"
 
-#: src/copy.c:1878
+#: src/copy.c:1870
 #, c-format
 msgid "cannot copy cyclic symbolic link %s"
 msgstr "tsüklilist nimeviita %s ei õnnestu kopeerida"
 
-#: src/copy.c:1983
+#: src/copy.c:1975
 #, c-format
 msgid "%s: can make relative symbolic links only in current directory"
 msgstr "%s: suhtelisi nimeviiteid saab luua ainult jooksvas kataloogis"
 
-#: src/copy.c:1990
+#: src/copy.c:1982
 #, c-format
 msgid "cannot create symbolic link %s to %s"
 msgstr "ei õnnestu luua nimeviidet %s -> %s"
 
-#: src/copy.c:2006
+#: src/copy.c:1998
 #, c-format
 msgid "cannot create link %s"
 msgstr "ei õnnestu luua viidet %s"
 
-#: src/copy.c:2031 src/mkfifo.c:134
+#: src/copy.c:2023 src/mkfifo.c:134
 #, c-format
 msgid "cannot create fifo %s"
 msgstr "ei õnnestu luua fifot %s"
 
-#: src/copy.c:2040
+#: src/copy.c:2032
 #, c-format
 msgid "cannot create special file %s"
 msgstr "ei õnnestu luua seadmefaili %s"
 
-#: src/copy.c:2051 src/ls.c:3002 src/stat.c:579
+#: src/copy.c:2043 src/ls.c:3032 src/stat.c:609
 #, c-format
 msgid "cannot read symbolic link %s"
 msgstr "ei õnnestu lugeda nimeviidet %s"
 
-#: src/copy.c:2078
+#: src/copy.c:2070
 #, c-format
 msgid "cannot create symbolic link %s"
 msgstr "ei õnnestu luua nimeviidet %s"
 
-#: src/copy.c:2110
+#: src/copy.c:2102
 #, c-format
 msgid "%s has unknown file type"
 msgstr "%s on tundmatut tüüpi fail"
 
-#: src/copy.c:2252 src/ln.c:320
+#: src/copy.c:2244 src/ln.c:320
 #, c-format
 msgid "cannot un-backup %s"
 msgstr "%s ei saa taastada"
 
-#: src/copy.c:2256
+#: src/copy.c:2248
 #, c-format
 msgid "%s -> %s (unbackup)\n"
 msgstr "%s -> %s (taastamine)\n"
@@ -2082,13 +2083,13 @@ msgstr ""
 "Kopeeri allikas sihtpunkti või kataloogi või mitu allikat kataloogi.\n"
 "\n"
 
-#: src/cp.c:165 src/csplit.c:1455 src/cut.c:197 src/df.c:809 src/du.c:276
+#: src/cp.c:165 src/csplit.c:1455 src/cut.c:197 src/df.c:809 src/du.c:274
 #: src/expand.c:112 src/fmt.c:275 src/fold.c:75 src/head.c:118
-#: src/install.c:959 src/kill.c:97 src/ln.c:353 src/ls.c:4551 src/mkdir.c:62
+#: src/install.c:959 src/kill.c:97 src/ln.c:353 src/ls.c:4558 src/mkdir.c:62
 #: src/mkfifo.c:57 src/mknod.c:59 src/mv.c:294 src/nl.c:191 src/paste.c:443
 #: src/pr.c:2777 src/ptx.c:1892 src/shred.c:164 src/shuf.c:57 src/sort.c:326
-#: src/split.c:113 src/stdbuf.c:100 src/tac.c:142 src/tail.c:259
-#: src/timeout.c:144 src/touch.c:243 src/truncate.c:113 src/unexpand.c:122
+#: src/split.c:113 src/stdbuf.c:97 src/tac.c:142 src/tail.c:259
+#: src/timeout.c:138 src/touch.c:226 src/truncate.c:113 src/unexpand.c:122
 #: src/uniq.c:145
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too.\n"
@@ -2320,7 +2321,7 @@ msgid "accessing %s"
 msgstr "kasutan %s"
 
 #: src/cp.c:586 src/install.c:597 src/ln.c:503 src/mv.c:431 src/shred.c:1189
-#: src/touch.c:440 src/truncate.c:359
+#: src/touch.c:432 src/truncate.c:359
 #, c-format
 msgid "missing file operand"
 msgstr "argumentides puudub failinimi"
@@ -2954,8 +2955,8 @@ msgstr ""
 "E et kasutada lokaadi alternatiivesitust või\n"
 "O et kasutada lokaadi alternatiivset numbrilist esitust\n"
 
-#: src/date.c:260 src/dd.c:1867 src/head.c:841 src/md5sum.c:444
-#: src/md5sum.c:746 src/od.c:863 src/od.c:1914 src/pr.c:1176 src/pr.c:1372
+#: src/date.c:260 src/dd.c:1867 src/head.c:841 src/md5sum.c:445
+#: src/md5sum.c:749 src/od.c:863 src/od.c:1914 src/pr.c:1176 src/pr.c:1372
 #: src/pr.c:1494 src/stty.c:847 src/tac.c:535 src/tail.c:335 src/tee.c:126
 #: src/tr.c:1892 src/tsort.c:523 src/wc.c:193
 #, c-format
@@ -2998,13 +2999,13 @@ msgstr ""
 msgid "cannot set date"
 msgstr "kuupäeva ja kellaaega ei õnnestu seada"
 
-#: src/date.c:539 src/du.c:413
+#: src/date.c:539 src/du.c:411
 #, c-format
 msgid "time %s is out of range"
 msgstr "aeg %s on piirkonnast väljas"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/dd.c:46 src/factor.c:43 src/rm.c:41 src/tail.c:61 src/touch.c:41
+#: src/dd.c:46 src/factor.c:43 src/rm.c:41 src/tail.c:61 src/touch.c:42
 #: src/wc.c:49
 msgid "Paul Rubin"
 msgstr ""
@@ -3653,7 +3654,7 @@ msgstr ""
 "  %s /usr/bin/sort  Väljasta \"/usr/bin\".\n"
 "  %s stdio.h        Väljasta \".\".\n"
 
-#: src/du.c:268 src/sort.c:317 src/wc.c:112
+#: src/du.c:266 src/sort.c:317 src/wc.c:112
 #, c-format
 msgid ""
 "Usage: %s [OPTION]... [FILE]...\n"
@@ -3662,7 +3663,7 @@ msgstr ""
 "Kasutamine: %s [VÕTI]... [FAIL]...\n"
 "       või: %s [VÕTI]... --files0-from=F\n"
 
-#: src/du.c:272
+#: src/du.c:270
 msgid ""
 "Summarize disk usage of each FILE, recursively for directories.\n"
 "\n"
@@ -3670,7 +3671,7 @@ msgstr ""
 "Summeeri iga faili kettakasutus, kataloogid rekursiivselt.\n"
 "\n"
 
-#: src/du.c:279
+#: src/du.c:277
 #, fuzzy
 msgid ""
 "  -a, --all             write counts for all files, not just directories\n"
@@ -3693,7 +3694,7 @@ msgstr ""
 "  -c, --total           väljasta kogumaht\n"
 "  -D, --dereference-args  kasuta nimeviidete korral viidatavaid\n"
 
-#: src/du.c:286
+#: src/du.c:284
 msgid ""
 "  -B, --block-size=SIZE  use SIZE-byte blocks\n"
 "  -b, --bytes           equivalent to `--apparent-size --block-size=1'\n"
@@ -3702,7 +3703,7 @@ msgid ""
 "                          command line\n"
 msgstr ""
 
-#: src/du.c:293
+#: src/du.c:291
 #, fuzzy
 msgid ""
 "      --files0-from=F   summarize disk usage of the NUL-terminated file\n"
@@ -3726,14 +3727,14 @@ msgstr ""
 "  -l, --count-links     loenda viiteid eraldi failidena\n"
 "  -m                    sama, kui --block-size=1M\n"
 
-#: src/du.c:301
+#: src/du.c:299
 msgid ""
 "  -k                    like --block-size=1K\n"
 "  -l, --count-links     count sizes many times if hard linked\n"
 "  -m                    like --block-size=1M\n"
 msgstr ""
 
-#: src/du.c:306
+#: src/du.c:304
 msgid ""
 "  -L, --dereference     dereference all symbolic links\n"
 "  -P, --no-dereference  don't follow any symbolic links (this is the "
@@ -3749,7 +3750,7 @@ msgstr ""
 "  -S, --separate-dirs   ära arvesta kataloogide suurusi\n"
 "  -s, --summarize       väljasta iga argumendi kohta summa\n"
 
-#: src/du.c:313
+#: src/du.c:311
 #, fuzzy
 msgid ""
 "  -x, --one-file-system    skip directories on different file systems\n"
@@ -3770,7 +3771,7 @@ msgstr ""
 "                        kui käsurea argument; --max-depth=0 on sama, kui\n"
 "                        --summarize\n"
 
-#: src/du.c:322
+#: src/du.c:320
 #, fuzzy
 msgid ""
 "      --time            show time of the last modification of any file in "
@@ -3789,61 +3790,56 @@ msgstr ""
 "                          full-iso, long-iso, iso, +VORMING\n"
 "                          VORMING o sama mis `date' käsu korral\n"
 
-#: src/du.c:751
+#: src/du.c:758
 #, c-format
 msgid "invalid maximum depth %s"
 msgstr "vigane maksimaalne sügavus %s"
 
-#: src/du.c:760
-#, c-format
-msgid "the --megabytes option is deprecated; use -m instead"
-msgstr "võti --megabytes on aegunud; kasutage selle asemel -m"
-
-#: src/du.c:848
+#: src/du.c:851
 #, c-format
 msgid "cannot both summarize and show all entries"
 msgstr "korraga ei saa summeerida ja näidata kõiki"
 
-#: src/du.c:855
+#: src/du.c:858
 #, c-format
 msgid "warning: summarizing is the same as using --max-depth=0"
 msgstr "hoiatus: summeerimine on sama, kui kasutada --max-depth=0"
 
-#: src/du.c:861
+#: src/du.c:864
 #, c-format
 msgid "warning: summarizing conflicts with --max-depth=%lu"
 msgstr "hoiatus: summeerimine on konfliktne võtmega --max-depth=%lu"
 
-#: src/du.c:927 src/sort.c:3536 src/wc.c:656
+#: src/du.c:930 src/sort.c:3536 src/wc.c:656
 #, fuzzy
 msgid "file operands cannot be combined with --files0-from"
 msgstr "Faili operande ei saa võtmega --files0-from koos kasutada."
 
-#: src/du.c:964 src/md5sum.c:552 src/od.c:903 src/tac.c:239 src/tac.c:350
+#: src/du.c:967 src/md5sum.c:551 src/od.c:903 src/tac.c:239 src/tac.c:350
 #: src/tac.c:481 src/tac.c:557 src/wc.c:718
 #, c-format
 msgid "%s: read error"
 msgstr "%s: viga lugemisel"
 
-#: src/du.c:978 src/sort.c:3565 src/wc.c:731
+#: src/du.c:981 src/sort.c:3565 src/wc.c:731
 #, c-format
 msgid "when reading file names from stdin, no file name of %s allowed"
 msgstr ""
 "kui failide nimesid loetakse standardsisendist, pole failide nimed %s lubatud"
 
-#: src/du.c:995 src/du.c:1003 src/wc.c:744 src/wc.c:752
+#: src/du.c:998 src/du.c:1006 src/wc.c:744 src/wc.c:752
 msgid "invalid zero-length file name"
 msgstr "vigane null-pikkusega faili nimi"
 
-#: src/du.c:1020 src/head.c:152 src/head.c:265 src/head.c:337 src/head.c:541
+#: src/du.c:1023 src/head.c:152 src/head.c:265 src/head.c:337 src/head.c:541
 #: src/head.c:623 src/head.c:695 src/head.c:753 src/head.c:777 src/tail.c:404
 #: src/tail.c:492 src/tail.c:541 src/tail.c:634 src/tail.c:762 src/tail.c:810
-#: src/tail.c:849 src/tail.c:1608 src/tail.c:1637 src/uniq.c:394
+#: src/tail.c:849 src/tail.c:1629 src/tail.c:1658 src/uniq.c:394
 #, c-format
 msgid "error reading %s"
 msgstr "viga %s lugemisel"
 
-#: src/du.c:1023 src/ls.c:2577 src/wc.c:774
+#: src/du.c:1026 src/ls.c:2577 src/wc.c:774
 msgid "total"
 msgstr "kokku"
 
@@ -3898,28 +3894,21 @@ msgid ""
 "\n"
 "If -e is in effect, the following sequences are recognized:\n"
 "\n"
-"  \\0NNN   the character whose ASCII code is NNN (octal)\n"
-"  \\\\     backslash\n"
-"  \\a     alert (BEL)\n"
-"  \\b     backspace\n"
 msgstr ""
-"\n"
-"-e võtmega tuntakse ja interpreteeritakse järgnevaid järjendeid:\n"
-"\n"
-"  \\NNN   sümbol ASCII koodiga NNN (kaheksandsüsteemis)\n"
-"  \\\\     langkriips\n"
-"  \\a     tähelepanu (BEL)\n"
-"  \\b     samm tagasi\n"
 
-#: src/echo.c:71
+#: src/echo.c:67 src/printf.c:106
 #, fuzzy
 msgid ""
-"  \\c     produce no further output\n"
-"  \\f     form feed\n"
-"  \\n     new line\n"
-"  \\r     carriage return\n"
-"  \\t     horizontal tab\n"
-"  \\v     vertical tab\n"
+"  \\\\      backslash\n"
+"  \\a      alert (BEL)\n"
+"  \\b      backspace\n"
+"  \\c      produce no further output\n"
+"  \\e      escape\n"
+"  \\f      form feed\n"
+"  \\n      new line\n"
+"  \\r      carriage return\n"
+"  \\t      horizontal tab\n"
+"  \\v      vertical tab\n"
 msgstr ""
 "  \\c     blokeeri lõpetav reavahetus\n"
 "  \\f     lehevahetus\n"
@@ -3928,35 +3917,58 @@ msgstr ""
 "  \\t     horisontaalne tabulaator\n"
 "  \\v     vertikaalne tabulaator\n"
 
+#: src/echo.c:79
+msgid ""
+"  \\0NNN   byte with octal value NNN (1 to 3 digits)\n"
+"  \\xHH    byte with hexadecimal value HH (1 to 2 digits)\n"
+msgstr ""
+
 #. This is a proper name. See the gettext manual, section Names.
-#: src/env.c:91 src/printenv.c:46 src/whoami.c:36
+#: src/env.c:32 src/printenv.c:45 src/whoami.c:36
 msgid "Richard Mlynarik"
 msgstr ""
 
-#: src/env.c:113
+#: src/env.c:53
 #, c-format
 msgid "Usage: %s [OPTION]... [-] [NAME=VALUE]... [COMMAND [ARG]...]\n"
 msgstr "Kasutamine: %s [VÕTI]... [-] [NIMI=VÄÄRTUS]... [KÄSK [ARGUMENT]...]\n"
 
-#: src/env.c:116
+#: src/env.c:56
+#, fuzzy
 msgid ""
 "Set each NAME to VALUE in the environment and run COMMAND.\n"
 "\n"
-"  -i, --ignore-environment   start with an empty environment\n"
-"  -u, --unset=NAME           remove variable from the environment\n"
+"  -i, --ignore-environment  start with an empty environment\n"
+"  -0, --null           end each output line with 0 byte rather than newline\n"
+"  -u, --unset=NAME     remove variable from the environment\n"
 msgstr ""
 "Sea iga keskkonnamuutuja NIMI väärtus ja käivita KÄSK.\n"
 "\n"
 "  -i, --ignore-environment   alusta tühja keskkonnaga\n"
 "  -u, --unset=NIMI           eemalda muutuja keskkonnast\n"
 
-#: src/env.c:124
+#: src/env.c:65
 msgid ""
 "\n"
 "A mere - implies -i.  If no COMMAND, print the resulting environment.\n"
 msgstr ""
 "\n"
 "Ainult - rakendab võtme -i.  Kui käsku ei ole antud, väljasta keskkond.\n"
+
+#: src/env.c:121
+#, fuzzy, c-format
+msgid "cannot unset %s"
+msgstr "strip käsku ei saa käivitada"
+
+#: src/env.c:131
+#, fuzzy, c-format
+msgid "cannot set %s"
+msgstr "stat %s ei õnnestu"
+
+#: src/env.c:145
+#, c-format
+msgid "cannot specify --null (-0) with command"
+msgstr ""
 
 #: src/expand.c:107
 msgid ""
@@ -4291,7 +4303,7 @@ msgid "invalid number of columns: %s"
 msgstr "vigane veergude arv: %s"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/getlimits.c:29 src/stdbuf.c:36 src/timeout.c:74 src/truncate.c:42
+#: src/getlimits.c:29 src/stdbuf.c:38 src/timeout.c:74 src/truncate.c:42
 msgid "Padraig Brady"
 msgstr ""
 
@@ -4306,17 +4318,17 @@ msgid ""
 "\n"
 msgstr ""
 
-#: src/group-list.c:68 src/id.c:306 src/setuidgid.c:184
+#: src/group-list.c:67 src/id.c:305 src/setuidgid.c:184
 #, fuzzy, c-format
 msgid "failed to get groups for user %s"
 msgstr "%s grupi muutmine grupiks %s ebaõnnestus\n"
 
-#: src/group-list.c:73 src/id.c:311
+#: src/group-list.c:72 src/id.c:310
 #, fuzzy, c-format
 msgid "failed to get groups for the current process"
 msgstr "%s grupi muutmine grupiks %s ebaõnnestus\n"
 
-#: src/group-list.c:104
+#: src/group-list.c:102
 #, c-format
 msgid "cannot find name for group ID %lu"
 msgstr "ei leia GID %lu vastavat gruppi"
@@ -4434,11 +4446,11 @@ msgstr "ridu"
 msgid "number of bytes"
 msgstr "baite"
 
-#: src/head.c:889 src/tail.c:1772
+#: src/head.c:889 src/tail.c:1793
 msgid "invalid number of lines"
 msgstr "vigane ridade arv"
 
-#: src/head.c:890 src/tail.c:1773
+#: src/head.c:890 src/tail.c:1794
 msgid "invalid number of bytes"
 msgstr "vigane baitide arv"
 
@@ -4488,7 +4500,7 @@ msgid "cannot determine hostname"
 msgstr "ei õnnestu tuvastada süsteemi nime"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/id.c:38 src/touch.c:42
+#: src/id.c:38 src/touch.c:43
 msgid "Arnold Robbins"
 msgstr ""
 
@@ -4579,11 +4591,11 @@ msgstr ""
 msgid " egid=%lu"
 msgstr ""
 
-#: src/id.c:318
+#: src/id.c:317
 msgid " groups="
 msgstr " grupid="
 
-#: src/id.c:335
+#: src/id.c:333
 #, c-format
 msgid " context=%s"
 msgstr ""
@@ -4625,7 +4637,7 @@ msgstr "kataloogi installeerimisel ei saa sihtkataloogi määrata"
 msgid "cannot force target context to %s and preserve it"
 msgstr ""
 
-#: src/install.c:629 src/mkdir.c:203 src/stdbuf.c:338
+#: src/install.c:629 src/mkdir.c:203 src/stdbuf.c:327
 #, c-format
 msgid "invalid mode %s"
 msgstr "vigane mood %s"
@@ -4662,7 +4674,7 @@ msgstr "ei õnnestu muuta %s omanikku"
 msgid "cannot set time stamps for %s"
 msgstr "ei õnnestu seada %s ajatempleid"
 
-#: src/install.c:851 src/timeout.c:287
+#: src/install.c:851 src/timeout.c:282
 #, c-format
 msgid "fork system call failed"
 msgstr "süsteemifunktsioon fork ebaõnnestus"
@@ -5276,12 +5288,12 @@ msgstr "loen kataloogi %s"
 msgid "closing directory %s"
 msgstr "sulen kataloogi %s"
 
-#: src/ls.c:3117
+#: src/ls.c:3147
 #, c-format
 msgid "cannot compare file names %s and %s"
 msgstr "failide %s ja %s nimesid ei õnnestu võrrelda"
 
-#: src/ls.c:4546
+#: src/ls.c:4553
 msgid ""
 "List information about the FILEs (the current directory by default).\n"
 "Sort entries alphabetically if none of -cftuvSUX nor --sort.\n"
@@ -5292,7 +5304,7 @@ msgstr ""
 "tähestikuliselt\n"
 "\n"
 
-#: src/ls.c:4554
+#: src/ls.c:4561
 msgid ""
 "  -a, --all                  do not ignore entries starting with .\n"
 "  -A, --almost-all           do not list implied . and ..\n"
@@ -5305,7 +5317,7 @@ msgstr ""
 "  -b, --escape               väljasta mitte-esitatavad sümbolid\n"
 "                             kaheksandkoodidega\n"
 
-#: src/ls.c:4560
+#: src/ls.c:4567
 #, fuzzy
 msgid ""
 "      --block-size=SIZE      use SIZE-byte blocks.  See SIZE format below\n"
@@ -5324,7 +5336,7 @@ msgstr ""
 "järgi\n"
 "                               muidu: järjesta ctime järgi\n"
 
-#: src/ls.c:4568
+#: src/ls.c:4575
 #, fuzzy
 msgid ""
 "  -C                         list entries by columns\n"
@@ -5344,7 +5356,7 @@ msgstr ""
 "  -d, --directory            näita kataloogide sisu asemel neid endid\n"
 "  -D, --dired                vorminda väljund Emacs dired moodile\n"
 
-#: src/ls.c:4576
+#: src/ls.c:4583
 msgid ""
 "  -f                         do not sort, enable -aU, disable -ls --color\n"
 "  -F, --classify             append indicator (one of */=>@|) to entries\n"
@@ -5360,11 +5372,11 @@ msgstr ""
 "                               single-column -1, verbose -l, vertical -C\n"
 "      --full-time            nagu -l --time-style=full-iso\n"
 
-#: src/ls.c:4584
+#: src/ls.c:4591
 msgid "  -g                         like -l, but do not list owner\n"
 msgstr "  -g                         nagu -l, aga ei näita omanikku\n"
 
-#: src/ls.c:4587
+#: src/ls.c:4594
 msgid ""
 "      --group-directories-first\n"
 "                             group directories before files.\n"
@@ -5372,7 +5384,7 @@ msgid ""
 "                               use of --sort=none (-U) disables grouping\n"
 msgstr ""
 
-#: src/ls.c:4593
+#: src/ls.c:4600
 #, fuzzy
 msgid ""
 "  -G, --no-group             in a long listing, don't print group names\n"
@@ -5386,7 +5398,7 @@ msgstr ""
 "2G)\n"
 "  -H, --si              sama, kui kasuta 1000 kordseid, mitte 1024\n"
 
-#: src/ls.c:4599
+#: src/ls.c:4606
 #, fuzzy
 msgid ""
 "  -H, --dereference-command-line\n"
@@ -5413,7 +5425,7 @@ msgstr ""
 "A\n"
 "                             tühistab)\n"
 
-#: src/ls.c:4608
+#: src/ls.c:4615
 #, fuzzy
 msgid ""
 "      --indicator-style=WORD  append indicator with style WORD to entry "
@@ -5432,7 +5444,7 @@ msgstr ""
 "  -I, --ignore=MUSTER        ära näita shelli mustrile vastavaid nimesid\n"
 "  -k                         nagu --block-size=1K\n"
 
-#: src/ls.c:4616
+#: src/ls.c:4623
 msgid ""
 "  -l                         use a long listing format\n"
 "  -L, --dereference          when showing file information for a symbolic\n"
@@ -5446,7 +5458,7 @@ msgstr ""
 "                             asemel infot viidatavast failist\n"
 "  -m                         väljasta nimed komadega eraldatult\n"
 
-#: src/ls.c:4623
+#: src/ls.c:4630
 msgid ""
 "  -n, --numeric-uid-gid      like -l, but list numeric user and group IDs\n"
 "  -N, --literal              print raw entry names (don't treat e.g. "
@@ -5463,7 +5475,7 @@ msgstr ""
 "  -o                         nagu -l, aga ära väljasta grupi infot\n"
 "  -p, --indicator-style=slash lisa kataloogide nimedele lõppu /\n"
 
-#: src/ls.c:4631
+#: src/ls.c:4638
 msgid ""
 "  -q, --hide-control-chars   print ? instead of non graphic characters\n"
 "      --show-control-chars   show non graphic characters as-is (default\n"
@@ -5483,7 +5495,7 @@ msgstr ""
 "                               literal, locale, shell, shell-always, c, "
 "escape\n"
 
-#: src/ls.c:4639
+#: src/ls.c:4646
 #, fuzzy
 msgid ""
 "  -r, --reverse              reverse order while sorting\n"
@@ -5495,7 +5507,7 @@ msgstr ""
 "  -R, --recursive            esita alamkataloogid rekursiivselt\n"
 "  -s, --size                 väljasta iga faili suurus plokkides\n"
 
-#: src/ls.c:4644
+#: src/ls.c:4651
 msgid ""
 "  -S                         sort by file size\n"
 "      --sort=WORD            sort by WORD instead of name: none -U,\n"
@@ -5516,7 +5528,7 @@ msgstr ""
 "võtmena,\n"
 "                             kui kasutati --sort=time\n"
 
-#: src/ls.c:4653
+#: src/ls.c:4660
 #, fuzzy
 msgid ""
 "      --time-style=STYLE     with -l, show times using style STYLE:\n"
@@ -5539,13 +5551,13 @@ msgstr ""
 "  -t                         kasuta järjestamisel muutmise aega\n"
 "  -T, --tabsize=VEERGE       sea tabulaatori pikkus (vaikimisi 8 veergu)\n"
 
-#: src/ls.c:4662
+#: src/ls.c:4669
 msgid ""
 "  -t                         sort by modification time\n"
 "  -T, --tabsize=COLS         assume tab stops at each COLS instead of 8\n"
 msgstr ""
 
-#: src/ls.c:4666
+#: src/ls.c:4673
 #, fuzzy
 msgid ""
 "  -u                         with -lt: sort by, and show, access time\n"
@@ -5563,7 +5575,7 @@ msgstr ""
 "kataloogis\n"
 "  -v                         järjesta versiooni järgi\n"
 
-#: src/ls.c:4673
+#: src/ls.c:4680
 #, fuzzy
 msgid ""
 "  -w, --width=COLS           assume screen width instead of current value\n"
@@ -5578,7 +5590,7 @@ msgstr ""
 "  -X                         järjesta tähestikuliselt laiendite järgi\n"
 "  -1                         väljasta üks nimi rea kohta\n"
 
-#: src/ls.c:4683
+#: src/ls.c:4690
 #, fuzzy
 msgid ""
 "\n"
@@ -5595,7 +5607,7 @@ msgstr ""
 "terminalile (tty). Keskkonnamuutuja LS_COLORS mõjutab värvivalikut ja seda\n"
 "saab lihtsasti seada kasutades dircolors käsku.\n"
 
-#: src/ls.c:4690
+#: src/ls.c:4697
 msgid ""
 "\n"
 "Exit status:\n"
@@ -5693,17 +5705,17 @@ msgstr ""
 "rida kontrollsummaga, seejärel sümbol, mis märgib faili tüüpi (`*' kahend-\n"
 "ja ` ' tekstifaili korral) ja seejärel faili nimi.\n"
 
-#: src/md5sum.c:469
+#: src/md5sum.c:470
 #, c-format
 msgid "%s: too many checksum lines"
 msgstr "%s: liiga palju kontrollsumma ridu"
 
-#: src/md5sum.c:491
+#: src/md5sum.c:492
 #, c-format
 msgid "%s: %<PRIuMAX>: improperly formatted %s checksum line"
 msgstr "%s: %<PRIuMAX>: vigaselt vormindatud %s kontrollsumma rida"
 
-#: src/md5sum.c:514
+#: src/md5sum.c:515
 #, c-format
 msgid "%s: FAILED open or read\n"
 msgstr "%s: avamine või lugemine ebaõnnestus\n"
@@ -5716,19 +5728,19 @@ msgstr "EBAÕNNESTUS"
 msgid "OK"
 msgstr "OK"
 
-#: src/md5sum.c:565
+#: src/md5sum.c:564
 #, c-format
 msgid "%s: no properly formatted %s checksum lines found"
 msgstr "%s: korrektselt vormindatud %s kontrollsumma ridu pole"
 
-#: src/md5sum.c:574
+#: src/md5sum.c:573
 #, c-format
 msgid "WARNING: %<PRIuMAX> of %<PRIuMAX> listed file could not be read"
 msgid_plural "WARNING: %<PRIuMAX> of %<PRIuMAX> listed files could not be read"
 msgstr[0] "HOIATUS: %<PRIuMAX> (%<PRIuMAX>) näidatud faili ei saanud lugeda"
 msgstr[1] "HOIATUS: %<PRIuMAX> (%<PRIuMAX>) näidatud faili ei saanud lugeda"
 
-#: src/md5sum.c:586
+#: src/md5sum.c:585
 #, c-format
 msgid "WARNING: %<PRIuMAX> of %<PRIuMAX> computed checksum did NOT match"
 msgid_plural ""
@@ -5738,23 +5750,23 @@ msgstr[0] ""
 msgstr[1] ""
 "HOIATUS: %<PRIuMAX> (%<PRIuMAX>) arvutatud kontrollsumma EI klappinud"
 
-#: src/md5sum.c:659
+#: src/md5sum.c:662
 #, c-format
 msgid ""
 "the --binary and --text options are meaningless when verifying checksums"
 msgstr "võtmed --binary ja --text ei oma kontrollsummade kontrollimisel mõtet"
 
-#: src/md5sum.c:667
+#: src/md5sum.c:670
 #, c-format
 msgid "the --status option is meaningful only when verifying checksums"
 msgstr "võtit --status on mõtet kasutada ainult kontrollsummade kontrollimisel"
 
-#: src/md5sum.c:674
+#: src/md5sum.c:677
 #, c-format
 msgid "the --warn option is meaningful only when verifying checksums"
 msgstr "võtit --warn on mõtet kasutada ainult kontrollsummade kontrollimisel"
 
-#: src/md5sum.c:681
+#: src/md5sum.c:684
 #, fuzzy, c-format
 msgid "the --quiet option is meaningful only when verifying checksums"
 msgstr "võtit --status on mõtet kasutada ainult kontrollsummade kontrollimisel"
@@ -5908,84 +5920,96 @@ msgstr "vigane seade %s %s"
 msgid "invalid device type %s"
 msgstr "vigane seadme tüüp %s"
 
-#: src/mktemp.c:64
+#. This is a proper name. See the gettext manual, section Names.
+#: src/mktemp.c:37
+msgid "Eric Blake"
+msgstr ""
+
+#: src/mktemp.c:69
 #, fuzzy, c-format
 msgid "Usage: %s [OPTION]... [TEMPLATE]\n"
 msgstr "Kasutamine: %s [VÕTI]... [FAIL]\n"
 
-#: src/mktemp.c:65
+#: src/mktemp.c:70
 msgid ""
 "Create a temporary file or directory, safely, and print its name.\n"
-"If TEMPLATE is not specified, use tmp.XXXXXXXXXX.\n"
-msgstr ""
-
-#: src/mktemp.c:70
-#, fuzzy
-msgid "  -d, --directory  create a directory, not a file\n"
-msgstr "  directory    katkesta kui ei ole kataloog\n"
-
-#: src/mktemp.c:73
-msgid ""
-"  -q, --quiet      suppress diagnostics about file/dir-creation failure\n"
+"TEMPLATE must contain at least 3 consecutive `X's in last component.\n"
+"If TEMPLATE is not specified, use tmp.XXXXXXXXXX, and --tmpdir is implied.\n"
 msgstr ""
 
 #: src/mktemp.c:76
 msgid ""
-"  -u, --dry-run    do not create anything; merely print a name (unsafe)\n"
+"  -d, --directory     create a directory, not a file\n"
+"  -u, --dry-run       do not create anything; merely print a name (unsafe)\n"
+"  -q, --quiet         suppress diagnostics about file/dir-creation failure\n"
 msgstr ""
 
-#: src/mktemp.c:79
+#: src/mktemp.c:81
 msgid ""
-"  --tmpdir[=DIR]   interpret TEMPLATE relative to DIR.  If DIR is\n"
-"                     not specified, use $TMPDIR if set, else /tmp.\n"
-"                     With this option, TEMPLATE must not be an absolute "
-"name.\n"
-"                     Unlike with -t, TEMPLATE may contain slashes, but even\n"
-"                     here, mktemp still creates only the final component.\n"
+"      --suffix=SUFF   append SUFF to TEMPLATE.  SUFF must not contain "
+"slash.\n"
+"                        This option is implied if TEMPLATE does not end in "
+"X.\n"
 msgstr ""
 
-#: src/mktemp.c:87
-msgid "  -p DIR           use DIR as a prefix; implies -t [deprecated]\n"
-msgstr ""
-
-#: src/mktemp.c:90
+#: src/mktemp.c:85
 msgid ""
-"  -t               interpret TEMPLATE as a single file name component,\n"
-"                     relative to a directory: $TMPDIR, if set; else the\n"
-"                     directory specified via -p; else /tmp [deprecated]\n"
+"      --tmpdir[=DIR]  interpret TEMPLATE relative to DIR.  If DIR is not\n"
+"                        specified, use $TMPDIR if set, else /tmp.  With\n"
+"                        this option, TEMPLATE must not be an absolute name.\n"
+"                        Unlike with -t, TEMPLATE may contain slashes, but\n"
+"                        mktemp creates only the final component.\n"
 msgstr ""
 
-#: src/mktemp.c:193
+#: src/mktemp.c:93
+msgid ""
+"  -p DIR              use DIR as a prefix; implies -t [deprecated]\n"
+"  -t                  interpret TEMPLATE as a single file name component,\n"
+"                        relative to a directory: $TMPDIR, if set; else the\n"
+"                        directory specified via -p; else /tmp [deprecated]\n"
+msgstr ""
+
+#: src/mktemp.c:220
 #, fuzzy, c-format
 msgid "failed to redirect stderr to /dev/null"
 msgstr "standard veavoo ümbersuunamine ebaõnnestus"
 
-#: src/mktemp.c:199
+#: src/mktemp.c:226
 #, fuzzy, c-format
 msgid "too many templates"
 msgstr "liiga palju korduvaid ridu"
 
-#: src/mktemp.c:215
+#: src/mktemp.c:246
+#, c-format
+msgid "with --suffix, template %s must end in X"
+msgstr ""
+
+#: src/mktemp.c:271
+#, c-format
+msgid "invalid suffix %s, contains directory separator"
+msgstr ""
+
+#: src/mktemp.c:276
 #, c-format
 msgid "too few X's in template %s"
 msgstr ""
 
-#: src/mktemp.c:228
+#: src/mktemp.c:289
 #, c-format
 msgid "invalid template, %s, contains directory separator"
 msgstr ""
 
-#: src/mktemp.c:242
+#: src/mktemp.c:303
 #, c-format
 msgid "invalid template, %s; with --tmpdir, it may not be absolute"
 msgstr ""
 
-#: src/mktemp.c:263
+#: src/mktemp.c:323
 #, fuzzy, c-format
 msgid "failed to create directory via template %s"
 msgstr "kataloogi %s ei õnnestunud sulgeda"
 
-#: src/mktemp.c:273
+#: src/mktemp.c:333
 #, fuzzy, c-format
 msgid "failed to create file via template %s"
 msgstr "%s aegu ei õnnestu säilitada"
@@ -6065,22 +6089,22 @@ msgstr ""
 "\n"
 "  -n, --adjustment=N      suurenda prioriteeti (vaikimisi 10 võrra)\n"
 
-#: src/nice.c:151
+#: src/nice.c:157
 #, c-format
 msgid "invalid adjustment %s"
 msgstr "vigane muudatus %s"
 
-#: src/nice.c:160
+#: src/nice.c:166
 #, c-format
 msgid "a command must be given with an adjustment"
 msgstr "koos parandusega peab olema antud käsk"
 
-#: src/nice.c:167 src/nice.c:178
+#: src/nice.c:173 src/nice.c:184
 #, c-format
 msgid "cannot get niceness"
 msgstr "prioriteeti ei õnnestu lugeda"
 
-#: src/nice.c:182
+#: src/nice.c:190
 #, c-format
 msgid "cannot set niceness"
 msgstr "prioriteeti ei õnnestu seada"
@@ -6259,45 +6283,73 @@ msgid ""
 "To save output to FILE, use `%s COMMAND > FILE'.\n"
 msgstr ""
 
-#: src/nohup.c:121
+#: src/nohup.c:128
 #, c-format
 msgid "ignoring input"
 msgstr "ignoreerin sisendit"
 
-#: src/nohup.c:153 src/nohup.c:155
+#: src/nohup.c:160 src/nohup.c:162
 #, c-format
 msgid "failed to open %s"
 msgstr "%s avamine ebaõnnestus"
 
-#: src/nohup.c:165
+#: src/nohup.c:172
 #, c-format
 msgid "ignoring input and appending output to %s"
 msgstr "ignoreerin sisendit ja lisan väljundi faili %s"
 
-#: src/nohup.c:166
+#: src/nohup.c:173
 #, fuzzy, c-format
 msgid "appending output to %s"
 msgstr "ignoreerin sisendit ja lisan väljundi faili %s"
 
-#: src/nohup.c:183
+#: src/nohup.c:190
 #, c-format
 msgid "failed to set the copy of stderr to close on exec"
 msgstr "stderr koopiale ei õnnestu seada omadust 'close on exec'"
 
-#: src/nohup.c:188
+#: src/nohup.c:195
 #, c-format
 msgid "ignoring input and redirecting stderr to stdout"
 msgstr "ignoreerin sisendit ja suunan stderr standardväljundisse"
 
-#: src/nohup.c:189
+#: src/nohup.c:196
 #, fuzzy, c-format
 msgid "redirecting stderr to stdout"
 msgstr "ignoreerin sisendit ja suunan stderr standardväljundisse"
 
-#: src/nohup.c:192
+#: src/nohup.c:200
 #, c-format
 msgid "failed to redirect standard error"
 msgstr "standard veavoo ümbersuunamine ebaõnnestus"
+
+#. This is a proper name. See the gettext manual, section Names.
+#: src/nproc.c:32
+msgid "Giuseppe Scrivano"
+msgstr ""
+
+#: src/nproc.c:57 src/pwd.c:57 src/tty.c:65 src/uname.c:122 src/whoami.c:46
+#, c-format
+msgid "Usage: %s [OPTION]...\n"
+msgstr "Kasutamine: %s [VÕTI]...\n"
+
+#: src/nproc.c:58
+msgid ""
+"Print the number of processing units available to the current process,\n"
+"which may be less than the number of online processors\n"
+"\n"
+msgstr ""
+
+#: src/nproc.c:63
+msgid ""
+"     --all       print the number of installed processors\n"
+"     --ignore=N  if possible, exclude N processing units\n"
+msgstr ""
+
+#: src/nproc.c:107
+#, fuzzy, c-format
+msgid "%s: invalid number to ignore"
+msgstr "%s: vigane ridade arv"
 
 #: src/od.c:308
 #, c-format
@@ -7048,11 +7100,10 @@ msgstr ""
 "-T kasutatakse võtmega -l nn kui nn <= 10 või <= 3 võtmega -F. Kui FAIL\n"
 "puudub või on -, loe standardsisendit.\n"
 
-#: src/printenv.c:58
+#: src/printenv.c:63
 #, fuzzy, c-format
 msgid ""
-"Usage: %s [VARIABLE]...\n"
-"  or:  %s OPTION\n"
+"Usage: %s [OPTION]... [VARIABLE]...\n"
 "Print the values of the specified environment VARIABLE(s).\n"
 "If no VARIABLE is specified, print name and value pairs for them all.\n"
 "\n"
@@ -7062,13 +7113,18 @@ msgstr ""
 "Kui keskkonnamuutujat MUUTUJA ei ole antud, väljasta nad kõik.\n"
 "\n"
 
-#: src/printf.c:78
+#: src/printenv.c:70
+#, fuzzy
+msgid "  -0, --null     end each output line with 0 byte rather than newline\n"
+msgstr "  -z, --zero-terminated     lõpeta read reavahetuse asemel baidiga 0\n"
+
+#: src/printf.c:79
 #, c-format
 msgid ""
 "warning: %s: character(s) following character constant have been ignored"
 msgstr "hoiatus: %s: ignoreerin sümbolkonstandile järgnevaid sümboleid"
 
-#: src/printf.c:88
+#: src/printf.c:89
 #, c-format
 msgid ""
 "Usage: %s FORMAT [ARGUMENT]...\n"
@@ -7077,7 +7133,7 @@ msgstr ""
 "Kasutamine: %s FORMAAT [ARGUMENT]...\n"
 "       või: %s VÕTI\n"
 
-#: src/printf.c:93
+#: src/printf.c:94
 #, fuzzy
 msgid ""
 "Print ARGUMENT(s) according to FORMAT, or execute according to OPTION:\n"
@@ -7086,14 +7142,13 @@ msgstr ""
 "Väljasta ARGUMENT kasutades antud FORMAATI.\n"
 "\n"
 
-#: src/printf.c:99
+#: src/printf.c:100
+#, fuzzy
 msgid ""
 "\n"
 "FORMAT controls the output as in C printf.  Interpreted sequences are:\n"
 "\n"
 "  \\\"      double quote\n"
-"  \\NNN    character with octal value NNN (1 to 3 digits)\n"
-"  \\\\      backslash\n"
 msgstr ""
 "\n"
 "FORMAAT kontrollib väljundit nagu C printf.  Interpreteeritavad järjendid "
@@ -7103,32 +7158,10 @@ msgstr ""
 "  \\NNN   sümbol kaheksandkoodiga NNN (1 kuni 3 numbrit)\n"
 "  \\\\      langkriips\n"
 
-#: src/printf.c:107
+#: src/printf.c:118
+#, fuzzy
 msgid ""
-"  \\a      alert (BEL)\n"
-"  \\b      backspace\n"
-"  \\c      produce no further output\n"
-"  \\f      form feed\n"
-msgstr ""
-"  \\a      tähelepanu (BEL)\n"
-"  \\b      samm tagasi\n"
-"  \\c      ära väljasta enam midagi\n"
-"  \\f      lehevahetus\n"
-
-#: src/printf.c:113
-msgid ""
-"  \\n      new line\n"
-"  \\r      carriage return\n"
-"  \\t      horizontal tab\n"
-"  \\v      vertical tab\n"
-msgstr ""
-"  \\n      uus rida\n"
-"  \\r      rea algusesse\n"
-"  \\t      horisontaalne tabulaator\n"
-"  \\v      vertikaalne tabulaator\n"
-
-#: src/printf.c:119
-msgid ""
+"  \\NNN    byte with octal value NNN (1 to 3 digits)\n"
 "  \\xHH    byte with hexadecimal value HH (1 to 2 digits)\n"
 "  \\uHHHH  Unicode (ISO/IEC 10646) character with hex value HHHH (4 digits)\n"
 "  \\UHHHHHHHH  Unicode character with hex value HHHHHHHH (8 digits)\n"
@@ -7167,32 +7200,32 @@ msgstr "%s: ootasin numbrilist väärtust"
 msgid "%s: value not completely converted"
 msgstr "%s: väärtust ei teisendatud täielikult"
 
-#: src/printf.c:245 src/printf.c:272
+#: src/printf.c:248 src/printf.c:275
 #, c-format
 msgid "missing hexadecimal number in escape"
 msgstr "paojadas puudub kuueteistkümnend number"
 
-#: src/printf.c:284
+#: src/printf.c:287
 #, c-format
 msgid "invalid universal character name \\%c%0*x"
 msgstr "vigane universaal sümboli nimi \\%c%0*x"
 
-#: src/printf.c:545
+#: src/printf.c:548
 #, c-format
 msgid "invalid field width: %s"
 msgstr "vigane välja laius: %s"
 
-#: src/printf.c:580
+#: src/printf.c:583
 #, c-format
 msgid "invalid precision: %s"
 msgstr "vigane täpsus: %s"
 
-#: src/printf.c:607
+#: src/printf.c:610
 #, c-format
 msgid "%.*s: invalid conversion specification"
 msgstr "%.*s: vigane teisenduse määrang"
 
-#: src/printf.c:690
+#: src/printf.c:693
 #, c-format
 msgid "warning: ignoring excess arguments, starting with %s"
 msgstr "hoiatus: ignoreerin liigseid argumente, alustan argumendist %s"
@@ -7292,11 +7325,6 @@ msgstr ""
 #, c-format
 msgid "invalid gap width: %s"
 msgstr "vigane tühemiku laius: %s"
-
-#: src/pwd.c:57 src/tty.c:65 src/uname.c:122 src/whoami.c:46
-#, c-format
-msgid "Usage: %s [OPTION]...\n"
-msgstr "Kasutamine: %s [VÕTI]...\n"
 
 #: src/pwd.c:58
 msgid ""
@@ -7435,37 +7463,22 @@ msgstr "%s: eemaldan %s %s? "
 msgid "removed directory: %s\n"
 msgstr "kustutatud kataloog: %s\n"
 
-#: src/remove.c:486
+#: src/remove.c:498
 #, fuzzy, c-format
 msgid "cannot remove directory: %s"
 msgstr "kataloogi %s ei õnnestu kustutada"
 
-#: src/remove.c:542
+#: src/remove.c:554
 #, c-format
 msgid "skipping %s, since it's on a different device"
 msgstr "jätan %s vahele, kuna asub teisel seadmel"
 
-#: src/remove.c:555
-#, c-format
-msgid ""
-"WARNING: Circular directory structure.\n"
-"This almost certainly means that you have a corrupted file system.\n"
-"NOTIFY YOUR SYSTEM MANAGER.\n"
-"The following directory is part of the cycle:\n"
-"  %s\n"
-msgstr ""
-"HOIATUS: Tsükliline kataloogide struktuur.\n"
-"See tähendab peaaegu alati, et failisüsteem on viga saanud.\n"
-"TEAVITA OMA SÜSTEEMIADMINISTRAATORIT.\n"
-"Järgnev kataloog on tsükli osa:\n"
-"  %s\n"
-
-#: src/remove.c:567
+#: src/remove.c:574
 #, fuzzy, c-format
 msgid "traversal failed: %s"
 msgstr "lugemine ebaõnnestus"
 
-#: src/remove.c:573
+#: src/remove.c:580
 #, c-format
 msgid ""
 "unexpected failure: fts_info=%d: %s\n"
@@ -7477,7 +7490,7 @@ msgstr ""
 msgid "Try `%s ./%s' to remove the file %s.\n"
 msgstr "Üritan `%s ./%s' et kustutada faili %s.\n"
 
-#: src/rm.c:136 src/shred.c:158 src/stat.c:924 src/touch.c:233
+#: src/rm.c:136 src/shred.c:158 src/stat.c:962 src/touch.c:215
 #, c-format
 msgid "Usage: %s [OPTION]... FILE...\n"
 msgstr "Kasutamine: %s [VÕTI]... [FAIL]...\n"
@@ -7683,6 +7696,11 @@ msgstr ""
 #, fuzzy, c-format
 msgid "no command specified"
 msgstr "puudub protsessi ID"
+
+#: src/runcon.c:198
+#, c-format
+msgid "%s may be used only on a SELinux kernel"
+msgstr ""
 
 #: src/runcon.c:224
 #, fuzzy, c-format
@@ -8209,7 +8227,7 @@ msgstr ""
 "on pausi pikkus kõikide argumentide summa.\n"
 "\n"
 
-#: src/sleep.c:137 src/timeout.c:265
+#: src/sleep.c:137 src/timeout.c:260
 #, c-format
 msgid "invalid time interval %s"
 msgstr "vigane ajaintervall %s"
@@ -8659,37 +8677,37 @@ msgstr "vigane ridade arv: 0"
 msgid "Michael Meskes"
 msgstr ""
 
-#: src/stat.c:715
+#: src/stat.c:748
 #, c-format
 msgid "warning: unrecognized escape `\\%c'"
 msgstr "hoiatus: tundmatu jada `\\%c'"
 
-#: src/stat.c:759
+#: src/stat.c:792
 #, c-format
 msgid "%s: invalid directive"
 msgstr "%s: vigane direktiiv"
 
-#: src/stat.c:805
+#: src/stat.c:838
 #, c-format
 msgid "warning: backslash at end of format"
 msgstr "hoiatus: langkriips vormingu lõpus"
 
-#: src/stat.c:834
+#: src/stat.c:867
 #, c-format
 msgid "using %s to denote standard input does not work in file system mode"
 msgstr ""
 
-#: src/stat.c:841
+#: src/stat.c:874
 #, c-format
 msgid "cannot read file system information for %s"
 msgstr "ei õnnestu lugeda %s failisüsteemi informatsiooni"
 
-#: src/stat.c:871
+#: src/stat.c:904
 #, fuzzy, c-format
 msgid "cannot stat standard input"
 msgstr "sulen standardsisendi"
 
-#: src/stat.c:925
+#: src/stat.c:963
 msgid ""
 "Display file or file system status.\n"
 "\n"
@@ -8701,7 +8719,7 @@ msgstr ""
 "  -L, --dereference     järgi viiteid\n"
 "  -f, --filesystem      esita faili oleku asemel failisüsteemi olek\n"
 
-#: src/stat.c:931
+#: src/stat.c:969
 msgid ""
 "  -c  --format=FORMAT   use the specified FORMAT instead of the default;\n"
 "                          output a newline after each use of FORMAT\n"
@@ -8718,7 +8736,7 @@ msgstr ""
 "                          Kui soovite reavahetust, kasutage \\n.\n"
 "  -t, --terse           esita info lakooniliselt\n"
 
-#: src/stat.c:942
+#: src/stat.c:980
 #, fuzzy
 msgid ""
 "\n"
@@ -8738,7 +8756,7 @@ msgstr ""
 "  %b - Kasutatud blokkide arv (vaata %B)\n"
 "  %B - Iga `%b' poolt antud bloki maht baitides\n"
 
-#: src/stat.c:951
+#: src/stat.c:989
 msgid ""
 "  %d   Device number in decimal\n"
 "  %D   Device number in hex\n"
@@ -8754,7 +8772,7 @@ msgstr ""
 "  %g   Omaniku grupi ID\n"
 "  %G   Omaniku grupi nimi\n"
 
-#: src/stat.c:959
+#: src/stat.c:997
 msgid ""
 "  %h   Number of hard links\n"
 "  %i   Inode number\n"
@@ -8774,7 +8792,7 @@ msgstr ""
 "  %t - Seadme kuueteistkümnendsüsteemis põhinumber\n"
 "  %T - Seadme kuueteistkümnendsüsteemis alamnumber\n"
 
-#: src/stat.c:969
+#: src/stat.c:1007
 msgid ""
 "  %u   User ID of owner\n"
 "  %U   User name of owner\n"
@@ -8796,7 +8814,7 @@ msgstr ""
 "  %Z - Viimane muutmine sekundites alates epohhist\n"
 "\n"
 
-#: src/stat.c:981
+#: src/stat.c:1019
 #, fuzzy
 msgid ""
 "Valid format sequences for file systems:\n"
@@ -8816,7 +8834,7 @@ msgstr ""
 "  %d - Vabu failikirjeid failisüsteemis\n"
 "  %f - Vabu blokke failisüsteemis\n"
 
-#: src/stat.c:991
+#: src/stat.c:1029
 msgid ""
 "  %i   File System ID in hex\n"
 "  %l   Maximum length of filenames\n"
@@ -8834,45 +8852,45 @@ msgstr ""
 "  %t - Tüüp kuueteistkümnend esituses\n"
 "  %T - Inimesele loetaval kujul tüüp\n"
 
-#: src/stat.c:1057
+#: src/stat.c:1095
 #, c-format
 msgid ""
 "the --context (-Z) option is obsolete and will be removed\n"
 "in a future release"
 msgstr ""
 
-#: src/stdbuf.c:95
+#: src/stdbuf.c:92
 #, fuzzy, c-format
 msgid "Usage: %s OPTION... COMMAND\n"
 msgstr "Kasutamine: %s [VÕTI]...\n"
 
-#: src/stdbuf.c:96
+#: src/stdbuf.c:93
 msgid ""
 "Run COMMAND, with modified buffering operations for its standard streams.\n"
 "\n"
 msgstr ""
 
-#: src/stdbuf.c:103
+#: src/stdbuf.c:100
 msgid ""
 "  -i, --input=MODE   Adjust standard input stream buffering\n"
 "  -o, --output=MODE  Adjust standard output stream buffering\n"
 "  -e, --error=MODE   Adjust standard error stream buffering\n"
 msgstr ""
 
-#: src/stdbuf.c:110
+#: src/stdbuf.c:107
 msgid ""
 "\n"
 "If MODE is `L' the corresponding stream will be line buffered.\n"
 "This option is invalid with standard input.\n"
 msgstr ""
 
-#: src/stdbuf.c:113
+#: src/stdbuf.c:110
 msgid ""
 "\n"
 "If MODE is `0' the corresponding stream will be unbuffered.\n"
 msgstr ""
 
-#: src/stdbuf.c:116
+#: src/stdbuf.c:113
 #, fuzzy
 msgid ""
 "\n"
@@ -8888,7 +8906,7 @@ msgstr ""
 "kB 1000, K 1024, MB 1000*1000, M 1024*1024 ja nii edasi tähtedega\n"
 "G, T, P, E, Z, Y.\n"
 
-#: src/stdbuf.c:122
+#: src/stdbuf.c:119
 msgid ""
 "\n"
 "NOTE: If COMMAND adjusts the buffering of its standard streams (`tee' does\n"
@@ -8898,17 +8916,12 @@ msgid ""
 "and are thus unaffected by `stdbuf' settings.\n"
 msgstr ""
 
-#: src/stdbuf.c:165
-#, c-format
-msgid "path truncated when looking for %s"
-msgstr ""
-
-#: src/stdbuf.c:258 src/stdbuf.c:290
+#: src/stdbuf.c:247 src/stdbuf.c:279
 #, fuzzy, c-format
 msgid "failed to update the environment with %s"
 msgstr "%s grupi muutmine grupiks %s ebaõnnestus\n"
 
-#: src/stdbuf.c:332
+#: src/stdbuf.c:321
 #, c-format
 msgid "line buffering stdin is meaningless"
 msgstr ""
@@ -9403,36 +9416,36 @@ msgstr "%s: sellel seadmel puudub info suuruse kohta"
 msgid "invalid integer argument %s"
 msgstr "vigane numbriline argument %s"
 
-#: src/su.c:228
+#: src/su.c:226
 msgid "Password:"
 msgstr "Parool:"
 
-#: src/su.c:231
+#: src/su.c:229
 #, c-format
 msgid "getpass: cannot open /dev/tty"
 msgstr "getpass: ei õnnestu avada /dev/tty"
 
-#: src/su.c:289
+#: src/su.c:287
 #, c-format
 msgid "cannot set groups"
 msgstr "ei õnnestu seada gruppe"
 
-#: src/su.c:293
+#: src/su.c:291
 #, c-format
 msgid "cannot set group id"
 msgstr "ei õnnestu seada grupi id"
 
-#: src/su.c:295
+#: src/su.c:293
 #, c-format
 msgid "cannot set user id"
 msgstr "ei õnnestu seada kasutaja id"
 
-#: src/su.c:371
+#: src/su.c:369
 #, c-format
 msgid "Usage: %s [OPTION]... [-] [USER [ARG]...]\n"
 msgstr "Kasutamine: %s [VÕTI]... [-] [KASUTAJA [ARGUMENT]...]\n"
 
-#: src/su.c:372
+#: src/su.c:370
 msgid ""
 "Change the effective user id and group id to that of USER.\n"
 "\n"
@@ -9452,7 +9465,7 @@ msgstr ""
 "  -p                           sama, kui -m\n"
 "  -s, --shell=PROGRAMM         käivita PROGRAMM, kui /etc/shells seda lubab\n"
 
-#: src/su.c:384
+#: src/su.c:382
 msgid ""
 "\n"
 "A mere - implies -l.   If USER not given, assume root.\n"
@@ -9460,22 +9473,22 @@ msgstr ""
 "\n"
 "Ainult - rakendab võtme -l. Kui KASUTAJA ei antud, kasuta nime root.\n"
 
-#: src/su.c:461
+#: src/su.c:459
 #, c-format
 msgid "user %s does not exist"
 msgstr "kasutajat %s ei ole"
 
-#: src/su.c:484
+#: src/su.c:482
 #, c-format
 msgid "incorrect password"
 msgstr "vale parool"
 
-#: src/su.c:501
+#: src/su.c:499
 #, c-format
 msgid "using restricted shell %s"
 msgstr "kasutan piiratud käsuinterpretaatorit %s"
 
-#: src/su.c:509
+#: src/su.c:507
 #, c-format
 msgid "warning: cannot change directory to %s"
 msgstr "hoiatus: ei saa minna kataloogi %s"
@@ -9512,7 +9525,7 @@ msgstr ""
 msgid "ignoring all arguments"
 msgstr "ignoreerin kõiki argumente"
 
-#: src/system.h:433
+#: src/system.h:384
 #, c-format
 msgid ""
 "\n"
@@ -9526,15 +9539,15 @@ msgstr ""
 "eelistatakse siinkirjeldatule. Täpsemat infot ja kasutusjuhendi leiate\n"
 "oma käsuinterpretaatori dokumentatsioonist.\n"
 
-#: src/system.h:439
+#: src/system.h:390
 msgid "      --help     display this help and exit\n"
 msgstr "      --help     väljasta see abiinfo ja lõpeta töö\n"
 
-#: src/system.h:441
+#: src/system.h:392
 msgid "      --version  output version information and exit\n"
 msgstr "      --version  väljasta versiooniinfo ja lõpeta töö\n"
 
-#: src/system.h:622
+#: src/system.h:569
 #, fuzzy
 msgid ""
 "\n"
@@ -9547,7 +9560,7 @@ msgstr ""
 "kB 1000, K 1024, MB 1000*1000, M 1024*1024 ja nii edasi tähtedega\n"
 "G, T, P, E, Z, Y.\n"
 
-#: src/system.h:631
+#: src/system.h:578
 #, c-format
 msgid ""
 "\n"
@@ -9556,7 +9569,7 @@ msgid ""
 "Otherwise, units default to 1024 bytes (or 512 if POSIXLY_CORRECT is set).\n"
 msgstr ""
 
-#: src/system.h:641
+#: src/system.h:588
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -9565,28 +9578,34 @@ msgstr ""
 "\n"
 "Vigadest teatage palun aadressil <%s>.\n"
 
-#: src/system.h:644
-#, c-format
-msgid "%s home page: <http://www.gnu.org/software/%s/>\n"
-msgstr ""
-
-#: src/system.h:646
-msgid "General help using GNU software: <http://www.gnu.org/gethelp/>\n"
-msgstr ""
-
 #. TRANSLATORS: Replace LANG_CODE in this URL with your language code
 #. <http://translationproject.org/team/LANG_CODE.html> to form one of
 #. the URLs at http://translationproject.org/team/.  Otherwise, replace
 #. the entire URL with your translation team's email address.
-#: src/system.h:657
+#: src/system.h:604
 #, c-format
 msgid "Report %s translation bugs to <http://translationproject.org/team/>\n"
 msgstr ""
 
-#: src/system.h:661
+#: src/system.h:608
 #, c-format
 msgid "For complete documentation, run: info coreutils '%s invocation'\n"
 msgstr ""
+
+#: src/system.h:678
+#, c-format
+msgid ""
+"WARNING: Circular directory structure.\n"
+"This almost certainly means that you have a corrupted file system.\n"
+"NOTIFY YOUR SYSTEM MANAGER.\n"
+"The following directory is part of the cycle:\n"
+"  %s\n"
+msgstr ""
+"HOIATUS: Tsükliline kataloogide struktuur.\n"
+"See tähendab peaaegu alati, et failisüsteem on viga saanud.\n"
+"TEAVITA OMA SÜSTEEMIADMINISTRAATORIT.\n"
+"Järgnev kataloog on tsükli osa:\n"
+"  %s\n"
 
 #. This is a proper name. See the gettext manual, section Names.
 #: src/tac.c:57
@@ -9658,9 +9677,10 @@ msgstr ""
 
 #: src/tail.c:262
 msgid ""
-"  -c, --bytes=K            output the last K bytes; alternatively, use +K "
-"to\n"
-"                           output bytes starting with the Kth of each file\n"
+"  -c, --bytes=K            output the last K bytes; alternatively, use -c "
+"+K\n"
+"                           to output bytes starting with the Kth of each "
+"file\n"
 msgstr ""
 
 #: src/tail.c:266
@@ -9680,7 +9700,8 @@ msgstr ""
 #, fuzzy, c-format
 msgid ""
 "  -n, --lines=K            output the last K lines, instead of the last %d;\n"
-"                           or use +K to output lines starting with the Kth\n"
+"                           or use -n +K to output lines starting with the "
+"Kth\n"
 "      --max-unchanged-stats=N\n"
 "                           with --follow=name, reopen a FILE which has not\n"
 "                           changed size after N (default %d) iterations\n"
@@ -9817,7 +9838,7 @@ msgstr "%s asendati;  järgin uue faili lõppu"
 msgid "%s: cannot change nonblocking mode"
 msgstr "%s: ei õnnestu muuta mitte-blokeeruvat moodi"
 
-#: src/tail.c:1101 src/tail.c:1385
+#: src/tail.c:1101 src/tail.c:1189
 #, c-format
 msgid "%s: file truncated"
 msgstr "%s: fail on lühendatud"
@@ -9827,83 +9848,83 @@ msgstr "%s: fail on lühendatud"
 msgid "no files remaining"
 msgstr "rohkem faile pole"
 
-#: src/tail.c:1225
+#: src/tail.c:1266
 #, fuzzy, c-format
 msgid "cannot watch parent directory of %s"
 msgstr "ei õnnestu lugeda jooksva kataloogi atribuute (nüüd %s)"
 
-#: src/tail.c:1236 src/tail.c:1339
+#: src/tail.c:1277 src/tail.c:1384
 #, fuzzy, c-format
 msgid "cannot watch %s"
 msgstr "%s ei õnnestu kasutada"
 
-#: src/tail.c:1294
+#: src/tail.c:1339
 #, fuzzy, c-format
 msgid "error monitoring inotify event"
 msgstr "viga %s lugemisel"
 
-#: src/tail.c:1314
+#: src/tail.c:1359
 #, fuzzy, c-format
 msgid "error reading inotify event"
 msgstr "viga %s lugemisel"
 
-#: src/tail.c:1612
+#: src/tail.c:1633
 #, c-format
 msgid "%s: cannot follow end of this type of file; giving up on this name"
 msgstr "%s: seda tüüpi faili lõppu ei saa järgida; annan alla"
 
-#: src/tail.c:1728
+#: src/tail.c:1749
 #, c-format
 msgid "number in %s is too large"
 msgstr "%s number on liiga suur"
 
-#: src/tail.c:1800
+#: src/tail.c:1821
 #, c-format
 msgid "%s: invalid maximum number of unchanged stats between opens"
 msgstr "%s: vigane maksimum arv mittemuutunud atribuute avamiste vahel"
 
-#: src/tail.c:1816
+#: src/tail.c:1837
 #, c-format
 msgid "%s: invalid PID"
 msgstr "%s: vigane PID"
 
-#: src/tail.c:1835
+#: src/tail.c:1856
 #, c-format
 msgid "%s: invalid number of seconds"
 msgstr "%s: vigane arv sekundeid"
 
-#: src/tail.c:1851
+#: src/tail.c:1872
 #, c-format
 msgid "option used in invalid context -- %c"
 msgstr "võtit kasutati vales kontekstis -- %c"
 
-#: src/tail.c:1859
+#: src/tail.c:1880
 #, c-format
 msgid "warning: --retry is useful mainly when following by name"
 msgstr "hoiatus: --retry on kasutatav ainult failide jälgimisel nime põhjal"
 
-#: src/tail.c:1863
+#: src/tail.c:1884
 #, c-format
 msgid "warning: PID ignored; --pid=PID is useful only when following"
 msgstr ""
 "hoiatus: PID ignoreeritakse; --pid=PID on kasulik ainult failide jälgimisel"
 
-#: src/tail.c:1866
+#: src/tail.c:1887
 #, c-format
 msgid "warning: --pid=PID is not supported on this system"
 msgstr "hoiatus: --pid=PID ei ole selles süsteemis toetatud"
 
-#: src/tail.c:1938
+#: src/tail.c:1959
 #, c-format
 msgid "cannot follow %s by name"
 msgstr "ei õnnestu %s nime järgi leida"
 
-#: src/tail.c:1944
+#: src/tail.c:1965
 #, c-format
 msgid "warning: following standard input indefinitely is ineffective"
 msgstr "hoiatus: standardsisendi lõpmatu jälgimine ei toimi"
 
-#: src/tail.c:2000
+#: src/tail.c:2021
 #, c-format
 msgid "inotify cannot be used, reverting to polling"
 msgstr ""
@@ -10168,7 +10189,7 @@ msgstr "puudub `]'"
 msgid "extra argument %s"
 msgstr "liigne argument: %s"
 
-#: src/timeout.c:133
+#: src/timeout.c:127
 #, fuzzy, c-format
 msgid ""
 "Usage: %s [OPTION] NUMBER[SUFFIX] COMMAND [ARG]...\n"
@@ -10177,7 +10198,7 @@ msgstr ""
 "Kasutamine: %s KÄSKLUS [ARGUMENT]...\n"
 "       või: %s VÕTI\n"
 
-#: src/timeout.c:137
+#: src/timeout.c:131
 msgid ""
 "Start COMMAND, and kill it if still running after NUMBER seconds.\n"
 "SUFFIX may be `s' for seconds (the default), `m' for minutes,\n"
@@ -10185,7 +10206,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: src/timeout.c:147
+#: src/timeout.c:141
 msgid ""
 "  -s, --signal=SIGNAL\n"
 "                   specify the signal to be sent on timeout.\n"
@@ -10193,7 +10214,7 @@ msgid ""
 "                   See `kill -l` for a list of signals\n"
 msgstr ""
 
-#: src/timeout.c:155
+#: src/timeout.c:149
 msgid ""
 "\n"
 "If the command times out, then exit with status 124.  Otherwise, exit\n"
@@ -10203,64 +10224,60 @@ msgid ""
 "use the KILL (9) signal, since this signal cannot be caught.\n"
 msgstr ""
 
-#: src/timeout.c:321
+#: src/timeout.c:316
 #, fuzzy, c-format
 msgid "error waiting for command"
 msgstr "viga %s kirjutamisel"
 
-#: src/timeout.c:333
+#: src/timeout.c:328
 #, c-format
 msgid "unknown status from command (0x%X)"
 msgstr ""
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/touch.c:43
+#: src/touch.c:44
 msgid "Jim Kingdon"
 msgstr ""
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/touch.c:45
+#: src/touch.c:46
 msgid "Randy Smith"
 msgstr ""
 
-#: src/touch.c:112 src/touch.c:326
+#: src/touch.c:117 src/touch.c:318
 #, c-format
 msgid "invalid date format %s"
 msgstr "vigane kuupäeva vorming %s"
 
-#: src/touch.c:154
-#, c-format
-msgid "creating %s"
-msgstr "loon %s"
-
-#: src/touch.c:211
+#: src/touch.c:193
 #, c-format
 msgid "cannot touch %s"
 msgstr "%s ei õnnestu kasutada"
 
-#: src/touch.c:217
+#: src/touch.c:199
 #, c-format
 msgid "setting times of %s"
 msgstr "sean faili %s aegu"
 
-#: src/touch.c:234
+#: src/touch.c:216
 msgid ""
 "Update the access and modification times of each FILE to the current time.\n"
 "\n"
-"A FILE argument that does not exist is created empty.\n"
+"A FILE argument that does not exist is created empty, unless -c or -h\n"
+"is supplied.\n"
 "\n"
 "A FILE argument string of - is handled specially and causes touch to\n"
 "change the times of the file associated with standard output.\n"
 "\n"
 msgstr ""
 
-#: src/touch.c:246
+#: src/touch.c:229
+#, fuzzy
 msgid ""
 "  -a                     change only the access time\n"
 "  -c, --no-create        do not create any files\n"
 "  -d, --date=STRING      parse STRING and use it instead of current time\n"
 "  -f                     (ignored)\n"
-"  -m                     change only the modification time\n"
 msgstr ""
 "  -a                     muuda ainult kasutamise (access) aeg\n"
 "  -c, --no-create        ära loo faile\n"
@@ -10268,7 +10285,20 @@ msgstr ""
 "  -f                     (ignoreeritakse)\n"
 "  -m                     muuda ainult muutmise (modification) aega\n"
 
-#: src/touch.c:253
+#: src/touch.c:235
+#, fuzzy
+msgid ""
+"  -h, --no-dereference   affect each symbolic link instead of any "
+"referenced\n"
+"                         file (useful only on systems that can change the\n"
+"                         timestamps of a symlink)\n"
+"  -m                     change only the modification time\n"
+msgstr ""
+"  -h, --no-dereference   muuda viidatava asemel nimeviidet\n"
+"                         (kasutatav süsteemides, kus saab muuta nimeviite\n"
+"                         omanikku)\n"
+
+#: src/touch.c:241
 msgid ""
 "  -r, --reference=FILE   use this file's times instead of current time\n"
 "  -t STAMP               use [[CC]YY]MMDDhhmm[.ss] instead of current time\n"
@@ -10282,7 +10312,7 @@ msgstr ""
 "                           access, atime või use (sama kui -a)\n"
 "                           modify või mtime (sama kui -m)\n"
 
-#: src/touch.c:262
+#: src/touch.c:250
 #, fuzzy
 msgid ""
 "\n"
@@ -10293,17 +10323,17 @@ msgstr ""
 "\n"
 "Kui FAIL on -, kasuta standardväljundit.\n"
 
-#: src/touch.c:317
+#: src/touch.c:309
 #, c-format
 msgid "warning: the --%s option is obsolete; use --reference"
 msgstr ""
 
-#: src/touch.c:352
+#: src/touch.c:344
 #, c-format
 msgid "cannot specify times from more than one source"
 msgstr "ei õnnestu kirjeldada aegu rohkem kui ühest allikast"
 
-#: src/touch.c:417
+#: src/touch.c:412
 #, c-format
 msgid ""
 "warning: `touch %s' is obsolete; use `touch -t %04ld%02d%02d%02d%02d.%02d'"
@@ -11167,6 +11197,61 @@ msgid ""
 msgstr ""
 "Väljasta korduvalt rida antud sõnedega või `y'.\n"
 "\n"
+
+#, fuzzy
+#~ msgid "Report %s bugs to <%s>.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Vigadest teatage palun aadressil <%s>.\n"
+
+#, fuzzy
+#~ msgid "  -d, --directory  create a directory, not a file\n"
+#~ msgstr "  directory    katkesta kui ei ole kataloog\n"
+
+#~ msgid "the --megabytes option is deprecated; use -m instead"
+#~ msgstr "võti --megabytes on aegunud; kasutage selle asemel -m"
+
+#~ msgid ""
+#~ "\n"
+#~ "If -e is in effect, the following sequences are recognized:\n"
+#~ "\n"
+#~ "  \\0NNN   the character whose ASCII code is NNN (octal)\n"
+#~ "  \\\\     backslash\n"
+#~ "  \\a     alert (BEL)\n"
+#~ "  \\b     backspace\n"
+#~ msgstr ""
+#~ "\n"
+#~ "-e võtmega tuntakse ja interpreteeritakse järgnevaid järjendeid:\n"
+#~ "\n"
+#~ "  \\NNN   sümbol ASCII koodiga NNN (kaheksandsüsteemis)\n"
+#~ "  \\\\     langkriips\n"
+#~ "  \\a     tähelepanu (BEL)\n"
+#~ "  \\b     samm tagasi\n"
+
+#~ msgid ""
+#~ "  \\a      alert (BEL)\n"
+#~ "  \\b      backspace\n"
+#~ "  \\c      produce no further output\n"
+#~ "  \\f      form feed\n"
+#~ msgstr ""
+#~ "  \\a      tähelepanu (BEL)\n"
+#~ "  \\b      samm tagasi\n"
+#~ "  \\c      ära väljasta enam midagi\n"
+#~ "  \\f      lehevahetus\n"
+
+#~ msgid ""
+#~ "  \\n      new line\n"
+#~ "  \\r      carriage return\n"
+#~ "  \\t      horizontal tab\n"
+#~ "  \\v      vertical tab\n"
+#~ msgstr ""
+#~ "  \\n      uus rida\n"
+#~ "  \\r      rea algusesse\n"
+#~ "  \\t      horisontaalne tabulaator\n"
+#~ "  \\v      vertikaalne tabulaator\n"
+
+#~ msgid "creating %s"
+#~ msgstr "loon %s"
 
 #~ msgid "FATAL: failed to close directory %s"
 #~ msgstr "FATAALNE: kataloogi %s sulgemine ebaõnnestus"

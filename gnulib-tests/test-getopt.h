@@ -20,7 +20,7 @@
 /* Written by Bruno Haible <bruno@clisp.org>, 2009.  */
 
 static void
-getopt_loop (int argc, char **argv,
+getopt_loop (int argc, const char **argv,
 	     const char *options,
 	     int *a_seen, int *b_seen,
 	     const char **p_value, const char **q_value,
@@ -30,7 +30,7 @@ getopt_loop (int argc, char **argv,
   int c;
 
   opterr = 0;
-  while ((c = getopt (argc, argv, options)) != -1)
+  while ((c = getopt (argc, (char **) argv, options)) != -1)
     {
       switch (c)
 	{
@@ -77,7 +77,7 @@ test_getopt (void)
       const char *non_options[10];
       int unrecognized = 0;
       int argc = 0;
-      char *argv[10];
+      const char *argv[10];
 
       argv[argc++] = "program";
       argv[argc++] = "-a";
@@ -105,7 +105,7 @@ test_getopt (void)
       const char *non_options[10];
       int unrecognized = 0;
       int argc = 0;
-      char *argv[10];
+      const char *argv[10];
 
       argv[argc++] = "program";
       argv[argc++] = "-b";
@@ -134,7 +134,7 @@ test_getopt (void)
       const char *non_options[10];
       int unrecognized = 0;
       int argc = 0;
-      char *argv[10];
+      const char *argv[10];
 
       argv[argc++] = "program";
       argv[argc++] = "-ba";
@@ -162,7 +162,7 @@ test_getopt (void)
       const char *non_options[10];
       int unrecognized = 0;
       int argc = 0;
-      char *argv[10];
+      const char *argv[10];
 
       argv[argc++] = "program";
       argv[argc++] = "-ab";
@@ -193,7 +193,7 @@ test_getopt (void)
       const char *non_options[10];
       int unrecognized = 0;
       int argc = 0;
-      char *argv[10];
+      const char *argv[10];
 
       argv[argc++] = "program";
       argv[argc++] = "-pfoo";
@@ -220,7 +220,7 @@ test_getopt (void)
       const char *non_options[10];
       int unrecognized = 0;
       int argc = 0;
-      char *argv[10];
+      const char *argv[10];
 
       argv[argc++] = "program";
       argv[argc++] = "-p";
@@ -248,7 +248,7 @@ test_getopt (void)
       const char *non_options[10];
       int unrecognized = 0;
       int argc = 0;
-      char *argv[10];
+      const char *argv[10];
 
       argv[argc++] = "program";
       argv[argc++] = "-ab";
@@ -281,7 +281,7 @@ test_getopt (void)
       const char *non_options[10];
       int unrecognized = 0;
       int argc = 0;
-      char *argv[10];
+      const char *argv[10];
 
       argv[argc++] = "program";
       argv[argc++] = "-pfoo";
@@ -308,7 +308,7 @@ test_getopt (void)
       const char *non_options[10];
       int unrecognized = 0;
       int argc = 0;
-      char *argv[10];
+      const char *argv[10];
 
       argv[argc++] = "program";
       argv[argc++] = "-p";
@@ -336,7 +336,7 @@ test_getopt (void)
       const char *non_options[10];
       int unrecognized = 0;
       int argc = 0;
-      char *argv[10];
+      const char *argv[10];
 
       argv[argc++] = "program";
       argv[argc++] = "-p";
@@ -367,7 +367,7 @@ test_getopt (void)
       const char *non_options[10];
       int unrecognized = 0;
       int argc = 0;
-      char *argv[10];
+      const char *argv[10];
 
       argv[argc++] = "program";
       argv[argc++] = "-p";
@@ -399,7 +399,7 @@ test_getopt (void)
       const char *non_options[10];
       int unrecognized = 0;
       int argc = 0;
-      char *argv[10];
+      const char *argv[10];
 
       argv[argc++] = "program";
       argv[argc++] = "donald";
@@ -461,7 +461,7 @@ test_getopt (void)
       const char *non_options[10];
       int unrecognized = 0;
       int argc = 0;
-      char *argv[20];
+      const char *argv[20];
 
       argv[argc++] = "program";
       argv[argc++] = "donald";
@@ -539,7 +539,7 @@ test_getopt (void)
       const char *non_options[10];
       int unrecognized = 0;
       int argc = 0;
-      char *argv[10];
+      const char *argv[10];
 
       argv[argc++] = "program";
       argv[argc++] = "donald";
@@ -582,7 +582,7 @@ test_getopt (void)
       const char *non_options[10];
       int unrecognized = 0;
       int argc = 0;
-      char *argv[20];
+      const char *argv[20];
 
       argv[argc++] = "program";
       argv[argc++] = "donald";
@@ -653,7 +653,7 @@ test_getopt (void)
       const char *non_options[10];
       int unrecognized = 0;
       int argc = 0;
-      char *argv[10];
+      const char *argv[10];
 
       argv[argc++] = "program";
       argv[argc++] = "donald";
@@ -716,7 +716,7 @@ test_getopt (void)
       const char *non_options[10];
       int unrecognized = 0;
       int argc = 0;
-      char *argv[10];
+      const char *argv[10];
 
       argv[argc++] = "program";
       argv[argc++] = "donald";
@@ -754,7 +754,7 @@ test_getopt (void)
       const char *non_options[10];
       int unrecognized = 0;
       int argc = 0;
-      char *argv[10];
+      const char *argv[10];
 
       argv[argc++] = "program";
       argv[argc++] = "-+";
@@ -782,7 +782,7 @@ test_getopt (void)
       const char *non_options[10];
       int unrecognized = 0;
       int argc = 0;
-      char *argv[20];
+      const char *argv[20];
 
       argv[argc++] = "program";
       argv[argc++] = "donald";
@@ -832,7 +832,7 @@ test_getopt (void)
       const char *non_options[10];
       int unrecognized = 0;
       int argc = 0;
-      char *argv[10];
+      const char *argv[10];
 
       argv[argc++] = "program";
       argv[argc++] = "donald";

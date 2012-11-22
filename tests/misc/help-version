@@ -27,8 +27,12 @@ export SHELL
 
 . $srcdir/test-lib.sh
 
-expected_failure_status_nohup=127
+expected_failure_status_chroot=125
+expected_failure_status_env=125
+expected_failure_status_nice=125
+expected_failure_status_nohup=125
 expected_failure_status_stdbuf=125
+expected_failure_status_su=125
 expected_failure_status_timeout=125
 expected_failure_status_printenv=2
 expected_failure_status_tty=3
@@ -39,10 +43,9 @@ expected_failure_status_dir=2
 expected_failure_status_ls=2
 expected_failure_status_vdir=2
 
-fail=0
 
 test "$built_programs" \
-  || { echo "$this_test: no programs built!?!" 1>&2; Exit $fail; }
+  || { echo "$this_test: no programs built!?!" 1>&2; Exit 1; }
 
 for lang in C fr da; do
   for i in $built_programs; do

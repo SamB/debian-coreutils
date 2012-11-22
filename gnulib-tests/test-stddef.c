@@ -35,7 +35,7 @@ size_t c = 2;
 verify (sizeof NULL == sizeof (void *));
 
 int
-main ()
+main (void)
 {
   return 0;
 }

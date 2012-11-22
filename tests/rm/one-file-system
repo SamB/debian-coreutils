@@ -27,7 +27,10 @@ require_root_
 # If used, these must *follow* test-lib.sh.
 cleanup_()
 {
-  umount "$other_partition_tmpdir"
+  # When you take the undesirable shortcut of making /etc/mtab a link
+  # to /proc/mounts, unmounting "$other_partition_tmpdir" would fail.
+  # So, here we unmount a/b instead.
+  umount a/b
   rm -rf "$other_partition_tmpdir"
 }
 . "$abs_srcdir/other-fs-tmpdir"
@@ -41,7 +44,6 @@ cat <<\EOF > exp || framework_failure
 rm: skipping `a/b', since it's on a different device
 EOF
 
-fail=0
 
 rm --one-file-system -rf a 2> out && fail=1
 test -d $t/y || fail=1

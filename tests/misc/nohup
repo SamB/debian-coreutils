@@ -23,7 +23,6 @@ fi
 
 . $srcdir/test-lib.sh
 
-fail=0
 
 nohup sh -c 'echo stdout; echo stderr 1>&2' 2>err || fail=1
 
@@ -64,6 +63,21 @@ test -f nohup.out && fail=1
 rm -f nohup.out err
 # ----------------------
 
+# Bug present through coreutils 8.0: failure to print advisory message
+# to stderr must be fatal.  Requires stdout to be terminal.
+if test -w /dev/full && test -c /dev/full; then
+(
+  exec >/dev/tty
+  test -t 1 || exit 0
+  nohup echo hi 2> /dev/full
+  test $? = 125 || fail=1
+  test -f nohup.out || fail=1
+  test -s nohup.out && fail=1
+  rm -f nohup.out
+  exit $fail
+) || fail=1
+fi
+
 nohup no-such-command 2> err
 errno=$?
 if test -t 1; then
@@ -101,8 +115,11 @@ EOF
 # Disable these comparisons.  Too much variation in 2nd line.
 # compare exp err || fail=1
 
-# Make sure it fails with exit status of 127 when given too few arguments.
+# Make sure it fails with exit status of 125 when given too few arguments,
+# except that POSIX requires 127 in this case.
 nohup >/dev/null 2>&1
+test $? = 125 || fail=1
+POSIXLY_CORRECT=1 nohup >/dev/null 2>&1
 test $? = 127 || fail=1
 
 Exit $fail

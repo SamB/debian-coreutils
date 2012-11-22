@@ -2,7 +2,7 @@
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
 #line 1
 /*
- * Copyright (C) 2005 Free Software Foundation
+ * Copyright (C) 2005, 2009 Free Software Foundation
  * Written by Simon Josefsson
  *
  * This program is free software: you can redistribute it and/or modify
@@ -28,7 +28,7 @@
 #include "md5.h"
 
 int
-main (int argc, char *argv[])
+main (void)
 {
   /* Test vectors from RFC 1321. */
 

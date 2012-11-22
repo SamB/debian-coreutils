@@ -39,11 +39,11 @@
   do                                                                         \
     {                                                                        \
       if (!(expr))                                                           \
-	{                                                                    \
-	  fprintf (stderr, "%s:%d: assertion failed\n", __FILE__, __LINE__);  \
-	  fflush (stderr);                                                   \
-	  abort ();                                                          \
-	}                                                                    \
+        {                                                                    \
+          fprintf (stderr, "%s:%d: assertion failed\n", __FILE__, __LINE__);  \
+          fflush (stderr);                                                   \
+          abort ();                                                          \
+        }                                                                    \
     }                                                                        \
   while (0)
 
@@ -84,7 +84,7 @@ check_same_link (char const *name1, char const *name2)
 }
 
 int
-main ()
+main (void)
 {
   int i;
   int dfd;
@@ -95,7 +95,7 @@ main ()
   ASSERT (system ("rm -rf " BASE "*") == 0);
 
   /* Test basic link functionality, without mentioning symlinks.  */
-  result = test_link (do_link, false);
+  result = test_link (do_link, true);
   dfd1 = open (".", O_RDONLY);
   ASSERT (0 <= dfd1);
   ASSERT (test_link (do_link, false) == result);
@@ -137,11 +137,11 @@ main ()
      do the other variant after the loop.  */
   for (i = 0; i < 32; i++)
     {
-      int flag = (i & 0x10 ? AT_SYMLINK_FOLLOW : 0);
       int fd1 = (i & 8) ? dfd : AT_FDCWD;
       char *file1 = file_name_concat ((i & 4) ? ".." : cwd, BASE "xx", NULL);
       int fd2 = (i & 2) ? dfd : AT_FDCWD;
       char *file2 = file_name_concat ((i & 1) ? ".." : cwd, BASE "xx", NULL);
+      flag = (i & 0x10 ? AT_SYMLINK_FOLLOW : 0);
 
       ASSERT (sprintf (strchr (file1, '\0') - 2, "%02d", i) == 2);
       ASSERT (sprintf (strchr (file2, '\0') - 2, "%02d", i + 1) == 2);
@@ -169,8 +169,9 @@ main ()
       ASSERT (rmdir (BASE "sub1") == 0);
       ASSERT (rmdir (BASE "sub2") == 0);
       free (cwd);
-      fputs ("skipping test: symlinks not supported on this filesystem\n",
-             stderr);
+      if (!result)
+        fputs ("skipping test: symlinks not supported on this file system\n",
+               stderr);
       return result;
     }
   dfd = open (".", O_RDONLY);

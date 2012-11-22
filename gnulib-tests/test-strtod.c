@@ -2,7 +2,7 @@
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
 #line 1
 /*
- * Copyright (C) 2008 Free Software Foundation
+ * Copyright (C) 2008, 2009 Free Software Foundation
  * Written by Eric Blake
  *
  * This program is free software: you can redistribute it and/or modify
@@ -50,7 +50,7 @@
 double zero = 0.0;
 
 int
-main ()
+main (void)
 {
   int status = 0;
   /* Subject sequence empty or invalid.  */

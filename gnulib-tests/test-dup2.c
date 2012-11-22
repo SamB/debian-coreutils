@@ -64,7 +64,7 @@ is_open (int fd)
 }
 
 int
-main ()
+main (void)
 {
   const char *file = "test-dup2.tmp";
   char buffer[1];
@@ -81,6 +81,15 @@ main ()
 
   /* Assigning to self must be a no-op.  */
   ASSERT (dup2 (fd, fd) == fd);
+  ASSERT (is_open (fd));
+
+  /* The source must be valid.  */
+  errno = 0;
+  ASSERT (dup2 (-1, fd) == -1);
+  ASSERT (errno == EBADF);
+  errno = 0;
+  ASSERT (dup2 (AT_FDCWD, fd) == -1);
+  ASSERT (errno == EBADF);
   ASSERT (is_open (fd));
 
   /* If the source is not open, then the destination is unaffected.  */

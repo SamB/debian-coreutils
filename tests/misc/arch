@@ -17,19 +17,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 . $srcdir/test-lib.sh
-
-# skip this test if arch isn't being built.
-case " $built_programs " in
-  *" arch "*) ;;
-  *) skip_test_ 'not building arch';;
-esac
+require_built_ arch
 
 if test "$VERBOSE" = yes; then
   set -x
   arch --version
 fi
 
-fail=0
 
 arch > out || fail=1
 uname -m > exp || fail=1

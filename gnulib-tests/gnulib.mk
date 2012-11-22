@@ -14,6 +14,7 @@ AUTOMAKE_OPTIONS = 1.5 foreign subdir-objects
 
 SUBDIRS =
 TESTS =
+XFAIL_TESTS =
 TESTS_ENVIRONMENT =
 noinst_PROGRAMS =
 check_PROGRAMS =
@@ -81,6 +82,31 @@ check_PROGRAMS += test-alloca-opt
 EXTRA_DIST += test-alloca-opt.c
 
 ## end   gnulib module alloca-opt-tests
+
+## begin gnulib module areadlink-tests
+
+TESTS += test-areadlink
+check_PROGRAMS += test-areadlink
+EXTRA_DIST += test-areadlink.h test-areadlink.c
+
+## end   gnulib module areadlink-tests
+
+## begin gnulib module areadlink-with-size-tests
+
+TESTS += test-areadlink-with-size
+check_PROGRAMS += test-areadlink-with-size
+EXTRA_DIST += test-areadlink.h test-areadlink-with-size.c
+
+## end   gnulib module areadlink-with-size-tests
+
+## begin gnulib module areadlinkat-tests
+
+TESTS += test-areadlinkat
+check_PROGRAMS += test-areadlinkat
+test_areadlinkat_LDADD = $(LDADD) @LIBINTL@
+EXTRA_DIST += test-areadlink.h test-areadlinkat.c
+
+## end   gnulib module areadlinkat-tests
 
 ## begin gnulib module argmatch-tests
 
@@ -195,6 +221,15 @@ test_canonicalize_LDADD = $(LDADD) @LIBINTL@
 EXTRA_DIST += test-canonicalize.c
 
 ## end   gnulib module canonicalize-tests
+
+## begin gnulib module chown-tests
+
+TESTS += test-chown
+check_PROGRAMS += test-chown
+test_chown_LDADD = $(LDADD) @LIBINTL@
+EXTRA_DIST += test-chown.h test-chown.c
+
+## end   gnulib module chown-tests
 
 ## begin gnulib module closein-tests
 
@@ -433,6 +468,14 @@ EXTRA_DIST += test-freadseek.c test-freadseek.sh
 
 ## end   gnulib module freadseek-tests
 
+## begin gnulib module freopen-safer-tests
+
+TESTS += test-freopen-safer
+check_PROGRAMS += test-freopen-safer
+EXTRA_DIST += test-freopen-safer.c
+
+## end   gnulib module freopen-safer-tests
+
 ## begin gnulib module freopen-tests
 
 TESTS += test-freopen
@@ -533,6 +576,14 @@ EXTRA_DIST += test-getdelim.c
 
 ## end   gnulib module getdelim-tests
 
+## begin gnulib module getgroups-tests
+
+TESTS += test-getgroups
+check_PROGRAMS += test-getgroups
+EXTRA_DIST += test-getgroups.c
+
+## end   gnulib module getgroups-tests
+
 ## begin gnulib module gethostname-tests
 
 TESTS += test-gethostname
@@ -605,6 +656,15 @@ EXTRA_DIST += test-iconv.c
 
 ## end   gnulib module iconv-tests
 
+## begin gnulib module inet_ntop-tests
+
+TESTS += test-inet_ntop
+check_PROGRAMS += test-inet_ntop
+test_inet_ntop_LDADD = $(LDADD) @INET_NTOP_LIB@
+EXTRA_DIST += test-inet_ntop.c
+
+## end   gnulib module inet_ntop-tests
+
 ## begin gnulib module inet_pton
 
 
@@ -613,6 +673,15 @@ EXTRA_DIST += inet_pton.c
 EXTRA_libtests_a_SOURCES += inet_pton.c
 
 ## end   gnulib module inet_pton
+
+## begin gnulib module inet_pton-tests
+
+TESTS += test-inet_pton
+check_PROGRAMS += test-inet_pton
+test_inet_pton_LDADD = $(LDADD) @INET_PTON_LIB@
+EXTRA_DIST += test-inet_pton.c
+
+## end   gnulib module inet_pton-tests
 
 ## begin gnulib module inttypes-tests
 
@@ -631,6 +700,14 @@ EXTRA_DIST += ioctl.c w32sock.h
 EXTRA_libtests_a_SOURCES += ioctl.c
 
 ## end   gnulib module ioctl
+
+## begin gnulib module isblank-tests
+
+TESTS += test-isblank
+check_PROGRAMS += test-isblank
+EXTRA_DIST += test-isblank.c
+
+## end   gnulib module isblank-tests
 
 ## begin gnulib module isnand-nolibm-tests
 
@@ -659,6 +736,15 @@ EXTRA_DIST += test-isnanl-nolibm.c test-isnanl.h nan.h
 
 ## end   gnulib module isnanl-nolibm-tests
 
+## begin gnulib module lchown-tests
+
+TESTS += test-lchown
+check_PROGRAMS += test-lchown
+test_lchown_LDADD = $(LDADD) @LIBINTL@
+EXTRA_DIST += test-lchown.h test-lchown.c
+
+## end   gnulib module lchown-tests
+
 ## begin gnulib module link-tests
 
 TESTS += test-link
@@ -680,7 +766,7 @@ EXTRA_DIST += $(top_srcdir)/build-aux/link-warning.h
 TESTS += test-linkat
 check_PROGRAMS += test-linkat
 test_linkat_LDADD = $(LDADD) @LIBINTL@
-EXTRA_DIST += test-linkat.c
+EXTRA_DIST += test-link.h test-linkat.c
 
 ## end   gnulib module linkat-tests
 
@@ -829,6 +915,14 @@ EXTRA_DIST += test-memrchr.c zerosize-ptr.h
 
 ## end   gnulib module memrchr-tests
 
+## begin gnulib module mkdir-tests
+
+TESTS += test-mkdir
+check_PROGRAMS += test-mkdir
+EXTRA_DIST += test-mkdir.h test-mkdir.c
+
+## end   gnulib module mkdir-tests
+
 ## begin gnulib module netdb-tests
 
 TESTS += test-netdb
@@ -851,7 +945,6 @@ EXTRA_DIST += test-netinet_in.c
 
 TESTS += test-open
 check_PROGRAMS += test-open
-
 EXTRA_DIST += test-open.h test-open.c
 
 ## end   gnulib module open-tests
@@ -867,12 +960,15 @@ EXTRA_DIST += test-openat-safer.c
 
 ## begin gnulib module openat-tests
 
-TESTS += test-fstatat test-openat test-unlinkat
-check_PROGRAMS += test-fstatat test-openat test-unlinkat
+TESTS += test-fchownat test-fstatat test-mkdirat test-openat test-unlinkat
+check_PROGRAMS += test-fchownat test-fstatat test-mkdirat test-openat \
+  test-unlinkat
+test_fchownat_LDADD = $(LDADD) @LIBINTL@
 test_fstatat_LDADD = $(LDADD) @LIBINTL@
+test_mkdirat_LDADD = $(LDADD) @LIBINTL@
 test_openat_LDADD = $(LDADD) @LIBINTL@
 test_unlinkat_LDADD = $(LDADD) @LIBINTL@
-EXTRA_DIST += test-lstat.h test-rmdir.h test-stat.h test-unlink.h test-fstatat.c test-openat.c test-unlinkat.c
+EXTRA_DIST += test-chown.h test-lchown.h test-lstat.h test-mkdir.h test-rmdir.h test-stat.h test-unlink.h test-fchownat.c test-fstatat.c test-mkdirat.c test-openat.c test-unlinkat.c
 
 ## end   gnulib module openat-tests
 
@@ -964,6 +1060,14 @@ EXTRA_DIST += test-readlink.h test-readlink.c
 
 ## end   gnulib module readlink-tests
 
+## begin gnulib module remove-tests
+
+TESTS += test-remove
+check_PROGRAMS += test-remove
+EXTRA_DIST += test-remove.c
+
+## end   gnulib module remove-tests
+
 ## begin gnulib module rename-tests
 
 TESTS += test-rename
@@ -987,13 +1091,21 @@ TESTS += test-select test-select-in.sh test-select-out.sh
 # test-select-stdin has to be run by hand.
 TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@'
 check_PROGRAMS += test-select test-select-fd test-select-stdin
-test_select_LDADD = $(LDADD) @LIBSOCKET@
+test_select_LDADD = $(LDADD) @LIBSOCKET@ $(INET_PTON_LIB)
 test_select_fd_LDADD = $(LDADD) @LIBSOCKET@
 test_select_stdin_LDADD = $(LDADD) @LIBSOCKET@
 
 EXTRA_DIST += test-select.c test-select-fd.c test-select-in.sh test-select-out.sh test-select-stdin.c
 
 ## end   gnulib module select-tests
+
+## begin gnulib module setenv-tests
+
+TESTS += test-setenv
+check_PROGRAMS += test-setenv
+EXTRA_DIST += test-setenv.c
+
+## end   gnulib module setenv-tests
 
 ## begin gnulib module setsockopt
 
@@ -1270,6 +1382,15 @@ EXTRA_DIST += test-sys_time.c
 
 ## end   gnulib module sys_time-tests
 
+## begin gnulib module sys_utsname-tests
+
+TESTS += test-sys_utsname
+check_PROGRAMS += test-sys_utsname
+
+EXTRA_DIST += test-sys_utsname.c
+
+## end   gnulib module sys_utsname-tests
+
 ## begin gnulib module thread
 
 libtests_a_SOURCES += glthread/thread.h glthread/thread.c
@@ -1302,6 +1423,15 @@ check_PROGRAMS += test-u64
 EXTRA_DIST += test-u64.c
 
 ## end   gnulib module u64-tests
+
+## begin gnulib module uname-tests
+
+TESTS += test-uname
+check_PROGRAMS += test-uname
+test_uname_LDADD = $(LDADD) @GETHOSTNAME_LIB@
+EXTRA_DIST += test-uname.c
+
+## end   gnulib module uname-tests
 
 ## begin gnulib module unistd-tests
 
@@ -1341,6 +1471,14 @@ EXTRA_libtests_a_SOURCES += unlinkdir.c
 
 ## end   gnulib module unlinkdir
 
+## begin gnulib module unsetenv-tests
+
+TESTS += test-unsetenv
+check_PROGRAMS += test-unsetenv
+EXTRA_DIST += test-unsetenv.c
+
+## end   gnulib module unsetenv-tests
+
 ## begin gnulib module update-copyright-tests
 
 TESTS += test-update-copyright.sh
@@ -1348,6 +1486,32 @@ TESTS_ENVIRONMENT += PATH='$(abs_aux_dir)'$(PATH_SEPARATOR)"$$PATH"
 EXTRA_DIST += test-update-copyright.sh
 
 ## end   gnulib module update-copyright-tests
+
+## begin gnulib module usleep
+
+
+EXTRA_DIST += usleep.c
+
+EXTRA_libtests_a_SOURCES += usleep.c
+
+## end   gnulib module usleep
+
+## begin gnulib module usleep-tests
+
+TESTS += test-usleep
+check_PROGRAMS += test-usleep
+EXTRA_DIST += test-usleep.c
+
+## end   gnulib module usleep-tests
+
+## begin gnulib module utimens-tests
+
+TESTS += test-utimens
+check_PROGRAMS += test-utimens
+test_utimens_LDADD = $(LDADD) $(LIB_CLOCK_GETTIME) @LIBINTL@
+EXTRA_DIST += test-futimens.h test-lutimens.h test-utimens.h test-utimens-common.h test-utimens.c
+
+## end   gnulib module utimens-tests
 
 ## begin gnulib module vasnprintf-tests
 
@@ -1463,6 +1627,15 @@ check_PROGRAMS += test-wcwidth
 EXTRA_DIST += test-wcwidth.c
 
 ## end   gnulib module wcwidth-tests
+
+## begin gnulib module xalloc-die-tests
+
+TESTS += test-xalloc-die.sh
+TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@'
+check_PROGRAMS += test-xalloc-die
+EXTRA_DIST += test-xalloc-die.c test-xalloc-die.sh
+
+## end   gnulib module xalloc-die-tests
 
 ## begin gnulib module xprintf-posix-tests
 

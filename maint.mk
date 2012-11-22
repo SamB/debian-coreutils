@@ -156,6 +156,12 @@ sc_prohibit_strcmp:
 	  { echo '$(ME): use STREQ in place of the above uses of str''cmp' \
 		1>&2; exit 1; } || :
 
+# Pass EXIT_*, not number, to usage, exit, and error (when exiting)
+sc_prohibit_magic_number_exit:
+	@re='\<(usage|exit) ?\([0-9]|\<error ?\([1-9][0-9]*,'		\
+	msg='use EXIT_* values rather than magic number'		\
+	  $(_prohibit_regexp)
+
 # Using EXIT_SUCCESS as the first argument to error is misleading,
 # since when that parameter is 0, error does not exit.  Use `0' instead.
 sc_error_exit_success:
@@ -251,6 +257,10 @@ endef
 sc_prohibit_assert_without_use:
 	@h='<assert.h>' re='\<assert *\(' $(_header_without_use)
 
+# Prohibit the inclusion of close-stream.h without an actual use.
+sc_prohibit_close_stream_without_use:
+	@h='"close-stream.h"' re='\<close_stream *\(' $(_header_without_use)
+
 # Prohibit the inclusion of getopt.h without an actual use.
 sc_prohibit_getopt_without_use:
 	@h='<getopt.h>' re='\<getopt(_long)? *\(' $(_header_without_use)
@@ -277,6 +287,23 @@ sc_prohibit_inttostr_without_use:
 sc_prohibit_error_without_use:
 	@h='"error.h"' \
 	re='\<error(_at_line|_print_progname|_one_per_line|_message_count)? *\('\
+	  $(_header_without_use)
+
+# Don't include xalloc.h unless you use one of its functions.
+# Consider these symbols:
+# perl -lne '/^# *define (\w+)\(/ and print $1' lib/xalloc.h|grep -v '^__';
+# perl -lne '/^(?:extern )?(?:void|char) \*?(\w+) \(/ and print $1' lib/xalloc.h
+# Divide into two sets on case, and filter each through this:
+# | sort | perl -MRegexp::Assemble -le \
+#  'print Regexp::Assemble->new(file => "/dev/stdin")->as_string'|sed 's/\?://g'
+# Note this was produced by the above:
+# _xa1 = x(alloc_(oversized|die)|([cz]|2?re)alloc|m(alloc|emdup)|strdup)
+# But we can do better:
+_xa1 = x(alloc_(oversized|die)|([cmz]|2?re)alloc|(mem|str)dup)
+_xa2 = X([CZ]|N?M)ALLOC
+sc_prohibit_xalloc_without_use:
+	@h='"xalloc.h"' \
+	re='\<($(_xa1)|$(_xa2)) *\('\
 	  $(_header_without_use)
 
 sc_prohibit_safe_read_without_use:

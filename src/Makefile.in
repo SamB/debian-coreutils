@@ -36,29 +36,29 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 EXTRA_PROGRAMS = $(am__EXEEXT_1) $(am__EXEEXT_2) [$(EXEEXT) \
-	chcon$(EXEEXT) chgrp$(EXEEXT) chown$(EXEEXT) chmod$(EXEEXT) \
-	cp$(EXEEXT) dd$(EXEEXT) dircolors$(EXEEXT) du$(EXEEXT) \
-	ginstall$(EXEEXT) link$(EXEEXT) ln$(EXEEXT) dir$(EXEEXT) \
-	vdir$(EXEEXT) ls$(EXEEXT) mkdir$(EXEEXT) mkfifo$(EXEEXT) \
-	mknod$(EXEEXT) mktemp$(EXEEXT) mv$(EXEEXT) nohup$(EXEEXT) \
-	readlink$(EXEEXT) rm$(EXEEXT) rmdir$(EXEEXT) shred$(EXEEXT) \
-	stat$(EXEEXT) sync$(EXEEXT) touch$(EXEEXT) unlink$(EXEEXT) \
-	cat$(EXEEXT) cksum$(EXEEXT) comm$(EXEEXT) csplit$(EXEEXT) \
-	cut$(EXEEXT) expand$(EXEEXT) fmt$(EXEEXT) fold$(EXEEXT) \
-	head$(EXEEXT) join$(EXEEXT) groups$(EXEEXT) md5sum$(EXEEXT) \
-	nl$(EXEEXT) od$(EXEEXT) paste$(EXEEXT) pr$(EXEEXT) \
-	ptx$(EXEEXT) sha1sum$(EXEEXT) sha224sum$(EXEEXT) \
-	sha256sum$(EXEEXT) sha384sum$(EXEEXT) sha512sum$(EXEEXT) \
-	shuf$(EXEEXT) sort$(EXEEXT) split$(EXEEXT) sum$(EXEEXT) \
-	tac$(EXEEXT) tail$(EXEEXT) tr$(EXEEXT) tsort$(EXEEXT) \
-	unexpand$(EXEEXT) uniq$(EXEEXT) wc$(EXEEXT) basename$(EXEEXT) \
-	date$(EXEEXT) dirname$(EXEEXT) echo$(EXEEXT) env$(EXEEXT) \
-	expr$(EXEEXT) factor$(EXEEXT) false$(EXEEXT) id$(EXEEXT) \
-	kill$(EXEEXT) logname$(EXEEXT) pathchk$(EXEEXT) \
-	printenv$(EXEEXT) printf$(EXEEXT) pwd$(EXEEXT) runcon$(EXEEXT) \
-	seq$(EXEEXT) sleep$(EXEEXT) tee$(EXEEXT) test$(EXEEXT) \
-	timeout$(EXEEXT) true$(EXEEXT) truncate$(EXEEXT) tty$(EXEEXT) \
-	whoami$(EXEEXT) yes$(EXEEXT) base64$(EXEEXT)
+	base64$(EXEEXT) basename$(EXEEXT) cat$(EXEEXT) chcon$(EXEEXT) \
+	chgrp$(EXEEXT) chmod$(EXEEXT) chown$(EXEEXT) cksum$(EXEEXT) \
+	comm$(EXEEXT) cp$(EXEEXT) csplit$(EXEEXT) cut$(EXEEXT) \
+	date$(EXEEXT) dd$(EXEEXT) dir$(EXEEXT) dircolors$(EXEEXT) \
+	dirname$(EXEEXT) du$(EXEEXT) echo$(EXEEXT) env$(EXEEXT) \
+	expand$(EXEEXT) expr$(EXEEXT) factor$(EXEEXT) false$(EXEEXT) \
+	fmt$(EXEEXT) fold$(EXEEXT) ginstall$(EXEEXT) groups$(EXEEXT) \
+	head$(EXEEXT) id$(EXEEXT) join$(EXEEXT) kill$(EXEEXT) \
+	link$(EXEEXT) ln$(EXEEXT) logname$(EXEEXT) ls$(EXEEXT) \
+	md5sum$(EXEEXT) mkdir$(EXEEXT) mkfifo$(EXEEXT) mknod$(EXEEXT) \
+	mktemp$(EXEEXT) mv$(EXEEXT) nl$(EXEEXT) nproc$(EXEEXT) \
+	nohup$(EXEEXT) od$(EXEEXT) paste$(EXEEXT) pathchk$(EXEEXT) \
+	pr$(EXEEXT) printenv$(EXEEXT) printf$(EXEEXT) ptx$(EXEEXT) \
+	pwd$(EXEEXT) readlink$(EXEEXT) rm$(EXEEXT) rmdir$(EXEEXT) \
+	runcon$(EXEEXT) seq$(EXEEXT) sha1sum$(EXEEXT) \
+	sha224sum$(EXEEXT) sha256sum$(EXEEXT) sha384sum$(EXEEXT) \
+	sha512sum$(EXEEXT) shred$(EXEEXT) shuf$(EXEEXT) sleep$(EXEEXT) \
+	sort$(EXEEXT) split$(EXEEXT) stat$(EXEEXT) sum$(EXEEXT) \
+	sync$(EXEEXT) tac$(EXEEXT) tail$(EXEEXT) tee$(EXEEXT) \
+	test$(EXEEXT) timeout$(EXEEXT) touch$(EXEEXT) tr$(EXEEXT) \
+	true$(EXEEXT) truncate$(EXEEXT) tsort$(EXEEXT) tty$(EXEEXT) \
+	uname$(EXEEXT) unexpand$(EXEEXT) uniq$(EXEEXT) unlink$(EXEEXT) \
+	vdir$(EXEEXT) wc$(EXEEXT) whoami$(EXEEXT) yes$(EXEEXT)
 noinst_PROGRAMS = setuidgid$(EXEEXT) getlimits$(EXEEXT)
 subdir = src
 DIST_COMMON = $(noinst_HEADERS) $(srcdir)/Makefile.am \
@@ -79,14 +79,15 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/00gnulib.m4 \
 	$(top_srcdir)/m4/cloexec.m4 $(top_srcdir)/m4/close-stream.m4 \
 	$(top_srcdir)/m4/close.m4 $(top_srcdir)/m4/closein.m4 \
 	$(top_srcdir)/m4/closeout.m4 $(top_srcdir)/m4/codeset.m4 \
-	$(top_srcdir)/m4/config-h.m4 $(top_srcdir)/m4/cycle-check.m4 \
-	$(top_srcdir)/m4/d-ino.m4 $(top_srcdir)/m4/d-type.m4 \
-	$(top_srcdir)/m4/dirent-safer.m4 $(top_srcdir)/m4/dirent_h.m4 \
-	$(top_srcdir)/m4/dirfd.m4 $(top_srcdir)/m4/dirname.m4 \
-	$(top_srcdir)/m4/dos.m4 $(top_srcdir)/m4/double-slash-root.m4 \
-	$(top_srcdir)/m4/dup2.m4 $(top_srcdir)/m4/eealloc.m4 \
-	$(top_srcdir)/m4/environ.m4 $(top_srcdir)/m4/errno_h.m4 \
-	$(top_srcdir)/m4/error.m4 $(top_srcdir)/m4/euidaccess-stat.m4 \
+	$(top_srcdir)/m4/config-h.m4 $(top_srcdir)/m4/ctype.m4 \
+	$(top_srcdir)/m4/cycle-check.m4 $(top_srcdir)/m4/d-ino.m4 \
+	$(top_srcdir)/m4/d-type.m4 $(top_srcdir)/m4/dirent-safer.m4 \
+	$(top_srcdir)/m4/dirent_h.m4 $(top_srcdir)/m4/dirfd.m4 \
+	$(top_srcdir)/m4/dirname.m4 $(top_srcdir)/m4/dos.m4 \
+	$(top_srcdir)/m4/double-slash-root.m4 $(top_srcdir)/m4/dup2.m4 \
+	$(top_srcdir)/m4/eealloc.m4 $(top_srcdir)/m4/environ.m4 \
+	$(top_srcdir)/m4/errno_h.m4 $(top_srcdir)/m4/error.m4 \
+	$(top_srcdir)/m4/euidaccess-stat.m4 \
 	$(top_srcdir)/m4/euidaccess.m4 $(top_srcdir)/m4/exclude.m4 \
 	$(top_srcdir)/m4/exitfail.m4 $(top_srcdir)/m4/exponentd.m4 \
 	$(top_srcdir)/m4/exponentf.m4 $(top_srcdir)/m4/exponentl.m4 \
@@ -133,41 +134,42 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/00gnulib.m4 \
 	$(top_srcdir)/m4/intlmacosx.m4 $(top_srcdir)/m4/intmax_t.m4 \
 	$(top_srcdir)/m4/inttostr.m4 $(top_srcdir)/m4/inttypes-pri.m4 \
 	$(top_srcdir)/m4/inttypes.m4 $(top_srcdir)/m4/inttypes_h.m4 \
-	$(top_srcdir)/m4/isapipe.m4 $(top_srcdir)/m4/isnand.m4 \
-	$(top_srcdir)/m4/isnanf.m4 $(top_srcdir)/m4/isnanl.m4 \
-	$(top_srcdir)/m4/jm-macros.m4 $(top_srcdir)/m4/jm-winsz1.m4 \
-	$(top_srcdir)/m4/jm-winsz2.m4 $(top_srcdir)/m4/lchmod.m4 \
-	$(top_srcdir)/m4/lchown.m4 $(top_srcdir)/m4/ldexpl.m4 \
-	$(top_srcdir)/m4/lib-check.m4 $(top_srcdir)/m4/lib-ignore.m4 \
-	$(top_srcdir)/m4/lib-ld.m4 $(top_srcdir)/m4/lib-link.m4 \
-	$(top_srcdir)/m4/lib-prefix.m4 $(top_srcdir)/m4/link-follow.m4 \
-	$(top_srcdir)/m4/link.m4 $(top_srcdir)/m4/linkat.m4 \
-	$(top_srcdir)/m4/localcharset.m4 $(top_srcdir)/m4/locale-fr.m4 \
-	$(top_srcdir)/m4/locale-ja.m4 $(top_srcdir)/m4/locale-tr.m4 \
-	$(top_srcdir)/m4/locale-zh.m4 $(top_srcdir)/m4/lock.m4 \
-	$(top_srcdir)/m4/long-options.m4 $(top_srcdir)/m4/longlong.m4 \
-	$(top_srcdir)/m4/ls-mntd-fs.m4 $(top_srcdir)/m4/lseek.m4 \
-	$(top_srcdir)/m4/lstat.m4 $(top_srcdir)/m4/malloc.m4 \
-	$(top_srcdir)/m4/malloca.m4 $(top_srcdir)/m4/manywarnings.m4 \
-	$(top_srcdir)/m4/math_h.m4 $(top_srcdir)/m4/mbchar.m4 \
-	$(top_srcdir)/m4/mbiter.m4 $(top_srcdir)/m4/mbrlen.m4 \
-	$(top_srcdir)/m4/mbrtowc.m4 $(top_srcdir)/m4/mbsinit.m4 \
-	$(top_srcdir)/m4/mbsrtowcs.m4 $(top_srcdir)/m4/mbstate_t.m4 \
-	$(top_srcdir)/m4/mbswidth.m4 $(top_srcdir)/m4/md5.m4 \
-	$(top_srcdir)/m4/memcasecmp.m4 $(top_srcdir)/m4/memchr.m4 \
-	$(top_srcdir)/m4/memcmp.m4 $(top_srcdir)/m4/memcoll.m4 \
-	$(top_srcdir)/m4/memcpy.m4 $(top_srcdir)/m4/memmove.m4 \
-	$(top_srcdir)/m4/mempcpy.m4 $(top_srcdir)/m4/memrchr.m4 \
-	$(top_srcdir)/m4/memset.m4 $(top_srcdir)/m4/memxfrm.m4 \
-	$(top_srcdir)/m4/mgetgroups.m4 $(top_srcdir)/m4/mkancesdirs.m4 \
-	$(top_srcdir)/m4/mkdir-p.m4 $(top_srcdir)/m4/mkdir-slash.m4 \
-	$(top_srcdir)/m4/mkstemp.m4 $(top_srcdir)/m4/mktime.m4 \
-	$(top_srcdir)/m4/mmap-anon.m4 $(top_srcdir)/m4/mode_t.m4 \
-	$(top_srcdir)/m4/modechange.m4 $(top_srcdir)/m4/mountlist.m4 \
-	$(top_srcdir)/m4/mpsort.m4 $(top_srcdir)/m4/multiarch.m4 \
-	$(top_srcdir)/m4/nanosleep.m4 $(top_srcdir)/m4/netdb_h.m4 \
-	$(top_srcdir)/m4/netinet_in_h.m4 $(top_srcdir)/m4/nls.m4 \
-	$(top_srcdir)/m4/nocrash.m4 $(top_srcdir)/m4/open.m4 \
+	$(top_srcdir)/m4/isapipe.m4 $(top_srcdir)/m4/isblank.m4 \
+	$(top_srcdir)/m4/isnand.m4 $(top_srcdir)/m4/isnanf.m4 \
+	$(top_srcdir)/m4/isnanl.m4 $(top_srcdir)/m4/jm-macros.m4 \
+	$(top_srcdir)/m4/jm-winsz1.m4 $(top_srcdir)/m4/jm-winsz2.m4 \
+	$(top_srcdir)/m4/lchmod.m4 $(top_srcdir)/m4/lchown.m4 \
+	$(top_srcdir)/m4/ldexpl.m4 $(top_srcdir)/m4/lib-check.m4 \
+	$(top_srcdir)/m4/lib-ignore.m4 $(top_srcdir)/m4/lib-ld.m4 \
+	$(top_srcdir)/m4/lib-link.m4 $(top_srcdir)/m4/lib-prefix.m4 \
+	$(top_srcdir)/m4/link-follow.m4 $(top_srcdir)/m4/link.m4 \
+	$(top_srcdir)/m4/linkat.m4 $(top_srcdir)/m4/localcharset.m4 \
+	$(top_srcdir)/m4/locale-fr.m4 $(top_srcdir)/m4/locale-ja.m4 \
+	$(top_srcdir)/m4/locale-tr.m4 $(top_srcdir)/m4/locale-zh.m4 \
+	$(top_srcdir)/m4/lock.m4 $(top_srcdir)/m4/long-options.m4 \
+	$(top_srcdir)/m4/longlong.m4 $(top_srcdir)/m4/ls-mntd-fs.m4 \
+	$(top_srcdir)/m4/lseek.m4 $(top_srcdir)/m4/lstat.m4 \
+	$(top_srcdir)/m4/malloc.m4 $(top_srcdir)/m4/malloca.m4 \
+	$(top_srcdir)/m4/manywarnings.m4 $(top_srcdir)/m4/math_h.m4 \
+	$(top_srcdir)/m4/mbchar.m4 $(top_srcdir)/m4/mbiter.m4 \
+	$(top_srcdir)/m4/mbrlen.m4 $(top_srcdir)/m4/mbrtowc.m4 \
+	$(top_srcdir)/m4/mbsinit.m4 $(top_srcdir)/m4/mbsrtowcs.m4 \
+	$(top_srcdir)/m4/mbstate_t.m4 $(top_srcdir)/m4/mbswidth.m4 \
+	$(top_srcdir)/m4/md5.m4 $(top_srcdir)/m4/memcasecmp.m4 \
+	$(top_srcdir)/m4/memchr.m4 $(top_srcdir)/m4/memcmp.m4 \
+	$(top_srcdir)/m4/memcoll.m4 $(top_srcdir)/m4/memcpy.m4 \
+	$(top_srcdir)/m4/memmove.m4 $(top_srcdir)/m4/mempcpy.m4 \
+	$(top_srcdir)/m4/memrchr.m4 $(top_srcdir)/m4/memset.m4 \
+	$(top_srcdir)/m4/memxfrm.m4 $(top_srcdir)/m4/mgetgroups.m4 \
+	$(top_srcdir)/m4/mkancesdirs.m4 $(top_srcdir)/m4/mkdir-p.m4 \
+	$(top_srcdir)/m4/mkdir.m4 $(top_srcdir)/m4/mkstemp.m4 \
+	$(top_srcdir)/m4/mktime.m4 $(top_srcdir)/m4/mmap-anon.m4 \
+	$(top_srcdir)/m4/mode_t.m4 $(top_srcdir)/m4/modechange.m4 \
+	$(top_srcdir)/m4/mountlist.m4 $(top_srcdir)/m4/mpsort.m4 \
+	$(top_srcdir)/m4/multiarch.m4 $(top_srcdir)/m4/nanosleep.m4 \
+	$(top_srcdir)/m4/netdb_h.m4 $(top_srcdir)/m4/netinet_in_h.m4 \
+	$(top_srcdir)/m4/nls.m4 $(top_srcdir)/m4/nocrash.m4 \
+	$(top_srcdir)/m4/nproc.m4 $(top_srcdir)/m4/open.m4 \
 	$(top_srcdir)/m4/openat.m4 $(top_srcdir)/m4/pathmax.m4 \
 	$(top_srcdir)/m4/perl.m4 $(top_srcdir)/m4/perror.m4 \
 	$(top_srcdir)/m4/physmem.m4 $(top_srcdir)/m4/po.m4 \
@@ -180,12 +182,13 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/00gnulib.m4 \
 	$(top_srcdir)/m4/quotearg.m4 $(top_srcdir)/m4/read-file.m4 \
 	$(top_srcdir)/m4/readlink.m4 $(top_srcdir)/m4/readtokens.m4 \
 	$(top_srcdir)/m4/readutmp.m4 $(top_srcdir)/m4/realloc.m4 \
-	$(top_srcdir)/m4/regex.m4 $(top_srcdir)/m4/rename.m4 \
-	$(top_srcdir)/m4/rmdir.m4 $(top_srcdir)/m4/root-dev-ino.m4 \
-	$(top_srcdir)/m4/rpmatch.m4 $(top_srcdir)/m4/safe-read.m4 \
-	$(top_srcdir)/m4/safe-write.m4 $(top_srcdir)/m4/same.m4 \
-	$(top_srcdir)/m4/save-cwd.m4 $(top_srcdir)/m4/savedir.m4 \
-	$(top_srcdir)/m4/savewd.m4 $(top_srcdir)/m4/select.m4 \
+	$(top_srcdir)/m4/regex.m4 $(top_srcdir)/m4/remove.m4 \
+	$(top_srcdir)/m4/rename.m4 $(top_srcdir)/m4/rmdir.m4 \
+	$(top_srcdir)/m4/root-dev-ino.m4 $(top_srcdir)/m4/rpmatch.m4 \
+	$(top_srcdir)/m4/safe-read.m4 $(top_srcdir)/m4/safe-write.m4 \
+	$(top_srcdir)/m4/same.m4 $(top_srcdir)/m4/save-cwd.m4 \
+	$(top_srcdir)/m4/savedir.m4 $(top_srcdir)/m4/savewd.m4 \
+	$(top_srcdir)/m4/select.m4 \
 	$(top_srcdir)/m4/selinux-context-h.m4 \
 	$(top_srcdir)/m4/selinux-selinux-h.m4 \
 	$(top_srcdir)/m4/servent.m4 $(top_srcdir)/m4/setenv.m4 \
@@ -219,18 +222,20 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/00gnulib.m4 \
 	$(top_srcdir)/m4/sys_select_h.m4 \
 	$(top_srcdir)/m4/sys_socket_h.m4 \
 	$(top_srcdir)/m4/sys_stat_h.m4 $(top_srcdir)/m4/sys_time_h.m4 \
-	$(top_srcdir)/m4/tempname.m4 $(top_srcdir)/m4/thread.m4 \
-	$(top_srcdir)/m4/threadlib.m4 $(top_srcdir)/m4/time_h.m4 \
-	$(top_srcdir)/m4/time_r.m4 $(top_srcdir)/m4/timespec.m4 \
-	$(top_srcdir)/m4/tls.m4 $(top_srcdir)/m4/tm_gmtoff.m4 \
-	$(top_srcdir)/m4/tzset.m4 $(top_srcdir)/m4/ungetc.m4 \
+	$(top_srcdir)/m4/sys_utsname_h.m4 $(top_srcdir)/m4/tempname.m4 \
+	$(top_srcdir)/m4/thread.m4 $(top_srcdir)/m4/threadlib.m4 \
+	$(top_srcdir)/m4/time_h.m4 $(top_srcdir)/m4/time_r.m4 \
+	$(top_srcdir)/m4/timespec.m4 $(top_srcdir)/m4/tls.m4 \
+	$(top_srcdir)/m4/tm_gmtoff.m4 $(top_srcdir)/m4/tzset.m4 \
+	$(top_srcdir)/m4/uname.m4 $(top_srcdir)/m4/ungetc.m4 \
 	$(top_srcdir)/m4/unicodeio.m4 $(top_srcdir)/m4/unistd-safer.m4 \
 	$(top_srcdir)/m4/unistd_h.m4 $(top_srcdir)/m4/unlink-busy.m4 \
 	$(top_srcdir)/m4/unlink.m4 $(top_srcdir)/m4/unlinkdir.m4 \
 	$(top_srcdir)/m4/unlocked-io.m4 $(top_srcdir)/m4/uptime.m4 \
-	$(top_srcdir)/m4/userspec.m4 $(top_srcdir)/m4/utimbuf.m4 \
-	$(top_srcdir)/m4/utimecmp.m4 $(top_srcdir)/m4/utimens.m4 \
-	$(top_srcdir)/m4/utimes.m4 $(top_srcdir)/m4/vasnprintf.m4 \
+	$(top_srcdir)/m4/userspec.m4 $(top_srcdir)/m4/usleep.m4 \
+	$(top_srcdir)/m4/utimbuf.m4 $(top_srcdir)/m4/utimecmp.m4 \
+	$(top_srcdir)/m4/utimens.m4 $(top_srcdir)/m4/utimes.m4 \
+	$(top_srcdir)/m4/vasnprintf.m4 \
 	$(top_srcdir)/m4/vasprintf-posix.m4 \
 	$(top_srcdir)/m4/vasprintf.m4 $(top_srcdir)/m4/version-etc.m4 \
 	$(top_srcdir)/m4/vfprintf-posix.m4 \
@@ -267,9 +272,9 @@ nodist_libver_a_OBJECTS = version.$(OBJEXT)
 libver_a_OBJECTS = $(nodist_libver_a_OBJECTS)
 am__EXEEXT_1 = arch$(EXEEXT) hostname$(EXEEXT) su$(EXEEXT)
 am__EXEEXT_2 = chroot$(EXEEXT) df$(EXEEXT) hostid$(EXEEXT) \
-	nice$(EXEEXT) pinky$(EXEEXT) stdbuf$(EXEEXT) \
-	libstdbuf.so$(EXEEXT) stty$(EXEEXT) su$(EXEEXT) uname$(EXEEXT) \
-	uptime$(EXEEXT) users$(EXEEXT) who$(EXEEXT)
+	libstdbuf.so$(EXEEXT) nice$(EXEEXT) pinky$(EXEEXT) \
+	stdbuf$(EXEEXT) stty$(EXEEXT) su$(EXEEXT) uptime$(EXEEXT) \
+	users$(EXEEXT) who$(EXEEXT)
 am__installdirs = "$(DESTDIR)$(bindir)" "$(DESTDIR)$(pkglibdir)"
 PROGRAMS = $(bin_PROGRAMS) $(noinst_PROGRAMS) $(pkglib_PROGRAMS)
 am___OBJECTS = lbracket.$(OBJEXT)
@@ -277,22 +282,17 @@ __OBJECTS = $(am___OBJECTS)
 am__DEPENDENCIES_1 =
 am__DEPENDENCIES_2 = libver.a ../lib/libcoreutils.a \
 	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
-__DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1)
+am__DEPENDENCIES_3 = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1)
+__DEPENDENCIES = $(am__DEPENDENCIES_3)
 am_arch_OBJECTS = uname.$(OBJEXT) uname-arch.$(OBJEXT)
 arch_OBJECTS = $(am_arch_OBJECTS)
-arch_LDADD = $(LDADD)
-arch_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+arch_DEPENDENCIES = $(am__DEPENDENCIES_2)
 base64_SOURCES = base64.c
 base64_OBJECTS = base64.$(OBJEXT)
-base64_LDADD = $(LDADD)
-base64_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+base64_DEPENDENCIES = $(am__DEPENDENCIES_2)
 basename_SOURCES = basename.c
 basename_OBJECTS = basename.$(OBJEXT)
-basename_LDADD = $(LDADD)
-basename_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+basename_DEPENDENCIES = $(am__DEPENDENCIES_2)
 cat_SOURCES = cat.c
 cat_OBJECTS = cat.$(OBJEXT)
 cat_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1)
@@ -301,50 +301,36 @@ chcon_OBJECTS = chcon.$(OBJEXT)
 chcon_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1)
 am_chgrp_OBJECTS = chgrp.$(OBJEXT) chown-core.$(OBJEXT)
 chgrp_OBJECTS = $(am_chgrp_OBJECTS)
-chgrp_LDADD = $(LDADD)
-chgrp_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+chgrp_DEPENDENCIES = $(am__DEPENDENCIES_2)
 chmod_SOURCES = chmod.c
 chmod_OBJECTS = chmod.$(OBJEXT)
-chmod_LDADD = $(LDADD)
-chmod_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+chmod_DEPENDENCIES = $(am__DEPENDENCIES_2)
 am_chown_OBJECTS = chown.$(OBJEXT) chown-core.$(OBJEXT)
 chown_OBJECTS = $(am_chown_OBJECTS)
-chown_LDADD = $(LDADD)
-chown_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+chown_DEPENDENCIES = $(am__DEPENDENCIES_2)
 chroot_SOURCES = chroot.c
 chroot_OBJECTS = chroot.$(OBJEXT)
-chroot_LDADD = $(LDADD)
-chroot_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+chroot_DEPENDENCIES = $(am__DEPENDENCIES_2)
 cksum_SOURCES = cksum.c
 cksum_OBJECTS = cksum.$(OBJEXT)
-cksum_LDADD = $(LDADD)
-cksum_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+cksum_DEPENDENCIES = $(am__DEPENDENCIES_2)
 comm_SOURCES = comm.c
 comm_OBJECTS = comm.$(OBJEXT)
-comm_LDADD = $(LDADD)
-comm_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+comm_DEPENDENCIES = $(am__DEPENDENCIES_2)
 am__objects_1 = copy.$(OBJEXT) cp-hash.$(OBJEXT)
 am_cp_OBJECTS = cp.$(OBJEXT) $(am__objects_1)
 cp_OBJECTS = $(am_cp_OBJECTS)
-cp_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1) \
+am__DEPENDENCIES_4 = $(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
+	$(am__DEPENDENCIES_1)
+cp_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_4) \
+	$(am__DEPENDENCIES_1)
 csplit_SOURCES = csplit.c
 csplit_OBJECTS = csplit.$(OBJEXT)
-csplit_LDADD = $(LDADD)
-csplit_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+csplit_DEPENDENCIES = $(am__DEPENDENCIES_2)
 cut_SOURCES = cut.c
 cut_OBJECTS = cut.$(OBJEXT)
-cut_LDADD = $(LDADD)
-cut_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+cut_DEPENDENCIES = $(am__DEPENDENCIES_2)
 date_SOURCES = date.c
 date_OBJECTS = date.$(OBJEXT)
 date_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1)
@@ -357,37 +343,28 @@ df_OBJECTS = df.$(OBJEXT)
 df_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1)
 am_dir_OBJECTS = ls.$(OBJEXT) ls-dir.$(OBJEXT)
 dir_OBJECTS = $(am_dir_OBJECTS)
-dir_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1) \
+am__DEPENDENCIES_5 = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1)
+dir_DEPENDENCIES = $(am__DEPENDENCIES_5)
 dircolors_SOURCES = dircolors.c
 dircolors_OBJECTS = dircolors.$(OBJEXT)
-dircolors_LDADD = $(LDADD)
-dircolors_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+dircolors_DEPENDENCIES = $(am__DEPENDENCIES_2)
 dirname_SOURCES = dirname.c
 dirname_OBJECTS = dirname.$(OBJEXT)
-dirname_LDADD = $(LDADD)
-dirname_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+dirname_DEPENDENCIES = $(am__DEPENDENCIES_2)
 du_SOURCES = du.c
 du_OBJECTS = du.$(OBJEXT)
 du_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1)
 echo_SOURCES = echo.c
 echo_OBJECTS = echo.$(OBJEXT)
-echo_LDADD = $(LDADD)
-echo_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+echo_DEPENDENCIES = $(am__DEPENDENCIES_2)
 env_SOURCES = env.c
 env_OBJECTS = env.$(OBJEXT)
-env_LDADD = $(LDADD)
-env_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+env_DEPENDENCIES = $(am__DEPENDENCIES_2)
 expand_SOURCES = expand.c
 expand_OBJECTS = expand.$(OBJEXT)
-expand_LDADD = $(LDADD)
-expand_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+expand_DEPENDENCIES = $(am__DEPENDENCIES_2)
 expr_SOURCES = expr.c
 expr_OBJECTS = expr.$(OBJEXT)
 expr_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1)
@@ -396,19 +373,13 @@ factor_OBJECTS = factor.$(OBJEXT)
 factor_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1)
 false_SOURCES = false.c
 false_OBJECTS = false.$(OBJEXT)
-false_LDADD = $(LDADD)
-false_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+false_DEPENDENCIES = $(am__DEPENDENCIES_2)
 fmt_SOURCES = fmt.c
 fmt_OBJECTS = fmt.$(OBJEXT)
-fmt_LDADD = $(LDADD)
-fmt_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+fmt_DEPENDENCIES = $(am__DEPENDENCIES_2)
 fold_SOURCES = fold.c
 fold_OBJECTS = fold.$(OBJEXT)
-fold_LDADD = $(LDADD)
-fold_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+fold_DEPENDENCIES = $(am__DEPENDENCIES_2)
 getlimits_SOURCES = getlimits.c
 getlimits_OBJECTS = getlimits.$(OBJEXT)
 getlimits_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1)
@@ -416,42 +387,29 @@ am__objects_2 = ginstall-copy.$(OBJEXT) ginstall-cp-hash.$(OBJEXT)
 am_ginstall_OBJECTS = ginstall-install.$(OBJEXT) \
 	ginstall-prog-fprintf.$(OBJEXT) $(am__objects_2)
 ginstall_OBJECTS = $(am_ginstall_OBJECTS)
-ginstall_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_1)
+ginstall_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_4) \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am_groups_OBJECTS = groups.$(OBJEXT) group-list.$(OBJEXT)
 groups_OBJECTS = $(am_groups_OBJECTS)
-groups_LDADD = $(LDADD)
-groups_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+groups_DEPENDENCIES = $(am__DEPENDENCIES_2)
 head_SOURCES = head.c
 head_OBJECTS = head.$(OBJEXT)
-head_LDADD = $(LDADD)
-head_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+head_DEPENDENCIES = $(am__DEPENDENCIES_2)
 hostid_SOURCES = hostid.c
 hostid_OBJECTS = hostid.$(OBJEXT)
-hostid_LDADD = $(LDADD)
-hostid_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+hostid_DEPENDENCIES = $(am__DEPENDENCIES_2)
 hostname_SOURCES = hostname.c
 hostname_OBJECTS = hostname.$(OBJEXT)
-hostname_LDADD = $(LDADD)
-hostname_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+hostname_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1)
 am_id_OBJECTS = id.$(OBJEXT) group-list.$(OBJEXT)
 id_OBJECTS = $(am_id_OBJECTS)
 id_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1)
 join_SOURCES = join.c
 join_OBJECTS = join.$(OBJEXT)
-join_LDADD = $(LDADD)
-join_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+join_DEPENDENCIES = $(am__DEPENDENCIES_2)
 am_kill_OBJECTS = kill.$(OBJEXT) operand2sig.$(OBJEXT)
 kill_OBJECTS = $(am_kill_OBJECTS)
-kill_LDADD = $(LDADD)
-kill_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+kill_DEPENDENCIES = $(am__DEPENDENCIES_2)
 libstdbuf_so_SOURCES = libstdbuf.c
 libstdbuf_so_OBJECTS = libstdbuf_so-libstdbuf.$(OBJEXT)
 libstdbuf_so_DEPENDENCIES =
@@ -459,19 +417,13 @@ libstdbuf_so_LINK = $(CCLD) $(libstdbuf_so_CFLAGS) $(CFLAGS) \
 	$(libstdbuf_so_LDFLAGS) $(LDFLAGS) -o $@
 link_SOURCES = link.c
 link_OBJECTS = link.$(OBJEXT)
-link_LDADD = $(LDADD)
-link_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+link_DEPENDENCIES = $(am__DEPENDENCIES_2)
 am_ln_OBJECTS = ln.$(OBJEXT)
 ln_OBJECTS = $(am_ln_OBJECTS)
-ln_LDADD = $(LDADD)
-ln_DEPENDENCIES = libver.a ../lib/libcoreutils.a $(am__DEPENDENCIES_1) \
-	../lib/libcoreutils.a
+ln_DEPENDENCIES = $(am__DEPENDENCIES_2)
 logname_SOURCES = logname.c
 logname_OBJECTS = logname.$(OBJEXT)
-logname_LDADD = $(LDADD)
-logname_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+logname_DEPENDENCIES = $(am__DEPENDENCIES_2)
 am_ls_OBJECTS = ls.$(OBJEXT) ls-ls.$(OBJEXT)
 ls_OBJECTS = $(am_ls_OBJECTS)
 ls_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1) \
@@ -479,9 +431,7 @@ ls_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1)
 am_md5sum_OBJECTS = md5sum-md5sum.$(OBJEXT)
 md5sum_OBJECTS = $(am_md5sum_OBJECTS)
-md5sum_LDADD = $(LDADD)
-md5sum_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+md5sum_DEPENDENCIES = $(am__DEPENDENCIES_2)
 am_mkdir_OBJECTS = mkdir.$(OBJEXT) prog-fprintf.$(OBJEXT)
 mkdir_OBJECTS = $(am_mkdir_OBJECTS)
 mkdir_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1)
@@ -496,37 +446,30 @@ mktemp_OBJECTS = mktemp.$(OBJEXT)
 mktemp_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1)
 am_mv_OBJECTS = mv.$(OBJEXT) remove.$(OBJEXT) $(am__objects_1)
 mv_OBJECTS = $(am_mv_OBJECTS)
-mv_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_1)
+am__DEPENDENCIES_6 = $(am__DEPENDENCIES_1)
+mv_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_4) \
+	$(am__DEPENDENCIES_6)
 nice_SOURCES = nice.c
 nice_OBJECTS = nice.$(OBJEXT)
-nice_LDADD = $(LDADD)
-nice_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+nice_DEPENDENCIES = $(am__DEPENDENCIES_2)
 nl_SOURCES = nl.c
 nl_OBJECTS = nl.$(OBJEXT)
-nl_LDADD = $(LDADD)
-nl_DEPENDENCIES = libver.a ../lib/libcoreutils.a $(am__DEPENDENCIES_1) \
-	../lib/libcoreutils.a
+nl_DEPENDENCIES = $(am__DEPENDENCIES_2)
 nohup_SOURCES = nohup.c
 nohup_OBJECTS = nohup.$(OBJEXT)
-nohup_LDADD = $(LDADD)
-nohup_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+nohup_DEPENDENCIES = $(am__DEPENDENCIES_2)
+am_nproc_OBJECTS = nproc.$(OBJEXT)
+nproc_OBJECTS = $(am_nproc_OBJECTS)
+nproc_DEPENDENCIES = $(am__DEPENDENCIES_2)
 od_SOURCES = od.c
 od_OBJECTS = od.$(OBJEXT)
-od_LDADD = $(LDADD)
-od_DEPENDENCIES = libver.a ../lib/libcoreutils.a $(am__DEPENDENCIES_1) \
-	../lib/libcoreutils.a
+od_DEPENDENCIES = $(am__DEPENDENCIES_2)
 paste_SOURCES = paste.c
 paste_OBJECTS = paste.$(OBJEXT)
-paste_LDADD = $(LDADD)
-paste_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+paste_DEPENDENCIES = $(am__DEPENDENCIES_2)
 pathchk_SOURCES = pathchk.c
 pathchk_OBJECTS = pathchk.$(OBJEXT)
-pathchk_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1)
+pathchk_DEPENDENCIES = $(am__DEPENDENCIES_2)
 pinky_SOURCES = pinky.c
 pinky_OBJECTS = pinky.$(OBJEXT)
 pinky_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1)
@@ -535,9 +478,7 @@ pr_OBJECTS = pr.$(OBJEXT)
 pr_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1)
 printenv_SOURCES = printenv.c
 printenv_OBJECTS = printenv.$(OBJEXT)
-printenv_LDADD = $(LDADD)
-printenv_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+printenv_DEPENDENCIES = $(am__DEPENDENCIES_2)
 printf_SOURCES = printf.c
 printf_OBJECTS = printf.$(OBJEXT)
 printf_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1) \
@@ -547,22 +488,16 @@ ptx_OBJECTS = ptx.$(OBJEXT)
 ptx_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1)
 pwd_SOURCES = pwd.c
 pwd_OBJECTS = pwd.$(OBJEXT)
-pwd_LDADD = $(LDADD)
-pwd_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+pwd_DEPENDENCIES = $(am__DEPENDENCIES_2)
 readlink_SOURCES = readlink.c
 readlink_OBJECTS = readlink.$(OBJEXT)
-readlink_LDADD = $(LDADD)
-readlink_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+readlink_DEPENDENCIES = $(am__DEPENDENCIES_2)
 am_rm_OBJECTS = rm.$(OBJEXT) remove.$(OBJEXT)
 rm_OBJECTS = $(am_rm_OBJECTS)
-rm_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1)
+rm_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_6)
 am_rmdir_OBJECTS = rmdir.$(OBJEXT) prog-fprintf.$(OBJEXT)
 rmdir_OBJECTS = $(am_rmdir_OBJECTS)
-rmdir_LDADD = $(LDADD)
-rmdir_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+rmdir_DEPENDENCIES = $(am__DEPENDENCIES_2)
 runcon_SOURCES = runcon.c
 runcon_OBJECTS = runcon.$(OBJEXT)
 runcon_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1)
@@ -571,34 +506,22 @@ seq_OBJECTS = seq.$(OBJEXT)
 seq_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1)
 setuidgid_SOURCES = setuidgid.c
 setuidgid_OBJECTS = setuidgid.$(OBJEXT)
-setuidgid_LDADD = $(LDADD)
-setuidgid_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+setuidgid_DEPENDENCIES = $(am__DEPENDENCIES_2)
 am_sha1sum_OBJECTS = sha1sum-md5sum.$(OBJEXT)
 sha1sum_OBJECTS = $(am_sha1sum_OBJECTS)
-sha1sum_LDADD = $(LDADD)
-sha1sum_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+sha1sum_DEPENDENCIES = $(am__DEPENDENCIES_2)
 am_sha224sum_OBJECTS = sha224sum-md5sum.$(OBJEXT)
 sha224sum_OBJECTS = $(am_sha224sum_OBJECTS)
-sha224sum_LDADD = $(LDADD)
-sha224sum_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+sha224sum_DEPENDENCIES = $(am__DEPENDENCIES_2)
 am_sha256sum_OBJECTS = sha256sum-md5sum.$(OBJEXT)
 sha256sum_OBJECTS = $(am_sha256sum_OBJECTS)
-sha256sum_LDADD = $(LDADD)
-sha256sum_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+sha256sum_DEPENDENCIES = $(am__DEPENDENCIES_2)
 am_sha384sum_OBJECTS = sha384sum-md5sum.$(OBJEXT)
 sha384sum_OBJECTS = $(am_sha384sum_OBJECTS)
-sha384sum_LDADD = $(LDADD)
-sha384sum_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+sha384sum_DEPENDENCIES = $(am__DEPENDENCIES_2)
 am_sha512sum_OBJECTS = sha512sum-md5sum.$(OBJEXT)
 sha512sum_OBJECTS = $(am_sha512sum_OBJECTS)
-sha512sum_LDADD = $(LDADD)
-sha512sum_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+sha512sum_DEPENDENCIES = $(am__DEPENDENCIES_2)
 shred_SOURCES = shred.c
 shred_OBJECTS = shred.$(OBJEXT)
 shred_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1) \
@@ -608,9 +531,8 @@ shuf_OBJECTS = shuf.$(OBJEXT)
 shuf_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1)
 sleep_SOURCES = sleep.c
 sleep_OBJECTS = sleep.$(OBJEXT)
-am__DEPENDENCIES_3 = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1) \
+sleep_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1)
-sleep_DEPENDENCIES = $(am__DEPENDENCIES_3)
 sort_SOURCES = sort.c
 sort_OBJECTS = sort.$(OBJEXT)
 sort_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1) \
@@ -626,33 +548,26 @@ stdbuf_OBJECTS = stdbuf.$(OBJEXT)
 stdbuf_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1)
 stty_SOURCES = stty.c
 stty_OBJECTS = stty.$(OBJEXT)
-stty_LDADD = $(LDADD)
-stty_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+stty_DEPENDENCIES = $(am__DEPENDENCIES_2)
 su_SOURCES = su.c
 su_OBJECTS = su.$(OBJEXT)
 su_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1)
 sum_SOURCES = sum.c
 sum_OBJECTS = sum.$(OBJEXT)
-sum_LDADD = $(LDADD)
-sum_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+sum_DEPENDENCIES = $(am__DEPENDENCIES_2)
 sync_SOURCES = sync.c
 sync_OBJECTS = sync.$(OBJEXT)
-sync_LDADD = $(LDADD)
-sync_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+sync_DEPENDENCIES = $(am__DEPENDENCIES_2)
 tac_SOURCES = tac.c
 tac_OBJECTS = tac.$(OBJEXT)
-tac_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1)
+tac_DEPENDENCIES = $(am__DEPENDENCIES_2)
 tail_SOURCES = tail.c
 tail_OBJECTS = tail.$(OBJEXT)
-tail_DEPENDENCIES = $(am__DEPENDENCIES_3)
+tail_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1) \
+	$(am__DEPENDENCIES_1)
 tee_SOURCES = tee.c
 tee_OBJECTS = tee.$(OBJEXT)
-tee_LDADD = $(LDADD)
-tee_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+tee_DEPENDENCIES = $(am__DEPENDENCIES_2)
 test_SOURCES = test.c
 test_OBJECTS = test.$(OBJEXT)
 test_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1)
@@ -664,79 +579,53 @@ touch_OBJECTS = touch.$(OBJEXT)
 touch_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1)
 tr_SOURCES = tr.c
 tr_OBJECTS = tr.$(OBJEXT)
-tr_LDADD = $(LDADD)
-tr_DEPENDENCIES = libver.a ../lib/libcoreutils.a $(am__DEPENDENCIES_1) \
-	../lib/libcoreutils.a
+tr_DEPENDENCIES = $(am__DEPENDENCIES_2)
 true_SOURCES = true.c
 true_OBJECTS = true.$(OBJEXT)
-true_LDADD = $(LDADD)
-true_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+true_DEPENDENCIES = $(am__DEPENDENCIES_2)
 truncate_SOURCES = truncate.c
 truncate_OBJECTS = truncate.$(OBJEXT)
 truncate_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1)
 tsort_SOURCES = tsort.c
 tsort_OBJECTS = tsort.$(OBJEXT)
-tsort_LDADD = $(LDADD)
-tsort_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+tsort_DEPENDENCIES = $(am__DEPENDENCIES_2)
 tty_SOURCES = tty.c
 tty_OBJECTS = tty.$(OBJEXT)
-tty_LDADD = $(LDADD)
-tty_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+tty_DEPENDENCIES = $(am__DEPENDENCIES_2)
 am_uname_OBJECTS = uname.$(OBJEXT) uname-uname.$(OBJEXT)
 uname_OBJECTS = $(am_uname_OBJECTS)
-uname_LDADD = $(LDADD)
-uname_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+uname_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1)
 unexpand_SOURCES = unexpand.c
 unexpand_OBJECTS = unexpand.$(OBJEXT)
-unexpand_LDADD = $(LDADD)
-unexpand_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+unexpand_DEPENDENCIES = $(am__DEPENDENCIES_2)
 uniq_SOURCES = uniq.c
 uniq_OBJECTS = uniq.$(OBJEXT)
-uniq_LDADD = $(LDADD)
-uniq_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+uniq_DEPENDENCIES = $(am__DEPENDENCIES_2)
 unlink_SOURCES = unlink.c
 unlink_OBJECTS = unlink.$(OBJEXT)
-unlink_LDADD = $(LDADD)
-unlink_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+unlink_DEPENDENCIES = $(am__DEPENDENCIES_2)
 uptime_SOURCES = uptime.c
 uptime_OBJECTS = uptime.$(OBJEXT)
 uptime_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1)
 users_SOURCES = users.c
 users_OBJECTS = users.$(OBJEXT)
-users_LDADD = $(LDADD)
-users_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+users_DEPENDENCIES = $(am__DEPENDENCIES_2)
 am_vdir_OBJECTS = ls.$(OBJEXT) ls-vdir.$(OBJEXT)
 vdir_OBJECTS = $(am_vdir_OBJECTS)
-vdir_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_1)
+vdir_DEPENDENCIES = $(am__DEPENDENCIES_5)
 wc_SOURCES = wc.c
 wc_OBJECTS = wc.$(OBJEXT)
-wc_LDADD = $(LDADD)
-wc_DEPENDENCIES = libver.a ../lib/libcoreutils.a $(am__DEPENDENCIES_1) \
-	../lib/libcoreutils.a
+wc_DEPENDENCIES = $(am__DEPENDENCIES_2)
 who_SOURCES = who.c
 who_OBJECTS = who.$(OBJEXT)
 who_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1)
 whoami_SOURCES = whoami.c
 whoami_OBJECTS = whoami.$(OBJEXT)
-whoami_LDADD = $(LDADD)
-whoami_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+whoami_DEPENDENCIES = $(am__DEPENDENCIES_2)
 yes_SOURCES = yes.c
 yes_OBJECTS = yes.$(OBJEXT)
-yes_LDADD = $(LDADD)
-yes_DEPENDENCIES = libver.a ../lib/libcoreutils.a \
-	$(am__DEPENDENCIES_1) ../lib/libcoreutils.a
+yes_DEPENDENCIES = $(am__DEPENDENCIES_2)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)/lib
 depcomp = $(SHELL) $(top_srcdir)/build-aux/depcomp
 am__depfiles_maybe = depfiles
@@ -766,16 +655,16 @@ SOURCES = $(nodist_libver_a_SOURCES) $(__SOURCES) $(arch_SOURCES) \
 	head.c hostid.c hostname.c $(id_SOURCES) join.c \
 	$(kill_SOURCES) libstdbuf.c link.c $(ln_SOURCES) logname.c \
 	$(ls_SOURCES) $(md5sum_SOURCES) $(mkdir_SOURCES) mkfifo.c \
-	mknod.c mktemp.c $(mv_SOURCES) nice.c nl.c nohup.c od.c \
-	paste.c pathchk.c pinky.c pr.c printenv.c printf.c ptx.c pwd.c \
-	readlink.c $(rm_SOURCES) $(rmdir_SOURCES) runcon.c seq.c \
-	setuidgid.c $(sha1sum_SOURCES) $(sha224sum_SOURCES) \
-	$(sha256sum_SOURCES) $(sha384sum_SOURCES) $(sha512sum_SOURCES) \
-	shred.c shuf.c sleep.c sort.c split.c stat.c stdbuf.c stty.c \
-	su.c sum.c sync.c tac.c tail.c tee.c test.c $(timeout_SOURCES) \
-	touch.c tr.c true.c truncate.c tsort.c tty.c $(uname_SOURCES) \
-	unexpand.c uniq.c unlink.c uptime.c users.c $(vdir_SOURCES) \
-	wc.c who.c whoami.c yes.c
+	mknod.c mktemp.c $(mv_SOURCES) nice.c nl.c nohup.c \
+	$(nproc_SOURCES) od.c paste.c pathchk.c pinky.c pr.c \
+	printenv.c printf.c ptx.c pwd.c readlink.c $(rm_SOURCES) \
+	$(rmdir_SOURCES) runcon.c seq.c setuidgid.c $(sha1sum_SOURCES) \
+	$(sha224sum_SOURCES) $(sha256sum_SOURCES) $(sha384sum_SOURCES) \
+	$(sha512sum_SOURCES) shred.c shuf.c sleep.c sort.c split.c \
+	stat.c stdbuf.c stty.c su.c sum.c sync.c tac.c tail.c tee.c \
+	test.c $(timeout_SOURCES) touch.c tr.c true.c truncate.c \
+	tsort.c tty.c $(uname_SOURCES) unexpand.c uniq.c unlink.c \
+	uptime.c users.c $(vdir_SOURCES) wc.c who.c whoami.c yes.c
 DIST_SOURCES = $(__SOURCES) $(arch_SOURCES) base64.c basename.c cat.c \
 	chcon.c $(chgrp_SOURCES) chmod.c $(chown_SOURCES) chroot.c \
 	cksum.c comm.c $(cp_SOURCES) csplit.c cut.c date.c dd.c df.c \
@@ -785,15 +674,16 @@ DIST_SOURCES = $(__SOURCES) $(arch_SOURCES) base64.c basename.c cat.c \
 	hostname.c $(id_SOURCES) join.c $(kill_SOURCES) libstdbuf.c \
 	link.c $(ln_SOURCES) logname.c $(ls_SOURCES) $(md5sum_SOURCES) \
 	$(mkdir_SOURCES) mkfifo.c mknod.c mktemp.c $(mv_SOURCES) \
-	nice.c nl.c nohup.c od.c paste.c pathchk.c pinky.c pr.c \
-	printenv.c printf.c ptx.c pwd.c readlink.c $(rm_SOURCES) \
-	$(rmdir_SOURCES) runcon.c seq.c setuidgid.c $(sha1sum_SOURCES) \
-	$(sha224sum_SOURCES) $(sha256sum_SOURCES) $(sha384sum_SOURCES) \
-	$(sha512sum_SOURCES) shred.c shuf.c sleep.c sort.c split.c \
-	stat.c stdbuf.c stty.c su.c sum.c sync.c tac.c tail.c tee.c \
-	test.c $(timeout_SOURCES) touch.c tr.c true.c truncate.c \
-	tsort.c tty.c $(uname_SOURCES) unexpand.c uniq.c unlink.c \
-	uptime.c users.c $(vdir_SOURCES) wc.c who.c whoami.c yes.c
+	nice.c nl.c nohup.c $(nproc_SOURCES) od.c paste.c pathchk.c \
+	pinky.c pr.c printenv.c printf.c ptx.c pwd.c readlink.c \
+	$(rm_SOURCES) $(rmdir_SOURCES) runcon.c seq.c setuidgid.c \
+	$(sha1sum_SOURCES) $(sha224sum_SOURCES) $(sha256sum_SOURCES) \
+	$(sha384sum_SOURCES) $(sha512sum_SOURCES) shred.c shuf.c \
+	sleep.c sort.c split.c stat.c stdbuf.c stty.c su.c sum.c \
+	sync.c tac.c tail.c tee.c test.c $(timeout_SOURCES) touch.c \
+	tr.c true.c truncate.c tsort.c tty.c $(uname_SOURCES) \
+	unexpand.c uniq.c unlink.c uptime.c users.c $(vdir_SOURCES) \
+	wc.c who.c whoami.c yes.c
 HEADERS = $(noinst_HEADERS)
 ETAGS = etags
 CTAGS = ctags
@@ -825,6 +715,7 @@ CFLAGS = @CFLAGS@
 CONFIG_STATUS_DEPENDENCIES = @CONFIG_STATUS_DEPENDENCIES@
 CPP = @CPP@
 CPPFLAGS = @CPPFLAGS@
+CTYPE_H = @CTYPE_H@
 CYGPATH_W = @CYGPATH_W@
 DEFAULT_POSIX2_VERSION = @DEFAULT_POSIX2_VERSION@
 DEFS = @DEFS@
@@ -897,12 +788,14 @@ GNULIB_FSYNC = @GNULIB_FSYNC@
 GNULIB_FTELL = @GNULIB_FTELL@
 GNULIB_FTELLO = @GNULIB_FTELLO@
 GNULIB_FTRUNCATE = @GNULIB_FTRUNCATE@
+GNULIB_FUTIMENS = @GNULIB_FUTIMENS@
 GNULIB_FWRITE = @GNULIB_FWRITE@
 GNULIB_GETADDRINFO = @GNULIB_GETADDRINFO@
 GNULIB_GETCWD = @GNULIB_GETCWD@
 GNULIB_GETDELIM = @GNULIB_GETDELIM@
 GNULIB_GETDOMAINNAME = @GNULIB_GETDOMAINNAME@
 GNULIB_GETDTABLESIZE = @GNULIB_GETDTABLESIZE@
+GNULIB_GETGROUPS = @GNULIB_GETGROUPS@
 GNULIB_GETHOSTNAME = @GNULIB_GETHOSTNAME@
 GNULIB_GETLINE = @GNULIB_GETLINE@
 GNULIB_GETLOADAVG = @GNULIB_GETLOADAVG@
@@ -918,6 +811,7 @@ GNULIB_IMAXDIV = @GNULIB_IMAXDIV@
 GNULIB_INET_NTOP = @GNULIB_INET_NTOP@
 GNULIB_INET_PTON = @GNULIB_INET_PTON@
 GNULIB_IOCTL = @GNULIB_IOCTL@
+GNULIB_ISBLANK = @GNULIB_ISBLANK@
 GNULIB_ISFINITE = @GNULIB_ISFINITE@
 GNULIB_ISINF = @GNULIB_ISINF@
 GNULIB_ISNAN = @GNULIB_ISNAN@
@@ -959,10 +853,14 @@ GNULIB_MEMPCPY = @GNULIB_MEMPCPY@
 GNULIB_MEMRCHR = @GNULIB_MEMRCHR@
 GNULIB_MKDIRAT = @GNULIB_MKDIRAT@
 GNULIB_MKDTEMP = @GNULIB_MKDTEMP@
+GNULIB_MKFIFO = @GNULIB_MKFIFO@
 GNULIB_MKFIFOAT = @GNULIB_MKFIFOAT@
+GNULIB_MKNOD = @GNULIB_MKNOD@
 GNULIB_MKNODAT = @GNULIB_MKNODAT@
 GNULIB_MKOSTEMP = @GNULIB_MKOSTEMP@
+GNULIB_MKOSTEMPS = @GNULIB_MKOSTEMPS@
 GNULIB_MKSTEMP = @GNULIB_MKSTEMP@
+GNULIB_MKSTEMPS = @GNULIB_MKSTEMPS@
 GNULIB_OBSTACK_PRINTF = @GNULIB_OBSTACK_PRINTF@
 GNULIB_OBSTACK_PRINTF_POSIX = @GNULIB_OBSTACK_PRINTF_POSIX@
 GNULIB_OPEN = @GNULIB_OPEN@
@@ -1033,11 +931,14 @@ GNULIB_SYMLINKAT = @GNULIB_SYMLINKAT@
 GNULIB_TRUNC = @GNULIB_TRUNC@
 GNULIB_TRUNCF = @GNULIB_TRUNCF@
 GNULIB_TRUNCL = @GNULIB_TRUNCL@
+GNULIB_UNAME = @GNULIB_UNAME@
 GNULIB_UNISTD_H_GETOPT = @GNULIB_UNISTD_H_GETOPT@
 GNULIB_UNISTD_H_SIGPIPE = @GNULIB_UNISTD_H_SIGPIPE@
 GNULIB_UNLINK = @GNULIB_UNLINK@
 GNULIB_UNLINKAT = @GNULIB_UNLINKAT@
 GNULIB_UNSETENV = @GNULIB_UNSETENV@
+GNULIB_USLEEP = @GNULIB_USLEEP@
+GNULIB_UTIMENSAT = @GNULIB_UTIMENSAT@
 GNULIB_VASPRINTF = @GNULIB_VASPRINTF@
 GNULIB_VDPRINTF = @GNULIB_VDPRINTF@
 GNULIB_VFPRINTF = @GNULIB_VFPRINTF@
@@ -1046,6 +947,7 @@ GNULIB_VPRINTF = @GNULIB_VPRINTF@
 GNULIB_VPRINTF_POSIX = @GNULIB_VPRINTF_POSIX@
 GNULIB_VSNPRINTF = @GNULIB_VSNPRINTF@
 GNULIB_VSPRINTF_POSIX = @GNULIB_VSPRINTF_POSIX@
+GNULIB_WARN_CFLAGS = @GNULIB_WARN_CFLAGS@
 GNULIB_WCRTOMB = @GNULIB_WCRTOMB@
 GNULIB_WCSNRTOMBS = @GNULIB_WCSNRTOMBS@
 GNULIB_WCSRTOMBS = @GNULIB_WCSRTOMBS@
@@ -1060,6 +962,7 @@ HAVE_ATOLL = @HAVE_ATOLL@
 HAVE_BTOWC = @HAVE_BTOWC@
 HAVE_CALLOC_POSIX = @HAVE_CALLOC_POSIX@
 HAVE_CANONICALIZE_FILE_NAME = @HAVE_CANONICALIZE_FILE_NAME@
+HAVE_CHOWN = @HAVE_CHOWN@
 HAVE_DECL_ACOSL = @HAVE_DECL_ACOSL@
 HAVE_DECL_ASINL = @HAVE_DECL_ASINL@
 HAVE_DECL_ATANL = @HAVE_DECL_ATANL@
@@ -1116,19 +1019,23 @@ HAVE_FSTATAT = @HAVE_FSTATAT@
 HAVE_FSYNC = @HAVE_FSYNC@
 HAVE_FTELLO = @HAVE_FTELLO@
 HAVE_FTRUNCATE = @HAVE_FTRUNCATE@
+HAVE_FUTIMENS = @HAVE_FUTIMENS@
 HAVE_GETDOMAINNAME = @HAVE_GETDOMAINNAME@
 HAVE_GETDTABLESIZE = @HAVE_GETDTABLESIZE@
+HAVE_GETGROUPS = @HAVE_GETGROUPS@
 HAVE_GETHOSTNAME = @HAVE_GETHOSTNAME@
 HAVE_GETOPT_H = @HAVE_GETOPT_H@
 HAVE_GETPAGESIZE = @HAVE_GETPAGESIZE@
 HAVE_GETSUBOPT = @HAVE_GETSUBOPT@
 HAVE_GETUSERSHELL = @HAVE_GETUSERSHELL@
 HAVE_INTTYPES_H = @HAVE_INTTYPES_H@
+HAVE_ISBLANK = @HAVE_ISBLANK@
 HAVE_ISNAND = @HAVE_ISNAND@
 HAVE_ISNANF = @HAVE_ISNANF@
 HAVE_ISNANL = @HAVE_ISNANL@
 HAVE_ISWCNTRL = @HAVE_ISWCNTRL@
 HAVE_LCHMOD = @HAVE_LCHMOD@
+HAVE_LCHOWN = @HAVE_LCHOWN@
 HAVE_LINK = @HAVE_LINK@
 HAVE_LINKAT = @HAVE_LINKAT@
 HAVE_LONG_LONG_INT = @HAVE_LONG_LONG_INT@
@@ -1142,9 +1049,13 @@ HAVE_MBSRTOWCS = @HAVE_MBSRTOWCS@
 HAVE_MEMPCPY = @HAVE_MEMPCPY@
 HAVE_MKDIRAT = @HAVE_MKDIRAT@
 HAVE_MKDTEMP = @HAVE_MKDTEMP@
+HAVE_MKFIFO = @HAVE_MKFIFO@
 HAVE_MKFIFOAT = @HAVE_MKFIFOAT@
+HAVE_MKNOD = @HAVE_MKNOD@
 HAVE_MKNODAT = @HAVE_MKNODAT@
 HAVE_MKOSTEMP = @HAVE_MKOSTEMP@
+HAVE_MKOSTEMPS = @HAVE_MKOSTEMPS@
+HAVE_MKSTEMPS = @HAVE_MKSTEMPS@
 HAVE_NETDB_H = @HAVE_NETDB_H@
 HAVE_NETINET_IN_H = @HAVE_NETINET_IN_H@
 HAVE_OPENAT = @HAVE_OPENAT@
@@ -1198,10 +1109,13 @@ HAVE_SYS_SOCKET_H = @HAVE_SYS_SOCKET_H@
 HAVE_SYS_TIME_H = @HAVE_SYS_TIME_H@
 HAVE_SYS_TYPES_H = @HAVE_SYS_TYPES_H@
 HAVE_TYPE_VOLATILE_SIG_ATOMIC_T = @HAVE_TYPE_VOLATILE_SIG_ATOMIC_T@
+HAVE_UNAME = @HAVE_UNAME@
 HAVE_UNISTD_H = @HAVE_UNISTD_H@
 HAVE_UNLINKAT = @HAVE_UNLINKAT@
 HAVE_UNSETENV = @HAVE_UNSETENV@
 HAVE_UNSIGNED_LONG_LONG_INT = @HAVE_UNSIGNED_LONG_LONG_INT@
+HAVE_USLEEP = @HAVE_USLEEP@
+HAVE_UTIMENSAT = @HAVE_UTIMENSAT@
 HAVE_VASPRINTF = @HAVE_VASPRINTF@
 HAVE_VDPRINTF = @HAVE_VDPRINTF@
 HAVE_WCHAR_H = @HAVE_WCHAR_H@
@@ -1219,6 +1133,8 @@ HOSTENT_LIB = @HOSTENT_LIB@
 ICONV_H = @ICONV_H@
 INCLUDE_NEXT = @INCLUDE_NEXT@
 INCLUDE_NEXT_AS_FIRST_DIRECTIVE = @INCLUDE_NEXT_AS_FIRST_DIRECTIVE@
+INET_NTOP_LIB = @INET_NTOP_LIB@
+INET_PTON_LIB = @INET_PTON_LIB@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = $(cu_install_program)
@@ -1279,6 +1195,7 @@ NETDB_H = @NETDB_H@
 NETINET_IN_H = @NETINET_IN_H@
 NEXT_ARPA_INET_H = @NEXT_ARPA_INET_H@
 NEXT_AS_FIRST_DIRECTIVE_ARPA_INET_H = @NEXT_AS_FIRST_DIRECTIVE_ARPA_INET_H@
+NEXT_AS_FIRST_DIRECTIVE_CTYPE_H = @NEXT_AS_FIRST_DIRECTIVE_CTYPE_H@
 NEXT_AS_FIRST_DIRECTIVE_DIRENT_H = @NEXT_AS_FIRST_DIRECTIVE_DIRENT_H@
 NEXT_AS_FIRST_DIRECTIVE_ERRNO_H = @NEXT_AS_FIRST_DIRECTIVE_ERRNO_H@
 NEXT_AS_FIRST_DIRECTIVE_FCNTL_H = @NEXT_AS_FIRST_DIRECTIVE_FCNTL_H@
@@ -1289,6 +1206,7 @@ NEXT_AS_FIRST_DIRECTIVE_INTTYPES_H = @NEXT_AS_FIRST_DIRECTIVE_INTTYPES_H@
 NEXT_AS_FIRST_DIRECTIVE_MATH_H = @NEXT_AS_FIRST_DIRECTIVE_MATH_H@
 NEXT_AS_FIRST_DIRECTIVE_NETDB_H = @NEXT_AS_FIRST_DIRECTIVE_NETDB_H@
 NEXT_AS_FIRST_DIRECTIVE_NETINET_IN_H = @NEXT_AS_FIRST_DIRECTIVE_NETINET_IN_H@
+NEXT_AS_FIRST_DIRECTIVE_SELINUX_SELINUX_H = @NEXT_AS_FIRST_DIRECTIVE_SELINUX_SELINUX_H@
 NEXT_AS_FIRST_DIRECTIVE_SIGNAL_H = @NEXT_AS_FIRST_DIRECTIVE_SIGNAL_H@
 NEXT_AS_FIRST_DIRECTIVE_STDARG_H = @NEXT_AS_FIRST_DIRECTIVE_STDARG_H@
 NEXT_AS_FIRST_DIRECTIVE_STDDEF_H = @NEXT_AS_FIRST_DIRECTIVE_STDDEF_H@
@@ -1305,6 +1223,7 @@ NEXT_AS_FIRST_DIRECTIVE_TIME_H = @NEXT_AS_FIRST_DIRECTIVE_TIME_H@
 NEXT_AS_FIRST_DIRECTIVE_UNISTD_H = @NEXT_AS_FIRST_DIRECTIVE_UNISTD_H@
 NEXT_AS_FIRST_DIRECTIVE_WCHAR_H = @NEXT_AS_FIRST_DIRECTIVE_WCHAR_H@
 NEXT_AS_FIRST_DIRECTIVE_WCTYPE_H = @NEXT_AS_FIRST_DIRECTIVE_WCTYPE_H@
+NEXT_CTYPE_H = @NEXT_CTYPE_H@
 NEXT_DIRENT_H = @NEXT_DIRENT_H@
 NEXT_ERRNO_H = @NEXT_ERRNO_H@
 NEXT_FCNTL_H = @NEXT_FCNTL_H@
@@ -1315,6 +1234,7 @@ NEXT_INTTYPES_H = @NEXT_INTTYPES_H@
 NEXT_MATH_H = @NEXT_MATH_H@
 NEXT_NETDB_H = @NEXT_NETDB_H@
 NEXT_NETINET_IN_H = @NEXT_NETINET_IN_H@
+NEXT_SELINUX_SELINUX_H = @NEXT_SELINUX_SELINUX_H@
 NEXT_SIGNAL_H = @NEXT_SIGNAL_H@
 NEXT_STDARG_H = @NEXT_STDARG_H@
 NEXT_STDDEF_H = @NEXT_STDDEF_H@
@@ -1366,6 +1286,7 @@ REPLACE_DUP2 = @REPLACE_DUP2@
 REPLACE_FCHDIR = @REPLACE_FCHDIR@
 REPLACE_FCHOWNAT = @REPLACE_FCHOWNAT@
 REPLACE_FCLOSE = @REPLACE_FCLOSE@
+REPLACE_FDOPENDIR = @REPLACE_FDOPENDIR@
 REPLACE_FFLUSH = @REPLACE_FFLUSH@
 REPLACE_FLOORF = @REPLACE_FLOORF@
 REPLACE_FLOORL = @REPLACE_FLOORL@
@@ -1381,7 +1302,9 @@ REPLACE_FSTAT = @REPLACE_FSTAT@
 REPLACE_FSTATAT = @REPLACE_FSTATAT@
 REPLACE_FTELL = @REPLACE_FTELL@
 REPLACE_FTELLO = @REPLACE_FTELLO@
+REPLACE_FUTIMENS = @REPLACE_FUTIMENS@
 REPLACE_GETCWD = @REPLACE_GETCWD@
+REPLACE_GETGROUPS = @REPLACE_GETGROUPS@
 REPLACE_GETLINE = @REPLACE_GETLINE@
 REPLACE_GETPAGESIZE = @REPLACE_GETPAGESIZE@
 REPLACE_GETTIMEOFDAY = @REPLACE_GETTIMEOFDAY@
@@ -1409,6 +1332,8 @@ REPLACE_MBSTATE_T = @REPLACE_MBSTATE_T@
 REPLACE_MEMCHR = @REPLACE_MEMCHR@
 REPLACE_MEMMEM = @REPLACE_MEMMEM@
 REPLACE_MKDIR = @REPLACE_MKDIR@
+REPLACE_MKFIFO = @REPLACE_MKFIFO@
+REPLACE_MKNOD = @REPLACE_MKNOD@
 REPLACE_MKSTEMP = @REPLACE_MKSTEMP@
 REPLACE_MKTIME = @REPLACE_MKTIME@
 REPLACE_NAN = @REPLACE_NAN@
@@ -1432,6 +1357,7 @@ REPLACE_ROUND = @REPLACE_ROUND@
 REPLACE_ROUNDF = @REPLACE_ROUNDF@
 REPLACE_ROUNDL = @REPLACE_ROUNDL@
 REPLACE_SELECT = @REPLACE_SELECT@
+REPLACE_SETENV = @REPLACE_SETENV@
 REPLACE_SIGNBIT = @REPLACE_SIGNBIT@
 REPLACE_SIGNBIT_USING_GCC = @REPLACE_SIGNBIT_USING_GCC@
 REPLACE_SNPRINTF = @REPLACE_SNPRINTF@
@@ -1452,6 +1378,9 @@ REPLACE_TIMEGM = @REPLACE_TIMEGM@
 REPLACE_TRUNCL = @REPLACE_TRUNCL@
 REPLACE_UNLINK = @REPLACE_UNLINK@
 REPLACE_UNLINKAT = @REPLACE_UNLINKAT@
+REPLACE_UNSETENV = @REPLACE_UNSETENV@
+REPLACE_USLEEP = @REPLACE_USLEEP@
+REPLACE_UTIMENSAT = @REPLACE_UTIMENSAT@
 REPLACE_VASPRINTF = @REPLACE_VASPRINTF@
 REPLACE_VDPRINTF = @REPLACE_VDPRINTF@
 REPLACE_VFPRINTF = @REPLACE_VFPRINTF@
@@ -1465,7 +1394,6 @@ REPLACE_WCTOB = @REPLACE_WCTOB@
 REPLACE_WCWIDTH = @REPLACE_WCWIDTH@
 REPLACE_WRITE = @REPLACE_WRITE@
 SELINUX_CONTEXT_H = @SELINUX_CONTEXT_H@
-SELINUX_SELINUX_H = @SELINUX_SELINUX_H@
 SEQ_LIBM = @SEQ_LIBM@
 SERVENT_LIB = @SERVENT_LIB@
 SET_MAKE = @SET_MAKE@
@@ -1484,6 +1412,7 @@ SYS_SELECT_H = @SYS_SELECT_H@
 SYS_SOCKET_H = @SYS_SOCKET_H@
 SYS_TIME_H = @SYS_TIME_H@
 SYS_TIME_H_DEFINES_STRUCT_TIMESPEC = @SYS_TIME_H_DEFINES_STRUCT_TIMESPEC@
+SYS_UTSNAME_H = @SYS_UTSNAME_H@
 TIME_H_DEFINES_STRUCT_TIMESPEC = @TIME_H_DEFINES_STRUCT_TIMESPEC@
 U = @U@
 UINT32_MAX_LT_UINTMAX_MAX = @UINT32_MAX_LT_UINTMAX_MAX@
@@ -1494,7 +1423,6 @@ UNISTD_H_HAVE_WINSOCK2_H_AND_USE_SOCKETS = @UNISTD_H_HAVE_WINSOCK2_H_AND_USE_SOC
 USE_ACL = @USE_ACL@
 USE_NLS = @USE_NLS@
 VERSION = @VERSION@
-VOID_UNSETENV = @VOID_UNSETENV@
 WARN_CFLAGS = @WARN_CFLAGS@
 WCHAR_H = @WCHAR_H@
 WCHAR_T_SUFFIX = @WCHAR_T_SUFFIX@
@@ -1572,25 +1500,36 @@ no_install__progs = \
   arch hostname su
 
 build_if_possible__progs = \
-  chroot df hostid nice pinky stdbuf libstdbuf.so stty su uname uptime users who
+  chroot	\
+  df		\
+  hostid	\
+  libstdbuf.so	\
+  nice		\
+  pinky		\
+  stdbuf	\
+  stty		\
+  su		\
+  uptime	\
+  users		\
+  who
 
 AM_CFLAGS = $(WARN_CFLAGS) $(WERROR_CFLAGS)
 bin_PROGRAMS = $(OPTIONAL_BIN_PROGS)
 pkglib_PROGRAMS = $(OPTIONAL_PKGLIB_PROGS)
 noinst_HEADERS = \
-  chown-core.h \
-  copy.h \
-  cp-hash.h \
-  dircolors.h \
-  fs.h \
-  group-list.h \
-  ls.h \
-  operand2sig.h \
-  prog-fprintf.h \
-  remove.h \
-  system.h \
-  wheel-size.h \
-  wheel.h \
+  chown-core.h		\
+  copy.h		\
+  cp-hash.h		\
+  dircolors.h		\
+  fs.h			\
+  group-list.h		\
+  ls.h			\
+  operand2sig.h		\
+  prog-fprintf.h	\
+  remove.h		\
+  system.h		\
+  wheel-size.h		\
+  wheel.h		\
   uname.h
 
 EXTRA_DIST = dcgen dircolors.hin tac-pipe.c \
@@ -1601,7 +1540,8 @@ BUILT_SOURCES = dircolors.h wheel-size.h wheel.h fs.h version.c \
 
 # Also remove these sometimes-built programs.
 # For example, even when excluded, they're built via sc_check-AUTHORS.
-CLEANFILES = $(SCRIPTS) su $(no_install__progs)
+CLEANFILES = $(SCRIPTS) su $(no_install__progs) fs-def fs-magic \
+	fs-kernel-magic
 AM_CPPFLAGS = -I$(top_srcdir)/lib
 noinst_LIBRARIES = libver.a
 nodist_libver_a_SOURCES = version.c version.h
@@ -1613,82 +1553,157 @@ nodist_libver_a_SOURCES = version.c version.h
 # replacement functions defined in libcoreutils.a.
 LDADD = libver.a ../lib/libcoreutils.a $(LIBINTL) ../lib/libcoreutils.a
 
-# Append $(LIBICONV) to each program that uses proper_name_utf8.
+# First, list all programs, to make listing per-program libraries easier.
+# See [ below.
+arch_LDADD = $(LDADD)
+base64_LDADD = $(LDADD)
+basename_LDADD = $(LDADD)
+
+# for print_unicode_char, proper_name_utf8
 cat_LDADD = $(LDADD) $(LIBICONV)
-df_LDADD = $(LDADD) $(LIBICONV)
-du_LDADD = $(LDADD) $(LIBICONV)
-getlimits_LDADD = $(LDADD) $(LIBICONV)
-ptx_LDADD = $(LDADD) $(LIBICONV)
-split_LDADD = $(LDADD) $(LIBICONV)
-stdbuf_LDADD = $(LDADD) $(LIBICONV)
-timeout_LDADD = $(LDADD) $(LIBICONV)
-truncate_LDADD = $(LDADD) $(LIBICONV)
 
-# for eaccess in lib/euidaccess.c.
+# for selinux use
 chcon_LDADD = $(LDADD) $(LIB_SELINUX)
-cp_LDADD = $(LDADD) $(LIB_EACCESS) $(LIB_SELINUX) $(LIB_ACL) \
-	$(LIB_XATTR) $(LIBICONV)
-ginstall_LDADD = $(LDADD) $(LIB_EACCESS) $(LIB_SELINUX) $(LIB_ACL) \
-	$(LIB_XATTR)
-mkdir_LDADD = $(LDADD) $(LIB_SELINUX)
-mkfifo_LDADD = $(LDADD) $(LIB_SELINUX)
-mknod_LDADD = $(LDADD) $(LIB_SELINUX)
-mv_LDADD = $(LDADD) $(LIB_EACCESS) $(LIB_SELINUX) $(LIB_ACL) \
-	$(LIB_XATTR)
-runcon_LDADD = $(LDADD) $(LIB_SELINUX)
-pathchk_LDADD = $(LDADD) $(LIB_EACCESS)
-rm_LDADD = $(LDADD) $(LIB_EACCESS)
-test_LDADD = $(LDADD) $(LIB_EACCESS)
-# This is for the '[' program.  Automake transliterates '[' to '_'.
-__LDADD = $(LDADD) $(LIB_EACCESS)
-
-# for clock_gettime and fdatasync
-dd_LDADD = $(LDADD) $(LIB_GETHRXTIME) $(LIB_FDATASYNC)
-dir_LDADD = $(LDADD) $(LIB_CLOCK_GETTIME) $(LIB_SELINUX) $(LIB_CAP) \
-	$(LIB_ACL)
-id_LDADD = $(LDADD) $(LIB_SELINUX)
-ls_LDADD = $(LDADD) $(LIB_CLOCK_GETTIME) $(LIB_SELINUX) $(LIB_CAP) \
-	$(LIB_ACL)
-mktemp_LDADD = $(LDADD) $(LIB_GETHRXTIME)
-pr_LDADD = $(LDADD) $(LIB_CLOCK_GETTIME)
-shred_LDADD = $(LDADD) $(LIB_GETHRXTIME) $(LIB_FDATASYNC)
-shuf_LDADD = $(LDADD) $(LIB_GETHRXTIME)
-tac_LDADD = $(LDADD) $(LIB_CLOCK_GETTIME)
-vdir_LDADD = $(LDADD) $(LIB_CLOCK_GETTIME) $(LIB_SELINUX) $(LIB_CAP) \
-	$(LIB_ACL)
-sort_LDADD = $(LDADD) $(POW_LIB) $(LIB_GETHRXTIME)
-
-# for get_date and gettime
+chgrp_LDADD = $(LDADD)
+chmod_LDADD = $(LDADD)
+chown_LDADD = $(LDADD)
+chroot_LDADD = $(LDADD)
+cksum_LDADD = $(LDADD)
+comm_LDADD = $(LDADD)
+nproc_LDADD = $(LDADD)
+cp_LDADD = $(LDADD) $(copy_LDADD) $(LIBICONV)
+csplit_LDADD = $(LDADD)
+cut_LDADD = $(LDADD)
 date_LDADD = $(LDADD) $(LIB_CLOCK_GETTIME)
-touch_LDADD = $(LDADD) $(LIB_CLOCK_GETTIME)
 
-# If necessary, add -lm to resolve use of pow in lib/strtod.c.
-# If necessary, add -liconv to resolve use of iconv in lib/unicodeio.c.
-printf_LDADD = $(LDADD) $(POW_LIB) $(LIBICONV)
+# for gethrxtime, randint, randread, gen_tempname
 
-# If necessary, add -lm to resolve use of pow in lib/strtod.c.
-seq_LDADD = $(LDADD) $(POW_LIB)
-
-# If necessary, add libraries to resolve the `pow' reference in lib/strtod.c
-# and the `nanosleep' reference in lib/xnanosleep.c.
-nanosec_libs = $(LDADD) $(POW_LIB) $(LIB_NANOSLEEP)
+# for fdatasync
+dd_LDADD = $(LDADD) $(LIB_GETHRXTIME) $(LIB_FDATASYNC)
+df_LDADD = $(LDADD) $(LIBICONV)
+# See dir_LDADD below
+dircolors_LDADD = $(LDADD)
+dirname_LDADD = $(LDADD)
+du_LDADD = $(LDADD) $(LIBICONV)
+echo_LDADD = $(LDADD)
+env_LDADD = $(LDADD)
+expand_LDADD = $(LDADD)
 
 # for various GMP functions
 expr_LDADD = $(LDADD) $(LIB_GMP)
-
-# for various GMP functions
 factor_LDADD = $(LDADD) $(LIB_GMP)
-sleep_LDADD = $(nanosec_libs)
-tail_LDADD = $(nanosec_libs)
+false_LDADD = $(LDADD)
+fmt_LDADD = $(LDADD)
+fold_LDADD = $(LDADD)
+getlimits_LDADD = $(LDADD) $(LIBICONV)
+ginstall_LDADD = $(LDADD) $(copy_LDADD) $(LIB_SELINUX) \
+	$(LIB_CLOCK_GETTIME)
+groups_LDADD = $(LDADD)
+head_LDADD = $(LDADD)
+hostid_LDADD = $(LDADD)
 
-# If necessary, add -lm to resolve use of pow in lib/strtod.c.
-uptime_LDADD = $(LDADD) $(POW_LIB) $(GETLOADAVG_LIBS)
-su_LDADD = $(LDADD) $(LIB_CRYPT)
-stat_LDADD = $(LDADD) $(LIB_SELINUX)
+# for gethostname, uname
+hostname_LDADD = $(LDADD) $(GETHOSTNAME_LIB)
+id_LDADD = $(LDADD) $(LIB_SELINUX)
+join_LDADD = $(LDADD)
+kill_LDADD = $(LDADD)
+link_LDADD = $(LDADD)
+ln_LDADD = $(LDADD)
+logname_LDADD = $(LDADD)
 
-# programs that use getaddrinfo (e.g., via canon_host)
+# for cap_get_file
+ls_LDADD = $(LDADD) $(LIB_SELINUX) $(LIB_CLOCK_GETTIME) $(LIB_CAP) \
+	$(LIB_ACL)
+md5sum_LDADD = $(LDADD)
+mkdir_LDADD = $(LDADD) $(LIB_SELINUX)
+mkfifo_LDADD = $(LDADD) $(LIB_SELINUX)
+mknod_LDADD = $(LDADD) $(LIB_SELINUX)
+mktemp_LDADD = $(LDADD) $(LIB_GETHRXTIME)
+mv_LDADD = $(LDADD) $(copy_LDADD) $(remove_LDADD)
+nice_LDADD = $(LDADD)
+nl_LDADD = $(LDADD)
+nohup_LDADD = $(LDADD)
+od_LDADD = $(LDADD)
+paste_LDADD = $(LDADD)
+pathchk_LDADD = $(LDADD)
+
+# for canon_host
 pinky_LDADD = $(LDADD) $(GETADDRINFO_LIB)
+pr_LDADD = $(LDADD) $(LIB_CLOCK_GETTIME)
+printenv_LDADD = $(LDADD)
+
+# for strtod, strtold
+printf_LDADD = $(LDADD) $(POW_LIB) $(LIBICONV)
+ptx_LDADD = $(LDADD) $(LIBICONV)
+pwd_LDADD = $(LDADD)
+readlink_LDADD = $(LDADD)
+rm_LDADD = $(LDADD) $(remove_LDADD)
+rmdir_LDADD = $(LDADD)
+runcon_LDADD = $(LDADD) $(LIB_SELINUX)
+seq_LDADD = $(LDADD) $(POW_LIB)
+setuidgid_LDADD = $(LDADD)
+sha1sum_LDADD = $(LDADD)
+sha224sum_LDADD = $(LDADD)
+sha256sum_LDADD = $(LDADD)
+sha384sum_LDADD = $(LDADD)
+sha512sum_LDADD = $(LDADD)
+shred_LDADD = $(LDADD) $(LIB_GETHRXTIME) $(LIB_FDATASYNC)
+shuf_LDADD = $(LDADD) $(LIB_GETHRXTIME)
+
+# for xnanosleep
+sleep_LDADD = $(LDADD) $(POW_LIB) $(LIB_NANOSLEEP)
+sort_LDADD = $(LDADD) $(LIB_GETHRXTIME) $(POW_LIB)
+split_LDADD = $(LDADD) $(LIBICONV)
+stat_LDADD = $(LDADD) $(LIB_SELINUX)
+stdbuf_LDADD = $(LDADD) $(LIBICONV)
+stty_LDADD = $(LDADD)
+
+# for crypt
+su_LDADD = $(LDADD) $(LIB_CRYPT)
+sum_LDADD = $(LDADD)
+sync_LDADD = $(LDADD)
+tac_LDADD = $(LDADD)
+tail_LDADD = $(LDADD) $(POW_LIB) $(LIB_NANOSLEEP)
+tee_LDADD = $(LDADD)
+test_LDADD = $(LDADD) $(LIB_EACCESS)
+timeout_LDADD = $(LDADD) $(LIBICONV)
+touch_LDADD = $(LDADD) $(LIB_CLOCK_GETTIME)
+tr_LDADD = $(LDADD)
+true_LDADD = $(LDADD)
+truncate_LDADD = $(LDADD) $(LIBICONV)
+tsort_LDADD = $(LDADD)
+tty_LDADD = $(LDADD)
+uname_LDADD = $(LDADD) $(GETHOSTNAME_LIB)
+unexpand_LDADD = $(LDADD)
+uniq_LDADD = $(LDADD)
+unlink_LDADD = $(LDADD)
+
+# for getloadavg
+uptime_LDADD = $(LDADD) $(POW_LIB) $(GETLOADAVG_LIBS)
+users_LDADD = $(LDADD)
+# See vdir_LDADD below
+wc_LDADD = $(LDADD)
 who_LDADD = $(LDADD) $(GETADDRINFO_LIB)
+whoami_LDADD = $(LDADD)
+yes_LDADD = $(LDADD)
+
+# Synonyms.  Recall that Automake transliterates '[' to '_'.
+__LDADD = $(test_LDADD)
+dir_LDADD = $(ls_LDADD)
+vdir_LDADD = $(ls_LDADD)
+
+# Shared files
+
+# for eaccess, euidaccess
+
+# for gettime, settime, utimecmp, utimens
+
+# for various ACL functions
+
+# for various xattr functions
+copy_LDADD = $(LIB_EACCESS) $(LIB_SELINUX) $(LIB_CLOCK_GETTIME) \
+	$(LIB_ACL) $(LIB_XATTR)
+remove_LDADD = $(LIB_EACCESS)
 
 # Get the release year from ../lib/version-etc.c.
 RELEASE_YEAR = \
@@ -1732,6 +1747,7 @@ mkdir_SOURCES = mkdir.c prog-fprintf.c
 rmdir_SOURCES = rmdir.c prog-fprintf.c
 uname_SOURCES = uname.c uname-uname.c
 arch_SOURCES = uname.c uname-arch.c
+nproc_SOURCES = nproc.c
 md5sum_SOURCES = md5sum.c
 md5sum_CPPFLAGS = -DHASH_ALGO_MD5=1 $(AM_CPPFLAGS)
 sha1sum_SOURCES = md5sum.c
@@ -1762,6 +1778,29 @@ wheel_size = 5
 # test doesn't support --help or --version.
 # Tell automake to exempt then from that installcheck test.
 AM_INSTALLCHECK_STD_OPTIONS_EXEMPT = false test
+
+# Massage bits of the statfs man page and definitions from
+# /usr/include/linux/magic.h to be in a form consistent with what's in fs.h.
+fs_normalize_perl_subst = \
+  -e 's/MINIX_SUPER_MAGIC\b/MINIX/;'		\
+  -e 's/MINIX_SUPER_MAGIC2\b/MINIX_30/;'	\
+  -e 's/MINIX2_SUPER_MAGIC\b/MINIX_V2/;'	\
+  -e 's/MINIX2_SUPER_MAGIC2\b/MINIX_V2_30/;'	\
+  -e 's/MINIX3_SUPER_MAGIC\b/MINIX_V3/;'	\
+  -e 's/CIFS_MAGIC_NUMBER/CIFS/;'		\
+  -e 's/(_SUPER)?_MAGIC//;'			\
+  -e 's/\s+0x(\S+)/" 0x" . uc $$1/e;'		\
+  -e 's/(\s+0x)(\X{3})\b/$${1}0$$2/;'		\
+  -e 's/(\s+0x)(\X{6})\b/$${1}00$$2/;'		\
+  -e 's/(\s+0x)(\X{7})\b/$${1}0$$2/;'		\
+  -e 's/^\s+//;'				\
+  -e 's/^\#define\s+//;'			\
+  -e 's/^_(XIAFS)/$$1/;'			\
+  -e 's/^USBDEVICE/USBDEVFS/;'			\
+  -e 's/NTFS_SB/NTFS/;'				\
+  -e 's/^/\# define S_MAGIC_/;'			\
+  -e 's,\s*/\* .*? \*/,,;'
+
 DISTCLEANFILES = version.c version.h
 MAINTAINERCLEANFILES = $(BUILT_SOURCES)
 
@@ -2064,6 +2103,9 @@ nl$(EXEEXT): $(nl_OBJECTS) $(nl_DEPENDENCIES)
 nohup$(EXEEXT): $(nohup_OBJECTS) $(nohup_DEPENDENCIES) 
 	@rm -f nohup$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(nohup_OBJECTS) $(nohup_LDADD) $(LIBS)
+nproc$(EXEEXT): $(nproc_OBJECTS) $(nproc_DEPENDENCIES) 
+	@rm -f nproc$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(nproc_OBJECTS) $(nproc_LDADD) $(LIBS)
 od$(EXEEXT): $(od_OBJECTS) $(od_DEPENDENCIES) 
 	@rm -f od$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(od_OBJECTS) $(od_LDADD) $(LIBS)
@@ -2291,6 +2333,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/nice.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/nl.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/nohup.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/nproc.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/od.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/operand2sig.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/paste.Po@am__quote@
@@ -2591,6 +2634,20 @@ GTAGS:
 	  && $(am__cd) $(top_srcdir) \
 	  && gtags -i $(GTAGS_ARGS) "$$here"
 
+cscopelist:  $(HEADERS) $(SOURCES) $(LISP)
+	list='$(SOURCES) $(HEADERS) $(LISP)'; \
+	case "$(srcdir)" in \
+	  [\\/]* | ?:[\\/]*) sdir="$(srcdir)" ;; \
+	  *) sdir=$(subdir)/$(srcdir) ;; \
+	esac; \
+	for i in $$list; do \
+	  if test -f "$$i"; then \
+	    echo "$(subdir)/$$i"; \
+	  else \
+	    echo "$$sdir/$$i"; \
+	  fi; \
+	done >> $(top_builddir)/cscope.files
+
 distclean-tags:
 	-rm -f TAGS ID GTAGS GRTAGS GSYMS GPATH tags
 
@@ -2741,19 +2798,19 @@ uninstall-am: uninstall-binPROGRAMS uninstall-local \
 
 .PHONY: CTAGS GTAGS all all-am all-local check check-am clean \
 	clean-binPROGRAMS clean-generic clean-noinstLIBRARIES \
-	clean-noinstPROGRAMS clean-pkglibPROGRAMS ctags dist-hook \
-	distclean distclean-compile distclean-generic distclean-tags \
-	distdir dvi dvi-am html html-am info info-am install \
-	install-am install-binPROGRAMS install-data install-data-am \
-	install-dvi install-dvi-am install-exec install-exec-am \
-	install-exec-hook install-html install-html-am install-info \
-	install-info-am install-man install-pdf install-pdf-am \
-	install-pkglibPROGRAMS install-ps install-ps-am install-strip \
-	installcheck installcheck-am installdirs maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-compile \
-	mostlyclean-generic pdf pdf-am ps ps-am tags uninstall \
-	uninstall-am uninstall-binPROGRAMS uninstall-local \
-	uninstall-pkglibPROGRAMS
+	clean-noinstPROGRAMS clean-pkglibPROGRAMS cscopelist ctags \
+	dist-hook distclean distclean-compile distclean-generic \
+	distclean-tags distdir dvi dvi-am html html-am info info-am \
+	install install-am install-binPROGRAMS install-data \
+	install-data-am install-dvi install-dvi-am install-exec \
+	install-exec-am install-exec-hook install-html install-html-am \
+	install-info install-info-am install-man install-pdf \
+	install-pdf-am install-pkglibPROGRAMS install-ps install-ps-am \
+	install-strip installcheck installcheck-am installdirs \
+	maintainer-clean maintainer-clean-generic mostlyclean \
+	mostlyclean-compile mostlyclean-generic pdf pdf-am ps ps-am \
+	tags uninstall uninstall-am uninstall-binPROGRAMS \
+	uninstall-local uninstall-pkglibPROGRAMS
 
 
 $(PROGRAMS): ../lib/libcoreutils.a
@@ -2807,6 +2864,31 @@ wheel.h: wheel-gen.pl Makefile.am
 	$(AM_V_at)$(srcdir)/wheel-gen.pl $(wheel_size) > $@-t
 	$(AM_V_at)chmod a-w $@-t
 	$(AM_V_at)mv $@-t $@
+
+# Compare fs.h with the list of file system names/magic-numbers in the
+# Linux statfs man page.  This target prints any new name/number pairs.
+# Also compare against /usr/include/linux/magic.h
+.PHONY: fs-magic-compare
+fs-magic-compare: fs-magic fs-kernel-magic fs-def
+	join -v1 -t@ fs-magic fs-def
+	join -v1 -t@ fs-kernel-magic fs-def
+fs-def: fs.h
+	grep '^# *define ' $< > $@-t && mv $@-t $@
+fs-magic: Makefile
+	man statfs \
+          |perl -ne '/File system types:/.../Nobody kno/ and print'	\
+          |grep 0x | perl -p						\
+            $(fs_normalize_perl_subst)					\
+          | grep -Ev 'S_MAGIC_EXT[34]|STACK_END'			\
+          | LC_ALL=C sort						\
+          > $@-t && mv $@-t $@
+fs-kernel-magic: Makefile
+	perl -ne '/^#define.*0x/ and print' /usr/include/linux/magic.h	\
+          | perl -p							\
+            $(fs_normalize_perl_subst)					\
+          | grep -Ev 'S_MAGIC_EXT[34]|STACK_END'			\
+          | LC_ALL=C sort						\
+          > $@-t && mv $@-t $@
 fs.h: stat.c extract-magic
 	$(AM_V_GEN)rm -f $@
 	$(AM_V_at)$(PERL) $(srcdir)/extract-magic $(srcdir)/stat.c > $@t

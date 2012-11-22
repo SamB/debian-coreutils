@@ -110,7 +110,7 @@ main (int argc, char **argv)
                       error (EXIT_FAILURE, 0, _("invalid group %s"),
                              quote (gr));
                     if (n_gids == n_gids_allocated)
-                      gids = x2nrealloc (gids, &n_gids_allocated, sizeof *gids);
+                      gids = X2NREALLOC (gids, &n_gids_allocated);
                     gids[n_gids++] = tmp_ul;
 
                     if (*ptr == '\0')
@@ -181,7 +181,7 @@ main (int argc, char **argv)
       {
         int n = mgetgroups (pwd->pw_name, pwd->pw_gid, &gids);
         if (n <= 0)
-          error (1, errno, _("failed to get groups for user %s"),
+          error (EXIT_FAILURE, errno, _("failed to get groups for user %s"),
                  quote (pwd->pw_name));
         n_gids = n;
       }

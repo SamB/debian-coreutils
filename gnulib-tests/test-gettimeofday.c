@@ -2,7 +2,7 @@
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
 #line 1
 /*
- * Copyright (C) 2005, 2007 Free Software Foundation
+ * Copyright (C) 2005, 2007, 2009 Free Software Foundation
  * Written by Jim Meyering.
  *
  * This program is free software: you can redistribute it and/or modify
@@ -27,7 +27,7 @@
 #include <string.h>
 
 int
-main (int argc, char *argv[])
+main (void)
 {
   time_t t = 0;
   struct tm *lt;

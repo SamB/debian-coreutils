@@ -32,11 +32,18 @@
    non-IEEE-754 'long double' values. */
 #undef CHECK_PRINTF_SAFE
 
+/* Define to 1 if chown fails to change ctime when at least one argument was
+   not -1. */
+#undef CHOWN_CHANGE_TIME_BUG
+
 /* Define if chown is not POSIX compliant regarding IDs of -1. */
 #undef CHOWN_FAILS_TO_HONOR_ID_OF_NEGATIVE_ONE
 
 /* Define if chown modifies symlinks. */
 #undef CHOWN_MODIFIES_SYMLINK
+
+/* Define to 1 if chown mishandles trailing slash. */
+#undef CHOWN_TRAILING_SLASH_BUG
 
 /* Define to one of `_getb67', `GETB67', `getb67' for Cray-2 and Cray-YMP
    systems. This function is required for `alloca.c' support on those systems.
@@ -97,6 +104,10 @@
    language is requested. */
 #undef ENABLE_NLS
 
+/* Define to 1 if your platform has fchownat, but it cannot perform lchown
+   tasks. */
+#undef FCHOWNAT_NOFOLLOW_BUG
+
 /* Define on systems for which file names may have a so-called `drive letter'
    prefix, define this to compute the length of that prefix, including the
    colon. */
@@ -135,6 +146,10 @@
 /* Define to 1 if fopen() fails to recognize a trailing slash. */
 #undef FOPEN_TRAILING_SLASH_BUG
 
+/* Define to 1 if mkdir mistakenly creates a directory given with a trailing
+   dot component. */
+#undef FUNC_MKDIR_DOT_BUG
+
 /* Define to 1 if realpath() can malloc memory, always gives an absolute path,
    and handles trailing slash correctly. */
 #undef FUNC_REALPATH_WORKS
@@ -142,9 +157,16 @@
 /* Define to 1 if ungetc is broken when used on arbitrary bytes. */
 #undef FUNC_UNGETC_BROKEN
 
+/* Define to 1 if futimesat mishandles a NULL file name. */
+#undef FUTIMESAT_NULL_BUG
+
 /* Define to the type of elements in the array set by `getgroups'. Usually
    this is either `int' or `gid_t'. */
 #undef GETGROUPS_T
+
+/* Define this to 1 if getgroups(0,NULL) does not return the number of groups.
+   */
+#undef GETGROUPS_ZERO_BUG
 
 /* Define to 1 if the `getloadavg' function needs to be run setuid or setgid.
    */
@@ -156,6 +178,9 @@
 /* Define to make the limit macros in <stdint.h> visible. */
 #undef GL_TRIGGER_STDC_LIMIT_MACROS
 
+/* Define to 1 when using the gnulib module areadlinkat. */
+#undef GNULIB_AREADLINKAT
+
 /* Define to 1 when using the gnulib module canonicalize. */
 #undef GNULIB_CANONICALIZE
 
@@ -165,14 +190,23 @@
 /* Define to 1 when using the gnulib module dirent-safer. */
 #undef GNULIB_DIRENT_SAFER
 
+/* Define to 1 when using the gnulib module dirname. */
+#undef GNULIB_DIRNAME
+
 /* Define to 1 when using the gnulib module faccessat. */
 #undef GNULIB_FACCESSAT
 
 /* Define to 1 when using the gnulib module fcntl-safer. */
 #undef GNULIB_FCNTL_SAFER
 
+/* Define to 1 when using the gnulib module filenamecat. */
+#undef GNULIB_FILENAMECAT
+
 /* Define to 1 when using the gnulib module fopen-safer. */
 #undef GNULIB_FOPEN_SAFER
+
+/* Define to 1 when using the gnulib module freopen-safer. */
+#undef GNULIB_FREOPEN_SAFER
 
 /* Define to 1 when using the gnulib module fts. */
 #undef GNULIB_FTS
@@ -374,6 +408,9 @@
    libc. */
 #undef HAVE_COPYSIGN_IN_LIBC
 
+/* Define to 1 if you have the <ctype.h> header file. */
+#undef HAVE_CTYPE_H
+
 /* FIXME */
 #undef HAVE_C_LINE
 
@@ -440,10 +477,6 @@
 /* Define to 1 if you have the declaration of `fread_unlocked', and to 0 if
    you don't. */
 #undef HAVE_DECL_FREAD_UNLOCKED
-
-/* Define to 1 if you have the declaration of `free', and to 0 if you don't.
-   */
-#undef HAVE_DECL_FREE
 
 /* Define to 1 if you have the declaration of `freeaddrinfo', and to 0 if you
    don't. */
@@ -545,21 +578,9 @@
    don't. */
 #undef HAVE_DECL_ISBLANK
 
-/* Define to 1 if you have the declaration of `lseek', and to 0 if you don't.
-   */
-#undef HAVE_DECL_LSEEK
-
-/* Define to 1 if you have the declaration of `malloc', and to 0 if you don't.
-   */
-#undef HAVE_DECL_MALLOC
-
 /* Define to 1 if you have a declaration of mbswidth() in <wchar.h>, and to 0
    otherwise. */
 #undef HAVE_DECL_MBSWIDTH_IN_WCHAR_H
-
-/* Define to 1 if you have the declaration of `memchr', and to 0 if you don't.
-   */
-#undef HAVE_DECL_MEMCHR
 
 /* Define to 1 if you have the declaration of `memrchr', and to 0 if you
    don't. */
@@ -580,10 +601,6 @@
 /* Define to 1 if you have the declaration of `putc_unlocked', and to 0 if you
    don't. */
 #undef HAVE_DECL_PUTC_UNLOCKED
-
-/* Define to 1 if you have the declaration of `realloc', and to 0 if you
-   don't. */
-#undef HAVE_DECL_REALLOC
 
 /* Define to 1 if you have the declaration of `setregid', and to 0 if you
    don't. */
@@ -799,6 +816,9 @@
 /* Define to 1 if you have the `getdelim' function. */
 #undef HAVE_GETDELIM
 
+/* Define to 1 if you have the `getegid' function. */
+#undef HAVE_GETEGID
+
 /* Define to 1 if you have the `getgrouplist' function. */
 #undef HAVE_GETGROUPLIST
 
@@ -1001,6 +1021,9 @@
    zero-length file name argument. */
 #undef HAVE_LSTAT_EMPTY_STRING_BUG
 
+/* Define to 1 if you have the `lutimes' function. */
+#undef HAVE_LUTIMES
+
 /* Define to 1 if you have the <machine/hal_sysinfo.h> header file. */
 #undef HAVE_MACHINE_HAL_SYSINFO_H
 
@@ -1186,6 +1209,15 @@
 
 /* Define to 1 if the system has the type `sa_family_t'. */
 #undef HAVE_SA_FAMILY_T
+
+/* Define to 1 if you have the `sched_getaffinity' function. */
+#undef HAVE_SCHED_GETAFFINITY
+
+/* Define to 1 if sched_getaffinity has a glibc compatible declaration. */
+#undef HAVE_SCHED_GETAFFINITY_LIKE_GLIBC
+
+/* Define to 1 if you have the `sched_getaffinity_np' function. */
+#undef HAVE_SCHED_GETAFFINITY_NP
 
 /* Define to 1 if you have the <search.h> header file. */
 #undef HAVE_SEARCH_H
@@ -1606,6 +1638,9 @@
 /* Define to 1 if you have the <sys/ucred.h> header file. */
 #undef HAVE_SYS_UCRED_H
 
+/* Define to 1 if you have the <sys/utsname.h> header file. */
+#undef HAVE_SYS_UTSNAME_H
+
 /* Define to 1 if you have the <sys/vfs.h> header file. */
 #undef HAVE_SYS_VFS_H
 
@@ -1661,6 +1696,9 @@
 
 /* Define to 1 if the system has the type `unsigned long long int'. */
 #undef HAVE_UNSIGNED_LONG_LONG_INT
+
+/* Define to 1 if you have the `usleep' function. */
+#undef HAVE_USLEEP
 
 /* Define to 1 if you have the `utimensat' function. */
 #undef HAVE_UTIMENSAT
@@ -2209,6 +2247,9 @@
 /* Version number of package */
 #undef VERSION
 
+/* Define to 1 if unsetenv returns void instead of int. */
+#undef VOID_UNSETENV
+
 /* Define to l, ll, u, ul, ull, etc., as suitable for constants of type
    'wchar_t'. */
 #undef WCHAR_T_SUFFIX
@@ -2302,11 +2343,14 @@
 /* Define to rpl_calloc if the replacement function should be used. */
 #undef calloc
 
+/* Always use our fgetfilecon wrapper. */
+#undef fgetfilecon
+
 /* Define to a replacement function name for fnmatch(). */
 #undef fnmatch
 
-/* Define as rpl_getgroups if getgroups doesn't work right. */
-#undef getgroups
+/* Always use our getfilecon wrapper. */
+#undef getfilecon
 
 /* Define to a replacement function name for getpass(). */
 #undef getpass
@@ -2341,6 +2385,9 @@
 #if defined __APPLE__ && defined __MACH__ && __APPLE_CC__ >= 5465 && !defined __cplusplus && __STDC_VERSION__ >= 199901L && !defined __GNUC_STDC_INLINE__
 # define __GNUC_STDC_INLINE__ 1
 #endif
+
+/* Always use our lgetfilecon wrapper. */
+#undef lgetfilecon
 
 /* Define to 1 if the compiler is checking for lint. */
 #undef lint
@@ -2470,6 +2517,9 @@
 # define _UNUSED_PARAMETER_
 #endif
 
+
+/* Define to an unsigned 32-bit type if <sys/types.h> lacks this type. */
+#undef useconds_t
 
 /* Define as a macro for copying va_list variables. */
 #undef va_copy

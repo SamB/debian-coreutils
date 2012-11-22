@@ -1,4 +1,4 @@
-# serial 27
+# serial 28
 
 dnl From Jim Meyering.
 dnl Check for the nanosleep function.
@@ -24,9 +24,11 @@ AC_DEFUN([gl_FUNC_NANOSLEEP],
 
  # Solaris 2.5.1 needs -lposix4 to get the nanosleep function.
  # Solaris 7 prefers the library name -lrt to the obsolescent name -lposix4.
+ LIB_NANOSLEEP=
+ AC_SUBST([LIB_NANOSLEEP])
  AC_SEARCH_LIBS([nanosleep], [rt posix4],
                 [test "$ac_cv_search_nanosleep" = "none required" ||
-	         LIB_NANOSLEEP=$ac_cv_search_nanosleep])
+                 LIB_NANOSLEEP=$ac_cv_search_nanosleep])
 
  AC_REQUIRE([gl_MULTIARCH])
  if test $APPLE_UNIVERSAL_BUILD = 1; then
@@ -112,7 +114,6 @@ AC_DEFUN([gl_FUNC_NANOSLEEP],
     gl_PREREQ_NANOSLEEP
   fi
 
- AC_SUBST([LIB_NANOSLEEP])
  LIBS=$nanosleep_save_libs
 ])
 
