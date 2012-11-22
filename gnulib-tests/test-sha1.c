@@ -2,7 +2,7 @@
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
 #line 1
 /*
- * Copyright (C) 2005, 2008 Free Software Foundation
+ * Copyright (C) 2005, 2008, 2009 Free Software Foundation, Inc.
  * Written by Simon Josefsson
  *
  * This program is free software: you can redistribute it and/or modify
@@ -28,8 +28,8 @@
 int
 main (int argc, char *argv[])
 {
-  char *in1 = "abcdefgh";
-  char *out1 = "\x42\x5a\xf1\x2a\x07\x43\x50\x2b"
+  const char *in1 = "abcdefgh";
+  const char *out1 = "\x42\x5a\xf1\x2a\x07\x43\x50\x2b"
     "\x32\x2e\x93\xa0\x15\xbc\xf8\x68\xe3\x24\xd5\x6a";
   char buf[SHA1_DIGEST_SIZE];
 

@@ -24,6 +24,7 @@ root_tests =					\
   cp/preserve-gid				\
   cp/special-bits				\
   cp/cp-mv-enotsup-xattr			\
+  chroot/credentials				\
   dd/skip-seek-past-dev				\
   install/install-C-root			\
   ls/capability					\
@@ -136,6 +137,7 @@ TESTS =						\
   misc/date-next-dow				\
   misc/ptx-overrun				\
   misc/xstrtol					\
+  tail-2/pid					\
   misc/od					\
   misc/mktemp					\
   misc/arch					\
@@ -215,6 +217,7 @@ TESTS =						\
   misc/split-l					\
   misc/stat-fmt					\
   misc/stat-printf				\
+  misc/stdbuf					\
   misc/stty					\
   misc/stty-invalid				\
   misc/stty-row-col				\
@@ -242,6 +245,7 @@ TESTS =						\
   misc/unexpand					\
   misc/uniq					\
   misc/xattr					\
+  tail-2/wait					\
   chmod/c-option				\
   chmod/equal-x					\
   chmod/equals					\
@@ -283,6 +287,7 @@ TESTS =						\
   cp/parent-perm-race				\
   cp/perm					\
   cp/preserve-2					\
+  cp/preserve-slink-time			\
   cp/proc-short-read				\
   cp/proc-zero-len				\
   cp/r-vs-symlink				\
@@ -293,6 +298,7 @@ TESTS =						\
   cp/src-base-dot				\
   cp/symlink-slash				\
   cp/thru-dangling				\
+  dd/direct					\
   dd/misc					\
   dd/not-rewound				\
   dd/reblock					\
@@ -342,10 +348,10 @@ TESTS =						\
   ls/dired					\
   ls/file-type					\
   ls/follow-slink				\
-  ls/hardlink					\
   ls/infloop					\
   ls/inode					\
   ls/m-option					\
+  ls/multihardlink				\
   ls/no-arg					\
   ls/no-cap					\
   ls/proc-selinux-segfault			\

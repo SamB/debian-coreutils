@@ -2,7 +2,7 @@
 # Make sure that `tail -n0 -f' and `tail -c0 -f' sleep
 # rather than doing what amounted to a busy-wait.
 
-# Copyright (C) 2003, 2006-2008 Free Software Foundation, Inc.
+# Copyright (C) 2003, 2006-2009 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -28,12 +28,7 @@ fi
 
 . $srcdir/test-lib.sh
 
-sleep 2 &
-pid=$!
-sleep .5
-grep '^State:[	 ]*[S]' /proc/$pid/status > /dev/null 2>&1 ||
-  skip_test_ "/proc/$pid/status: missing or 'different'"
-kill $pid
+require_proc_pid_status_
 
 touch empty || framework_failure
 echo anything > nonempty || framework_failure
@@ -45,9 +40,7 @@ for file in empty nonempty; do
     tail --sleep=4 -${c_or_n} 0 -f $file &
     pid=$!
     sleep .5
-    set _ `sed -n '/^State:[	 ]*\([^	 ]\)/s//\1/p' /proc/$pid/status`
-    shift # Remove the leading `_'.
-    state=$1
+    state=$(get_process_status_ $pid)
     case $state in
       S*) ;;
       *) echo $0: process in unexpected state: $state 1>&2; fail=1 ;;

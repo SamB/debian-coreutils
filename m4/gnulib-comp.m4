@@ -66,6 +66,7 @@ AC_DEFUN([gl_INIT],
   gl_FUNC_ATEXIT
   gl_BACKUPFILE
   gl_FUNC_BASE64
+  AC_REQUIRE([AC_C_INLINE])
   gl_FUNC_BTOWC
   gl_WCHAR_MODULE_INDICATOR([btowc])
   gl_C_STRTOD
@@ -104,11 +105,11 @@ AC_DEFUN([gl_INIT],
   gl_UNISTD_MODULE_INDICATOR([dup2])
   gl_ENVIRON
   gl_UNISTD_MODULE_INDICATOR([environ])
-  AC_REQUIRE([gl_HEADER_ERRNO_H])
+  gl_HEADER_ERRNO_H
   gl_ERROR
   m4_ifdef([AM_XGETTEXT_OPTION],
-    [AM_XGETTEXT_OPTION([--flag=error:3:c-format])
-     AM_XGETTEXT_OPTION([--flag=error_at_line:5:c-format])])
+    [AM_][XGETTEXT_OPTION([--flag=error:3:c-format])
+     AM_][XGETTEXT_OPTION([--flag=error_at_line:5:c-format])])
   gl_FUNC_EUIDACCESS
   gl_UNISTD_MODULE_INDICATOR([euidaccess])
   gl_EXCLUDE
@@ -135,6 +136,7 @@ AC_DEFUN([gl_INIT],
   gl_FUNC_FPENDING
   gl_FPRINTFTIME
   gl_FUNC_FPURGE
+  gl_STDIO_MODULE_INDICATOR([fpurge])
   gl_FUNC_FREADING
   AC_REQUIRE([AC_C_INLINE])
   gl_FUNC_FREXP_NO_LIBM
@@ -166,7 +168,9 @@ AC_DEFUN([gl_INIT],
   gl_GETLOADAVG([lib])
   gl_STDLIB_MODULE_INDICATOR([getloadavg])
   gl_GETNDELIM2
-  gl_GETOPT
+  gl_FUNC_GETOPT_GNU
+  gl_MODULE_INDICATOR([getopt-gnu])
+  gl_FUNC_GETOPT_POSIX
   gl_FUNC_GETPAGESIZE
   gl_UNISTD_MODULE_INDICATOR([getpagesize])
   gl_FUNC_GETPASS_GNU
@@ -248,6 +252,7 @@ AC_DEFUN([gl_INIT],
   gl_MBITER
   gl_MEMCASECMP
   gl_FUNC_MEMCHR
+  gl_STRING_MODULE_INDICATOR([memchr])
   gl_FUNC_MEMCMP
   gl_MEMCOLL
   gl_FUNC_MEMCPY
@@ -267,7 +272,7 @@ AC_DEFUN([gl_INIT],
   gl_MODECHANGE
   gl_MOUNTLIST
   gl_MPSORT
-  AC_REQUIRE([gl_MULTIARCH])
+  gl_MULTIARCH
   gl_FUNC_NANOSLEEP
   gl_HEADER_NETDB
   gl_HEADER_NETINET_IN
@@ -289,8 +294,8 @@ AC_DEFUN([gl_INIT],
   m4_divert_text([INIT_PREPARE], [gl_printf_safe=yes])
   gl_PRIV_SET
   m4_ifdef([AM_XGETTEXT_OPTION],
-    [AM_XGETTEXT_OPTION([--keyword='proper_name:1,\"This is a proper name. See the gettext manual, section Names.\"'])
-     AM_XGETTEXT_OPTION([--keyword='proper_name_utf8:1,\"This is a proper name. See the gettext manual, section Names.\"'])])
+    [AM_][XGETTEXT_OPTION([--keyword='proper_name:1,\"This is a proper name. See the gettext manual, section Names.\"'])
+     AM_][XGETTEXT_OPTION([--keyword='proper_name_utf8:1,\"This is a proper name. See the gettext manual, section Names.\"'])])
   gl_FUNC_PUTENV
   gl_STDLIB_MODULE_INDICATOR([putenv])
   gl_QUOTE
@@ -320,17 +325,8 @@ AC_DEFUN([gl_INIT],
   gl_SAVEWD
   gl_FUNC_SELECT
   gl_SYS_SELECT_MODULE_INDICATOR([select])
-  # FIXME: put this in an .m4 file?
-  # For runcon.
   AC_CHECK_HEADERS([selinux/flask.h])
   AC_LIBOBJ([selinux-at])
-  gl_save_LIBS=$LIBS
-    LIB_SELINUX=
-    AC_SEARCH_LIBS([setfilecon], [selinux],
-                   [test "$ac_cv_search_setfilecon" = "none required" ||
-                    LIB_SELINUX=$ac_cv_search_setfilecon])
-    AC_SUBST(LIB_SELINUX)
-  LIBS=$gl_save_LIBS
   gl_HEADERS_SELINUX_SELINUX_H
   gl_HEADERS_SELINUX_CONTEXT_H
   AC_REQUIRE([AC_C_INLINE])
@@ -349,12 +345,14 @@ AC_DEFUN([gl_INIT],
   gl_SIZE_MAX
   gl_FUNC_SNPRINTF
   gl_STDIO_MODULE_INDICATOR([snprintf])
+  gl_SOCKETS
   gl_TYPE_SOCKLEN_T
   gt_TYPE_SSIZE_T
   gl_STAT_TIME
   gl_STAT_BIRTHTIME
   gl_STDARG_H
   AM_STDBOOL_H
+  gl_STDDEF_H
   gl_STDINT_H
   gl_STDIO_H
   gl_STDLIB_H
@@ -382,6 +380,8 @@ AC_DEFUN([gl_INIT],
   gl_STRING_MODULE_INDICATOR([strnlen])
   gl_FUNC_STRPBRK
   gl_STRING_MODULE_INDICATOR([strpbrk])
+  gl_FUNC_STRSTR_SIMPLE
+  gl_STRING_MODULE_INDICATOR([strstr])
   gl_FUNC_STRTOD
   gl_STDLIB_MODULE_INDICATOR([strtod])
   gl_FUNC_STRTOIMAX
@@ -426,12 +426,13 @@ AC_DEFUN([gl_INIT],
   gl_FUNC_VASPRINTF
   gl_STDIO_MODULE_INDICATOR([vasprintf])
   m4_ifdef([AM_XGETTEXT_OPTION],
-    [AM_XGETTEXT_OPTION([--flag=asprintf:2:c-format])
-     AM_XGETTEXT_OPTION([--flag=vasprintf:2:c-format])])
+    [AM_][XGETTEXT_OPTION([--flag=asprintf:2:c-format])
+     AM_][XGETTEXT_OPTION([--flag=vasprintf:2:c-format])])
   gl_FUNC_VASPRINTF_POSIX
   m4_ifdef([AM_XGETTEXT_OPTION],
-    [AM_XGETTEXT_OPTION([--flag=verror:3:c-format])
-     AM_XGETTEXT_OPTION([--flag=verror_at_line:5:c-format])])
+    [AM_][XGETTEXT_OPTION([--flag=verror:3:c-format])
+     AM_][XGETTEXT_OPTION([--flag=verror_at_line:5:c-format])])
+  gl_VERSION_ETC
   gl_FUNC_VFPRINTF_POSIX
   gl_STDIO_MODULE_INDICATOR([vfprintf-posix])
   gl_FUNC_VPRINTF_POSIX
@@ -453,10 +454,10 @@ AC_DEFUN([gl_INIT],
   gl_XGETCWD
   gl_XNANOSLEEP
   m4_ifdef([AM_XGETTEXT_OPTION],
-    [AM_XGETTEXT_OPTION([--flag=xprintf:1:c-format])
-     AM_XGETTEXT_OPTION([--flag=xvprintf:1:c-format])
-     AM_XGETTEXT_OPTION([--flag=xfprintf:2:c-format])
-     AM_XGETTEXT_OPTION([--flag=xvfprintf:2:c-format])])
+    [AM_][XGETTEXT_OPTION([--flag=xprintf:1:c-format])
+     AM_][XGETTEXT_OPTION([--flag=xvprintf:1:c-format])
+     AM_][XGETTEXT_OPTION([--flag=xfprintf:2:c-format])
+     AM_][XGETTEXT_OPTION([--flag=xvfprintf:2:c-format])])
   gl_XSIZE
   gl_XSTRNDUP
   gl_XSTRTOD
@@ -464,7 +465,7 @@ AC_DEFUN([gl_INIT],
   gl_XSTRTOLD
   gl_XVASPRINTF
   m4_ifdef([AM_XGETTEXT_OPTION],
-    [AM_XGETTEXT_OPTION([--flag=xasprintf:1:c-format])])
+    [AM_][XGETTEXT_OPTION([--flag=xasprintf:1:c-format])])
   gl_YESNO
   m4_ifval(gl_LIBSOURCES_LIST, [
     m4_syscmd([test ! -d ]m4_defn([gl_LIBSOURCES_DIR])[ ||
@@ -510,6 +511,7 @@ AC_DEFUN([gl_INIT],
     AC_LIBOBJ([accept])
   fi
   gl_SYS_SOCKET_MODULE_INDICATOR([accept])
+  AC_CHECK_DECLS_ONCE([alarm])
   AC_REQUIRE([gl_HEADER_SYS_SOCKET])
   if test "$ac_cv_header_winsock2_h" = yes; then
     AC_LIBOBJ([bind])
@@ -530,6 +532,9 @@ AC_DEFUN([gl_INIT],
   gl_ARPA_INET_MODULE_INDICATOR([inet_pton])
   AC_REQUIRE([gl_HEADER_SYS_SOCKET])
   if test "$ac_cv_header_winsock2_h" = yes; then
+    dnl Even if the 'socket' module is not used here, another part of the
+    dnl application may use it and pass file descriptors that refer to
+    dnl sockets to the ioctl() function. So enable the support for sockets.
     AC_LIBOBJ([ioctl])
     gl_REPLACE_SYS_IOCTL_H
   fi
@@ -555,6 +560,15 @@ AC_DEFUN([gl_INIT],
   gt_LOCALE_ZH_CN
   gt_LOCALE_FR_UTF8
   gt_LOCALE_ZH_CN
+  gl_FUNC_MMAP_ANON
+  AC_CHECK_HEADERS_ONCE([sys/mman.h])
+  AC_CHECK_FUNCS_ONCE([mprotect])
+  gl_FUNC_MMAP_ANON
+  AC_CHECK_HEADERS_ONCE([sys/mman.h])
+  AC_CHECK_FUNCS_ONCE([mprotect])
+  gl_FUNC_MMAP_ANON
+  AC_CHECK_HEADERS_ONCE([sys/mman.h])
+  AC_CHECK_FUNCS_ONCE([mprotect])
   gl_FUNC_PERROR
   gl_STRING_MODULE_INDICATOR([perror])
   gt_LOCALE_FR
@@ -575,13 +589,23 @@ AC_DEFUN([gl_INIT],
   if test "$ac_cv_header_winsock2_h" = yes; then
     AC_LIBOBJ([socket])
   fi
+  # When this module is used, sockets may actually occur as file descriptors,
+  # hence it is worth warning if the modules 'close' and 'ioctl' are not used.
+  m4_ifdef([gl_UNISTD_H_DEFAULTS], [AC_REQUIRE([gl_UNISTD_H_DEFAULTS])])
+  m4_ifdef([gl_SYS_IOCTL_H_DEFAULTS], [AC_REQUIRE([gl_SYS_IOCTL_H_DEFAULTS])])
+  AC_REQUIRE([gl_PREREQ_SYS_H_WINSOCK2])
+  if test "$ac_cv_header_winsock2_h" = yes; then
+    UNISTD_H_HAVE_WINSOCK2_H_AND_USE_SOCKETS=1
+    SYS_IOCTL_H_HAVE_WINSOCK2_H_AND_USE_SOCKETS=1
+  fi
   gl_SYS_SOCKET_MODULE_INDICATOR([socket])
-  gl_SOCKETS
   gt_TYPE_WCHAR_T
   gt_TYPE_WINT_T
   gl_SYS_IOCTL_H
   AC_PROG_MKDIR_P
   AC_CHECK_FUNCS([shutdown])
+  abs_aux_dir=`cd "$ac_aux_dir"; pwd`
+  AC_SUBST([abs_aux_dir])
   abs_aux_dir=`cd "$ac_aux_dir"; pwd`
   AC_SUBST([abs_aux_dir])
   gt_LOCALE_FR
@@ -692,6 +716,7 @@ AC_DEFUN([gl_FILE_LIST], [
   build-aux/gitlog-to-changelog
   build-aux/gnupload
   build-aux/link-warning.h
+  build-aux/update-copyright
   build-aux/useless-if-before-free
   build-aux/vc-list-files
   doc/fdl.texi
@@ -700,6 +725,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/acl-internal.h
   lib/acl.h
   lib/acl_entries.c
+  lib/alignof.h
   lib/alloca.c
   lib/alloca.in.h
   lib/areadlink-with-size.c
@@ -718,6 +744,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/base64.c
   lib/base64.h
   lib/basename.c
+  lib/bitrotate.h
   lib/btowc.c
   lib/c-ctype.c
   lib/c-ctype.h
@@ -804,7 +831,6 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/fprintftime.h
   lib/fpucw.h
   lib/fpurge.c
-  lib/fpurge.h
   lib/freadahead.c
   lib/freadahead.h
   lib/freading.c
@@ -930,8 +956,10 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/memcasecmp.c
   lib/memcasecmp.h
   lib/memchr.c
+  lib/memchr.valgrind
   lib/memchr2.c
   lib/memchr2.h
+  lib/memchr2.valgrind
   lib/memcmp.c
   lib/memcmp2.c
   lib/memcmp2.h
@@ -1068,10 +1096,13 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/sigprocmask.c
   lib/size_max.h
   lib/snprintf.c
+  lib/sockets.c
+  lib/sockets.h
   lib/stat-macros.h
   lib/stat-time.h
   lib/stdarg.in.h
   lib/stdbool.in.h
+  lib/stddef.in.h
   lib/stdint.in.h
   lib/stdio--.h
   lib/stdio-impl.h
@@ -1084,6 +1115,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/stpcpy.c
   lib/stpncpy.c
   lib/str-kmp.h
+  lib/str-two-way.h
   lib/strcspn.c
   lib/strdup.c
   lib/streq.h
@@ -1099,6 +1131,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/strnlen1.c
   lib/strnlen1.h
   lib/strpbrk.c
+  lib/strstr.c
   lib/strtod.c
   lib/strtoimax.c
   lib/strtol.c
@@ -1154,6 +1187,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/version-etc.h
   lib/vfprintf.c
   lib/vprintf.c
+  lib/w32sock.h
   lib/wchar.in.h
   lib/wcrtomb.c
   lib/wctype.in.h
@@ -1370,6 +1404,8 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/mkdir-slash.m4
   m4/mkstemp.m4
   m4/mktime.m4
+  m4/mmap-anon.m4
+  m4/mode_t.m4
   m4/modechange.m4
   m4/mountlist.m4
   m4/mpsort.m4
@@ -1441,6 +1477,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/stat-time.m4
   m4/stdarg.m4
   m4/stdbool.m4
+  m4/stddef_h.m4
   m4/stdint.m4
   m4/stdint_h.m4
   m4/stdio-safer.m4
@@ -1457,6 +1494,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/strndup.m4
   m4/strnlen.m4
   m4/strpbrk.m4
+  m4/strstr.m4
   m4/strtod.m4
   m4/strtoimax.m4
   m4/strtol.m4
@@ -1494,6 +1532,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/vasnprintf.m4
   m4/vasprintf-posix.m4
   m4/vasprintf.m4
+  m4/version-etc.m4
   m4/vfprintf-posix.m4
   m4/visibility.m4
   m4/vprintf-posix.m4
@@ -1519,6 +1558,7 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/locale/fr/LC_MESSAGES/test-quotearg.mo
   tests/locale/fr/LC_MESSAGES/test-quotearg.po
   tests/nan.h
+  tests/test-alignof.c
   tests/test-alloca-opt.c
   tests/test-argmatch.c
   tests/test-argv-iter.c
@@ -1528,6 +1568,7 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-base64.c
   tests/test-binary-io.c
   tests/test-binary-io.sh
+  tests/test-bitrotate.c
   tests/test-btowc.c
   tests/test-btowc1.sh
   tests/test-btowc2.sh
@@ -1542,8 +1583,17 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-copy-acl.c
   tests/test-copy-acl.sh
   tests/test-dirname.c
+  tests/test-dup2.c
   tests/test-environ.c
   tests/test-errno.c
+  tests/test-exclude.c
+  tests/test-exclude1.sh
+  tests/test-exclude2.sh
+  tests/test-exclude3.sh
+  tests/test-exclude4.sh
+  tests/test-exclude5.sh
+  tests/test-exclude6.sh
+  tests/test-exclude7.sh
   tests/test-fcntl.c
   tests/test-fflush.c
   tests/test-fflush2.c
@@ -1552,6 +1602,7 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-file-has-acl.sh
   tests/test-filenamecat.c
   tests/test-filevercmp.c
+  tests/test-fnmatch.c
   tests/test-fpending.c
   tests/test-fpending.sh
   tests/test-fprintf-posix.h
@@ -1580,7 +1631,11 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-gethostname.c
   tests/test-getline.c
   tests/test-getndelim2.c
+  tests/test-getopt.c
+  tests/test-getopt.h
+  tests/test-getopt_long.h
   tests/test-gettimeofday.c
+  tests/test-hash.c
   tests/test-i-ring.c
   tests/test-iconv.c
   tests/test-inttypes.c
@@ -1649,6 +1704,7 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-sockets.c
   tests/test-stat-time.c
   tests/test-stdbool.c
+  tests/test-stddef.c
   tests/test-stdint.c
   tests/test-stdio.c
   tests/test-stdlib.c
@@ -1664,11 +1720,14 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-time.c
   tests/test-u64.c
   tests/test-unistd.c
+  tests/test-update-copyright.sh
   tests/test-vasnprintf.c
   tests/test-vasprintf-posix.c
   tests/test-vasprintf.c
   tests/test-vc-list-files-cvs.sh
   tests/test-vc-list-files-git.sh
+  tests/test-version-etc.c
+  tests/test-version-etc.sh
   tests/test-vfprintf-posix.c
   tests/test-vfprintf-posix.sh
   tests/test-vprintf-posix.c
@@ -1694,6 +1753,7 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/uniwidth/test-uc_width.c
   tests/uniwidth/test-uc_width2.c
   tests/uniwidth/test-uc_width2.sh
+  tests/zerosize-ptr.h
   tests=lib/accept.c
   tests=lib/binary-io.h
   tests=lib/bind.c
@@ -1707,8 +1767,6 @@ AC_DEFUN([gl_FILE_LIST], [
   tests=lib/setsockopt.c
   tests=lib/sleep.c
   tests=lib/socket.c
-  tests=lib/sockets.c
-  tests=lib/sockets.h
   tests=lib/sys_ioctl.in.h
   tests=lib/w32sock.h
   tests=lib/wctob.c

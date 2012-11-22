@@ -33,18 +33,13 @@ gpg_key_ID = B9AB9A16
 # Tests not to run as part of "make distcheck".
 local-checks-to-skip = strftime-check
 
-# The local directory containing the checked-out copy of gnulib used in this
-# release.  Used to get gnulib's SHA1 for the "announcement" target and
-# for signing release tags.
-gnulib_dir = gnulib
-
 # Tools used to bootstrap this package, used for "announcement".
 bootstrap-tools = autoconf,automake,gnulib,bison
 
 # Now that we have better tests, make this the default.
 export VERBOSE = yes
 
-old_NEWS_hash = 2f661e60191e2c52ba73c22e5ac42b79
+old_NEWS_hash = 8ed224902e335a80ec8340cd0d594d7f
 
 # Ensure that the list of O_ symbols used to compute O_FULLBLOCK is complete.
 dd = $(srcdir)/src/dd.c
@@ -104,6 +99,18 @@ sc_root_tests:
 	       exit 1; } || :;						\
 	fi
 
+# Ensure that the syntax_check_exceptions file list in Makefile.am
+# stays in sync with corresponding files in the repository.
+sce = syntax_check_exceptions
+sc_x_sc_dist_check:
+	@test "$$( ($(VC_LIST) | sed -n '/^.x-sc_/p';			\
+		   sed -n '/^$(sce) =[	 ]*\\$$/,/[^\]$$/p'		\
+		     $(srcdir)/Makefile.am				\
+		       | sed 's/^  *//;/^$(sce) =/d'			\
+		       | tr -s '\012\\' '  ' | fmt -1			\
+		   ) | sort | uniq -u)"					\
+	  && { echo 'Makefile.am: $(sce) mismatch' >&2; exit 1; } || :;
+
 headers_with_interesting_macro_defs = \
   exit.h	\
   fcntl_.h	\
@@ -153,8 +160,7 @@ sc_system_h_headers: .re-list
 	@if test -f $(srcdir)/src/system.h; then			\
 	  trap 'rc=$$?; rm -f .re-list; exit $$rc' 0 1 2 3 15;		\
 	  grep -nE -f .re-list						\
-	      $$($(VC_LIST) src |					\
-		 grep -Ev '((copy|system)\.h|parse-gram\.c)$$')		\
+	      $$($(VC_LIST_EXCEPT) | grep '^src/')			\
 	    && { echo '$(ME): the above are already included via system.h'\
 		  1>&2;  exit 1; } || :;				\
 	fi
@@ -168,6 +174,10 @@ sc_sun_os_names:
 
 ALL_RECURSIVE_TARGETS += sc_tight_scope
 sc_tight_scope:
+	@$(MAKE) -C src $@
+
+ALL_RECURSIVE_TARGETS += sc_check-AUTHORS
+sc_check-AUTHORS:
 	@$(MAKE) -C src $@
 
 # Perl-based tests used to exec perl from a #!/bin/sh script.

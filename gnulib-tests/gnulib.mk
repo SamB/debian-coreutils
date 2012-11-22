@@ -64,6 +64,15 @@ EXTRA_DIST += test-file-has-acl.sh test-set-mode-acl.sh test-copy-acl.sh test-fi
 
 ## end   gnulib module acl-tests
 
+## begin gnulib module alignof-tests
+
+TESTS += test-alignof
+check_PROGRAMS += test-alignof
+
+EXTRA_DIST += test-alignof.c
+
+## end   gnulib module alignof-tests
+
 ## begin gnulib module alloca-opt-tests
 
 TESTS += test-alloca-opt
@@ -141,6 +150,14 @@ EXTRA_DIST += bind.c w32sock.h
 EXTRA_libtests_a_SOURCES += bind.c
 
 ## end   gnulib module bind
+
+## begin gnulib module bitrotate-tests
+
+TESTS += test-bitrotate
+check_PROGRAMS += test-bitrotate
+EXTRA_DIST += test-bitrotate.c
+
+## end   gnulib module bitrotate-tests
 
 ## begin gnulib module btowc-tests
 
@@ -224,6 +241,14 @@ EXTRA_DIST += test-dirname.c
 
 ## end   gnulib module dirname-tests
 
+## begin gnulib module dup2-tests
+
+TESTS += test-dup2
+check_PROGRAMS += test-dup2
+EXTRA_DIST += test-dup2.c
+
+## end   gnulib module dup2-tests
+
 ## begin gnulib module environ-tests
 
 TESTS += test-environ
@@ -241,6 +266,24 @@ check_PROGRAMS += test-errno
 EXTRA_DIST += test-errno.c
 
 ## end   gnulib module errno-tests
+
+## begin gnulib module exclude-tests
+
+TESTS += \
+ test-exclude1.sh\
+ test-exclude2.sh\
+ test-exclude3.sh\
+ test-exclude4.sh\
+ test-exclude5.sh\
+ test-exclude6.sh\
+ test-exclude7.sh
+
+TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@'
+check_PROGRAMS += test-exclude
+test_exclude_LDADD = $(LDADD) @LIBINTL@
+EXTRA_DIST += test-exclude.c test-exclude1.sh test-exclude2.sh test-exclude3.sh test-exclude4.sh test-exclude5.sh test-exclude6.sh test-exclude7.sh
+
+## end   gnulib module exclude-tests
 
 ## begin gnulib module fcntl-tests
 
@@ -277,6 +320,14 @@ check_PROGRAMS += test-filevercmp
 EXTRA_DIST += test-filevercmp.c
 
 ## end   gnulib module filevercmp-tests
+
+## begin gnulib module fnmatch-tests
+
+TESTS += test-fnmatch
+check_PROGRAMS += test-fnmatch
+EXTRA_DIST += test-fnmatch.c
+
+## end   gnulib module fnmatch-tests
 
 ## begin gnulib module fpending-tests
 
@@ -412,6 +463,7 @@ EXTRA_DIST += test-getdelim.c
 
 TESTS += test-gethostname
 check_PROGRAMS += test-gethostname
+test_gethostname_LDADD = $(LDADD) @GETHOSTNAME_LIB@
 EXTRA_DIST += test-gethostname.c
 
 ## end   gnulib module gethostname-tests
@@ -434,6 +486,14 @@ EXTRA_DIST += test-getndelim2.c
 
 ## end   gnulib module getndelim2-tests
 
+## begin gnulib module getopt-posix-tests
+
+TESTS += test-getopt
+check_PROGRAMS += test-getopt
+EXTRA_DIST += test-getopt.c test-getopt.h test-getopt_long.h
+
+## end   gnulib module getopt-posix-tests
+
 ## begin gnulib module gettimeofday-tests
 
 TESTS += test-gettimeofday
@@ -442,6 +502,15 @@ check_PROGRAMS += test-gettimeofday
 EXTRA_DIST += test-gettimeofday.c
 
 ## end   gnulib module gettimeofday-tests
+
+## begin gnulib module hash-tests
+
+TESTS += test-hash
+check_PROGRAMS += test-hash
+test_hash_LDADD = $(LDADD) @LIBINTL@
+EXTRA_DIST += test-hash.c
+
+## end   gnulib module hash-tests
 
 ## begin gnulib module i-ring-tests
 
@@ -623,7 +692,7 @@ EXTRA_DIST += test-mbsstr1.c test-mbsstr2.sh test-mbsstr2.c test-mbsstr3.sh test
 
 TESTS += test-memchr
 check_PROGRAMS += test-memchr
-EXTRA_DIST += test-memchr.c
+EXTRA_DIST += test-memchr.c zerosize-ptr.h
 
 ## end   gnulib module memchr-tests
 
@@ -631,7 +700,7 @@ EXTRA_DIST += test-memchr.c
 
 TESTS += test-memchr2
 check_PROGRAMS += test-memchr2
-EXTRA_DIST += test-memchr2.c
+EXTRA_DIST += test-memchr2.c zerosize-ptr.h
 
 ## end   gnulib module memchr2-tests
 
@@ -639,7 +708,7 @@ EXTRA_DIST += test-memchr2.c
 
 TESTS += test-memcmp
 check_PROGRAMS += test-memcmp
-EXTRA_DIST += test-memcmp.c
+EXTRA_DIST += test-memcmp.c zerosize-ptr.h
 
 ## end   gnulib module memcmp-tests
 
@@ -647,7 +716,7 @@ EXTRA_DIST += test-memcmp.c
 
 TESTS += test-memrchr
 check_PROGRAMS += test-memrchr
-EXTRA_DIST += test-memrchr.c
+EXTRA_DIST += test-memrchr.c zerosize-ptr.h
 
 ## end   gnulib module memrchr-tests
 
@@ -835,14 +904,6 @@ EXTRA_libtests_a_SOURCES += socket.c
 
 ## end   gnulib module socket
 
-## begin gnulib module sockets
-
-libtests_a_SOURCES += sockets.h sockets.c
-
-EXTRA_DIST += w32sock.h
-
-## end   gnulib module sockets
-
 ## begin gnulib module sockets-tests
 
 TESTS += test-sockets
@@ -868,6 +929,15 @@ check_PROGRAMS += test-stdbool
 EXTRA_DIST += test-stdbool.c
 
 ## end   gnulib module stdbool-tests
+
+## begin gnulib module stddef-tests
+
+TESTS += test-stddef
+check_PROGRAMS += test-stddef
+
+EXTRA_DIST += test-stddef.c
+
+## end   gnulib module stddef-tests
 
 ## begin gnulib module stdint-tests
 
@@ -956,6 +1026,7 @@ sys/ioctl.h: sys_ioctl.in.h
 	      -e 's|@''NEXT_SYS_IOCTL_H''@|$(NEXT_SYS_IOCTL_H)|g' \
 	      -e 's|@''GNULIB_IOCTL''@|$(GNULIB_IOCTL)|g' \
 	      -e 's|@''SYS_IOCTL_H_HAVE_WINSOCK2_H''@|$(SYS_IOCTL_H_HAVE_WINSOCK2_H)|g' \
+	      -e 's|@''SYS_IOCTL_H_HAVE_WINSOCK2_H_AND_USE_SOCKETS''@|$(SYS_IOCTL_H_HAVE_WINSOCK2_H_AND_USE_SOCKETS)|g' \
 	      -e '/definition of GL_LINK_WARNING/r $(LINK_WARNING_H)' \
 	      < $(srcdir)/sys_ioctl.in.h; \
 	} > $@-t
@@ -1041,6 +1112,14 @@ EXTRA_DIST += uniwidth/test-uc_width.c uniwidth/test-uc_width2.c uniwidth/test-u
 
 ## end   gnulib module uniwidth/width-tests
 
+## begin gnulib module update-copyright-tests
+
+TESTS += test-update-copyright.sh
+TESTS_ENVIRONMENT += PATH='$(abs_aux_dir)'$(PATH_SEPARATOR)"$$PATH"
+EXTRA_DIST += test-update-copyright.sh
+
+## end   gnulib module update-copyright-tests
+
 ## begin gnulib module vasnprintf-tests
 
 TESTS += test-vasnprintf
@@ -1076,6 +1155,16 @@ TESTS_ENVIRONMENT += PATH='$(abs_aux_dir)'$(PATH_SEPARATOR)"$$PATH"
 EXTRA_DIST += test-vc-list-files-git.sh test-vc-list-files-cvs.sh
 
 ## end   gnulib module vc-list-files-tests
+
+## begin gnulib module version-etc-tests
+
+TESTS += test-version-etc.sh
+TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@'
+check_PROGRAMS += test-version-etc
+test_version_etc_LDADD = $(LDADD) @LIBINTL@
+EXTRA_DIST += test-version-etc.c test-version-etc.sh
+
+## end   gnulib module version-etc-tests
 
 ## begin gnulib module vfprintf-posix-tests
 

@@ -2,7 +2,7 @@
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
 #line 1
 /* Test argv iterator
-   Copyright (C) 2008 Free Software Foundation, Inc.
+   Copyright (C) 2008-2009 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@
 #include <string.h>
 
 #define ARRAY_CARDINALITY(Array) (sizeof (Array) / sizeof *(Array))
-#define STREQ(s1, s2) ((strcmp (s1, s2) == 0))
+#define STREQ(s1, s2) (strcmp (s1, s2) == 0)
 #define ASSERT(expr) \
   do                                                                         \
     {                                                                        \
@@ -115,9 +115,3 @@ main ()
 
   return 0;
 }
-
-/*
- * Local variables:
- *  indent-tabs-mode: nil
- * End:
- */
