@@ -1,5 +1,57 @@
 GNU coreutils NEWS                                    -*- outline -*-
 
+* Noteworthy changes in release 7.3 (2009-05-01) [stable]
+
+** Bug fixes
+
+  cp now diagnoses failure to preserve selinux/xattr attributes when
+  --preserve=context,xattr is specified in combination with -a.
+  Also, cp no longer suppresses attribute-preservation diagnostics
+  when preserving SELinux context was explicitly requested.
+
+  ls now aligns output correctly in the presence of abbreviated month
+  names from the locale database that have differing widths.
+
+  ls -v and sort -V now order names like "#.b#" properly
+
+  mv: do not print diagnostics when failing to preserve xattr's on file
+  systems without xattr support.
+
+  sort -m no longer segfaults when its output file is also an input file.
+  E.g., with this, touch 1; sort -m -o 1 1, sort would segfault.
+  [introduced in coreutils-7.2]
+
+** Changes in behavior
+
+  shred, sort, shuf: now use an internal pseudorandom generator by default.
+  This is mainly noticable in shred where the 3 random passes it does by
+  default should proceed at the speed of the disk.  Previously /dev/urandom
+  was used if available, which is relatively slow on GNU/Linux systems.
+
+** Improved robustness
+
+  cp would exit successfully after copying less than the full contents
+  of a file larger than ~4000 bytes from a linux-/proc file system to a
+  destination file system with a fundamental block size of 4KiB or greater.
+  Reading into a 4KiB-or-larger buffer, cp's "read" syscall would return
+  a value smaller than 4096, and cp would interpret that as EOF (POSIX
+  allows this).  This optimization, now removed, saved 50% of cp's read
+  syscalls when copying small files.  Affected linux kernels: at least
+  2.6.9 through 2.6.29.
+  [the optimization was introduced in coreutils-6.0]
+
+** Portability
+
+  df now pre-mounts automountable directories even with automounters for
+  which stat-like syscalls no longer provoke mounting.  Now, df uses open.
+
+  `id -G $USER` now works correctly even on Darwin and NetBSD. Previously it
+  would either truncate the group list to 10, or go into an infinite loop,
+  due to their non-standard getgrouplist implementations.
+  [truncation introduced in coreutils-6.11]
+  [infinite loop introduced in coreutils-7.1]
+
+
 * Noteworthy changes in release 7.2 (2009-03-31) [stable]
 
 ** New features
@@ -37,9 +89,9 @@ GNU coreutils NEWS                                    -*- outline -*-
 
 ** Changes in behavior
 
-  cp,mv,install,cat,split: now read and write a minimum of 32KiB
-  at a time.  This was seen to increase throughput.  Up to 2 times
-  when reading cached files on linux for example.
+  cat,cp,install,mv,split: these programs now read and write a minimum
+  of 32KiB at a time.  This was seen to double throughput when reading
+  cached files on GNU/Linux-based systems.
 
   cp -a now tries to preserve extended attributes (xattr), but does not
   diagnose xattr-preservation failure.  However, cp --preserve=all still does.

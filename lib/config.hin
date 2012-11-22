@@ -1565,14 +1565,8 @@
 /* Define to 1 if you have the `utimensat' function. */
 #undef HAVE_UTIMENSAT
 
-/* Define if utimes accepts a null argument */
-#undef HAVE_UTIMES_NULL
-
 /* Define to 1 if you have the <utime.h> header file. */
 #undef HAVE_UTIME_H
-
-/* Define to 1 if `utime(file, NULL)' sets file's timestamp to the present. */
-#undef HAVE_UTIME_NULL
 
 /* Define to 1 if you have the `utmpname' function. */
 #undef HAVE_UTMPNAME
@@ -1899,6 +1893,10 @@
 /* Define to l, ll, u, ul, ull, etc., as suitable for constants of type
    'ptrdiff_t'. */
 #undef PTRDIFF_T_SUFFIX
+
+/* Define if rename does not work when the destination file exists, as on
+   Windows. */
+#undef RENAME_DEST_EXISTS_BUG
 
 /* Define if rename does not work for source file names with a trailing slash,
    like the one from SunOS 4.1.1_U1. */
@@ -2304,9 +2302,6 @@
 # define _UNUSED_PARAMETER_
 #endif
 
-
-/* Define to rpl_utime if the replacement function should be used. */
-#undef utime
 
 /* Define as a macro for copying va_list variables. */
 #undef va_copy

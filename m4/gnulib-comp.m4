@@ -241,6 +241,8 @@ AC_DEFUN([gl_INIT],
   gl_FUNC_MBSINIT
   gl_WCHAR_MODULE_INDICATOR([mbsinit])
   gl_STRING_MODULE_INDICATOR([mbslen])
+  gl_FUNC_MBSRTOWCS
+  gl_WCHAR_MODULE_INDICATOR([mbsrtowcs])
   gl_STRING_MODULE_INDICATOR([mbsstr])
   gl_MBSWIDTH
   gl_MBITER
@@ -417,7 +419,6 @@ AC_DEFUN([gl_INIT],
   gl_STDLIB_MODULE_INDICATOR([unsetenv])
   gl_SYS_PROC_UPTIME
   gl_USERSPEC
-  gl_FUNC_UTIME
   gl_UTIMECMP
   gl_UTIMENS
   gl_FUNC_VASNPRINTF
@@ -547,6 +548,10 @@ AC_DEFUN([gl_INIT],
   gt_LOCALE_ZH_CN
   gt_LOCALE_TR_UTF8
   gt_LOCALE_FR_UTF8
+  gt_LOCALE_FR
+  gt_LOCALE_FR_UTF8
+  gt_LOCALE_JA
+  gt_LOCALE_ZH_CN
   gt_LOCALE_FR_UTF8
   gt_LOCALE_ZH_CN
   gl_FUNC_PERROR
@@ -908,9 +913,13 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/mbiter.h
   lib/mbrlen.c
   lib/mbrtowc.c
+  lib/mbsalign.c
+  lib/mbsalign.h
   lib/mbscasecmp.c
   lib/mbsinit.c
   lib/mbslen.c
+  lib/mbsrtowcs-state.c
+  lib/mbsrtowcs.c
   lib/mbsstr.c
   lib/mbswidth.c
   lib/mbswidth.h
@@ -1127,7 +1136,6 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/unsetenv.c
   lib/userspec.c
   lib/userspec.h
-  lib/utime.c
   lib/utimecmp.c
   lib/utimecmp.h
   lib/utimens.c
@@ -1340,6 +1348,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/mbrlen.m4
   m4/mbrtowc.m4
   m4/mbsinit.m4
+  m4/mbsrtowcs.m4
   m4/mbstate_t.m4
   m4/mbswidth.m4
   m4/md5.m4
@@ -1475,10 +1484,8 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/uptime.m4
   m4/userspec.m4
   m4/utimbuf.m4
-  m4/utime.m4
   m4/utimecmp.m4
   m4/utimens.m4
-  m4/utimes-null.m4
   m4/utimes.m4
   m4/vasnprintf.m4
   m4/vasprintf-posix.m4
@@ -1593,6 +1600,11 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-mbscasecmp.sh
   tests/test-mbsinit.c
   tests/test-mbsinit.sh
+  tests/test-mbsrtowcs.c
+  tests/test-mbsrtowcs1.sh
+  tests/test-mbsrtowcs2.sh
+  tests/test-mbsrtowcs3.sh
+  tests/test-mbsrtowcs4.sh
   tests/test-mbsstr1.c
   tests/test-mbsstr2.c
   tests/test-mbsstr2.sh
@@ -1645,6 +1657,7 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-sys_stat.c
   tests/test-sys_time.c
   tests/test-time.c
+  tests/test-u64.c
   tests/test-unistd.c
   tests/test-vasnprintf.c
   tests/test-vasprintf-posix.c
@@ -1695,4 +1708,5 @@ AC_DEFUN([gl_FILE_LIST], [
   tests=lib/w32sock.h
   tests=lib/wctob.c
   top/GNUmakefile
+  top/maint.mk
 ])

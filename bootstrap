@@ -231,11 +231,11 @@ fi
 # version formats or redundant trailing .0 in bootstrap.conf.
 # If we did want full compatibility then we should probably
 # use m4_version_compare from autoconf.
-sort_ver() { #sort -V is not generally available
+sort_ver() { # sort -V is not generally available
   ver1="$1"
   ver2="$2"
 
-  #split on '.' and compare each component
+  # split on '.' and compare each component
   i=1
   while : ; do
     p1=$(echo "$ver1" | cut -d. -f$i)
@@ -247,11 +247,11 @@ sort_ver() { #sort -V is not generally available
       echo "$2 $1"
       break
     elif [ ! "$p1" = "$p2" ]; then
-      if [ "$p1" -gt "$p2" ] 2>/dev/null; then #numeric comparision
+      if [ "$p1" -gt "$p2" ] 2>/dev/null; then # numeric comparison
         echo "$2 $1"
-      elif [ "$p2" -gt "$p1" ] 2>/dev/null; then #numeric comparision
+      elif [ "$p2" -gt "$p1" ] 2>/dev/null; then # numeric comparison
         echo "$1 $2"
-      else #numeric, then lexographic comparison
+      else # numeric, then lexicographic comparison
         lp=$(printf "$p1\n$p2\n" | LANG=C sort -n | tail -n1)
         if [ "$lp" = "$p2" ]; then
           echo "$1 $2"
@@ -308,7 +308,7 @@ print_versions() {
   echo "----------------------"
   printf "$buildreq"
   echo "----------------------"
-  #can't depend on column -t
+  # can't depend on column -t
 }
 
 if ! printf "$buildreq" | check_versions; then
@@ -359,8 +359,8 @@ case ${GNULIB_SRCDIR--} in
 
     trap cleanup_gnulib 1 2 13 15
 
-    git clone --help|grep depth > /dev/null && depth='--depth 2' || depth=
-    git clone $depth git://git.sv.gnu.org/gnulib ||
+    git clone --help|grep depth > /dev/null && shallow='--depth 2' || shallow=
+    git clone $shallow git://git.sv.gnu.org/gnulib ||
       cleanup_gnulib
 
     trap - 1 2 13 15
@@ -686,12 +686,6 @@ find "$m4_base" "$source_base" \
   -depth \( -name '*.m4' -o -name '*.[ch]' \) \
   -type l -xtype l -delete > /dev/null 2>&1
 
-# Use automake's --silent-rules option, if possible.
-automake="${AUTOMAKE-automake} --add-missing --copy --force-missing"
-(${AUTOMAKE-automake} --help) 2>&1 \
-    | grep -e '^  *--silent-rules' > /dev/null \
-  && automake="$automake --silent-rules"
-
 # Reconfigure, getting other files.
 
 for command in \
@@ -699,7 +693,7 @@ for command in \
   "${ACLOCAL-aclocal} --force -I m4" \
   "${AUTOCONF-autoconf} --force" \
   "${AUTOHEADER-autoheader} --force" \
-  "$automake"
+  "${AUTOMAKE-automake} --add-missing --copy --force-missing"
 do
   if test "$command" = libtool; then
     use_libtool=0

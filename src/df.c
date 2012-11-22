@@ -1,5 +1,5 @@
 /* df - summarize free disk space
-   Copyright (C) 91, 1995-2008 Free Software Foundation, Inc.
+   Copyright (C) 91, 1995-2009 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -70,7 +70,7 @@ static bool file_systems_processed;
 /* If true, invoke the `sync' system call before getting any usage data.
    Using this option can make df very slow, especially with many or very
    busy disks.  Note that this may make a difference on some systems --
-   SunOS 4.1.3, for one.  It is *not* necessary on Linux.  */
+   SunOS 4.1.3, for one.  It is *not* necessary on GNU/Linux.  */
 static bool require_sync;
 
 /* Desired exit status.  */
@@ -988,17 +988,21 @@ main (int argc, char **argv)
     {
       int i;
 
-      /* stat all the given entries to make sure they get automounted,
-	 if necessary, before reading the file system table.  */
+      /* Open each of the given entries to make sure any corresponding
+	 partition is automounted.  This must be done before reading the
+	 file system table.  */
       stats = xnmalloc (argc - optind, sizeof *stats);
       for (i = optind; i < argc; ++i)
 	{
-	  if (stat (argv[i], &stats[i - optind]))
+	  int fd = open (argv[i], O_RDONLY | O_NOCTTY);
+	  if (fd < 0 || fstat (fd, &stats[i - optind]))
 	    {
 	      error (0, errno, "%s", quote (argv[i]));
 	      exit_status = EXIT_FAILURE;
 	      argv[i] = NULL;
 	    }
+	  if (0 <= fd)
+	    close (fd);
 	}
     }
 

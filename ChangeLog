@@ -1,4 +1,505 @@
+2009-05-01  Jim Meyering  <meyering@redhat.com>
+
+	version 7.3
+	* NEWS: Record release date.
+
+	maint: tweak release-building notes
+	* README-release: Specify -j1 on the command to run all tests.
+	Otherwise, running some in parallel would cause failures, e.g.,
+	for rm/ext3-perf and tail-2/assert-2.
+
+2009-05-01  Eric Blake  <ebb9@byu.net>
+
+	stdopen: remove unused code
+	* m4/stdopen.m4: Delete now-unused file.
+	* lib/stdopen.h: Likewise.
+	* lib/stdopen.c: Likewise.
+
+2009-04-30  Jim Meyering  <meyering@redhat.com>
+
+	build: update from gnulib, for fixed lib/signbitl.c
+	* gnulib: Update submodule to latest.
+
+	build: "make check" now fails in a friendlier manner for missing Perl
+	* doc/Makefile.am (sc-lower-case-var): Don't redirect stderr of
+	$(PERL) (which is sometimes build-aux/missing) to /dev/null,
+	so that a failing "make check" explains that Perl is not installed.
+	Reported by James Youngman.
+
+	build: doc: emit something for each "make check"-run rule
+	* doc/Makefile.am: Use $(AM_V_GEN) in place of each leading "@".
+	(check-texinfo): Align line-continuation backslashes.
+
+2009-04-29  Jim Meyering  <meyering@redhat.com>
+
+	build: update from gnulib, for the lib/*-state.c compilation fixes
+	* gnulib: Update submodule to latest.
+
+2009-04-28  Pádraig Brady  <P@draigBrady.com>
+
+	misc: correct NEWS entry about id -G portability
+	* NEWS (Portability): getgrouplist has the portability issues,
+	not getgroups.
+
+2009-04-28  Jim Meyering  <meyering@redhat.com>
+
+	df: adjust comment to match recent code change
+	* src/df.c (main): Update comment to match.
+
+	misc: mention the df vs. automount change
+	* NEWS (Portability): Mention that df now accommodates the new
+	behavior of some automounters.
+
+	misc: alphabetize NEWS entries
+
+2009-04-28  Tomas Smetana  <t.smetana@gmail.com>
+
+	df: use open(2), not stat, to trigger automounting
+	* src/df.c (main): When iterating over command-line arguments,
+	attempting to ensure each backing file system is mounted, use
+	open, not stat.  stat is no longer sufficient to trigger
+	automounting, in some cases.  Based on a suggestion from Ian Kent.
+	More details in http://bugzilla.redhat.com/497830
+
+2009-04-28  Ondřej Vašík  <ovasik@redhat.com>
+
+	tests: ensure that cp's -a doesn't silence --preserve=context
+	* tests/cp/cp-a-selinux: Ensure that the -a option does not silence
+	error diagnostics from --preserve=context, when preserving context
+	is required.
+
+	tests: add test for xattr diagnostics on dest. FS lacking xattr support
+	* tests/cp/cp-mv-enotsup-xattr: Ensure that xattr diagnostics are
+	displayed correctly when destination filesystem lacks xattr support.
+	* tests/Makefile.am (root_tests): Add new root-only test.
+
+2009-04-27  Jim Meyering  <meyering@redhat.com>
+
+	copy.c: factor out test for errno value indicating "unsupported"
+	* src/copy.c (errno_unsupported): New function.
+	(copy_attr_error, copy_internal): Use it.
+
+2009-04-27  Ondřej Vašík  <ovasik@redhat.com>
+
+	cp -a: diagnose failure when preserving xattr/context required
+	* src/copy.c (copy_attr_by_fs): Always print diagnostics when preserving
+	xattrs is required.
+	(copy_attr_by_name): Likewise.
+	(copy_reg): Always print diagnostics when preserving SELinux
+	context is required.
+	(copy_internal): Likewise.  Also, do not ignore ENOTSUP and ENODATA
+	errors when preserving SELinux context is required.
+	* NEWS (Bug fixes): Mention it.
+
+	mv: ignore xattr-preservation failure when not supported by filesystem
+	*src/copy.c: Do not warn about xattr-preservation failure when xattrs
+	are not supported and preservation of xattrs is not explicitly required.
+	Reported by Eric Sandeen in http://bugzilla.redhat.com/496142
+
+2009-04-25  Jim Meyering  <meyering@redhat.com>
+
+	build: update from gnulib, for the vc-list-files fix
+	* gnulib: Update submodule to latest.
+
+	build: adjust use of automake's new $(AM_V_GEN) variable
+	* src/Makefile.am (dircolors.h, wheel-size.h, wheel.h, fs.h):
+	(version.c, version.h): Use $(AM_V_GEN) only as a prefix of an existing
+	command.  Otherwise, it provokes warnings from some "make" programs.
+	Suggestion from Ralf Wildenhues.
+
+2009-04-25  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+
+	tests: fix check-AUTHORS skip logic
+	* src/Makefile.am (check-AUTHORS): When this test is skipped, be
+	sure to avoid all commands in the recipe, not just those passed
+	to the first shell.
+
+2009-04-25  Eric Blake  <ebb9@byu.net>
+
+	cfg.mk: update to latest gnulib change
+	* cfg.mk (bootstrap-tools): Override maint.mk default to include
+	bison.
+	* gnulib: Update to latest gnulib.
+
+2009-04-24  Jim Meyering  <meyering@redhat.com>
+
+	build: move coreutils-specific rules from maint.mk to new file
+	* dist-check.mk: New file: coreutils-specific rules extracted
+	from maint.mk, now that maint.mk has migrated to gnulib.
+	* Makefile.am (EXTRA_DIST): Add dist-check.mk.
+	* coreutils/cfg.mk: Include $(srcdir)/dist-check.mk.
+	* gnulib: Update submodule to latest.
+
+	tests: avoid unusual (~1-in-20) failure of a new test
+	* tests/misc/sort: Remove one of the generated tests.
+	363 remain in this file alone.
+
+	build: use automake's new $(AM_V_GEN) and $(AM_V_at) variables
+	* src/Makefile.am (dircolors.h, wheel-size.h, wheel.h, fs.h):
+	(version.c, version.h): Mark with $(AM_V_GEN) and $(AM_V_at),
+	so that the latest automake prints "GEN $@" by default.
+
+2009-04-24  Simon Josefsson  <simon@josefsson.org>
+
+	build: use maint.mk from gnulib
+	* maint.mk: Remove file.  Now it's generated.
+	* .gitignore: Ignore it.
+	* bootstrap.conf (gnulib_modules): Add maintainer-makefile.
+	* gnulib: Update submodule to latest.
+
+2009-04-23  Jim Meyering  <meyering@redhat.com>
+
+	build: make --enable-silent-rules the default
+	* configure.ac (AM_INIT_AUTOMAKE): Remove silent-rules.  Instead,...
+	(AM_SILENT_RULES): Use this, with it's undocumented [yes] argument.
+	Those who want verbose build output may configure with
+	--disable-silent-rules or use "make V=1".
+
+	* gnulib: Update submodule to latest.
+
+	sort -m: don't segfault when output file is also an input file
+	* src/sort.c (avoid_trashing_input): Fix an off-by-one error and
+	guard the use of memmove.
+	* NEWS (Bug fixes): Mention it.
+	* tests/misc/sort: Add tests to exercise the offending code.
+	* THANKS: Update.
+	Reported by Otavio Salvador in http://bugs.debian.org/525048.
+
+	tests: make the check-AUTHORS test more portable, now that it's...
+	run as part of "make check".
+	* src/Makefile.am (check-AUTHORS): Don't depend on en_US.UTF-8.
+	Instead, use the French UTF8 locale, if configure found one.
+	If not found, just skip the test.
+
+	avoid parallel "make distcheck" failure due to two run-in-src/ rules
+	Move the check-AUTHORS rule from "syntax-check" to "check".
+	* maint.mk (local-checks-available): Remove check-AUTHORS.
+	(check-AUTHORS): Remove rule.
+	* src/Makefile.am (CLEANFILES): Add $(no_install__progs),
+	since they too are built sometimes.
+	(check-AUTHORS): Split a longer-than-80 sed command.
+	(../AUTHORS): Remove obsolete rule.
+
+2009-04-22  Jim Meyering  <meyering@redhat.com>
+
+	cp: work around linux kernel bug: short-read != EOF on /proc
+	Remove the optimization that avoided up to 50% of cp's read syscalls.
+	Do not assume that a short read on a regular file indicates EOF.
+	When reading from a file in /proc on linux [at least 2.6.9 - 2.6.29]
+	into a 4k-byte buffer or larger, a short read does not
+	always indicate EOF.  For example, "cp /proc/slabinfo /tmp"
+	copies only 4068 of the total 7493 bytes.  This optimization
+	(25719a33154f0c62ea9881f0c79ae312dd4cec7a, Improve performance a bit
+	by optimizing away; 2005-11-24) appears to have been worth less than
+	a 2% speed-up (and usually much less), so the impact of removing it
+	is negligible.
+
+	* src/copy.c (copy_reg): Don't exit the loop early.
+	* tests/cp/proc-short-read: New test, lightly based on a suggestion
+	from Mike Frysinger, to exercise this fix.
+	* tests/Makefile.am (TESTS): Add cp/proc-short-read.
+	* NEWS (Improve robustness): Mention this change.
+
+	tests: avoid new "make distcheck" failure due to newer File::Temp
+	With newer perl (e.g., Fedora 10's 4:5.10.0-68.fc10), tests/CuTmpdir.pm
+	stopped removing its temporary directories, with diagnostics like this:
+	  cannot remove path when cwd is /c/coreutils/tests/misc/seq.tmp-e2up \
+	  for /c/coreutils/tests/misc/seq.tmp-e2up: at \
+	  /usr/lib/perl5/5.10.0/File/Temp.pm line 902
+	Chdir out of the target directory before that code runs:
+	* tests/CuTmpdir.pm (END): chdir '..'.
+	(chmod_tree): Remove explicit "chdir $dir".
+
+2009-04-19  Jim Meyering  <meyering@redhat.com>
+
+	doc: update README
+	* README: (Reporting bugs): List the bug-reporting address here, too,
+	not just in the following more test-oriented paragraph.
+	Reported by Tim Mooney.
+	All changes are no longer listed in version-controlled ChangeLog
+	files, so note that contributions are attributed in the commit logs.
+	Mention bootstrap.conf, now that it's the authoritative source of
+	minimal prerequisite program/version# pairs.
+
+2009-04-19  Aurelien Jarno  <aurelien@aurel32.net>
+
+	tests: avoid failure of install-C test on FreeBSD UFS file system
+	* tests/install/install-C: Use 2755 (set-gid), not 1755 (sticky),
+	to test install -C with non-permission mode bits set.  At least on
+	FreeBSD with a UFS file system, a non-root user may not set the
+	sticky bit on a non-directory.
+
+2009-04-19  Jim Meyering  <meyering@redhat.com>
+
+	comment touch up: insert a space between "#" and text of comment
+	* bootstrap: It's easier to read that way.
+
+2009-04-19  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+
+	fix comment typos
+	* bootstrap: Fix comment typos.
+	* src/pr.c: Likewise.
+
+2009-04-17  Jim Meyering  <meyering@redhat.com>
+
+	maint: bootstrap: sync a tiny change from gnulib
+	* bootstrap: rename variable to sync with gnulib: s/\$depth/$shallow/
+
+2009-04-16  Jim Meyering  <meyering@redhat.com>
+
+	* gnulib: Update submodule to latest.
+
+	build: use '.'-relative name, gnulib_dir
+	* cfg.mk (gnulib_dir): Use "gnulib", not "/gnulib", now that
+	the former is a git submodule, and guaranteed to exist.
+
+2009-04-15  Jim Meyering  <meyering@redhat.com>
+
+	maint: clean up skipped syntax-check rules
+	* cfg.mk (local-checks-to-skip): Remove patch-check and changelog-check.
+	* maint.mk (patch-check): Remove rule.
+	(local-checks-available): Remove patch-check.
+	(changelog-check): Remove rule.
+
+2009-04-11  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+
+	build: avoid parallel distcheck failure
+	* Makefile.am (ALL_RECURSIVE_TARGETS): Initialize here, too,
+	to please automake.  Add install-root, check-root, distcheck-hook.
+	* cfg.mk (ALL_RECURSIVE_TARGETS): Add sc_tight_scope.
+	* maint.mk (ALL_RECURSIVE_TARGETS): Add patch-check,
+	check-AUTHORS, maintainer-distcheck, vc-dist, taint-distcheck,
+	my-distcheck, alpha, beta, major.
+
+2009-04-10  Jim Meyering  <meyering@redhat.com>
+
+	doc: fix a typo: s/is a is a/is a/
+	* doc/coreutils.texi (Putting the tools together): Fix typo.
+
+	build: tight-scope test: don't build excluded programs
+	* src/Makefile.am (sc_tight_scope): Depend on $(bin_PROGRAMS),
+	not $(all_programs)
+
+	gnulib: update to latest: fix ls -v & sort -V
+	* NEWS (Bug fixes): Mention it.
+
+	maint: remove obsolete utime module
+	* bootstrap.conf (obsolete_gnulib_modules): Remove utime.
+
+	maint: put each module name on its own line; sort
+	* bootstrap.conf (gnulib_modules): List them one per line.
+
+2009-04-09  Jim Meyering  <meyering@redhat.com>
+
+	tests: misc/ls-misc: avoid shadowing local decl of $e
+	* tests/misc/ls-misc (make_j_d): Rename latter $e to $env
+
+2009-04-09  Pádraig Brady  <P@draigBrady.com>
+
+	id: fix infinite loop on some systems
+	Steven Parkes reported that `id -G $USER` went into an infinite loop
+	on Darwin systems for users in more than 10 groups:
+	http://bugs.gentoo.org/show_bug.cgi?id=264007
+	* gl/lib/mgetgroups.c (mgetgroups): Work around buggy getgrouplist
+	implementations that don't update the required size correctly,
+	by doubling the result buffer and retrying. Also return the
+	parameter updated by getgrouplist rather than its return value,
+	as the documentation doesn't actually state the number of groups
+	stored is returned by getgrouplist.
+	* tests/misc/id-groups: Add test to exercise this logic
+	* tests/Makefile.am: Reference new test
+	* NEWS: Mention the fix
+	* THANKS: Update
+
+2009-04-07  Jim Meyering  <meyering@redhat.com>
+
+	maint: avoid "make syntax-check" failure
+	* src/install.c (main): Tweak syntax of new diagnostic.
+
+2009-04-07  Pádraig Brady  <P@draigBrady.com>
+
+	install: deprecate the --preserve_context option
+	src/install.c: Print a warning when --preserve_context
+	rather than --preserve-context is used as per FIXME.
+
+	maint: remove compiler warnings from randint and randread modules
+	* gl/lib/randint.c: Remove unused MAX macro
+	* gl/lib/randread.c (randread_error): Add __attribute__((__noreturn__))
+
+	shred,sort,shuf: don't use /dev/urandom by default
+	Suggestion from Steven Schveighoffer at:
+	http://savannah.gnu.org/patch/?6797
+	to greatly speed up the random passes done by shred.
+	* gl/lib/randread.c: Default to using the internal
+	pseudorandom generator, rather than reading /dev/urandom
+	* src/shred.c (usage): remove mention of /dev/urandom
+	* src/shuf.c (usage); ditto
+	* src/sort.c (usage): ditto
+	* doc/coreutils.text: Document the new behaviour
+	for aquiring random data.
+
+	maint: Clarify ambiguous refs to Linux kernels or GNU/Linux systems
+	* README-prereq: s_linux_GNU/Linux_ or s_linux_Linux kernel_
+	* README-valgrind: ditto
+	* src/chown-core.c: ditto
+	* src/dd.c: ditto
+	* src/df.c: ditto
+	* src/ls.c: ditto
+	* src/mv.c: ditto
+	* src/pwd.c: ditto
+	* src/remove.c: ditto
+	* src/shred.c: ditto
+	* src/stat.c: ditto
+	* src/su.c: ditto
+	* src/system.h: ditto
+	* src/timeout.c: ditto
+	* src/truncate.c: ditto
+
+	doc: add missing documentation for some SELinux options
+	* doc/coreutils.texi (ls invocation): Describe the --context (-Z) option
+	(install invocation): Describe the --preserve-context and -Z options
+	(id invocation): Describe the --context (-Z) option
+	(mkdir invocation): ditto
+	(mknod invocation): ditto
+	(mkfifo invocation): ditto
+	* TODO: remove the todo item
+
+2009-04-06  Jim Meyering  <meyering@redhat.com>
+
+	* doc/code-vs-command: Remove long-unused, never-distributed file.
+
+2009-04-04  Jim Meyering  <meyering@redhat.com>
+
+	gnulib: update to latest: includes Solaris 8 portability fixes
+
+	maint: clean up Makefile.am, rename remaining ChangeLog files
+	* Makefile.am (changelog_etc, syntax_check_exceptions): Define.
+	(EXTRA_DIST): Use.  Remove names that are now automatically
+	included: build-aux/git-version-gen, build-aux/vc-list-files.
+	* build-aux/ChangeLog-2007: Rename from */ChangeLog.
+	* doc/ChangeLog-2007: Likewise.
+	* lib/ChangeLog-2007: Likewise.
+	* m4/ChangeLog-2007: Likewise.
+	* po/ChangeLog-2007: Likewise.
+
+	tests: tweak po_check syntax check
+	* maint.mk (sc_po_check): Don't let dangling lib/*.[ch] links cause
+	spurious "grep: lib/file.h: No such file or directory" warnings.
+
+	tests: improve ChangeLog syntax check
+	* maint.mk (sc_changelog): Use $(VC_LIST_EXCEPT), not find.
+	Don't hang when there are no ChangeLog files.
+	(sc_require_config_h): For the file-name-filter, use grep -l
+	to be slightly more efficient.
+	(sc_require_config_h_first, _header_without_use, sc_program_name):
+	Likewise.
+
+2009-04-04  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+
+	tests: make syntax-checks more robust
+	* maint.mk (_prohibit_regexp): Add ';' at end of ':'-introduced
+	comment so that the comment doesn't gobble up the following test
+	for a missing regexp definition.
+	(_header_without_use): Escape all '.'s in a header file name,
+	not just the first one.
+
+2009-04-03  Jim Meyering  <meyering@redhat.com>
+
+	* cfg.mk (old_NEWS_hash): Regenerate once more.
+
+	doc: adjust 7.2 "cat,cp,install,mv,split speed-up" NEWS item
+	* NEWS: Reword an entry from 7.2 and change "linux" to "GNU/Linux".
+	The latter was requested by Richard Stallman.
+	* cfg.mk (old_NEWS_hash): Regenerate.
+
+2009-04-03  Pádraig Brady  <P@draigBrady.com>
+
+	ls: fix alignment when month names have varying widths
+	Reported by Samuel Thibault and Stéphane Raimbault, as the glibc fr_FR
+	locale has recently changed to use the official but variable width
+	abbreviated month names. Other glibc locales also have variable widths.
+	http://sourceware.org/ml/libc-locales/2008-q1/msg00035.html
+	http://sourceware.org/bugzilla/show_bug.cgi?id=9859
+	* NEWS: Mention the fix
+	* gl/lib/mbsalign.c: A new module to align and truncate a
+	string in a specified number of screen cells, while handling
+	multi-byte characters appropriately.
+	* gl/lib/mbsalign.h: Ditto
+	* gl/modules/mbsalign: Ditto
+	* bootstrap.conf: Reference the new module
+	* src/ls.c (abmon_init): New function, precompute the abbreviated
+	months aligned left in a minimum width column <= 5 screen cells.
+	(align_nstrftime): New function, replace the first %b in the
+	format specification to strftime with the precomputed month string.
+	Note using the cached month strings speeds up `ls -lU` by around 17%
+	on glibc-2.7-2 on linux at least.  Also if we implement this function
+	using heap storage rather than automatic storage, and use snprintf
+	instead of strcpy, ls will slow down by 2% and 1% respectively
+	(i.e. a net gain of 14% rather than 17%).
+	* tests/ls/abmon-align: A new test to test ls alignment for
+	various formats and locales
+	* tests/Makefile.am: Reference the new test
+
+2009-04-02  Pádraig Brady  <P@draigBrady.com>
+
+	doc: Clarify the help for version sorting in ls and sort
+	* src/ls.c: Update the -v help description
+	* src/sort.c: Update the -V help description
+
+2009-04-02  Jim Meyering  <meyering@redhat.com>
+
+	doc: adjust README-prereq instructions
+	* README-prereq: Reverse order of -b/--track options.
+	 Pádraig Brady mentioned that is required with at least git-1.5.3.6.
+	Invoke automake's own bootstrap script.
+
+2009-04-02  C de-Avillez  <hggdh2@gmail.com>
+
+	build: require automake-1.10b or newer
+	* bootstrap.conf: Require at least automake-1.10b.
+	* README-prereq: Mention 1.10b, not 1.10a.
+
+2009-04-02  Jim Meyering  <meyering@redhat.com>
+
+	tests: skip mv/i-3 if /dev/stdin is unreadable
+	* tests/mv/i-3: Skip if /dev/stdin is unreadable.
+	Reported by Sergei Steshenko.
+
 2009-03-31  Jim Meyering  <meyering@redhat.com>
+
+	build: set automake's silent-rules option via configure.ac
+	* bootstrap: Revert commit 9f39fa855, 2009-03-28,
+	"build: use automake's --silent-rules option when possible".
+	* configure.ac (AM_INIT_AUTOMAKE): Instead, set it here.
+	Require the just-released version of automake: 1.10b.
+
+	tests: enable automake's color-tests and parallel-tests via configure.ac
+	* gnulib-tests/Makefile.am (AUTOMAKE_OPTIONS): Don't define here.
+	* tests/Makefile.am (AUTOMAKE_OPTIONS): Likewise.
+	* configure.ac (AM_INIT_AUTOMAKE): Instead, add color-tests and
+	parallel-tests here.
+
+2009-03-31  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+
+	build: use Automake's new parallel-tests feature
+	* build-aux/check.mk: Remove, not needed any more.
+	* tests/Makefile.am (AUTOMAKE_OPTIONS): Add parallel-tests and
+	color-tests.
+	* tests/check.mk: Do not include build-aux/check.mk any more.
+	(SUFFIXES, TEST_LOGS): Remove.
+	(TESTS_ENVIRONMENT): Use $$f rather than $$tst in $PERL invocation.
+	* gnulib-tests/Makefile.am: Do not include build-aux/check.mk.
+	(AUTOMAKE_OPTIONS): New macro, add parallel-test and color-tests.
+	(TEST_LOGS): Remove.
+
+2009-03-31  Jim Meyering  <meyering@redhat.com>
+
+	* README-release (savannah news): Also mention the Subject: to use.
+
+	post-release administrivia
+	* NEWS: Add header line for next release.
+	* .prev-version: Record previous version.
+	* cfg.mk (old_NEWS_hash): Auto-update.
 
 	version 7.2
 	* NEWS: Record release date.

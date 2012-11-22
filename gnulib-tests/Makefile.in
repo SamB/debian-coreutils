@@ -47,8 +47,7 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 DIST_COMMON = $(noinst_HEADERS) $(srcdir)/Makefile.am \
-	$(srcdir)/Makefile.in $(srcdir)/gnulib.mk \
-	$(top_srcdir)/build-aux/check.mk
+	$(srcdir)/Makefile.in $(srcdir)/gnulib.mk
 TESTS = test-file-has-acl.sh test-set-mode-acl.sh test-copy-acl.sh \
 	test-alloca-opt$(EXEEXT) test-argmatch$(EXEEXT) \
 	test-argv-iter$(EXEEXT) test-arpa_inet$(EXEEXT) test-atexit.sh \
@@ -72,10 +71,11 @@ TESTS = test-file-has-acl.sh test-set-mode-acl.sh test-copy-acl.sh \
 	test-isnanl-nolibm$(EXEEXT) test-lseek.sh test-lstat$(EXEEXT) \
 	test-malloca$(EXEEXT) test-math$(EXEEXT) test-mbrtowc1.sh \
 	test-mbrtowc2.sh test-mbrtowc3.sh test-mbrtowc4.sh \
-	test-mbscasecmp.sh test-mbsinit.sh test-mbsstr1$(EXEEXT) \
-	test-mbsstr2.sh test-mbsstr3.sh test-memchr$(EXEEXT) \
-	test-memchr2$(EXEEXT) test-memcmp$(EXEEXT) \
-	test-memrchr$(EXEEXT) test-netdb$(EXEEXT) \
+	test-mbscasecmp.sh test-mbsinit.sh test-mbsrtowcs1.sh \
+	test-mbsrtowcs2.sh test-mbsrtowcs3.sh test-mbsrtowcs4.sh \
+	test-mbsstr1$(EXEEXT) test-mbsstr2.sh test-mbsstr3.sh \
+	test-memchr$(EXEEXT) test-memchr2$(EXEEXT) \
+	test-memcmp$(EXEEXT) test-memrchr$(EXEEXT) test-netdb$(EXEEXT) \
 	test-netinet_in$(EXEEXT) test-open$(EXEEXT) test-perror.sh \
 	test-printf-frexp$(EXEEXT) test-printf-frexpl$(EXEEXT) \
 	test-quotearg.sh test-read-file$(EXEEXT) test-select$(EXEEXT) \
@@ -88,15 +88,16 @@ TESTS = test-file-has-acl.sh test-set-mode-acl.sh test-copy-acl.sh \
 	test-string$(EXEEXT) test-strtod$(EXEEXT) \
 	test-strverscmp$(EXEEXT) test-sys_select$(EXEEXT) \
 	test-sys_socket$(EXEEXT) test-sys_stat$(EXEEXT) \
-	test-sys_time$(EXEEXT) test-time$(EXEEXT) test-unistd$(EXEEXT) \
-	test-uc_width$(EXEEXT) uniwidth/test-uc_width2.sh \
-	test-vasnprintf$(EXEEXT) test-vasprintf-posix$(EXEEXT) \
-	test-vasprintf$(EXEEXT) test-vc-list-files-git.sh \
-	test-vc-list-files-cvs.sh test-vfprintf-posix.sh \
-	test-vprintf-posix.sh test-wchar$(EXEEXT) test-wcrtomb.sh \
-	test-wctype$(EXEEXT) test-wcwidth$(EXEEXT) \
-	test-xprintf-posix.sh test-xstrtoimax.sh test-xstrtol.sh \
-	test-xstrtoumax.sh test-xvasprintf$(EXEEXT) test-yesno.sh
+	test-sys_time$(EXEEXT) test-time$(EXEEXT) test-u64$(EXEEXT) \
+	test-unistd$(EXEEXT) test-uc_width$(EXEEXT) \
+	uniwidth/test-uc_width2.sh test-vasnprintf$(EXEEXT) \
+	test-vasprintf-posix$(EXEEXT) test-vasprintf$(EXEEXT) \
+	test-vc-list-files-git.sh test-vc-list-files-cvs.sh \
+	test-vfprintf-posix.sh test-vprintf-posix.sh \
+	test-wchar$(EXEEXT) test-wcrtomb.sh test-wctype$(EXEEXT) \
+	test-wcwidth$(EXEEXT) test-xprintf-posix.sh test-xstrtoimax.sh \
+	test-xstrtol.sh test-xstrtoumax.sh test-xvasprintf$(EXEEXT) \
+	test-yesno.sh
 noinst_PROGRAMS =
 check_PROGRAMS = test-file-has-acl$(EXEEXT) test-set-mode-acl$(EXEEXT) \
 	test-copy-acl$(EXEEXT) test-sameacls$(EXEEXT) \
@@ -126,10 +127,10 @@ check_PROGRAMS = test-file-has-acl$(EXEEXT) test-set-mode-acl$(EXEEXT) \
 	test-lseek$(EXEEXT) test-lstat$(EXEEXT) test-malloca$(EXEEXT) \
 	test-math$(EXEEXT) test-mbrtowc$(EXEEXT) \
 	test-mbscasecmp$(EXEEXT) test-mbsinit$(EXEEXT) \
-	test-mbsstr1$(EXEEXT) test-mbsstr2$(EXEEXT) \
-	test-mbsstr3$(EXEEXT) test-memchr$(EXEEXT) \
-	test-memchr2$(EXEEXT) test-memcmp$(EXEEXT) \
-	test-memrchr$(EXEEXT) test-netdb$(EXEEXT) \
+	test-mbsrtowcs$(EXEEXT) test-mbsstr1$(EXEEXT) \
+	test-mbsstr2$(EXEEXT) test-mbsstr3$(EXEEXT) \
+	test-memchr$(EXEEXT) test-memchr2$(EXEEXT) \
+	test-memcmp$(EXEEXT) test-memrchr$(EXEEXT) test-netdb$(EXEEXT) \
 	test-netinet_in$(EXEEXT) test-open$(EXEEXT) \
 	test-perror$(EXEEXT) test-printf-frexp$(EXEEXT) \
 	test-printf-frexpl$(EXEEXT) test-quotearg$(EXEEXT) \
@@ -144,12 +145,12 @@ check_PROGRAMS = test-file-has-acl$(EXEEXT) test-set-mode-acl$(EXEEXT) \
 	test-string$(EXEEXT) test-strtod$(EXEEXT) \
 	test-strverscmp$(EXEEXT) test-sys_select$(EXEEXT) \
 	test-sys_socket$(EXEEXT) test-sys_stat$(EXEEXT) \
-	test-sys_time$(EXEEXT) test-time$(EXEEXT) test-unistd$(EXEEXT) \
-	test-uc_width$(EXEEXT) test-uc_width2$(EXEEXT) \
-	test-vasnprintf$(EXEEXT) test-vasprintf-posix$(EXEEXT) \
-	test-vasprintf$(EXEEXT) test-vfprintf-posix$(EXEEXT) \
-	test-vprintf-posix$(EXEEXT) test-wchar$(EXEEXT) \
-	test-wcrtomb$(EXEEXT) test-wctype$(EXEEXT) \
+	test-sys_time$(EXEEXT) test-time$(EXEEXT) test-u64$(EXEEXT) \
+	test-unistd$(EXEEXT) test-uc_width$(EXEEXT) \
+	test-uc_width2$(EXEEXT) test-vasnprintf$(EXEEXT) \
+	test-vasprintf-posix$(EXEEXT) test-vasprintf$(EXEEXT) \
+	test-vfprintf-posix$(EXEEXT) test-vprintf-posix$(EXEEXT) \
+	test-wchar$(EXEEXT) test-wcrtomb$(EXEEXT) test-wctype$(EXEEXT) \
 	test-wcwidth$(EXEEXT) test-xfprintf-posix$(EXEEXT) \
 	test-xprintf-posix$(EXEEXT) test-xstrtoimax$(EXEEXT) \
 	test-xstrtol$(EXEEXT) test-xstrtoul$(EXEEXT) \
@@ -240,27 +241,27 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/00gnulib.m4 \
 	$(top_srcdir)/m4/manywarnings.m4 $(top_srcdir)/m4/math_h.m4 \
 	$(top_srcdir)/m4/mbchar.m4 $(top_srcdir)/m4/mbiter.m4 \
 	$(top_srcdir)/m4/mbrlen.m4 $(top_srcdir)/m4/mbrtowc.m4 \
-	$(top_srcdir)/m4/mbsinit.m4 $(top_srcdir)/m4/mbstate_t.m4 \
-	$(top_srcdir)/m4/mbswidth.m4 $(top_srcdir)/m4/md5.m4 \
-	$(top_srcdir)/m4/memcasecmp.m4 $(top_srcdir)/m4/memchr.m4 \
-	$(top_srcdir)/m4/memcmp.m4 $(top_srcdir)/m4/memcoll.m4 \
-	$(top_srcdir)/m4/memcpy.m4 $(top_srcdir)/m4/memmove.m4 \
-	$(top_srcdir)/m4/mempcpy.m4 $(top_srcdir)/m4/memrchr.m4 \
-	$(top_srcdir)/m4/memset.m4 $(top_srcdir)/m4/memxfrm.m4 \
-	$(top_srcdir)/m4/mgetgroups.m4 $(top_srcdir)/m4/mkancesdirs.m4 \
-	$(top_srcdir)/m4/mkdir-p.m4 $(top_srcdir)/m4/mkdir-slash.m4 \
-	$(top_srcdir)/m4/mkstemp.m4 $(top_srcdir)/m4/mktime.m4 \
-	$(top_srcdir)/m4/modechange.m4 $(top_srcdir)/m4/mountlist.m4 \
-	$(top_srcdir)/m4/mpsort.m4 $(top_srcdir)/m4/multiarch.m4 \
-	$(top_srcdir)/m4/nanosleep.m4 $(top_srcdir)/m4/netdb_h.m4 \
-	$(top_srcdir)/m4/netinet_in_h.m4 $(top_srcdir)/m4/nls.m4 \
-	$(top_srcdir)/m4/nocrash.m4 $(top_srcdir)/m4/open.m4 \
-	$(top_srcdir)/m4/openat.m4 $(top_srcdir)/m4/pathmax.m4 \
-	$(top_srcdir)/m4/perl.m4 $(top_srcdir)/m4/perror.m4 \
-	$(top_srcdir)/m4/physmem.m4 $(top_srcdir)/m4/po.m4 \
-	$(top_srcdir)/m4/posix-shell.m4 $(top_srcdir)/m4/posixtm.m4 \
-	$(top_srcdir)/m4/posixver.m4 $(top_srcdir)/m4/prereq.m4 \
-	$(top_srcdir)/m4/printf-frexp.m4 \
+	$(top_srcdir)/m4/mbsinit.m4 $(top_srcdir)/m4/mbsrtowcs.m4 \
+	$(top_srcdir)/m4/mbstate_t.m4 $(top_srcdir)/m4/mbswidth.m4 \
+	$(top_srcdir)/m4/md5.m4 $(top_srcdir)/m4/memcasecmp.m4 \
+	$(top_srcdir)/m4/memchr.m4 $(top_srcdir)/m4/memcmp.m4 \
+	$(top_srcdir)/m4/memcoll.m4 $(top_srcdir)/m4/memcpy.m4 \
+	$(top_srcdir)/m4/memmove.m4 $(top_srcdir)/m4/mempcpy.m4 \
+	$(top_srcdir)/m4/memrchr.m4 $(top_srcdir)/m4/memset.m4 \
+	$(top_srcdir)/m4/memxfrm.m4 $(top_srcdir)/m4/mgetgroups.m4 \
+	$(top_srcdir)/m4/mkancesdirs.m4 $(top_srcdir)/m4/mkdir-p.m4 \
+	$(top_srcdir)/m4/mkdir-slash.m4 $(top_srcdir)/m4/mkstemp.m4 \
+	$(top_srcdir)/m4/mktime.m4 $(top_srcdir)/m4/modechange.m4 \
+	$(top_srcdir)/m4/mountlist.m4 $(top_srcdir)/m4/mpsort.m4 \
+	$(top_srcdir)/m4/multiarch.m4 $(top_srcdir)/m4/nanosleep.m4 \
+	$(top_srcdir)/m4/netdb_h.m4 $(top_srcdir)/m4/netinet_in_h.m4 \
+	$(top_srcdir)/m4/nls.m4 $(top_srcdir)/m4/nocrash.m4 \
+	$(top_srcdir)/m4/open.m4 $(top_srcdir)/m4/openat.m4 \
+	$(top_srcdir)/m4/pathmax.m4 $(top_srcdir)/m4/perl.m4 \
+	$(top_srcdir)/m4/perror.m4 $(top_srcdir)/m4/physmem.m4 \
+	$(top_srcdir)/m4/po.m4 $(top_srcdir)/m4/posix-shell.m4 \
+	$(top_srcdir)/m4/posixtm.m4 $(top_srcdir)/m4/posixver.m4 \
+	$(top_srcdir)/m4/prereq.m4 $(top_srcdir)/m4/printf-frexp.m4 \
 	$(top_srcdir)/m4/printf-frexpl.m4 $(top_srcdir)/m4/printf.m4 \
 	$(top_srcdir)/m4/progtest.m4 $(top_srcdir)/m4/putenv.m4 \
 	$(top_srcdir)/m4/quote.m4 $(top_srcdir)/m4/quotearg.m4 \
@@ -312,8 +313,7 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/00gnulib.m4 \
 	$(top_srcdir)/m4/unlink-busy.m4 $(top_srcdir)/m4/unlinkdir.m4 \
 	$(top_srcdir)/m4/unlocked-io.m4 $(top_srcdir)/m4/uptime.m4 \
 	$(top_srcdir)/m4/userspec.m4 $(top_srcdir)/m4/utimbuf.m4 \
-	$(top_srcdir)/m4/utime.m4 $(top_srcdir)/m4/utimecmp.m4 \
-	$(top_srcdir)/m4/utimens.m4 $(top_srcdir)/m4/utimes-null.m4 \
+	$(top_srcdir)/m4/utimecmp.m4 $(top_srcdir)/m4/utimens.m4 \
 	$(top_srcdir)/m4/utimes.m4 $(top_srcdir)/m4/vasnprintf.m4 \
 	$(top_srcdir)/m4/vasprintf-posix.m4 \
 	$(top_srcdir)/m4/vasprintf.m4 \
@@ -340,10 +340,10 @@ LIBRARIES = $(noinst_LIBRARIES)
 AR = ar
 ARFLAGS = cru
 AM_V_AR = $(am__v_AR_$(V))
-am__v_AR_ = @echo " AR " $@;
-am__v_AR_0 = @echo " AR " $@;
+am__v_AR_ = $(am__v_AR_$(AM_DEFAULT_VERBOSITY))
+am__v_AR_0 = @echo "  AR    " $@;
 AM_V_at = $(am__v_at_$(V))
-am__v_at_ = @
+am__v_at_ = $(am__v_at_$(AM_DEFAULT_VERBOSITY))
 am__v_at_0 = @
 libtests_a_AR = $(AR) $(ARFLAGS)
 am__DEPENDENCIES_1 =
@@ -610,6 +610,11 @@ test_mbsinit_OBJECTS = test-mbsinit.$(OBJEXT)
 test_mbsinit_LDADD = $(LDADD)
 test_mbsinit_DEPENDENCIES = libtests.a ../lib/libcoreutils.a \
 	libtests.a $(am__DEPENDENCIES_1)
+test_mbsrtowcs_SOURCES = test-mbsrtowcs.c
+test_mbsrtowcs_OBJECTS = test-mbsrtowcs.$(OBJEXT)
+test_mbsrtowcs_LDADD = $(LDADD)
+test_mbsrtowcs_DEPENDENCIES = libtests.a ../lib/libcoreutils.a \
+	libtests.a $(am__DEPENDENCIES_1)
 test_mbsstr1_SOURCES = test-mbsstr1.c
 test_mbsstr1_OBJECTS = test-mbsstr1.$(OBJEXT)
 test_mbsstr1_LDADD = $(LDADD)
@@ -811,6 +816,11 @@ test_time_OBJECTS = test-time.$(OBJEXT)
 test_time_LDADD = $(LDADD)
 test_time_DEPENDENCIES = libtests.a ../lib/libcoreutils.a libtests.a \
 	$(am__DEPENDENCIES_1)
+test_u64_SOURCES = test-u64.c
+test_u64_OBJECTS = test-u64.$(OBJEXT)
+test_u64_LDADD = $(LDADD)
+test_u64_DEPENDENCIES = libtests.a ../lib/libcoreutils.a libtests.a \
+	$(am__DEPENDENCIES_1)
 am_test_uc_width_OBJECTS = test-uc_width.$(OBJEXT)
 test_uc_width_OBJECTS = $(am_test_uc_width_OBJECTS)
 test_uc_width_LDADD = $(LDADD)
@@ -900,21 +910,21 @@ depcomp = $(SHELL) $(top_srcdir)/build-aux/depcomp
 am__depfiles_maybe = depfiles
 am__mv = mv -f
 AM_V_lt = $(am__v_lt_$(V))
-am__v_lt_ = --silent
+am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
 am__v_lt_0 = --silent
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 AM_V_CC = $(am__v_CC_$(V))
-am__v_CC_ = @echo " CC " $@;
-am__v_CC_0 = @echo " CC " $@;
+am__v_CC_ = $(am__v_CC_$(AM_DEFAULT_VERBOSITY))
+am__v_CC_0 = @echo "  CC    " $@;
 CCLD = $(CC)
 LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
 AM_V_CCLD = $(am__v_CCLD_$(V))
-am__v_CCLD_ = @echo " CCLD " $@;
-am__v_CCLD_0 = @echo " CCLD " $@;
+am__v_CCLD_ = $(am__v_CCLD_$(AM_DEFAULT_VERBOSITY))
+am__v_CCLD_0 = @echo "  CCLD  " $@;
 AM_V_GEN = $(am__v_GEN_$(V))
-am__v_GEN_ = @echo " GEN " $@;
-am__v_GEN_0 = @echo " GEN " $@;
+am__v_GEN_ = $(am__v_GEN_$(AM_DEFAULT_VERBOSITY))
+am__v_GEN_0 = @echo "  GEN   " $@;
 SOURCES = $(libtests_a_SOURCES) $(EXTRA_libtests_a_SOURCES) \
 	test-alloca-opt.c test-argmatch.c test-argv-iter.c \
 	test-arpa_inet.c test-atexit.c test-base64.c test-binary-io.c \
@@ -932,19 +942,19 @@ SOURCES = $(libtests_a_SOURCES) $(EXTRA_libtests_a_SOURCES) \
 	test-i-ring.c test-iconv.c test-inttypes.c \
 	test-isnand-nolibm.c test-isnanf-nolibm.c test-isnanl-nolibm.c \
 	test-lseek.c test-lstat.c test-malloca.c test-math.c \
-	test-mbrtowc.c test-mbscasecmp.c test-mbsinit.c test-mbsstr1.c \
-	test-mbsstr2.c test-mbsstr3.c test-md5.c test-memchr.c \
-	test-memchr2.c test-memcmp.c test-memrchr.c test-netdb.c \
-	test-netinet_in.c test-open.c test-perror.c \
-	test-printf-frexp.c test-printf-frexpl.c test-quotearg.c \
-	test-read-file.c test-sameacls.c test-select.c \
+	test-mbrtowc.c test-mbscasecmp.c test-mbsinit.c \
+	test-mbsrtowcs.c test-mbsstr1.c test-mbsstr2.c test-mbsstr3.c \
+	test-md5.c test-memchr.c test-memchr2.c test-memcmp.c \
+	test-memrchr.c test-netdb.c test-netinet_in.c test-open.c \
+	test-perror.c test-printf-frexp.c test-printf-frexpl.c \
+	test-quotearg.c test-read-file.c test-sameacls.c test-select.c \
 	test-select-fd.c test-select-stdin.c test-set-mode-acl.c \
 	test-sha1.c test-sigaction.c test-signal.c test-signbit.c \
 	test-sleep.c test-snprintf.c test-sockets.c test-stat-time.c \
 	test-stdbool.c test-stdint.c test-stdio.c test-stdlib.c \
 	test-strerror.c test-striconv.c test-string.c test-strtod.c \
 	test-strverscmp.c test-sys_select.c test-sys_socket.c \
-	test-sys_stat.c test-sys_time.c test-time.c \
+	test-sys_stat.c test-sys_time.c test-time.c test-u64.c \
 	$(test_uc_width_SOURCES) $(test_uc_width2_SOURCES) \
 	test-unistd.c test-vasnprintf.c test-vasprintf.c \
 	test-vasprintf-posix.c test-vfprintf-posix.c \
@@ -969,19 +979,19 @@ DIST_SOURCES = $(libtests_a_SOURCES) $(EXTRA_libtests_a_SOURCES) \
 	test-i-ring.c test-iconv.c test-inttypes.c \
 	test-isnand-nolibm.c test-isnanf-nolibm.c test-isnanl-nolibm.c \
 	test-lseek.c test-lstat.c test-malloca.c test-math.c \
-	test-mbrtowc.c test-mbscasecmp.c test-mbsinit.c test-mbsstr1.c \
-	test-mbsstr2.c test-mbsstr3.c test-md5.c test-memchr.c \
-	test-memchr2.c test-memcmp.c test-memrchr.c test-netdb.c \
-	test-netinet_in.c test-open.c test-perror.c \
-	test-printf-frexp.c test-printf-frexpl.c test-quotearg.c \
-	test-read-file.c test-sameacls.c test-select.c \
+	test-mbrtowc.c test-mbscasecmp.c test-mbsinit.c \
+	test-mbsrtowcs.c test-mbsstr1.c test-mbsstr2.c test-mbsstr3.c \
+	test-md5.c test-memchr.c test-memchr2.c test-memcmp.c \
+	test-memrchr.c test-netdb.c test-netinet_in.c test-open.c \
+	test-perror.c test-printf-frexp.c test-printf-frexpl.c \
+	test-quotearg.c test-read-file.c test-sameacls.c test-select.c \
 	test-select-fd.c test-select-stdin.c test-set-mode-acl.c \
 	test-sha1.c test-sigaction.c test-signal.c test-signbit.c \
 	test-sleep.c test-snprintf.c test-sockets.c test-stat-time.c \
 	test-stdbool.c test-stdint.c test-stdio.c test-stdlib.c \
 	test-strerror.c test-striconv.c test-string.c test-strtod.c \
 	test-strverscmp.c test-sys_select.c test-sys_socket.c \
-	test-sys_stat.c test-sys_time.c test-time.c \
+	test-sys_stat.c test-sys_time.c test-time.c test-u64.c \
 	$(test_uc_width_SOURCES) $(test_uc_width2_SOURCES) \
 	test-unistd.c test-vasnprintf.c test-vasprintf.c \
 	test-vasprintf-posix.c test-vfprintf-posix.c \
@@ -1001,9 +1011,93 @@ RECURSIVE_CLEAN_TARGETS = mostlyclean-recursive clean-recursive	\
   distclean-recursive maintainer-clean-recursive
 AM_RECURSIVE_TARGETS = $(RECURSIVE_TARGETS:-recursive=) \
 	$(RECURSIVE_CLEAN_TARGETS:-recursive=) tags TAGS ctags CTAGS \
-	distdir
+	check check-html recheck recheck-html distdir
 ETAGS = etags
 CTAGS = ctags
+# If stdout is a non-dumb tty, use colors.  If test -t is not supported,
+# then this fails; a conservative approach.  Of course do not redirect
+# stdout here, just stderr.
+am__tty_colors = \
+red=; grn=; lgn=; blu=; std=; \
+test "X$(AM_COLOR_TESTS)" != Xno \
+&& test "X$$TERM" != Xdumb \
+&& { test "X$(AM_COLOR_TESTS)" = Xalways || test -t 1 2>/dev/null; } \
+&& { \
+  red='[0;31m'; \
+  grn='[0;32m'; \
+  lgn='[1;32m'; \
+  blu='[1;34m'; \
+  std='[m'; \
+}
+am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
+am__vpath_adj = case $$p in \
+    $(srcdir)/*) f=`echo "$$p" | sed "s|^$$srcdirstrip/||"`;; \
+    *) f=$$p;; \
+  esac;
+am__strip_dir = f=`echo $$p | sed -e 's|^.*/||'`;
+am__install_max = 40
+am__nobase_strip_setup = \
+  srcdirstrip=`echo "$(srcdir)" | sed 's/[].[^$$\\*|]/\\\\&/g'`
+am__nobase_strip = \
+  for p in $$list; do echo "$$p"; done | sed -e "s|$$srcdirstrip/||"
+am__nobase_list = $(am__nobase_strip_setup); \
+  for p in $$list; do echo "$$p $$p"; done | \
+  sed "s| $$srcdirstrip/| |;"' / .*\//!s/ .*/ ./; s,\( .*\)/[^/]*$$,\1,' | \
+  $(AWK) 'BEGIN { files["."] = "" } { files[$$2] = files[$$2] " " $$1; \
+    if (++n[$$2] == $(am__install_max)) \
+      { print $$2, files[$$2]; n[$$2] = 0; files[$$2] = "" } } \
+    END { for (dir in files) print dir, files[dir] }'
+am__base_list = \
+  sed '$$!N;$$!N;$$!N;$$!N;$$!N;$$!N;$$!N;s/\n/ /g' | \
+  sed '$$!N;$$!N;$$!N;$$!N;s/\n/ /g'
+# Restructured Text title and section.
+am__rst_title = sed 's/.*/   &   /;h;s/./=/g;p;x;p;g;p;s/.*//'
+am__rst_section = sed 'p;s/./=/g;p;g'
+# Put stdin (possibly several lines separated by ".  ") in a box.
+am__text_box = $(AWK) '{				\
+  n = split($$0, lines, "\\.  "); max = 0;		\
+  for (i = 1; i <= n; ++i)				\
+    if (max < length(lines[i]))				\
+      max = length(lines[i]);				\
+  for (i = 0; i < max; ++i) line = line "=";		\
+  print line;						\
+  for (i = 1; i <= n; ++i) if (lines[i]) print lines[i];\
+  print line;						\
+}'
+# Solaris 10 'make', and several other traditional 'make' implementations,
+# pass "-e" to $(SHELL).  This contradicts POSIX.  Work around the problem
+# by disabling -e (using the XSI extension "set +e") if it's set.
+am__sh_e_setup = case $$- in *e*) set +e;; esac
+# To be inserted before the command running the test.  Creates the
+# directory for the log if needed.  Stores in $dir the directory
+# containing $f, in $tst the test, in $log the log, and passes
+# TESTS_ENVIRONMENT.  Save and restore TERM around use of
+# TESTS_ENVIRONMENT, in case that unsets it.
+am__check_pre = \
+$(am__sh_e_setup);					\
+$(am__vpath_adj_setup) $(am__vpath_adj)			\
+srcdir=$(srcdir); export srcdir;			\
+rm -f $@-t;						\
+trap 'st=$$?; rm -f '\''$(abs_builddir)/$@-t'\''; (exit $$st); exit $$st' \
+  1 2 13 15;						\
+am__odir=`echo "./$@" | sed 's|/[^/]*$$||'`;		\
+test "x$$am__odir" = x. || $(MKDIR_P) "$$am__odir" || exit $$?;	\
+if test -f "./$$f"; then dir=./;			\
+elif test -f "$$f"; then dir=;				\
+else dir="$(srcdir)/"; fi;				\
+tst=$$dir$$f; log='$@'; __SAVED_TERM=$$TERM;		\
+$(TESTS_ENVIRONMENT)
+RECHECK_LOGS = $(TEST_LOGS)
+TEST_SUITE_LOG = test-suite.log
+TEST_SUITE_HTML = $(TEST_SUITE_LOG:.log=.html)
+TEST_EXTENSIONS = @EXEEXT@ .test
+LOG_COMPILE = $(LOG_COMPILER) $(AM_LOG_FLAGS) $(LOG_FLAGS)
+am__test_logs1 = $(TESTS:=.log)
+am__test_logs2 = $(am__test_logs1:@EXEEXT@.log=.log)
+TEST_LOGS = $(am__test_logs2:.test.log=.log)
+TEST_LOG_COMPILE = $(TEST_LOG_COMPILER) $(AM_TEST_LOG_FLAGS) \
+	$(TEST_LOG_FLAGS)
+TEST_LOGS_TMP = $(TEST_LOGS:.log=.log-t)
 DIST_SUBDIRS = $(SUBDIRS)
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 am__relativize = \
@@ -1035,6 +1129,7 @@ ACLOCAL = @ACLOCAL@
 ALLOCA = @ALLOCA@
 ALLOCA_H = @ALLOCA_H@
 AMTAR = @AMTAR@
+AM_DEFAULT_VERBOSITY = @AM_DEFAULT_VERBOSITY@
 APPLE_UNIVERSAL_BUILD = @APPLE_UNIVERSAL_BUILD@
 ARPA_INET_H = @ARPA_INET_H@
 AUTOCONF = @AUTOCONF@
@@ -1574,11 +1669,7 @@ SELINUX_SELINUX_H = @SELINUX_SELINUX_H@
 SEQ_LIBM = @SEQ_LIBM@
 SERVENT_LIB = @SERVENT_LIB@
 SET_MAKE = @SET_MAKE@
-
-# Use a POSIX-compatible shell if available, as this file uses
-# features of the POSIX shell that are not supported by some standard
-# shell implementations (e.g., Solaris 10 /bin/sh).
-SHELL = $(PREFERABLY_POSIX_SHELL)
+SHELL = @SHELL@
 SIG_ATOMIC_T_SUFFIX = @SIG_ATOMIC_T_SUFFIX@
 SIZE_T_SUFFIX = @SIZE_T_SUFFIX@
 STDARG_H = @STDARG_H@
@@ -1667,7 +1758,7 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-AUTOMAKE_OPTIONS = 1.5 foreign -Wno-portability -Wno-override
+AUTOMAKE_OPTIONS = 1.5 foreign
 SUBDIRS = 
 # test-select-stdin has to be run by hand.
 TESTS_ENVIRONMENT = EXEEXT='@EXEEXT@' USE_ACL=$(USE_ACL) \
@@ -1685,14 +1776,16 @@ TESTS_ENVIRONMENT = EXEEXT='@EXEEXT@' USE_ACL=$(USE_ACL) \
 	LOCALE_ZH_CN='@LOCALE_ZH_CN@' EXEEXT='@EXEEXT@' \
 	LOCALE_TR_UTF8='@LOCALE_TR_UTF8@' EXEEXT='@EXEEXT@' \
 	LOCALE_FR_UTF8='@LOCALE_FR_UTF8@' EXEEXT='@EXEEXT@' \
-	LOCALE_FR_UTF8='@LOCALE_FR_UTF8@' \
+	LOCALE_FR='@LOCALE_FR@' LOCALE_FR_UTF8='@LOCALE_FR_UTF8@' \
+	LOCALE_JA='@LOCALE_JA@' LOCALE_ZH_CN='@LOCALE_ZH_CN@' \
+	EXEEXT='@EXEEXT@' LOCALE_FR_UTF8='@LOCALE_FR_UTF8@' \
 	LOCALE_ZH_CN='@LOCALE_ZH_CN@' EXEEXT='@EXEEXT@' \
 	srcdir='$(srcdir)' EXEEXT='@EXEEXT@' srcdir='$(srcdir)' \
 	LOCALE_FR='@LOCALE_FR@' LOCALE_FR_UTF8='@LOCALE_FR_UTF8@' \
 	EXEEXT='@EXEEXT@' EXEEXT='@EXEEXT@' \
-	PATH='$(abs_aux_dir)':"$$PATH" EXEEXT='@EXEEXT@' \
-	srcdir='$(srcdir)' EXEEXT='@EXEEXT@' srcdir='$(srcdir)' \
-	EXEEXT='@EXEEXT@' LOCALE_FR='@LOCALE_FR@' \
+	PATH='$(abs_aux_dir)'$(PATH_SEPARATOR)"$$PATH" \
+	EXEEXT='@EXEEXT@' srcdir='$(srcdir)' EXEEXT='@EXEEXT@' \
+	srcdir='$(srcdir)' EXEEXT='@EXEEXT@' LOCALE_FR='@LOCALE_FR@' \
 	LOCALE_FR_UTF8='@LOCALE_FR_UTF8@' LOCALE_JA='@LOCALE_JA@' \
 	LOCALE_ZH_CN='@LOCALE_ZH_CN@' EXEEXT='@EXEEXT@' \
 	srcdir='$(srcdir)' EXEEXT='@EXEEXT@' EXEEXT='@EXEEXT@' \
@@ -1729,10 +1822,12 @@ EXTRA_DIST = accept.c w32sock.h test-file-has-acl.sh \
 	test-math.c test-mbrtowc1.sh test-mbrtowc2.sh test-mbrtowc3.sh \
 	test-mbrtowc4.sh test-mbrtowc.c test-mbscasecmp.sh \
 	test-mbscasecmp.c test-mbsinit.sh test-mbsinit.c \
-	test-mbsstr1.c test-mbsstr2.sh test-mbsstr2.c test-mbsstr3.sh \
-	test-mbsstr3.c test-memchr.c test-memchr2.c test-memcmp.c \
-	test-memrchr.c test-netdb.c test-netinet_in.c test-open.c \
-	perror.c test-perror.c test-perror.sh test-printf-frexp.c \
+	test-mbsrtowcs1.sh test-mbsrtowcs2.sh test-mbsrtowcs3.sh \
+	test-mbsrtowcs4.sh test-mbsrtowcs.c test-mbsstr1.c \
+	test-mbsstr2.sh test-mbsstr2.c test-mbsstr3.sh test-mbsstr3.c \
+	test-memchr.c test-memchr2.c test-memcmp.c test-memrchr.c \
+	test-netdb.c test-netinet_in.c test-open.c perror.c \
+	test-perror.c test-perror.sh test-printf-frexp.c \
 	test-printf-frexpl.c test-quotearg.sh test-quotearg.c \
 	locale/fr/LC_MESSAGES/test-quotearg.po \
 	locale/fr/LC_MESSAGES/test-quotearg.mo read-file.c read-file.h \
@@ -1745,7 +1840,7 @@ EXTRA_DIST = accept.c w32sock.h test-file-has-acl.sh \
 	test-strerror.c test-striconv.c test-string.c test-strtod.c \
 	test-strverscmp.c sys_ioctl.in.h test-sys_select.c \
 	test-sys_socket.c test-sys_stat.c test-sys_time.c test-time.c \
-	test-unistd.c uniwidth/test-uc_width.c \
+	test-u64.c test-unistd.c uniwidth/test-uc_width.c \
 	uniwidth/test-uc_width2.c uniwidth/test-uc_width2.sh \
 	test-vasnprintf.c test-vasprintf-posix.c nan.h \
 	test-vasprintf.c test-vc-list-files-git.sh \
@@ -1762,7 +1857,7 @@ EXTRA_DIST = accept.c w32sock.h test-file-has-acl.sh \
 	test-xstrtoumax.c test-xstrtoumax.sh test-xvasprintf.c \
 	test-yesno.c test-yesno.sh
 BUILT_SOURCES = $(SYS_IOCTL_H)
-SUFFIXES = .html .log
+SUFFIXES = 
 MOSTLYCLEANFILES = core *.stackdump test-fflush.txt test-fpending.t \
 	t-fpurge.tmp t-freading.tmp test-getdelim.txt test-getline.txt \
 	test-getndelim2.txt sys/ioctl.h sys/ioctl.h-t
@@ -1813,128 +1908,12 @@ test_xstrtoul_LDADD = $(LDADD) @LIBINTL@
 test_xstrtoumax_LDADD = $(LDADD) @LIBINTL@
 test_xvasprintf_LDADD = $(LDADD) @LIBINTL@
 test_yesno_LDADD = $(LDADD) @LIBINTL@
-TEST_LOGS = $(TESTS:=.log)
-
-# Set this to `false' to disable hard errors.
-ENABLE_HARD_ERRORS = :
-
-# Restructured Text title and section.
-am__rst_title = sed 's/.*/   &   /;h;s/./=/g;p;x;p;g;p;s/.*//'
-am__rst_section = sed 'p;s/./=/g;p;g'
-
-# Put stdin (possibly several lines separated by ".  ") in a box.
-am__text_box = $(AWK) '{gsub ("\\.  ", "\n"); print $$0; }' |	\
-$(AWK) '							\
-max < length($$0) {						\
-  final= final (final ? "\n" : "") " " $$0;			\
-  max = length($$0);						\
-}								\
-END {								\
-  for (i = 0; i < max + 2 ; ++i)				\
-    line = line "=";						\
-  print line;							\
-  print final;							\
-  print line;							\
-}'
-
-
-# If stdout is a tty and TERM is smart then use colors.  If test -t or
-# tput are not supported then this fails; a conservative approach.  Of
-# course do not redirect stdout here, just stderr...
-am__tty_colors = \
-red=;						\
-grn=;						\
-lgn=;						\
-blu=;						\
-std=;						\
-test "X$$TERM" != Xdumb &&			\
-test -t 1 2>/dev/null &&			\
-tput bold 1 >/dev/null 2>&1 &&			\
-tput setaf 1 >/dev/null 2>&1 &&			\
-tput sgr0 >/dev/null 2>&1 &&			\
-{						\
-    red=$$(tput setaf 1);			\
-    grn=$$(tput setaf 2);			\
-    lgn=$$(tput bold)$$(tput setaf 2);		\
-    blu=$$(tput setaf 4);			\
-    std=$$(tput sgr0);				\
-}
-
-
-# Solaris 10 'make', and several other traditional 'make' implementations,
-# pass "-e" to $(SHELL).  This contradicts POSIX.  Work around the problem
-# by disabling -e (using the XSI extension "set +e") if it's set.
-SH_E_WORKAROUND = case $$- in *e*) set +e;; esac
-
-# Emulate dirname with sed.
-_d_no_slash = s,^[^/]*$$,.,
-_d_strip_trailing = s,\([^/]\)//*$$,\1,
-_d_abs_trivial = s,^//*[^/]*$$,/,
-_d_rm_basename = s,\([^/]\)//*[^/]*$$,\1,
-_dirname = \
-  sed '$(_d_no_slash);$(_d_strip_trailing);$(_d_abs_trivial);$(_d_rm_basename)'
-
-
-# To be inserted before the command running the test.  Creates the
-# directory for the log if needed.  Stores in $dir the directory
-# containing $src, and passes TESTS_ENVIRONMENT.
-# Save and restore TERM around use of TESTS_ENVIRONMENT,
-# in case that unsets it.
-am__check_pre = \
-$(SH_E_WORKAROUND);				\
-tst=`echo "$$src" | sed 's|^.*/||'`;		\
-rm -f $@-t;					\
-trap 'st=$$?; rm -f '\''$(abs_builddir)/$@-t'\''; (exit $$st); exit $$st' \
-  1 2 13 15;					\
-$(mkdir_p) "$$(echo '$@'|$(_dirname))" || exit;	\
-if test -f "./$$src"; then dir=./;		\
-elif test -f "$$src"; then dir=;		\
-else dir="$(srcdir)/"; fi;			\
-__SAVED_TERM=$$TERM;				\
-$(TESTS_ENVIRONMENT)
-
-
-# To be appended to the command running the test.  Handles the stdout
-# and stderr redirection, and catch the exit status.
-am__check_post = \
->$@-t 2>&1;						\
-estatus=$$?;						\
-if test $$estatus -eq 177; then				\
-  $(ENABLE_HARD_ERRORS) || estatus=1;			\
-fi;							\
-TERM=$$__SAVED_TERM; export TERM;			\
-$(am__tty_colors);					\
-xfailed=PASS;						\
-for xfail in : $(XFAIL_TESTS); do			\
-  case $$src in						\
-    $$xfail | */$$xfail) xfailed=XFAIL; break;		\
-  esac;							\
-done;							\
-case $$estatus:$$xfailed in				\
-    0:XFAIL) col=$$red; res=XPASS;;			\
-    0:*)     col=$$grn; res=PASS ;;			\
-    77:*)    col=$$blu; res=SKIP ;;			\
-    177:*)   col=$$red; res=FAIL ;;			\
-    *:XFAIL) col=$$lgn; res=XFAIL;;			\
-    *:*)     col=$$red; res=FAIL ;;			\
-esac;							\
-echo "$${col}$$res$${std}: $@";				\
-echo "$$res: $@ (exit: $$estatus)" |			\
-  $(am__rst_section) >$@;				\
-cat $@-t >>$@;						\
-rm $@-t
-
-@GNU_MAKE_FALSE@DEPENDENCY = CHECK-FORCE
-
-#TEST_LOGS = $(TESTS:.test=.log)
-TEST_SUITE_LOG = test-suite.log
-TEST_SUITE_HTML = $(TEST_SUITE_LOG:.log=.html)
 all: $(BUILT_SOURCES)
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 
 .SUFFIXES:
-.SUFFIXES: .html .log .c .o .obj
-$(srcdir)/Makefile.in:  $(srcdir)/Makefile.am $(srcdir)/gnulib.mk $(top_srcdir)/build-aux/check.mk $(am__configure_deps)
+.SUFFIXES: .c .html .log .o .obj .test .test$(EXEEXT)
+$(srcdir)/Makefile.in:  $(srcdir)/Makefile.am $(srcdir)/gnulib.mk $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
 	    *$$dep*) \
@@ -1943,9 +1922,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am $(srcdir)/gnulib.mk $(top_srcdir)/
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign --silent-rules gnulib-tests/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign gnulib-tests/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --foreign --silent-rules gnulib-tests/Makefile
+	  $(AUTOMAKE) --foreign gnulib-tests/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
@@ -2145,6 +2124,9 @@ test-mbscasecmp$(EXEEXT): $(test_mbscasecmp_OBJECTS) $(test_mbscasecmp_DEPENDENC
 test-mbsinit$(EXEEXT): $(test_mbsinit_OBJECTS) $(test_mbsinit_DEPENDENCIES) 
 	@rm -f test-mbsinit$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(test_mbsinit_OBJECTS) $(test_mbsinit_LDADD) $(LIBS)
+test-mbsrtowcs$(EXEEXT): $(test_mbsrtowcs_OBJECTS) $(test_mbsrtowcs_DEPENDENCIES) 
+	@rm -f test-mbsrtowcs$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(test_mbsrtowcs_OBJECTS) $(test_mbsrtowcs_LDADD) $(LIBS)
 test-mbsstr1$(EXEEXT): $(test_mbsstr1_OBJECTS) $(test_mbsstr1_DEPENDENCIES) 
 	@rm -f test-mbsstr1$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(test_mbsstr1_OBJECTS) $(test_mbsstr1_LDADD) $(LIBS)
@@ -2274,6 +2256,9 @@ test-sys_time$(EXEEXT): $(test_sys_time_OBJECTS) $(test_sys_time_DEPENDENCIES)
 test-time$(EXEEXT): $(test_time_OBJECTS) $(test_time_DEPENDENCIES) 
 	@rm -f test-time$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(test_time_OBJECTS) $(test_time_LDADD) $(LIBS)
+test-u64$(EXEEXT): $(test_u64_OBJECTS) $(test_u64_DEPENDENCIES) 
+	@rm -f test-u64$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(test_u64_OBJECTS) $(test_u64_LDADD) $(LIBS)
 test-uc_width$(EXEEXT): $(test_uc_width_OBJECTS) $(test_uc_width_DEPENDENCIES) 
 	@rm -f test-uc_width$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(test_uc_width_OBJECTS) $(test_uc_width_LDADD) $(LIBS)
@@ -2408,6 +2393,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-mbrtowc.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-mbscasecmp.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-mbsinit.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-mbsrtowcs.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-mbsstr1.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-mbsstr2.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-mbsstr3.Po@am__quote@
@@ -2451,6 +2437,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-sys_stat.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-sys_time.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-time.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-u64.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-uc_width.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-uc_width2.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-unistd.Po@am__quote@
@@ -2656,6 +2643,416 @@ GTAGS:
 distclean-tags:
 	-rm -f TAGS ID GTAGS GRTAGS GSYMS GPATH tags
 
+# To be appended to the command running the test.  Handle the stdout
+# and stderr redirection, and catch the exit status.
+am__check_post =					\
+>$@-t 2>&1;						\
+estatus=$$?;						\
+if test -n '$(DISABLE_HARD_ERRORS)'			\
+   && test $$estatus -eq 99; then			\
+  estatus=1;						\
+fi;							\
+TERM=$$__SAVED_TERM; export TERM;			\
+$(am__tty_colors);					\
+xfailed=PASS;						\
+case " $(XFAIL_TESTS) " in				\
+  *[\ \	]$$f[\ \	]* | *[\ \	]$$dir$$f[\ \	]*) \
+    xfailed=XFAIL;;					\
+esac;							\
+case $$estatus:$$xfailed in				\
+    0:XFAIL) col=$$red; res=XPASS;;			\
+    0:*)     col=$$grn; res=PASS ;;			\
+    77:*)    col=$$blu; res=SKIP ;;			\
+    99:*)    col=$$red; res=FAIL ;;			\
+    *:XFAIL) col=$$lgn; res=XFAIL;;			\
+    *:*)     col=$$red; res=FAIL ;;			\
+esac;							\
+echo "$${col}$$res$${std}: $$f";			\
+echo "$$res: $$f (exit: $$estatus)" |			\
+  $(am__rst_section) >$@;				\
+cat $@-t >>$@;						\
+rm -f $@-t
+
+$(TEST_SUITE_LOG): $(TEST_LOGS)
+	@$(am__sh_e_setup);						\
+	list='$(TEST_LOGS)';						\
+	results=`for f in $$list; do					\
+		   read line < $$f && echo "$$line" || echo FAIL;	\
+		 done`;							\
+	all=`echo "$$results" | sed '/^$$/d' | wc -l | sed -e 's/^[	 ]*//'`; \
+	fail=`echo "$$results" | grep -c '^FAIL'`;			\
+	pass=`echo "$$results" | grep -c '^PASS'`;			\
+	skip=`echo "$$results" | grep -c '^SKIP'`;			\
+	xfail=`echo "$$results" | grep -c '^XFAIL'`;			\
+	xpass=`echo "$$results" | grep -c '^XPASS'`;			\
+	failures=`expr $$fail + $$xpass`;				\
+	all=`expr $$all - $$skip`;					\
+	if test "$$all" -eq 1; then tests=test; All=;			\
+	else tests=tests; All="All "; fi;				\
+	case fail=$$fail:xpass=$$xpass:xfail=$$xfail in			\
+	  fail=0:xpass=0:xfail=0)					\
+	    msg="$$All$$all $$tests passed.  ";				\
+	    exit=true;;							\
+	  fail=0:xpass=0:xfail=*)					\
+	    msg="$$All$$all $$tests behaved as expected";		\
+	    if test "$$xfail" -eq 1; then xfailures=failure;		\
+	    else xfailures=failures; fi;				\
+	    msg="$$msg ($$xfail expected $$xfailures).  ";		\
+	    exit=true;;							\
+	  fail=*:xpass=0:xfail=*)					\
+	    msg="$$fail of $$all $$tests failed.  ";			\
+	    exit=false;;						\
+	  fail=*:xpass=*:xfail=*)					\
+	    msg="$$failures of $$all $$tests did not behave as expected"; \
+	    if test "$$xpass" -eq 1; then xpasses=pass;			\
+	    else xpasses=passes; fi;					\
+	    msg="$$msg ($$xpass unexpected $$xpasses).  ";		\
+	    exit=false;;						\
+	  *)								\
+	    echo >&2 "incorrect case"; exit 4;;				\
+	esac;								\
+	if test "$$skip" -ne 0; then					\
+	  if test "$$skip" -eq 1; then					\
+	    msg="$$msg($$skip test was not run).  ";			\
+	  else								\
+	    msg="$$msg($$skip tests were not run).  ";			\
+	  fi;								\
+	fi;								\
+	{								\
+	  echo "$(PACKAGE_STRING): $(subdir)/$(TEST_SUITE_LOG)" |	\
+	    $(am__rst_title);						\
+	  echo "$$msg";							\
+	  echo;								\
+	  echo ".. contents:: :depth: 2";				\
+	  echo;								\
+	  for f in $$list; do						\
+	    read line < $$f;						\
+	    case $$line in						\
+	      PASS:*|XFAIL:*);;						\
+	      *) echo; cat $$f;;					\
+	    esac;							\
+	  done;								\
+	} >$(TEST_SUITE_LOG).tmp;					\
+	mv $(TEST_SUITE_LOG).tmp $(TEST_SUITE_LOG);			\
+	if test "$$failures" -ne 0; then				\
+	  msg="$${msg}See $(subdir)/$(TEST_SUITE_LOG).  ";		\
+	  if test -n "$(PACKAGE_BUGREPORT)"; then			\
+	    msg="$${msg}Please report to $(PACKAGE_BUGREPORT).  ";	\
+	  fi;								\
+	fi;								\
+	test x"$$VERBOSE" = x || $$exit || cat $(TEST_SUITE_LOG);	\
+	$(am__tty_colors);						\
+	if $$exit; then							\
+	  echo $(ECHO_N) "$$grn$(ECHO_C)";				\
+	 else								\
+	  echo $(ECHO_N) "$$red$(ECHO_C)";				\
+	fi;								\
+	echo "$$msg" | $(am__text_box);					\
+	echo $(ECHO_N) "$$std$(ECHO_C)";				\
+	$$exit
+
+# Run all the tests.
+check-TESTS:
+	@list='$(RECHECK_LOGS)'; test -z "$$list" || rm -f $$list
+	@test -z "$(TEST_SUITE_LOG)" || rm -f $(TEST_SUITE_LOG)
+	@set_logs=; if test "X$(TEST_LOGS)" = X.log; then		\
+	  set_logs=TEST_LOGS=;						\
+	fi;								\
+	$(MAKE) $(AM_MAKEFLAGS) $(TEST_SUITE_LOG) $$set_logs
+
+.log.html:
+	@list='$(RST2HTML) $$RST2HTML rst2html rst2html.py';		\
+	for r2h in $$list; do						\
+	  if ($$r2h --version) >/dev/null 2>&1; then			\
+	    R2H=$$r2h;							\
+	  fi;								\
+	done;								\
+	if test -z "$$R2H"; then					\
+	  echo >&2 "cannot find rst2html, cannot create $@";		\
+	  exit 2;							\
+	fi;								\
+	$$R2H $< >$@.tmp
+	@mv $@.tmp $@
+
+# Be sure to run check first, and then to convert the result.
+# Beware of concurrent executions.  Run "check" not "check-TESTS", as
+# check-SCRIPTS and other dependencies are rebuilt by the former only.
+# And expect check to fail.
+check-html:
+	@if $(MAKE) $(AM_MAKEFLAGS) check; then			\
+	  rv=0; else rv=$$?;					\
+	fi;							\
+	$(MAKE) $(AM_MAKEFLAGS) $(TEST_SUITE_HTML) || exit 4;	\
+	exit $$rv
+recheck recheck-html:
+	@target=`echo $@ | sed 's,^re,,'`;				\
+	list='$(TEST_LOGS)';						\
+	list=`for f in $$list; do					\
+	        test -f $$f || continue;				\
+	        if read line < $$f; then				\
+	          case $$line in FAIL*|XPASS*) echo $$f;; esac;		\
+	        else echo $$f; fi;					\
+	      done | tr '\012\015' '  '`;				\
+	$(MAKE) $(AM_MAKEFLAGS) $$target AM_MAKEFLAGS='$(AM_MAKEFLAGS) TEST_LOGS="'"$$list"'"'
+test-file-has-acl.sh.log: test-file-has-acl.sh
+	@p='test-file-has-acl.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-set-mode-acl.sh.log: test-set-mode-acl.sh
+	@p='test-set-mode-acl.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-copy-acl.sh.log: test-copy-acl.sh
+	@p='test-copy-acl.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-alloca-opt.log: test-alloca-opt$(EXEEXT)
+	@p='test-alloca-opt$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-argmatch.log: test-argmatch$(EXEEXT)
+	@p='test-argmatch$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-argv-iter.log: test-argv-iter$(EXEEXT)
+	@p='test-argv-iter$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-arpa_inet.log: test-arpa_inet$(EXEEXT)
+	@p='test-arpa_inet$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-atexit.sh.log: test-atexit.sh
+	@p='test-atexit.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-base64.log: test-base64$(EXEEXT)
+	@p='test-base64$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-binary-io.sh.log: test-binary-io.sh
+	@p='test-binary-io.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-btowc1.sh.log: test-btowc1.sh
+	@p='test-btowc1.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-btowc2.sh.log: test-btowc2.sh
+	@p='test-btowc2.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-c-ctype.log: test-c-ctype$(EXEEXT)
+	@p='test-c-ctype$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-c-strcase.sh.log: test-c-strcase.sh
+	@p='test-c-strcase.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-canonicalize.sh.log: test-canonicalize.sh
+	@p='test-canonicalize.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-closein.sh.log: test-closein.sh
+	@p='test-closein.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-md5.log: test-md5$(EXEEXT)
+	@p='test-md5$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-sha1.log: test-sha1$(EXEEXT)
+	@p='test-sha1$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-dirname.log: test-dirname$(EXEEXT)
+	@p='test-dirname$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-environ.log: test-environ$(EXEEXT)
+	@p='test-environ$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-errno.log: test-errno$(EXEEXT)
+	@p='test-errno$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-fcntl.log: test-fcntl$(EXEEXT)
+	@p='test-fcntl$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-fflush.log: test-fflush$(EXEEXT)
+	@p='test-fflush$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-fflush2.sh.log: test-fflush2.sh
+	@p='test-fflush2.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-filenamecat.log: test-filenamecat$(EXEEXT)
+	@p='test-filenamecat$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-filevercmp.log: test-filevercmp$(EXEEXT)
+	@p='test-filevercmp$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-fpending.sh.log: test-fpending.sh
+	@p='test-fpending.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-fpurge.log: test-fpurge$(EXEEXT)
+	@p='test-fpurge$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-freadahead.sh.log: test-freadahead.sh
+	@p='test-freadahead.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-freading.log: test-freading$(EXEEXT)
+	@p='test-freading$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-freadptr.sh.log: test-freadptr.sh
+	@p='test-freadptr.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-freadptr2.sh.log: test-freadptr2.sh
+	@p='test-freadptr2.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-freadseek.sh.log: test-freadseek.sh
+	@p='test-freadseek.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-frexp-nolibm.log: test-frexp-nolibm$(EXEEXT)
+	@p='test-frexp-nolibm$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-frexpl-nolibm.log: test-frexpl-nolibm$(EXEEXT)
+	@p='test-frexpl-nolibm$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-fseeko.sh.log: test-fseeko.sh
+	@p='test-fseeko.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-fseeko2.sh.log: test-fseeko2.sh
+	@p='test-fseeko2.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-fseterr.log: test-fseterr$(EXEEXT)
+	@p='test-fseterr$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-ftello.sh.log: test-ftello.sh
+	@p='test-ftello.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-ftello2.sh.log: test-ftello2.sh
+	@p='test-ftello2.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-getaddrinfo.log: test-getaddrinfo$(EXEEXT)
+	@p='test-getaddrinfo$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-getdate.log: test-getdate$(EXEEXT)
+	@p='test-getdate$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-getdelim.log: test-getdelim$(EXEEXT)
+	@p='test-getdelim$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-gethostname.log: test-gethostname$(EXEEXT)
+	@p='test-gethostname$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-getline.log: test-getline$(EXEEXT)
+	@p='test-getline$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-getndelim2.log: test-getndelim2$(EXEEXT)
+	@p='test-getndelim2$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-gettimeofday.log: test-gettimeofday$(EXEEXT)
+	@p='test-gettimeofday$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-i-ring.log: test-i-ring$(EXEEXT)
+	@p='test-i-ring$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-iconv.log: test-iconv$(EXEEXT)
+	@p='test-iconv$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-inttypes.log: test-inttypes$(EXEEXT)
+	@p='test-inttypes$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-isnand-nolibm.log: test-isnand-nolibm$(EXEEXT)
+	@p='test-isnand-nolibm$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-isnanf-nolibm.log: test-isnanf-nolibm$(EXEEXT)
+	@p='test-isnanf-nolibm$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-isnanl-nolibm.log: test-isnanl-nolibm$(EXEEXT)
+	@p='test-isnanl-nolibm$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-lseek.sh.log: test-lseek.sh
+	@p='test-lseek.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-lstat.log: test-lstat$(EXEEXT)
+	@p='test-lstat$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-malloca.log: test-malloca$(EXEEXT)
+	@p='test-malloca$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-math.log: test-math$(EXEEXT)
+	@p='test-math$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-mbrtowc1.sh.log: test-mbrtowc1.sh
+	@p='test-mbrtowc1.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-mbrtowc2.sh.log: test-mbrtowc2.sh
+	@p='test-mbrtowc2.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-mbrtowc3.sh.log: test-mbrtowc3.sh
+	@p='test-mbrtowc3.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-mbrtowc4.sh.log: test-mbrtowc4.sh
+	@p='test-mbrtowc4.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-mbscasecmp.sh.log: test-mbscasecmp.sh
+	@p='test-mbscasecmp.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-mbsinit.sh.log: test-mbsinit.sh
+	@p='test-mbsinit.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-mbsrtowcs1.sh.log: test-mbsrtowcs1.sh
+	@p='test-mbsrtowcs1.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-mbsrtowcs2.sh.log: test-mbsrtowcs2.sh
+	@p='test-mbsrtowcs2.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-mbsrtowcs3.sh.log: test-mbsrtowcs3.sh
+	@p='test-mbsrtowcs3.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-mbsrtowcs4.sh.log: test-mbsrtowcs4.sh
+	@p='test-mbsrtowcs4.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-mbsstr1.log: test-mbsstr1$(EXEEXT)
+	@p='test-mbsstr1$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-mbsstr2.sh.log: test-mbsstr2.sh
+	@p='test-mbsstr2.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-mbsstr3.sh.log: test-mbsstr3.sh
+	@p='test-mbsstr3.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-memchr.log: test-memchr$(EXEEXT)
+	@p='test-memchr$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-memchr2.log: test-memchr2$(EXEEXT)
+	@p='test-memchr2$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-memcmp.log: test-memcmp$(EXEEXT)
+	@p='test-memcmp$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-memrchr.log: test-memrchr$(EXEEXT)
+	@p='test-memrchr$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-netdb.log: test-netdb$(EXEEXT)
+	@p='test-netdb$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-netinet_in.log: test-netinet_in$(EXEEXT)
+	@p='test-netinet_in$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-open.log: test-open$(EXEEXT)
+	@p='test-open$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-perror.sh.log: test-perror.sh
+	@p='test-perror.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-printf-frexp.log: test-printf-frexp$(EXEEXT)
+	@p='test-printf-frexp$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-printf-frexpl.log: test-printf-frexpl$(EXEEXT)
+	@p='test-printf-frexpl$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-quotearg.sh.log: test-quotearg.sh
+	@p='test-quotearg.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-read-file.log: test-read-file$(EXEEXT)
+	@p='test-read-file$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-select.log: test-select$(EXEEXT)
+	@p='test-select$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-select-in.sh.log: test-select-in.sh
+	@p='test-select-in.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-select-out.sh.log: test-select-out.sh
+	@p='test-select-out.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-sigaction.log: test-sigaction$(EXEEXT)
+	@p='test-sigaction$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-signal.log: test-signal$(EXEEXT)
+	@p='test-signal$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-signbit.log: test-signbit$(EXEEXT)
+	@p='test-signbit$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-sleep.log: test-sleep$(EXEEXT)
+	@p='test-sleep$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-snprintf.log: test-snprintf$(EXEEXT)
+	@p='test-snprintf$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-sockets.log: test-sockets$(EXEEXT)
+	@p='test-sockets$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-stat-time.log: test-stat-time$(EXEEXT)
+	@p='test-stat-time$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-stdbool.log: test-stdbool$(EXEEXT)
+	@p='test-stdbool$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-stdint.log: test-stdint$(EXEEXT)
+	@p='test-stdint$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-stdio.log: test-stdio$(EXEEXT)
+	@p='test-stdio$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-stdlib.log: test-stdlib$(EXEEXT)
+	@p='test-stdlib$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-strerror.log: test-strerror$(EXEEXT)
+	@p='test-strerror$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-striconv.log: test-striconv$(EXEEXT)
+	@p='test-striconv$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-string.log: test-string$(EXEEXT)
+	@p='test-string$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-strtod.log: test-strtod$(EXEEXT)
+	@p='test-strtod$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-strverscmp.log: test-strverscmp$(EXEEXT)
+	@p='test-strverscmp$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-sys_select.log: test-sys_select$(EXEEXT)
+	@p='test-sys_select$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-sys_socket.log: test-sys_socket$(EXEEXT)
+	@p='test-sys_socket$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-sys_stat.log: test-sys_stat$(EXEEXT)
+	@p='test-sys_stat$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-sys_time.log: test-sys_time$(EXEEXT)
+	@p='test-sys_time$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-time.log: test-time$(EXEEXT)
+	@p='test-time$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-u64.log: test-u64$(EXEEXT)
+	@p='test-u64$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-unistd.log: test-unistd$(EXEEXT)
+	@p='test-unistd$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-uc_width.log: test-uc_width$(EXEEXT)
+	@p='test-uc_width$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+uniwidth/test-uc_width2.sh.log: uniwidth/test-uc_width2.sh
+	@p='uniwidth/test-uc_width2.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-vasnprintf.log: test-vasnprintf$(EXEEXT)
+	@p='test-vasnprintf$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-vasprintf-posix.log: test-vasprintf-posix$(EXEEXT)
+	@p='test-vasprintf-posix$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-vasprintf.log: test-vasprintf$(EXEEXT)
+	@p='test-vasprintf$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-vc-list-files-git.sh.log: test-vc-list-files-git.sh
+	@p='test-vc-list-files-git.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-vc-list-files-cvs.sh.log: test-vc-list-files-cvs.sh
+	@p='test-vc-list-files-cvs.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-vfprintf-posix.sh.log: test-vfprintf-posix.sh
+	@p='test-vfprintf-posix.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-vprintf-posix.sh.log: test-vprintf-posix.sh
+	@p='test-vprintf-posix.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-wchar.log: test-wchar$(EXEEXT)
+	@p='test-wchar$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-wcrtomb.sh.log: test-wcrtomb.sh
+	@p='test-wcrtomb.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-wctype.log: test-wctype$(EXEEXT)
+	@p='test-wctype$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-wcwidth.log: test-wcwidth$(EXEEXT)
+	@p='test-wcwidth$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-xprintf-posix.sh.log: test-xprintf-posix.sh
+	@p='test-xprintf-posix.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-xstrtoimax.sh.log: test-xstrtoimax.sh
+	@p='test-xstrtoimax.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-xstrtol.sh.log: test-xstrtol.sh
+	@p='test-xstrtol.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-xstrtoumax.sh.log: test-xstrtoumax.sh
+	@p='test-xstrtoumax.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-xvasprintf.log: test-xvasprintf$(EXEEXT)
+	@p='test-xvasprintf$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-yesno.sh.log: test-yesno.sh
+	@p='test-yesno.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+.test.log:
+	@p='$<'; $(am__check_pre) $(TEST_LOG_COMPILE) "$$tst" $(am__check_post)
+@am__EXEEXT_TRUE@.test$(EXEEXT).log:
+@am__EXEEXT_TRUE@	@p='$<'; $(am__check_pre) $(TEST_LOG_COMPILE) "$$tst" $(am__check_post)
+
 distdir: $(DISTFILES)
 	@srcdirstrip=`echo "$(srcdir)" | sed 's/[].[^$$\\*]/\\\\&/g'`; \
 	topsrcdirstrip=`echo "$(top_srcdir)" | sed 's/[].[^$$\\*]/\\\\&/g'`; \
@@ -2738,6 +3135,10 @@ install-strip:
 	    echo "INSTALL_PROGRAM_ENV=STRIPPROG='$(STRIP)'"` install
 mostlyclean-generic:
 	-test -z "$(MOSTLYCLEANFILES)" || rm -f $(MOSTLYCLEANFILES)
+	-test -z "$(TEST_LOGS)" || rm -f $(TEST_LOGS)
+	-test -z "$(TEST_LOGS_TMP)" || rm -f $(TEST_LOGS_TMP)
+	-test -z "$(TEST_SUITE_HTML)" || rm -f $(TEST_SUITE_HTML)
+	-test -z "$(TEST_SUITE_LOG)" || rm -f $(TEST_SUITE_LOG)
 
 clean-generic:
 	-test -z "$(CLEANFILES)" || rm -f $(CLEANFILES)
@@ -2825,11 +3226,11 @@ ps-am:
 uninstall-am:
 
 .MAKE: $(RECURSIVE_CLEAN_TARGETS) $(RECURSIVE_TARGETS) all check \
-	check-am ctags-recursive install install-am install-strip \
-	tags-recursive
+	check-am check-html ctags-recursive install install-am \
+	install-strip recheck recheck-html tags-recursive
 
 .PHONY: $(RECURSIVE_CLEAN_TARGETS) $(RECURSIVE_TARGETS) CTAGS GTAGS \
-	all all-am check check-TESTS check-am clean \
+	all all-am check check-TESTS check-am check-html clean \
 	clean-checkLIBRARIES clean-checkPROGRAMS clean-generic \
 	clean-local clean-noinstLIBRARIES clean-noinstPROGRAMS ctags \
 	ctags-recursive distclean distclean-compile distclean-generic \
@@ -2841,8 +3242,8 @@ uninstall-am:
 	install-strip installcheck installcheck-am installdirs \
 	installdirs-am maintainer-clean maintainer-clean-generic \
 	mostlyclean mostlyclean-compile mostlyclean-generic \
-	mostlyclean-local pdf pdf-am ps ps-am tags tags-recursive \
-	uninstall uninstall-am
+	mostlyclean-local pdf pdf-am ps ps-am recheck recheck-html \
+	tags tags-recursive uninstall uninstall-am
 
 
 # We need the following in order to create <sys/ioctl.h> when the system
@@ -2873,124 +3274,6 @@ mostlyclean-local: mostlyclean-generic
 	  fi; \
 	done; \
 	:
-
-# From a test (with no extension) to a log file.
-@GNU_MAKE_TRUE@%.log: %
-@GNU_MAKE_TRUE@	@src='$<'; $(am__check_pre) "$$dir$$src" $(am__check_post)
-# With POSIX 'make', inference rules cannot have FOO.log depend on FOO.
-# Work around the problem by calculating the dependency dynamically, and
-# then invoking a submake with the calculated dependency.
-@GNU_MAKE_FALSE@CHECK-FORCE:
-@GNU_MAKE_FALSE@$(TEST_LOGS): $(DEPENDENCY)
-@GNU_MAKE_FALSE@	@if test '$(DEPENDENCY)' = CHECK-FORCE; then			\
-@GNU_MAKE_FALSE@	  dst=$@; src=$${dst%.log};					\
-@GNU_MAKE_FALSE@	  test -x "$$src" || src='$(srcdir)'/$$src;			\
-@GNU_MAKE_FALSE@	  exec $(MAKE) $(AM_MAKEFLAGS) DEPENDENCY="$$src" $@;		\
-@GNU_MAKE_FALSE@	else								\
-@GNU_MAKE_FALSE@	  src='$(DEPENDENCY)';						\
-@GNU_MAKE_FALSE@	  $(am__check_pre) "$$dir$$src" $(am__check_post);		\
-@GNU_MAKE_FALSE@	fi
-
-$(TEST_SUITE_LOG): $(TEST_LOGS)
-	@$(SH_E_WORKAROUND);						\
-	results=$$(for f in $(TEST_LOGS); do sed 1q $$f; done);		\
-	all=$$(echo "$$results" | wc -l | sed -e 's/^[ \t]*//');	\
-	fail=$$(echo "$$results" | grep -c '^FAIL');			\
-	pass=$$(echo "$$results" | grep -c '^PASS');			\
-	skip=$$(echo "$$results" | grep -c '^SKIP');			\
-	xfail=$$(echo "$$results" | grep -c '^XFAIL');			\
-	xpass=$$(echo "$$results" | grep -c '^XPASS');			\
-	failures=$$(expr $$fail + $$xpass);				\
-	case fail=$$fail:xpass=$$xpass:xfail=$$xfail in			\
-	  fail=0:xpass=0:xfail=0)					\
-	    msg="All $$all tests passed.  ";				\
-	    exit=true;;							\
-	  fail=0:xpass=0:xfail=*)					\
-	    msg="All $$all tests behaved as expected";			\
-	    msg="$$msg ($$xfail expected failures).  ";			\
-	    exit=true;;							\
-	  fail=*:xpass=0:xfail=*)					\
-	    msg="$$fail of $$all tests failed.  ";			\
-	    exit=false;;						\
-	  fail=*:xpass=*:xfail=*)					\
-	    msg="$$failures of $$all tests did not behave as expected";	\
-	    msg="$$msg ($$xpass unexpected passes).  ";			\
-	    exit=false;;						\
-	  *)								\
-            echo >&2 "incorrect case"; exit 4;;				\
-	esac;								\
-	if test "$$skip" -ne 0; then					\
-	  msg="$$msg($$skip tests were not run).  ";			\
-	fi;								\
-	if test "$$failures" -ne 0; then				\
-	  {								\
-	    echo "$(PACKAGE_STRING): $(subdir)/$(TEST_SUITE_LOG)" |	\
-	      $(am__rst_title);						\
-	    echo "$$msg";						\
-	    echo;							\
-	    echo ".. contents:: :depth: 2";				\
-	    echo;							\
-	    for f in $(TEST_LOGS);					\
-	    do								\
-	      case $$(sed 1q $$f) in					\
-		SKIP:*|PASS:*|XFAIL:*);;				\
-		*) echo; cat $$f;;					\
-	      esac;							\
-	    done;							\
-	  } >$(TEST_SUITE_LOG).tmp;					\
-	  mv $(TEST_SUITE_LOG).tmp $(TEST_SUITE_LOG);			\
-	  msg="$${msg}See $(subdir)/$(TEST_SUITE_LOG).  ";		\
-	  if test -n "$(PACKAGE_BUGREPORT)"; then			\
-	    msg="$${msg}Please report it to $(PACKAGE_BUGREPORT).  ";	\
-	  fi;								\
-	fi;								\
-	$(am__tty_colors);						\
-	if $$exit; then echo $$grn; else echo $$red; fi;		\
-	  echo "$$msg" | $(am__text_box);				\
-	echo $$std;							\
-	test x"$$VERBOSE" = x || $$exit || cat $(TEST_SUITE_LOG);	\
-	$$exit
-
-# if test x"$$VERBOSE" != x && ! $exit; then
-
-# Run all the tests.
-check-TESTS:
-	@if test -z '$(LAZY_TEST_SUITE)'; then	\
-	  rm -f $(TEST_SUITE_LOG) $(TEST_LOGS);	\
-	fi
-	@$(MAKE) $(TEST_SUITE_LOG)
-
-.log.html:
-	@for r2h in $(RST2HTML) $$RST2HTML rst2html rst2html.py;	\
-	do								\
-	  if ($$r2h --version) >/dev/null 2>&1; then			\
-	    R2H=$$r2h;							\
-	  fi;								\
-	done;								\
-	if test -z "$$R2H"; then					\
-	  echo >&2 "cannot find rst2html, cannot create $@";		\
-	  exit 2;							\
-	fi;								\
-	$$R2H $< >$@.tmp
-	@mv $@.tmp $@
-
-# Be sure to run check-TESTS first, and then to convert the result.
-# Beware of concurrent executions.  And expect check-TESTS to fail.
-check-html:
-	@if $(MAKE) $(AM_MAKEFLAGS) check-TESTS; then :; else	\
-	  rv=$$?;						\
-	  $(MAKE) $(AM_MAKEFLAGS) $(TEST_SUITE_HTML);		\
-	  exit $$rv;						\
-	fi
-
-.PHONY: check-html
-
-check-clean:
-	rm -f $(CHECK_CLEANFILES) $(TEST_SUITE_LOG) $(TEST_SUITE_HTML) $(TEST_LOGS)
-.PHONY: check-clean
-clean-local: check-clean
-
-# Parallel replacement of Automake's check-TESTS target.
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

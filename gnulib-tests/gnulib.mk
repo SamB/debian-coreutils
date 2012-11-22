@@ -594,6 +594,21 @@ EXTRA_DIST += test-mbsinit.sh test-mbsinit.c
 
 ## end   gnulib module mbsinit-tests
 
+## begin gnulib module mbsrtowcs-tests
+
+TESTS += test-mbsrtowcs1.sh test-mbsrtowcs2.sh test-mbsrtowcs3.sh test-mbsrtowcs4.sh
+TESTS_ENVIRONMENT += \
+  EXEEXT='@EXEEXT@' \
+  LOCALE_FR='@LOCALE_FR@' \
+  LOCALE_FR_UTF8='@LOCALE_FR_UTF8@' \
+  LOCALE_JA='@LOCALE_JA@' \
+  LOCALE_ZH_CN='@LOCALE_ZH_CN@'
+check_PROGRAMS += test-mbsrtowcs
+
+EXTRA_DIST += test-mbsrtowcs1.sh test-mbsrtowcs2.sh test-mbsrtowcs3.sh test-mbsrtowcs4.sh test-mbsrtowcs.c
+
+## end   gnulib module mbsrtowcs-tests
+
 ## begin gnulib module mbsstr-tests
 
 TESTS += test-mbsstr1 test-mbsstr2.sh test-mbsstr3.sh
@@ -988,6 +1003,14 @@ EXTRA_DIST += test-time.c
 
 ## end   gnulib module time-tests
 
+## begin gnulib module u64-tests
+
+TESTS += test-u64
+check_PROGRAMS += test-u64
+EXTRA_DIST += test-u64.c
+
+## end   gnulib module u64-tests
+
 ## begin gnulib module unistd-tests
 
 TESTS += test-unistd
@@ -1040,7 +1063,7 @@ EXTRA_DIST += test-vasprintf.c
 
 TESTS += test-vc-list-files-git.sh
 TESTS += test-vc-list-files-cvs.sh
-TESTS_ENVIRONMENT += PATH='$(abs_aux_dir)':"$$PATH"
+TESTS_ENVIRONMENT += PATH='$(abs_aux_dir)'$(PATH_SEPARATOR)"$$PATH"
 EXTRA_DIST += test-vc-list-files-git.sh test-vc-list-files-cvs.sh
 
 ## end   gnulib module vc-list-files-tests

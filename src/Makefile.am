@@ -69,6 +69,10 @@ EXTRA_DIST = dcgen dircolors.hin tac-pipe.c \
 BUILT_SOURCES =
 CLEANFILES = $(SCRIPTS) su
 
+# Also remove these sometimes-built programs.
+# For example, even when excluded, they're built via check-AUTHORS.
+CLEANFILES += $(no_install__progs)
+
 AM_CPPFLAGS = -I$(top_srcdir)/lib
 
 noinst_LIBRARIES = libver.a
@@ -286,26 +290,26 @@ editpl = sed -e 's,@''PERL''@,$(PERL),g'
 
 BUILT_SOURCES += dircolors.h
 dircolors.h: dcgen dircolors.hin
-	@rm -f $@ $@-t
-	$(PERL) -w -- $(srcdir)/dcgen $(srcdir)/dircolors.hin > $@-t
-	@chmod a-w $@-t
-	mv $@-t $@
+	$(AM_V_GEN)rm -f $@ $@-t
+	$(AM_V_at)$(PERL) -w -- $(srcdir)/dcgen $(srcdir)/dircolors.hin > $@-t
+	$(AM_V_at)chmod a-w $@-t
+	$(AM_V_at)mv $@-t $@
 
 wheel_size = 5
 
 BUILT_SOURCES += wheel-size.h
 wheel-size.h: Makefile.am
-	@rm -f $@ $@-t
-	echo '#define WHEEL_SIZE $(wheel_size)' > $@-t
-	@chmod a-w $@-t
-	mv $@-t $@
+	$(AM_V_GEN)rm -f $@ $@-t
+	$(AM_V_at)echo '#define WHEEL_SIZE $(wheel_size)' > $@-t
+	$(AM_V_at)chmod a-w $@-t
+	$(AM_V_at)mv $@-t $@
 
 BUILT_SOURCES += wheel.h
 wheel.h: wheel-gen.pl Makefile.am
-	@rm -f $@ $@-t
-	$(srcdir)/wheel-gen.pl $(wheel_size) > $@-t
-	@chmod a-w $@-t
-	mv $@-t $@
+	$(AM_V_GEN)rm -f $@ $@-t
+	$(AM_V_at)$(srcdir)/wheel-gen.pl $(wheel_size) > $@-t
+	$(AM_V_at)chmod a-w $@-t
+	$(AM_V_at)mv $@-t $@
 
 # false exits nonzero even with --help or --version.
 # test doesn't support --help or --version.
@@ -314,25 +318,25 @@ AM_INSTALLCHECK_STD_OPTIONS_EXEMPT = false test
 
 BUILT_SOURCES += fs.h
 fs.h: stat.c extract-magic
-	rm -f $@
-	$(PERL) $(srcdir)/extract-magic $(srcdir)/stat.c > $@t
-	@chmod a-w $@t
-	mv $@t $@
+	$(AM_V_GEN)rm -f $@
+	$(AM_V_at)$(PERL) $(srcdir)/extract-magic $(srcdir)/stat.c > $@t
+	$(AM_V_at)chmod a-w $@t
+	$(AM_V_at)mv $@t $@
 
 BUILT_SOURCES += version.c
 version.c: Makefile
-	rm -f $@
-	printf '#include <config.h>\n' > $@t
-	printf 'char const *Version = "$(PACKAGE_VERSION)";\n' >> $@t
-	@chmod a-w $@t
-	mv $@t $@
+	$(AM_V_GEN)rm -f $@
+	$(AM_V_at)printf '#include <config.h>\n' > $@t
+	$(AM_V_at)printf 'char const *Version = "$(PACKAGE_VERSION)";\n' >> $@t
+	$(AM_V_at)chmod a-w $@t
+	$(AM_V_at)mv $@t $@
 
 BUILT_SOURCES += version.h
 version.h: Makefile
-	rm -f $@
-	printf 'extern char const *Version;\n' > $@t
-	@chmod a-w $@t
-	mv $@t $@
+	$(AM_V_GEN)rm -f $@
+	$(AM_V_at)printf 'extern char const *Version;\n' > $@t
+	$(AM_V_at)chmod a-w $@t
+	$(AM_V_at)mv $@t $@
 
 DISTCLEANFILES = version.c version.h
 MAINTAINERCLEANFILES = $(BUILT_SOURCES)
@@ -359,7 +363,7 @@ pm = progs-makefile
 pr = progs-readme
 # Ensure that the list of programs in README matches the list
 # of programs we can build.
-check: check-README check-duplicate-no-install
+check: check-README check-duplicate-no-install check-AUTHORS
 .PHONY: check-README
 check-README:
 	rm -rf $(pr) $(pm)
@@ -378,12 +382,17 @@ check-duplicate-no-install: tr
 	test -z "`echo '$(EXTRA_PROGRAMS)'| ./tr ' ' '\n' | uniq -d`"
 
 # Ensure that the list of programs and author names is accurate.
+# We need a UTF8 locale, and any one should do, but since configure
+# already tries to find a French one, use it.  It's fine to skip this test.
 au_dotdot = authors-dotdot
 au_actual = authors-actual
 .PHONY: check-AUTHORS
 check-AUTHORS: $(all_programs)
-	@rm -f $(au_actual) $(au_dotdot)
-	@for i in `ls $(all_programs) | sed -e 's,$(EXEEXT)$$,,' \
+	@locale='$(LOCALE_FR_UTF8)';			\
+	case "$$locale" in				\
+	  ''|none) echo "$@: skipping this check"; exit 0;; esac; \
+	rm -f $(au_actual) $(au_dotdot);		\
+	for i in `ls $(all_programs) | sed -e 's,$(EXEEXT)$$,,' \
 	    | $(ASSORT) -u`; do				\
 	  test "$$i" = '[' && continue;			\
 	  exe=$$i;					\
@@ -392,37 +401,13 @@ check-AUTHORS: $(all_programs)
 	  elif test "$$i" = test; then			\
 	    exe='[';					\
 	  fi;						\
-	  LC_ALL=en_US.UTF-8 ./$$exe --version		\
+	  LC_ALL="$$locale" ./$$exe --version		\
 	    | perl -0 -pi -e 's/,\n/, /gm'		\
-	    |sed -n '/Written by /{ s//'"$$i"': /; s/,* and /, /; s/\.$$//; p; }'; \
-	done > $(au_actual)
-	@sed -n '/^[^ ][^ ]*:/p' $(top_srcdir)/AUTHORS > $(au_dotdot)
-	@diff $(au_actual) $(au_dotdot) && rm -f $(au_actual) $(au_dotdot)
-
-# Extract the list of authors from each file.
-sed_filter = s/^ *//;s/N_ (//;s/^"//;s/")*$$//
-# Sometimes the string is on the same line as the #define...
-s1 = '/^\#define AUTHORS \([^\\]\)/{;s//\1/;$(sed_filter);p;q;}'
-# Sometimes the string is on the backslash-continued line after the #define.
-s2 = '/^\#define AUTHORS \\\\/{;n;$(sed_filter);p;q;}'
-../AUTHORS: $(SOURCES)
-	rm -f $@-t
-	(						\
-	  set -e;					\
-	  echo "Here are the names of the programs in this package,";	\
-	  echo "each followed by the name(s) of its author(s).";	\
-	  echo;						\
-	  for i in $(SOURCES); do			\
-	    a=`sed -n $(s1) $$i`;			\
-	    test "$$a" && :				\
-	      || a=`sed -n $(s2) $$i`;			\
-	    if test "$$a"; then				\
-	      prog=`echo $$i|sed 's/\.c$$//'`;		\
-	      echo "$$prog: $$a";			\
-	    fi;						\
-	  done | $(ASSORT) -u ) > $@-t
-	chmod a-w $@-t
-	mv $@-t $@
+	    | sed -n -e '/Written by /{ s//'"$$i"': /;'	\
+		  -e 's/,* and /, /; s/\.$$//; p; }';	\
+	done > $(au_actual) &&				\
+	sed -n '/^[^ ][^ ]*:/p' $(top_srcdir)/AUTHORS > $(au_dotdot) && \
+	diff $(au_actual) $(au_dotdot) && rm -f $(au_actual) $(au_dotdot)
 
 # The following rule is not designed to be portable,
 # and relies on tools that not everyone has.
@@ -434,7 +419,7 @@ s2 = '/^\#define AUTHORS \\\\/{;n;$(sed_filter);p;q;}'
 #
 # The second nm|grep checks for file-scope variables with `extern' scope.
 .PHONY: sc_tight_scope
-sc_tight_scope: $(all_programs)
+sc_tight_scope: $(bin_PROGRAMS)
 	@t=exceptions-$$$$;						\
 	trap "s=$$?; rm -f $$t; exit $$s" 0 1 2 13 15;			\
 	src=`for f in $(SOURCES); do					\

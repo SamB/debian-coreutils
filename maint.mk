@@ -1,6 +1,6 @@
 # -*-Makefile-*-
 # This Makefile fragment tries to be general-purpose enough to be
-# used by at least coreutils, idutils, CPPI, Bison, and Autoconf.
+# used by many projects via the gnulib maintainer-makefile module.
 
 ## Copyright (C) 2001-2009 Free Software Foundation, Inc.
 ##
@@ -27,14 +27,15 @@ gzip_rsyncable := \
   $(shell gzip --help 2>/dev/null|grep rsyncable >/dev/null && echo --rsyncable)
 GZIP_ENV = '--no-name --best $(gzip_rsyncable)'
 
+# cfg.mk must define the gpg_key_ID used by this package.
 GIT = git
 VC = $(GIT)
-VC-tag = git tag -s -m '$(VERSION)'
+VC-tag = git tag -s -m '$(VERSION)' -u '$(gpg_key_ID)'
 
-VC_LIST = $(srcdir)/build-aux/vc-list-files
+VC_LIST = $(srcdir)/build-aux/vc-list-files -C $(srcdir)
 
 VC_LIST_EXCEPT = \
-  $(VC_LIST) | if test -f .x-$@; then grep -vEf .x-$@; else grep -v ChangeLog; fi
+  $(VC_LIST) | if test -f $(srcdir)/.x-$@; then grep -vEf $(srcdir)/.x-$@; else grep -v ChangeLog; fi
 
 ifeq ($(origin prev_version_file), undefined)
   prev_version_file = $(srcdir)/.prev-version
@@ -68,12 +69,11 @@ export LC_ALL = C
 
 # Collect the names of rules starting with `sc_'.
 syntax-check-rules := $(shell sed -n 's/^\(sc_[a-zA-Z0-9_-]*\):.*/\1/p' \
-                        $(srcdir)/$(ME) $(srcdir)/cfg.mk)
+			$(srcdir)/$(ME) $(srcdir)/cfg.mk)
 .PHONY: $(syntax-check-rules)
 
 local-checks-available = \
-  patch-check $(syntax-check-rules) \
-  makefile-check check-AUTHORS
+  $(syntax-check-rules)
 .PHONY: $(local-checks-available)
 
 # Arrange to print the name of each syntax-checking rule just before running it.
@@ -103,7 +103,7 @@ _ignore_case = $$(test -n "$$ignore_case" && echo -i || :)
 # If the offending construct can be matched with a grep-E-style regexp,
 # use this macro.  The shell variables "re" and "msg" must be defined.
 define _prohibit_regexp
-  dummy=; : so we do not need a semicolon before each use		\
+  dummy=; : so we do not need a semicolon before each use;		\
   test "x$$re" != x || { echo '$(ME): re not defined' 1>&2; exit 1; };	\
   test "x$$msg" != x || { echo '$(ME): msg not defined' 1>&2; exit 1; };\
   grep $(_ignore_case) -nE "$$re" $$($(VC_LIST_EXCEPT)) &&		\
@@ -113,7 +113,7 @@ endef
 sc_avoid_if_before_free:
 	@$(srcdir)/build-aux/useless-if-before-free			\
 		$(useless_free_options)					\
-	    $$($(VC_LIST_EXCEPT)) &&					\
+	    $$($(VC_LIST_EXCEPT) | grep -v useless-if-before-free) &&	\
 	  { echo '$(ME): found useless "if" before "free" above' 1>&2;	\
 	    exit 1; } || :
 
@@ -191,10 +191,13 @@ sc_prohibit_have_config_h:
 	  { echo '$(ME): found use of HAVE''_CONFIG_H; remove'		\
 		1>&2; exit 1; } || :
 
-# Nearly all .c files must include <config.h>.
+# Nearly all .c files must include <config.h>.  However, we also permit this
+# via inclusion of a package-specific header, if cfg.mk specified one.
+# config_h_header must be suitable for grep -E.
+config_h_header ?= <config\.h>
 sc_require_config_h:
-	@if $(VC_LIST_EXCEPT) | grep '\.c$$' > /dev/null; then		\
-	  grep -L '^# *include <config\.h>'				\
+	@if $(VC_LIST_EXCEPT) | grep -l '\.c$$' > /dev/null; then	\
+	  grep -EL '^# *include $(config_h_header)'			\
 		$$($(VC_LIST_EXCEPT) | grep '\.c$$')			\
 	      | grep . &&						\
 	  { echo '$(ME): the above files do not include <config.h>'	\
@@ -203,12 +206,13 @@ sc_require_config_h:
 	fi
 
 # You must include <config.h> before including any other header file.
+# This can possibly be via a package-specific header, if given by cfg.mk.
 sc_require_config_h_first:
-	@if $(VC_LIST_EXCEPT) | grep '\.c$$' > /dev/null; then		\
+	@if $(VC_LIST_EXCEPT) | grep -l '\.c$$' > /dev/null; then	\
 	  fail=0;							\
 	  for i in $$($(VC_LIST_EXCEPT) | grep '\.c$$'); do		\
 	    grep '^# *include\>' $$i | sed 1q				\
-		| grep '^# *include <config\.h>' > /dev/null		\
+		| grep -E '^# *include $(config_h_header)' > /dev/null	\
 	      || { echo $$i; fail=1; };					\
 	  done;								\
 	  test $$fail = 1 &&						\
@@ -225,8 +229,8 @@ sc_prohibit_HAVE_MBRTOWC:
 # h: the header, enclosed in <> or ""
 # re: a regular expression that matches IFF something provided by $h is used.
 define _header_without_use
-  h_esc=`echo "$$h"|sed 's/\./\\./'`;					\
-  if $(VC_LIST_EXCEPT) | grep '\.c$$' > /dev/null; then			\
+  h_esc=`echo "$$h"|sed 's/\./\\./g'`;					\
+  if $(VC_LIST_EXCEPT) | grep -l '\.c$$' > /dev/null; then		\
     files=$$(grep -l '^# *include '"$$h_esc"				\
 	     $$($(VC_LIST_EXCEPT) | grep '\.c$$')) &&			\
     grep -LE "$$re" $$files | grep . &&					\
@@ -332,16 +336,19 @@ sc_obsolete_symbols:
 
 # FIXME: warn about definitions of EXIT_FAILURE, EXIT_SUCCESS, STREQ
 
-# Each nonempty line must start with a year number, or a TAB.
+# Each nonempty ChangeLog line must start with a year number, or a TAB.
 sc_changelog:
-	@grep -n '^[^12	]' $$(find . -maxdepth 2 -name ChangeLog) &&	\
+	@if $(VC_LIST_EXCEPT) | grep -l '^ChangeLog$$' >/dev/null; then	\
+	  grep -n '^[^12	]'					\
+	    $$($(VC_LIST_EXCEPT) | grep '^ChangeLog$$') &&		\
 	  { echo '$(ME): found unexpected prefix in a ChangeLog' 1>&2;	\
-	    exit 1; } || :
+	    exit 1; } || :;						\
+	fi
 
 # Ensure that each .c file containing a "main" function also
 # calls set_program_name.
 sc_program_name:
-	@if $(VC_LIST_EXCEPT) | grep '\.c$$' > /dev/null; then		\
+	@if $(VC_LIST_EXCEPT) | grep -l '\.c$$' > /dev/null; then	\
 	  files=$$(grep -l '^main *(' $$($(VC_LIST_EXCEPT) | grep '\.c$$')); \
 	  grep -LE 'set_program_name *\(m?argv\[0\]\);' $$files		\
 	      | grep . &&						\
@@ -480,41 +487,12 @@ update-NEWS-hash: NEWS
 	perl -pi -e 's/^(old_NEWS_hash = ).*/$${1}'"$(NEWS_hash)/" \
 	  $(srcdir)/cfg.mk
 
-epoch_date = 1970-01-01 00:00:00.000000000 +0000
-# Ensure that the c99-to-c89 patch applies cleanly.
-patch-check:
-	rm -rf src-c89 $@.1 $@.2
-	cp -a $(srcdir)/src src-c89
-	if test "x$(srcdir)" != x.; then \
-	  cp -a src/* src-c89; \
-	  dotfiles=`ls src/.[!.]* 2>/dev/null`; \
-	  test -z "$$dotfiles" || cp -a src/.[!.]* src-c89; \
-	fi
-	(cd src-c89; patch -p1 -V never --fuzz=0) < $(srcdir)/src/c99-to-c89.diff \
-	  > $@.1 2>&1
-	if test "$(REGEN_PATCH)" = yes; then			\
-	  diff -upr $(srcdir)/src src-c89 | sed 's,$(srcdir)/src-c89/,src/,'	\
-	    | grep -vE '^(Only in|File )'			\
-	    | perl -pe 's/^((?:\+\+\+|---) \S+\t).*/$${1}$(epoch_date)/;' \
-	       -e 's/^ $$//'					\
-	    > new-diff || : ; fi
-	grep -v '^patching file ' $@.1 > $@.2 || :
-	msg=ok; test -s $@.2 && msg='fuzzy patch' || : ;	\
-	rm -f src-c89/*.o || msg='rm failed';			\
-	$(MAKE) -C src-c89 CFLAGS='-Wdeclaration-after-statement -Werror' \
-	  || msg='compile failure with extra options';		\
-	test "$$msg" = ok && rm -rf src-c89 $@.1 $@.2 || echo "$$msg" 1>&2; \
-	test "$$msg" = ok
-
-check-AUTHORS:
-	$(MAKE) -C src $@
-
 # Ensure that we use only the standard $(VAR) notation,
 # not @...@ in Makefile.am, now that we can rely on automake
 # to emit a definition for each substituted variable.
 # We use perl rather than "grep -nE ..." to exempt a single
 # use of an @...@-delimited variable name in src/Makefile.am.
-makefile-check:
+sc_makefile_check:
 	@perl -ne '/\@[A-Z_0-9]+\@/ && !/^cu_install_program =/'	\
 	  -e 'and (print "$$ARGV:$$.: $$_"), $$m=1; END {exit !$$m}'	\
 	    $$($(VC_LIST_EXCEPT) | grep -E '(^|/)Makefile\.am$$')	\
@@ -522,20 +500,11 @@ makefile-check:
 
 news-date-check: NEWS
 	today=`date +%Y-%m-%d`;						\
-	if head NEWS | grep '^\*.* $(VERSION_REGEXP) ('$$today')'	\
+	if head $(srcdir)/NEWS | grep '^\*.* $(VERSION_REGEXP) ('$$today')' \
 	    >/dev/null; then						\
 	  :;								\
 	else								\
 	  echo "version or today's date is not in NEWS" 1>&2;		\
-	  exit 1;							\
-	fi
-
-changelog-check:
-	if head ChangeLog | grep 'Version $(VERSION_REGEXP)\.$$'	\
-	    >/dev/null; then						\
-	  :;								\
-	else								\
-	  echo "$(VERSION) not in ChangeLog" 1>&2;			\
 	  exit 1;							\
 	fi
 
@@ -563,6 +532,7 @@ sc_po_check:
 	    | grep -v '^src/false\.c$$' | sort > $@-1;			\
 	  files=;							\
 	  for file in $$($(VC_LIST_EXCEPT)) lib/*.[ch]; do		\
+	    test -r $$file || continue;					\
 	    case $$file in						\
 	      *.?|*.??) ;;						\
 	      *) continue;;						\
@@ -628,7 +598,7 @@ sc_copyright_check:
 	fi
 
 vc-diff-check:
-	$(VC) diff > vc-diffs || :
+	(unset CDPATH; cd $(srcdir) && $(VC) diff) > vc-diffs || :
 	if test -s vc-diffs; then				\
 	  cat vc-diffs;						\
 	  echo "Some files are locally modified:" 1>&2;		\
@@ -639,6 +609,7 @@ vc-diff-check:
 
 cvs-check: vc-diff-check
 
+ALL_RECURSIVE_TARGETS += maintainer-distcheck
 maintainer-distcheck:
 	$(MAKE) distcheck
 	$(MAKE) taint-distcheck
@@ -647,6 +618,7 @@ maintainer-distcheck:
 
 # Don't make a distribution if checks fail.
 # Also, make sure the NEWS file is up-to-date.
+ALL_RECURSIVE_TARGETS += vc-dist
 vc-dist: $(local-check) cvs-check maintainer-distcheck
 	XZ_OPT=-9ev $(MAKE) dist
 
@@ -661,163 +633,20 @@ null_AM_MAKEFLAGS = \
 
 built_programs = $$(cd src && MAKEFLAGS= $(MAKE) -s built_programs.list)
 
-warn_cflags = -Dlint -O -Werror -Wall -Wformat -Wshadow -Wpointer-arith
-bin=bin-$$$$
-
-write_loser = printf '\#!%s\necho $$0: bad path 1>&2; exit 1\n' '$(SHELL)'
-
-TMPDIR ?= /tmp
-t=$(TMPDIR)/$(PACKAGE)/test
-pfx=$(t)/i
-
-# More than once, tainted build and source directory names would
-# have caused at least one "make check" test to apply "chmod 700"
-# to all directories under $HOME.  Make sure it doesn't happen again.
-tp := $(shell echo "$(TMPDIR)/$(PACKAGE)-$$$$")
-t_prefix = $(tp)/a
-t_taint = '$(t_prefix) b'
-fake_home = $(tp)/home
-
-# Ensure that tests run from tainted build and src dir names work,
-# and don't affect anything in $HOME.  Create witness files in $HOME,
-# record their attributes, and build/test.  Then ensure that the
-# witnesses were not affected.
-taint-distcheck: $(DIST_ARCHIVES)
-	test -d $(t_taint) && chmod -R 700 $(t_taint) || :
-	-rm -rf $(t_taint) $(fake_home)
-	mkdir -p $(t_prefix) $(t_taint) $(fake_home)
-	GZIP=$(GZIP_ENV) $(AMTAR) -C $(t_taint) -zxf $(distdir).tar.gz
-	mkfifo $(fake_home)/fifo
-	touch $(fake_home)/f
-	mkdir -p $(fake_home)/d/e
-	ls -lR $(fake_home) $(t_prefix) > $(tp)/.ls-before
-	cd $(t_taint)/$(distdir)			\
-	  && ./configure				\
-	  && $(MAKE)					\
-	  && HOME=$(fake_home) $(MAKE) check		\
-	  && ls -lR $(fake_home) $(t_prefix) > $(tp)/.ls-after \
-	  && diff $(tp)/.ls-before $(tp)/.ls-after	\
-	  && test -d $(t_prefix)
-	rm -rf $(tp)
-
-# Verify that a twisted use of --program-transform-name=PROGRAM works.
-define install-transform-check
-  echo running install-transform-check			\
-    && rm -rf $(pfx)					\
-    && $(MAKE) program_transform_name='s/.*/zyx/'	\
-      prefix=$(pfx) install				\
-    && test "$$(echo $(pfx)/bin/*)" = "$(pfx)/bin/zyx"	\
-    && test "$$(find $(pfx)/share/man -type f|sed 's,.*/,,;s,\..*,,')" = "zyx"
-endef
-
-# Install, then verify that all binaries and man pages are in place.
-# Note that neither the binary, ginstall, nor the ].1 man page is installed.
-define my-instcheck
-  $(MAKE) prefix=$(pfx) install				\
-    && test ! -f $(pfx)/bin/ginstall			\
-    && { fail=0;					\
-      for i in $(built_programs); do			\
-        test "$$i" = ginstall && i=install;		\
-        for j in "$(pfx)/bin/$$i"			\
-                 "$(pfx)/share/man/man1/$$i.1"; do	\
-          case $$j in *'[.1') continue;; esac;		\
-          test -f "$$j" && :				\
-            || { echo "$$j not installed"; fail=1; };	\
-        done;						\
-      done;						\
-      test $$fail = 1 && exit 1 || :;			\
-    }
-endef
-
-define coreutils-path-check
-  {							\
-    if test -f $(srcdir)/src/true.c; then		\
-      fail=1;						\
-      mkdir $(bin)					\
-	&& ($(write_loser)) > $(bin)/loser		\
-	&& chmod a+x $(bin)/loser			\
-	&& for i in $(built_programs); do		\
-	       case $$i in				\
-		 rm|expr|basename|echo|sort|ls|tr);;	\
-		 cat|dirname|mv|wc);;			\
-		 *) ln $(bin)/loser $(bin)/$$i;;	\
-	       esac;					\
-	     done					\
-	  && ln -sf ../src/true $(bin)/false		\
-	  && PATH=`pwd`/$(bin)$(PATH_SEPARATOR)$$PATH	\
-		$(MAKE) -C tests check			\
-	  && { test -d gnulib-tests			\
-		 && $(MAKE) -C gnulib-tests check	\
-		 || :; }				\
-	  && rm -rf $(bin)				\
-	  && fail=0;					\
-    else						\
-      fail=0;						\
-    fi;							\
-    test $$fail = 1 && exit 1 || :;			\
-  }
-endef
-
-# Use -Wformat -Werror to detect format-string/arg-list mismatches.
-# Also, check for shadowing problems with -Wshadow, and for pointer
-# arithmetic problems with -Wpointer-arith.
-# These CFLAGS are pretty strict.  If you build this target, you probably
-# have to have a recent version of gcc and glibc headers.
-# The hard-linking for-loop below ensures that there is a bin/ directory
-# full of all of the programs under test (except the ones that are required
-# for basic Makefile rules), all symlinked to the just-built "false" program.
-# This is to ensure that if ever a test neglects to make PATH include
-# the build srcdir, these always-failing programs will run.
-# Otherwise, it is too easy to test the wrong programs.
-# Note that "false" itself is a symlink to true, so it too will malfunction.
-my-distcheck: $(DIST_ARCHIVES) $(local-check)
-	$(MAKE) syntax-check
-	$(MAKE) check
-	-rm -rf $(t)
-	mkdir -p $(t)
-	GZIP=$(GZIP_ENV) $(AMTAR) -C $(t) -zxf $(distdir).tar.gz
-	cd $(t)/$(distdir)				\
-	  && ./configure --disable-nls			\
-	  && $(MAKE) CFLAGS='$(warn_cflags)'		\
-	      AM_MAKEFLAGS='$(null_AM_MAKEFLAGS)'	\
-	  && $(MAKE) dvi				\
-	  && $(install-transform-check)			\
-	  && $(my-instcheck)				\
-	  && $(coreutils-path-check)			\
-	  && $(MAKE) distclean
-	(cd $(t) && mv $(distdir) $(distdir).old	\
-	  && $(AMTAR) -zxf - ) < $(distdir).tar.gz
-	diff -ur $(t)/$(distdir).old $(t)/$(distdir)
-	-rm -rf $(t)
-	@echo "========================"; \
-	echo "$(distdir).tar.gz is ready for distribution"; \
-	echo "========================"
-
-WGET = wget
-WGETFLAGS = -C off
-
-rel-check:
-	tarz=/tmp/rel-check-tarz-$$$$; \
-	md5_tmp=/tmp/rel-check-md5-$$$$; \
-	set -e; \
-	trap 'status=$$?; rm -f $$tarz $$md5_tmp; exit $$status' 0 1 2 3 15; \
-	$(WGET) $(WGETFLAGS) -q --output-document=$$tarz $(url); \
-	echo "$(md5)  -" > $$md5_tmp; \
-	md5sum -c $$md5_tmp < $$tarz
-
 rel-files = $(DIST_ARCHIVES)
 
 gnulib-version = $$(cd $(gnulib_dir) && git describe)
+bootstrap-tools ?= autoconf,automake,gnulib
 
 announcement: NEWS ChangeLog $(rel-files)
-	@./build-aux/announce-gen					\
+	@$(srcdir)/build-aux/announce-gen				\
 	    --release-type=$(RELEASE_TYPE)				\
 	    --package=$(PACKAGE)					\
 	    --prev=$(PREV_VERSION)					\
 	    --curr=$(VERSION)						\
 	    --gpg-key-id=$(gpg_key_ID)					\
 	    --news=NEWS							\
-	    --bootstrap-tools=autoconf,automake,bison,gnulib		\
+	    --bootstrap-tools=$(bootstrap-tools)			\
 	    --gnulib-version=$(gnulib-version)				\
 	    --no-print-checksums					\
 	    $(addprefix --url-dir=, $(url_dir_list))
@@ -828,9 +657,6 @@ announcement: NEWS ChangeLog $(rel-files)
 
 ftp-gnu = ftp://ftp.gnu.org/gnu
 www-gnu = http://www.gnu.org
-
-# Use mv, if you don't have/want move-if-change.
-move_if_change ?= move-if-change
 
 emit_upload_commands:
 	@echo =====================================
@@ -851,6 +677,7 @@ define emit-commit-log
 endef
 
 .PHONY: alpha beta major
+ALL_RECURSIVE_TARGETS += alpha beta major
 alpha beta major: $(local-check) writable-files
 	test $@ = major						\
 	  && { echo $(VERSION) | grep -E '^[0-9]+(\.[0-9]+)+$$'	\
@@ -879,3 +706,45 @@ web-manual:
 	     --email $(PACKAGE_BUGREPORT) $(PACKAGE) \
 	    "$(PACKAGE_NAME) - $(manual_title)"
 	@echo " *** Upload the doc/manual directory to web-cvs."
+
+# Code Coverage
+
+init-coverage:
+	$(MAKE) $(AM_MAKEFLAGS) clean
+	lcov --directory . --zerocounters
+
+COVERAGE_CCOPTS ?= "-g --coverage"
+COVERAGE_OUT ?= doc/coverage
+
+build-coverage:
+	$(MAKE) $(AM_MAKEFLAGS) CFLAGS=$(COVERAGE_CCOPTS) CXXFLAGS=$(COVERAGE_CCOPTS)
+	$(MAKE) $(AM_MAKEFLAGS) CFLAGS=$(COVERAGE_CCOPTS) CXXFLAGS=$(COVERAGE_CCOPTS) check
+	mkdir -p $(COVERAGE_OUT)
+	lcov --directory . --output-file $(COVERAGE_OUT)/$(PACKAGE).info \
+		--capture
+
+gen-coverage:
+	genhtml --output-directory $(COVERAGE_OUT) \
+		$(COVERAGE_OUT)/$(PACKAGE).info \
+		--highlight --frames --legend \
+		--title "$(PACKAGE_NAME)"
+
+coverage: init-coverage build-coverage gen-coverage
+
+# Update gettext files.
+PACKAGE ?= $(shell basename $(PWD))
+PO_DOMAIN ?= $(PACKAGE)
+POURL = http://translationproject.org/latest/$(PO_DOMAIN)/
+PODIR ?= po
+refresh-po:
+	rm -f $(PODIR)/*.po && \
+	echo "$(ME): getting translations into po (please ignore the robots.txt ERROR 404)..." && \
+	wget --no-verbose --directory-prefix $(PODIR) --no-directories --recursive --level 1 --accept .po --accept .po.1 $(POURL) && \
+	echo 'en@boldquot' > $(PODIR)/LINGUAS && \
+	echo 'en@quot' >> $(PODIR)/LINGUAS && \
+	ls $(PODIR)/*.po | sed 's/\.po//' | sed 's,$(PODIR)/,,' | sort >> $(PODIR)/LINGUAS
+
+INDENT_SOURCES ?= $(C_SOURCES)
+.PHONY: indent
+indent:
+	indent $(INDENT_SOURCES)

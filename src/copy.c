@@ -131,9 +131,32 @@ is_ancestor (const struct stat *sb, const struct dir_list *ancestors)
   return false;
 }
 
+static bool
+errno_unsupported (int err)
+{
+  return err == ENOTSUP || err == ENODATA;
+}
+
 #if USE_XATTR
 static void
 copy_attr_error (struct error_context *ctx ATTRIBUTE_UNUSED,
+		 char const *fmt, ...)
+{
+  int err = errno;
+  va_list ap;
+
+  if (!errno_unsupported (errno))
+  if (errno != ENOTSUP && errno != ENODATA)
+    {
+      /* use verror module to print error message */
+      va_start (ap, fmt);
+      verror (0, err, fmt, ap);
+      va_end (ap);
+    }
+}
+
+static void
+copy_attr_allerror (struct error_context *ctx ATTRIBUTE_UNUSED,
 		 char const *fmt, ...)
 {
   int err = errno;
@@ -163,12 +186,13 @@ copy_attr_by_fd (char const *src_path, int src_fd,
 {
   struct error_context ctx =
   {
-    .error = copy_attr_error,
+    .error = x->require_preserve_xattr ? copy_attr_allerror : copy_attr_error,
     .quote = copy_attr_quote,
     .quote_free = copy_attr_free
   };
   return 0 == attr_copy_fd (src_path, src_fd, dst_path, dst_fd, 0,
-                            x->reduce_diagnostics ? NULL : &ctx);
+                            (x->reduce_diagnostics
+                             && !x->require_preserve_xattr)? NULL : &ctx);
 }
 
 static bool
@@ -177,12 +201,13 @@ copy_attr_by_name (char const *src_path, char const *dst_path,
 {
   struct error_context ctx =
   {
-    .error = copy_attr_error,
+    .error = x->require_preserve_xattr ? copy_attr_allerror : copy_attr_error,
     .quote = copy_attr_quote,
     .quote_free = copy_attr_free
   };
   return 0 == attr_copy_file (src_path, dst_path, 0,
-                              x-> reduce_diagnostics ? NULL :&ctx);
+                              (x-> reduce_diagnostics
+                               && !x->require_preserve_xattr) ? NULL : &ctx);
 }
 #else /* USE_XATTR */
 
@@ -465,7 +490,7 @@ copy_reg (char const *src_name, char const *dst_name,
 	  security_context_t con = NULL;
 	  if (getfscreatecon (&con) < 0)
 	    {
-	      if (!x->reduce_diagnostics)
+	      if (!x->reduce_diagnostics || x->require_preserve_context)
 	        error (0, errno, _("failed to get file system create context"));
 	      if (x->require_preserve_context)
 		{
@@ -478,7 +503,7 @@ copy_reg (char const *src_name, char const *dst_name,
 	    {
 	      if (fsetfilecon (dest_desc, con) < 0)
 		{
-		  if (!x->reduce_diagnostics)
+		  if (!x->reduce_diagnostics || x->require_preserve_context)
 		    error (0, errno,
 			   _("failed to set the security context of %s to %s"),
 			   quote_n (0, dst_name), quote_n (1, con));
@@ -700,9 +725,10 @@ copy_reg (char const *src_name, char const *dst_name,
 	      }
 	    last_write_made_hole = false;
 
-	    /* A short read on a regular file means EOF.  */
-	    if (n_read != buf_size && S_ISREG (src_open_sb.st_mode))
-	      break;
+            /* It is tempting to return early here upon a short read from a
+               regular file.  That would save the final read syscall for each
+               file.  Unfortunately that doesn't work for certain files in
+               /proc with linux kernels from at least 2.6.9 .. 2.6.29.  */
 	  }
       }
 
@@ -1731,7 +1757,7 @@ copy_internal (char const *src_name, char const *dst_name,
 	{
 	  if (setfscreatecon (con) < 0)
 	    {
-	      if (!x->reduce_diagnostics)
+	      if (!x->reduce_diagnostics || x->require_preserve_context)
 	        error (0, errno,
 		       _("failed to set default file creation context to %s"),
 		       quote (con));
@@ -1745,9 +1771,9 @@ copy_internal (char const *src_name, char const *dst_name,
 	}
       else
 	{
-	  if (errno != ENOTSUP && errno != ENODATA)
+          if (!errno_unsupported (errno) || x->require_preserve_context)
 	    {
-	      if (!x->reduce_diagnostics)
+	      if (!x->reduce_diagnostics || x->require_preserve_context)
 	        error (0, errno,
 		       _("failed to get security context of %s"),
 		       quote (src_name));
