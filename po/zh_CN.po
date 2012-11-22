@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coreutils 6.1\n"
 "Report-Msgid-Bugs-To: bug-coreutils@gnu.org\n"
-"POT-Creation-Date: 2009-04-28 14:48+0200\n"
+"POT-Creation-Date: 2009-05-07 14:14+0200\n"
 "PO-Revision-Date: 2006-08-24 23:38+0800\n"
 "Last-Translator: Funda Wang <fundawang@linux.net.cn>\n"
 "Language-Team: Chinese (simplified) <i18n-translation@lists.linux.net.cn>\n"
@@ -705,10 +705,10 @@ msgstr ""
 #: src/hostname.c:53 src/id.c:78 src/install.c:935 src/join.c:163
 #: src/kill.c:83 src/link.c:42 src/ln.c:346 src/logname.c:36 src/ls.c:4504
 #: src/md5sum.c:149 src/mkdir.c:53 src/mkfifo.c:48 src/mknod.c:49
-#: src/mktemp.c:60 src/mv.c:275 src/nice.c:68 src/nl.c:171 src/nohup.c:50
+#: src/mktemp.c:60 src/mv.c:276 src/nice.c:68 src/nl.c:171 src/nohup.c:50
 #: src/od.c:305 src/paste.c:429 src/pathchk.c:93 src/pinky.c:506 src/pr.c:2763
 #: src/printenv.c:54 src/printf.c:84 src/ptx.c:1880 src/pwd.c:53
-#: src/readlink.c:59 src/rm.c:154 src/rmdir.c:162 src/runcon.c:80 src/seq.c:66
+#: src/readlink.c:59 src/rm.c:155 src/rmdir.c:162 src/runcon.c:80 src/seq.c:66
 #: src/setuidgid.c:46 src/shred.c:154 src/shuf.c:43 src/sleep.c:42
 #: src/sort.c:309 src/split.c:99 src/stat.c:905 src/stty.c:502 src/su.c:377
 #: src/sum.c:55 src/sync.c:37 src/tac.c:129 src/tail.c:211 src/tee.c:58
@@ -765,7 +765,7 @@ msgid ""
 msgstr ""
 
 #: src/base64.c:172 src/base64.c:209 src/csplit.c:263 src/csplit.c:1431
-#: src/join.c:413 src/shuf.c:397 src/tac-pipe.c:74 src/tee.c:204 src/tr.c:1574
+#: src/join.c:414 src/shuf.c:397 src/tac-pipe.c:74 src/tee.c:204 src/tr.c:1574
 #, c-format
 msgid "read error"
 msgstr "读取错误"
@@ -780,13 +780,13 @@ msgstr "无效的输入"
 msgid "invalid wrap size: %s"
 msgstr "无效的换行字符数：%s"
 
-#: src/base64.c:284 src/basename.c:119 src/comm.c:421 src/cp.c:584
+#: src/base64.c:284 src/basename.c:119 src/comm.c:425 src/cp.c:584
 #: src/date.c:426 src/dircolors.c:449 src/dirname.c:98 src/du.c:926
 #: src/hostid.c:76 src/hostname.c:112 src/id.c:169 src/install.c:611
-#: src/join.c:895 src/link.c:86 src/ln.c:521 src/logname.c:72 src/mknod.c:158
-#: src/mv.c:438 src/od.c:1803 src/ptx.c:2148 src/readlink.c:152 src/seq.c:410
+#: src/join.c:896 src/link.c:86 src/ln.c:521 src/logname.c:72 src/mknod.c:158
+#: src/mv.c:442 src/od.c:1803 src/ptx.c:2148 src/readlink.c:152 src/seq.c:410
 #: src/shuf.c:377 src/sort.c:3411 src/split.c:536 src/tr.c:1727
-#: src/tsort.c:548 src/tty.c:113 src/uname.c:253 src/uniq.c:449 src/uniq.c:466
+#: src/tsort.c:548 src/tty.c:113 src/uname.c:253 src/uniq.c:452 src/uniq.c:469
 #: src/unlink.c:82 src/uptime.c:251 src/users.c:147 src/wc.c:654 src/who.c:817
 #: src/whoami.c:80
 #, c-format
@@ -804,9 +804,9 @@ msgstr "关闭标准输入"
 #: src/dd.c:45 src/df.c:41 src/dirname.c:35 src/du.c:53 src/env.c:92
 #: src/expand.c:48 src/fold.c:35 src/groups.c:35 src/head.c:46 src/id.c:39
 #: src/install.c:49 src/ln.c:40 src/ls.c:120 src/mkdir.c:36 src/mkfifo.c:33
-#: src/mknod.c:34 src/mv.c:41 src/nice.c:40 src/nl.c:40 src/paste.c:52
+#: src/mknod.c:34 src/mv.c:42 src/nice.c:40 src/nl.c:40 src/paste.c:52
 #: src/pathchk.c:40 src/pinky.c:36 src/printenv.c:45 src/printf.c:62
-#: src/rm.c:64 src/rmdir.c:39 src/stty.c:69 src/su.c:95 src/sum.c:38
+#: src/rm.c:65 src/rmdir.c:39 src/stty.c:69 src/su.c:95 src/sum.c:38
 #: src/tac.c:58 src/tail.c:53 src/tee.c:35 src/touch.c:44 src/tty.c:43
 #: src/uname.c:61 src/unexpand.c:49 src/uniq.c:40 src/uptime.c:46
 #: src/users.c:36 src/wc.c:50 src/who.c:44 src/yes.c:32
@@ -845,10 +845,10 @@ msgstr ""
 "  %s include/stdio.h .h  输出“stdio”。\n"
 
 #: src/basename.c:113 src/chcon.c:514 src/chgrp.c:273 src/chmod.c:500
-#: src/chown.c:286 src/chroot.c:81 src/comm.c:413 src/csplit.c:1369
-#: src/dirname.c:92 src/expr.c:323 src/join.c:1073 src/link.c:78
+#: src/chown.c:286 src/chroot.c:81 src/comm.c:417 src/csplit.c:1369
+#: src/dirname.c:92 src/expr.c:323 src/join.c:1074 src/link.c:78
 #: src/mkdir.c:184 src/mkfifo.c:109 src/mknod.c:147 src/nohup.c:105
-#: src/pathchk.c:156 src/printf.c:672 src/readlink.c:144 src/rm.c:342
+#: src/pathchk.c:156 src/printf.c:672 src/readlink.c:144 src/rm.c:346
 #: src/rmdir.c:224 src/seq.c:404 src/setuidgid.c:137 src/sleep.c:121
 #: src/stat.c:1057 src/tr.c:1712 src/unlink.c:76
 #, c-format
@@ -861,7 +861,7 @@ msgid "Torbjorn Granlund"
 msgstr ""
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/cat.c:49 src/comm.c:35 src/ls.c:119 src/rm.c:65 src/split.c:45
+#: src/cat.c:49 src/comm.c:35 src/ls.c:119 src/rm.c:66 src/split.c:45
 #: src/tee.c:34 src/uniq.c:39
 msgid "Richard M. Stallman"
 msgstr ""
@@ -942,8 +942,8 @@ msgstr ""
 #. This is a proper name. See the gettext manual, section Names.
 #: src/chcon.c:36 src/chgrp.c:39 src/chmod.c:39 src/chown.c:48 src/cp.c:58
 #: src/cut.c:45 src/dirname.c:36 src/du.c:55 src/head.c:47 src/hostid.c:34
-#: src/hostname.c:33 src/mktemp.c:34 src/mv.c:42 src/nohup.c:37 src/od.c:35
-#: src/pathchk.c:41 src/pwd.c:31 src/rm.c:66 src/setuidgid.c:38 src/sleep.c:35
+#: src/hostname.c:33 src/mktemp.c:34 src/mv.c:43 src/nohup.c:37 src/od.c:35
+#: src/pathchk.c:41 src/pwd.c:31 src/rm.c:67 src/setuidgid.c:38 src/sleep.c:35
 #: src/sync.c:31 src/tail.c:55 src/tr.c:36 src/true.c:33
 msgid "Jim Meyering"
 msgstr ""
@@ -1076,7 +1076,7 @@ msgid "-R -h requires -P"
 msgstr "-R -h 需要 -P"
 
 #: src/chcon.c:516 src/chgrp.c:275 src/chmod.c:502 src/chown.c:288
-#: src/comm.c:415 src/csplit.c:1371 src/join.c:1075 src/link.c:80
+#: src/comm.c:419 src/csplit.c:1371 src/join.c:1076 src/link.c:80
 #: src/mknod.c:149 src/setuidgid.c:139 src/tr.c:1715
 #, c-format
 msgid "missing operand after %s"
@@ -1094,7 +1094,7 @@ msgstr ""
 
 #: src/chcon.c:555 src/chgrp.c:283 src/chgrp.c:301 src/chmod.c:510
 #: src/chmod.c:529 src/chown.c:296 src/chown.c:325 src/cp.c:410 src/cp.c:470
-#: src/mv.c:95 src/pwd.c:274 src/rm.c:352 src/touch.c:159 src/touch.c:361
+#: src/mv.c:96 src/pwd.c:274 src/rm.c:356 src/touch.c:159 src/touch.c:361
 #, c-format
 msgid "failed to get attributes of %s"
 msgstr "无法取得 %s 的属性"
@@ -1514,17 +1514,23 @@ msgstr ""
 msgid "  --output-delimiter=STR  separate columns with STR\n"
 msgstr ""
 
-#: src/comm.c:210 src/join.c:366
+#: src/comm.c:132
+msgid ""
+"\n"
+"Note, comparisons honor the rules specified by `LC_COLLATE'.\n"
+msgstr ""
+
+#: src/comm.c:214 src/join.c:367
 #, c-format
 msgid "file %d is not in sorted order"
 msgstr ""
 
-#: src/comm.c:393
+#: src/comm.c:397
 #, fuzzy, c-format
 msgid "multiple delimiters specified"
 msgstr "正在关闭输出文件 %s"
 
-#: src/comm.c:397
+#: src/comm.c:401
 #, c-format
 msgid "empty %s not allowed"
 msgstr ""
@@ -1792,7 +1798,7 @@ msgstr "无法将 %s 的备份还原"
 msgid "%s -> %s (unbackup)\n"
 msgstr "%s -> %s (还原备份)\n"
 
-#: src/cp.c:143 src/mv.c:279
+#: src/cp.c:143 src/mv.c:280
 #, c-format
 msgid ""
 "Usage: %s [OPTION]... [-T] SOURCE DEST\n"
@@ -1814,10 +1820,10 @@ msgstr ""
 #: src/cp.c:153 src/csplit.c:1455 src/cut.c:197 src/df.c:810 src/du.c:276
 #: src/expand.c:112 src/fmt.c:275 src/fold.c:75 src/head.c:117
 #: src/install.c:958 src/kill.c:97 src/ln.c:367 src/ls.c:4514 src/mkdir.c:62
-#: src/mkfifo.c:57 src/mknod.c:59 src/mv.c:289 src/nl.c:184 src/paste.c:443
+#: src/mkfifo.c:57 src/mknod.c:59 src/mv.c:290 src/nl.c:184 src/paste.c:443
 #: src/pr.c:2776 src/ptx.c:1892 src/shred.c:164 src/shuf.c:57 src/sort.c:322
 #: src/split.c:113 src/tac.c:142 src/tail.c:225 src/timeout.c:144
-#: src/touch.c:243 src/truncate.c:113 src/unexpand.c:122 src/uniq.c:142
+#: src/touch.c:243 src/truncate.c:113 src/unexpand.c:122 src/uniq.c:144
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too.\n"
 msgstr "长选项必须用的参数在使用短选项时也是必需的。\n"
@@ -1967,7 +1973,7 @@ msgstr ""
 "使用 --sparse=never 会禁止产生 sparse 文件。\n"
 "\n"
 
-#: src/cp.c:224 src/install.c:994 src/ln.c:393 src/mv.c:315
+#: src/cp.c:224 src/install.c:994 src/ln.c:393 src/mv.c:316
 msgid ""
 "\n"
 "The backup suffix is `~', unless set with --suffix or SIMPLE_BACKUP_SUFFIX.\n"
@@ -1982,7 +1988,7 @@ msgstr ""
 "变量来选择。以下是可用的变量值：\n"
 "\n"
 
-#: src/cp.c:231 src/install.c:1001 src/ln.c:400 src/mv.c:322
+#: src/cp.c:231 src/install.c:1001 src/ln.c:400 src/mv.c:323
 msgid ""
 "  none, off       never make backups (even if --backup is given)\n"
 "  numbered, t     make numbered backups\n"
@@ -2027,30 +2033,30 @@ msgid "%s exists but is not a directory"
 msgstr "%s 存在但并非目录"
 
 #: src/cp.c:549 src/cp.c:1028 src/install.c:405 src/install.c:522 src/ln.c:130
-#: src/ln.c:158 src/ln.c:187 src/ln.c:474 src/mv.c:149 src/mv.c:390
+#: src/ln.c:158 src/ln.c:187 src/ln.c:474 src/mv.c:150 src/mv.c:394
 #, c-format
 msgid "accessing %s"
 msgstr "访问 %s"
 
-#: src/cp.c:569 src/install.c:596 src/ln.c:504 src/mv.c:423 src/shred.c:1190
+#: src/cp.c:569 src/install.c:596 src/ln.c:504 src/mv.c:427 src/shred.c:1190
 #: src/touch.c:440 src/truncate.c:362
 #, c-format
 msgid "missing file operand"
 msgstr "缺少了文件操作数"
 
-#: src/cp.c:571 src/install.c:598 src/ln.c:518 src/mv.c:425
+#: src/cp.c:571 src/install.c:598 src/ln.c:518 src/mv.c:429
 #, fuzzy, c-format
 msgid "missing destination file operand after %s"
 msgstr "缺少了目的地文件"
 
-#: src/cp.c:580 src/install.c:607 src/mv.c:434
+#: src/cp.c:580 src/install.c:607 src/mv.c:438
 #, fuzzy, c-format
 msgid "cannot combine --target-directory (-t) and --no-target-directory (-T)"
 msgstr "无法组合使用 --target-directory 和 --no-target-directory"
 
 #: src/cp.c:594 src/cp.c:1030 src/install.c:407 src/install.c:524
-#: src/install.c:620 src/ln.c:132 src/ln.c:476 src/ln.c:532 src/mv.c:392
-#: src/mv.c:448
+#: src/install.c:620 src/ln.c:132 src/ln.c:476 src/ln.c:532 src/mv.c:396
+#: src/mv.c:452
 #, c-format
 msgid "target %s is not a directory"
 msgstr "目标 %s 不是目录"
@@ -2060,7 +2066,7 @@ msgstr "目标 %s 不是目录"
 msgid "with --parents, the destination must be a directory"
 msgstr "当保留路径时，目的地必须是目录"
 
-#: src/cp.c:1023 src/install.c:517 src/ln.c:469 src/mv.c:385
+#: src/cp.c:1023 src/install.c:517 src/ln.c:469 src/mv.c:389
 #, c-format
 msgid "multiple target directories specified"
 msgstr "指定了多个目标目录"
@@ -2070,14 +2076,14 @@ msgstr "指定了多个目标目录"
 msgid "cannot make both hard and symbolic links"
 msgstr "无法同时创建实际及符号链接"
 
-#: src/cp.c:1075 src/mv.c:455
+#: src/cp.c:1075 src/mv.c:459
 #, fuzzy, c-format
 msgid "options --backup and --no-clobber are mutually exclusive"
 msgstr ""
 "显示 dircolors 内部数据库的选项和选择 shell 语法的选项\n"
 "是互相抵触的"
 
-#: src/cp.c:1083 src/install.c:581 src/ln.c:540 src/mv.c:463
+#: src/cp.c:1083 src/install.c:581 src/ln.c:540 src/mv.c:467
 msgid "backup type"
 msgstr "备份方式"
 
@@ -2592,7 +2598,7 @@ msgid "time %s is out of range"
 msgstr "时间 %s 超出范围"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/dd.c:44 src/factor.c:43 src/rm.c:63 src/tail.c:52 src/touch.c:41
+#: src/dd.c:44 src/factor.c:43 src/rm.c:64 src/tail.c:52 src/touch.c:41
 #: src/wc.c:49
 msgid "Paul Rubin"
 msgstr ""
@@ -3371,7 +3377,7 @@ msgstr "无效零长度文件名"
 #: src/du.c:1022 src/head.c:151 src/head.c:264 src/head.c:336 src/head.c:540
 #: src/head.c:622 src/head.c:694 src/head.c:752 src/head.c:776 src/tail.c:370
 #: src/tail.c:458 src/tail.c:507 src/tail.c:600 src/tail.c:728 src/tail.c:776
-#: src/tail.c:815 src/tail.c:1320 src/tail.c:1349 src/uniq.c:390
+#: src/tail.c:815 src/tail.c:1320 src/tail.c:1349 src/uniq.c:393
 #, c-format
 msgid "error reading %s"
 msgstr "读入 %s 出错"
@@ -3512,7 +3518,7 @@ msgid "input line is too long"
 msgstr "输入行太长"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/expr.c:149 src/ln.c:39 src/mv.c:40 src/tee.c:33
+#: src/expr.c:149 src/ln.c:39 src/mv.c:41 src/tee.c:33
 msgid "Mike Parker"
 msgstr ""
 
@@ -4248,51 +4254,52 @@ msgid ""
 "\n"
 "Important: FILE1 and FILE2 must be sorted on the join fields.\n"
 "E.g., use `sort -k 1b,1' if `join' has no options.\n"
+"Note, comparisons honor the rules specified by `LC_COLLATE'.\n"
 "If the input is not sorted and some lines cannot be joined, a\n"
 "warning message will be given.\n"
 msgstr ""
 
-#: src/join.c:774 src/join.c:973
+#: src/join.c:775 src/join.c:974
 #, fuzzy, c-format
 msgid "invalid field number: %s"
 msgstr "无效的号码 %s"
 
-#: src/join.c:795 src/join.c:804
+#: src/join.c:796 src/join.c:805
 #, fuzzy, c-format
 msgid "invalid field specifier: %s"
 msgstr "无效的 tab 字符定位值：%s"
 
-#: src/join.c:811
+#: src/join.c:812
 #, fuzzy, c-format
 msgid "invalid file number in field spec: %s"
 msgstr "无效的号码 %s"
 
-#: src/join.c:854
+#: src/join.c:855
 #, c-format
 msgid "incompatible join fields %lu, %lu"
 msgstr ""
 
-#: src/join.c:984
+#: src/join.c:985
 #, c-format
 msgid "conflicting empty-field replacement strings"
 msgstr ""
 
-#: src/join.c:1025 src/sort.c:3341
+#: src/join.c:1026 src/sort.c:3341
 #, c-format
 msgid "empty tab"
 msgstr ""
 
-#: src/join.c:1031 src/sort.c:3352
+#: src/join.c:1032 src/sort.c:3352
 #, fuzzy, c-format
 msgid "multi-character tab %s"
 msgstr "权限模式字符串 %2$s 中出现无效的字符 %1$s"
 
-#: src/join.c:1035 src/sort.c:3357
+#: src/join.c:1036 src/sort.c:3357
 #, c-format
 msgid "incompatible tabs"
 msgstr ""
 
-#: src/join.c:1100
+#: src/join.c:1101
 #, c-format
 msgid "both files cannot be standard input"
 msgstr ""
@@ -5300,7 +5307,7 @@ msgstr "无法保留%s的时间"
 msgid "failed to create file via template %s"
 msgstr "无法保留%s的时间"
 
-#: src/mv.c:285
+#: src/mv.c:286
 msgid ""
 "Rename SOURCE to DEST, or move SOURCE(s) to DIRECTORY.\n"
 "\n"
@@ -5308,7 +5315,7 @@ msgstr ""
 "将<源>名称重命名为<目的地>名称，或将<源>文件移动至<目录>。\n"
 "\n"
 
-#: src/mv.c:292
+#: src/mv.c:293
 #, fuzzy
 msgid ""
 "      --backup[=CONTROL]       make a backup of each existing destination "
@@ -5326,7 +5333,7 @@ msgstr ""
 "  -f, --force                  覆盖文件前不会进行确认，等于 --reply=yes\n"
 "  -i, --interactive            覆盖文件前必须先确认，等于 --reply=query\n"
 
-#: src/mv.c:300
+#: src/mv.c:301
 #, fuzzy
 msgid ""
 "      --strip-trailing-slashes  remove any trailing slashes from each "
@@ -5338,7 +5345,7 @@ msgstr ""
 "      --strip-trailing-slashes 删除参数中所有<源>文件/目录末端的斜杠\n"
 "  -S, --suffix=后缀            自行指定备份文件的<后缀>\n"
 
-#: src/mv.c:305
+#: src/mv.c:306
 #, fuzzy
 msgid ""
 "  -t, --target-directory=DIRECTORY  move all SOURCE arguments into "
@@ -6512,17 +6519,17 @@ msgstr "无法删除目录%s"
 msgid "cannot restore current working directory"
 msgstr "无法恢复当前工作目录"
 
-#: src/rm.c:141
+#: src/rm.c:142
 #, c-format
 msgid "Try `%s ./%s' to remove the file %s.\n"
 msgstr "请使用“%s ./%s”删除文件 %s。\n"
 
-#: src/rm.c:158 src/shred.c:158 src/stat.c:909 src/touch.c:233
+#: src/rm.c:159 src/shred.c:158 src/stat.c:909 src/touch.c:233
 #, c-format
 msgid "Usage: %s [OPTION]... FILE...\n"
 msgstr "用法：%s [选项]... 文件...\n"
 
-#: src/rm.c:159
+#: src/rm.c:160
 msgid ""
 "Remove (unlink) the FILE(s).\n"
 "\n"
@@ -6530,7 +6537,7 @@ msgid ""
 "  -i                    prompt before every removal\n"
 msgstr ""
 
-#: src/rm.c:165
+#: src/rm.c:166
 msgid ""
 "  -I                    prompt once before removing more than three files, "
 "or\n"
@@ -6542,14 +6549,14 @@ msgid ""
 "                          always (-i).  Without WHEN, prompt always\n"
 msgstr ""
 
-#: src/rm.c:172
+#: src/rm.c:173
 msgid ""
 "      --one-file-system  when removing a hierarchy recursively, skip any\n"
 "                          directory that is on a file system different from\n"
 "                          that of the corresponding command line argument\n"
 msgstr ""
 
-#: src/rm.c:177
+#: src/rm.c:178
 #, fuzzy
 msgid ""
 "      --no-preserve-root  do not treat `/' specially\n"
@@ -6562,7 +6569,7 @@ msgstr ""
 "  -r, -R, --recursive   递归删除目录及其内容\n"
 "  -v, --verbose         详细显示进行的步骤\n"
 
-#: src/rm.c:185
+#: src/rm.c:186
 msgid ""
 "\n"
 "By default, rm does not remove directories.  Use the --recursive (-r or -R)\n"
@@ -6574,7 +6581,7 @@ msgstr ""
 "的\n"
 "目录及其下面的内容。\n"
 
-#: src/rm.c:190
+#: src/rm.c:191
 #, c-format
 msgid ""
 "\n"
@@ -6590,7 +6597,7 @@ msgstr ""
 "\n"
 "  %s ./-foo\n"
 
-#: src/rm.c:199
+#: src/rm.c:200
 msgid ""
 "\n"
 "Note that if you use rm to remove a file, it is usually possible to recover\n"
@@ -6602,12 +6609,12 @@ msgstr ""
 "请注意，如果使用 rm 来删除文件，通常仍可以将该文件恢复原状。如果想保证\n"
 "该文件的内容无法还原，请考虑使用 shred。\n"
 
-#: src/rm.c:363
+#: src/rm.c:367
 #, c-format
 msgid "%s: remove all arguments recursively? "
 msgstr ""
 
-#: src/rm.c:364
+#: src/rm.c:368
 #, fuzzy, c-format
 msgid "%s: remove all arguments? "
 msgstr "%s：是否删除 %s %s? "
@@ -9128,18 +9135,20 @@ msgstr "用法：%s [选项]... [输入 [输出]]\n"
 
 #: src/uniq.c:137
 msgid ""
-"Discard all but one of successive identical lines from INPUT (or\n"
-"standard input), writing to OUTPUT (or standard output).\n"
+"Filter adjacent matching lines from INPUT (or standard input),\n"
+"writing to OUTPUT (or standard output).\n"
+"\n"
+"With no options, matching lines are merged to the first occurrence.\n"
 "\n"
 msgstr ""
 
-#: src/uniq.c:145
+#: src/uniq.c:147
 msgid ""
 "  -c, --count           prefix lines by the number of occurrences\n"
 "  -d, --repeated        only print duplicate lines\n"
 msgstr ""
 
-#: src/uniq.c:149
+#: src/uniq.c:151
 msgid ""
 "  -D, --all-repeated[=delimit-method]  print all duplicate lines\n"
 "                        delimit-method={none(default),prepend,separate}\n"
@@ -9151,43 +9160,44 @@ msgid ""
 "  -z, --zero-terminated  end lines with 0 byte, not newline\n"
 msgstr ""
 
-#: src/uniq.c:159
+#: src/uniq.c:161
 msgid "  -w, --check-chars=N   compare no more than N characters in lines\n"
 msgstr ""
 
-#: src/uniq.c:164
+#: src/uniq.c:166
 msgid ""
 "\n"
 "A field is a run of blanks (usually spaces and/or TABs), then non-blank\n"
 "characters.  Fields are skipped before chars.\n"
 msgstr ""
 
-#: src/uniq.c:169
+#: src/uniq.c:171
 msgid ""
 "\n"
 "Note: 'uniq' does not detect repeated lines unless they are adjacent.\n"
 "You may want to sort the input first, or use `sort -u' without `uniq'.\n"
+"Also, comparisons honor the rules specified by `LC_COLLATE'.\n"
 msgstr ""
 
-#: src/uniq.c:354
+#: src/uniq.c:357
 #, c-format
 msgid "too many repeated lines"
 msgstr "重复行太多"
 
-#: src/uniq.c:517
+#: src/uniq.c:520
 #, fuzzy
 msgid "invalid number of fields to skip"
 msgstr "%s：覆盖次数无效"
 
-#: src/uniq.c:526
+#: src/uniq.c:529
 msgid "invalid number of bytes to skip"
 msgstr "要跳过的字节数无效"
 
-#: src/uniq.c:535
+#: src/uniq.c:538
 msgid "invalid number of bytes to compare"
 msgstr "要比较的字节数无效"
 
-#: src/uniq.c:554
+#: src/uniq.c:557
 #, c-format
 msgid "printing all duplicated lines and repeat counts is meaningless"
 msgstr "打印所有重复行和重复计数毫无意义"

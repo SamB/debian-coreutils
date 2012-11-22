@@ -78,8 +78,9 @@ TESTS = test-file-has-acl.sh test-set-mode-acl.sh test-copy-acl.sh \
 	test-memcmp$(EXEEXT) test-memrchr$(EXEEXT) test-netdb$(EXEEXT) \
 	test-netinet_in$(EXEEXT) test-open$(EXEEXT) test-perror.sh \
 	test-printf-frexp$(EXEEXT) test-printf-frexpl$(EXEEXT) \
-	test-quotearg.sh test-read-file$(EXEEXT) test-select$(EXEEXT) \
-	test-select-in.sh test-select-out.sh test-sigaction$(EXEEXT) \
+	test-priv-set$(EXEEXT) test-quotearg.sh \
+	test-read-file$(EXEEXT) test-select$(EXEEXT) test-select-in.sh \
+	test-select-out.sh test-sigaction$(EXEEXT) \
 	test-signal$(EXEEXT) test-signbit$(EXEEXT) test-sleep$(EXEEXT) \
 	test-snprintf$(EXEEXT) test-sockets$(EXEEXT) \
 	test-stat-time$(EXEEXT) test-stdbool$(EXEEXT) \
@@ -133,11 +134,11 @@ check_PROGRAMS = test-file-has-acl$(EXEEXT) test-set-mode-acl$(EXEEXT) \
 	test-memcmp$(EXEEXT) test-memrchr$(EXEEXT) test-netdb$(EXEEXT) \
 	test-netinet_in$(EXEEXT) test-open$(EXEEXT) \
 	test-perror$(EXEEXT) test-printf-frexp$(EXEEXT) \
-	test-printf-frexpl$(EXEEXT) test-quotearg$(EXEEXT) \
-	test-read-file$(EXEEXT) test-select$(EXEEXT) \
-	test-select-fd$(EXEEXT) test-select-stdin$(EXEEXT) \
-	test-sigaction$(EXEEXT) test-signal$(EXEEXT) \
-	test-signbit$(EXEEXT) test-sleep$(EXEEXT) \
+	test-printf-frexpl$(EXEEXT) test-priv-set$(EXEEXT) \
+	test-quotearg$(EXEEXT) test-read-file$(EXEEXT) \
+	test-select$(EXEEXT) test-select-fd$(EXEEXT) \
+	test-select-stdin$(EXEEXT) test-sigaction$(EXEEXT) \
+	test-signal$(EXEEXT) test-signbit$(EXEEXT) test-sleep$(EXEEXT) \
 	test-snprintf$(EXEEXT) test-sockets$(EXEEXT) \
 	test-stat-time$(EXEEXT) test-stdbool$(EXEEXT) \
 	test-stdint$(EXEEXT) test-stdio$(EXEEXT) test-stdlib$(EXEEXT) \
@@ -263,11 +264,12 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/00gnulib.m4 \
 	$(top_srcdir)/m4/posixtm.m4 $(top_srcdir)/m4/posixver.m4 \
 	$(top_srcdir)/m4/prereq.m4 $(top_srcdir)/m4/printf-frexp.m4 \
 	$(top_srcdir)/m4/printf-frexpl.m4 $(top_srcdir)/m4/printf.m4 \
-	$(top_srcdir)/m4/progtest.m4 $(top_srcdir)/m4/putenv.m4 \
-	$(top_srcdir)/m4/quote.m4 $(top_srcdir)/m4/quotearg.m4 \
-	$(top_srcdir)/m4/read-file.m4 $(top_srcdir)/m4/readlink.m4 \
-	$(top_srcdir)/m4/readtokens.m4 $(top_srcdir)/m4/readutmp.m4 \
-	$(top_srcdir)/m4/realloc.m4 $(top_srcdir)/m4/regex.m4 \
+	$(top_srcdir)/m4/priv-set.m4 $(top_srcdir)/m4/progtest.m4 \
+	$(top_srcdir)/m4/putenv.m4 $(top_srcdir)/m4/quote.m4 \
+	$(top_srcdir)/m4/quotearg.m4 $(top_srcdir)/m4/read-file.m4 \
+	$(top_srcdir)/m4/readlink.m4 $(top_srcdir)/m4/readtokens.m4 \
+	$(top_srcdir)/m4/readutmp.m4 $(top_srcdir)/m4/realloc.m4 \
+	$(top_srcdir)/m4/regex.m4 \
 	$(top_srcdir)/m4/rename-dest-slash.m4 \
 	$(top_srcdir)/m4/rename.m4 $(top_srcdir)/m4/rmdir-errno.m4 \
 	$(top_srcdir)/m4/rmdir.m4 $(top_srcdir)/m4/root-dev-ino.m4 \
@@ -685,6 +687,11 @@ test_printf_frexpl_OBJECTS = test-printf-frexpl.$(OBJEXT)
 test_printf_frexpl_LDADD = $(LDADD)
 test_printf_frexpl_DEPENDENCIES = libtests.a ../lib/libcoreutils.a \
 	libtests.a $(am__DEPENDENCIES_1)
+test_priv_set_SOURCES = test-priv-set.c
+test_priv_set_OBJECTS = test-priv-set.$(OBJEXT)
+test_priv_set_LDADD = $(LDADD)
+test_priv_set_DEPENDENCIES = libtests.a ../lib/libcoreutils.a \
+	libtests.a $(am__DEPENDENCIES_1)
 test_quotearg_SOURCES = test-quotearg.c
 test_quotearg_OBJECTS = test-quotearg.$(OBJEXT)
 test_quotearg_DEPENDENCIES = $(am__DEPENDENCIES_2)
@@ -947,14 +954,15 @@ SOURCES = $(libtests_a_SOURCES) $(EXTRA_libtests_a_SOURCES) \
 	test-md5.c test-memchr.c test-memchr2.c test-memcmp.c \
 	test-memrchr.c test-netdb.c test-netinet_in.c test-open.c \
 	test-perror.c test-printf-frexp.c test-printf-frexpl.c \
-	test-quotearg.c test-read-file.c test-sameacls.c test-select.c \
-	test-select-fd.c test-select-stdin.c test-set-mode-acl.c \
-	test-sha1.c test-sigaction.c test-signal.c test-signbit.c \
-	test-sleep.c test-snprintf.c test-sockets.c test-stat-time.c \
-	test-stdbool.c test-stdint.c test-stdio.c test-stdlib.c \
-	test-strerror.c test-striconv.c test-string.c test-strtod.c \
-	test-strverscmp.c test-sys_select.c test-sys_socket.c \
-	test-sys_stat.c test-sys_time.c test-time.c test-u64.c \
+	test-priv-set.c test-quotearg.c test-read-file.c \
+	test-sameacls.c test-select.c test-select-fd.c \
+	test-select-stdin.c test-set-mode-acl.c test-sha1.c \
+	test-sigaction.c test-signal.c test-signbit.c test-sleep.c \
+	test-snprintf.c test-sockets.c test-stat-time.c test-stdbool.c \
+	test-stdint.c test-stdio.c test-stdlib.c test-strerror.c \
+	test-striconv.c test-string.c test-strtod.c test-strverscmp.c \
+	test-sys_select.c test-sys_socket.c test-sys_stat.c \
+	test-sys_time.c test-time.c test-u64.c \
 	$(test_uc_width_SOURCES) $(test_uc_width2_SOURCES) \
 	test-unistd.c test-vasnprintf.c test-vasprintf.c \
 	test-vasprintf-posix.c test-vfprintf-posix.c \
@@ -984,14 +992,15 @@ DIST_SOURCES = $(libtests_a_SOURCES) $(EXTRA_libtests_a_SOURCES) \
 	test-md5.c test-memchr.c test-memchr2.c test-memcmp.c \
 	test-memrchr.c test-netdb.c test-netinet_in.c test-open.c \
 	test-perror.c test-printf-frexp.c test-printf-frexpl.c \
-	test-quotearg.c test-read-file.c test-sameacls.c test-select.c \
-	test-select-fd.c test-select-stdin.c test-set-mode-acl.c \
-	test-sha1.c test-sigaction.c test-signal.c test-signbit.c \
-	test-sleep.c test-snprintf.c test-sockets.c test-stat-time.c \
-	test-stdbool.c test-stdint.c test-stdio.c test-stdlib.c \
-	test-strerror.c test-striconv.c test-string.c test-strtod.c \
-	test-strverscmp.c test-sys_select.c test-sys_socket.c \
-	test-sys_stat.c test-sys_time.c test-time.c test-u64.c \
+	test-priv-set.c test-quotearg.c test-read-file.c \
+	test-sameacls.c test-select.c test-select-fd.c \
+	test-select-stdin.c test-set-mode-acl.c test-sha1.c \
+	test-sigaction.c test-signal.c test-signbit.c test-sleep.c \
+	test-snprintf.c test-sockets.c test-stat-time.c test-stdbool.c \
+	test-stdint.c test-stdio.c test-stdlib.c test-strerror.c \
+	test-striconv.c test-string.c test-strtod.c test-strverscmp.c \
+	test-sys_select.c test-sys_socket.c test-sys_stat.c \
+	test-sys_time.c test-time.c test-u64.c \
 	$(test_uc_width_SOURCES) $(test_uc_width2_SOURCES) \
 	test-unistd.c test-vasnprintf.c test-vasprintf.c \
 	test-vasprintf-posix.c test-vfprintf-posix.c \
@@ -1660,6 +1669,7 @@ REPLACE_VPRINTF = @REPLACE_VPRINTF@
 REPLACE_VSNPRINTF = @REPLACE_VSNPRINTF@
 REPLACE_VSPRINTF = @REPLACE_VSPRINTF@
 REPLACE_WCRTOMB = @REPLACE_WCRTOMB@
+REPLACE_WCSNRTOMBS = @REPLACE_WCSNRTOMBS@
 REPLACE_WCSRTOMBS = @REPLACE_WCSRTOMBS@
 REPLACE_WCTOB = @REPLACE_WCTOB@
 REPLACE_WCWIDTH = @REPLACE_WCWIDTH@
@@ -1828,8 +1838,8 @@ EXTRA_DIST = accept.c w32sock.h test-file-has-acl.sh \
 	test-memchr.c test-memchr2.c test-memcmp.c test-memrchr.c \
 	test-netdb.c test-netinet_in.c test-open.c perror.c \
 	test-perror.c test-perror.sh test-printf-frexp.c \
-	test-printf-frexpl.c test-quotearg.sh test-quotearg.c \
-	locale/fr/LC_MESSAGES/test-quotearg.po \
+	test-printf-frexpl.c test-priv-set.c test-quotearg.sh \
+	test-quotearg.c locale/fr/LC_MESSAGES/test-quotearg.po \
 	locale/fr/LC_MESSAGES/test-quotearg.mo read-file.c read-file.h \
 	test-read-file.c test-select.c test-select-fd.c \
 	test-select-in.sh test-select-out.sh test-select-stdin.c \
@@ -2169,6 +2179,9 @@ test-printf-frexp$(EXEEXT): $(test_printf_frexp_OBJECTS) $(test_printf_frexp_DEP
 test-printf-frexpl$(EXEEXT): $(test_printf_frexpl_OBJECTS) $(test_printf_frexpl_DEPENDENCIES) 
 	@rm -f test-printf-frexpl$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(test_printf_frexpl_OBJECTS) $(test_printf_frexpl_LDADD) $(LIBS)
+test-priv-set$(EXEEXT): $(test_priv_set_OBJECTS) $(test_priv_set_DEPENDENCIES) 
+	@rm -f test-priv-set$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(test_priv_set_OBJECTS) $(test_priv_set_LDADD) $(LIBS)
 test-quotearg$(EXEEXT): $(test_quotearg_OBJECTS) $(test_quotearg_DEPENDENCIES) 
 	@rm -f test-quotearg$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(test_quotearg_OBJECTS) $(test_quotearg_LDADD) $(LIBS)
@@ -2408,6 +2421,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-perror.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-printf-frexp.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-printf-frexpl.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-priv-set.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-quotearg.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-read-file.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-sameacls.Po@am__quote@
@@ -2954,6 +2968,8 @@ test-printf-frexp.log: test-printf-frexp$(EXEEXT)
 	@p='test-printf-frexp$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
 test-printf-frexpl.log: test-printf-frexpl$(EXEEXT)
 	@p='test-printf-frexpl$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+test-priv-set.log: test-priv-set$(EXEEXT)
+	@p='test-priv-set$(EXEEXT)'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
 test-quotearg.sh.log: test-quotearg.sh
 	@p='test-quotearg.sh'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
 test-read-file.log: test-read-file$(EXEEXT)
@@ -3099,13 +3115,14 @@ distdir: $(DISTFILES)
 	    $(am__relativize); \
 	    new_top_distdir=$$reldir; \
 	    echo " (cd $$subdir && $(MAKE) $(AM_MAKEFLAGS) top_distdir="$$new_top_distdir" distdir="$$new_distdir" \\"; \
-	    echo "     am__remove_distdir=: am__skip_length_check=: distdir)"; \
+	    echo "     am__remove_distdir=: am__skip_length_check=: am__skip_mode_fix=: distdir)"; \
 	    ($(am__cd) $$subdir && \
 	      $(MAKE) $(AM_MAKEFLAGS) \
 	        top_distdir="$$new_top_distdir" \
 	        distdir="$$new_distdir" \
 		am__remove_distdir=: \
 		am__skip_length_check=: \
+		am__skip_mode_fix=: \
 	        distdir) \
 	      || exit 1; \
 	  fi; \

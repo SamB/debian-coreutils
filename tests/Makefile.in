@@ -158,11 +158,12 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/00gnulib.m4 \
 	$(top_srcdir)/m4/posixtm.m4 $(top_srcdir)/m4/posixver.m4 \
 	$(top_srcdir)/m4/prereq.m4 $(top_srcdir)/m4/printf-frexp.m4 \
 	$(top_srcdir)/m4/printf-frexpl.m4 $(top_srcdir)/m4/printf.m4 \
-	$(top_srcdir)/m4/progtest.m4 $(top_srcdir)/m4/putenv.m4 \
-	$(top_srcdir)/m4/quote.m4 $(top_srcdir)/m4/quotearg.m4 \
-	$(top_srcdir)/m4/read-file.m4 $(top_srcdir)/m4/readlink.m4 \
-	$(top_srcdir)/m4/readtokens.m4 $(top_srcdir)/m4/readutmp.m4 \
-	$(top_srcdir)/m4/realloc.m4 $(top_srcdir)/m4/regex.m4 \
+	$(top_srcdir)/m4/priv-set.m4 $(top_srcdir)/m4/progtest.m4 \
+	$(top_srcdir)/m4/putenv.m4 $(top_srcdir)/m4/quote.m4 \
+	$(top_srcdir)/m4/quotearg.m4 $(top_srcdir)/m4/read-file.m4 \
+	$(top_srcdir)/m4/readlink.m4 $(top_srcdir)/m4/readtokens.m4 \
+	$(top_srcdir)/m4/readutmp.m4 $(top_srcdir)/m4/realloc.m4 \
+	$(top_srcdir)/m4/regex.m4 \
 	$(top_srcdir)/m4/rename-dest-slash.m4 \
 	$(top_srcdir)/m4/rename.m4 $(top_srcdir)/m4/rmdir-errno.m4 \
 	$(top_srcdir)/m4/rmdir.m4 $(top_srcdir)/m4/root-dev-ino.m4 \
@@ -860,6 +861,7 @@ REPLACE_VPRINTF = @REPLACE_VPRINTF@
 REPLACE_VSNPRINTF = @REPLACE_VSNPRINTF@
 REPLACE_VSPRINTF = @REPLACE_VSPRINTF@
 REPLACE_WCRTOMB = @REPLACE_WCRTOMB@
+REPLACE_WCSNRTOMBS = @REPLACE_WCSNRTOMBS@
 REPLACE_WCSRTOMBS = @REPLACE_WCSRTOMBS@
 REPLACE_WCTOB = @REPLACE_WCTOB@
 REPLACE_WCWIDTH = @REPLACE_WCWIDTH@
@@ -1065,6 +1067,7 @@ TESTS = \
   tail-2/tail-n0f				\
   misc/ls-misc					\
   misc/date					\
+  misc/date-next-dow				\
   misc/ptx-overrun				\
   misc/xstrtol					\
   misc/od					\
@@ -1899,6 +1902,8 @@ misc/ls-misc.log: misc/ls-misc
 	@p='misc/ls-misc'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
 misc/date.log: misc/date
 	@p='misc/date'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
+misc/date-next-dow.log: misc/date-next-dow
+	@p='misc/date-next-dow'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
 misc/ptx-overrun.log: misc/ptx-overrun
 	@p='misc/ptx-overrun'; $(am__check_pre) $(LOG_COMPILE) "$$tst" $(am__check_post)
 misc/xstrtol.log: misc/xstrtol
