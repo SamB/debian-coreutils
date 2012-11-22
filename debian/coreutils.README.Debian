@@ -1,0 +1,3 @@
+The new coreutils package combines the previous fileutils, shellutils,
+and textutils packages.
+
