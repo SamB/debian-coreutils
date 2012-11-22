@@ -2,7 +2,7 @@
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
 #line 1
 /* Test of execution of file name canonicalization.
-   Copyright (C) 2007-2009 Free Software Foundation, Inc.
+   Copyright (C) 2007-2010 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -32,20 +32,15 @@
 #include <unistd.h>
 
 #include "same-inode.h"
-
-#define ASSERT(expr) \
-  do									     \
-    {									     \
-      if (!(expr))							     \
-        {								     \
-          fprintf (stderr, "%s:%d: assertion failed\n", __FILE__, __LINE__); \
-          fflush (stderr);						     \
-          abort ();							     \
-        }								     \
-    }									     \
-  while (0)
+#include "macros.h"
 
 #define BASE "t-can.tmp"
+
+static void *
+null_ptr (void)
+{
+  return NULL;
+}
 
 int
 main (void)
@@ -54,7 +49,7 @@ main (void)
      any leftovers from a previous partial run.  */
   {
     int fd;
-    ASSERT (system ("rm -rf " BASE " ise") == 0);
+    system ("rm -rf " BASE " ise");
     ASSERT (mkdir (BASE, 0700) == 0);
     fd = creat (BASE "/tra", 0600);
     ASSERT (0 <= fd);
@@ -70,7 +65,7 @@ main (void)
     ASSERT (result2 != NULL);
     ASSERT (strcmp (result1, result2) == 0);
     ASSERT (strstr (result1, "/" BASE "/tra")
-	    == result1 + strlen (result1) - strlen ("/" BASE "/tra"));
+            == result1 + strlen (result1) - strlen ("/" BASE "/tra"));
     free (result1);
     free (result2);
     errno = 0;
@@ -82,7 +77,7 @@ main (void)
     ASSERT (result2 == NULL);
     ASSERT (errno == ENOENT);
     errno = 0;
-    result1 = canonicalize_file_name (NULL);
+    result1 = canonicalize_file_name (null_ptr ());
     ASSERT (result1 == NULL);
     ASSERT (errno == EINVAL);
     errno = 0;
@@ -125,7 +120,7 @@ main (void)
       ASSERT (remove (BASE "/tra") == 0);
       ASSERT (rmdir (BASE) == 0);
       fputs ("skipping test: symlinks not supported on this file system\n",
-	     stderr);
+             stderr);
       return 77;
     }
   ASSERT (symlink ("bef", BASE "/plo") == 0);

@@ -2,7 +2,7 @@
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
 #line 1
 /* Test of getline() function.
-   Copyright (C) 2007-2009 Free Software Foundation, Inc.
+   Copyright (C) 2007-2010 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -23,20 +23,14 @@
 #include <config.h>
 
 #include <stdio.h>
+
+#include "signature.h"
+SIGNATURE_CHECK (getline, ssize_t, (char **, size_t *, FILE *));
+
 #include <stdlib.h>
 #include <string.h>
 
-#define ASSERT(expr) \
-  do									     \
-    {									     \
-      if (!(expr))							     \
-        {								     \
-          fprintf (stderr, "%s:%d: assertion failed\n", __FILE__, __LINE__); \
-          fflush (stderr);						     \
-          abort ();							     \
-        }								     \
-    }									     \
-  while (0)
+#include "macros.h"
 
 int
 main (void)

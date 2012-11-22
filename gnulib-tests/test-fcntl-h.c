@@ -2,7 +2,7 @@
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
 #line 1
 /* Test of <fcntl.h> substitute.
-   Copyright (C) 2007, 2009 Free Software Foundation, Inc.
+   Copyright (C) 2007, 2009, 2010 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -25,8 +25,8 @@
 
 /* Check that the various O_* macros are defined.  */
 int o = O_DIRECT | O_DIRECTORY | O_DSYNC | O_NDELAY | O_NOATIME | O_NONBLOCK
-	| O_NOCTTY | O_NOFOLLOW | O_NOLINKS | O_RSYNC | O_SYNC | O_TTY_INIT
-	| O_BINARY | O_TEXT;
+        | O_NOCTTY | O_NOFOLLOW | O_NOLINKS | O_RSYNC | O_SYNC | O_TTY_INIT
+        | O_BINARY | O_TEXT;
 
 /* Check that the various SEEK_* macros are defined.  */
 int sk[] = { SEEK_CUR, SEEK_END, SEEK_SET };

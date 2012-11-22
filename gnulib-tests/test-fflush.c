@@ -2,7 +2,7 @@
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
 #line 1
 /* Test of POSIX compatible fflush() function.
-   Copyright (C) 2007, 2009 Free Software Foundation, Inc.
+   Copyright (C) 2007, 2009, 2010 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -21,7 +21,14 @@
 
 #include <config.h>
 
+/* None of the files accessed by this test are large, so disable the
+   ftell link warning if we are not using the gnulib ftell module.  */
+#define _GL_NO_LARGE_FILES
 #include <stdio.h>
+
+#include "signature.h"
+SIGNATURE_CHECK (fflush, int, (FILE *));
+
 #include <unistd.h>
 
 int
@@ -73,7 +80,7 @@ main (void)
   if (lseek (fd, 0, SEEK_CUR) != 5)
     {
       fprintf (stderr, "File offset is wrong after fseek: %ld.\n",
-	       (long) lseek (fd, 0, SEEK_CUR));
+               (long) lseek (fd, 0, SEEK_CUR));
       fclose (f);
       unlink ("test-fflush.txt");
       return 1;
@@ -81,7 +88,7 @@ main (void)
   if (ftell (f) != 5)
     {
       fprintf (stderr, "ftell result is wrong after fseek: %ld.\n",
-	       (long) ftell (f));
+               (long) ftell (f));
       fclose (f);
       unlink ("test-fflush.txt");
       return 1;
@@ -114,7 +121,7 @@ main (void)
   if (lseek (fd, 0, SEEK_CUR) != 6)
     {
       fprintf (stderr, "File offset is wrong after fseeko: %ld.\n",
-	       (long) lseek (fd, 0, SEEK_CUR));
+               (long) lseek (fd, 0, SEEK_CUR));
       fclose (f);
       unlink ("test-fflush.txt");
       return 1;
@@ -122,7 +129,7 @@ main (void)
   if (ftell (f) != 6)
     {
       fprintf (stderr, "ftell result is wrong after fseeko: %ld.\n",
-	       (long) ftell (f));
+               (long) ftell (f));
       fclose (f);
       unlink ("test-fflush.txt");
       return 1;

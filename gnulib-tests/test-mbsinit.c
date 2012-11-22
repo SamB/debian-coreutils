@@ -2,7 +2,7 @@
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
 #line 1
 /* Test of test for initial conversion state.
-   Copyright (C) 2008 Free Software Foundation, Inc.
+   Copyright (C) 2008, 2009, 2010 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -23,21 +23,12 @@
 
 #include <wchar.h>
 
-#include <locale.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include "signature.h"
+SIGNATURE_CHECK (mbsinit, int, (const mbstate_t *));
 
-#define ASSERT(expr) \
-  do									     \
-    {									     \
-      if (!(expr))							     \
-        {								     \
-          fprintf (stderr, "%s:%d: assertion failed\n", __FILE__, __LINE__); \
-          fflush (stderr);						     \
-          abort ();							     \
-        }								     \
-    }									     \
-  while (0)
+#include <locale.h>
+
+#include "macros.h"
 
 int
 main (int argc, char *argv[])
@@ -54,7 +45,7 @@ main (int argc, char *argv[])
 
       /* configure should already have checked that the locale is supported.  */
       if (setlocale (LC_ALL, "") == NULL)
-	return 1;
+        return 1;
 
       ret = mbrtowc (&wc, input, 1, &state);
       ASSERT (ret == (size_t)(-2));

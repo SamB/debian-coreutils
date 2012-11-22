@@ -2,7 +2,7 @@
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
 #line 1
 /*
- * Copyright (C) 2005, 2008, 2009 Free Software Foundation, Inc.
+ * Copyright (C) 2005, 2008, 2009, 2010 Free Software Foundation, Inc.
  * Written by Simon Josefsson
  *
  * This program is free software: you can redistribute it and/or modify
@@ -34,15 +34,15 @@ main (void)
   char buf[SHA1_DIGEST_SIZE];
 
   if (memcmp (sha1_buffer (in1, strlen (in1), buf),
-	      out1, SHA1_DIGEST_SIZE) != 0)
+              out1, SHA1_DIGEST_SIZE) != 0)
     {
       size_t i;
       printf ("expected:\n");
       for (i = 0; i < SHA1_DIGEST_SIZE; i++)
-	printf ("%02x ", out1[i] & 0xFF);
+        printf ("%02x ", out1[i] & 0xFF);
       printf ("\ncomputed:\n");
       for (i = 0; i < SHA1_DIGEST_SIZE; i++)
-	printf ("%02x ", buf[i] & 0xFF);
+        printf ("%02x ", buf[i] & 0xFF);
       printf ("\n");
       return 1;
     }

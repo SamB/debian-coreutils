@@ -2,7 +2,7 @@
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
 #line 1
 /* Test argv iterator
-   Copyright (C) 2008-2009 Free Software Foundation, Inc.
+   Copyright (C) 2008-2010 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -20,25 +20,16 @@
 /* Written by Jim Meyering.  */
 
 #include <config.h>
-#include <stdlib.h>
+
+#include "argv-iter.h"
+
 #include <stdio.h>
 #include <string.h>
 
+#include "macros.h"
+
 #define ARRAY_CARDINALITY(Array) (sizeof (Array) / sizeof *(Array))
 #define STREQ(s1, s2) (strcmp (s1, s2) == 0)
-#define ASSERT(expr) \
-  do                                                                         \
-    {                                                                        \
-      if (!(expr))                                                           \
-        {                                                                    \
-          fprintf (stderr, "%s:%d: assertion failed\n", __FILE__, __LINE__); \
-          fflush (stderr);                                                   \
-          abort ();                                                          \
-        }                                                                    \
-    }                                                                        \
-  while (0)
-
-#include "argv-iter.h"
 
 static FILE *
 write_nul_delimited_argv (char **argv)

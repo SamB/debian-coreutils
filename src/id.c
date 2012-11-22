@@ -1,5 +1,5 @@
 /* id -- print real and effective UIDs and GIDs
-   Copyright (C) 1989-2009 Free Software Foundation, Inc.
+   Copyright (C) 1989-2010 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -296,9 +296,9 @@ print_full_info (const char *username)
     gid_t *groups;
     int i;
 
-    int n_groups = mgetgroups (username, (pwd ? pwd->pw_gid : (gid_t) -1),
+    int n_groups = xgetgroups (username, (pwd ? pwd->pw_gid : (gid_t) -1),
                                &groups);
-    if (n_groups < 0 && errno != ENOSYS)
+    if (n_groups < 0)
       {
         if (username)
           {

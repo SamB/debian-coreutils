@@ -1,5 +1,6 @@
 /* `dir', `vdir' and `ls' directory listing programs for GNU.
-   Copyright (C) 85, 88, 90, 91, 1995-2009 Free Software Foundation, Inc.
+   Copyright (C) 1985, 1988, 1990-1991, 1995-2010 Free Software Foundation,
+   Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -37,10 +38,6 @@
 
 #include <config.h>
 #include <sys/types.h>
-
-#ifdef HAVE_CAP
-# include <sys/capability.h>
-#endif
 
 #if HAVE_TERMIOS_H
 # include <termios.h>
@@ -111,6 +108,13 @@
 #include "xstrtol.h"
 #include "areadlink.h"
 #include "mbsalign.h"
+
+/* Include <sys/capability.h> last to avoid a clash of <sys/types.h>
+   include guards with some premature versions of libcap.
+   For more details, see <http://bugzilla.redhat.com/483548>.  */
+#ifdef HAVE_CAP
+# include <sys/capability.h>
+#endif
 
 #define PROGRAM_NAME (ls_mode == LS_LS ? "ls" \
                       : (ls_mode == LS_MULTI_COL \
@@ -3272,8 +3276,7 @@ DEFINE_SORT_FUNCTIONS (extension, cmp_extension)
    All the other sort options, in fact, need xstrcoll and strcmp variants,
    because they all use a string comparison (either as the primary or secondary
    sort key), and xstrcoll has the ability to do a longjmp if strcoll fails for
-   locale reasons.  Last, strverscmp is ALWAYS available in coreutils,
-   thanks to the gnulib library. */
+   locale reasons.  Lastly, filevercmp is ALWAYS available with gnulib.  */
 static inline int
 cmp_version (struct fileinfo const *a, struct fileinfo const *b)
 {
@@ -4164,7 +4167,9 @@ print_color_indicator (const struct fileinfo *f, bool symlink_target)
             type = C_STICKY;
         }
       else if (S_ISLNK (mode))
-        type = ((!linkok && color_indicator[C_ORPHAN].string)
+        type = ((!linkok
+                 && (!strncmp (color_indicator[C_LINK].string, "target", 6)
+                     || color_indicator[C_ORPHAN].string))
                 ? C_ORPHAN : C_LINK);
       else if (S_ISFIFO (mode))
         type = C_FIFO;

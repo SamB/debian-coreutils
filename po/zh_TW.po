@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coreutils 5.3.0\n"
 "Report-Msgid-Bugs-To: bug-coreutils@gnu.org\n"
-"POT-Creation-Date: 2009-11-18 19:42+0100\n"
+"POT-Creation-Date: 2010-01-13 22:03+0100\n"
 "PO-Revision-Date: 2005-07-02 04:13+0800\n"
 "Last-Translator: Abel Cheung <abelcheung@gmail.com>\n"
 "Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
@@ -42,13 +42,13 @@ msgstr "有效的參數為："
 msgid "error closing file"
 msgstr "正在關閉輸入檔 %s"
 
-#: lib/closeout.c:112 src/base64.c:110 src/base64.c:122 src/base64.c:128
-#: src/base64.c:169 src/base64.c:225 src/cat.c:187 src/cat.c:203 src/cat.c:287
-#: src/cksum.c:248 src/expand.c:329 src/expand.c:354 src/head.c:301
-#: src/head.c:351 src/head.c:759 src/head.c:800 src/mktemp.c:348 src/od.c:919
-#: src/paste.c:159 src/shuf.c:405 src/tail.c:342 src/tail.c:1130
-#: src/tail.c:1209 src/tail.c:2028 src/tr.c:1549 src/tr.c:1772 src/tr.c:1886
-#: src/unexpand.c:426 src/unexpand.c:442
+#: lib/closeout.c:112 src/base64.c:109 src/base64.c:121 src/base64.c:127
+#: src/base64.c:168 src/base64.c:224 src/cat.c:187 src/cat.c:203 src/cat.c:287
+#: src/cksum.c:248 src/expand.c:330 src/expand.c:355 src/head.c:300
+#: src/head.c:350 src/head.c:758 src/head.c:799 src/mktemp.c:348 src/od.c:919
+#: src/paste.c:159 src/shuf.c:405 src/tail.c:345 src/tail.c:1192
+#: src/tail.c:1298 src/tail.c:2156 src/tr.c:1549 src/tr.c:1772 src/tr.c:1886
+#: src/unexpand.c:427 src/unexpand.c:443
 #, c-format
 msgid "write error"
 msgstr "寫入時發生錯誤"
@@ -58,12 +58,12 @@ msgstr "寫入時發生錯誤"
 msgid "preserving permissions for %s"
 msgstr "正在更改 %s 的權限"
 
-#: lib/error.c:127
+#: lib/error.c:153
 msgid "Unknown system error"
 msgstr "不明的系統錯誤"
 
 #: lib/euidaccess-stat.c:129 src/copy.c:1267 src/copy.c:1319 src/copy.c:1901
-#: src/copy.c:2204 src/df.c:574 src/install.c:737 src/stat.c:915
+#: src/copy.c:2204 src/df.c:582 src/install.c:737 src/stat.c:928
 #: src/truncate.c:367
 #, c-format
 msgid "cannot stat %s"
@@ -122,140 +122,135 @@ msgstr "共用記憶體物件"
 msgid "weird file"
 msgstr "不正常的檔案"
 
-#: lib/gai_strerror.c:44
+#: lib/gai_strerror.c:45
 #, fuzzy
 msgid "Address family for hostname not supported"
 msgstr "不支援 FIFO 檔案"
 
-#: lib/gai_strerror.c:45
+#: lib/gai_strerror.c:46
 msgid "Temporary failure in name resolution"
 msgstr ""
 
-#: lib/gai_strerror.c:46
+#: lib/gai_strerror.c:47
 msgid "Bad value for ai_flags"
 msgstr ""
 
-#: lib/gai_strerror.c:47
+#: lib/gai_strerror.c:48
 msgid "Non-recoverable failure in name resolution"
 msgstr ""
 
-#: lib/gai_strerror.c:48
+#: lib/gai_strerror.c:49
 #, fuzzy
 msgid "ai_family not supported"
 msgstr "不支援 FIFO 檔案"
 
-#: lib/gai_strerror.c:49
+#: lib/gai_strerror.c:50
 msgid "Memory allocation failure"
 msgstr ""
 
-#: lib/gai_strerror.c:50
+#: lib/gai_strerror.c:51
 msgid "No address associated with hostname"
 msgstr ""
 
-#: lib/gai_strerror.c:51
+#: lib/gai_strerror.c:52
 msgid "Name or service not known"
 msgstr ""
 
-#: lib/gai_strerror.c:52
+#: lib/gai_strerror.c:53
 msgid "Servname not supported for ai_socktype"
 msgstr ""
 
-#: lib/gai_strerror.c:53
+#: lib/gai_strerror.c:54
 #, fuzzy
 msgid "ai_socktype not supported"
 msgstr "不支援 FIFO 檔案"
 
-#: lib/gai_strerror.c:54
+#: lib/gai_strerror.c:55
 #, fuzzy
 msgid "System error"
 msgstr "寫入時發生錯誤"
 
-#: lib/gai_strerror.c:55
+#: lib/gai_strerror.c:56
 msgid "Argument buffer too small"
 msgstr ""
 
-#: lib/gai_strerror.c:57
+#: lib/gai_strerror.c:58
 msgid "Processing request in progress"
 msgstr ""
 
-#: lib/gai_strerror.c:58
+#: lib/gai_strerror.c:59
 msgid "Request canceled"
 msgstr ""
 
-#: lib/gai_strerror.c:59
+#: lib/gai_strerror.c:60
 msgid "Request not canceled"
 msgstr ""
 
-#: lib/gai_strerror.c:60
+#: lib/gai_strerror.c:61
 msgid "All requests done"
 msgstr ""
 
-#: lib/gai_strerror.c:61
+#: lib/gai_strerror.c:62
 msgid "Interrupted by a signal"
 msgstr ""
 
-#: lib/gai_strerror.c:62
+#: lib/gai_strerror.c:63
 msgid "Parameter string not correctly encoded"
 msgstr ""
 
-#: lib/gai_strerror.c:74
+#: lib/gai_strerror.c:75
 #, fuzzy
 msgid "Unknown error"
 msgstr "不明的系統錯誤"
 
-#: lib/getopt.c:527 lib/getopt.c:543
-#, c-format
-msgid "%s: option `%s' is ambiguous\n"
+#: lib/getopt.c:529 lib/getopt.c:545
+#, fuzzy, c-format
+msgid "%s: option '%s' is ambiguous\n"
 msgstr "%s：選項‘%s’不明確\n"
 
-#: lib/getopt.c:576 lib/getopt.c:580
-#, c-format
-msgid "%s: option `--%s' doesn't allow an argument\n"
+#: lib/getopt.c:578 lib/getopt.c:582
+#, fuzzy, c-format
+msgid "%s: option '--%s' doesn't allow an argument\n"
 msgstr "%s：選項‘--%s’不可配合參數使用\n"
 
-#: lib/getopt.c:589 lib/getopt.c:594
-#, c-format
-msgid "%s: option `%c%s' doesn't allow an argument\n"
+#: lib/getopt.c:591 lib/getopt.c:596
+#, fuzzy, c-format
+msgid "%s: option '%c%s' doesn't allow an argument\n"
 msgstr "%s：選項‘%c%s’不可配合參數使用\n"
 
-#: lib/getopt.c:637 lib/getopt.c:656 lib/getopt.c:972 lib/getopt.c:991
-#, c-format
-msgid "%s: option `%s' requires an argument\n"
+#: lib/getopt.c:639 lib/getopt.c:658 lib/getopt.c:961 lib/getopt.c:980
+#, fuzzy, c-format
+msgid "%s: option '%s' requires an argument\n"
 msgstr "%s：選項‘%s’需要參數\n"
 
-#: lib/getopt.c:694 lib/getopt.c:697
-#, c-format
-msgid "%s: unrecognized option `--%s'\n"
+#: lib/getopt.c:696 lib/getopt.c:699
+#, fuzzy, c-format
+msgid "%s: unrecognized option '--%s'\n"
 msgstr "%s：無法識別的選項‘--%s’\n"
 
-#: lib/getopt.c:705 lib/getopt.c:708
-#, c-format
-msgid "%s: unrecognized option `%c%s'\n"
+#: lib/getopt.c:707 lib/getopt.c:710
+#, fuzzy, c-format
+msgid "%s: unrecognized option '%c%s'\n"
 msgstr "%s：無法識別的選項‘%c%s’\n"
 
-#: lib/getopt.c:760 lib/getopt.c:763
-#, c-format
-msgid "%s: illegal option -- %c\n"
-msgstr "%s：不合法的選項 ─ %c\n"
-
-#: lib/getopt.c:769 lib/getopt.c:772
-#, c-format
-msgid "%s: invalid option -- %c\n"
+#: lib/getopt.c:759 lib/getopt.c:762
+#, fuzzy, c-format
+msgid "%s: invalid option -- '%c'\n"
 msgstr "%s：無效的選項 ─ %c\n"
 
-#: lib/getopt.c:824 lib/getopt.c:840 lib/getopt.c:1044 lib/getopt.c:1062
-#, c-format
-msgid "%s: option requires an argument -- %c\n"
+#: lib/getopt.c:812 lib/getopt.c:829 lib/getopt.c:1032 lib/getopt.c:1050
+#, fuzzy, c-format
+msgid "%s: option requires an argument -- '%c'\n"
 msgstr "%s：選項需要參數 ─ %c\n"
 
-#: lib/getopt.c:893 lib/getopt.c:909
-#, c-format
-msgid "%s: option `-W %s' is ambiguous\n"
+#: lib/getopt.c:882 lib/getopt.c:898
+#, fuzzy, c-format
+msgid "%s: option '-W %s' is ambiguous\n"
 msgstr "%s：選項‘-W %s’不明確\n"
 
-#: lib/getopt.c:933 lib/getopt.c:951
-#, c-format
-msgid "%s: option `-W %s' doesn't allow an argument\n"
+#: lib/getopt.c:922 lib/getopt.c:940
+#, fuzzy, c-format
+msgid "%s: option '-W %s' doesn't allow an argument\n"
 msgstr "%s：選項‘-W %s’不可配合參數使用\n"
 
 #: lib/mkdir-p.c:196 src/install.c:808
@@ -277,7 +272,7 @@ msgstr "記憶體耗盡"
 msgid "unable to record current working directory"
 msgstr "無法建立目錄%s"
 
-#: lib/openat-die.c:52 src/df.c:597
+#: lib/openat-die.c:52 src/df.c:605
 #, c-format
 msgid "failed to return to initial working directory"
 msgstr ""
@@ -434,155 +429,155 @@ msgstr "^[nN]"
 msgid "setting permissions for %s"
 msgstr "正在更改 %s 的權限"
 
-#: lib/siglist.h:28
+#: lib/siglist.h:29
 msgid "Hangup"
 msgstr ""
 
-#: lib/siglist.h:31
+#: lib/siglist.h:32
 msgid "Interrupt"
 msgstr ""
 
-#: lib/siglist.h:34
+#: lib/siglist.h:35
 msgid "Quit"
 msgstr ""
 
-#: lib/siglist.h:37
+#: lib/siglist.h:38
 msgid "Illegal instruction"
 msgstr ""
 
-#: lib/siglist.h:40
+#: lib/siglist.h:41
 msgid "Trace/breakpoint trap"
 msgstr ""
 
-#: lib/siglist.h:43
+#: lib/siglist.h:44
 msgid "Aborted"
 msgstr ""
 
-#: lib/siglist.h:46
+#: lib/siglist.h:47
 msgid "Floating point exception"
 msgstr ""
 
-#: lib/siglist.h:49
+#: lib/siglist.h:50
 #, fuzzy
 msgid "Killed"
 msgstr "檔案"
 
-#: lib/siglist.h:52
+#: lib/siglist.h:53
 #, fuzzy
 msgid "Bus error"
 msgstr "寫入時發生錯誤"
 
-#: lib/siglist.h:55
+#: lib/siglist.h:56
 msgid "Segmentation fault"
 msgstr ""
 
-#: lib/siglist.h:58
+#: lib/siglist.h:59
 msgid "Broken pipe"
 msgstr ""
 
-#: lib/siglist.h:61
+#: lib/siglist.h:62
 msgid "Alarm clock"
 msgstr ""
 
-#: lib/siglist.h:64
+#: lib/siglist.h:65
 msgid "Terminated"
 msgstr ""
 
-#: lib/siglist.h:67
+#: lib/siglist.h:68
 msgid "Urgent I/O condition"
 msgstr ""
 
-#: lib/siglist.h:70
+#: lib/siglist.h:71
 msgid "Stopped (signal)"
 msgstr ""
 
-#: lib/siglist.h:73
+#: lib/siglist.h:74
 msgid "Stopped"
 msgstr ""
 
-#: lib/siglist.h:76
+#: lib/siglist.h:77
 #, fuzzy
 msgid "Continued"
 msgstr "是否繼續? "
 
-#: lib/siglist.h:79
+#: lib/siglist.h:80
 msgid "Child exited"
 msgstr ""
 
-#: lib/siglist.h:82
+#: lib/siglist.h:83
 msgid "Stopped (tty input)"
 msgstr ""
 
-#: lib/siglist.h:85
+#: lib/siglist.h:86
 msgid "Stopped (tty output)"
 msgstr ""
 
-#: lib/siglist.h:88
+#: lib/siglist.h:89
 msgid "I/O possible"
 msgstr ""
 
-#: lib/siglist.h:91
+#: lib/siglist.h:92
 msgid "CPU time limit exceeded"
 msgstr ""
 
-#: lib/siglist.h:94
+#: lib/siglist.h:95
 msgid "File size limit exceeded"
 msgstr ""
 
-#: lib/siglist.h:97
+#: lib/siglist.h:98
 msgid "Virtual timer expired"
 msgstr ""
 
-#: lib/siglist.h:100
+#: lib/siglist.h:101
 msgid "Profiling timer expired"
 msgstr ""
 
-#: lib/siglist.h:103
+#: lib/siglist.h:104
 msgid "Window changed"
 msgstr ""
 
-#: lib/siglist.h:106
+#: lib/siglist.h:107
 #, fuzzy
 msgid "User defined signal 1"
 msgstr "%s：訊號無效"
 
-#: lib/siglist.h:109
+#: lib/siglist.h:110
 #, fuzzy
 msgid "User defined signal 2"
 msgstr "%s：訊號無效"
 
-#: lib/siglist.h:114
+#: lib/siglist.h:115
 msgid "EMT trap"
 msgstr ""
 
-#: lib/siglist.h:117
+#: lib/siglist.h:118
 #, fuzzy
 msgid "Bad system call"
 msgstr "調用 fork() 系統函式失敗"
 
-#: lib/siglist.h:120
+#: lib/siglist.h:121
 msgid "Stack fault"
 msgstr ""
 
-#: lib/siglist.h:123
+#: lib/siglist.h:124
 msgid "Information request"
 msgstr ""
 
-#: lib/siglist.h:125
+#: lib/siglist.h:126
 #, fuzzy
 msgid "Power failure"
 msgstr "不正常的檔案"
 
-#: lib/siglist.h:128
+#: lib/siglist.h:129
 msgid "Resource lost"
 msgstr ""
 
-#: lib/strsignal.c:109
+#: lib/strsignal.c:110
 #, fuzzy, c-format
 msgid "Real-time signal %d"
 msgstr "無效的欄位號碼：‘%s’"
 
-#: lib/strsignal.c:113
+#: lib/strsignal.c:114
 #, c-format
 msgid "Unknown signal %d"
 msgstr ""
@@ -627,12 +622,12 @@ msgstr "無效的使用者"
 msgid "unable to display error message"
 msgstr ""
 
-#: lib/version-etc.c:68
+#: lib/version-etc.c:74
 #, c-format
 msgid "Packaged by %s (%s)\n"
 msgstr ""
 
-#: lib/version-etc.c:71
+#: lib/version-etc.c:77
 #, c-format
 msgid "Packaged by %s\n"
 msgstr ""
@@ -640,11 +635,11 @@ msgstr ""
 #. TRANSLATORS: Translate "(C)" to the copyright symbol
 #. (C-in-a-circle), if this symbol is available in the user's
 #. locale.  Otherwise, do not translate "(C)"; leave it as-is.
-#: lib/version-etc.c:78
+#: lib/version-etc.c:84
 msgid "(C)"
 msgstr ""
 
-#: lib/version-etc.c:80
+#: lib/version-etc.c:86
 msgid ""
 "\n"
 "License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl."
@@ -655,19 +650,19 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: %s denotes an author name.
-#: lib/version-etc.c:96
+#: lib/version-etc.c:102
 #, c-format
 msgid "Written by %s.\n"
 msgstr "由 %s 編寫。\n"
 
 #. TRANSLATORS: Each %s denotes an author name.
-#: lib/version-etc.c:100
+#: lib/version-etc.c:106
 #, c-format
 msgid "Written by %s and %s.\n"
 msgstr "由 %s 和 %s 編寫。\n"
 
 #. TRANSLATORS: Each %s denotes an author name.
-#: lib/version-etc.c:104
+#: lib/version-etc.c:110
 #, c-format
 msgid "Written by %s, %s, and %s.\n"
 msgstr "由 %s, %s 和 %s 編寫。\n"
@@ -675,7 +670,7 @@ msgstr "由 %s, %s 和 %s 編寫。\n"
 #. TRANSLATORS: Each %s denotes an author name.
 #. You can use line breaks, estimating that each author name occupies
 #. ca. 16 screen columns and that a screen line has ca. 80 columns.
-#: lib/version-etc.c:111
+#: lib/version-etc.c:117
 #, c-format
 msgid ""
 "Written by %s, %s, %s,\n"
@@ -687,7 +682,7 @@ msgstr ""
 #. TRANSLATORS: Each %s denotes an author name.
 #. You can use line breaks, estimating that each author name occupies
 #. ca. 16 screen columns and that a screen line has ca. 80 columns.
-#: lib/version-etc.c:118
+#: lib/version-etc.c:124
 #, c-format
 msgid ""
 "Written by %s, %s, %s,\n"
@@ -699,7 +694,7 @@ msgstr ""
 #. TRANSLATORS: Each %s denotes an author name.
 #. You can use line breaks, estimating that each author name occupies
 #. ca. 16 screen columns and that a screen line has ca. 80 columns.
-#: lib/version-etc.c:125
+#: lib/version-etc.c:131
 #, c-format
 msgid ""
 "Written by %s, %s, %s,\n"
@@ -711,7 +706,7 @@ msgstr ""
 #. TRANSLATORS: Each %s denotes an author name.
 #. You can use line breaks, estimating that each author name occupies
 #. ca. 16 screen columns and that a screen line has ca. 80 columns.
-#: lib/version-etc.c:133
+#: lib/version-etc.c:139
 #, c-format
 msgid ""
 "Written by %s, %s, %s,\n"
@@ -723,7 +718,7 @@ msgstr ""
 #. TRANSLATORS: Each %s denotes an author name.
 #. You can use line breaks, estimating that each author name occupies
 #. ca. 16 screen columns and that a screen line has ca. 80 columns.
-#: lib/version-etc.c:141
+#: lib/version-etc.c:147
 #, c-format
 msgid ""
 "Written by %s, %s, %s,\n"
@@ -736,7 +731,7 @@ msgstr ""
 #. TRANSLATORS: Each %s denotes an author name.
 #. You can use line breaks, estimating that each author name occupies
 #. ca. 16 screen columns and that a screen line has ca. 80 columns.
-#: lib/version-etc.c:150
+#: lib/version-etc.c:156
 #, c-format
 msgid ""
 "Written by %s, %s, %s,\n"
@@ -750,7 +745,7 @@ msgstr ""
 #. TRANSLATORS: Each %s denotes an author name.
 #. You can use line breaks, estimating that each author name occupies
 #. ca. 16 screen columns and that a screen line has ca. 80 columns.
-#: lib/version-etc.c:161
+#: lib/version-etc.c:167
 #, c-format
 msgid ""
 "Written by %s, %s, %s,\n"
@@ -765,7 +760,7 @@ msgstr ""
 #. for this package.  Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the address for translation
 #. bugs (typically your translation team's web or email address).
-#: lib/version-etc.c:239
+#: lib/version-etc.c:245
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -774,24 +769,24 @@ msgstr ""
 "\n"
 "請向 <%s> 回報錯誤。\n"
 
-#: lib/version-etc.c:241
+#: lib/version-etc.c:247
 #, fuzzy, c-format
 msgid "Report %s bugs to: %s\n"
 msgstr ""
 "\n"
 "請向 <%s> 回報錯誤。\n"
 
-#: lib/version-etc.c:245
+#: lib/version-etc.c:251
 #, fuzzy, c-format
 msgid "%s home page: <%s>\n"
 msgstr "用法：%s [選項] [檔案]...\n"
 
-#: lib/version-etc.c:247 src/system.h:591
+#: lib/version-etc.c:253 src/system.h:591
 #, c-format
 msgid "%s home page: <http://www.gnu.org/software/%s/>\n"
 msgstr ""
 
-#: lib/version-etc.c:250 src/system.h:593
+#: lib/version-etc.c:256 src/system.h:593
 msgid "General help using GNU software: <http://www.gnu.org/gethelp/>\n"
 msgstr ""
 
@@ -817,11 +812,6 @@ msgstr "不明的系統錯誤"
 #, fuzzy, c-format
 msgid "failed to reopen %s with mode %s"
 msgstr "無法保留%s的時間"
-
-#: lib/xfts.c:57
-#, c-format
-msgid "invalid argument: %s"
-msgstr "參數無效: %s"
 
 #: lib/xmemcoll.c:48 src/expr.c:885
 #, c-format
@@ -879,25 +869,25 @@ msgid "Simon Josefsson"
 msgstr ""
 
 #: src/base64.c:55 src/basename.c:46 src/cat.c:85 src/chcon.c:348
-#: src/chgrp.c:106 src/chmod.c:360 src/chown.c:87 src/chroot.c:120
-#: src/cksum.c:257 src/comm.c:99 src/cp.c:151 src/csplit.c:1442 src/cut.c:185
-#: src/date.c:120 src/dd.c:464 src/df.c:799 src/dircolors.c:94
-#: src/dirname.c:41 src/du.c:262 src/echo.c:39 src/env.c:49 src/expand.c:99
-#: src/expr.c:200 src/factor.c:489 src/fmt.c:265 src/fold.c:62
-#: src/getlimits.c:62 src/groups.c:50 src/head.c:104 src/hostid.c:40
+#: src/chgrp.c:106 src/chmod.c:360 src/chown.c:76 src/chroot.c:119
+#: src/cksum.c:257 src/comm.c:100 src/cp.c:151 src/csplit.c:1442 src/cut.c:185
+#: src/date.c:120 src/dd.c:464 src/df.c:807 src/dircolors.c:94
+#: src/dirname.c:41 src/du.c:262 src/echo.c:39 src/env.c:49 src/expand.c:100
+#: src/expr.c:200 src/factor.c:490 src/fmt.c:265 src/fold.c:62
+#: src/getlimits.c:62 src/groups.c:50 src/head.c:103 src/hostid.c:39
 #: src/hostname.c:53 src/id.c:78 src/install.c:936 src/join.c:164
-#: src/kill.c:83 src/link.c:42 src/ln.c:332 src/logname.c:36 src/ls.c:4548
+#: src/kill.c:83 src/link.c:42 src/ln.c:332 src/logname.c:36 src/ls.c:4553
 #: src/md5sum.c:149 src/mkdir.c:53 src/mkfifo.c:48 src/mknod.c:49
 #: src/mktemp.c:65 src/mv.c:280 src/nice.c:68 src/nl.c:178 src/nohup.c:50
 #: src/nproc.c:53 src/od.c:304 src/paste.c:429 src/pathchk.c:93
 #: src/pinky.c:503 src/pr.c:2764 src/printenv.c:59 src/printf.c:85
 #: src/ptx.c:1880 src/pwd.c:53 src/readlink.c:59 src/rm.c:132 src/rmdir.c:161
 #: src/runcon.c:80 src/seq.c:66 src/setuidgid.c:46 src/shred.c:154
-#: src/shuf.c:43 src/sleep.c:42 src/sort.c:313 src/split.c:99 src/stat.c:958
+#: src/shuf.c:43 src/sleep.c:42 src/sort.c:314 src/split.c:99 src/stat.c:971
 #: src/stdbuf.c:88 src/stty.c:510 src/su.c:365 src/sum.c:55 src/sync.c:37
-#: src/tac.c:129 src/tail.c:245 src/tee.c:58 src/test.c:681 src/timeout.c:123
+#: src/tac.c:129 src/tail.c:252 src/tee.c:58 src/test.c:681 src/timeout.c:123
 #: src/touch.c:211 src/tr.c:282 src/truncate.c:98 src/tsort.c:78 src/tty.c:61
-#: src/uname.c:118 src/unexpand.c:109 src/uniq.c:130 src/unlink.c:42
+#: src/uname.c:118 src/unexpand.c:110 src/uniq.c:130 src/unlink.c:42
 #: src/uptime.c:197 src/users.c:102 src/wc.c:108 src/who.c:627 src/whoami.c:42
 #: src/yes.c:38
 #, c-format
@@ -923,14 +913,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: src/base64.c:71
-#, fuzzy
-msgid ""
-"      --help            Display this help and exit.\n"
-"      --version         Output version information and exit.\n"
-msgstr "      --version  顯示版本資訊並離開\n"
-
-#: src/base64.c:74 src/cat.c:111 src/fmt.c:292 src/shuf.c:70 src/sum.c:71
+#: src/base64.c:73 src/cat.c:111 src/fmt.c:292 src/shuf.c:70 src/sum.c:71
 msgid ""
 "\n"
 "With no FILE, or when FILE is -, read standard input.\n"
@@ -938,7 +921,7 @@ msgstr ""
 "\n"
 "如果沒有指定<檔案>或<檔案>是 -，則由標準輸入讀取資料。\n"
 
-#: src/base64.c:77
+#: src/base64.c:76
 msgid ""
 "\n"
 "The data are encoded as described for the base64 alphabet in RFC 3548.\n"
@@ -947,51 +930,51 @@ msgid ""
 "from any other non-alphabet bytes in the encoded stream.\n"
 msgstr ""
 
-#: src/base64.c:172 src/base64.c:209 src/csplit.c:263 src/csplit.c:1431
-#: src/join.c:415 src/shuf.c:397 src/tac-pipe.c:74 src/tee.c:204 src/tr.c:1573
+#: src/base64.c:171 src/base64.c:208 src/csplit.c:263 src/csplit.c:1431
+#: src/join.c:415 src/shuf.c:397 src/tac-pipe.c:75 src/tee.c:204 src/tr.c:1573
 #, c-format
 msgid "read error"
 msgstr "讀取時發生錯誤"
 
-#: src/base64.c:228
+#: src/base64.c:227
 #, fuzzy, c-format
 msgid "invalid input"
 msgstr "輸入旗標無效：%s"
 
-#: src/base64.c:265
+#: src/base64.c:264
 #, fuzzy, c-format
 msgid "invalid wrap size: %s"
 msgstr "無效的類型‘%s’"
 
-#: src/base64.c:284 src/basename.c:119 src/comm.c:433 src/cp.c:601
+#: src/base64.c:283 src/basename.c:119 src/comm.c:434 src/cp.c:601
 #: src/date.c:426 src/dircolors.c:448 src/dirname.c:97 src/du.c:928
-#: src/hostid.c:76 src/hostname.c:112 src/id.c:169 src/install.c:612
+#: src/hostid.c:75 src/hostname.c:112 src/id.c:169 src/install.c:612
 #: src/join.c:897 src/link.c:86 src/ln.c:520 src/logname.c:72 src/mknod.c:158
 #: src/mv.c:446 src/od.c:1802 src/ptx.c:2148 src/readlink.c:152 src/seq.c:410
-#: src/shuf.c:377 src/sort.c:3534 src/split.c:531 src/tr.c:1726
+#: src/shuf.c:377 src/sort.c:3536 src/split.c:531 src/tr.c:1726
 #: src/tsort.c:548 src/tty.c:113 src/uname.c:253 src/uniq.c:453 src/uniq.c:470
-#: src/unlink.c:82 src/uptime.c:255 src/users.c:147 src/wc.c:654 src/who.c:818
+#: src/unlink.c:82 src/uptime.c:255 src/users.c:147 src/wc.c:658 src/who.c:818
 #: src/whoami.c:80
 #, c-format
 msgid "extra operand %s"
 msgstr "出現多餘的參數 %s"
 
-#: src/base64.c:310 src/cat.c:779
+#: src/base64.c:309 src/cat.c:779
 #, c-format
 msgid "closing standard input"
 msgstr "關閉標準輸入"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/basename.c:40 src/chgrp.c:38 src/chmod.c:39 src/chown.c:47
-#: src/comm.c:37 src/cp.c:57 src/csplit.c:42 src/cut.c:44 src/date.c:39
+#: src/basename.c:40 src/chgrp.c:38 src/chmod.c:39 src/chown.c:36
+#: src/comm.c:38 src/cp.c:57 src/csplit.c:42 src/cut.c:44 src/date.c:39
 #: src/dd.c:47 src/df.c:40 src/dirname.c:34 src/du.c:53 src/env.c:33
-#: src/expand.c:48 src/fold.c:35 src/groups.c:35 src/head.c:47 src/id.c:39
-#: src/install.c:49 src/ln.c:40 src/ls.c:121 src/mkdir.c:36 src/mkfifo.c:33
+#: src/expand.c:49 src/fold.c:35 src/groups.c:35 src/head.c:46 src/id.c:39
+#: src/install.c:49 src/ln.c:40 src/ls.c:125 src/mkdir.c:36 src/mkfifo.c:33
 #: src/mknod.c:34 src/mv.c:42 src/nice.c:40 src/nl.c:40 src/paste.c:52
 #: src/pathchk.c:40 src/pinky.c:37 src/printenv.c:44 src/printf.c:63
 #: src/rm.c:42 src/rmdir.c:38 src/stty.c:69 src/su.c:88 src/sum.c:38
-#: src/tac.c:58 src/tail.c:62 src/tee.c:35 src/touch.c:45 src/tty.c:43
-#: src/uname.c:61 src/unexpand.c:49 src/uniq.c:41 src/uptime.c:46
+#: src/tac.c:58 src/tail.c:67 src/tee.c:35 src/touch.c:45 src/tty.c:43
+#: src/uname.c:61 src/unexpand.c:50 src/uniq.c:41 src/uptime.c:46
 #: src/users.c:36 src/wc.c:50 src/who.c:45 src/yes.c:32
 #, fuzzy
 msgid "David MacKenzie"
@@ -1025,12 +1008,12 @@ msgid ""
 msgstr ""
 
 #: src/basename.c:113 src/chcon.c:524 src/chgrp.c:273 src/chmod.c:511
-#: src/chown.c:286 src/chroot.c:186 src/comm.c:425 src/csplit.c:1369
+#: src/chown.c:275 src/chroot.c:185 src/comm.c:426 src/csplit.c:1369
 #: src/dirname.c:91 src/expr.c:325 src/join.c:1075 src/link.c:78
 #: src/mkdir.c:184 src/mkfifo.c:109 src/mknod.c:147 src/nohup.c:112
 #: src/pathchk.c:156 src/printf.c:675 src/readlink.c:144 src/rm.c:323
 #: src/rmdir.c:223 src/seq.c:404 src/setuidgid.c:137 src/sleep.c:121
-#: src/stat.c:1110 src/stdbuf.c:346 src/tr.c:1711 src/unlink.c:76
+#: src/stat.c:1123 src/stdbuf.c:346 src/tr.c:1711 src/unlink.c:76
 #, c-format
 msgid "missing operand"
 msgstr ""
@@ -1041,15 +1024,15 @@ msgid "Torbjorn Granlund"
 msgstr ""
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/cat.c:49 src/comm.c:36 src/ls.c:120 src/rm.c:43 src/split.c:45
+#: src/cat.c:49 src/comm.c:37 src/ls.c:124 src/rm.c:43 src/split.c:45
 #: src/tee.c:34 src/uniq.c:40
 #, fuzzy
 msgid "Richard M. Stallman"
 msgstr "Torbjorn Granlund 及 Richard M. Stallman"
 
-#: src/cat.c:89 src/df.c:803 src/expand.c:103 src/fold.c:66 src/head.c:108
-#: src/ls.c:4552 src/nl.c:182 src/paste.c:433 src/pr.c:2768 src/sum.c:59
-#: src/tac.c:133 src/tail.c:249 src/tee.c:62 src/unexpand.c:113
+#: src/cat.c:89 src/df.c:811 src/expand.c:104 src/fold.c:66 src/head.c:107
+#: src/ls.c:4557 src/nl.c:182 src/paste.c:433 src/pr.c:2768 src/sum.c:59
+#: src/tac.c:133 src/tail.c:256 src/tee.c:62 src/unexpand.c:114
 #, c-format
 msgid "Usage: %s [OPTION]... [FILE]...\n"
 msgstr "用法：%s [選項]... [檔案]...\n"
@@ -1102,7 +1085,7 @@ msgstr ""
 msgid "cannot do ioctl on %s"
 msgstr "無法對‘%s’執行輸出入控制 (ioctl)"
 
-#: src/cat.c:637 src/dd.c:1883 src/sort.c:305 src/tee.c:163 src/yes.c:88
+#: src/cat.c:637 src/dd.c:1883 src/sort.c:306 src/tee.c:163 src/yes.c:88
 #, c-format
 msgid "standard output"
 msgstr "標準輸出"
@@ -1118,11 +1101,11 @@ msgid "Russell Coker"
 msgstr ""
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/chcon.c:37 src/chgrp.c:39 src/chmod.c:40 src/chown.c:48 src/cp.c:58
-#: src/cut.c:45 src/dirname.c:35 src/du.c:55 src/head.c:48 src/hostid.c:34
+#: src/chcon.c:37 src/chgrp.c:39 src/chmod.c:40 src/chown.c:37 src/cp.c:58
+#: src/cut.c:45 src/dirname.c:35 src/du.c:55 src/head.c:47 src/hostid.c:33
 #: src/hostname.c:33 src/mktemp.c:36 src/mv.c:43 src/nohup.c:37 src/od.c:35
 #: src/pathchk.c:41 src/pwd.c:31 src/rm.c:44 src/setuidgid.c:38 src/sleep.c:35
-#: src/sync.c:31 src/tail.c:64 src/tr.c:36 src/true.c:33
+#: src/sync.c:31 src/tail.c:69 src/tr.c:36 src/true.c:33
 msgid "Jim Meyering"
 msgstr ""
 
@@ -1137,7 +1120,7 @@ msgid "failed to set %s security context component to %s"
 msgstr ""
 
 #: src/chcon.c:156 src/chcon.c:533 src/copy.c:1851 src/runcon.c:218
-#: src/stat.c:491
+#: src/stat.c:504
 #, fuzzy, c-format
 msgid "failed to get security context of %s"
 msgstr "無法取得 %s 的屬性"
@@ -1153,7 +1136,7 @@ msgid "failed to change context of %s to %s"
 msgstr "無法將 %s 的擁有者更改為 %s\n"
 
 #: src/chcon.c:255 src/chmod.c:208 src/chown-core.c:301 src/copy.c:295
-#: src/du.c:481 src/ls.c:2820
+#: src/du.c:481 src/ls.c:2824
 #, c-format
 msgid "cannot access %s"
 msgstr "無法存取 %s"
@@ -1236,7 +1219,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: src/chcon.c:377 src/chgrp.c:140 src/chown.c:128
+#: src/chcon.c:377 src/chgrp.c:140 src/chown.c:117
 msgid ""
 "The following options modify how a hierarchy is traversed when the -R\n"
 "option is also specified.  If more than one is specified, only the final\n"
@@ -1250,7 +1233,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: src/chcon.c:505 src/chgrp.c:260 src/chown.c:273
+#: src/chcon.c:505 src/chgrp.c:260 src/chown.c:262
 #, c-format
 msgid "-R --dereference requires either -H or -L"
 msgstr "同時使用 -R --dereference 時還需要 -H 或 -L 選項"
@@ -1260,8 +1243,8 @@ msgstr "同時使用 -R --dereference 時還需要 -H 或 -L 選項"
 msgid "-R -h requires -P"
 msgstr "同時使用 -R -h 時還需要 -P 選項"
 
-#: src/chcon.c:526 src/chgrp.c:275 src/chmod.c:513 src/chown.c:288
-#: src/comm.c:427 src/csplit.c:1371 src/join.c:1077 src/link.c:80
+#: src/chcon.c:526 src/chgrp.c:275 src/chmod.c:513 src/chown.c:277
+#: src/comm.c:428 src/csplit.c:1371 src/join.c:1077 src/link.c:80
 #: src/mknod.c:149 src/setuidgid.c:139 src/tr.c:1714
 #, c-format
 msgid "missing operand after %s"
@@ -1278,7 +1261,7 @@ msgid "conflicting security context specifiers given"
 msgstr ""
 
 #: src/chcon.c:565 src/chgrp.c:283 src/chgrp.c:301 src/chmod.c:521
-#: src/chmod.c:540 src/chown.c:296 src/chown.c:325 src/cp.c:427 src/cp.c:487
+#: src/chmod.c:540 src/chown.c:285 src/chown.c:314 src/cp.c:427 src/cp.c:487
 #: src/mv.c:96 src/pwd.c:274 src/rm.c:333 src/touch.c:356
 #, c-format
 msgid "failed to get attributes of %s"
@@ -1315,7 +1298,7 @@ msgstr ""
 "      --dereference      會影響符號鏈結所指定的目的地檔案，\n"
 "                         而非符號鏈結本身 (預設)\n"
 
-#: src/chgrp.c:123 src/chown.c:104
+#: src/chgrp.c:123 src/chown.c:93
 msgid ""
 "  -h, --no-dereference   affect each symbolic link instead of any "
 "referenced\n"
@@ -1325,7 +1308,7 @@ msgstr ""
 "  -h, --no-dereference   影響符號鏈結本身，而不是符號鏈結指定的目的地檔案\n"
 "                         (只有系統支援更改符號鏈結的擁有者，這個選項才有效)\n"
 
-#: src/chgrp.c:128 src/chown.c:116
+#: src/chgrp.c:128 src/chown.c:105
 #, fuzzy
 msgid ""
 "      --no-preserve-root  do not treat `/' specially (the default)\n"
@@ -1519,7 +1502,7 @@ msgstr "正在更改 %s 的擁有者"
 msgid "changing group of %s"
 msgstr "正在更改 %s 的所屬群組"
 
-#: src/chown.c:91
+#: src/chown.c:80
 #, c-format
 msgid ""
 "Usage: %s [OPTION]... [OWNER][:[GROUP]] FILE...\n"
@@ -1528,7 +1511,7 @@ msgstr ""
 "用法：%s [選項]... [擁有者][:[群組]]  檔案...\n"
 "  或：%s [選項]... --reference=參考檔 檔案...\n"
 
-#: src/chown.c:96
+#: src/chown.c:85
 #, fuzzy
 msgid ""
 "Change the owner and/or group of each FILE to OWNER and/or GROUP.\n"
@@ -1544,7 +1527,7 @@ msgstr ""
 "  -c, --changes          像 --verbose，但只在有更改時才顯示結果\n"
 "      --dereference      受影響的是符號鏈結所指示的對象，而非符號鏈結本身\n"
 
-#: src/chown.c:109
+#: src/chown.c:98
 msgid ""
 "      --from=CURRENT_OWNER:CURRENT_GROUP\n"
 "                         change the owner and/or group of each file only if\n"
@@ -1559,7 +1542,7 @@ msgstr ""
 "                         才會更改擁有者和群組。其中一個可以省略，這時\n"
 "                         已省略的屬性就不需要符合原有的屬性。\n"
 
-#: src/chown.c:120
+#: src/chown.c:109
 #, fuzzy
 msgid ""
 "  -f, --silent, --quiet  suppress most error messages\n"
@@ -1574,7 +1557,7 @@ msgstr ""
 "  -R, --recursive        處理所有目錄中的檔案及子目錄\n"
 "  -v, --verbose          處理任何檔案都會顯示訊息\n"
 
-#: src/chown.c:142
+#: src/chown.c:131
 msgid ""
 "\n"
 "Owner is unchanged if missing.  Group is unchanged if missing, but changed\n"
@@ -1586,7 +1569,7 @@ msgstr ""
 "但如果擁有者後加上 ‘:’，<群組> 會更改為擁有者的主要群組。\n"
 "<擁有者> 及 <群組> 可以是數字或名稱。\n"
 
-#: src/chown.c:148
+#: src/chown.c:137
 #, c-format
 msgid ""
 "\n"
@@ -1597,26 +1580,26 @@ msgid ""
 msgstr ""
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/chroot.c:36
+#: src/chroot.c:35
 msgid "Roland McGrath"
 msgstr ""
 
-#: src/chroot.c:88 src/install.c:900 src/setuidgid.c:110 src/setuidgid.c:120
+#: src/chroot.c:87 src/install.c:900 src/setuidgid.c:110 src/setuidgid.c:120
 #, c-format
 msgid "invalid group %s"
 msgstr "群組 %s 無效"
 
-#: src/chroot.c:100
+#: src/chroot.c:99
 #, fuzzy, c-format
 msgid "invalid group list %s"
 msgstr "群組 %s 無效"
 
-#: src/chroot.c:108
+#: src/chroot.c:107
 #, fuzzy, c-format
 msgid "failed to set additional groups"
 msgstr "無法改變所屬群組至沒有名稱的群組"
 
-#: src/chroot.c:124
+#: src/chroot.c:123
 #, fuzzy, c-format
 msgid ""
 "Usage: %s [OPTION] NEWROOT [COMMAND [ARG]...]\n"
@@ -1625,7 +1608,7 @@ msgstr ""
 "用法：%s 根目錄 [指令...]\n"
 "  或：%s 選項\n"
 
-#: src/chroot.c:129
+#: src/chroot.c:128
 msgid ""
 "Run COMMAND with root directory set to NEWROOT.\n"
 "\n"
@@ -1633,40 +1616,40 @@ msgstr ""
 "以新的目錄作為 <根目錄> 並執行 <指令>。\n"
 "\n"
 
-#: src/chroot.c:134
+#: src/chroot.c:133
 msgid ""
 "  --userspec=USER:GROUP  specify user and group (ID or name) to use\n"
 "  --groups=G_LIST        specify supplementary groups as g1,g2,..,gN\n"
 msgstr ""
 
-#: src/chroot.c:141
+#: src/chroot.c:140
 msgid ""
 "\n"
 "If no command is given, run ``${SHELL} -i'' (default: /bin/sh).\n"
 msgstr ""
 
-#: src/chroot.c:191
+#: src/chroot.c:190
 #, c-format
 msgid "cannot change root directory to %s"
 msgstr "無法以 %s 作為根目錄"
 
-#: src/chroot.c:195
+#: src/chroot.c:194
 #, c-format
 msgid "cannot chdir to root directory"
 msgstr ""
 
-#: src/chroot.c:236
+#: src/chroot.c:235
 #, fuzzy, c-format
 msgid "failed to set group-ID"
 msgstr "無法保留%s的時間"
 
-#: src/chroot.c:242
+#: src/chroot.c:241
 #, fuzzy, c-format
 msgid "failed to set user-ID"
 msgstr "無法保留%s的時間"
 
-#: src/chroot.c:264 src/nohup.c:233 src/setuidgid.c:213 src/stdbuf.c:366
-#: src/timeout.c:297
+#: src/chroot.c:263 src/nohup.c:237 src/setuidgid.c:213 src/stdbuf.c:366
+#: src/timeout.c:298
 #, fuzzy, c-format
 msgid "failed to run command %s"
 msgstr "無法執行 %s 指令"
@@ -1698,16 +1681,16 @@ msgstr ""
 "印出每個 <檔案> 的 CRC 總和檢查值及位元組總數。\n"
 "\n"
 
-#: src/comm.c:103 src/join.c:168
+#: src/comm.c:104 src/join.c:168
 #, c-format
 msgid "Usage: %s [OPTION]... FILE1 FILE2\n"
 msgstr "用法：%s [選項]... 檔案1 檔案2\n"
 
-#: src/comm.c:107
+#: src/comm.c:108
 msgid "Compare sorted files FILE1 and FILE2 line by line.\n"
 msgstr "逐行比較兩個已排序的 <檔案1> 及 <檔案2>。\n"
 
-#: src/comm.c:110
+#: src/comm.c:111
 msgid ""
 "\n"
 "With no options, produce three-column output.  Column one contains\n"
@@ -1718,7 +1701,7 @@ msgstr ""
 "不加選項的話，程式會產生三欄內容。第一欄的內容只在 <檔案1> 出現，\n"
 "第二欄的只在 <檔案2> 出現，第三欄的則同時在兩個檔案內出現。\n"
 
-#: src/comm.c:116
+#: src/comm.c:117
 #, fuzzy
 msgid ""
 "\n"
@@ -1731,7 +1714,7 @@ msgstr ""
 "  -2              不顯示任何一行只在 FILE2 出現過的資料\n"
 "  -3              不顯示兩個檔案中同時出現的任何一行\n"
 
-#: src/comm.c:122
+#: src/comm.c:123
 msgid ""
 "\n"
 "  --check-order     check that the input is correctly sorted, even\n"
@@ -1739,17 +1722,17 @@ msgid ""
 "  --nocheck-order   do not check that the input is correctly sorted\n"
 msgstr ""
 
-#: src/comm.c:128
+#: src/comm.c:129
 msgid "  --output-delimiter=STR  separate columns with STR\n"
 msgstr ""
 
-#: src/comm.c:133
+#: src/comm.c:134
 msgid ""
 "\n"
 "Note, comparisons honor the rules specified by `LC_COLLATE'.\n"
 msgstr ""
 
-#: src/comm.c:137
+#: src/comm.c:138
 #, c-format
 msgid ""
 "\n"
@@ -1758,17 +1741,17 @@ msgid ""
 "  %s -3  file1 file2  Print lines in file1 not in file2, and vice versa.\n"
 msgstr ""
 
-#: src/comm.c:222 src/join.c:368
+#: src/comm.c:223 src/join.c:368
 #, c-format
 msgid "file %d is not in sorted order"
 msgstr ""
 
-#: src/comm.c:405
+#: src/comm.c:406
 #, fuzzy, c-format
 msgid "multiple delimiters specified"
 msgstr "正在關閉輸出檔%s"
 
-#: src/comm.c:409
+#: src/comm.c:410
 #, fuzzy, c-format
 msgid "empty %s not allowed"
 msgstr "使用 -c 時不允許指定額外的參數‘%s’"
@@ -1793,14 +1776,14 @@ msgstr ""
 msgid "failed to preserve authorship for %s"
 msgstr "無法保留%s的著作者"
 
-#: src/copy.c:495 src/csplit.c:630 src/du.c:935 src/fmt.c:427 src/head.c:850
-#: src/sort.c:3546 src/split.c:538 src/tac.c:544 src/tail.c:1603 src/wc.c:666
+#: src/copy.c:495 src/csplit.c:630 src/du.c:935 src/fmt.c:427 src/head.c:849
+#: src/sort.c:3548 src/split.c:538 src/tac.c:544 src/tail.c:1711 src/wc.c:670
 #, c-format
 msgid "cannot open %s for reading"
 msgstr "無法開啟 %s 來讀取資料"
 
-#: src/copy.c:501 src/copy.c:629 src/dd.c:1298 src/dd.c:1926 src/tail.c:1439
-#: src/tail.c:1505 src/truncate.c:150 src/truncate.c:234
+#: src/copy.c:501 src/copy.c:629 src/dd.c:1298 src/dd.c:1926 src/tail.c:1547
+#: src/tail.c:1613 src/truncate.c:150 src/truncate.c:234
 #, c-format
 msgid "cannot fstat %s"
 msgstr "無法 fstat %s"
@@ -1852,7 +1835,7 @@ msgstr "無法保留%s的時間"
 msgid "reading %s"
 msgstr "讀取 %s"
 
-#: src/copy.c:766 src/head.c:429
+#: src/copy.c:766 src/head.c:428
 #, c-format
 msgid "cannot lseek %s"
 msgstr "無法 lseek %s"
@@ -1867,7 +1850,7 @@ msgstr "寫入 %s"
 msgid "preserving times for %s"
 msgstr "保留%s的時間"
 
-#: src/copy.c:893 src/copy.c:899 src/head.c:858 src/touch.c:174
+#: src/copy.c:893 src/copy.c:899 src/head.c:857 src/touch.c:174
 #: src/truncate.c:408
 #, c-format
 msgid "closing %s"
@@ -2014,7 +1997,7 @@ msgstr "無法建立 FIFO %s"
 msgid "cannot create special file %s"
 msgstr "無法建立特殊檔案 %s"
 
-#: src/copy.c:2043 src/ls.c:3032 src/stat.c:609
+#: src/copy.c:2043 src/ls.c:3036 src/stat.c:622
 #, c-format
 msgid "cannot read symbolic link %s"
 msgstr "無法讀取符號鏈結 %s"
@@ -2058,13 +2041,13 @@ msgstr ""
 "將 <來源> 檔案複製至 <目的地>，或將多個 <檔案> 複製至指定 <目錄>。\n"
 "\n"
 
-#: src/cp.c:165 src/csplit.c:1455 src/cut.c:197 src/df.c:809 src/du.c:274
-#: src/expand.c:112 src/fmt.c:275 src/fold.c:75 src/head.c:118
-#: src/install.c:959 src/kill.c:97 src/ln.c:353 src/ls.c:4558 src/mkdir.c:62
+#: src/cp.c:165 src/csplit.c:1455 src/cut.c:197 src/df.c:817 src/du.c:274
+#: src/expand.c:113 src/fmt.c:275 src/fold.c:75 src/head.c:117
+#: src/install.c:959 src/kill.c:97 src/ln.c:353 src/ls.c:4563 src/mkdir.c:62
 #: src/mkfifo.c:57 src/mknod.c:59 src/mv.c:294 src/nl.c:191 src/paste.c:443
-#: src/pr.c:2777 src/ptx.c:1892 src/shred.c:164 src/shuf.c:57 src/sort.c:326
-#: src/split.c:113 src/stdbuf.c:97 src/tac.c:142 src/tail.c:259
-#: src/timeout.c:138 src/touch.c:226 src/truncate.c:113 src/unexpand.c:122
+#: src/pr.c:2777 src/ptx.c:1892 src/shred.c:164 src/shuf.c:57 src/sort.c:327
+#: src/split.c:113 src/stdbuf.c:97 src/tac.c:142 src/tail.c:266
+#: src/timeout.c:138 src/touch.c:226 src/truncate.c:113 src/unexpand.c:123
 #: src/uniq.c:145
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too.\n"
@@ -2832,9 +2815,9 @@ msgid ""
 "O to use the locale's alternate numeric symbols if available.\n"
 msgstr ""
 
-#: src/date.c:260 src/dd.c:1867 src/head.c:841 src/md5sum.c:445
+#: src/date.c:260 src/dd.c:1867 src/head.c:840 src/md5sum.c:445
 #: src/md5sum.c:749 src/od.c:863 src/od.c:1914 src/pr.c:1176 src/pr.c:1372
-#: src/pr.c:1494 src/stty.c:847 src/tac.c:535 src/tail.c:335 src/tee.c:126
+#: src/pr.c:1494 src/stty.c:847 src/tac.c:535 src/tail.c:338 src/tee.c:126
 #: src/tr.c:1892 src/tsort.c:523 src/wc.c:193
 #, c-format
 msgid "standard input"
@@ -2879,7 +2862,7 @@ msgid "time %s is out of range"
 msgstr "時間 %s 超出可接受的範圍"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/dd.c:46 src/factor.c:43 src/rm.c:41 src/tail.c:61 src/touch.c:42
+#: src/dd.c:46 src/factor.c:43 src/rm.c:41 src/tail.c:66 src/touch.c:42
 #: src/wc.c:49
 msgid "Paul Rubin"
 msgstr ""
@@ -3279,64 +3262,71 @@ msgstr "略過輸出檔%2$s的最初 %1$s 個位元組"
 
 #. This is a proper name. See the gettext manual, section Names.
 #: src/df.c:41 src/du.c:54 src/expr.c:153 src/kill.c:43 src/pathchk.c:39
-#: src/shuf.c:37 src/sleep.c:36 src/sort.c:62
+#: src/shuf.c:37 src/sleep.c:36 src/sort.c:63
 msgid "Paul Eggert"
 msgstr ""
 
-#: src/df.c:151
+#. TRANSLATORS:
+#. For best results (df header/column alignment), ensure that
+#. your translation has the same length as the original.
+#: src/df.c:154
 msgid "Filesystem    Type"
 msgstr "檔案系統      類型"
 
-#: src/df.c:153
+#: src/df.c:156
 msgid "Filesystem        "
 msgstr "檔案系統          "
 
-#: src/df.c:156
-#, c-format
-msgid "    Inodes   IUsed   IFree IUse%%"
+#. TRANSLATORS:
+#. For best results (df header/column alignment), ensure that
+#. your translation has the same length as the original.
+#. Also, each column name translation should end at the same
+#. column as the corresponding original.
+#: src/df.c:164
+#, fuzzy
+msgid "    Inodes   IUsed   IFree IUse%"
 msgstr "    Inode    I已用  I可用 I已用%%"
 
-#: src/df.c:160
-#, c-format
-msgid "    Size  Used Avail Use%%"
+#: src/df.c:168
+#, fuzzy
+msgid "    Size  Used Avail Use%"
 msgstr "    容量  已用 可用 已用%%"
 
-#: src/df.c:162
-#, c-format
-msgid "     Size   Used  Avail Use%%"
+#: src/df.c:170
+#, fuzzy
+msgid "     Size   Used  Avail Use%"
 msgstr "     容量   已用  可用 已用%%"
 
-#: src/df.c:165
+#: src/df.c:173
 #, fuzzy, c-format
 msgid " %s-blocks      Used Available Capacity"
 msgstr "   %4s-區段      已用      可用 容量"
 
-#: src/df.c:196
+#: src/df.c:204
 #, c-format
 msgid " %4s-blocks      Used Available Use%%"
 msgstr "   %4s-區段      已用     可用 已用%%"
 
-#: src/df.c:200
-#, c-format
+#: src/df.c:208
 msgid " Mounted on\n"
 msgstr " 掛載點\n"
 
-#: src/df.c:530
+#: src/df.c:538
 #, c-format
 msgid "cannot get current directory"
 msgstr "無法讀取目前的目錄位置"
 
-#: src/df.c:540 src/df.c:554 src/df.c:582
+#: src/df.c:548 src/df.c:562 src/df.c:590
 #, c-format
 msgid "cannot change to directory %s"
 msgstr "無法進入 %s 目錄"
 
-#: src/df.c:560
+#: src/df.c:568
 #, c-format
 msgid "cannot stat current directory (now %s)"
 msgstr "無法 stat 目前的目錄 (現在是 %s)"
 
-#: src/df.c:804
+#: src/df.c:812
 msgid ""
 "Show information about the file system on which each FILE resides,\n"
 "or all file systems by default.\n"
@@ -3345,7 +3335,7 @@ msgstr ""
 "顯示每個 <檔案> 所在的檔案系統的資訊，預設是顯示所有檔案系統。\n"
 "\n"
 
-#: src/df.c:812
+#: src/df.c:820
 #, fuzzy
 msgid ""
 "  -a, --all             include dummy file systems\n"
@@ -3360,7 +3350,7 @@ msgstr ""
 "  -h, --human-readable  以容易理解的格式印出檔案系統大小 (例如 1K 234M 2G)\n"
 "  -H, --si              類似 -h，但以 1000 為單位而不是 1024\n"
 
-#: src/df.c:819
+#: src/df.c:827
 msgid ""
 "  -i, --inodes          list inode information instead of block usage\n"
 "  -k                    like --block-size=1K\n"
@@ -3373,7 +3363,7 @@ msgstr ""
 "  -l, --local           只顯示本機的檔案系統\n"
 "      --no-sync         取得使用量資料前不進行 sync 動作 (預設)\n"
 
-#: src/df.c:825
+#: src/df.c:833
 msgid ""
 "  -P, --portability     use the POSIX output format\n"
 "      --sync            invoke sync before getting usage info\n"
@@ -3389,21 +3379,21 @@ msgstr ""
 "  -x, --exclude-type=類型   只印出不是指定 <類型> 的檔案系統資訊\n"
 "  -v                    (此選項不作處理)\n"
 
-#: src/df.c:973
+#: src/df.c:981
 #, c-format
 msgid "file system type %s both selected and excluded"
 msgstr "不能同時選擇和排除檔案系統類型 %s"
 
-#: src/df.c:1021
+#: src/df.c:1029
 msgid "Warning: "
 msgstr "警告："
 
-#: src/df.c:1023
+#: src/df.c:1031
 #, fuzzy
 msgid "cannot read table of mounted file systems"
 msgstr "%s 無法讀取已掛載的檔案系統的名單"
 
-#: src/df.c:1051
+#: src/df.c:1059
 #, c-format
 msgid "no file systems processed"
 msgstr ""
@@ -3506,7 +3496,7 @@ msgid ""
 "  %s stdio.h        Output \".\".\n"
 msgstr ""
 
-#: src/du.c:266 src/sort.c:317 src/wc.c:112
+#: src/du.c:266 src/sort.c:318 src/wc.c:112
 #, c-format
 msgid ""
 "Usage: %s [OPTION]... [FILE]...\n"
@@ -3652,35 +3642,35 @@ msgstr "警告：顯示總用量等於使用 --max-depth=0"
 msgid "warning: summarizing conflicts with --max-depth=%lu"
 msgstr "警告：顯示總用量的選項和 --max-depth=%lu 互相抵觸"
 
-#: src/du.c:930 src/sort.c:3536 src/wc.c:656
+#: src/du.c:930 src/sort.c:3538 src/wc.c:660
 #, fuzzy
 msgid "file operands cannot be combined with --files0-from"
 msgstr "有檔案作為參數時不可和 --files0-from 一起使用。"
 
 #: src/du.c:967 src/md5sum.c:551 src/od.c:903 src/tac.c:239 src/tac.c:350
-#: src/tac.c:481 src/tac.c:557 src/wc.c:718
+#: src/tac.c:481 src/tac.c:557 src/wc.c:722
 #, c-format
 msgid "%s: read error"
 msgstr "%s：讀取時發生錯誤"
 
-#: src/du.c:981 src/sort.c:3565 src/wc.c:731
+#: src/du.c:981 src/sort.c:3567 src/wc.c:735
 #, c-format
 msgid "when reading file names from stdin, no file name of %s allowed"
 msgstr ""
 
-#: src/du.c:998 src/du.c:1006 src/wc.c:744 src/wc.c:752
+#: src/du.c:998 src/du.c:1006 src/wc.c:748 src/wc.c:756
 msgid "invalid zero-length file name"
 msgstr "檔案名稱無效 (長度為零)"
 
-#: src/du.c:1023 src/head.c:152 src/head.c:265 src/head.c:337 src/head.c:541
-#: src/head.c:623 src/head.c:695 src/head.c:753 src/head.c:777 src/tail.c:404
-#: src/tail.c:492 src/tail.c:541 src/tail.c:634 src/tail.c:762 src/tail.c:810
-#: src/tail.c:849 src/tail.c:1629 src/tail.c:1658 src/uniq.c:394
+#: src/du.c:1023 src/head.c:151 src/head.c:264 src/head.c:336 src/head.c:540
+#: src/head.c:622 src/head.c:694 src/head.c:752 src/head.c:776 src/tail.c:407
+#: src/tail.c:495 src/tail.c:544 src/tail.c:637 src/tail.c:765 src/tail.c:813
+#: src/tail.c:852 src/tail.c:1737 src/tail.c:1767 src/uniq.c:394
 #, c-format
 msgid "error reading %s"
 msgstr "讀取 %s 時發生錯誤"
 
-#: src/du.c:1026 src/ls.c:2577 src/wc.c:774
+#: src/du.c:1026 src/ls.c:2581 src/wc.c:778
 msgid "total"
 msgstr "總計"
 
@@ -3805,7 +3795,7 @@ msgstr "無法 stat %s"
 msgid "cannot specify --null (-0) with command"
 msgstr ""
 
-#: src/expand.c:107
+#: src/expand.c:108
 msgid ""
 "Convert tabs in each FILE to spaces, writing to standard output.\n"
 "With no FILE, or when FILE is -, read standard input.\n"
@@ -3814,7 +3804,7 @@ msgstr ""
 "將每個 <檔案> 中的 tab 轉換為空格，並在標準輸出顯示。\n"
 "如果沒有指定 <檔案> 或 <檔案> 是 -，則由標準輸入讀取資料。\n"
 
-#: src/expand.c:115
+#: src/expand.c:116
 msgid ""
 "  -i, --initial       do not convert tabs after non blanks\n"
 "  -t, --tabs=NUMBER   have tabs NUMBER characters apart, not 8\n"
@@ -3822,32 +3812,32 @@ msgstr ""
 "  -i, --initial       不轉換非空白字元後的 TAB 字元\n"
 "  -t, --tabs=數目     將 tab 轉換為指定 <數目> 的空格而不是 8 個\n"
 
-#: src/expand.c:119
+#: src/expand.c:120
 msgid ""
 "  -t, --tabs=LIST     use comma separated list of explicit tab positions\n"
 msgstr "  -t, --tabs=LIST     用以逗號分隔的數字來指定 tab 的位置\n"
 
-#: src/expand.c:172 src/unexpand.c:191
+#: src/expand.c:173 src/unexpand.c:192
 #, c-format
 msgid "tab stop is too large %s"
 msgstr "tab 字元寬度 %s 過長"
 
-#: src/expand.c:180 src/unexpand.c:199
+#: src/expand.c:181 src/unexpand.c:200
 #, c-format
 msgid "tab size contains invalid character(s): %s"
 msgstr "tab 字元寬度含有無效的字元：%s"
 
-#: src/expand.c:206 src/unexpand.c:225
+#: src/expand.c:207 src/unexpand.c:226
 #, c-format
 msgid "tab size cannot be 0"
 msgstr "tab 字元寬度不可為 0"
 
-#: src/expand.c:208 src/unexpand.c:227
+#: src/expand.c:209 src/unexpand.c:228
 #, c-format
 msgid "tab sizes must be ascending"
 msgstr "tab 字元位置必須由小至大"
 
-#: src/expand.c:325 src/expand.c:344 src/unexpand.c:373 src/unexpand.c:420
+#: src/expand.c:326 src/expand.c:345 src/unexpand.c:374 src/unexpand.c:421
 #, c-format
 msgid "input line is too long"
 msgstr "輸入內容過長"
@@ -3971,25 +3961,25 @@ msgstr "被 0 整除"
 msgid "the strings compared were %s and %s"
 msgstr "要比較的字串為%s及%s。"
 
-#: src/factor.c:447
+#: src/factor.c:448
 msgid "using arbitrary-precision arithmetic"
 msgstr ""
 
-#: src/factor.c:458
+#: src/factor.c:459
 msgid "using single-precision arithmetic"
 msgstr ""
 
-#: src/factor.c:463 src/od.c:1640 src/od.c:1709
+#: src/factor.c:464 src/od.c:1640 src/od.c:1709
 #, c-format
 msgid "%s is too large"
 msgstr "%s 過長"
 
-#: src/factor.c:467
+#: src/factor.c:468
 #, fuzzy, c-format
 msgid "%s is not a valid positive integer"
 msgstr "‘%s’ 不是有效的正整數"
 
-#: src/factor.c:493
+#: src/factor.c:494
 #, c-format
 msgid ""
 "Usage: %s [NUMBER]...\n"
@@ -3998,7 +3988,7 @@ msgstr ""
 "用法：%s [數字]...\n"
 "  或：%s 選項\n"
 
-#: src/factor.c:498
+#: src/factor.c:499
 #, fuzzy
 msgid ""
 "Print the prime factors of each specified integer NUMBER.  If none\n"
@@ -4135,7 +4125,7 @@ msgstr ""
 msgid "%s: No such user"
 msgstr "%s：此用戶不存在"
 
-#: src/head.c:112
+#: src/head.c:111
 msgid ""
 "Print the first 10 lines of each FILE to standard output.\n"
 "With more than one FILE, precede each with a header giving the file name.\n"
@@ -4146,7 +4136,7 @@ msgstr ""
 "當多於一個 <檔案> 時，顯示時會先加上表示檔案名稱的標頭。\n"
 "如果沒有指定 <檔案> 或 <檔案> 是 -，則由標準輸入讀取資料。\n"
 
-#: src/head.c:121
+#: src/head.c:120
 #, fuzzy
 msgid ""
 "  -c, --bytes=[-]K         print the first K bytes of each file;\n"
@@ -4161,7 +4151,7 @@ msgstr ""
 "  -n, --lines=[-]N         顯示每個檔案的最初 N 行；如果附有 ‘-’ 號，\n"
 "                             則顯示整個檔案減去最後 N 行\n"
 
-#: src/head.c:129
+#: src/head.c:128
 msgid ""
 "  -q, --quiet, --silent    never print headers giving file names\n"
 "  -v, --verbose            always print headers giving file names\n"
@@ -4169,7 +4159,7 @@ msgstr ""
 "  -q, --quiet, --silent    絕不顯示含有檔案名稱的標頭\n"
 "  -v, --verbose            一定顯示含有檔案名稱的標頭\n"
 
-#: src/head.c:135
+#: src/head.c:134
 #, fuzzy
 msgid ""
 "\n"
@@ -4183,63 +4173,63 @@ msgstr ""
 "GB=1000*1000*1000，G=1024*1024*1024，還有 T/P/E/Z/Y 如此類推。\n"
 "每個 <關鍵字> 可以是：\n"
 
-#: src/head.c:155
+#: src/head.c:154
 #, c-format
 msgid "error writing %s"
 msgstr "寫入 %s 時發生錯誤"
 
-#: src/head.c:158
+#: src/head.c:157
 #, c-format
 msgid "%s: file has shrunk too much"
 msgstr ""
 
-#: src/head.c:231 src/head.c:1047
+#: src/head.c:230 src/head.c:1046
 #, c-format
 msgid "%s: number of bytes is too large"
 msgstr "%s：位元組數目過大"
 
-#: src/head.c:444
+#: src/head.c:443
 #, fuzzy, c-format
 msgid "%s: cannot lseek back to original position"
 msgstr "%s：無法搜尋至原來位置"
 
-#: src/head.c:616 src/head.c:687 src/tail.c:442
+#: src/head.c:615 src/head.c:686 src/tail.c:445
 #, c-format
 msgid "%s: cannot seek to offset %s"
 msgstr "%s：無法搜尋至位置 %s"
 
-#: src/head.c:794
+#: src/head.c:793
 #, c-format
 msgid "cannot reposition file pointer for %s"
 msgstr "無法將 %s 的檔案指標重新定位"
 
-#: src/head.c:881
+#: src/head.c:880
 #, c-format
 msgid "%s: %s is so large that it is not representable"
 msgstr "%s：%s過大，因此無法表示"
 
-#: src/head.c:882
+#: src/head.c:881
 msgid "number of lines"
 msgstr "行數"
 
-#: src/head.c:882
+#: src/head.c:881
 msgid "number of bytes"
 msgstr "位元組數目"
 
-#: src/head.c:889 src/tail.c:1793
+#: src/head.c:888 src/tail.c:1902
 msgid "invalid number of lines"
 msgstr "無效的行數"
 
-#: src/head.c:890 src/tail.c:1794
+#: src/head.c:889 src/tail.c:1903
 msgid "invalid number of bytes"
 msgstr "無效的位元組數目"
 
-#: src/head.c:977 src/head.c:1035
+#: src/head.c:976 src/head.c:1034
 #, fuzzy, c-format
 msgid "invalid trailing option -- %c"
 msgstr "選項無效 ─ %c"
 
-#: src/hostid.c:44
+#: src/hostid.c:43
 #, fuzzy, c-format
 msgid ""
 "Usage: %s [OPTION]\n"
@@ -4451,7 +4441,7 @@ msgstr "無法更改 %s 的擁有權"
 msgid "cannot set time stamps for %s"
 msgstr "無法設定 %s 的檔案時間"
 
-#: src/install.c:851 src/timeout.c:282
+#: src/install.c:851 src/timeout.c:283
 #, c-format
 msgid "fork system call failed"
 msgstr "調用 fork() 系統函式失敗"
@@ -4579,7 +4569,7 @@ msgid ""
 msgstr ""
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/join.c:39 src/sort.c:61
+#: src/join.c:39 src/sort.c:62
 msgid "Mike Haertel"
 msgstr ""
 
@@ -4678,17 +4668,17 @@ msgstr ""
 msgid "conflicting empty-field replacement strings"
 msgstr ""
 
-#: src/join.c:1027 src/sort.c:3464
+#: src/join.c:1027 src/sort.c:3466
 #, c-format
 msgid "empty tab"
 msgstr ""
 
-#: src/join.c:1033 src/sort.c:3475
+#: src/join.c:1033 src/sort.c:3477
 #, fuzzy, c-format
 msgid "multi-character tab %s"
 msgstr "分隔欄位字元‘%s’多於一個字元"
 
-#: src/join.c:1037 src/sort.c:3480
+#: src/join.c:1037 src/sort.c:3482
 #, c-format
 msgid "incompatible tabs"
 msgstr ""
@@ -4961,7 +4951,7 @@ msgstr "%s：無效的號碼"
 #. Note %b is handled specially by ls and aligned correctly.
 #. Note also that specifying a width as in %5b is erroneous as strftime
 #. will count bytes rather than characters in multibyte locales.
-#: src/ls.c:729
+#: src/ls.c:733
 #, fuzzy
 msgid "%b %e  %Y"
 msgstr "%Y-%m-%d %H:%M"
@@ -4971,87 +4961,87 @@ msgstr "%Y-%m-%d %H:%M"
 #. Note %b is handled specially by ls and aligned correctly.
 #. Note also that specifying a width as in %5b is erroneous as strftime
 #. will count bytes rather than characters in multibyte locales.
-#: src/ls.c:742
+#: src/ls.c:746
 #, fuzzy
 msgid "%b %e %H:%M"
 msgstr "%Y-%m-%d %H:%M"
 
-#: src/ls.c:1557
+#: src/ls.c:1561
 #, c-format
 msgid "ignoring invalid value of environment variable QUOTING_STYLE: %s"
 msgstr "忽略無效的環境變數 QUOTING_STYLE 的變數值：%s"
 
-#: src/ls.c:1584
+#: src/ls.c:1588
 #, c-format
 msgid "ignoring invalid width in environment variable COLUMNS: %s"
 msgstr "忽略無效的環境變數 COLUMNS 的寬度數值：%s"
 
-#: src/ls.c:1614
+#: src/ls.c:1618
 #, c-format
 msgid "ignoring invalid tab size in environment variable TABSIZE: %s"
 msgstr "忽略無效的環境變數 TABSIZE 的 tab 字元定位值：%s"
 
-#: src/ls.c:1735 src/ptx.c:2043
+#: src/ls.c:1739 src/ptx.c:2043
 #, fuzzy, c-format
 msgid "invalid line width: %s"
 msgstr "無效的寬度：‘%s’"
 
-#: src/ls.c:1809
+#: src/ls.c:1813
 #, fuzzy, c-format
 msgid "invalid tab size: %s"
 msgstr "無效的類型‘%s’"
 
-#: src/ls.c:1999
+#: src/ls.c:2003
 #, fuzzy, c-format
 msgid "invalid time style format %s"
 msgstr "%2$s的參數%1$s無效"
 
-#: src/ls.c:2045
+#: src/ls.c:2049
 #, c-format
 msgid "error initializing month strings"
 msgstr ""
 
-#: src/ls.c:2347
+#: src/ls.c:2351
 #, fuzzy, c-format
 msgid "unrecognized prefix: %s"
 msgstr "無法識別的選項‘-%c’"
 
-#: src/ls.c:2370
+#: src/ls.c:2374
 #, c-format
 msgid "unparsable value for LS_COLORS environment variable"
 msgstr "LS_COLORS 環境變數中存在無法分析的值"
 
-#: src/ls.c:2447 src/pwd.c:162
+#: src/ls.c:2451 src/pwd.c:162
 #, fuzzy, c-format
 msgid "cannot open directory %s"
 msgstr "無法建立目錄%s"
 
-#: src/ls.c:2462
+#: src/ls.c:2466
 #, fuzzy, c-format
 msgid "cannot determine device and inode of %s"
 msgstr "無法將 %s 的檔案指標重新定位"
 
-#: src/ls.c:2471
+#: src/ls.c:2475
 #, fuzzy, c-format
 msgid "%s: not listing already-listed directory"
 msgstr "無法建立目錄%s"
 
-#: src/ls.c:2548 src/pwd.c:230
+#: src/ls.c:2552 src/pwd.c:230
 #, fuzzy, c-format
 msgid "reading directory %s"
 msgstr "無法建立目錄%s"
 
-#: src/ls.c:2558
+#: src/ls.c:2562
 #, fuzzy, c-format
 msgid "closing directory %s"
 msgstr "無法進入%s目錄"
 
-#: src/ls.c:3147
+#: src/ls.c:3151
 #, fuzzy, c-format
 msgid "cannot compare file names %s and %s"
 msgstr "要比較的字串為%s及%s。"
 
-#: src/ls.c:4553
+#: src/ls.c:4558
 #, fuzzy
 msgid ""
 "List information about the FILEs (the current directory by default).\n"
@@ -5062,7 +5052,7 @@ msgstr ""
 "如果不指定 -cftuSUX 或 --sort 任何一個選項，則根據字母大小排序。\n"
 "\n"
 
-#: src/ls.c:4561
+#: src/ls.c:4566
 #, fuzzy
 msgid ""
 "  -a, --all                  do not ignore entries starting with .\n"
@@ -5075,7 +5065,7 @@ msgstr ""
 "      --author               印出每個檔案的著作者\n"
 "  -b, --escape               以八進位溢出序列表示不可列印的字元\n"
 
-#: src/ls.c:4567
+#: src/ls.c:4572
 #, fuzzy
 msgid ""
 "      --block-size=SIZE      use SIZE-byte blocks.  See SIZE format below\n"
@@ -5093,7 +5083,7 @@ msgstr ""
 "                             配合 -l ：顯示 ctime 但根據名稱排序\n"
 "                             否則    ：根據 ctime 排序\n"
 
-#: src/ls.c:4575
+#: src/ls.c:4580
 #, fuzzy
 msgid ""
 "  -C                         list entries by columns\n"
@@ -5111,7 +5101,7 @@ msgstr ""
 "  -d, --directory            當遇到目錄時列出目錄本身而非目錄內的檔案\n"
 "  -D, --dired                產生適合 Emacs 的 dired 模式使用的結果\n"
 
-#: src/ls.c:4583
+#: src/ls.c:4588
 #, fuzzy
 msgid ""
 "  -f                         do not sort, enable -aU, disable -ls --color\n"
@@ -5127,11 +5117,11 @@ msgstr ""
 "                               single-column -1，verbose -l，vertical -C\n"
 "      --full-time            即 -l --time-style=full-iso\n"
 
-#: src/ls.c:4591
+#: src/ls.c:4596
 msgid "  -g                         like -l, but do not list owner\n"
 msgstr ""
 
-#: src/ls.c:4594
+#: src/ls.c:4599
 msgid ""
 "      --group-directories-first\n"
 "                             group directories before files.\n"
@@ -5139,7 +5129,7 @@ msgid ""
 "                               use of --sort=none (-U) disables grouping\n"
 msgstr ""
 
-#: src/ls.c:4600
+#: src/ls.c:4605
 #, fuzzy
 msgid ""
 "  -G, --no-group             in a long listing, don't print group names\n"
@@ -5152,7 +5142,7 @@ msgstr ""
 "  -h, --human-readable  以容易理解的格式印出檔案系統大小 (例如 1K 234M 2G)\n"
 "  -H, --si              類似 -h，但以 1000 為單位而不是 1024\n"
 
-#: src/ls.c:4606
+#: src/ls.c:4611
 #, fuzzy
 msgid ""
 "  -H, --dereference-command-line\n"
@@ -5171,7 +5161,7 @@ msgstr ""
 "      --si                   類似 -h，但取 1000 的次方而不是 1024\n"
 "  -H, --dereference-command-line    使用指令列中的符號鏈結指示的真正目的地\n"
 
-#: src/ls.c:4615
+#: src/ls.c:4620
 #, fuzzy
 msgid ""
 "      --indicator-style=WORD  append indicator with style WORD to entry "
@@ -5189,7 +5179,7 @@ msgstr ""
 "  -I, --ignore=樣式          不印出任何符合 shell 萬用字元 <樣式> 的項目\n"
 "  -k                         即 --block-size=1K\n"
 
-#: src/ls.c:4623
+#: src/ls.c:4628
 msgid ""
 "  -l                         use a long listing format\n"
 "  -L, --dereference          when showing file information for a symbolic\n"
@@ -5203,7 +5193,7 @@ msgstr ""
 "                               的目標而並非符號鏈結本身的資訊\n"
 "  -m                         所有項目以逗號分隔，並填滿整行行寬\n"
 
-#: src/ls.c:4630
+#: src/ls.c:4635
 #, fuzzy
 msgid ""
 "  -n, --numeric-uid-gid      like -l, but list numeric user and group IDs\n"
@@ -5220,7 +5210,7 @@ msgstr ""
 "  -o                         類似 -l，但不列出有關群組的資訊\n"
 "  -p, --file-type            加上檔案類型的指示符號 (/=@| 其中一個)\n"
 
-#: src/ls.c:4638
+#: src/ls.c:4643
 msgid ""
 "  -q, --hide-control-chars   print ? instead of non graphic characters\n"
 "      --show-control-chars   show non graphic characters as-is (default\n"
@@ -5239,7 +5229,7 @@ msgstr ""
 "                               literal、locale、shell、shell-always、c、"
 "escape\n"
 
-#: src/ls.c:4646
+#: src/ls.c:4651
 #, fuzzy
 msgid ""
 "  -r, --reverse              reverse order while sorting\n"
@@ -5251,7 +5241,7 @@ msgstr ""
 "  -R, --recursive            同時列出所有子目錄層\n"
 "  -s, --size                 以區段大小為單位列出所有檔案的大小\n"
 
-#: src/ls.c:4651
+#: src/ls.c:4656
 #, fuzzy
 msgid ""
 "  -S                         sort by file size\n"
@@ -5274,7 +5264,7 @@ msgstr ""
 "                               atime、access、use、ctime 或 status；加上\n"
 "                               --sort=time 選項時會以指定時間作為排序索引\n"
 
-#: src/ls.c:4660
+#: src/ls.c:4665
 #, fuzzy
 msgid ""
 "      --time-style=STYLE     with -l, show times using style STYLE:\n"
@@ -5296,13 +5286,13 @@ msgstr ""
 "  -t                         根據修改時間排序\n"
 "  -T, --tabsize=寬度         另行指定 tab 的 <寬度>，而非 8 個字元\n"
 
-#: src/ls.c:4669
+#: src/ls.c:4674
 msgid ""
 "  -t                         sort by modification time\n"
 "  -T, --tabsize=COLS         assume tab stops at each COLS instead of 8\n"
 msgstr ""
 
-#: src/ls.c:4673
+#: src/ls.c:4678
 #, fuzzy
 msgid ""
 "  -u                         with -lt: sort by, and show, access time\n"
@@ -5317,7 +5307,7 @@ msgstr ""
 "  -U                         不進行排序；依檔案系統原有的次序列出項目\n"
 "  -v                         根據版本進行排序\n"
 
-#: src/ls.c:4680
+#: src/ls.c:4685
 #, fuzzy
 msgid ""
 "  -w, --width=COLS           assume screen width instead of current value\n"
@@ -5331,7 +5321,7 @@ msgstr ""
 "                            每一行，除非使用了 -s 選項\n"
 "  -n                      (不會作任何處理)\n"
 
-#: src/ls.c:4690
+#: src/ls.c:4695
 #, fuzzy
 msgid ""
 "\n"
@@ -5345,7 +5335,7 @@ msgstr ""
 "--color 選項但不指定 WHEN 參數等於 --color=always。當使用 --color=auto 時，\n"
 "只當輸出至終端機畫面 (tty) 時才會顯示色彩。\n"
 
-#: src/ls.c:4697
+#: src/ls.c:4702
 msgid ""
 "\n"
 "Exit status:\n"
@@ -6008,40 +5998,45 @@ msgstr ""
 
 #: src/nohup.c:128
 #, fuzzy, c-format
+msgid "failed to render standard input unusable"
+msgstr "標準輸出"
+
+#: src/nohup.c:132
+#, fuzzy, c-format
 msgid "ignoring input"
 msgstr "參數過多"
 
-#: src/nohup.c:160 src/nohup.c:162
+#: src/nohup.c:164 src/nohup.c:166
 #, fuzzy, c-format
 msgid "failed to open %s"
 msgstr "無法保留%s的時間"
 
-#: src/nohup.c:172
+#: src/nohup.c:176
 #, fuzzy, c-format
 msgid "ignoring input and appending output to %s"
 msgstr "無法更改%s的擁有者和/或所屬群組"
 
-#: src/nohup.c:173
+#: src/nohup.c:177
 #, fuzzy, c-format
 msgid "appending output to %s"
 msgstr "無法更改%s的擁有者和/或所屬群組"
 
-#: src/nohup.c:190
+#: src/nohup.c:194
 #, c-format
 msgid "failed to set the copy of stderr to close on exec"
 msgstr ""
 
-#: src/nohup.c:195
+#: src/nohup.c:199
 #, c-format
 msgid "ignoring input and redirecting stderr to stdout"
 msgstr ""
 
-#: src/nohup.c:196
+#: src/nohup.c:200
 #, c-format
 msgid "redirecting stderr to stdout"
 msgstr ""
 
-#: src/nohup.c:200
+#: src/nohup.c:204
 #, c-format
 msgid "failed to redirect standard error"
 msgstr ""
@@ -6708,8 +6703,9 @@ msgstr ""
 "                    無法開啟檔案時不會印出警告訊息\n"
 
 #: src/pr.c:2837
+#, fuzzy
 msgid ""
-"  -s[CHAR],--separator[=CHAR]\n"
+"  -s[CHAR], --separator[=CHAR]\n"
 "                    separate columns by a single character, default for "
 "CHAR\n"
 "                    is the <TAB> character without -w and 'no char' with -w\n"
@@ -6781,8 +6777,8 @@ msgstr ""
 #, fuzzy
 msgid ""
 "\n"
-"-t is implied if PAGE_LENGTH <= 10.  With no FILE, or when\n"
-"FILE is -, read standard input.\n"
+"-t is implied if PAGE_LENGTH <= 10.  With no FILE, or when FILE is -, read\n"
+"standard input.\n"
 msgstr ""
 "\n"
 "當 nn <= 10 (配合 -F 選項時 nn <= 3) 的時候，使用 -l nn 選項即表示 -T 選項\n"
@@ -7098,7 +7094,7 @@ msgstr ""
 msgid "Try `%s ./%s' to remove the file %s.\n"
 msgstr ""
 
-#: src/rm.c:136 src/shred.c:158 src/stat.c:962 src/touch.c:215
+#: src/rm.c:136 src/shred.c:158 src/stat.c:975 src/touch.c:215
 #, fuzzy, c-format
 msgid "Usage: %s [OPTION]... FILE...\n"
 msgstr "用法：%s [選項]... [檔案]...\n"
@@ -7680,7 +7676,7 @@ msgstr "%s：無法開啟來寫入資料"
 msgid "%s: invalid number of passes"
 msgstr ""
 
-#: src/shred.c:1142 src/shuf.c:329 src/sort.c:3448
+#: src/shred.c:1142 src/shuf.c:329 src/sort.c:3450
 #, fuzzy, c-format
 msgid "multiple random sources specified"
 msgstr "正在關閉輸出檔%s"
@@ -7733,7 +7729,7 @@ msgstr "輸入旗標無效：%s"
 msgid "invalid line count %s"
 msgstr "無效的寬度：‘%s’"
 
-#: src/shuf.c:323 src/sort.c:3442
+#: src/shuf.c:323 src/sort.c:3444
 #, fuzzy, c-format
 msgid "multiple output files specified"
 msgstr "正在關閉輸出檔%s"
@@ -7767,12 +7763,12 @@ msgstr ""
 msgid "invalid time interval %s"
 msgstr "無效的欄位號碼：‘%s’"
 
-#: src/sleep.c:148 src/tail.c:1148
+#: src/sleep.c:148 src/tail.c:1210
 #, fuzzy, c-format
 msgid "cannot read realtime clock"
 msgstr "無法建立鏈結%s"
 
-#: src/sort.c:322
+#: src/sort.c:323
 #, fuzzy
 msgid ""
 "Write sorted concatenation of all FILE(s) to standard output.\n"
@@ -7783,13 +7779,13 @@ msgstr ""
 "排序選項：\n"
 "\n"
 
-#: src/sort.c:329
+#: src/sort.c:330
 msgid ""
 "Ordering options:\n"
 "\n"
 msgstr ""
 
-#: src/sort.c:333
+#: src/sort.c:334
 #, fuzzy
 msgid ""
 "  -b, --ignore-leading-blanks  ignore leading blanks\n"
@@ -7801,19 +7797,19 @@ msgstr ""
 "  -d, --dictionary-order      只考慮空白字元、英文字和數字\n"
 "  -f, --ignore-case           排序前先將小寫字元轉換為大寫\n"
 
-#: src/sort.c:338
+#: src/sort.c:339
 msgid ""
 "  -g, --general-numeric-sort  compare according to general numerical value\n"
 "  -i, --ignore-nonprinting    consider only printable characters\n"
 "  -M, --month-sort            compare (unknown) < `JAN' < ... < `DEC'\n"
 msgstr ""
 
-#: src/sort.c:343
+#: src/sort.c:344
 msgid ""
 "  -h, --human-numeric-sort    compare human readable numbers (e.g., 2K 1G)\n"
 msgstr ""
 
-#: src/sort.c:346
+#: src/sort.c:347
 msgid ""
 "  -n, --numeric-sort          compare according to string numerical value\n"
 "  -R, --random-sort           sort by random hash of keys\n"
@@ -7821,7 +7817,7 @@ msgid ""
 "  -r, --reverse               reverse the result of comparisons\n"
 msgstr ""
 
-#: src/sort.c:352
+#: src/sort.c:353
 msgid ""
 "      --sort=WORD             sort according to WORD:\n"
 "                                general-numeric -g, human-numeric -h, month -"
@@ -7831,19 +7827,19 @@ msgid ""
 "\n"
 msgstr ""
 
-#: src/sort.c:359
+#: src/sort.c:360
 msgid ""
 "Other options:\n"
 "\n"
 msgstr ""
 
-#: src/sort.c:363
+#: src/sort.c:364
 msgid ""
 "      --batch-size=NMERGE   merge at most NMERGE inputs at once;\n"
 "                            for more use temp files\n"
 msgstr ""
 
-#: src/sort.c:367
+#: src/sort.c:368
 msgid ""
 "  -c, --check, --check=diagnose-first  check for sorted input; do not sort\n"
 "  -C, --check=quiet, --check=silent  like -c, but do not report first bad "
@@ -7855,14 +7851,14 @@ msgid ""
 "                            If F is - then read names from standard input\n"
 msgstr ""
 
-#: src/sort.c:376
+#: src/sort.c:377
 msgid ""
 "  -k, --key=POS1[,POS2]     start a key at POS1 (origin 1), end it at POS2\n"
 "                            (default end of line)\n"
 "  -m, --merge               merge already sorted files; do not sort\n"
 msgstr ""
 
-#: src/sort.c:381
+#: src/sort.c:382
 #, fuzzy
 msgid ""
 "  -o, --output=FILE         write result to FILE instead of standard output\n"
@@ -7880,7 +7876,7 @@ msgstr ""
 "  -s, --stable              不進行最後的整行比較排序\n"
 "  -S, --buffer-size=大小    指定記憶緩衝區的 <大小>\n"
 
-#: src/sort.c:386
+#: src/sort.c:387
 #, fuzzy, c-format
 msgid ""
 "  -t, --field-separator=SEP  use SEP instead of non-blank to blank "
@@ -7898,12 +7894,12 @@ msgstr ""
 "  -u, --unique                    配合 -c：嚴格檢查資料是否依次序排列\n"
 "                                  沒有 -c：遇到多行相同的資料時只顯示第一行\n"
 
-#: src/sort.c:393
+#: src/sort.c:394
 msgid "  -z, --zero-terminated     end lines with 0 byte, not newline\n"
 msgstr ""
 "  -z, --zero-terminated     以位元組 0 而非 newline 字元作為每行的結束字元\n"
 
-#: src/sort.c:398
+#: src/sort.c:399
 #, fuzzy
 msgid ""
 "\n"
@@ -7925,7 +7921,7 @@ msgstr ""
 "\n"
 "<大小> 可以加上如下的單位：\n"
 
-#: src/sort.c:408
+#: src/sort.c:409
 msgid ""
 "% 1% of memory, b 1, K 1024 (default), and so on for M, G, T, P, E, Z, Y.\n"
 "\n"
@@ -7944,175 +7940,175 @@ msgstr ""
 "和語系有關的環境變數會影響排序結果。\n"
 "如果要以位元組數值作為排列次序，請設定環境變數 LC_ALL=C。\n"
 
-#: src/sort.c:610
+#: src/sort.c:611
 #, fuzzy, c-format
 msgid "waiting for %s [-d]"
 msgstr "正在寫入 %s"
 
-#: src/sort.c:615
+#: src/sort.c:616
 #, c-format
 msgid "%s [-d] terminated abnormally"
 msgstr ""
 
-#: src/sort.c:786 src/tac.c:458
+#: src/sort.c:787 src/tac.c:458
 #, fuzzy, c-format
 msgid "cannot create temporary file in %s"
 msgstr "無法建立暫存檔"
 
-#: src/sort.c:823 src/sort.c:2547 src/sort.c:2827 src/sort.c:2830
-#: src/sort.c:3639
+#: src/sort.c:824 src/sort.c:2548 src/sort.c:2828 src/sort.c:2831
+#: src/sort.c:3641
 msgid "open failed"
 msgstr "開啟時發生錯誤"
 
-#: src/sort.c:843
+#: src/sort.c:844
 #, fuzzy
 msgid "fflush failed"
 msgstr "關閉時發生錯誤"
 
-#: src/sort.c:848 src/sort.c:3694
+#: src/sort.c:849 src/sort.c:3696
 msgid "close failed"
 msgstr "關閉時發生錯誤"
 
-#: src/sort.c:857
+#: src/sort.c:858
 #, fuzzy, c-format
 msgid "dup2 failed"
 msgstr "開啟時發生錯誤"
 
-#: src/sort.c:966
+#: src/sort.c:967
 #, c-format
 msgid "couldn't execute %s"
 msgstr ""
 
-#: src/sort.c:975
+#: src/sort.c:976
 #, fuzzy
 msgid "couldn't create temporary file"
 msgstr "無法建立暫存檔"
 
-#: src/sort.c:1015
+#: src/sort.c:1016
 #, fuzzy, c-format
 msgid "couldn't create process for %s -d"
 msgstr "無法建立目錄%s"
 
-#: src/sort.c:1029
+#: src/sort.c:1030
 #, c-format
 msgid "couldn't execute %s -d"
 msgstr ""
 
-#: src/sort.c:1053
+#: src/sort.c:1054
 msgid "write failed"
 msgstr "寫入時發生錯誤"
 
-#: src/sort.c:1090
+#: src/sort.c:1091
 #, fuzzy, c-format
 msgid "warning: cannot remove: %s"
 msgstr "無法建立目錄%s"
 
-#: src/sort.c:1176
+#: src/sort.c:1177
 #, fuzzy, c-format
 msgid "invalid --%s argument %s"
 msgstr "參數無效: %s"
 
-#: src/sort.c:1179
+#: src/sort.c:1180
 #, fuzzy, c-format
 msgid "minimum --%s argument is %s"
 msgstr "%2$s的參數%1$s不明確"
 
-#: src/sort.c:1194
+#: src/sort.c:1195
 #, fuzzy, c-format
 msgid "--%s argument %s too large"
 msgstr "%s：數字‘%.*s’過大"
 
-#: src/sort.c:1197
+#: src/sort.c:1198
 #, c-format
 msgid "maximum --%s argument with current rlimit is %s"
 msgstr ""
 
-#: src/sort.c:1342
+#: src/sort.c:1343
 msgid "stat failed"
 msgstr "stat 時發生錯誤"
 
-#: src/sort.c:1603
+#: src/sort.c:1604
 msgid "read failed"
 msgstr "讀入時發生錯誤"
 
-#: src/sort.c:1693
+#: src/sort.c:1694
 #, c-format
 msgid "both SI and IEC prefixes present on units"
 msgstr ""
 
-#: src/sort.c:2256
+#: src/sort.c:2257
 #, c-format
 msgid "%s: %s:%s: disorder: "
 msgstr "%s： %s：%s：次序不正確："
 
-#: src/sort.c:2260
+#: src/sort.c:2261
 msgid "standard error"
 msgstr "標準錯誤輸出"
 
-#: src/sort.c:2982
+#: src/sort.c:2983
 #, fuzzy, c-format
 msgid "%s: invalid field specification %s"
 msgstr "%s：無效的欄位規格‘%s’"
 
-#: src/sort.c:2993
+#: src/sort.c:2994
 #, c-format
 msgid "options `-%s' are incompatible"
 msgstr ""
 
-#: src/sort.c:3062
+#: src/sort.c:3063
 #, fuzzy, c-format
 msgid "%s: invalid count at start of %s"
 msgstr "%s：‘%s’開始部份的數字無效"
 
-#: src/sort.c:3321
+#: src/sort.c:3323
 msgid "invalid number after `-'"
 msgstr "‘-’後的數字無效"
 
-#: src/sort.c:3324 src/sort.c:3395 src/sort.c:3423
+#: src/sort.c:3326 src/sort.c:3397 src/sort.c:3425
 msgid "invalid number after `.'"
 msgstr "‘.’後的數字無效"
 
-#: src/sort.c:3327 src/sort.c:3428
+#: src/sort.c:3329 src/sort.c:3430
 msgid "stray character in field spec"
 msgstr "欄位規格出現不合法的字元"
 
-#: src/sort.c:3373
+#: src/sort.c:3375
 #, fuzzy, c-format
 msgid "multiple compress programs specified"
 msgstr "指定了多於一個目的地目錄"
 
-#: src/sort.c:3386
+#: src/sort.c:3388
 msgid "invalid number at field start"
 msgstr "欄位規格開始部份的數字無效"
 
-#: src/sort.c:3390 src/sort.c:3418
+#: src/sort.c:3392 src/sort.c:3420
 msgid "field number is zero"
 msgstr "欄位是 0"
 
-#: src/sort.c:3399
+#: src/sort.c:3401
 msgid "character offset is zero"
 msgstr "字元偏移值是 0"
 
-#: src/sort.c:3414
+#: src/sort.c:3416
 msgid "invalid number after `,'"
 msgstr "‘,’後的數字無效"
 
-#: src/sort.c:3553 src/wc.c:680
+#: src/sort.c:3555 src/wc.c:684
 #, c-format
 msgid "cannot read file names from %s"
 msgstr "無法從 %s 讀取檔案名稱"
 
-#: src/sort.c:3575
+#: src/sort.c:3577
 #, fuzzy, c-format
 msgid "%s:%lu: invalid zero-length file name"
 msgstr "檔案名稱無效 (長度為零)"
 
-#: src/sort.c:3581
+#: src/sort.c:3583
 #, fuzzy, c-format
 msgid "no input from %s"
 msgstr "正在關閉輸入檔 %s"
 
-#: src/sort.c:3664
+#: src/sort.c:3666
 #, fuzzy, c-format
 msgid "extra operand %s not allowed with -%c"
 msgstr "使用 -c 時不允許指定額外的參數‘%s’"
@@ -8203,37 +8199,37 @@ msgstr "無效的行數"
 msgid "Michael Meskes"
 msgstr ""
 
-#: src/stat.c:748
+#: src/stat.c:761
 #, fuzzy, c-format
 msgid "warning: unrecognized escape `\\%c'"
 msgstr "%s：無法識別的選項‘%c%s’\n"
 
-#: src/stat.c:792
+#: src/stat.c:805
 #, fuzzy, c-format
 msgid "%s: invalid directive"
 msgstr "%s：檔案類型不正確"
 
-#: src/stat.c:838
+#: src/stat.c:851
 #, fuzzy, c-format
 msgid "warning: backslash at end of format"
 msgstr "字串末端的反斜號溢出序列無效"
 
-#: src/stat.c:867
+#: src/stat.c:880
 #, c-format
 msgid "using %s to denote standard input does not work in file system mode"
 msgstr ""
 
-#: src/stat.c:874
+#: src/stat.c:887
 #, fuzzy, c-format
 msgid "cannot read file system information for %s"
 msgstr "無法將 %s 的檔案指標重新定位"
 
-#: src/stat.c:904
+#: src/stat.c:917
 #, fuzzy, c-format
 msgid "cannot stat standard input"
 msgstr "關閉標準輸入"
 
-#: src/stat.c:963
+#: src/stat.c:976
 msgid ""
 "Display file or file system status.\n"
 "\n"
@@ -8241,7 +8237,7 @@ msgid ""
 "  -f, --file-system     display file system status instead of file status\n"
 msgstr ""
 
-#: src/stat.c:969
+#: src/stat.c:982
 msgid ""
 "  -c  --format=FORMAT   use the specified FORMAT instead of the default;\n"
 "                          output a newline after each use of FORMAT\n"
@@ -8251,7 +8247,7 @@ msgid ""
 "  -t, --terse           print the information in terse form\n"
 msgstr ""
 
-#: src/stat.c:980
+#: src/stat.c:993
 #, fuzzy
 msgid ""
 "\n"
@@ -8270,7 +8266,7 @@ msgstr ""
 "  %a - 以八進位數字方式表示存取權限\n"
 "  %b - 佔用的磁碟區段數目\n"
 
-#: src/stat.c:989
+#: src/stat.c:1002
 #, fuzzy
 msgid ""
 "  %d   Device number in decimal\n"
@@ -8287,7 +8283,7 @@ msgstr ""
 "  %G - 所屬群組的名稱\n"
 "  %g - 所屬群組的號碼\n"
 
-#: src/stat.c:997
+#: src/stat.c:1010
 #, fuzzy
 msgid ""
 "  %h   Number of hard links\n"
@@ -8308,7 +8304,7 @@ msgstr ""
 "  %T - 特殊檔案或裝置檔案的十六進位 minor 號碼\n"
 "  %t - 特殊檔案或裝置檔案的十六進位 major 號碼\n"
 
-#: src/stat.c:1007
+#: src/stat.c:1020
 #, fuzzy
 msgid ""
 "  %u   User ID of owner\n"
@@ -8330,7 +8326,7 @@ msgstr ""
 "  %Z - 由 Epoch 時間至最後更改 inode 資訊的時間之間經過的秒數\n"
 "  %z - 最後更改 inode 資訊的時間\n"
 
-#: src/stat.c:1019
+#: src/stat.c:1032
 #, fuzzy
 msgid ""
 "Valid format sequences for file systems:\n"
@@ -8350,7 +8346,7 @@ msgstr ""
 "  %d - 檔案系統剩餘可用的最大檔案數目\n"
 "  %f - 檔案系統的剩餘空間\n"
 
-#: src/stat.c:1029
+#: src/stat.c:1042
 #, fuzzy
 msgid ""
 "  %i   File System ID in hex\n"
@@ -8368,7 +8364,7 @@ msgstr ""
 "  %T - 以容易理解的方式表示的檔案系統類型\n"
 "  %t - 以十六進位表示的檔案系統類型\n"
 
-#: src/stat.c:1095
+#: src/stat.c:1108
 #, c-format
 msgid ""
 "the --context (-Z) option is obsolete and will be removed\n"
@@ -8993,11 +8989,11 @@ msgid "separator cannot be empty"
 msgstr "分隔字串不可以是空的"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/tail.c:63
+#: src/tail.c:68
 msgid "Ian Lance Taylor"
 msgstr ""
 
-#: src/tail.c:253
+#: src/tail.c:260
 #, c-format
 msgid ""
 "Print the last %d lines of each FILE to standard output.\n"
@@ -9010,7 +9006,7 @@ msgstr ""
 "如果沒有指定 <檔案> 或 <檔案> 是 -，則由標準輸入讀取資料。\n"
 "\n"
 
-#: src/tail.c:262
+#: src/tail.c:269
 msgid ""
 "  -c, --bytes=K            output the last K bytes; alternatively, use -c "
 "+K\n"
@@ -9018,7 +9014,7 @@ msgid ""
 "file\n"
 msgstr ""
 
-#: src/tail.c:266
+#: src/tail.c:273
 msgid ""
 "  -f, --follow[={name|descriptor}]\n"
 "                           output appended data as the file grows;\n"
@@ -9032,7 +9028,7 @@ msgstr ""
 "  -F                       等於 --follow=name --retry\n"
 
 # --max-consecutive-size-changes is undocumented  -- maddog
-#: src/tail.c:273
+#: src/tail.c:280
 #, fuzzy, c-format
 msgid ""
 "  -n, --lines=K            output the last K lines, instead of the last %d;\n"
@@ -9054,7 +9050,7 @@ msgstr ""
 "                           配合 --follow=name 時，如果 <檔案> 連續 N 次\n"
 "                           改變大小，則認定此檔案已經被改名。\n"
 
-#: src/tail.c:285
+#: src/tail.c:292
 #, fuzzy
 msgid ""
 "      --pid=PID            with -f, terminate after process ID, PID dies\n"
@@ -9070,7 +9066,7 @@ msgstr ""
 "                           (預設為 1 秒)\n"
 "  -v, --verbose            一定顯示任何標明檔案名稱的標頭\n"
 
-#: src/tail.c:292
+#: src/tail.c:299
 #, fuzzy
 msgid ""
 "  -s, --sleep-interval=N   with -f, sleep for approximately N seconds\n"
@@ -9084,7 +9080,7 @@ msgstr ""
 "                           (預設為 1 秒)\n"
 "  -v, --verbose            一定顯示任何標明檔案名稱的標頭\n"
 
-#: src/tail.c:299
+#: src/tail.c:306
 #, fuzzy
 msgid ""
 "\n"
@@ -9101,22 +9097,15 @@ msgstr ""
 "m 則是 1048576 (1M)。\n"
 "\n"
 
-#: src/tail.c:308
+#: src/tail.c:315
+#, fuzzy
 msgid ""
 "With --follow (-f), tail defaults to following the file descriptor, which\n"
 "means that even if a tail'ed file is renamed, tail will continue to track\n"
-"its end.  "
-msgstr ""
-"若配合 --follow (-f) 選項，tail 預設會檢查檔案描述子 (file descriptor)；\n"
-"即是說，即使要 tail 的檔案已經改名，tail 仍會繼續檢查該檔案的末端。"
-
-#: src/tail.c:313
-msgid ""
-"This default behavior is not desirable when you really want to\n"
+"its end.  This default behavior is not desirable when you really want to\n"
 "track the actual name of the file, not the file descriptor (e.g., log\n"
 "rotation).  Use --follow=name in that case.  That causes tail to track the\n"
-"named file by reopening it periodically to see if it has been removed and\n"
-"recreated by some other program.\n"
+"named file in a way that accommodates renaming, removal and creation.\n"
 msgstr ""
 "如果\n"
 "確實要檢查檔案名稱而不是檔案描述子時 (例如備份紀錄檔時)，這種預設的處理\n"
@@ -9124,137 +9113,147 @@ msgstr ""
 "的檔案，方法是重複地開啟檔案，看看它是否已被移除和其它程式會否再產生該\n"
 "檔案。\n"
 
-#: src/tail.c:371
+#: src/tail.c:374
 #, c-format
 msgid "closing %s (fd=%d)"
 msgstr "正在關閉 %s (fd=%d)"
 
-#: src/tail.c:446
+#: src/tail.c:449
 #, fuzzy, c-format
 msgid "%s: cannot seek to relative offset %s"
 msgstr "%s：無法搜尋至相對位置 %s%s"
 
-#: src/tail.c:450
+#: src/tail.c:453
 #, fuzzy, c-format
 msgid "%s: cannot seek to end-relative offset %s"
 msgstr "%s：無法搜尋至末端相對位置 %s%s"
 
-#: src/tail.c:902
+#: src/tail.c:886
+#, c-format
+msgid "cannot determine location of %s. reverting to polling"
+msgstr ""
+
+#: src/tail.c:955
 #, fuzzy, c-format
 msgid "%s has become inaccessible"
 msgstr "已無法存取‘%s’"
 
-#: src/tail.c:919
+#: src/tail.c:972
 #, fuzzy, c-format
 msgid "%s has been replaced with an untailable file; giving up on this name"
 msgstr "%s：被一個無法 tail 的檔案取代；不會再檢查此檔案名稱"
 
-#: src/tail.c:940
+#: src/tail.c:981
+#, fuzzy, c-format
+msgid "%s has been replaced with a remote file. giving up on this name"
+msgstr "%s：被一個無法 tail 的檔案取代；不會再檢查此檔案名稱"
+
+#: src/tail.c:1002
 #, fuzzy, c-format
 msgid "%s has become accessible"
 msgstr "已經可以存取‘%s’"
 
-#: src/tail.c:948
+#: src/tail.c:1010
 #, fuzzy, c-format
 msgid "%s has appeared;  following end of new file"
 msgstr "‘%s’已出現；正在檢查新檔案的末端"
 
-#: src/tail.c:959
+#: src/tail.c:1021
 #, fuzzy, c-format
 msgid "%s has been replaced;  following end of new file"
 msgstr "‘%s’已被取代；正在檢查新檔案的末端"
 
-#: src/tail.c:1060
+#: src/tail.c:1122
 #, fuzzy, c-format
 msgid "%s: cannot change nonblocking mode"
 msgstr "無法更改%s的擁有者和/或所屬群組"
 
-#: src/tail.c:1101 src/tail.c:1189
+#: src/tail.c:1163 src/tail.c:1278
 #, c-format
 msgid "%s: file truncated"
 msgstr "%s：檔案被截斷了"
 
-#: src/tail.c:1125
+#: src/tail.c:1187
 #, c-format
 msgid "no files remaining"
 msgstr "已沒有任何剩餘的檔案"
 
-#: src/tail.c:1266
+#: src/tail.c:1356
 #, fuzzy, c-format
 msgid "cannot watch parent directory of %s"
 msgstr "無法 stat 目前的目錄 (現在是 %s)"
 
-#: src/tail.c:1277 src/tail.c:1384
+#: src/tail.c:1367 src/tail.c:1475
 #, fuzzy, c-format
 msgid "cannot watch %s"
 msgstr "無法對‘%s’執行輸出入控制 (ioctl)"
 
-#: src/tail.c:1339
+#: src/tail.c:1429
 #, fuzzy, c-format
 msgid "error monitoring inotify event"
 msgstr "讀取 %s 時發生錯誤"
 
-#: src/tail.c:1359
+#: src/tail.c:1449
 #, fuzzy, c-format
 msgid "error reading inotify event"
 msgstr "讀取 %s 時發生錯誤"
 
-#: src/tail.c:1633
+#: src/tail.c:1741
 #, c-format
 msgid "%s: cannot follow end of this type of file; giving up on this name"
 msgstr "%s：無法檢查此類檔案的末端；不會再檢查此檔案名稱"
 
-#: src/tail.c:1749
+#: src/tail.c:1858
 #, fuzzy, c-format
 msgid "number in %s is too large"
 msgstr "%s 過長"
 
-#: src/tail.c:1821
+#: src/tail.c:1930
 #, c-format
 msgid "%s: invalid maximum number of unchanged stats between opens"
 msgstr "%s：開啟檔案前 stat 資料沒有改變的最大次數無效"
 
-#: src/tail.c:1837
+#: src/tail.c:1946
 #, c-format
 msgid "%s: invalid PID"
 msgstr "%s：無效的 PID"
 
-#: src/tail.c:1856
+#: src/tail.c:1965
 #, c-format
 msgid "%s: invalid number of seconds"
 msgstr "%s：無效的秒數"
 
-#: src/tail.c:1872
+#: src/tail.c:1981
 #, c-format
 msgid "option used in invalid context -- %c"
 msgstr ""
 
-#: src/tail.c:1880
+#: src/tail.c:1989
 #, fuzzy, c-format
 msgid "warning: --retry is useful mainly when following by name"
 msgstr "警告：只有檢查檔案名稱時 --retry 選項才會有效"
 
-#: src/tail.c:1884
+#: src/tail.c:1993
 #, c-format
 msgid "warning: PID ignored; --pid=PID is useful only when following"
 msgstr "警告：會忽略 PID；--pid=PID 選項只在不斷檢查檔案時才會有效"
 
-#: src/tail.c:1887
+#: src/tail.c:1996
 #, c-format
 msgid "warning: --pid=PID is not supported on this system"
 msgstr "警告：此系統不支援 --pid=PID 選項"
 
-#: src/tail.c:1959
+#: src/tail.c:2097
 #, fuzzy, c-format
 msgid "cannot follow %s by name"
 msgstr "無法建立暫存檔"
 
-#: src/tail.c:1965
+#: src/tail.c:2103
 #, c-format
 msgid "warning: following standard input indefinitely is ineffective"
 msgstr ""
 
-#: src/tail.c:2021
+#: src/tail.c:2149
 #, c-format
 msgid "inotify cannot be used, reverting to polling"
 msgstr ""
@@ -9492,12 +9491,12 @@ msgid ""
 "use the KILL (9) signal, since this signal cannot be caught.\n"
 msgstr ""
 
-#: src/timeout.c:316
+#: src/timeout.c:317
 #, fuzzy, c-format
 msgid "error waiting for command"
 msgstr "寫入 %s 時發生錯誤"
 
-#: src/timeout.c:328
+#: src/timeout.c:329
 #, c-format
 msgid "unknown status from command (0x%X)"
 msgstr ""
@@ -10000,7 +9999,7 @@ msgstr ""
 msgid "cannot get system name"
 msgstr "無法建立暫存檔"
 
-#: src/unexpand.c:117
+#: src/unexpand.c:118
 #, fuzzy
 msgid ""
 "Convert blanks in each FILE to tabs, writing to standard output.\n"
@@ -10011,7 +10010,7 @@ msgstr ""
 "如果沒有指定 <檔案> 或 <檔案> 是 -，則由標準輸入讀取資料。\n"
 "\n"
 
-#: src/unexpand.c:125
+#: src/unexpand.c:126
 #, fuzzy
 msgid ""
 "  -a, --all        convert all blanks, instead of just initial blanks\n"
@@ -10024,12 +10023,12 @@ msgstr ""
 "  -t, --tabs=數字  將指定 <數字> 的空格轉換為 tab，而非 8 個\n"
 "  -t, --tabs=LIST  用以逗號分隔的數字特別指定 tab 的位置\n"
 
-#: src/unexpand.c:153
+#: src/unexpand.c:154
 #, c-format
 msgid "tabs are too far apart"
 msgstr ""
 
-#: src/unexpand.c:504
+#: src/unexpand.c:505
 #, fuzzy, c-format
 msgid "tab stop value is too large"
 msgstr "tab 字元寬度 %s 過長"
@@ -10401,6 +10400,28 @@ msgid ""
 msgstr ""
 "重複印出同一句指定的 <字串>，如沒有指定則預設為 ‘y’。\n"
 "\n"
+
+#~ msgid ""
+#~ "With --follow (-f), tail defaults to following the file descriptor, "
+#~ "which\n"
+#~ "means that even if a tail'ed file is renamed, tail will continue to "
+#~ "track\n"
+#~ "its end.  "
+#~ msgstr ""
+#~ "若配合 --follow (-f) 選項，tail 預設會檢查檔案描述子 (file descriptor)；\n"
+#~ "即是說，即使要 tail 的檔案已經改名，tail 仍會繼續檢查該檔案的末端。"
+
+#~ msgid "%s: illegal option -- %c\n"
+#~ msgstr "%s：不合法的選項 ─ %c\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "      --help            Display this help and exit.\n"
+#~ "      --version         Output version information and exit.\n"
+#~ msgstr "      --version  顯示版本資訊並離開\n"
+
+#~ msgid "invalid argument: %s"
+#~ msgstr "參數無效: %s"
 
 #, fuzzy
 #~ msgid "Report %s bugs to <%s>.\n"

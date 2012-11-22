@@ -2,7 +2,7 @@
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
 #line 1
 /* Test of reopening a stream.
-   Copyright (C) 2009 Free Software Foundation, Inc.
+   Copyright (C) 2009, 2010 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -25,7 +25,6 @@
 #include "stdio--.h"
 
 /* Helpers.  */
-#include <stdlib.h>
 #include <unistd.h>
 
 /* This test intentionally closes stderr.  So, we arrange to have fd 10
@@ -33,22 +32,13 @@
    duplicate the original stderr.  */
 
 #define BACKUP_STDERR_FILENO 10
+#define ASSERT_STREAM myerr
+#include "macros.h"
+
 static FILE *myerr;
 
-#define ASSERT(expr) \
-  do                                                                         \
-    {                                                                        \
-      if (!(expr))                                                           \
-        {                                                                    \
-          fprintf (myerr, "%s:%d: assertion failed\n", __FILE__, __LINE__);  \
-          fflush (myerr);                                                    \
-          abort ();                                                          \
-        }                                                                    \
-    }                                                                        \
-  while (0)
-
 int
-main (int argc, char **argv)
+main (void)
 {
   FILE *fp;
 

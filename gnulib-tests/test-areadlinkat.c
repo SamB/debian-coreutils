@@ -2,7 +2,7 @@
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
 #line 1
 /* Tests of areadlinkat.
-   Copyright (C) 2009 Free Software Foundation, Inc.
+   Copyright (C) 2009, 2010 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -32,17 +32,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-#define ASSERT(expr) \
-  do                                                                         \
-    {                                                                        \
-      if (!(expr))                                                           \
-        {                                                                    \
-          fprintf (stderr, "%s:%d: assertion failed\n", __FILE__, __LINE__);  \
-          fflush (stderr);                                                   \
-          abort ();                                                          \
-        }                                                                    \
-    }                                                                        \
-  while (0)
+#include "macros.h"
 
 #define BASE "test-areadlinkat.t"
 
@@ -52,7 +42,7 @@ static int dfd = AT_FDCWD;
 
 /* Wrapper for testing areadlinkat.  */
 static char *
-do_areadlinkat (char const *name, size_t ignored _UNUSED_PARAMETER_)
+do_areadlinkat (char const *name, size_t ignored _GL_UNUSED)
 {
   return areadlinkat (dfd, name);
 }
@@ -63,7 +53,7 @@ main (void)
   int result;
 
   /* Remove any leftovers from a previous partial run.  */
-  ASSERT (system ("rm -rf " BASE "*") == 0);
+  system ("rm -rf " BASE "*");
 
   /* Basic tests.  */
   result = test_areadlink (do_areadlinkat, false);

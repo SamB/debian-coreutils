@@ -2,7 +2,7 @@
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
 #line 1
 /* Test of ftello() function.
-   Copyright (C) 2007, 2008, 2009 Free Software Foundation, Inc.
+   Copyright (C) 2007, 2008, 2009, 2010 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -21,35 +21,23 @@
 
 #include <config.h>
 
-#include <stdio.h>
-#include <stdlib.h>
-
-#include "binary-io.h"
-
 /* None of the files accessed by this test are large, so disable the
    fseek link warning if we are not using the gnulib fseek module.  */
-#if !GNULIB_FSEEK
-# undef fseek
-#endif
+#define _GL_NO_LARGE_FILES
+#include <stdio.h>
 
-#define ASSERT(expr) \
-  do									     \
-    {									     \
-      if (!(expr))							     \
-        {								     \
-          fprintf (stderr, "%s:%d: assertion failed\n", __FILE__, __LINE__); \
-          fflush (stderr);						     \
-          abort ();							     \
-        }								     \
-    }									     \
-  while (0)
+#include "signature.h"
+SIGNATURE_CHECK (ftello, off_t, (FILE *));
+
+#include "binary-io.h"
+#include "macros.h"
 
 #ifndef FUNC_UNGETC_BROKEN
 # define FUNC_UNGETC_BROKEN 0
 #endif
 
 int
-main (int argc, char **argv)
+main (int argc, char **argv _GL_UNUSED)
 {
   int ch;
   /* Assume stdin is seekable iff argc > 1.  */

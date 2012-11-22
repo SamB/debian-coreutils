@@ -2,7 +2,7 @@
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
 #line 1
 /* Test of getndelim2() function.
-   Copyright (C) 2008, 2009 Free Software Foundation, Inc.
+   Copyright (C) 2008, 2009, 2010 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -22,23 +22,13 @@
 
 #include <config.h>
 
+#include "getndelim2.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#include "getndelim2.h"
-
-#define ASSERT(expr) \
-  do									     \
-    {									     \
-      if (!(expr))							     \
-        {								     \
-          fprintf (stderr, "%s:%d: assertion failed\n", __FILE__, __LINE__); \
-          fflush (stderr);						     \
-          abort ();							     \
-        }								     \
-    }									     \
-  while (0)
+#include "macros.h"
 
 int
 main (void)
@@ -147,13 +137,13 @@ main (void)
     ASSERT (strcmp (buffer, line + 501 * 13) == 0);
 
     result = getndelim2 (&line, &len, 501 * 14 - 1, GETNLINE_NO_LIMIT,
-			 EOF, EOF, f);
+                         EOF, EOF, f);
     ASSERT (result == 1);
     buffer[500] = '\n';
     ASSERT (strcmp (buffer, line + 501 * 13) == 0);
 
     result = getndelim2 (&line, &len, 501 * 14 - 1, GETNLINE_NO_LIMIT,
-			 EOF, EOF, f);
+                         EOF, EOF, f);
     buffer[500] = '\0';
     ASSERT (strcmp (buffer, line + 501 * 13) == 0);
     ASSERT (result == -1);

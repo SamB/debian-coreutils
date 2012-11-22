@@ -1,5 +1,5 @@
 # serial 3   -*- Autoconf -*-
-# Copyright (C) 2006, 2007, 2009 Free Software Foundation, Inc.
+# Copyright (C) 2006-2007, 2009-2010 Free Software Foundation, Inc.
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
 # with or without modifications, as long as this notice is preserved.
@@ -20,11 +20,11 @@ AC_DEFUN([gl_HEADERS_SELINUX_SELINUX_H],
     AC_LIBOBJ([getfilecon])
     gl_CHECK_NEXT_HEADERS([selinux/selinux.h])
     AC_DEFINE([getfilecon], [rpl_getfilecon],
-	      [Always use our getfilecon wrapper.])
+              [Always use our getfilecon wrapper.])
     AC_DEFINE([lgetfilecon], [rpl_lgetfilecon],
-	      [Always use our lgetfilecon wrapper.])
+              [Always use our lgetfilecon wrapper.])
     AC_DEFINE([fgetfilecon], [rpl_fgetfilecon],
-	      [Always use our fgetfilecon wrapper.])
+              [Always use our fgetfilecon wrapper.])
   fi
 
   case "$ac_cv_search_setfilecon:$ac_cv_header_selinux_selinux_h" in

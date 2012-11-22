@@ -1,5 +1,5 @@
 /* Define an at-style functions like linkat or renameat.
-   Copyright (C) 2006, 2009 Free Software Foundation, Inc.
+   Copyright (C) 2006, 2009-2010 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -110,7 +110,7 @@ at_func2 (int fd1, char const *file1,
               }
           }
         else if (proc_file1 != proc_buf1 && proc_file1 != file1)
-          free (proc_buf1);
+          free (proc_file1);
       }
   }
 

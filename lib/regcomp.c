@@ -2,8 +2,8 @@
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
 #line 1
 /* Extended regular expression matching and search library.
-   Copyright (C) 2002,2003,2004,2005,2006,2007,2008,2009
-   Free Software Foundation, Inc.
+   Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010 Free
+   Software Foundation, Inc.
    This file is part of the GNU C Library.
    Contributed by Isamu Hasegawa <isamu@yamato.ibm.com>.
 
@@ -388,7 +388,7 @@ re_compile_fastmap_iter (regex_t *bufp, const re_dfastate_t *init_state,
 	     applies to multibyte character sets; for single byte character
 	     sets, the SIMPLE_BRACKET again suffices.  */
 	  if (dfa->mb_cur_max > 1
-	      && (cset->nchar_classes || cset->non_match
+	      && (cset->nchar_classes || cset->non_match || cset->nranges
 # ifdef _LIBC
 		  || cset->nequiv_classes
 # endif /* _LIBC */
@@ -855,6 +855,9 @@ static reg_errcode_t
 init_dfa (re_dfa_t *dfa, size_t pat_len)
 {
   __re_size_t table_size;
+#ifndef _LIBC
+  char *codeset_name;
+#endif
 #ifdef RE_ENABLE_I18N
   size_t max_i18n_object_size = MAX (sizeof (wchar_t), sizeof (wctype_t));
 #else
@@ -898,7 +901,9 @@ init_dfa (re_dfa_t *dfa, size_t pat_len)
   dfa->map_notascii = (_NL_CURRENT_WORD (LC_CTYPE, _NL_CTYPE_MAP_TO_NONASCII)
 		       != 0);
 #else
-  if (strcmp (locale_charset (), "UTF-8") == 0)
+  codeset_name = nl_langinfo (CODESET);
+  if (strcasecmp (codeset_name, "UTF-8") == 0
+      || strcasecmp (codeset_name, "UTF8") == 0)
     dfa->is_utf8 = 1;
 
   /* We check exhaustively in the loop below if this charset is a
@@ -1503,7 +1508,6 @@ duplicate_node_closure (re_dfa_t *dfa, Idx top_org_node, Idx top_clone_node,
 	     destination.  */
 	  org_dest = dfa->edests[org_node].elems[0];
 	  re_node_set_empty (dfa->edests + clone_node);
-	  clone_dest = search_duplicated_node (dfa, org_dest, constraint);
 	  /* If the node is root_node itself, it means the epsilon closure
 	     has a loop.  Then tie it to the destination of the root_node.  */
 	  if (org_node == root_node && clone_node != org_node)
@@ -1547,7 +1551,7 @@ duplicate_node_closure (re_dfa_t *dfa, Idx top_org_node, Idx top_clone_node,
 	    }
 	  else
 	    {
-	      /* There is a duplicated node which satisfy the constraint,
+	      /* There is a duplicated node which satisfies the constraint,
 		 use it to avoid infinite loop.  */
 	      ok = re_node_set_insert (dfa->edests + clone_node, clone_dest);
 	      if (BE (! ok, 0))
@@ -2520,7 +2524,8 @@ parse_dup_op (bin_tree_t *elem, re_string_t *regexp, re_dfa_t *dfa,
 	  return elem;
 	}
 
-      if (BE (end != REG_MISSING && start > end, 0))
+      if (BE ((end != REG_MISSING && start > end)
+	      || token->type != OP_CLOSE_DUP_NUM, 0))
 	{
 	  /* First number greater than second.  */
 	  *err = REG_BADBR;
@@ -2806,7 +2811,7 @@ parse_bracket_exp (re_string_t *regexp, re_dfa_t *dfa, re_token_t *token,
       return elem;
     }
 
-  /* Local function for parse_bracket_exp used in _LIBC environement.
+  /* Local function for parse_bracket_exp used in _LIBC environment.
      Look up the collation sequence value of BR_ELEM.
      Return the value if succeeded, UINT_MAX otherwise.  */
 
@@ -2830,7 +2835,8 @@ parse_bracket_exp (re_string_t *regexp, re_dfa_t *dfa, re_token_t *token,
 	}
       else if (br_elem->type == MB_CHAR)
 	{
-	  return __collseq_table_lookup (collseqwc, br_elem->opr.wch);
+	  if (nrules != 0)
+	    return __collseq_table_lookup (collseqwc, br_elem->opr.wch);
 	}
       else if (br_elem->type == COLL_SYM)
 	{
@@ -3439,7 +3445,7 @@ build_equiv_class (bitset_t sbcset, const unsigned char *name)
 
       /* Build single byte matcing table for this equivalence class.  */
       char_buf[1] = (unsigned char) '\0';
-      len = weights[idx1];
+      len = weights[idx1 & 0xffffff];
       for (ch = 0; ch < SBC_MAX; ++ch)
 	{
 	  char_buf[0] = ch;
@@ -3451,11 +3457,15 @@ build_equiv_class (bitset_t sbcset, const unsigned char *name)
 	  if (idx2 == 0)
 	    /* This isn't a valid character.  */
 	    continue;
-	  if (len == weights[idx2])
+	  /* Compare only if the length matches and the collation rule
+	     index is the same.  */
+	  if (len == weights[idx2 & 0xffffff] && (idx1 >> 24) == (idx2 >> 24))
 	    {
 	      int cnt = 0;
+
 	      while (cnt <= len &&
-		     weights[idx1 + 1 + cnt] == weights[idx2 + 1 + cnt])
+		     weights[(idx1 & 0xffffff) + 1 + cnt]
+		     == weights[(idx2 & 0xffffff) + 1 + cnt])
 		++cnt;
 
 	      if (cnt > len)

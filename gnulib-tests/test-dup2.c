@@ -2,7 +2,7 @@
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
 #line 1
 /* Test duplicating file descriptors.
-   Copyright (C) 2009 Free Software Foundation, Inc.
+   Copyright (C) 2009, 2010 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -23,10 +23,17 @@
 
 #include <unistd.h>
 
+#include "signature.h"
+SIGNATURE_CHECK (dup2, int, (int, int));
+
 #include <errno.h>
 #include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
+
+#include "binary-io.h"
+
+#if GNULIB_CLOEXEC
+# include "cloexec.h"
+#endif
 
 #if (defined _WIN32 || defined __WIN32__) && ! defined __CYGWIN__
 /* Get declarations of the Win32 API functions.  */
@@ -34,17 +41,7 @@
 # include <windows.h>
 #endif
 
-#define ASSERT(expr) \
-  do									     \
-    {									     \
-      if (!(expr))							     \
-        {								     \
-          fprintf (stderr, "%s:%d: assertion failed\n", __FILE__, __LINE__); \
-          fflush (stderr);						     \
-          abort ();							     \
-        }								     \
-    }									     \
-  while (0)
+#include "macros.h"
 
 /* Return non-zero if FD is open.  */
 static int
@@ -61,6 +58,45 @@ is_open (int fd)
 # endif
   return 0 <= fcntl (fd, F_GETFL);
 #endif
+}
+
+#if GNULIB_CLOEXEC
+/* Return non-zero if FD is open and inheritable across exec/spawn.  */
+static int
+is_inheritable (int fd)
+{
+# if (defined _WIN32 || defined __WIN32__) && ! defined __CYGWIN__
+  /* On Win32, the initial state of unassigned standard file
+     descriptors is that they are open but point to an
+     INVALID_HANDLE_VALUE, and there is no fcntl.  */
+  HANDLE h = (HANDLE) _get_osfhandle (fd);
+  DWORD flags;
+  if (h == INVALID_HANDLE_VALUE || GetHandleInformation (h, &flags) == 0)
+    return 0;
+  return (flags & HANDLE_FLAG_INHERIT) != 0;
+# else
+#  ifndef F_GETFD
+#   error Please port fcntl to your platform
+#  endif
+  int i = fcntl (fd, F_GETFD);
+  return 0 <= i && (i & FD_CLOEXEC) == 0;
+# endif
+}
+#endif /* GNULIB_CLOEXEC */
+
+#if !O_BINARY
+# define setmode(f,m) zero ()
+static int zero (void) { return 0; }
+#endif
+
+/* Return non-zero if FD is open in the given MODE, which is either
+   O_TEXT or O_BINARY.  */
+static int
+is_mode (int fd, int mode)
+{
+  int value = setmode (fd, O_BINARY);
+  setmode (fd, value);
+  return mode == value;
 }
 
 int
@@ -128,8 +164,31 @@ main (void)
   ASSERT (read (fd, buffer, 1) == 1);
   ASSERT (*buffer == '2');
 
+#if GNULIB_CLOEXEC
+  /* Any new fd created by dup2 must not be cloexec.  */
+  ASSERT (close (fd + 2) == 0);
+  ASSERT (dup_cloexec (fd) == fd + 1);
+  ASSERT (!is_inheritable (fd + 1));
+  ASSERT (dup2 (fd + 1, fd + 1) == fd + 1);
+  ASSERT (!is_inheritable (fd + 1));
+  ASSERT (dup2 (fd + 1, fd + 2) == fd + 2);
+  ASSERT (is_inheritable (fd + 2));
+#endif
+
+  /* On systems that distinguish between text and binary mode, dup2
+     reuses the mode of the source.  */
+  setmode (fd, O_BINARY);
+  ASSERT (is_mode (fd, O_BINARY));
+  ASSERT (dup2 (fd, fd + 1) == fd + 1);
+  ASSERT (is_mode (fd + 1, O_BINARY));
+  setmode (fd, O_TEXT);
+  ASSERT (is_mode (fd, O_TEXT));
+  ASSERT (dup2 (fd, fd + 1) == fd + 1);
+  ASSERT (is_mode (fd + 1, O_TEXT));
+
   /* Clean up.  */
   ASSERT (close (fd + 2) == 0);
+  ASSERT (close (fd + 1) == 0);
   ASSERT (close (fd) == 0);
   ASSERT (unlink (file) == 0);
 

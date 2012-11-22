@@ -1,5 +1,5 @@
 /* timeout -- run a command with bounded time
-   Copyright (C) 2008-2009 Free Software Foundation, Inc.
+   Copyright (C) 2008-2010 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -275,6 +275,7 @@ main (int argc, char **argv)
   install_signal_handlers (term_signal);
   signal (SIGTTIN, SIG_IGN);    /* don't sTop if background child needs tty.  */
   signal (SIGTTOU, SIG_IGN);    /* don't sTop if background child needs tty.  */
+  signal (SIGCHLD, SIG_DFL);    /* Don't inherit CHLD handling from parent.   */
 
   monitored_pid = fork ();
   if (monitored_pid == -1)

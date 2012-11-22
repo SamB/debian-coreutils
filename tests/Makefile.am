@@ -8,7 +8,6 @@ ASSORT = LC_ALL=C sort
 EXTRA_DIST =		\
   Coreutils.pm		\
   CuTmpdir.pm		\
-  README		\
   check.mk		\
   envvar-check		\
   lang-default		\
@@ -80,6 +79,9 @@ TESTS =						\
   rm/ext3-perf					\
   rm/cycle					\
   cp/link-heap					\
+  tail-2/inotify-hash-abuse			\
+  tail-2/inotify-hash-abuse2			\
+  tail-2/F-vs-rename				\
   tail-2/inotify-rotate				\
   chmod/no-x					\
   chgrp/basic					\
@@ -107,6 +109,7 @@ TESTS =						\
   rm/interactive-always				\
   rm/interactive-once				\
   rm/ir-1					\
+  rm/one-file-system2				\
   rm/r-1					\
   rm/r-2					\
   rm/r-3					\
@@ -156,6 +159,7 @@ TESTS =						\
   misc/wc					\
   misc/wc-files0-from				\
   misc/wc-files0				\
+  misc/wc-parallel				\
   misc/cat-proc					\
   misc/cat-buf					\
   misc/base64					\

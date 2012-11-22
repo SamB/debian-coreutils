@@ -1,6 +1,6 @@
 /* Concatenate two arbitrary file names.
 
-   Copyright (C) 1996, 1997, 2003, 2005, 2007, 2009 Free Software
+   Copyright (C) 1996-1997, 2003, 2005, 2007, 2009-2010 Free Software
    Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
@@ -20,8 +20,8 @@
 
 #if GNULIB_FILENAMECAT
 char *file_name_concat (char const *dir, char const *base,
-			char **base_in_result);
+                        char **base_in_result);
 #endif
 
 char *mfile_name_concat (char const *dir, char const *base,
-			 char **base_in_result);
+                         char **base_in_result);

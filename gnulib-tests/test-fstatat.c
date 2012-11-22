@@ -2,7 +2,7 @@
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
 #line 1
 /* Tests of fstatat.
-   Copyright (C) 2009 Free Software Foundation, Inc.
+   Copyright (C) 2009, 2010 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -23,6 +23,9 @@
 
 #include <sys/stat.h>
 
+#include "signature.h"
+SIGNATURE_CHECK (fstatat, int, (int, char const *, struct stat *, int));
+
 #include <fcntl.h>
 #include <errno.h>
 #include <stdbool.h>
@@ -33,18 +36,7 @@
 #include "openat.h"
 #include "pathmax.h"
 #include "same-inode.h"
-
-#define ASSERT(expr) \
-  do                                                                         \
-    {                                                                        \
-      if (!(expr))                                                           \
-        {                                                                    \
-          fprintf (stderr, "%s:%d: assertion failed\n", __FILE__, __LINE__);  \
-          fflush (stderr);                                                   \
-          abort ();                                                          \
-        }                                                                    \
-    }                                                                        \
-  while (0)
+#include "macros.h"
 
 #define BASE "test-fstatat.t"
 
@@ -71,6 +63,10 @@ int
 main (void)
 {
   int result;
+
+  /* Remove any leftovers from a previous partial run.  */
+  system ("rm -rf " BASE "*");
+
   result = test_stat_func (do_stat, false);
   ASSERT (test_lstat_func (do_lstat, false) == result);
   dfd = open (".", O_RDONLY);

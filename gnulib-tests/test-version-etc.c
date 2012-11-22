@@ -2,7 +2,7 @@
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
 #line 1
 /* Test suite for version-etc.
-   Copyright (C) 2009 Free Software Foundation, Inc.
+   Copyright (C) 2009, 2010 Free Software Foundation, Inc.
    This file is part of the GNUlib Library.
 
    This program is free software: you can redistribute it and/or modify
@@ -27,7 +27,7 @@
 #define AUTHORS "Sergey Poznyakoff", "Eric Blake"
 
 int
-main (int argc _UNUSED_PARAMETER_, char **argv)
+main (int argc _GL_UNUSED, char **argv)
 {
   set_program_name (argv[0]);
   version_etc (stdout, "test-version-etc", "dummy", "0", AUTHORS,

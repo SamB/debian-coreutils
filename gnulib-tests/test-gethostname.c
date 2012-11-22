@@ -22,6 +22,10 @@
 
 /* Get gethostname() declaration.  */
 #include <unistd.h>
+
+#include "signature.h"
+SIGNATURE_CHECK (gethostname, int, (char *, size_t));
+
 /* Get HOST_NAME_MAX definition.  */
 #include <limits.h>
 
@@ -32,7 +36,7 @@
 #define NOHOSTNAME "magic-gnulib-test-string"
 
 int
-main (int argc, char *argv[] _UNUSED_PARAMETER_)
+main (int argc, char *argv[] _GL_UNUSED)
 {
   char buf[HOST_NAME_MAX];
   int rc;

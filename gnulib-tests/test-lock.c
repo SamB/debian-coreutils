@@ -2,7 +2,7 @@
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
 #line 1
 /* Test of locking in multithreaded situations.
-   Copyright (C) 2005, 2008 Free Software Foundation, Inc.
+   Copyright (C) 2005, 2008, 2009, 2010 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -444,10 +444,10 @@ once_contender_thread (void *arg)
       gl_lock_unlock (ready_lock[id]);
 
       if (repeat == REPEAT_COUNT)
-	break;
+        break;
 
       dbgprintf ("Contender %p waiting for signal for round %d\n",
-		 gl_thread_self (), repeat);
+                 gl_thread_self (), repeat);
 #if ENABLE_LOCKING
       /* Wait for the signal to go.  */
       gl_rwlock_rdlock (fire_signal[repeat]);
@@ -456,10 +456,10 @@ once_contender_thread (void *arg)
 #else
       /* Wait for the signal to go.  */
       while (fire_signal_state <= repeat)
-	yield ();
+        yield ();
 #endif
       dbgprintf ("Contender %p got the     signal for round %d\n",
-		 gl_thread_self (), repeat);
+                 gl_thread_self (), repeat);
 
       /* Contend for execution.  */
       gl_once (once_control, once_execute);
@@ -500,30 +500,30 @@ test_once (void)
       /* Wait until every thread is ready.  */
       dbgprintf ("Main thread before synchonizing for round %d\n", repeat);
       for (;;)
-	{
-	  int ready_count = 0;
-	  for (i = 0; i < THREAD_COUNT; i++)
-	    {
-	      gl_lock_lock (ready_lock[i]);
-	      ready_count += ready[i];
-	      gl_lock_unlock (ready_lock[i]);
-	    }
-	  if (ready_count == THREAD_COUNT)
-	    break;
-	  yield ();
-	}
+        {
+          int ready_count = 0;
+          for (i = 0; i < THREAD_COUNT; i++)
+            {
+              gl_lock_lock (ready_lock[i]);
+              ready_count += ready[i];
+              gl_lock_unlock (ready_lock[i]);
+            }
+          if (ready_count == THREAD_COUNT)
+            break;
+          yield ();
+        }
       dbgprintf ("Main thread after  synchonizing for round %d\n", repeat);
 
       if (repeat > 0)
-	{
-	  /* Check that exactly one thread executed the once_execute()
-	     function.  */
-	  if (performed != 1)
-	    abort ();
-	}
+        {
+          /* Check that exactly one thread executed the once_execute()
+             function.  */
+          if (performed != 1)
+            abort ();
+        }
 
       if (repeat == REPEAT_COUNT)
-	break;
+        break;
 
       /* Preparation for the next round: Initialize once_control.  */
       memcpy (&once_control, &fresh_once, sizeof (gl_once_t));
@@ -533,11 +533,11 @@ test_once (void)
 
       /* Preparation for the next round: Reset the ready flags.  */
       for (i = 0; i < THREAD_COUNT; i++)
-	{
-	  gl_lock_lock (ready_lock[i]);
-	  ready[i] = 0;
-	  gl_lock_unlock (ready_lock[i]);
-	}
+        {
+          gl_lock_lock (ready_lock[i]);
+          ready[i] = 0;
+          gl_lock_unlock (ready_lock[i]);
+        }
 
       /* Signal all threads simultaneously.  */
       dbgprintf ("Main thread giving signal for round %d\n", repeat);

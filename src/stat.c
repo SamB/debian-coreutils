@@ -1,5 +1,5 @@
 /* stat.c -- display file or file system status
-   Copyright (C) 2001-2009 Free Software Foundation, Inc.
+   Copyright (C) 2001-2010 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -208,7 +208,8 @@ human_fstype (STRUCT_STATVFS const *statfsbuf)
          diff -u sym_stat sym_libc
       */
 
-      /* Also sync from the list in "man 2 statfs".  */
+      /* Also compare with the list in "man 2 statfs" using the
+         fs-magic-compare make target.  */
 
       /* IMPORTANT NOTE: Each of the following `case S_MAGIC_...:'
          statements must be followed by a hexadecimal constant in
@@ -261,10 +262,14 @@ human_fstype (STRUCT_STATVFS const *statfsbuf)
       return "ext2";
     case S_MAGIC_FAT: /* 0x4006 */
       return "fat";
+    case S_MAGIC_FUSEBLK: /* 0x65735546 */
+      return "fuseblk";
     case S_MAGIC_FUSECTL: /* 0x65735543 */
       return "fusectl";
     case S_MAGIC_FUTEXFS: /* 0x0BAD1DEA */
       return "futexfs";
+    case S_MAGIC_GFS: /* 0x1161970 */
+      return "gfs/gfs2";
     case S_MAGIC_HFS: /* 0x4244 */
       return "hfs";
     case S_MAGIC_HPFS: /* 0xF995E849 */
@@ -285,6 +290,8 @@ human_fstype (STRUCT_STATVFS const *statfsbuf)
       return "jffs2";
     case S_MAGIC_JFS: /* 0x3153464A */
       return "jfs";
+    case S_MAGIC_KAFS: /* 0x6B414653 */
+      return "k-afs";
     case S_MAGIC_LUSTRE: /* 0x0BD00BD0 */
       return "lustre";
     case S_MAGIC_MINIX: /* 0x137F */
@@ -296,7 +303,7 @@ human_fstype (STRUCT_STATVFS const *statfsbuf)
     case S_MAGIC_MINIX_V2_30: /* 0x2478 */
       return "minix v2 (30 char.)";
     case S_MAGIC_MINIX_V3: /* 0x4D5A */
-      return "minux3";
+      return "minix3";
     case S_MAGIC_MSDOS: /* 0x4D44 */
       return "msdos";
     case S_MAGIC_NCP: /* 0x564C */
@@ -311,6 +318,8 @@ human_fstype (STRUCT_STATVFS const *statfsbuf)
       return "ntfs";
     case S_MAGIC_OPENPROM: /* 0x9FA1 */
       return "openprom";
+    case S_MAGIC_OCFS2: /* 0x7461636f */
+      return "ocfs2";
     case S_MAGIC_PROC: /* 0x9FA0 */
       return "proc";
     case S_MAGIC_QNX4: /* 0x002F */
@@ -321,12 +330,16 @@ human_fstype (STRUCT_STATVFS const *statfsbuf)
       return "reiserfs";
     case S_MAGIC_ROMFS: /* 0x7275 */
       return "romfs";
+    case S_MAGIC_RPC_PIPEFS: /* 0x67596969 */
+      return "rpc_pipefs";
     case S_MAGIC_SECURITYFS: /* 0x73636673 */
       return "securityfs";
     case S_MAGIC_SELINUX: /* 0xF97CFF8C */
       return "selinux";
     case S_MAGIC_SMB: /* 0x517B */
       return "smb";
+    case S_MAGIC_SOCKFS: /* 0x534F434B */
+      return "sockfs";
     case S_MAGIC_SQUASHFS: /* 0x73717368 */
       return "squashfs";
     case S_MAGIC_SYSFS: /* 0x62656572 */

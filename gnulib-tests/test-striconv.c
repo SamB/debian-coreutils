@@ -2,7 +2,7 @@
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
 #line 1
 /* Test of character set conversion.
-   Copyright (C) 2007-2008 Free Software Foundation, Inc.
+   Copyright (C) 2007-2010 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -28,21 +28,10 @@
 #endif
 
 #include <errno.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#define ASSERT(expr) \
-  do									     \
-    {									     \
-      if (!(expr))							     \
-        {								     \
-          fprintf (stderr, "%s:%d: assertion failed\n", __FILE__, __LINE__); \
-          fflush (stderr);						     \
-          abort ();							     \
-        }								     \
-    }									     \
-  while (0)
+#include "macros.h"
 
 int
 main ()
@@ -65,7 +54,7 @@ main ()
     char *result = NULL;
     size_t length = 0;
     int retval = mem_cd_iconv (input, strlen (input), cd_88591_to_utf8,
-			       &result, &length);
+                               &result, &length);
     ASSERT (retval == 0);
     ASSERT (length == strlen (expected));
     ASSERT (result != NULL && memcmp (result, expected, strlen (expected)) == 0);
@@ -79,7 +68,7 @@ main ()
     char *result = NULL;
     size_t length = 0;
     int retval = mem_cd_iconv (input, strlen (input), cd_utf8_to_88591,
-			       &result, &length);
+                               &result, &length);
     ASSERT (retval == 0);
     ASSERT (length == strlen (expected));
     ASSERT (result != NULL && memcmp (result, expected, strlen (expected)) == 0);
@@ -92,7 +81,7 @@ main ()
     char *result = NULL;
     size_t length = 0;
     int retval = mem_cd_iconv (input, strlen (input), cd_utf8_to_88591,
-			       &result, &length);
+                               &result, &length);
     ASSERT (retval == -1 && errno == EILSEQ);
     ASSERT (result == NULL);
   }
@@ -103,7 +92,7 @@ main ()
     char *result = NULL;
     size_t length = 0;
     int retval = mem_cd_iconv (input, strlen (input), cd_utf8_to_88591,
-			       &result, &length);
+                               &result, &length);
     ASSERT (retval == 0);
     ASSERT (length == 0);
     free (result);

@@ -22,22 +22,11 @@
 
 #include <string.h>
 
-#include <stdio.h>
-#include <stdlib.h>
+#include "signature.h"
+SIGNATURE_CHECK (memcmp, int, (void const *, void const *, size_t));
 
 #include "zerosize-ptr.h"
-
-#define ASSERT(expr) \
-  do									     \
-    {									     \
-      if (!(expr))							     \
-	{								     \
-	  fprintf (stderr, "%s:%d: assertion failed\n", __FILE__, __LINE__); \
-	  fflush (stderr);						     \
-	  abort ();							     \
-	}								     \
-    }									     \
-  while (0)
+#include "macros.h"
 
 int
 main (void)
@@ -73,11 +62,11 @@ main (void)
     int i;
     for (i = 0; i < 4; i++)
       {
-	char *a = foo + i;
-	char *b = bar + i;
-	strcpy (a, "--------01111111");
-	strcpy (b, "--------10000000");
-	ASSERT (memcmp (a, b, 16) < 0);
+        char *a = foo + i;
+        char *b = bar + i;
+        strcpy (a, "--------01111111");
+        strcpy (b, "--------10000000");
+        ASSERT (memcmp (a, b, 16) < 0);
       }
   }
 

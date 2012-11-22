@@ -2,7 +2,7 @@
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
 #line 1
 /* Test of getdate() function.
-   Copyright (C) 2008, 2009 Free Software Foundation, Inc.
+   Copyright (C) 2008, 2009, 2010 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -22,31 +22,19 @@
 
 #include <config.h>
 
+#include "getdate.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include "progname.h"
-
-#include "getdate.h"
-
-#define ASSERT(expr)							\
-  do									\
-    {									\
-      if (!(expr))							\
-	{								\
-	  fprintf (stderr, "%s:%d: assertion failed\n",			\
-		   __FILE__, __LINE__);					\
-	  fflush (stderr);						\
-	  abort ();							\
-	}								\
-    }									\
-  while (0)
+#include "macros.h"
 
 #ifdef DEBUG
-#define LOG(str, now, res)						\
-  printf ("string `%s' diff %d %d\n",			\
-	  str, res.tv_sec - now.tv_sec, res.tv_nsec - now.tv_nsec);
+#define LOG(str, now, res)                                              \
+  printf ("string `%s' diff %d %d\n",                   \
+          str, res.tv_sec - now.tv_sec, res.tv_nsec - now.tv_nsec);
 #else
 #define LOG(str, now, res) (void) 0
 #endif
@@ -64,7 +52,7 @@ static const char* const day_table[] =
 };
 
 int
-main (int argc _UNUSED_PARAMETER_, char **argv)
+main (int argc _GL_UNUSED, char **argv)
 {
   struct timespec result;
   struct timespec result2;
@@ -87,7 +75,7 @@ main (int argc _UNUSED_PARAMETER_, char **argv)
   ASSERT (get_date (&result, p, &now));
   LOG (p, now, result);
   ASSERT (now.tv_sec + 24 * 60 * 60 == result.tv_sec
-	  && now.tv_nsec == result.tv_nsec);
+          && now.tv_nsec == result.tv_nsec);
 
   now.tv_sec = 4711;
   now.tv_nsec = 1267;
@@ -95,7 +83,7 @@ main (int argc _UNUSED_PARAMETER_, char **argv)
   ASSERT (get_date (&result, p, &now));
   LOG (p, now, result);
   ASSERT (now.tv_sec - 24 * 60 * 60 == result.tv_sec
-	  && now.tv_nsec == result.tv_nsec);
+          && now.tv_nsec == result.tv_nsec);
 
   now.tv_sec = 4711;
   now.tv_nsec = 1267;
@@ -103,7 +91,7 @@ main (int argc _UNUSED_PARAMETER_, char **argv)
   ASSERT (get_date (&result, p, &now));
   LOG (p, now, result);
   ASSERT (now.tv_sec + 4 * 60 * 60 == result.tv_sec
-	  && now.tv_nsec == result.tv_nsec);
+          && now.tv_nsec == result.tv_nsec);
 
   /* test if timezone is not being ignored for day offset */
   now.tv_sec = 4711;
@@ -115,7 +103,7 @@ main (int argc _UNUSED_PARAMETER_, char **argv)
   ASSERT (get_date (&result2, p, &now));
   LOG (p, now, result2);
   ASSERT (result.tv_sec == result2.tv_sec
-	  && result.tv_nsec == result2.tv_nsec);
+          && result.tv_nsec == result2.tv_nsec);
 
   /* test if several time zones formats are handled same way */
   now.tv_sec = 4711;
@@ -127,12 +115,12 @@ main (int argc _UNUSED_PARAMETER_, char **argv)
   ASSERT (get_date (&result2, p, &now));
   LOG (p, now, result2);
   ASSERT (result.tv_sec == result2.tv_sec
-	  && result.tv_nsec == result2.tv_nsec);
+          && result.tv_nsec == result2.tv_nsec);
   p = "UTC+1400";
   ASSERT (get_date (&result2, p, &now));
   LOG (p, now, result2);
   ASSERT (result.tv_sec == result2.tv_sec
-	  && result.tv_nsec == result2.tv_nsec);
+          && result.tv_nsec == result2.tv_nsec);
 
   now.tv_sec = 4711;
   now.tv_nsec = 1267;
@@ -143,12 +131,12 @@ main (int argc _UNUSED_PARAMETER_, char **argv)
   ASSERT (get_date (&result2, p, &now));
   LOG (p, now, result2);
   ASSERT (result.tv_sec == result2.tv_sec
-	  && result.tv_nsec == result2.tv_nsec);
+          && result.tv_nsec == result2.tv_nsec);
   p = "UTC-1400";
   ASSERT (get_date (&result2, p, &now));
   LOG (p, now, result2);
   ASSERT (result.tv_sec == result2.tv_sec
-	  && result.tv_nsec == result2.tv_nsec);
+          && result.tv_nsec == result2.tv_nsec);
 
   now.tv_sec = 4711;
   now.tv_nsec = 1267;
@@ -159,7 +147,7 @@ main (int argc _UNUSED_PARAMETER_, char **argv)
   ASSERT (get_date (&result2, p, &now));
   LOG (p, now, result2);
   ASSERT (result.tv_sec == result2.tv_sec
-	  && result.tv_nsec == result2.tv_nsec);
+          && result.tv_nsec == result2.tv_nsec);
 
   now.tv_sec = 4711;
   now.tv_nsec = 1267;
@@ -170,7 +158,7 @@ main (int argc _UNUSED_PARAMETER_, char **argv)
   ASSERT (get_date (&result2, p, &now));
   LOG (p, now, result2);
   ASSERT (result.tv_sec == result2.tv_sec
-	  && result.tv_nsec == result2.tv_nsec);
+          && result.tv_nsec == result2.tv_nsec);
 
 
   /* TZ out of range should cause get_date failure */
@@ -179,7 +167,7 @@ main (int argc _UNUSED_PARAMETER_, char **argv)
   p = "UTC+25:00";
   ASSERT (!get_date (&result, p, &now));
 
-	/* Check for several invalid countable dayshifts */
+        /* Check for several invalid countable dayshifts */
   now.tv_sec = 4711;
   now.tv_nsec = 1267;
   p = "UTC+4:00 +40 yesterday";
@@ -205,7 +193,7 @@ main (int argc _UNUSED_PARAMETER_, char **argv)
   ASSERT (get_date (&result2, p, &now));
   LOG (p, now, result2);
   ASSERT (result.tv_sec == result2.tv_sec
-	  && result.tv_nsec == result2.tv_nsec);
+          && result.tv_nsec == result2.tv_nsec);
   now.tv_sec = 4711;
   now.tv_nsec = 1267;
   p = "UTC+400 yesterday";
@@ -215,7 +203,7 @@ main (int argc _UNUSED_PARAMETER_, char **argv)
   ASSERT (get_date (&result2, p, &now));
   LOG (p, now, result2);
   ASSERT (result.tv_sec == result2.tv_sec
-	  && result.tv_nsec == result2.tv_nsec);
+          && result.tv_nsec == result2.tv_nsec);
   now.tv_sec = 4711;
   now.tv_nsec = 1267;
   p = "UTC+400 now";
@@ -225,7 +213,7 @@ main (int argc _UNUSED_PARAMETER_, char **argv)
   ASSERT (get_date (&result2, p, &now));
   LOG (p, now, result2);
   ASSERT (result.tv_sec == result2.tv_sec
-	  && result.tv_nsec == result2.tv_nsec);
+          && result.tv_nsec == result2.tv_nsec);
 
   /* Check that some "next Monday", "last Wednesday", etc. are correct.  */
   setenv ("TZ", "UTC0", 1);
@@ -256,7 +244,7 @@ main (int argc _UNUSED_PARAMETER_, char **argv)
   ASSERT (get_date (&result, p, &now));
   LOG (p, now, result);
   ASSERT (result.tv_sec == now.tv_sec
-	  && result.tv_nsec == now.tv_nsec);
+          && result.tv_nsec == now.tv_nsec);
 
   p = "FRIDAY UTC+00";
   now.tv_sec = 0;
@@ -264,7 +252,7 @@ main (int argc _UNUSED_PARAMETER_, char **argv)
   ASSERT (get_date (&result, p, &now));
   LOG (p, now, result);
   ASSERT (result.tv_sec == 24 * 3600
-	  && result.tv_nsec == now.tv_nsec);
+          && result.tv_nsec == now.tv_nsec);
 
   return 0;
 }

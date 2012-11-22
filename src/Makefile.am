@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in -*-Makefile-*-
 
-## Copyright (C) 1990, 1991, 1993-2009 Free Software Foundation, Inc.
+## Copyright (C) 1990-1991, 1993-2010 Free Software Foundation, Inc.
 
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -325,12 +325,13 @@ ls_LDADD += $(LIB_CLOCK_GETTIME)
 pr_LDADD += $(LIB_CLOCK_GETTIME)
 touch_LDADD += $(LIB_CLOCK_GETTIME)
 
-# for gethrxtime, randint, randread, gen_tempname
+# for gethrxtime, randint, randread, gen_tempname, mkstemp
 dd_LDADD += $(LIB_GETHRXTIME)
 mktemp_LDADD += $(LIB_GETHRXTIME)
 shred_LDADD += $(LIB_GETHRXTIME)
 shuf_LDADD += $(LIB_GETHRXTIME)
 sort_LDADD += $(LIB_GETHRXTIME)
+tac_LDADD += $(LIB_GETHRXTIME)
 
 # for cap_get_file
 ls_LDADD += $(LIB_CAP)
@@ -349,6 +350,7 @@ uptime_LDADD += $(POW_LIB)
 
 # for xnanosleep
 sleep_LDADD += $(LIB_NANOSLEEP)
+sort_LDADD += $(LIB_NANOSLEEP)
 tail_LDADD += $(LIB_NANOSLEEP)
 
 # for various GMP functions

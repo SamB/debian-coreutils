@@ -2,7 +2,7 @@
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
 #line 1
 /* Tests of symlinkat and readlinkat.
-   Copyright (C) 2009 Free Software Foundation, Inc.
+   Copyright (C) 2009, 2010 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -23,6 +23,10 @@
 
 #include <unistd.h>
 
+#include "signature.h"
+SIGNATURE_CHECK (symlinkat, int, (char const *, int, char const *));
+SIGNATURE_CHECK (readlinkat, ssize_t, (int, char const *, char *, size_t));
+
 #include <fcntl.h>
 #include <errno.h>
 #include <stdbool.h>
@@ -31,21 +35,11 @@
 #include <string.h>
 #include <sys/stat.h>
 
+#include "macros.h"
+
 #ifndef HAVE_SYMLINK
 # define HAVE_SYMLINK 0
 #endif
-
-#define ASSERT(expr) \
-  do                                                                         \
-    {                                                                        \
-      if (!(expr))                                                           \
-	{                                                                    \
-	  fprintf (stderr, "%s:%d: assertion failed\n", __FILE__, __LINE__);  \
-	  fflush (stderr);                                                   \
-	  abort ();                                                          \
-	}                                                                    \
-    }                                                                        \
-  while (0)
 
 #define BASE "test-symlinkat.t"
 
@@ -73,7 +67,7 @@ main (void)
   int result;
 
   /* Remove any leftovers from a previous partial run.  */
-  ASSERT (system ("rm -rf " BASE "*") == 0);
+  system ("rm -rf " BASE "*");
 
   /* Perform same checks as counterpart functions.  */
   result = test_readlink (do_readlink, false);
@@ -121,6 +115,6 @@ main (void)
   ASSERT (close (dfd) == 0);
   if (result == 77)
     fputs ("skipping test: symlinks not supported on this file system\n",
-	   stderr);
+           stderr);
   return result;
 }
