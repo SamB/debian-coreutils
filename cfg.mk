@@ -25,13 +25,13 @@ gnu_rel_host = $(gnu_ftp_host-$(RELEASE_TYPE))
 manual_title = Core GNU utilities
 
 url_dir_list = \
-  ftp://$(gnu_rel_host)/gnu/coreutils
+  ftp://$(gnu_rel_host)/gnu/$(PACKAGE)
 
 # The GnuPG ID of the key used to sign the tarballs.
 gpg_key_ID = B9AB9A16
 
 # Tests not to run as part of "make distcheck".
-local-checks-to-skip = strftime-check
+local-checks-to-skip =
 
 # Tools used to bootstrap this package, used for "announcement".
 bootstrap-tools = autoconf,automake,gnulib,bison
@@ -39,7 +39,7 @@ bootstrap-tools = autoconf,automake,gnulib,bison
 # Now that we have better tests, make this the default.
 export VERBOSE = yes
 
-old_NEWS_hash = 8ed224902e335a80ec8340cd0d594d7f
+old_NEWS_hash = 0d22ab4ad3fedd9cf283b256b61e8080
 
 # Ensure that the list of O_ symbols used to compute O_FULLBLOCK is complete.
 dd = $(srcdir)/src/dd.c
@@ -205,5 +205,17 @@ sc_strftime_check:
 	  diff -u $@-src $@-info || exit 1;				\
 	  rm -f $@-src $@-info;						\
 	fi
+
+# Indent only with spaces.
+sc_prohibit_tab_based_indentation:
+	@re='^ *	'						\
+	msg='TAB in indentation; use only spaces'			\
+	  $(_prohibit_regexp)
+
+# Don't use "indent-tabs-mode: nil" anymore.  No longer needed.
+sc_prohibit_emacs__indent_tabs_mode__setting:
+	@re='^( *[*#] *)?indent-tabs-mode:'				\
+	msg='use of emacs indent-tabs-mode: setting'			\
+	  $(_prohibit_regexp)
 
 include $(srcdir)/dist-check.mk

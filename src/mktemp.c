@@ -95,7 +95,7 @@ If TEMPLATE is not specified, use tmp.XXXXXXXXXX.\n\
       fputs ("\n", stdout);
       fputs (HELP_OPTION_DESCRIPTION, stdout);
       fputs (VERSION_OPTION_DESCRIPTION, stdout);
-      emit_bug_reporting_address ();
+      emit_ancillary_info ();
     }
 
   exit (status);
@@ -114,13 +114,13 @@ count_trailing_X_s (const char *s)
 static int
 mkstemp_len (char *tmpl, size_t suff_len, bool dry_run)
 {
-  return gen_tempname_len (tmpl, dry_run ? GT_NOCREATE : GT_FILE, suff_len);
+  return gen_tempname_len (tmpl, 0, dry_run ? GT_NOCREATE : GT_FILE, suff_len);
 }
 
 static int
 mkdtemp_len (char *tmpl, size_t suff_len, bool dry_run)
 {
-  return gen_tempname_len (tmpl, dry_run ? GT_NOCREATE : GT_DIR, suff_len);
+  return gen_tempname_len (tmpl, 0, dry_run ? GT_NOCREATE : GT_DIR, suff_len);
 }
 
 int
@@ -286,9 +286,3 @@ main (int argc, char **argv)
 
   exit (status);
 }
-
-/*
- * Local variables:
- *  indent-tabs-mode: nil
- * End:
- */

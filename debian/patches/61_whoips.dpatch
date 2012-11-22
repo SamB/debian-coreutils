@@ -1,9 +1,10 @@
 #! /bin/sh /usr/share/dpatch/dpatch-run
 
 @DPATCH@
---- coreutils-5.97/src/who.c.orig	2006-05-27 15:09:15.243817480 -0400
-+++ coreutils-6.10/src/who.c	2006-05-27 15:08:16.704965910 -0400
-@@ -29,6 +29,8 @@
+diff -urNad coreutils-8.0~/src/who.c coreutils-8.0/src/who.c
+--- coreutils-8.0~/src/who.c	2009-09-23 04:25:44.000000000 -0400
++++ coreutils-8.0/src/who.c	2009-11-14 17:16:07.581713057 -0500
+@@ -28,6 +28,8 @@
  #include <stdio.h>
  
  #include <sys/types.h>
@@ -11,8 +12,8 @@
 +#include <netdb.h>
  #include "system.h"
  
- #include "canon-host.h"
-@@ -107,6 +109,9 @@
+ #include "c-ctype.h"
+@@ -101,6 +103,9 @@
  /* If true, attempt to canonicalize hostnames via a DNS lookup. */
  static bool do_lookup;
  
@@ -22,7 +23,7 @@
  /* If true, display only a list of usernames and count of
     the users logged on.
     Ignored for `who am i'.  */
-@@ -162,7 +167,8 @@
+@@ -156,7 +161,8 @@
  /* for long options with no corresponding short option, use enum */
  enum
  {
@@ -31,15 +32,16 @@
 +  IPS_OPTION = CHAR_MAX + 2
  };
  
- static struct option const longopts[] = {
-@@ -172,5 +178,6 @@
+ static struct option const longopts[] =
+@@ -166,6 +172,7 @@
+   {"count", no_argument, NULL, 'q'},
    {"dead", no_argument, NULL, 'd'},
    {"heading", no_argument, NULL, 'H'},
 +  {"ips", no_argument, NULL, IPS_OPTION},
    {"login", no_argument, NULL, 'l'},
    {"lookup", no_argument, NULL, LOOKUP_OPTION},
    {"message", no_argument, NULL, 'T'},
-@@ -422,6 +429,57 @@
+@@ -418,6 +425,63 @@
      }
  #endif
  
@@ -47,13 +49,14 @@
 +  if (do_ips &&
 +      memcmp(utmp_ent->ut_addr_v6, "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0", 16))
 +  {
-+        /* Following code is from sysvinit-2.86.ds1 
++        /* Following code is from sysvinit-2.87dsf
 +           (GPL Copyright 1991-2004 Miquel van Smoorenburg) */
 +        struct sockaddr_in      sin;
 +        struct sockaddr_in6     sin6;
 +        struct sockaddr         *sa;
 +        int                     salen, flags;
-+        unsigned int            topnibble;
++        unsigned int            azero=0;
++	unsigned int		glblunicast=0, linklocal=0, localunicast=0;
 +        int                     mapped = 0;
 +        int			*a = utmp_ent->ut_addr_v6;
 +
@@ -63,8 +66,8 @@
 +
 +        /*
 +         *      IPv4 or IPv6 ? We use 2 heuristics:
-+         *      1. Current IPv6 range uses 2000-3fff. Outside of
-+         *         that is illegal and must be IPv4.
++         *      1. Current IPv6 range uses 2000-3fff or fc00-fdff or fec0-feff. 
++         *         Outside of that is illegal and must be IPv4.
 +         *      2. If last 3 bytes are 0, must be IPv4
 +         *      3. If IPv6 in IPv4, handle as IPv4
 +         *
@@ -72,8 +75,13 @@
 +         */
 +        if (a[0] == 0 && a[1] == 0 && a[2] == htonl (0xffff))
 +                mapped = 1;
-+        topnibble = ntohl((unsigned int)a[0]) >> 28;
-+        if (topnibble < 2 || topnibble > 3 || mapped ||
++
++	azero = ntohl((unsigned int)a[0]) >> 16;
++	glblunicast = (azero >= 0x2000 && azero <= 0x3fff) ? 1 : 0;
++	localunicast = (azero >= 0xfc00 && azero <= 0xfdff) ? 1 : 0;
++	linklocal = (azero >= 0xfec0 && azero <= 0xfeff) ? 1 : 0;
++
++        if (!(glblunicast || linklocal || localunicast) || mapped ||
 +            (a[1] == 0 && a[2] == 0 && a[3] == 0)) {
 +                /* IPv4 */
 +                sin.sin_family = AF_INET;
@@ -95,9 +103,9 @@
 +  }
 +
    print_line (sizeof UT_USER (utmp_ent), UT_USER (utmp_ent), mesg,
- 	      sizeof utmp_ent->ut_line, utmp_ent->ut_line,
- 	      time_string (utmp_ent), idlestr, pidstr,
-@@ -641,6 +697,11 @@
+               sizeof utmp_ent->ut_line, utmp_ent->ut_line,
+               time_string (utmp_ent), idlestr, pidstr,
+@@ -640,6 +704,11 @@
    -H, --heading     print line of column headings\n\
  "), stdout);
        fputs (_("\
@@ -109,14 +117,14 @@
    -l, --login       print system login processes\n\
  "), stdout);
        fputs (_("\
-@@ -775,6 +836,10 @@
- 	  do_lookup = true;
- 	  break;
+@@ -769,6 +838,10 @@
+           do_lookup = true;
+           break;
  
 +        case IPS_OPTION:
 +          do_ips = true;
 +          break;
 +
- 	  case_GETOPT_HELP_CHAR;
+           case_GETOPT_HELP_CHAR;
  
- 	  case_GETOPT_VERSION_CHAR (PROGRAM_NAME, AUTHORS);
+           case_GETOPT_VERSION_CHAR (PROGRAM_NAME, AUTHORS);

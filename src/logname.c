@@ -34,7 +34,7 @@ usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
-	     program_name);
+             program_name);
   else
     {
       printf (_("Usage: %s [OPTION]\n"), program_name);
@@ -44,7 +44,7 @@ Print the name of the current user.\n\
 "), stdout);
       fputs (HELP_OPTION_DESCRIPTION, stdout);
       fputs (VERSION_OPTION_DESCRIPTION, stdout);
-      emit_bug_reporting_address ();
+      emit_ancillary_info ();
     }
   exit (status);
 }
@@ -63,7 +63,7 @@ main (int argc, char **argv)
   atexit (close_stdout);
 
   parse_long_options (argc, argv, PROGRAM_NAME, PACKAGE_NAME, Version,
-		      usage, AUTHORS, (char const *) NULL);
+                      usage, AUTHORS, (char const *) NULL);
   if (getopt_long (argc, argv, "", NULL, NULL) != -1)
     usage (EXIT_FAILURE);
 

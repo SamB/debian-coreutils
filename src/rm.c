@@ -14,32 +14,9 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
-/* Written by Paul Rubin, David MacKenzie, and Richard Stallman.
-   Reworked to use chdir and avoid recursion by Jim Meyering.  */
-
-/* Implementation overview:
-
-   In the `usual' case, RM saves no state for directories it is processing.
-   When a removal fails (either due to an error or to an interactive `no'
-   reply), the failure is noted (see description of `ht' in remove.c's
-   remove_cwd_entries function) so that when/if the containing directory
-   is reopened, RM doesn't try to remove the entry again.
-
-   RM may delete arbitrarily deep hierarchies -- even ones in which file
-   names (from root to leaf) are longer than the system-imposed maximum.
-   It does this by using chdir to change to each directory in turn before
-   removing the entries in that directory.
-
-   RM detects directory cycles lazily.  See lib/cycle-check.c.
-
-   RM is careful to avoid forming full file names whenever possible.
-   A full file name is formed only when it is about to be used -- e.g.
-   in a diagnostic or in an interactive-mode prompt.
-
-   RM minimizes the number of lstat system calls it makes.  On systems
-   that have valid d_type data in directory entries, RM makes only one
-   lstat call per command line argument -- regardless of the depth of
-   the hierarchy.  */
+/* Initially written by Paul Rubin, David MacKenzie, and Richard Stallman.
+   Reworked to use chdir and avoid recursion, and later, rewritten
+   once again, to use fts, by Jim Meyering.  */
 
 #include <config.h>
 #include <stdio.h>
@@ -137,14 +114,14 @@ diagnose_leading_hyphen (int argc, char **argv)
       struct stat st;
 
       if (arg[0] == '-' && arg[1] && lstat (arg, &st) == 0)
-	{
-	  fprintf (stderr,
-		   _("Try `%s ./%s' to remove the file %s.\n"),
-		   argv[0],
-		   quotearg_n_style (1, shell_quoting_style, arg),
-		   quote (arg));
-	  break;
-	}
+        {
+          fprintf (stderr,
+                   _("Try `%s ./%s' to remove the file %s.\n"),
+                   argv[0],
+                   quotearg_n_style (1, shell_quoting_style, arg),
+                   quote (arg));
+          break;
+        }
     }
 }
 
@@ -153,7 +130,7 @@ usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
-	     program_name);
+             program_name);
   else
     {
       printf (_("Usage: %s [OPTION]... FILE...\n"), program_name);
@@ -196,14 +173,14 @@ use one of these commands:\n\
 \n\
   %s ./-foo\n\
 "),
-	      program_name, program_name);
+              program_name, program_name);
       fputs (_("\
 \n\
 Note that if you use rm to remove a file, it is usually possible to recover\n\
 the contents of that file.  If you want more assurance that the contents are\n\
 truly unrecoverable, consider using shred.\n\
 "), stdout);
-      emit_bug_reporting_address ();
+      emit_ancillary_info ();
     }
   exit (status);
 }
@@ -248,129 +225,130 @@ main (int argc, char **argv)
   while ((c = getopt_long (argc, argv, "dfirvIR", long_opts, NULL)) != -1)
     {
       switch (c)
-	{
-	case 'd':
-	  /* Ignore this option, for backward compatibility with
-	     coreutils 5.92.  FIXME: Some time after 2005, change this
-	     to report an error (or perhaps behave like FreeBSD does)
-	     instead of ignoring the option.  */
-	  break;
+        {
+        case 'd':
+          /* Ignore this option, for backward compatibility with
+             coreutils 5.92.  FIXME: Some time after 2005, change this
+             to report an error (or perhaps behave like FreeBSD does)
+             instead of ignoring the option.  */
+          break;
 
-	case 'f':
-	  x.interactive = RMI_NEVER;
-	  x.ignore_missing_files = true;
-	  prompt_once = false;
-	  break;
+        case 'f':
+          x.interactive = RMI_NEVER;
+          x.ignore_missing_files = true;
+          prompt_once = false;
+          break;
 
-	case 'i':
-	  x.interactive = RMI_ALWAYS;
-	  x.ignore_missing_files = false;
-	  prompt_once = false;
-	  break;
+        case 'i':
+          x.interactive = RMI_ALWAYS;
+          x.ignore_missing_files = false;
+          prompt_once = false;
+          break;
 
-	case 'I':
-	  x.interactive = RMI_NEVER;
-	  x.ignore_missing_files = false;
-	  prompt_once = true;
-	  break;
+        case 'I':
+          x.interactive = RMI_NEVER;
+          x.ignore_missing_files = false;
+          prompt_once = true;
+          break;
 
-	case 'r':
-	case 'R':
-	  x.recursive = true;
-	  break;
+        case 'r':
+        case 'R':
+          x.recursive = true;
+          break;
 
-	case INTERACTIVE_OPTION:
-	  {
-	    int i;
-	    if (optarg)
-	      i = XARGMATCH ("--interactive", optarg, interactive_args,
-			     interactive_types);
-	    else
-	      i = interactive_always;
-	    switch (i)
-	      {
-	      case interactive_never:
-		x.interactive = RMI_NEVER;
-		prompt_once = false;
-		break;
+        case INTERACTIVE_OPTION:
+          {
+            int i;
+            if (optarg)
+              i = XARGMATCH ("--interactive", optarg, interactive_args,
+                             interactive_types);
+            else
+              i = interactive_always;
+            switch (i)
+              {
+              case interactive_never:
+                x.interactive = RMI_NEVER;
+                prompt_once = false;
+                break;
 
-	      case interactive_once:
-		x.interactive = RMI_SOMETIMES;
-		x.ignore_missing_files = false;
-		prompt_once = true;
-		break;
+              case interactive_once:
+                x.interactive = RMI_SOMETIMES;
+                x.ignore_missing_files = false;
+                prompt_once = true;
+                break;
 
-	      case interactive_always:
-		x.interactive = RMI_ALWAYS;
-		x.ignore_missing_files = false;
-		prompt_once = false;
-		break;
-	      }
-	    break;
-	  }
+              case interactive_always:
+                x.interactive = RMI_ALWAYS;
+                x.ignore_missing_files = false;
+                prompt_once = false;
+                break;
+              }
+            break;
+          }
 
-	case ONE_FILE_SYSTEM:
-	  x.one_file_system = true;
-	  break;
+        case ONE_FILE_SYSTEM:
+          x.one_file_system = true;
+          break;
 
-	case NO_PRESERVE_ROOT:
-	  preserve_root = false;
-	  break;
+        case NO_PRESERVE_ROOT:
+          preserve_root = false;
+          break;
 
-	case PRESERVE_ROOT:
-	  preserve_root = true;
-	  break;
+        case PRESERVE_ROOT:
+          preserve_root = true;
+          break;
 
-	case PRESUME_INPUT_TTY_OPTION:
-	  x.stdin_tty = true;
-	  break;
+        case PRESUME_INPUT_TTY_OPTION:
+          x.stdin_tty = true;
+          break;
 
-	case 'v':
-	  x.verbose = true;
-	  break;
+        case 'v':
+          x.verbose = true;
+          break;
 
-	case_GETOPT_HELP_CHAR;
-	case_GETOPT_VERSION_CHAR (PROGRAM_NAME, AUTHORS);
-	default:
-	  diagnose_leading_hyphen (argc, argv);
-	  usage (EXIT_FAILURE);
-	}
+        case_GETOPT_HELP_CHAR;
+        case_GETOPT_VERSION_CHAR (PROGRAM_NAME, AUTHORS);
+        default:
+          diagnose_leading_hyphen (argc, argv);
+          usage (EXIT_FAILURE);
+        }
     }
 
   if (argc <= optind)
     {
       if (x.ignore_missing_files)
-	exit (EXIT_SUCCESS);
+        exit (EXIT_SUCCESS);
       else
-	{
-	  error (0, 0, _("missing operand"));
-	  usage (EXIT_FAILURE);
-	}
+        {
+          error (0, 0, _("missing operand"));
+          usage (EXIT_FAILURE);
+        }
     }
 
-  if (x.recursive & preserve_root)
+  if (x.recursive && preserve_root)
     {
       static struct dev_ino dev_ino_buf;
       x.root_dev_ino = get_root_dev_ino (&dev_ino_buf);
       if (x.root_dev_ino == NULL)
-	error (EXIT_FAILURE, errno, _("failed to get attributes of %s"),
-	       quote ("/"));
+        error (EXIT_FAILURE, errno, _("failed to get attributes of %s"),
+               quote ("/"));
     }
 
   size_t n_files = argc - optind;
-  char const *const *file = (char const *const *) argv + optind;
+  char **file =  argv + optind;
 
   if (prompt_once && (x.recursive || 3 < n_files))
     {
       fprintf (stderr,
-	       (x.recursive
-		? _("%s: remove all arguments recursively? ")
-		: _("%s: remove all arguments? ")),
-	       program_name);
+               (x.recursive
+                ? _("%s: remove all arguments recursively? ")
+                : _("%s: remove all arguments? ")),
+               program_name);
       if (!yesno ())
-	exit (EXIT_SUCCESS);
+        exit (EXIT_SUCCESS);
     }
-  enum RM_status status = rm (n_files, file, &x);
+
+  enum RM_status status = rm (file, &x);
   assert (VALID_STATUS (status));
   exit (status == RM_ERROR ? EXIT_FAILURE : EXIT_SUCCESS);
 }

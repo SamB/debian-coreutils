@@ -1,6 +1,6 @@
-/* unlinkdir.h - determine (and maybe change) whether we can unlink directories
+/* Like dirent.h, but redefine some names to avoid glitches.
 
-   Copyright (C) 2005 Free Software Foundation, Inc.
+   Copyright (C) 2009 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -15,12 +15,9 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
-/* Written by Paul Eggert and Jim Meyering.  */
+/* Written by Eric Blake.  */
 
-#include <stdbool.h>
+#include "dirent-safer.h"
 
-#if UNLINK_CANNOT_UNLINK_DIR
-# define cannot_unlink_dir() true
-#else
-bool cannot_unlink_dir (void);
-#endif
+#undef opendir
+#define opendir opendir_safer

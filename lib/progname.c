@@ -22,6 +22,7 @@
 #undef ENABLE_RELOCATABLE /* avoid defining set_program_name as a macro */
 #include "progname.h"
 
+#include <errno.h> /* get program_invocation_name declaration */
 #include <string.h>
 
 
@@ -47,7 +48,14 @@ set_program_name (const char *argv0)
     {
       argv0 = base;
       if (strncmp (base, "lt-", 3) == 0)
-	argv0 = base + 3;
+	{
+	  argv0 = base + 3;
+	  /* On glibc systems, remove the "lt-" prefix from the variable
+	     program_invocation_short_name.  */
+#if HAVE_DECL_PROGRAM_INVOCATION_SHORT_NAME
+	  program_invocation_short_name = (char *) argv0;
+#endif
+	}
     }
 
   /* But don't strip off a leading <dirname>/ in general, because when the user
@@ -60,4 +68,11 @@ set_program_name (const char *argv0)
    */
 
   program_name = argv0;
+
+  /* On glibc systems, the error() function comes from libc and uses the
+     variable program_invocation_name, not program_name.  So set this variable
+     as well.  */
+#if HAVE_DECL_PROGRAM_INVOCATION_NAME
+  program_invocation_name = (char *) argv0;
+#endif
 }

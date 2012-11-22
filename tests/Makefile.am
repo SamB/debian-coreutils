@@ -216,6 +216,7 @@ TESTS =						\
   misc/split-fail				\
   misc/split-l					\
   misc/stat-fmt					\
+  misc/stat-hyphen				\
   misc/stat-printf				\
   misc/stdbuf					\
   misc/stty					\
@@ -291,6 +292,8 @@ TESTS =						\
   cp/proc-short-read				\
   cp/proc-zero-len				\
   cp/r-vs-symlink				\
+  cp/reflink-auto				\
+  cp/reflink-perm				\
   cp/same-file					\
   cp/slink-2-slink				\
   cp/sparse					\
@@ -298,6 +301,7 @@ TESTS =						\
   cp/src-base-dot				\
   cp/symlink-slash				\
   cp/thru-dangling				\
+  df/unreadable					\
   dd/direct					\
   dd/misc					\
   dd/not-rewound				\
@@ -305,6 +309,8 @@ TESTS =						\
   dd/skip-seek					\
   dd/skip-seek2					\
   dd/skip-seek-past-file			\
+  dd/stderr					\
+  dd/unblock					\
   dd/unblock-sync				\
   df/total-verify				\
   du/2g						\
@@ -329,6 +335,7 @@ TESTS =						\
   du/slink					\
   du/trailing-slash				\
   du/two-args					\
+  id/no-context					\
   install/basic-1				\
   install/create-leading			\
   install/d-slashdot				\
@@ -338,8 +345,10 @@ TESTS =						\
   install/trap					\
   ln/backup-1					\
   ln/hard-backup				\
+  ln/hard-to-sym				\
   ln/misc					\
   ln/sf-1					\
+  ln/slash-decorated-nonexistent-dest		\
   ln/target-1					\
   ls/abmon-align				\
   ls/color-clear-to-eol				\
@@ -355,6 +364,7 @@ TESTS =						\
   ls/no-arg					\
   ls/no-cap					\
   ls/proc-selinux-segfault			\
+  ls/readdir-mountpoint-inode			\
   ls/recursive					\
   ls/rt-1					\
   ls/stat-dtype					\
@@ -422,8 +432,13 @@ TESTS =						\
   rmdir/t-slash					\
   tail-2/assert-2				\
   tail-2/big-4gb				\
+  tail-2/flush-initial				\
+  tail-2/follow-stdin				\
+  tail-2/pipe-f					\
+  tail-2/pipe-f2				\
   tail-2/proc-ksyms				\
   tail-2/start-middle				\
+  touch/60-seconds				\
   touch/dangling-symlink			\
   touch/dir-1					\
   touch/fail-diag				\

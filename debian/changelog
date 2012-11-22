@@ -1,7 +1,55 @@
+coreutils (8.0-1) unstable; urgency=low
+
+  * New upstream version
+    * touch accepts leap seconds (Closes: #510347)
+    * ln adds -L and -P
+    * rm -rf should be faster
+  * remove usr/share/info/dir in build rules (Closes: #546016)
+  * replaces: timeout (Closes: #552509)
+
+ -- Michael Stone <mstone@debian.org>  Sat, 14 Nov 2009 16:41:02 -0500
+
+coreutils (7.5-6) unstable; urgency=low
+
+  * remove usr/share/info/dir.gz in build rules (Closes: #546016)
+  * [83] make sure tail -f flushes initial output before waiting
+    (Closes: #545422)
+
+ -- Michael Stone <mstone@debian.org>  Fri, 11 Sep 2009 05:59:32 -0400
+
+coreutils (7.5-5) unstable; urgency=low
+
+  * update standards version to 3.8.3.0 (no changes)
+  * [82] fix "function not implemented" in cp -a of symlink on older 
+    linux kernels (Closes: #545306)
+
+ -- Michael Stone <mstone@debian.org>  Thu, 10 Sep 2009 20:07:24 -0400
+
+coreutils (7.5-4) unstable; urgency=low
+
+  * [81] fix tail -f - with inotify (Closes: #545422)
+
+ -- Michael Stone <mstone@debian.org>  Tue, 08 Sep 2009 20:54:42 -0400
+
+coreutils (7.5-3) unstable; urgency=low
+
+  * [61] update who --ips to support more ipv6 ranges (Closes: #508924)
+
+ -- Michael Stone <mstone@debian.org>  Fri, 04 Sep 2009 17:48:31 -0400
+
+coreutils (7.5-2) unstable; urgency=low
+
+  * [79] fix ls-misc build test problem if files are created world-writable 
+    (Closes: #544965)
+  * [80] fix tail/wait build test problem on kfreebsd (Closes: #545009)
+  * add -mieee to sh4 build flags (Closes: #544977)
+
+ -- Michael Stone <mstone@debian.org>  Fri, 04 Sep 2009 16:34:34 -0400
+
 coreutils (7.5-1) unstable; urgency=low
 
   * new upstream version
-    - fix ls -1 output error (Closes: #537476)
+    - fix ls -1 output error (Closes: #539476)
     - new program "stdbuf"
     - chroot adds --userspec and --groups
     - cp adds --reflink

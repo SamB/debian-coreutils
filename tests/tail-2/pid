@@ -22,59 +22,35 @@ if test "$VERBOSE" = yes; then
 fi
 
 . $srcdir/test-lib.sh
-
-require_proc_pid_status_
+getlimits_
 
 touch here || framework_failure
 
-
 fail=0
 
-# Use tail itself to create a background process.
+for inotify in ---disable-inotify ''; do
+  # Use tail itself to create a background process to monitor,
+  # which will auto exit when "here" is removed.
+  tail -f $inotify here &
+  bg_pid=$!
 
-tail -f here &
-bg_pid=$!
+  # Ensure that tail --pid=PID does not exit when PID is alive.
+  timeout 1 tail -f -s.1 --pid=$bg_pid $inotify here
+  test $? = 124 || fail=1
 
-tail -s0.1 -f here --pid=$bg_pid &
+  # Cleanup background process
+  kill $bg_pid
 
-pid=$!
+  # Ensure that tail --pid=PID exits with success status when PID is dead.
+  # Use an unlikely-to-be-live PID
+  timeout 3 tail -f -s.1 --pid=$PID_T_MAX $inotify /dev/null
+  ret=$?
+  test $ret = 124 && skip_test_ "pid $PID_T_MAX present or tail too slow"
+  test $ret = 0 || fail=1
 
-sleep 0.5
-
-state=$(get_process_status_ $pid)
-
-if test -n "$state"; then
-  case $state in
-    S*) ;;
-    *) echo "$0: process dead? (state=$state)" 1>&2; fail=1 ;;
-  esac
-  kill $pid
-fi
-
-kill $bg_pid
-
-sleep 0.5
-
-state=$(get_process_status_ $pid)
-
-if test -n "$state"; then
-  case $state in
-    S*) echo $0: process still active 1>&2; fail=1 ;;
-    *) ;;
-  esac
-  kill $pid
-fi
-
-# Ensure that tail --pid=PID exits successfully when PID is dead.
-# Use an unlikely-to-be-live PID
-getlimits_
-timeout 1 tail -s.1 --pid=$PID_T_MAX -f /dev/null
-ret=$?
-test $ret = 124 && skip_test_ "pid $PID_T_MAX present"
-test $ret = 0 || fail=1
-
-# Ensure fractional sleep parameter is honored with --pid
-timeout 1 tail -s.1 -f /dev/null --pid=$PID_T_MAX
-test $? = 124 && fail=1
+  # Ensure tail doesn't wait for data when PID is dead
+  timeout 3 tail -f -s10 --pid=$PID_T_MAX $inotify /dev/null
+  test $? = 124 && fail=1
+done
 
 Exit $fail

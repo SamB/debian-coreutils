@@ -22,11 +22,16 @@ endif
 
 # implement no optimization build option
 ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
-CFLAGS = "-g -DSYSLOG_SUCCESS -DSYSLOG_FAILURE -DSYSLOG_NON_ROOT -O0"
+CFLAGS = -g -DSYSLOG_SUCCESS -DSYSLOG_FAILURE -DSYSLOG_NON_ROOT -O0
 else
-CFLAGS = "-g -DSYSLOG_SUCCESS -DSYSLOG_FAILURE -DSYSLOG_NON_ROOT -O2"
+CFLAGS = -g -DSYSLOG_SUCCESS -DSYSLOG_FAILURE -DSYSLOG_NON_ROOT -O2
 endif
-LDFLAGS = 
+LDFLAGS =
+
+# Renesas SH(sh4) need -mieee option.
+ifeq ($(DEB_HOST_ARCH_CPU),sh4)
+  CFLAGS += -mieee
+endif
 
 # programs to include/not include
 ifeq ($(DEB_HOST_ARCH_OS),hurd)
@@ -46,7 +51,7 @@ configure: patch configure-stamp
 configure-stamp: 
 	dh_testdir
 
-	CFLAGS=$(CFLAGS) \
+	CFLAGS="$(CFLAGS)" \
 		LDFLAGS=$(LDFLAGS) ./configure \
 		--build=$(DEB_BUILD_GNU_TYPE) --host=$(DEB_HOST_GNU_TYPE) \
 		--prefix=/usr -v \
@@ -127,6 +132,9 @@ endif
 	mv $(d)/usr/bin/chroot $(d)/usr/sbin/chroot
 	sed s/\"1\"/\"8\"/1 $(d)/usr/share/man/man1/chroot.1 > $(d)/usr/share/man/man8/chroot.8
 	rm $(d)/usr/share/man/man1/chroot.1
+
+	# some build environments will leave a dangling info dir
+	rm -f $(d)/usr/share/info/dir
 
 	cp AUTHORS \
 		NEWS README \
