@@ -104,6 +104,7 @@ static bool copy_internal (char const *src_name, char const *dst_name,
 			   struct dir_list *ancestors,
 			   const struct cp_options *x,
 			   bool command_line_arg,
+			   bool *first_dir_created_per_command_line_arg,
 			   bool *copy_into_self,
 			   bool *rename_succeeded);
 static bool owner_failure_ok (struct cp_options const *x);
@@ -158,7 +159,7 @@ copy_attr_free (struct error_context *ctx ATTRIBUTE_UNUSED,
 
 static bool
 copy_attr_by_fd (char const *src_path, int src_fd,
-		 char const *dst_path, int dst_fd)
+                 char const *dst_path, int dst_fd, const struct cp_options *x)
 {
   struct error_context ctx =
   {
@@ -166,11 +167,13 @@ copy_attr_by_fd (char const *src_path, int src_fd,
     .quote = copy_attr_quote,
     .quote_free = copy_attr_free
   };
-  return 0 == attr_copy_fd (src_path, src_fd, dst_path, dst_fd, 0, &ctx);
+  return 0 == attr_copy_fd (src_path, src_fd, dst_path, dst_fd, 0,
+                            x->reduce_diagnostics ? NULL : &ctx);
 }
 
 static bool
-copy_attr_by_name (char const *src_path, char const *dst_path)
+copy_attr_by_name (char const *src_path, char const *dst_path,
+                   const struct cp_options *x)
 {
   struct error_context ctx =
   {
@@ -178,19 +181,21 @@ copy_attr_by_name (char const *src_path, char const *dst_path)
     .quote = copy_attr_quote,
     .quote_free = copy_attr_free
   };
-  return 0 == attr_copy_file (src_path, dst_path, 0, &ctx);
+  return 0 == attr_copy_file (src_path, dst_path, 0,
+                              x-> reduce_diagnostics ? NULL :&ctx);
 }
 #else /* USE_XATTR */
 
 static bool
 copy_attr_by_fd (char const *src_path, int src_fd,
-		 char const *dst_path, int dst_fd)
+                 char const *dst_path, int dst_fd, const struct cp_options *x)
 {
   return true;
 }
 
 static bool
-copy_attr_by_name (char const *src_path, char const *dst_path)
+copy_attr_by_name (char const *src_path, char const *dst_path,
+                   const struct cp_options *x)
 {
   return true;
 }
@@ -201,13 +206,16 @@ copy_attr_by_name (char const *src_path, char const *dst_path)
    DST_NAME_IN is a directory that was created previously in the
    recursion.   SRC_SB and ANCESTORS describe SRC_NAME_IN.
    Set *COPY_INTO_SELF if SRC_NAME_IN is a parent of
+   FIRST_DIR_CREATED_PER_COMMAND_LINE_ARG  FIXME
    (or the same as) DST_NAME_IN; otherwise, clear it.
    Return true if successful.  */
 
 static bool
 copy_dir (char const *src_name_in, char const *dst_name_in, bool new_dst,
 	  const struct stat *src_sb, struct dir_list *ancestors,
-	  const struct cp_options *x, bool *copy_into_self)
+	  const struct cp_options *x,
+	  bool *first_dir_created_per_command_line_arg,
+	  bool *copy_into_self)
 {
   char *name_space;
   char *namep;
@@ -237,11 +245,18 @@ copy_dir (char const *src_name_in, char const *dst_name_in, bool new_dst,
 
       ok &= copy_internal (src_name, dst_name, new_dst, src_sb->st_dev,
 			   ancestors, &non_command_line_options, false,
+			   first_dir_created_per_command_line_arg,
 			   &local_copy_into_self, NULL);
       *copy_into_self |= local_copy_into_self;
 
       free (dst_name);
       free (src_name);
+
+      /* If we're copying into self, there's no point in continuing,
+	 and in fact, that would even infloop, now that we record only
+	 the first created directory per command line argument.  */
+      if (local_copy_into_self)
+	break;
 
       namep += strlen (namep) + 1;
     }
@@ -557,7 +572,7 @@ copy_reg (char const *src_name, char const *dst_name,
     /* Choose a suitable buffer size; it may be adjusted later.  */
     size_t buf_alignment = lcm (getpagesize (), sizeof (word));
     size_t buf_alignment_slop = sizeof (word) + buf_alignment - 1;
-    size_t buf_size = ST_BLKSIZE (sb);
+    size_t buf_size = io_blksize (sb);
 
     /* Deal with sparse files.  */
     bool last_write_made_hole = false;
@@ -585,20 +600,11 @@ copy_reg (char const *src_name, char const *dst_name,
        buffer size.  */
     if (! make_holes)
       {
-	/* These days there's no point ever messing with buffers smaller
-	   than 8 KiB.  It would be nice to configure SMALL_BUF_SIZE
-	   dynamically for this host and pair of files, but there doesn't
-	   seem to be a good way to get readahead info portably.  */
-	enum { SMALL_BUF_SIZE = 8 * 1024 };
-
 	/* Compute the least common multiple of the input and output
 	   buffer sizes, adjusting for outlandish values.  */
 	size_t blcm_max = MIN (SIZE_MAX, SSIZE_MAX) - buf_alignment_slop;
-	size_t blcm = buffer_lcm (ST_BLKSIZE (src_open_sb), buf_size,
+	size_t blcm = buffer_lcm (io_blksize (src_open_sb), buf_size,
 				  blcm_max);
-
-	/* Do not use a block size that is too small.  */
-	buf_size = MAX (SMALL_BUF_SIZE, blcm);
 
 	/* Do not bother with a buffer larger than the input file, plus one
 	   byte to make sure the file has not grown while reading it.  */
@@ -757,7 +763,7 @@ copy_reg (char const *src_name, char const *dst_name,
   set_author (dst_name, dest_desc, src_sb);
 
   if (x->preserve_xattr && ! copy_attr_by_fd (src_name, source_desc,
-					      dst_name, dest_desc)
+					      dst_name, dest_desc, x)
       && x->require_preserve_xattr)
     return false;
 
@@ -1125,6 +1131,7 @@ restore_default_fscreatecon_or_die (void)
    not known.  ANCESTORS points to a linked, null terminated list of
    devices and inodes of parent directories of SRC_NAME.  COMMAND_LINE_ARG
    is true iff SRC_NAME was specified on the command line.
+   FIRST_DIR_CREATED_PER_COMMAND_LINE_ARG is both input and output.
    Set *COPY_INTO_SELF if SRC_NAME is a parent of (or the
    same as) DST_NAME; otherwise, clear it.
    Return true if successful.  */
@@ -1135,6 +1142,7 @@ copy_internal (char const *src_name, char const *dst_name,
 	       struct dir_list *ancestors,
 	       const struct cp_options *x,
 	       bool command_line_arg,
+	       bool *first_dir_created_per_command_line_arg,
 	       bool *copy_into_self,
 	       bool *rename_succeeded)
 {
@@ -1815,11 +1823,15 @@ copy_internal (char const *src_name, char const *dst_name,
 		}
 	    }
 
-	  /* Insert the created directory's inode and device
-             numbers into the search structure, so that we can
-             avoid copying it again.  */
-	  if (!x->hard_link)
-	    remember_copied (dst_name, dst_sb.st_ino, dst_sb.st_dev);
+	  /* Record the created directory's inode and device numbers into
+	     the search structure, so that we can avoid copying it again.
+	     Do this only for the first directory that is created for each
+	     source command line argument.  */
+	  if (!*first_dir_created_per_command_line_arg)
+	    {
+	      remember_copied (dst_name, dst_sb.st_ino, dst_sb.st_dev);
+	      *first_dir_created_per_command_line_arg = true;
+	    }
 
 	  if (x->verbose)
 	    emit_verbose (src_name, dst_name, NULL);
@@ -1838,6 +1850,7 @@ copy_internal (char const *src_name, char const *dst_name,
 	     in a source directory would cause the containing destination
 	     directory not to have owner/perms set properly.  */
 	  delayed_ok = copy_dir (src_name, dst_name, new_dst, &src_sb, dir, x,
+				 first_dir_created_per_command_line_arg,
 				 copy_into_self);
 	}
     }
@@ -2067,7 +2080,7 @@ copy_internal (char const *src_name, char const *dst_name,
 
   set_author (dst_name, -1, &src_sb);
 
-  if (x->preserve_xattr && ! copy_attr_by_name (src_name, dst_name)
+  if (x->preserve_xattr && ! copy_attr_by_name (src_name, dst_name, x)
       && x->require_preserve_xattr)
     return false;
 
@@ -2185,8 +2198,11 @@ copy (char const *src_name, char const *dst_name,
   top_level_src_name = src_name;
   top_level_dst_name = dst_name;
 
+  bool first_dir_created_per_command_line_arg = false;
   return copy_internal (src_name, dst_name, nonexistent_dst, 0, NULL,
-			options, true, copy_into_self, rename_succeeded);
+			options, true,
+			&first_dir_created_per_command_line_arg,
+			copy_into_self, rename_succeeded);
 }
 
 /* Set *X to the default options for a value of type struct cp_options.  */

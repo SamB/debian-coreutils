@@ -2,7 +2,7 @@
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
 #line 1
 /* Test of fseeko() function.
-   Copyright (C) 2007, 2008 Free Software Foundation, Inc.
+   Copyright (C) 2007, 2008, 2009 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -36,6 +36,10 @@
     }									     \
   while (0)
 
+#ifndef FUNC_UNGETC_BROKEN
+# define FUNC_UNGETC_BROKEN 0
+#endif
+
 int
 main (int argc, char **argv)
 {
@@ -53,10 +57,19 @@ main (int argc, char **argv)
       ASSERT (ch == '#');
       ASSERT (ungetc (ch, stdin) == ch);
       ASSERT (fseeko (stdin, 2, SEEK_SET) == 0);
-      /* Test that fseek discards random ungetc data.  */
       ch = fgetc (stdin);
       ASSERT (ch == '/');
-      ASSERT (ungetc (ch ^ 0xff, stdin) == (ch ^ 0xff));
+      if (2 < argc)
+        {
+          if (FUNC_UNGETC_BROKEN)
+            {
+              fputs ("Skipping test: ungetc cannot handle arbitrary bytes\n",
+                     stderr);
+              return 77;
+            }
+          /* Test that fseek discards random ungetc data.  */
+          ASSERT (ungetc (ch ^ 0xff, stdin) == (ch ^ 0xff));
+        }
       ASSERT (fseeko (stdin, 0, SEEK_END) == 0);
       ASSERT (fgetc (stdin) == EOF);
       /* Test that fseek resets end-of-file marker.  */

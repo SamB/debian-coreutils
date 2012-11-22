@@ -237,13 +237,10 @@ AC_DEFUN([gl_INIT],
   gl_WCHAR_MODULE_INDICATOR([mbrlen])
   gl_FUNC_MBRTOWC
   gl_WCHAR_MODULE_INDICATOR([mbrtowc])
-  gl_FUNC_MBSCASECMP
   gl_STRING_MODULE_INDICATOR([mbscasecmp])
   gl_FUNC_MBSINIT
   gl_WCHAR_MODULE_INDICATOR([mbsinit])
-  gl_FUNC_MBSLEN
   gl_STRING_MODULE_INDICATOR([mbslen])
-  gl_FUNC_MBSSTR
   gl_STRING_MODULE_INDICATOR([mbsstr])
   gl_MBSWIDTH
   gl_MBITER
@@ -318,6 +315,8 @@ AC_DEFUN([gl_INIT],
   gl_SAVE_CWD
   gl_SAVEDIR
   gl_SAVEWD
+  gl_FUNC_SELECT
+  gl_SYS_SELECT_MODULE_INDICATOR([select])
   # FIXME: put this in an .m4 file?
   # For runcon.
   AC_CHECK_HEADERS([selinux/flask.h])
@@ -397,7 +396,6 @@ AC_DEFUN([gl_INIT],
   gl_HEADER_SYS_SELECT
   AC_PROG_MKDIR_P
   gl_HEADER_SYS_SOCKET
-  gl_MODULE_INDICATOR([sys_socket])
   AC_PROG_MKDIR_P
   gl_HEADER_SYS_STAT_H
   AC_PROG_MKDIR_P
@@ -407,7 +405,6 @@ AC_DEFUN([gl_INIT],
   gl_HEADER_TIME_H
   gl_TIME_R
   gl_TIMESPEC
-  AC_FUNC_MBRTOWC
   gl_FUNC_TZSET_CLOBBER
   gl_UNICODEIO
   gl_UNISTD_H
@@ -506,13 +503,44 @@ AC_DEFUN([gl_INIT],
   m4_pushdef([gltests_LIBSOURCES_DIR], [])
   gl_COMMON
   gl_source_base='gnulib-tests'
+  AC_REQUIRE([gl_HEADER_SYS_SOCKET])
+  if test "$ac_cv_header_winsock2_h" = yes; then
+    AC_LIBOBJ([accept])
+  fi
+  gl_SYS_SOCKET_MODULE_INDICATOR([accept])
+  AC_REQUIRE([gl_HEADER_SYS_SOCKET])
+  if test "$ac_cv_header_winsock2_h" = yes; then
+    AC_LIBOBJ([bind])
+  fi
+  gl_SYS_SOCKET_MODULE_INDICATOR([bind])
   gt_LOCALE_FR
   gt_LOCALE_FR_UTF8
   gt_LOCALE_FR
   gt_LOCALE_TR_UTF8
+  AC_REQUIRE([gl_HEADER_SYS_SOCKET])
+  if test "$ac_cv_header_winsock2_h" = yes; then
+    AC_LIBOBJ([connect])
+  fi
+  gl_SYS_SOCKET_MODULE_INDICATOR([connect])
+  gl_FUNC_UNGETC_WORKS
+  gl_FUNC_UNGETC_WORKS
+  gl_INET_PTON
+  gl_ARPA_INET_MODULE_INDICATOR([inet_pton])
+  AC_REQUIRE([gl_HEADER_SYS_SOCKET])
+  if test "$ac_cv_header_winsock2_h" = yes; then
+    AC_LIBOBJ([ioctl])
+    gl_REPLACE_SYS_IOCTL_H
+  fi
+  gl_SYS_IOCTL_MODULE_INDICATOR([ioctl])
+  gl_MODULE_INDICATOR([ioctl])
   gl_DOUBLE_EXPONENT_LOCATION
   gl_FLOAT_EXPONENT_LOCATION
   gl_LONG_DOUBLE_EXPONENT_LOCATION
+  AC_REQUIRE([gl_HEADER_SYS_SOCKET])
+  if test "$ac_cv_header_winsock2_h" = yes; then
+    AC_LIBOBJ([listen])
+  fi
+  gl_SYS_SOCKET_MODULE_INDICATOR([listen])
   gt_LOCALE_FR
   gt_LOCALE_FR_UTF8
   gt_LOCALE_JA
@@ -521,16 +549,32 @@ AC_DEFUN([gl_INIT],
   gt_LOCALE_FR_UTF8
   gt_LOCALE_FR_UTF8
   gt_LOCALE_ZH_CN
+  gl_FUNC_PERROR
+  gl_STRING_MODULE_INDICATOR([perror])
   gt_LOCALE_FR
   gt_LOCALE_FR_UTF8
   gl_FUNC_READ_FILE
+  AC_CHECK_HEADERS_ONCE([unistd.h sys/wait.h])
+  AC_REQUIRE([gl_HEADER_SYS_SOCKET])
+  if test "$ac_cv_header_winsock2_h" = yes; then
+    AC_LIBOBJ([setsockopt])
+  fi
+  gl_SYS_SOCKET_MODULE_INDICATOR([setsockopt])
   AC_REQUIRE([gl_FLOAT_EXPONENT_LOCATION])
   AC_REQUIRE([gl_DOUBLE_EXPONENT_LOCATION])
   AC_REQUIRE([gl_LONG_DOUBLE_EXPONENT_LOCATION])
   gl_FUNC_SLEEP
   gl_UNISTD_MODULE_INDICATOR([sleep])
+  AC_REQUIRE([gl_HEADER_SYS_SOCKET])
+  if test "$ac_cv_header_winsock2_h" = yes; then
+    AC_LIBOBJ([socket])
+  fi
+  gl_SYS_SOCKET_MODULE_INDICATOR([socket])
+  gl_SOCKETS
   gt_TYPE_WCHAR_T
   gt_TYPE_WINT_T
+  gl_SYS_IOCTL_H
+  AC_PROG_MKDIR_P
   AC_CHECK_FUNCS([shutdown])
   abs_aux_dir=`cd "$ac_aux_dir"; pwd`
   AC_SUBST([abs_aux_dir])
@@ -637,6 +681,7 @@ AC_DEFUN([gltests_LIBSOURCES], [
 AC_DEFUN([gl_FILE_LIST], [
   build-aux/announce-gen
   build-aux/config.rpath
+  build-aux/gendocs.sh
   build-aux/git-version-gen
   build-aux/gitlog-to-changelog
   build-aux/gnupload
@@ -644,6 +689,7 @@ AC_DEFUN([gl_FILE_LIST], [
   build-aux/useless-if-before-free
   build-aux/vc-list-files
   doc/fdl.texi
+  doc/gendocs_template
   doc/getdate.texi
   lib/acl-internal.h
   lib/acl.h
@@ -685,6 +731,8 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/chown.c
   lib/cloexec.c
   lib/cloexec.h
+  lib/close-hook.c
+  lib/close-hook.h
   lib/close-stream.c
   lib/close-stream.h
   lib/close.c
@@ -875,6 +923,8 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/memchr2.c
   lib/memchr2.h
   lib/memcmp.c
+  lib/memcmp2.c
+  lib/memcmp2.h
   lib/memcoll.c
   lib/memcoll.h
   lib/memcpy.c
@@ -983,6 +1033,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/savewd.h
   lib/se-context.in.h
   lib/se-selinux.in.h
+  lib/select.c
   lib/selinux-at.c
   lib/selinux-at.h
   lib/set-mode-acl.c
@@ -1092,7 +1143,6 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/version-etc.h
   lib/vfprintf.c
   lib/vprintf.c
-  lib/w32sock.h
   lib/wchar.in.h
   lib/wcrtomb.c
   lib/wctype.in.h
@@ -1243,6 +1293,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/idcache.m4
   m4/include_next.m4
   m4/inet_ntop.m4
+  m4/inet_pton.m4
   m4/inline.m4
   m4/intdiv0.m4
   m4/intl.m4
@@ -1282,15 +1333,13 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/lstat.m4
   m4/malloc.m4
   m4/malloca.m4
+  m4/manywarnings.m4
   m4/math_h.m4
   m4/mbchar.m4
   m4/mbiter.m4
   m4/mbrlen.m4
   m4/mbrtowc.m4
-  m4/mbscasecmp.m4
   m4/mbsinit.m4
-  m4/mbslen.m4
-  m4/mbsstr.m4
   m4/mbstate_t.m4
   m4/mbswidth.m4
   m4/md5.m4
@@ -1322,6 +1371,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/openat.m4
   m4/pathmax.m4
   m4/perl.m4
+  m4/perror.m4
   m4/physmem.m4
   m4/po.m4
   m4/posix-shell.m4
@@ -1353,6 +1403,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/save-cwd.m4
   m4/savedir.m4
   m4/savewd.m4
+  m4/select.m4
   m4/selinux-context-h.m4
   m4/selinux-selinux-h.m4
   m4/servent.m4
@@ -1369,6 +1420,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/size_max.m4
   m4/sleep.m4
   m4/snprintf.m4
+  m4/sockets.m4
   m4/socklen.m4
   m4/sockpfaf.m4
   m4/ssize_t.m4
@@ -1400,6 +1452,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/strtoull.m4
   m4/strtoumax.m4
   m4/strverscmp.m4
+  m4/sys_ioctl_h.m4
   m4/sys_select_h.m4
   m4/sys_socket_h.m4
   m4/sys_stat_h.m4
@@ -1412,6 +1465,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/tm_gmtoff.m4
   m4/tzset.m4
   m4/uintmax_t.m4
+  m4/ungetc.m4
   m4/unicodeio.m4
   m4/unistd-safer.m4
   m4/unistd_h.m4
@@ -1504,9 +1558,11 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-frexpl.c
   tests/test-fseeko.c
   tests/test-fseeko.sh
+  tests/test-fseeko2.sh
   tests/test-fseterr.c
   tests/test-ftello.c
   tests/test-ftello.sh
+  tests/test-ftello2.sh
   tests/test-getaddrinfo.c
   tests/test-getdate.c
   tests/test-getdelim.c
@@ -1550,6 +1606,8 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-netdb.c
   tests/test-netinet_in.c
   tests/test-open.c
+  tests/test-perror.c
+  tests/test-perror.sh
   tests/test-printf-frexp.c
   tests/test-printf-frexpl.c
   tests/test-printf-posix.h
@@ -1558,13 +1616,20 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-quotearg.sh
   tests/test-read-file.c
   tests/test-sameacls.c
+  tests/test-select-fd.c
+  tests/test-select-in.sh
+  tests/test-select-out.sh
+  tests/test-select-stdin.c
+  tests/test-select.c
   tests/test-set-mode-acl.c
   tests/test-set-mode-acl.sh
   tests/test-sha1.c
   tests/test-sigaction.c
+  tests/test-signal.c
   tests/test-signbit.c
   tests/test-sleep.c
   tests/test-snprintf.c
+  tests/test-sockets.c
   tests/test-stat-time.c
   tests/test-stdbool.c
   tests/test-stdint.c
@@ -1611,10 +1676,23 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/uniwidth/test-uc_width.c
   tests/uniwidth/test-uc_width2.c
   tests/uniwidth/test-uc_width2.sh
+  tests=lib/accept.c
   tests=lib/binary-io.h
+  tests=lib/bind.c
+  tests=lib/connect.c
+  tests=lib/inet_pton.c
+  tests=lib/ioctl.c
+  tests=lib/listen.c
+  tests=lib/perror.c
   tests=lib/read-file.c
   tests=lib/read-file.h
+  tests=lib/setsockopt.c
   tests=lib/sleep.c
+  tests=lib/socket.c
+  tests=lib/sockets.c
+  tests=lib/sockets.h
+  tests=lib/sys_ioctl.in.h
+  tests=lib/w32sock.h
   tests=lib/wctob.c
   top/GNUmakefile
 ])

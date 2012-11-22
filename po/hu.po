@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coreutils 6.11\n"
 "Report-Msgid-Bugs-To: bug-coreutils@gnu.org\n"
-"POT-Creation-Date: 2009-02-21 10:12+0100\n"
+"POT-Creation-Date: 2009-03-26 09:14+0100\n"
 "PO-Revision-Date: 2008-05-11 16:25+0200\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: Hungarian <translation-team-hu@lists.sourceforge.net>\n"
@@ -39,16 +39,16 @@ msgid "error closing file"
 msgstr "hiba a fájl lezárásakor"
 
 #: lib/closeout.c:112 src/base64.c:110 src/base64.c:122 src/base64.c:128
-#: src/base64.c:169 src/base64.c:225 src/cat.c:191 src/cat.c:207 src/cat.c:291
-#: src/cksum.c:248 src/expand.c:333 src/expand.c:358 src/head.c:300
+#: src/base64.c:169 src/base64.c:225 src/cat.c:187 src/cat.c:203 src/cat.c:287
+#: src/cksum.c:248 src/expand.c:329 src/expand.c:354 src/head.c:300
 #: src/head.c:350 src/head.c:758 src/head.c:799 src/od.c:920 src/paste.c:159
 #: src/shuf.c:405 src/tail.c:308 src/tail.c:1096 src/tr.c:1550 src/tr.c:1773
-#: src/tr.c:1887 src/unexpand.c:430 src/unexpand.c:446
+#: src/tr.c:1887 src/unexpand.c:426 src/unexpand.c:442
 #, c-format
 msgid "write error"
 msgstr "íráshiba"
 
-#: lib/copy-acl.c:547 src/copy.c:781 src/copy.c:2114
+#: lib/copy-acl.c:547 src/copy.c:787 src/copy.c:2127
 #, c-format
 msgid "preserving permissions for %s"
 msgstr "%s jogosultságainak megtartása"
@@ -57,8 +57,8 @@ msgstr "%s jogosultságainak megtartása"
 msgid "Unknown system error"
 msgstr "Ismeretlen rendszerhiba"
 
-#: lib/euidaccess-stat.c:136 src/copy.c:1163 src/copy.c:1215 src/copy.c:1800
-#: src/copy.c:2101 src/df.c:560 src/install.c:741 src/stat.c:862
+#: lib/euidaccess-stat.c:136 src/copy.c:1171 src/copy.c:1223 src/copy.c:1808
+#: src/copy.c:2114 src/df.c:575 src/install.c:732 src/stat.c:862
 #: src/truncate.c:370
 #, c-format
 msgid "cannot stat %s"
@@ -247,26 +247,26 @@ msgstr "%s: a „-W %s” kapcsoló nem egyértelmű\n"
 msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s: a „-W %s” kapcsoló nem enged meg argumentumot\n"
 
-#: lib/mkdir-p.c:196 src/install.c:812
+#: lib/mkdir-p.c:196 src/install.c:803
 #, c-format
 msgid "cannot change permissions of %s"
 msgstr "nem lehet %s jogosultságait megváltoztatni"
 
-#: lib/mkdir-p.c:206 src/copy.c:1789 src/install.c:709 src/install.c:722
+#: lib/mkdir-p.c:206 src/copy.c:1797 src/install.c:700 src/install.c:713
 #, c-format
 msgid "cannot create directory %s"
 msgstr "nem lehet a következő könyvtárat létrehozni: %s"
 
-#: lib/obstack.c:423 lib/obstack.c:425 lib/xalloc-die.c:34 src/csplit.c:223
+#: lib/obstack.c:423 lib/obstack.c:425 lib/xalloc-die.c:34 src/csplit.c:220
 msgid "memory exhausted"
 msgstr "elfogyott a memória"
 
-#: lib/openat-die.c:35
+#: lib/openat-die.c:34
 #, c-format
 msgid "unable to record current working directory"
 msgstr "az aktuális munkakönyvtár feljegyzése meghiúsult"
 
-#: lib/openat-die.c:48 src/df.c:583
+#: lib/openat-die.c:47 src/df.c:598
 #, c-format
 msgid "failed to return to initial working directory"
 msgstr "a visszatérés meghiúsult a kiinduló munkakönyvtárba"
@@ -298,7 +298,7 @@ msgstr "”"
 msgid "'"
 msgstr "”"
 
-#: lib/randread.c:124
+#: lib/randread.c:114
 #, c-format
 msgid "%s: end of file"
 msgstr "%s: fájl vége"
@@ -412,7 +412,7 @@ msgstr "^[iIyY]"
 msgid "^[nN]"
 msgstr "^[nN]"
 
-#: lib/set-mode-acl.c:488 src/copy.c:1812 src/cp.c:501
+#: lib/set-mode-acl.c:488 src/copy.c:1820 src/cp.c:495
 #, c-format
 msgid "setting permissions for %s"
 msgstr "%s jogosultságainak beállítása"
@@ -693,26 +693,26 @@ msgstr "%s%s: a(z) „%s” argumentum túl nagy"
 msgid "Simon Josefsson"
 msgstr ""
 
-#: src/base64.c:55 src/basename.c:46 src/cat.c:89 src/chcon.c:338
+#: src/base64.c:55 src/basename.c:46 src/cat.c:85 src/chcon.c:338
 #: src/chgrp.c:106 src/chmod.c:349 src/chown.c:87 src/chroot.c:39
-#: src/cksum.c:257 src/comm.c:97 src/cp.c:145 src/csplit.c:1445 src/cut.c:185
-#: src/date.c:120 src/dd.c:454 src/df.c:785 src/dircolors.c:95
-#: src/dirname.c:42 src/du.c:264 src/echo.c:39 src/env.c:109 src/expand.c:103
-#: src/expr.c:198 src/factor.c:491 src/fmt.c:265 src/fold.c:62
+#: src/cksum.c:257 src/comm.c:98 src/cp.c:139 src/csplit.c:1442 src/cut.c:185
+#: src/date.c:120 src/dd.c:458 src/df.c:800 src/dircolors.c:95
+#: src/dirname.c:42 src/du.c:264 src/echo.c:39 src/env.c:109 src/expand.c:99
+#: src/expr.c:198 src/factor.c:489 src/fmt.c:265 src/fold.c:62
 #: src/getlimits.c:62 src/groups.c:50 src/head.c:103 src/hostid.c:40
-#: src/hostname.c:53 src/id.c:78 src/install.c:940 src/join.c:163
-#: src/kill.c:83 src/link.c:42 src/ln.c:346 src/logname.c:36 src/ls.c:4405
+#: src/hostname.c:53 src/id.c:78 src/install.c:931 src/join.c:163
+#: src/kill.c:83 src/link.c:42 src/ln.c:346 src/logname.c:36 src/ls.c:4406
 #: src/md5sum.c:149 src/mkdir.c:53 src/mkfifo.c:48 src/mknod.c:49
-#: src/mktemp.c:60 src/mv.c:281 src/nice.c:68 src/nl.c:171 src/nohup.c:50
+#: src/mktemp.c:60 src/mv.c:275 src/nice.c:68 src/nl.c:171 src/nohup.c:50
 #: src/od.c:305 src/paste.c:429 src/pathchk.c:93 src/pinky.c:506 src/pr.c:2763
-#: src/printenv.c:54 src/printf.c:84 src/ptx.c:1883 src/pwd.c:45
+#: src/printenv.c:54 src/printf.c:84 src/ptx.c:1880 src/pwd.c:53
 #: src/readlink.c:59 src/rm.c:154 src/rmdir.c:162 src/runcon.c:80 src/seq.c:66
 #: src/setuidgid.c:46 src/shred.c:154 src/shuf.c:43 src/sleep.c:42
 #: src/sort.c:309 src/split.c:99 src/stat.c:905 src/stty.c:502 src/su.c:377
 #: src/sum.c:55 src/sync.c:37 src/tac.c:129 src/tail.c:211 src/tee.c:58
 #: src/test.c:681 src/timeout.c:129 src/touch.c:229 src/tr.c:283
 #: src/truncate.c:98 src/tsort.c:78 src/tty.c:61 src/uname.c:118
-#: src/unexpand.c:113 src/uniq.c:129 src/unlink.c:42 src/uptime.c:193
+#: src/unexpand.c:109 src/uniq.c:129 src/unlink.c:42 src/uptime.c:193
 #: src/users.c:102 src/wc.c:108 src/who.c:626 src/whoami.c:42 src/yes.c:38
 #, c-format
 msgid "Try `%s --help' for more information.\n"
@@ -757,7 +757,7 @@ msgstr ""
 "      --help            Ezen súgó kiírása és kilépés.\n"
 "      --version         Verzióinformációk megjelenítése és kilépés.\n"
 
-#: src/base64.c:74 src/cat.c:115 src/fmt.c:292 src/shuf.c:70 src/sum.c:71
+#: src/base64.c:74 src/cat.c:111 src/fmt.c:292 src/shuf.c:70 src/sum.c:71
 msgid ""
 "\n"
 "With no FILE, or when FILE is -, read standard input.\n"
@@ -782,7 +782,7 @@ msgstr ""
 "az\n"
 "ábécében nem szereplő karakterekből.\n"
 
-#: src/base64.c:172 src/base64.c:209 src/csplit.c:266 src/csplit.c:1434
+#: src/base64.c:172 src/base64.c:209 src/csplit.c:263 src/csplit.c:1431
 #: src/join.c:413 src/shuf.c:397 src/tac-pipe.c:74 src/tee.c:204 src/tr.c:1574
 #, c-format
 msgid "read error"
@@ -798,12 +798,12 @@ msgstr "érvénytelen bemenet"
 msgid "invalid wrap size: %s"
 msgstr "érvénytelen sortörésméret: %s"
 
-#: src/base64.c:284 src/basename.c:119 src/comm.c:422 src/cp.c:590
+#: src/base64.c:284 src/basename.c:119 src/comm.c:421 src/cp.c:584
 #: src/date.c:426 src/dircolors.c:449 src/dirname.c:98 src/du.c:926
-#: src/hostid.c:76 src/hostname.c:112 src/id.c:169 src/install.c:616
+#: src/hostid.c:76 src/hostname.c:112 src/id.c:169 src/install.c:607
 #: src/join.c:895 src/link.c:86 src/ln.c:521 src/logname.c:72 src/mknod.c:158
-#: src/mv.c:444 src/od.c:1803 src/ptx.c:2151 src/readlink.c:152 src/seq.c:410
-#: src/shuf.c:377 src/sort.c:3271 src/split.c:536 src/tr.c:1727
+#: src/mv.c:438 src/od.c:1803 src/ptx.c:2148 src/readlink.c:152 src/seq.c:410
+#: src/shuf.c:377 src/sort.c:3409 src/split.c:536 src/tr.c:1727
 #: src/tsort.c:548 src/tty.c:113 src/uname.c:253 src/uniq.c:449 src/uniq.c:466
 #: src/unlink.c:82 src/uptime.c:251 src/users.c:147 src/wc.c:654 src/who.c:817
 #: src/whoami.c:80
@@ -811,14 +811,14 @@ msgstr "érvénytelen sortörésméret: %s"
 msgid "extra operand %s"
 msgstr "extra operandus: „%s”"
 
-#: src/base64.c:310 src/cat.c:783
+#: src/base64.c:310 src/cat.c:779
 #, c-format
 msgid "closing standard input"
 msgstr "a szabványos bemenet lezárása"
 
 #. This is a proper name. See the gettext manual, section Names.
 #: src/basename.c:40 src/chgrp.c:38 src/chmod.c:38 src/chown.c:47
-#: src/comm.c:35 src/cp.c:57 src/csplit.c:42 src/cut.c:44 src/date.c:39
+#: src/comm.c:36 src/cp.c:57 src/csplit.c:42 src/cut.c:44 src/date.c:39
 #: src/dd.c:45 src/df.c:41 src/dirname.c:35 src/du.c:53 src/env.c:92
 #: src/expand.c:48 src/fold.c:35 src/groups.c:35 src/head.c:46 src/id.c:39
 #: src/install.c:49 src/ln.c:40 src/ls.c:115 src/mkdir.c:36 src/mkfifo.c:33
@@ -864,7 +864,7 @@ msgstr ""
 "  %s include/stdio.h .h  A kimenet: „stdio”.\n"
 
 #: src/basename.c:113 src/chcon.c:514 src/chgrp.c:273 src/chmod.c:500
-#: src/chown.c:286 src/chroot.c:81 src/comm.c:414 src/csplit.c:1372
+#: src/chown.c:286 src/chroot.c:81 src/comm.c:413 src/csplit.c:1369
 #: src/dirname.c:92 src/expr.c:323 src/join.c:1073 src/link.c:78
 #: src/mkdir.c:184 src/mkfifo.c:109 src/mknod.c:147 src/nohup.c:105
 #: src/pathchk.c:156 src/printf.c:672 src/readlink.c:144 src/rm.c:342
@@ -880,19 +880,19 @@ msgid "Torbjorn Granlund"
 msgstr ""
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/cat.c:49 src/comm.c:34 src/ls.c:114 src/rm.c:65 src/split.c:45
+#: src/cat.c:49 src/comm.c:35 src/ls.c:114 src/rm.c:65 src/split.c:45
 #: src/tee.c:34 src/uniq.c:39
 msgid "Richard M. Stallman"
 msgstr ""
 
-#: src/cat.c:93 src/df.c:789 src/expand.c:107 src/fold.c:66 src/head.c:107
-#: src/ls.c:4409 src/nl.c:175 src/paste.c:433 src/pr.c:2767 src/sum.c:59
-#: src/tac.c:133 src/tail.c:215 src/tee.c:62 src/unexpand.c:117
+#: src/cat.c:89 src/df.c:804 src/expand.c:103 src/fold.c:66 src/head.c:107
+#: src/ls.c:4410 src/nl.c:175 src/paste.c:433 src/pr.c:2767 src/sum.c:59
+#: src/tac.c:133 src/tail.c:215 src/tee.c:62 src/unexpand.c:113
 #, c-format
 msgid "Usage: %s [OPTION]... [FILE]...\n"
 msgstr "Használat: %s [KAPCSOLÓ]... [FÁJL]...\n"
 
-#: src/cat.c:97
+#: src/cat.c:93
 msgid ""
 "Concatenate FILE(s), or standard input, to standard output.\n"
 "\n"
@@ -913,7 +913,7 @@ msgstr ""
 "  -s, --squeeze-blank      az ismétlődő üres kimeneti sorokat nem jeleníti "
 "meg\n"
 
-#: src/cat.c:107
+#: src/cat.c:103
 msgid ""
 "  -t                       equivalent to -vT\n"
 "  -T, --show-tabs          display TAB characters as ^I\n"
@@ -926,7 +926,7 @@ msgstr ""
 "  -v, --show-nonprinting   a ^ és M- jelölés használata az LFD és TAB\n"
 "                             kivételével\n"
 
-#: src/cat.c:119
+#: src/cat.c:115
 #, c-format
 msgid ""
 "\n"
@@ -939,17 +939,17 @@ msgstr ""
 "  %s f - g  Előbb f, majd a szabványos bemenet, majd g tartalmának kiírása.\n"
 "  %s        A szabványos bemenet másolása a szabványos kimenetre.\n"
 
-#: src/cat.c:331
+#: src/cat.c:327
 #, c-format
 msgid "cannot do ioctl on %s"
 msgstr "nem végezhető ioctl a következőn: %s"
 
-#: src/cat.c:641 src/dd.c:1847 src/sort.c:301 src/tee.c:163 src/yes.c:88
+#: src/cat.c:637 src/dd.c:1851 src/sort.c:301 src/tee.c:163 src/yes.c:88
 #, c-format
 msgid "standard output"
 msgstr "szabványos kimenet"
 
-#: src/cat.c:718
+#: src/cat.c:714
 #, c-format
 msgid "%s: input file is output file"
 msgstr "%s: a bemeneti fájl a kimeneti fájl"
@@ -963,7 +963,7 @@ msgstr ""
 #: src/chcon.c:36 src/chgrp.c:39 src/chmod.c:39 src/chown.c:48 src/cp.c:58
 #: src/cut.c:45 src/dirname.c:36 src/du.c:55 src/head.c:47 src/hostid.c:34
 #: src/hostname.c:33 src/mktemp.c:34 src/mv.c:42 src/nohup.c:37 src/od.c:35
-#: src/pathchk.c:41 src/pwd.c:32 src/rm.c:66 src/setuidgid.c:38 src/sleep.c:35
+#: src/pathchk.c:41 src/pwd.c:31 src/rm.c:66 src/setuidgid.c:38 src/sleep.c:35
 #: src/sync.c:31 src/tail.c:55 src/tr.c:36 src/true.c:33
 msgid "Jim Meyering"
 msgstr ""
@@ -980,7 +980,7 @@ msgstr ""
 "a(z) %s biztonsági kontextus összetevőjének beállítása meghiúsult a "
 "következőre: %s"
 
-#: src/chcon.c:155 src/chcon.c:523 src/copy.c:1744 src/runcon.c:218
+#: src/chcon.c:155 src/chcon.c:523 src/copy.c:1752 src/runcon.c:218
 #: src/stat.c:461
 #, c-format
 msgid "failed to get security context of %s"
@@ -996,8 +996,8 @@ msgstr "nem alkalmazható részleges kontextus a(z) %s nem címkézett fájlra"
 msgid "failed to change context of %s to %s"
 msgstr "%s kontextusának megváltoztatása meghiúsult a következőre: %s"
 
-#: src/chcon.c:254 src/chmod.c:207 src/chown-core.c:300 src/copy.c:222
-#: src/du.c:485 src/ls.c:2690
+#: src/chcon.c:254 src/chmod.c:207 src/chown-core.c:300 src/copy.c:230
+#: src/du.c:485 src/ls.c:2691
 #, c-format
 msgid "cannot access %s"
 msgstr "%s nem érhető el"
@@ -1121,7 +1121,7 @@ msgid "-R -h requires -P"
 msgstr "a -R -h megköveteli a -P használatát"
 
 #: src/chcon.c:516 src/chgrp.c:275 src/chmod.c:502 src/chown.c:288
-#: src/comm.c:416 src/csplit.c:1374 src/join.c:1075 src/link.c:80
+#: src/comm.c:415 src/csplit.c:1371 src/join.c:1075 src/link.c:80
 #: src/mknod.c:149 src/setuidgid.c:139 src/tr.c:1715
 #, c-format
 msgid "missing operand after %s"
@@ -1138,8 +1138,8 @@ msgid "conflicting security context specifiers given"
 msgstr "ütköző biztonságikontextus-meghatározót adott meg"
 
 #: src/chcon.c:555 src/chgrp.c:283 src/chgrp.c:301 src/chmod.c:510
-#: src/chmod.c:529 src/chown.c:296 src/chown.c:325 src/cp.c:416 src/cp.c:476
-#: src/mv.c:101 src/pwd.c:262 src/rm.c:352 src/touch.c:159 src/touch.c:361
+#: src/chmod.c:529 src/chown.c:296 src/chown.c:325 src/cp.c:410 src/cp.c:470
+#: src/mv.c:95 src/pwd.c:274 src/rm.c:352 src/touch.c:159 src/touch.c:361
 #, c-format
 msgid "failed to get attributes of %s"
 msgstr "%s attribútumainak beolvasása sikertelen"
@@ -1563,16 +1563,16 @@ msgstr ""
 "Minden egyes FÁJL CRC ellenőrzőösszegének és bájtjai számának kiírása.\n"
 "\n"
 
-#: src/comm.c:101 src/join.c:167
+#: src/comm.c:102 src/join.c:167
 #, c-format
 msgid "Usage: %s [OPTION]... FILE1 FILE2\n"
 msgstr "Használat: %s [KAPCSOLÓ]... FÁJL1 FÁJL2\n"
 
-#: src/comm.c:105
+#: src/comm.c:106
 msgid "Compare sorted files FILE1 and FILE2 line by line.\n"
 msgstr "A rendezett FÁJL1 és FÁJL2 összehasonlítása sorról sorra.\n"
 
-#: src/comm.c:108
+#: src/comm.c:109
 msgid ""
 "\n"
 "With no options, produce three-column output.  Column one contains\n"
@@ -1585,7 +1585,7 @@ msgstr ""
 "sorokat,\n"
 "a harmadik oszlop pedig a mindkét fájlban közös sorokat.\n"
 
-#: src/comm.c:114
+#: src/comm.c:115
 msgid ""
 "\n"
 "  -1              suppress lines unique to FILE1\n"
@@ -1597,7 +1597,7 @@ msgstr ""
 "  -2              a FÁJL2-ben egyedi sorok elnyomása a kimenetben\n"
 "  -3              a mindkét fájlban szereplő sorok elnyomása a kimenetben\n"
 
-#: src/comm.c:120
+#: src/comm.c:121
 #, fuzzy
 msgid ""
 "\n"
@@ -1614,73 +1614,73 @@ msgstr ""
 "                      minden bemeneti sor párosítható is.\n"
 "  --nocheck-order   ne ellenőrizze a bemenet megfelelő rendezését\n"
 
-#: src/comm.c:126
+#: src/comm.c:127
 msgid "  --output-delimiter=STR  separate columns with STR\n"
 msgstr ""
 
-#: src/comm.c:211 src/join.c:366
+#: src/comm.c:210 src/join.c:366
 #, fuzzy, c-format
 msgid "file %d is not in sorted order"
 msgstr "A(z) %d. fájl nincs rendezve"
 
-#: src/comm.c:394
+#: src/comm.c:393
 #, fuzzy, c-format
 msgid "multiple delimiters specified"
 msgstr "több -i kapcsolót adott meg"
 
-#: src/comm.c:398
+#: src/comm.c:397
 #, c-format
 msgid "empty %s not allowed"
 msgstr ""
 
-#: src/copy.c:291
+#: src/copy.c:306
 #, c-format
 msgid "clearing permissions for %s"
 msgstr "%s jogosultságainak törlése"
 
-#: src/copy.c:325 src/copy.c:1993 src/cp.c:314
+#: src/copy.c:340 src/copy.c:2006 src/cp.c:308
 #, c-format
 msgid "failed to preserve ownership for %s"
 msgstr "%s tulajdonosának megtartása meghiúsult"
 
-#: src/copy.c:351
+#: src/copy.c:366
 #, c-format
 msgid "failed to lookup file %s"
 msgstr "%s fájl kikeresése meghiúsult"
 
-#: src/copy.c:356
+#: src/copy.c:371
 #, c-format
 msgid "failed to preserve authorship for %s"
 msgstr "%s szerzőjének megtartása meghiúsult"
 
-#: src/copy.c:414 src/csplit.c:633 src/du.c:933 src/fmt.c:427 src/head.c:849
-#: src/sort.c:3283 src/split.c:543 src/tac.c:544 src/tail.c:1294 src/wc.c:666
+#: src/copy.c:429 src/csplit.c:630 src/du.c:933 src/fmt.c:427 src/head.c:849
+#: src/sort.c:3421 src/split.c:543 src/tac.c:544 src/tail.c:1294 src/wc.c:666
 #, c-format
 msgid "cannot open %s for reading"
 msgstr "%s nem nyitható meg olvasásra"
 
-#: src/copy.c:420 src/copy.c:548 src/dd.c:1264 src/dd.c:1891 src/tail.c:1130
+#: src/copy.c:435 src/copy.c:563 src/dd.c:1268 src/dd.c:1895 src/tail.c:1130
 #: src/tail.c:1196 src/truncate.c:153 src/truncate.c:237
 #, c-format
 msgid "cannot fstat %s"
 msgstr "fstat %s sikertelen"
 
-#: src/copy.c:430
+#: src/copy.c:445
 #, c-format
 msgid "skipping file %s, as it was replaced while being copied"
 msgstr "%s fájl kihagyása, mivel kicserélték másolás közben"
 
-#: src/copy.c:454
+#: src/copy.c:469
 #, c-format
 msgid "failed to get file system create context"
 msgstr "a fájlrendszer létrehozási kontextusának lekérése meghiúsult"
 
-#: src/copy.c:468
+#: src/copy.c:483
 #, c-format
 msgid "failed to set the security context of %s to %s"
 msgstr "%s biztonsági kontextusának beállítása meghiúsult a következőre: %s"
 
-#: src/copy.c:485 src/copy.c:1284 src/copy.c:1438 src/copy.c:1586 src/ln.c:293
+#: src/copy.c:500 src/copy.c:1292 src/copy.c:1446 src/copy.c:1594 src/ln.c:293
 #: src/remove.c:935 src/remove.c:956 src/remove.c:1105 src/remove.c:1146
 #: src/remove.c:1165 src/remove.c:1181 src/remove.c:1188 src/remove.c:1539
 #: src/remove.c:1626 src/remove.c:1784
@@ -1688,162 +1688,162 @@ msgstr "%s biztonsági kontextusának beállítása meghiúsult a következőre:
 msgid "cannot remove %s"
 msgstr "%s nem törölhető"
 
-#: src/copy.c:490 src/copy.c:1279 src/copy.c:1443 src/copy.c:1590
+#: src/copy.c:505 src/copy.c:1287 src/copy.c:1451 src/copy.c:1598
 #: src/remove.c:1013
 #, c-format
 msgid "removed %s\n"
 msgstr "%s törölve\n"
 
-#: src/copy.c:527
+#: src/copy.c:542
 #, c-format
 msgid "not writing through dangling symlink %s"
 msgstr "nincs írás a(z) %s törött szimbolikus linken keresztül"
 
-#: src/copy.c:540
+#: src/copy.c:555
 #, c-format
 msgid "cannot create regular file %s"
 msgstr "%s reguláris fájl nem hozható létre"
 
-#: src/copy.c:632 src/dd.c:1325 src/dd.c:1650
+#: src/copy.c:638 src/dd.c:1329 src/dd.c:1654
 #, c-format
 msgid "reading %s"
 msgstr "%s olvasása"
 
-#: src/copy.c:678 src/head.c:428
+#: src/copy.c:684 src/head.c:428
 #, c-format
 msgid "cannot lseek %s"
 msgstr "lseek %s sikertelen"
 
-#: src/copy.c:691 src/copy.c:719 src/dd.c:1707 src/dd.c:1769
+#: src/copy.c:697 src/copy.c:725 src/dd.c:1711 src/dd.c:1773
 #, c-format
 msgid "writing %s"
 msgstr "%s írása"
 
-#: src/copy.c:734 src/copy.c:2047
+#: src/copy.c:740 src/copy.c:2060
 #, c-format
 msgid "preserving times for %s"
 msgstr "%s összes idejének megtartása"
 
-#: src/copy.c:791 src/copy.c:797 src/head.c:857 src/touch.c:191
+#: src/copy.c:797 src/copy.c:803 src/head.c:857 src/touch.c:191
 #: src/truncate.c:411
 #, c-format
 msgid "closing %s"
 msgstr "%s lezárása"
 
-#: src/copy.c:1031
+#: src/copy.c:1037
 #, c-format
 msgid "%s: try to overwrite %s, overriding mode %04lo (%s)? "
 msgstr ""
 "%s: megpróbálja felülírni a(z) %s fájlt, figyelmen kívül hagyva a(z) %04lo (%"
 "s) módot? "
 
-#: src/copy.c:1038
+#: src/copy.c:1044
 #, c-format
 msgid "%s: overwrite %s? "
 msgstr "%s: felülírod a(z) %s fájlt? "
 
-#: src/copy.c:1107
+#: src/copy.c:1113
 #, c-format
 msgid " (backup: %s)"
 msgstr " (biztonsági mentés: %s)"
 
-#: src/copy.c:1117
+#: src/copy.c:1123
 #, c-format
 msgid "failed to restore the default file creation context"
 msgstr "az alapértelmezett fájllétrehozási kontextus visszaállítása meghiúsult"
 
-#: src/copy.c:1171
+#: src/copy.c:1179
 #, c-format
 msgid "omitting directory %s"
 msgstr "%s könyvtár kihagyása"
 
-#: src/copy.c:1185
+#: src/copy.c:1193
 #, c-format
 msgid "warning: source file %s specified more than once"
 msgstr "figyelmeztetés: %s forrásfájl többször is meg van adva"
 
-#: src/copy.c:1233 src/ln.c:231
+#: src/copy.c:1241 src/ln.c:231
 #, c-format
 msgid "%s and %s are the same file"
 msgstr "%s és %s ugyanaz a fájl"
 
-#: src/copy.c:1313
+#: src/copy.c:1321
 #, c-format
 msgid "cannot overwrite non-directory %s with directory %s"
 msgstr "%s nem könyvtár; nem írható felül %s könyvtárral"
 
-#: src/copy.c:1331 src/ln.c:199
+#: src/copy.c:1339 src/ln.c:199
 #, c-format
 msgid "will not overwrite just-created %s with %s"
 msgstr "az éppen létrehozott %s-t nem fogom felülírni ezzel: %s"
 
-#: src/copy.c:1349
+#: src/copy.c:1357
 #, c-format
 msgid "cannot overwrite directory %s with non-directory"
 msgstr "%s könyvtárat nem írható felül nem könyvtárral"
 
-#: src/copy.c:1363
+#: src/copy.c:1371
 #, c-format
 msgid "cannot move directory onto non-directory: %s -> %s"
 msgstr "a könyvtárat nem lehet nem könyvtárba áthelyezni: %s -> %s"
 
-#: src/copy.c:1393
+#: src/copy.c:1401
 #, c-format
 msgid "backing up %s would destroy source;  %s not moved"
 msgstr ""
 "%s biztonsági mentése megsemmisítené a forrást; %s nem került áthelyezésre"
 
-#: src/copy.c:1394
+#: src/copy.c:1402
 #, c-format
 msgid "backing up %s would destroy source;  %s not copied"
 msgstr ""
 "%s biztonsági mentése megsemmisítené a forrást; %s nem került másolásra"
 
-#: src/copy.c:1413 src/ln.c:261
+#: src/copy.c:1421 src/ln.c:261
 #, c-format
 msgid "cannot backup %s"
 msgstr "%s biztonsági mentése sikertelen"
 
-#: src/copy.c:1477
+#: src/copy.c:1485
 #, c-format
 msgid "will not copy %s through just-created symlink %s"
 msgstr ""
 "a(z) %s nem kerül átmásolásra az imént létrehozott %s szimbolikus linken "
 "keresztül"
 
-#: src/copy.c:1554
+#: src/copy.c:1562
 #, c-format
 msgid "cannot copy a directory, %s, into itself, %s"
 msgstr "%s könyvtárat nem lehet saját magába (%s) másolni"
 
-#: src/copy.c:1571
+#: src/copy.c:1579
 #, c-format
 msgid "will not create hard link %s to directory %s"
 msgstr "%2$s könyvtárra mutató %1$s hard link nem lesz létrehozva"
 
-#: src/copy.c:1596
+#: src/copy.c:1604
 #, c-format
 msgid "cannot create hard link %s to %s"
 msgstr "%s hard link nem hozható létre a következőre: %s"
 
-#: src/copy.c:1641
+#: src/copy.c:1649
 #, c-format
 msgid "cannot move %s to a subdirectory of itself, %s"
 msgstr "%s-t nem lehet egy saját alkönyvtárába (%s) áthelyezni"
 
-#: src/copy.c:1684
+#: src/copy.c:1692
 #, c-format
 msgid "cannot move %s to %s"
 msgstr "%s-t nem lehet ide áthelyezni: %s"
 
-#: src/copy.c:1696
+#: src/copy.c:1704
 #, c-format
 msgid "inter-device move failed: %s to %s; unable to remove target"
 msgstr ""
 "eszközközi áthelyezés sikertelen:\n"
 "%s --> %s; cél törlése sikertelen"
 
-#: src/copy.c:1728 src/install.c:592 src/mkdir.c:190 src/mkfifo.c:115
+#: src/copy.c:1736 src/install.c:583 src/mkdir.c:190 src/mkfifo.c:115
 #: src/mknod.c:168
 #, c-format
 msgid "failed to set default file creation context to %s"
@@ -1851,64 +1851,64 @@ msgstr ""
 "az alapértelmezett fájllétrehozási kontextus beállítása meghiúsult a "
 "következőre: %s"
 
-#: src/copy.c:1769
+#: src/copy.c:1777
 #, c-format
 msgid "cannot copy cyclic symbolic link %s"
 msgstr "%s körkörös szimbolikus link nem másolható"
 
-#: src/copy.c:1870
+#: src/copy.c:1883
 #, c-format
 msgid "%s: can make relative symbolic links only in current directory"
 msgstr ""
 "%s: relatív szimbolikus linkeket csak az aktuális könyvtárban lehet "
 "létrehozni"
 
-#: src/copy.c:1877
+#: src/copy.c:1890
 #, c-format
 msgid "cannot create symbolic link %s to %s"
 msgstr "%s szimbolikus link nem hozható létre a következőre: %s"
 
-#: src/copy.c:1902
+#: src/copy.c:1915
 #, c-format
 msgid "cannot create link %s"
 msgstr "%s link nem hozható létre"
 
-#: src/copy.c:1927 src/mkfifo.c:134
+#: src/copy.c:1940 src/mkfifo.c:134
 #, c-format
 msgid "cannot create fifo %s"
 msgstr "%s fifo nem hozható létre"
 
-#: src/copy.c:1936
+#: src/copy.c:1949
 #, c-format
 msgid "cannot create special file %s"
 msgstr "%s speciális fájl nem hozható létre"
 
-#: src/copy.c:1946 src/ls.c:2908 src/stat.c:579
+#: src/copy.c:1959 src/ls.c:2909 src/stat.c:579
 #, c-format
 msgid "cannot read symbolic link %s"
 msgstr "%s szimbolikus link nem olvasható"
 
-#: src/copy.c:1973
+#: src/copy.c:1986
 #, c-format
 msgid "cannot create symbolic link %s"
 msgstr "%s szimbolikus link nem hozható létre"
 
-#: src/copy.c:2008
+#: src/copy.c:2021
 #, c-format
 msgid "%s has unknown file type"
 msgstr "%s fájltípusa ismeretlen"
 
-#: src/copy.c:2141 src/ln.c:334
+#: src/copy.c:2154 src/ln.c:334
 #, c-format
 msgid "cannot un-backup %s"
 msgstr "%s biztonsági mentése nem állítható vissza"
 
-#: src/copy.c:2145
+#: src/copy.c:2158
 #, c-format
 msgid "%s -> %s (unbackup)\n"
 msgstr "%s -> %s (biztonsági mentés visszaállítása)\n"
 
-#: src/cp.c:149 src/mv.c:285
+#: src/cp.c:143 src/mv.c:279
 #, c-format
 msgid ""
 "Usage: %s [OPTION]... [-T] SOURCE DEST\n"
@@ -1919,7 +1919,7 @@ msgstr ""
 "  vagy:    %s [KAPCSOLÓ]... FORRÁS... KÖNYVTÁR\n"
 "  vagy:    %s [KAPCSOLÓ]... -t KÖNYVTÁR FORRÁS...\n"
 
-#: src/cp.c:155
+#: src/cp.c:149
 msgid ""
 "Copy SOURCE to DEST, or multiple SOURCE(s) to DIRECTORY.\n"
 "\n"
@@ -1927,20 +1927,20 @@ msgstr ""
 "A FORRÁST a CÉLRA, vagy több FORRÁST a KÖNYVTÁRBA másol.\n"
 "\n"
 
-#: src/cp.c:159 src/csplit.c:1458 src/cut.c:197 src/df.c:795 src/du.c:276
-#: src/expand.c:116 src/fmt.c:275 src/fold.c:75 src/head.c:117
-#: src/install.c:963 src/kill.c:97 src/ln.c:367 src/ls.c:4415 src/mkdir.c:62
-#: src/mkfifo.c:57 src/mknod.c:59 src/mv.c:295 src/nl.c:184 src/paste.c:443
-#: src/pr.c:2776 src/ptx.c:1895 src/shred.c:164 src/shuf.c:57 src/sort.c:322
+#: src/cp.c:153 src/csplit.c:1455 src/cut.c:197 src/df.c:810 src/du.c:276
+#: src/expand.c:112 src/fmt.c:275 src/fold.c:75 src/head.c:117
+#: src/install.c:954 src/kill.c:97 src/ln.c:367 src/ls.c:4416 src/mkdir.c:62
+#: src/mkfifo.c:57 src/mknod.c:59 src/mv.c:289 src/nl.c:184 src/paste.c:443
+#: src/pr.c:2776 src/ptx.c:1892 src/shred.c:164 src/shuf.c:57 src/sort.c:322
 #: src/split.c:113 src/tac.c:142 src/tail.c:225 src/timeout.c:144
-#: src/touch.c:243 src/truncate.c:113 src/unexpand.c:126 src/uniq.c:142
+#: src/touch.c:243 src/truncate.c:113 src/unexpand.c:122 src/uniq.c:142
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too.\n"
 msgstr ""
 "Ha egy hosszú kapcsolóhoz kötelező argumentumot megadni, akkor ez a \n"
 "megfelelő rövid kapcsolónál is kötelező.\n"
 
-#: src/cp.c:162
+#: src/cp.c:156
 #, fuzzy
 msgid ""
 "  -a, --archive                same as -dR --preserve=all\n"
@@ -1961,7 +1961,7 @@ msgstr ""
 "                                 másolja\n"
 "  -d                           mint a --no-dereference --preserve=links\n"
 
-#: src/cp.c:169
+#: src/cp.c:163
 #, fuzzy
 msgid ""
 "  -f, --force                  if an existing destination file cannot be\n"
@@ -1979,7 +1979,7 @@ msgstr ""
 "  -H                           parancssori szimbolikus linkek követése a\n"
 "                                 FORRÁSBAN\n"
 
-#: src/cp.c:177
+#: src/cp.c:171
 msgid ""
 "  -l, --link                   link files instead of copying\n"
 "  -L, --dereference            always follow symbolic links in SOURCE\n"
@@ -1988,7 +1988,7 @@ msgstr ""
 "  -L, --dereference            a szimbolikus linkek követése mindig a "
 "FORRÁSBAN\n"
 
-#: src/cp.c:181
+#: src/cp.c:175
 #, fuzzy
 msgid ""
 "  -n, --no-clobber             do not overwrite an existing file (overrides\n"
@@ -2001,7 +2001,7 @@ msgstr ""
 "  -H                           parancssori szimbolikus linkek követése a\n"
 "                                 FORRÁSBAN\n"
 
-#: src/cp.c:186
+#: src/cp.c:180
 #, fuzzy
 msgid ""
 "  -p                           same as --preserve=mode,ownership,timestamps\n"
@@ -2017,7 +2017,7 @@ msgstr ""
 "                                 további attribútumokat is: context, links, "
 "all\n"
 
-#: src/cp.c:193
+#: src/cp.c:187
 msgid ""
 "      --no-preserve=ATTR_LIST  don't preserve the specified attributes\n"
 "      --parents                use full source file name under DIRECTORY\n"
@@ -2026,7 +2026,7 @@ msgstr ""
 "      --parents                teljes forrásfájlnév használata a KÖNYVTÁR "
 "alatt\n"
 
-#: src/cp.c:197
+#: src/cp.c:191
 msgid ""
 "  -R, -r, --recursive          copy directories recursively\n"
 "      --remove-destination     remove each existing destination file before\n"
@@ -2038,7 +2038,7 @@ msgstr ""
 "                                 megnyitni (ellentétben a --force "
 "kapcsolóval)\n"
 
-#: src/cp.c:202
+#: src/cp.c:196
 msgid ""
 "      --sparse=WHEN            control creation of sparse files\n"
 "      --strip-trailing-slashes  remove any trailing slashes from each "
@@ -2049,7 +2049,7 @@ msgstr ""
 "      --strip-trailing-slashes eltávolítja a befejező per jeleket minden\n"
 "                                 FORRÁS argumentumról\n"
 
-#: src/cp.c:207
+#: src/cp.c:201
 msgid ""
 "  -s, --symbolic-link          make symbolic links instead of copying\n"
 "  -S, --suffix=SUFFIX          override the usual backup suffix\n"
@@ -2065,7 +2065,7 @@ msgstr ""
 "                                      megadott KÖNYVTÁRBA\n"
 "  -T, --no-target-directory    a CÉL kezelése normál fájlként\n"
 
-#: src/cp.c:213
+#: src/cp.c:207
 msgid ""
 "  -u, --update                 copy only when the SOURCE file is newer\n"
 "                                 than the destination file or when the\n"
@@ -2079,7 +2079,7 @@ msgstr ""
 "  -v, --verbose                elmagyarázza, mi történik\n"
 "  -x, --one-file-system        az adott fájlrendszeren marad\n"
 
-#: src/cp.c:222
+#: src/cp.c:216
 #, fuzzy
 msgid ""
 "\n"
@@ -2099,7 +2099,7 @@ msgstr ""
 "A --sparse=never kapcsolóval letilthatod a ritka fájlok létrehozását.\n"
 "\n"
 
-#: src/cp.c:230 src/install.c:999 src/ln.c:393 src/mv.c:321
+#: src/cp.c:224 src/install.c:990 src/ln.c:393 src/mv.c:315
 msgid ""
 "\n"
 "The backup suffix is `~', unless set with --suffix or SIMPLE_BACKUP_SUFFIX.\n"
@@ -2118,7 +2118,7 @@ msgstr ""
 "Az érvényes értékek a következők:\n"
 "\n"
 
-#: src/cp.c:237 src/install.c:1006 src/ln.c:400 src/mv.c:328
+#: src/cp.c:231 src/install.c:997 src/ln.c:400 src/mv.c:322
 msgid ""
 "  none, off       never make backups (even if --backup is given)\n"
 "  numbered, t     make numbered backups\n"
@@ -2131,7 +2131,7 @@ msgstr ""
 "                  egyszerű\n"
 "  simple, never   mindig egyszerű biztonsági mentés\n"
 
-#: src/cp.c:243
+#: src/cp.c:237
 msgid ""
 "\n"
 "As a special case, cp makes a backup of SOURCE when the force and backup\n"
@@ -2144,73 +2144,73 @@ msgstr ""
 "és backup kapcsolók egyaránt meg vannak adva, továbbá a FORRÁS és a CÉL "
 "ugyanaz a szabályos fájl.\n"
 
-#: src/cp.c:302
+#: src/cp.c:296
 #, c-format
 msgid "failed to preserve times for %s"
 msgstr "%s időinek megtartása meghiúsult"
 
-#: src/cp.c:333
+#: src/cp.c:327
 #, c-format
 msgid "failed to preserve permissions for %s"
 msgstr "%s jogosultságainak megtartása sikertelen"
 
-#: src/cp.c:460
+#: src/cp.c:454
 #, c-format
 msgid "cannot make directory %s"
 msgstr "%s könyvtár nem hozható létre"
 
-#: src/cp.c:509 src/cp.c:528
+#: src/cp.c:503 src/cp.c:522
 #, c-format
 msgid "%s exists but is not a directory"
 msgstr "%s létezik, de nem könyvtár"
 
-#: src/cp.c:555 src/cp.c:1033 src/install.c:414 src/install.c:531 src/ln.c:130
-#: src/ln.c:158 src/ln.c:187 src/ln.c:474 src/mv.c:155 src/mv.c:396
+#: src/cp.c:549 src/cp.c:1028 src/install.c:405 src/install.c:522 src/ln.c:130
+#: src/ln.c:158 src/ln.c:187 src/ln.c:474 src/mv.c:149 src/mv.c:390
 #, c-format
 msgid "accessing %s"
 msgstr "%s elérése"
 
-#: src/cp.c:575 src/install.c:601 src/ln.c:504 src/mv.c:429 src/shred.c:1190
+#: src/cp.c:569 src/install.c:592 src/ln.c:504 src/mv.c:423 src/shred.c:1190
 #: src/touch.c:440 src/truncate.c:362
 #, c-format
 msgid "missing file operand"
 msgstr "hiányzó fájloperandus"
 
-#: src/cp.c:577 src/install.c:603 src/ln.c:518 src/mv.c:431
+#: src/cp.c:571 src/install.c:594 src/ln.c:518 src/mv.c:425
 #, c-format
 msgid "missing destination file operand after %s"
 msgstr "hiányzik a célfájl-operandus a következő után: %s"
 
-#: src/cp.c:586 src/install.c:612 src/mv.c:440
+#: src/cp.c:580 src/install.c:603 src/mv.c:434
 #, fuzzy, c-format
 msgid "cannot combine --target-directory (-t) and --no-target-directory (-T)"
 msgstr ""
 "A --target-directory (-t) és a --no-target-directory (-T)\n"
 "nem kombinálhatók"
 
-#: src/cp.c:600 src/cp.c:1035 src/install.c:416 src/install.c:533
-#: src/install.c:625 src/ln.c:132 src/ln.c:476 src/ln.c:532 src/mv.c:398
-#: src/mv.c:454
+#: src/cp.c:594 src/cp.c:1030 src/install.c:407 src/install.c:524
+#: src/install.c:616 src/ln.c:132 src/ln.c:476 src/ln.c:532 src/mv.c:392
+#: src/mv.c:448
 #, c-format
 msgid "target %s is not a directory"
 msgstr "a megadott cél (%s) nem könyvtár"
 
-#: src/cp.c:711
+#: src/cp.c:705
 #, c-format
 msgid "with --parents, the destination must be a directory"
 msgstr "a --parents használatakor a cél könyvtár kell legyen"
 
-#: src/cp.c:1028 src/install.c:526 src/ln.c:469 src/mv.c:391
+#: src/cp.c:1023 src/install.c:517 src/ln.c:469 src/mv.c:385
 #, c-format
 msgid "multiple target directories specified"
 msgstr "több kimeneti célkönyvtár van megadva"
 
-#: src/cp.c:1073
+#: src/cp.c:1068
 #, c-format
 msgid "cannot make both hard and symbolic links"
 msgstr "nem lehet egyszerre hard linket és szimbolikus linket létrehozni"
 
-#: src/cp.c:1080 src/mv.c:461
+#: src/cp.c:1075 src/mv.c:455
 #, fuzzy, c-format
 msgid "options --backup and --no-clobber are mutually exclusive"
 msgstr ""
@@ -2218,17 +2218,17 @@ msgstr ""
 "Megjegyzés: a -d és -t kapcsolókhoz megadandó dátum- és időformátumok\n"
 "különböznek.\n"
 
-#: src/cp.c:1088 src/install.c:586 src/ln.c:540 src/mv.c:469
+#: src/cp.c:1083 src/install.c:577 src/ln.c:540 src/mv.c:463
 msgid "backup type"
 msgstr "biztonsági mentés típusa"
 
-#: src/cp.c:1113
+#: src/cp.c:1108
 #, c-format
 msgid "cannot preserve security context without an SELinux-enabled kernel"
 msgstr ""
 "a biztonsági kontextus nem őrizhető meg SELinux-képes rendszermag nélkül"
 
-#: src/cp.c:1119
+#: src/cp.c:1114
 #, c-format
 msgid "cannot preserve extended attributes, cp is built without xattr support"
 msgstr ""
@@ -2238,132 +2238,132 @@ msgstr ""
 msgid "Stuart Kemp"
 msgstr ""
 
-#: src/csplit.c:525
+#: src/csplit.c:522
 #, c-format
 msgid "input disappeared"
 msgstr "a bemenet eltűnt"
 
-#: src/csplit.c:653 src/csplit.c:664
+#: src/csplit.c:650 src/csplit.c:661
 #, c-format
 msgid "%s: line number out of range"
 msgstr "%s: a sorszám kívül esik a tartományon"
 
-#: src/csplit.c:693
+#: src/csplit.c:690
 #, c-format
 msgid "%s: %s: line number out of range"
 msgstr "%s: %s: a sorszám kívül esik a tartományon"
 
-#: src/csplit.c:696 src/csplit.c:745
+#: src/csplit.c:693 src/csplit.c:742
 #, c-format
 msgid " on repetition %s\n"
 msgstr " a(z) %s ismétlésben\n"
 
-#: src/csplit.c:739
+#: src/csplit.c:736
 #, c-format
 msgid "%s: %s: match not found"
 msgstr "%s: %s: a találat nem található"
 
-#: src/csplit.c:803 src/csplit.c:843 src/nl.c:352 src/tac.c:274
+#: src/csplit.c:800 src/csplit.c:840 src/nl.c:352 src/tac.c:274
 #, c-format
 msgid "error in regular expression search"
 msgstr "hiba a szabályos kifejezés keresésében"
 
-#: src/csplit.c:968
+#: src/csplit.c:965
 #, c-format
 msgid "write error for %s"
 msgstr "írási hiba a következőhöz: %s"
 
-#: src/csplit.c:1044
+#: src/csplit.c:1041
 #, c-format
 msgid "%s: integer expected after delimiter"
 msgstr "%s a program egész értéket várt az elhatároló után"
 
-#: src/csplit.c:1060
+#: src/csplit.c:1057
 #, c-format
 msgid "%s: `}' is required in repeat count"
 msgstr "%s: egy „}” szükséges az ismétlésszámban"
 
-#: src/csplit.c:1070
+#: src/csplit.c:1067
 #, c-format
 msgid "%s}: integer required between `{' and `}'"
 msgstr "%s}: egy egész érték szükséges a „{” és „}” között"
 
-#: src/csplit.c:1097
+#: src/csplit.c:1094
 #, c-format
 msgid "%s: closing delimiter `%c' missing"
 msgstr "%s: a záró „%c” elhatároló hiányzik"
 
-#: src/csplit.c:1114
+#: src/csplit.c:1111
 #, c-format
 msgid "%s: invalid regular expression: %s"
 msgstr "%s: érvénytelen szabályos kifejezés: %s"
 
-#: src/csplit.c:1147
+#: src/csplit.c:1144
 #, c-format
 msgid "%s: invalid pattern"
 msgstr "%s: érvénytelen minta"
 
-#: src/csplit.c:1150
+#: src/csplit.c:1147
 #, c-format
 msgid "%s: line number must be greater than zero"
 msgstr "%s: a sorszámnak nagyobbnak kell lennie, mint 0"
 
-#: src/csplit.c:1156
+#: src/csplit.c:1153
 #, c-format
 msgid "line number %s is smaller than preceding line number, %s"
 msgstr "a(z) %s sorszám kisebb, mint a megelőző sorszám (%s)"
 
-#: src/csplit.c:1162
+#: src/csplit.c:1159
 #, c-format
 msgid "warning: line number %s is the same as preceding line number"
 msgstr "figyelmeztetés: a(z) %s sorszám azonos a megelőző sorszámmal"
 
-#: src/csplit.c:1215
+#: src/csplit.c:1212
 #, c-format
 msgid "invalid format width"
 msgstr "érvénytelen formátumú szélesség"
 
-#: src/csplit.c:1236
+#: src/csplit.c:1233
 #, c-format
 msgid "invalid format precision"
 msgstr "érvénytelen formátumú pontosság"
 
-#: src/csplit.c:1257
+#: src/csplit.c:1254
 #, c-format
 msgid "missing conversion specifier in suffix"
 msgstr "az utótagból hiányzik az átalakítás meghatározása"
 
-#: src/csplit.c:1263
+#: src/csplit.c:1260
 #, c-format
 msgid "invalid conversion specifier in suffix: %c"
 msgstr "az utótagból hiányzik az átalakítás meghatározása: %c"
 
-#: src/csplit.c:1266
+#: src/csplit.c:1263
 #, c-format
 msgid "invalid conversion specifier in suffix: \\%.3o"
 msgstr "az utótagból hiányzik az átalakítás meghatározása: \\%.3o"
 
-#: src/csplit.c:1289
+#: src/csplit.c:1286
 #, c-format
 msgid "too many %% conversion specifications in suffix"
 msgstr "túl sok %% átalakítási meghatározás van az utótagban"
 
-#: src/csplit.c:1304
+#: src/csplit.c:1301
 #, c-format
 msgid "missing %% conversion specification in suffix"
 msgstr "az utótagból hiányzik a %% átalakítási meghatározás"
 
-#: src/csplit.c:1348
+#: src/csplit.c:1345
 #, c-format
 msgid "%s: invalid number"
 msgstr "érvénytelen szám: %s"
 
-#: src/csplit.c:1449
+#: src/csplit.c:1446
 #, c-format
 msgid "Usage: %s [OPTION]... FILE PATTERN...\n"
 msgstr "Használat: %s [KAPCSOLÓ]... FÁJL MINTA...\n"
 
-#: src/csplit.c:1453
+#: src/csplit.c:1450
 msgid ""
 "Output pieces of FILE separated by PATTERN(s) to files `xx00', `xx01', ...,\n"
 "and output byte counts of each piece to standard output.\n"
@@ -2373,7 +2373,7 @@ msgstr ""
 "írja, valamint az egyes darabok bájtjai számát a szabványos kimenetre írja.\n"
 "\n"
 
-#: src/csplit.c:1461
+#: src/csplit.c:1458
 #, c-format
 msgid ""
 "  -b, --suffix-format=FORMAT  use sprintf FORMAT instead of %02d\n"
@@ -2385,7 +2385,7 @@ msgstr ""
 "  -f, --prefix=ELŐTAG        az ELŐTAG használata az „xx” helyett\n"
 "  -k, --keep-files           ne törölje  kimeneti fájlokat hiba esetén\n"
 
-#: src/csplit.c:1466
+#: src/csplit.c:1463
 msgid ""
 "  -n, --digits=DIGITS        use specified number of digits instead of 2\n"
 "  -s, --quiet, --silent      do not print counts of output file sizes\n"
@@ -2397,7 +2397,7 @@ msgstr ""
 "összegét\n"
 "  -z, --elide-empty-files    üres kimeneti fájlok eltávolítása\n"
 
-#: src/csplit.c:1473
+#: src/csplit.c:1470
 msgid ""
 "\n"
 "Read standard input if FILE is -.  Each PATTERN may be:\n"
@@ -2405,7 +2405,7 @@ msgstr ""
 "\n"
 "Ha a FÁJL a -, akkor a szabványos bemenetet olvassa. A MINTA lehet:\n"
 
-#: src/csplit.c:1477
+#: src/csplit.c:1474
 msgid ""
 "\n"
 "  INTEGER            copy up to but not including specified line number\n"
@@ -2821,9 +2821,9 @@ msgstr ""
 "alternatív ábrázolásának használatához, vagy O a területi beállítások\n"
 "alternatív numerikus szimbólumainak használatához, ha ezek elérhetők.\n"
 
-#: src/date.c:260 src/dd.c:1831 src/head.c:840 src/md5sum.c:444
-#: src/md5sum.c:746 src/od.c:864 src/od.c:1915 src/pr.c:1177 src/pr.c:1373
-#: src/pr.c:1495 src/stty.c:839 src/tac.c:535 src/tail.c:301 src/tail.c:1653
+#: src/date.c:260 src/dd.c:1835 src/head.c:840 src/md5sum.c:444
+#: src/md5sum.c:746 src/od.c:864 src/od.c:1915 src/pr.c:1175 src/pr.c:1371
+#: src/pr.c:1493 src/stty.c:839 src/tac.c:535 src/tail.c:301 src/tail.c:1653
 #: src/tee.c:126 src/tr.c:1893 src/tsort.c:523 src/wc.c:193
 #, c-format
 msgid "standard input"
@@ -2874,12 +2874,12 @@ msgid "time %s is out of range"
 msgstr "a(z)%s időpont kívül esik a tartományon"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/dd.c:44 src/factor.c:45 src/rm.c:63 src/tail.c:52 src/touch.c:41
+#: src/dd.c:44 src/factor.c:43 src/rm.c:63 src/tail.c:52 src/touch.c:41
 #: src/wc.c:49
 msgid "Paul Rubin"
 msgstr ""
 
-#: src/dd.c:458
+#: src/dd.c:462
 #, c-format
 msgid ""
 "Usage: %s [OPERAND]...\n"
@@ -2888,7 +2888,7 @@ msgstr ""
 "Használat: %s [OPERANDUS]...\n"
 "  vagy:    %s KAPCSOLÓ\n"
 
-#: src/dd.c:463
+#: src/dd.c:467
 #, fuzzy
 msgid ""
 "Copy a file, converting and formatting according to the operands.\n"
@@ -2908,7 +2908,7 @@ msgstr ""
 "  count=BLOKK     csak BLOKK bemeneti blokkot másol\n"
 "  ibs=BÁJT        egyszerre BÁJT bájtot olvas be\n"
 
-#: src/dd.c:472
+#: src/dd.c:476
 #, fuzzy
 msgid ""
 "  if=FILE         read from FILE instead of stdin\n"
@@ -2930,7 +2930,7 @@ msgstr ""
 "  skip=BLOKK      ennyi ibs-méretű blokkot hagy ki a bemenet elején\n"
 "  status=noxfer   átviteli statisztika elnyomása\n"
 
-#: src/dd.c:482
+#: src/dd.c:486
 #, fuzzy
 msgid ""
 "\n"
@@ -2949,7 +2949,7 @@ msgstr ""
 "KULCSSZÓ szimbólumok az alábbiak lehetnek:\n"
 "\n"
 
-#: src/dd.c:491
+#: src/dd.c:495
 msgid ""
 "  ascii     from EBCDIC to ASCII\n"
 "  ebcdic    from ASCII to EBCDIC\n"
@@ -2966,7 +2966,7 @@ msgstr ""
 "  unblock   a sorvégi szóközöket cbs méretű rekordokban soremelésre cseréli\n"
 "  lcase     nagybetűről kisbetűre cserél\n"
 
-#: src/dd.c:499
+#: src/dd.c:503
 msgid ""
 "  nocreat   do not create the output file\n"
 "  excl      fail if the output file already exists\n"
@@ -2980,7 +2980,7 @@ msgstr ""
 "  ucase     kisbetűről nagybetűre cserél\n"
 "  swab      minden bemeneti bájtpár sorrendjét megcseréli\n"
 
-#: src/dd.c:506
+#: src/dd.c:510
 msgid ""
 "  noerror   continue after read errors\n"
 "  sync      pad every input block with NULs to ibs-size; when used\n"
@@ -2995,7 +2995,7 @@ msgstr ""
 "  fdatasync a kimeneti fájladatok kiírása fizikailag a befejezés előtt\n"
 "  fsync     hasonló az előzőhöz, de a metaadatokat is kiírja\n"
 
-#: src/dd.c:513
+#: src/dd.c:517
 msgid ""
 "\n"
 "Each FLAG symbol may be:\n"
@@ -3009,62 +3009,62 @@ msgstr ""
 "  append    hozzáfűzési mód (csak kimenet esetén van értelme; javasolt a\n"
 "              conv=notrunc)\n"
 
-#: src/dd.c:520
+#: src/dd.c:524
 #, fuzzy
 msgid "  cio       use concurrent I/O for data\n"
 msgstr "  text      szöveges I/O használata az adatokhoz\n"
 
-#: src/dd.c:522
+#: src/dd.c:526
 msgid "  direct    use direct I/O for data\n"
 msgstr "  direct    közvetlen I/O használata az adatokhoz\n"
 
-#: src/dd.c:524
+#: src/dd.c:528
 #, fuzzy
 msgid "  directory  fail unless a directory\n"
 msgstr "  directory működés csak könyvtárakon\n"
 
-#: src/dd.c:526
+#: src/dd.c:530
 msgid "  dsync     use synchronized I/O for data\n"
 msgstr "  dsync     szinkronizált I/O használata az adatokhoz\n"
 
-#: src/dd.c:528
+#: src/dd.c:532
 msgid "  sync      likewise, but also for metadata\n"
 msgstr "  sync      hasonló az előzőhöz, de a metaadatok esetén is érvényes\n"
 
-#: src/dd.c:529
+#: src/dd.c:533
 msgid "  fullblock  accumulate full blocks of input (iflag only)\n"
 msgstr ""
 
-#: src/dd.c:532
+#: src/dd.c:536
 msgid "  nonblock  use non-blocking I/O\n"
 msgstr "  nonblock  nem blokkoló I/O használata\n"
 
-#: src/dd.c:534
+#: src/dd.c:538
 msgid "  noatime   do not update access time\n"
 msgstr "  noatime   ne frissítse a hozzáférési időt\n"
 
 # fixme
-#: src/dd.c:536
+#: src/dd.c:540
 msgid "  noctty    do not assign controlling terminal from file\n"
 msgstr "  noctty    ne rendelje hozzá a vezérlő terminált fájlból\n"
 
-#: src/dd.c:539
+#: src/dd.c:543
 msgid "  nofollow  do not follow symlinks\n"
 msgstr "  nofollow  ne kövesse a szimbolikus linkeket\n"
 
-#: src/dd.c:541
+#: src/dd.c:545
 msgid "  nolinks   fail if multiply-linked\n"
 msgstr "  nolinks   többszörös linkek esetén a működés visszautasítása\n"
 
-#: src/dd.c:543
+#: src/dd.c:547
 msgid "  binary    use binary I/O for data\n"
 msgstr "  binary    bináris I/O használata az adatokhoz\n"
 
-#: src/dd.c:545
+#: src/dd.c:549
 msgid "  text      use text I/O for data\n"
 msgstr "  text      szöveges I/O használata az adatokhoz\n"
 
-#: src/dd.c:549
+#: src/dd.c:553
 #, c-format
 msgid ""
 "\n"
@@ -3094,7 +3094,7 @@ msgstr ""
 "A kapcsolók:\n"
 "\n"
 
-#: src/dd.c:605
+#: src/dd.c:609
 #, c-format
 msgid ""
 "%<PRIuMAX>+%<PRIuMAX> records in\n"
@@ -3103,21 +3103,21 @@ msgstr ""
 "%<PRIuMAX>+%<PRIuMAX> beolvasott rekord\n"
 "%<PRIuMAX>+%<PRIuMAX> kiírt rekord\n"
 
-#: src/dd.c:611
+#: src/dd.c:615
 #, c-format
 msgid "%<PRIuMAX> truncated record\n"
 msgid_plural "%<PRIuMAX> truncated records\n"
 msgstr[0] "%<PRIuMAX> levágott rekord\n"
 msgstr[1] "%<PRIuMAX> levágott rekord\n"
 
-#: src/dd.c:623
+#: src/dd.c:627
 #, c-format
 msgid "%<PRIuMAX> byte (%s) copied"
 msgid_plural "%<PRIuMAX> bytes (%s) copied"
 msgstr[0] "%<PRIuMAX> bájt (%s) másolva"
 msgstr[1] "%<PRIuMAX> bájt (%s) másolva"
 
-#: src/dd.c:641
+#: src/dd.c:645
 msgid "Infinity B"
 msgstr "Végtelen B"
 
@@ -3131,73 +3131,73 @@ msgstr "Végtelen B"
 #. but that was incorrect for languages like Polish.  To fix this
 #. bug we now use SI symbols even though they're a bit more
 #. confusing in English.
-#: src/dd.c:654
+#: src/dd.c:658
 #, c-format
 msgid ", %g s, %s/s\n"
 msgstr ", %g mp, %s/mp\n"
 
-#: src/dd.c:662
+#: src/dd.c:666
 #, c-format
 msgid "closing input file %s"
 msgstr "%s bemeneti fájl lezárása"
 
-#: src/dd.c:669
+#: src/dd.c:673
 #, c-format
 msgid "closing output file %s"
 msgstr "%s kimeneti fájl lezárása"
 
-#: src/dd.c:870 src/dd.c:1620
+#: src/dd.c:874 src/dd.c:1624
 #, c-format
 msgid "writing to %s"
 msgstr "írás a következőbe: %s"
 
-#: src/dd.c:981 src/dd.c:1035
+#: src/dd.c:985 src/dd.c:1039
 #, c-format
 msgid "unrecognized operand %s"
 msgstr "ismeretlen operandus: %s"
 
-#: src/dd.c:992
+#: src/dd.c:996
 msgid "invalid conversion"
 msgstr "érvénytelen átalakítás"
 
-#: src/dd.c:995
+#: src/dd.c:999
 msgid "invalid input flag"
 msgstr "érvénytelen bemeneti jelölő"
 
-#: src/dd.c:998 src/dd.c:1065
+#: src/dd.c:1002 src/dd.c:1069
 msgid "invalid output flag"
 msgstr "érvénytelen kimeneti jelölő"
 
-#: src/dd.c:1001
+#: src/dd.c:1005
 msgid "invalid status flag"
 msgstr "érvénytelen állapotjelölő"
 
-#: src/dd.c:1040 src/truncate.c:325
+#: src/dd.c:1044 src/truncate.c:325
 #, c-format
 msgid "invalid number %s"
 msgstr "érvénytelen szám: %s"
 
-#: src/dd.c:1074
+#: src/dd.c:1078
 #, c-format
 msgid "cannot combine any two of {ascii,ebcdic,ibm}"
 msgstr "az {ascii,ebcdic,ibm} közül csak egy adható meg egyszerre"
 
-#: src/dd.c:1076
+#: src/dd.c:1080
 #, c-format
 msgid "cannot combine block and unblock"
 msgstr "a block és az unblock nem adható meg egyszerre"
 
-#: src/dd.c:1078
+#: src/dd.c:1082
 #, c-format
 msgid "cannot combine lcase and ucase"
 msgstr "az lcase és az ucase nem adható meg egyszerre"
 
-#: src/dd.c:1080
+#: src/dd.c:1084
 #, c-format
 msgid "cannot combine excl and nocreat"
 msgstr "az excl és a nocreat nem adható meg egyszerre"
 
-#: src/dd.c:1226
+#: src/dd.c:1230
 #, c-format
 msgid ""
 "warning: working around lseek kernel bug for file (%s)\n"
@@ -3207,57 +3207,57 @@ msgstr ""
 "%s (mt_type=0x%0lx)\n"
 "A <sys/mtio.h> fájlban megtalálod a típusok listáját"
 
-#: src/dd.c:1309
+#: src/dd.c:1313
 #, fuzzy, c-format
 msgid "%s: cannot skip"
 msgstr "%s: nem lehet pozicionálni"
 
-#: src/dd.c:1311 src/dd.c:1333 src/dd.c:1390
+#: src/dd.c:1315 src/dd.c:1337 src/dd.c:1394
 #, c-format
 msgid "%s: cannot seek"
 msgstr "%s: nem lehet pozicionálni"
 
-#: src/dd.c:1370
+#: src/dd.c:1374
 #, c-format
 msgid "offset overflow while reading file %s"
 msgstr "eltolástúlcsordulás a(z) %s fájl olvasása közben"
 
-#: src/dd.c:1382
+#: src/dd.c:1386
 #, c-format
 msgid "warning: invalid file offset after failed read"
 msgstr "figyelmeztetés: érvénytelen fájleltolás a meghiúsult olvasás után"
 
-#: src/dd.c:1386
+#: src/dd.c:1390
 #, c-format
 msgid "cannot work around kernel bug after all"
 msgstr "a kernelhiba nem kerülhető meg"
 
-#: src/dd.c:1529
+#: src/dd.c:1533
 #, c-format
 msgid "setting flags for %s"
 msgstr "%s jelölőinek beállítása"
 
-#: src/dd.c:1603
+#: src/dd.c:1607
 #, fuzzy, c-format
 msgid "%s: cannot skip to specified offset"
 msgstr "%s: nem lehet a(z) %s relatív eltolásra keresni"
 
-#: src/dd.c:1778
+#: src/dd.c:1782
 #, c-format
 msgid "fdatasync failed for %s"
 msgstr "az fdatasync meghiúsult a következőhöz: %s"
 
-#: src/dd.c:1788
+#: src/dd.c:1792
 #, c-format
 msgid "fsync failed for %s"
 msgstr "az fsync meghiúsult a következőhöz: %s"
 
-#: src/dd.c:1837 src/dd.c:1866
+#: src/dd.c:1841 src/dd.c:1870
 #, c-format
 msgid "opening %s"
 msgstr "%s megnyitása"
 
-#: src/dd.c:1876
+#: src/dd.c:1880
 #, c-format
 msgid ""
 "offset too large: cannot truncate to a length of seek=%<PRIuMAX> (%lu-byte) "
@@ -3266,7 +3266,7 @@ msgstr ""
 "Az eltolás túl nagy: nem lehet seek=%<PRIuMAX> (%lu bájt) blokk\n"
 "hosszára csonkítani"
 
-#: src/dd.c:1897
+#: src/dd.c:1901
 #, c-format
 msgid "truncating at %<PRIuMAX> bytes in output file %s"
 msgstr "csonkítás a(z) %<PRIuMAX>. bájtnál a következő kimeneti fájlban: %s"
@@ -3315,22 +3315,22 @@ msgstr "%4s-blokk   Foglalt    Szabad Fo.%%"
 msgid " Mounted on\n"
 msgstr " Csatl. pont\n"
 
-#: src/df.c:516
+#: src/df.c:531
 #, c-format
 msgid "cannot get current directory"
 msgstr "aktuális könyvtár beolvasása sikertelen"
 
-#: src/df.c:526 src/df.c:540 src/df.c:568
+#: src/df.c:541 src/df.c:555 src/df.c:583
 #, c-format
 msgid "cannot change to directory %s"
 msgstr "nem lehet a következő könyvtárba lépni: %s"
 
-#: src/df.c:546
+#: src/df.c:561
 #, c-format
 msgid "cannot stat current directory (now %s)"
 msgstr "nem lehet az aktuális könyvtárat elérni (most %s)"
 
-#: src/df.c:790
+#: src/df.c:805
 msgid ""
 "Show information about the file system on which each FILE resides,\n"
 "or all file systems by default.\n"
@@ -3340,7 +3340,7 @@ msgstr ""
 "találhatók, vagy alapértelmezésben minden fájlrendszerről.\n"
 "\n"
 
-#: src/df.c:798
+#: src/df.c:813
 #, fuzzy
 msgid ""
 "  -a, --all             include dummy file systems\n"
@@ -3357,7 +3357,7 @@ msgstr ""
 "  -H, --si               ugyanaz mint előbb, de 1000-es szorzó 1024-es "
 "helyett\n"
 
-#: src/df.c:805
+#: src/df.c:820
 msgid ""
 "  -i, --inodes          list inode information instead of block usage\n"
 "  -k                    like --block-size=1K\n"
@@ -3372,7 +3372,7 @@ msgstr ""
 "információk\n"
 "                           beolvasása előtt (alapértelmezett)\n"
 
-#: src/df.c:811
+#: src/df.c:826
 msgid ""
 "  -P, --portability     use the POSIX output format\n"
 "      --sync            invoke sync before getting usage info\n"
@@ -3390,7 +3390,7 @@ msgstr ""
 "ki\n"
 "  -v                     (figyelmen kívül marad)\n"
 
-#: src/df.c:821 src/du.c:333 src/ls.c:4546
+#: src/df.c:836 src/du.c:333 src/ls.c:4547
 msgid ""
 "\n"
 "SIZE may be (or may be an integer optionally followed by) one of following:\n"
@@ -3400,21 +3400,21 @@ msgstr ""
 "A MÉRET lehet (egy egész, amelyet választhatóan követ) a következők egyike:\n"
 "kB 1000, K 1024, MB 1,000,000, M 1,048,576 és ugyanígy G, T, P, E, Z, Y.\n"
 
-#: src/df.c:961
+#: src/df.c:976
 #, c-format
 msgid "file system type %s both selected and excluded"
 msgstr ""
 "%s típusú fájlrendszer ki is van jelölve, de figyelmen kívül is van hagyva"
 
-#: src/df.c:1002
+#: src/df.c:1017
 msgid "Warning: "
 msgstr "Figyelmeztetés: "
 
-#: src/df.c:1004
+#: src/df.c:1019
 msgid "cannot read table of mounted file systems"
 msgstr "a csatolt fájlrendszerek táblája nem olvasható"
 
-#: src/df.c:1032
+#: src/df.c:1047
 #, c-format
 msgid "no file systems processed"
 msgstr "nem került feldolgozásra fájlrendszer"
@@ -3700,7 +3700,7 @@ msgid "warning: summarizing conflicts with --max-depth=%lu"
 msgstr ""
 "figyelmeztetés: az összesítés kérése ütközik a --max-depth=%lu kapcsolóval"
 
-#: src/du.c:928 src/sort.c:3273 src/wc.c:656
+#: src/du.c:928 src/sort.c:3411 src/wc.c:656
 #, fuzzy
 msgid "file operands cannot be combined with --files0-from"
 msgstr "A fájloperandusok nem használhatók együtt a --files0-from kapcsolóval."
@@ -3711,7 +3711,7 @@ msgstr "A fájloperandusok nem használhatók együtt a --files0-from kapcsolóv
 msgid "%s: read error"
 msgstr "%s: olvasási hiba"
 
-#: src/du.c:980 src/sort.c:3302 src/wc.c:731
+#: src/du.c:980 src/sort.c:3440 src/wc.c:731
 #, c-format
 msgid "when reading file names from stdin, no file name of %s allowed"
 msgstr ""
@@ -3730,7 +3730,7 @@ msgstr "érvénytelen nulla hosszúságú fájlnév"
 msgid "error reading %s"
 msgstr "hiba %s olvasása közben"
 
-#: src/du.c:1025 src/ls.c:2483 src/wc.c:774
+#: src/du.c:1025 src/ls.c:2484 src/wc.c:774
 msgid "total"
 msgstr "összesen"
 
@@ -3850,7 +3850,7 @@ msgstr ""
 "akkor\n"
 "kiírja az eredményül kapott környezetet.\n"
 
-#: src/expand.c:111
+#: src/expand.c:107
 msgid ""
 "Convert tabs in each FILE to spaces, writing to standard output.\n"
 "With no FILE, or when FILE is -, read standard input.\n"
@@ -3860,7 +3860,7 @@ msgstr ""
 "kimenetre. Ha a FÁJL nincs megadva, vagy -, akkor a szabványos bemenetet\n"
 "olvassa.\n"
 
-#: src/expand.c:119
+#: src/expand.c:115
 msgid ""
 "  -i, --initial       do not convert tabs after non blanks\n"
 "  -t, --tabs=NUMBER   have tabs NUMBER characters apart, not 8\n"
@@ -3868,34 +3868,34 @@ msgstr ""
 "  -i, --initial       ne alakítsa át a tabokat nem üreshely karakterek után\n"
 "  -t, --tabs=SZÁM     a tabok SZÁM karakter szélesek legyenek, ne pedig 8\n"
 
-#: src/expand.c:123
+#: src/expand.c:119
 msgid ""
 "  -t, --tabs=LIST     use comma separated list of explicit tab positions\n"
 msgstr ""
 "  -t, --tabs=LISTA    az explicit tab pozíciók vesszőkkel elválasztott\n"
 "                        listájának használata\n"
 
-#: src/expand.c:176 src/unexpand.c:195
+#: src/expand.c:172 src/unexpand.c:191
 #, c-format
 msgid "tab stop is too large %s"
 msgstr "a tab méret túl nagy: %s"
 
-#: src/expand.c:184 src/unexpand.c:203
+#: src/expand.c:180 src/unexpand.c:199
 #, c-format
 msgid "tab size contains invalid character(s): %s"
 msgstr "a tabméret érvénytelen karaktereket tartalmaz: %s"
 
-#: src/expand.c:210 src/unexpand.c:229
+#: src/expand.c:206 src/unexpand.c:225
 #, c-format
 msgid "tab size cannot be 0"
 msgstr "a tabméret nem lehet 0"
 
-#: src/expand.c:212 src/unexpand.c:231
+#: src/expand.c:208 src/unexpand.c:227
 #, c-format
 msgid "tab sizes must be ascending"
 msgstr "a tabméreteknek növekedniük kell"
 
-#: src/expand.c:329 src/expand.c:348 src/unexpand.c:377 src/unexpand.c:424
+#: src/expand.c:325 src/expand.c:344 src/unexpand.c:373 src/unexpand.c:420
 #, c-format
 msgid "input line is too long"
 msgstr "a bemeneti sor túl hosszú"
@@ -4051,7 +4051,7 @@ msgstr ""
 msgid "syntax error"
 msgstr "szintaktikai hiba"
 
-#: src/expr.c:596 src/ptx.c:288
+#: src/expr.c:596 src/ptx.c:285
 #, c-format
 msgid "error in regular expression matcher"
 msgstr "hiba a szabályos kifejezés illesztésében"
@@ -4071,25 +4071,25 @@ msgstr "osztás nullával"
 msgid "the strings compared were %s and %s"
 msgstr "Az összehasonlított karakterláncok: %s és %s."
 
-#: src/factor.c:449
+#: src/factor.c:447
 msgid "using arbitrary-precision arithmetic"
 msgstr ""
 
-#: src/factor.c:460
+#: src/factor.c:458
 msgid "using single-precision arithmetic"
 msgstr ""
 
-#: src/factor.c:465 src/od.c:1641 src/od.c:1710
+#: src/factor.c:463 src/od.c:1641 src/od.c:1710
 #, c-format
 msgid "%s is too large"
 msgstr "a(z) %s túl nagy"
 
-#: src/factor.c:469
+#: src/factor.c:467
 #, c-format
 msgid "%s is not a valid positive integer"
 msgstr "%s nem egy érvényes pozitív egész"
 
-#: src/factor.c:495
+#: src/factor.c:493
 #, c-format
 msgid ""
 "Usage: %s [NUMBER]...\n"
@@ -4098,7 +4098,7 @@ msgstr ""
 "Használat: %s [SZÁM]...\n"
 "  vagy:    %s KAPCSOLÓ\n"
 
-#: src/factor.c:500
+#: src/factor.c:498
 #, fuzzy
 msgid ""
 "Print the prime factors of each specified integer NUMBER.  If none\n"
@@ -4194,7 +4194,7 @@ msgstr ""
 "  -s, --spaces        tördelés szóközöknél\n"
 "  -w, --width=SZÉLESSÉG SZÉLESSÉG darab oszlop használata 80 helyett\n"
 
-#: src/fold.c:287 src/pr.c:837
+#: src/fold.c:287 src/pr.c:835
 #, c-format
 msgid "invalid number of columns: %s"
 msgstr "érvénytelen oszlopszám: %s"
@@ -4505,12 +4505,12 @@ msgstr " csoportok="
 msgid " context=%s"
 msgstr "érvénytelen kontextus: %s"
 
-#: src/install.c:385
+#: src/install.c:376
 #, c-format
 msgid "warning: %s: failed to change context to %s"
 msgstr "figyelmeztetés: %s: nem módosítható a kontextus a következőre: %s"
 
-#: src/install.c:545
+#: src/install.c:536
 #, fuzzy, c-format
 msgid ""
 "WARNING: ignoring --preserve-context; this kernel is not SELinux-enabled"
@@ -4518,40 +4518,40 @@ msgstr ""
 "Figyelmeztetés: a --preserve-context figyelmen kívül marad; ez a rendszermag "
 "nem SELinux-képes."
 
-#: src/install.c:555
+#: src/install.c:546
 #, fuzzy, c-format
 msgid "WARNING: ignoring --context (-Z); this kernel is not SELinux-enabled"
 msgstr ""
 "Figyelmeztetés: a --context (-Z) figyelmen kívül marad; ez a rendszermag nem "
 "SELinux-képes."
 
-#: src/install.c:572
+#: src/install.c:563
 #, c-format
 msgid "the strip option may not be used when installing a directory"
 msgstr "könyvtár telepítésénél nem használható a „strip” kapcsoló"
 
-#: src/install.c:575
+#: src/install.c:566
 #, c-format
 msgid "target directory not allowed when installing a directory"
 msgstr "könyvtár telepítésénél nem engedélyezett a célkönyvtár"
 
-#: src/install.c:579
+#: src/install.c:570
 #, c-format
 msgid "cannot force target context to %s and preserve it"
 msgstr ""
 "a cél kontextusa nem kényszeríthető a következőre: %s és nem és őrizhető meg"
 
-#: src/install.c:633 src/mkdir.c:203
+#: src/install.c:624 src/mkdir.c:203
 #, c-format
 msgid "invalid mode %s"
 msgstr "érvénytelen mód: %s"
 
-#: src/install.c:640
+#: src/install.c:631
 #, c-format
 msgid "WARNING: ignoring --strip-program option as -s option was not specified"
 msgstr ""
 
-#: src/install.c:645
+#: src/install.c:636
 #, fuzzy, c-format
 msgid "options --compare (-C) and --preserve-timestamps are mutually exclusive"
 msgstr ""
@@ -4559,7 +4559,7 @@ msgstr ""
 "Megjegyzés: a -d és -t kapcsolókhoz megadandó dátum- és időformátumok\n"
 "különböznek.\n"
 
-#: src/install.c:652
+#: src/install.c:643
 #, fuzzy, c-format
 msgid "options --compare (-C) and --strip are mutually exclusive"
 msgstr ""
@@ -4567,59 +4567,59 @@ msgstr ""
 "Megjegyzés: a -d és -t kapcsolókhoz megadandó dátum- és időformátumok\n"
 "különböznek.\n"
 
-#: src/install.c:658
+#: src/install.c:649
 #, c-format
 msgid ""
 "the --compare (-C) option is ignored when you specify a mode with non-"
 "permission bits"
 msgstr ""
 
-#: src/install.c:810
+#: src/install.c:801
 #, c-format
 msgid "cannot change ownership of %s"
 msgstr "%s tulajdonosa nem változtatható meg"
 
-#: src/install.c:834
+#: src/install.c:825
 #, c-format
 msgid "cannot set time stamps for %s"
 msgstr "%s időbélyegei nem állíthatók be"
 
-#: src/install.c:855 src/timeout.c:289
+#: src/install.c:846 src/timeout.c:289
 #, c-format
 msgid "fork system call failed"
 msgstr "a fork() rendszerhívás sikertelen"
 
-#: src/install.c:859
+#: src/install.c:850
 #, fuzzy, c-format
 msgid "cannot run %s"
 msgstr "a strip futtatása sikertelen"
 
-#: src/install.c:863
+#: src/install.c:854
 #, c-format
 msgid "waiting for strip"
 msgstr "várakozás a strip programra"
 
-#: src/install.c:865
+#: src/install.c:856
 #, c-format
 msgid "strip process terminated abnormally"
 msgstr "A strip folyamat hibával fejeződött be"
 
-#: src/install.c:886
+#: src/install.c:877
 #, c-format
 msgid "invalid user %s"
 msgstr "érvénytelen felhasználó: %s"
 
-#: src/install.c:904 src/setuidgid.c:110 src/setuidgid.c:120
+#: src/install.c:895 src/setuidgid.c:110 src/setuidgid.c:120
 #, c-format
 msgid "invalid group %s"
 msgstr "érvénytelen csoport: %s"
 
-#: src/install.c:921
+#: src/install.c:912
 #, c-format
 msgid "creating directory %s"
 msgstr "%s könyvtár létrehozása"
 
-#: src/install.c:944
+#: src/install.c:935
 #, c-format
 msgid ""
 "Usage: %s [OPTION]... [-T] SOURCE DEST\n"
@@ -4632,7 +4632,7 @@ msgstr ""
 "  vagy:    %s [KAPCSOLÓ]... -t KÖNYVTÁR FORRÁS...\n"
 "  vagy:    %s [KAPCSOLÓ]... -d KÖNYVTÁR...\n"
 
-#: src/install.c:951
+#: src/install.c:942
 #, fuzzy
 msgid ""
 "\n"
@@ -4653,7 +4653,7 @@ msgstr ""
 "A negyedik alaknál létrehozza az adott KÖNYVTÁRAK minden elemét.\n"
 "\n"
 
-#: src/install.c:966
+#: src/install.c:957
 #, fuzzy
 msgid ""
 "      --backup[=CONTROL]  make a backup of each existing destination file\n"
@@ -4671,7 +4671,7 @@ msgstr ""
 "  -d, --directory     minden argumentum könyvtárnév; a megadott könyvtárak\n"
 "                        minden elemét létrehozza\n"
 
-#: src/install.c:975
+#: src/install.c:966
 msgid ""
 "  -D                  create all leading components of DEST except the "
 "last,\n"
@@ -4689,7 +4689,7 @@ msgstr ""
 "                        rwxr-xr-x helyett\n"
 "  -o, --owner=TULAJDONOS tulajdonos beállítása (csak root)\n"
 
-#: src/install.c:982
+#: src/install.c:973
 #, fuzzy
 msgid ""
 "  -p, --preserve-timestamps   apply access/modification times of SOURCE "
@@ -4714,7 +4714,7 @@ msgstr ""
 "  -T, --no-target-directory  a CÉL kezelése normál fájlként\n"
 "  -v, --verbose       minden létrehozott könyvtár nevét kiírja\n"
 
-#: src/install.c:992
+#: src/install.c:983
 msgid ""
 "      --preserve-context  preserve SELinux security context\n"
 "  -Z, --context=CONTEXT  set SELinux security context of files and "
@@ -4843,17 +4843,17 @@ msgstr "inkompatibilis összekapcsolási mezők: %lu, %lu"
 msgid "conflicting empty-field replacement strings"
 msgstr "ütköző üres-mező helyettesítési karakterlánc"
 
-#: src/join.c:1025 src/sort.c:3201
+#: src/join.c:1025 src/sort.c:3339
 #, c-format
 msgid "empty tab"
 msgstr "üres tab"
 
-#: src/join.c:1031 src/sort.c:3212
+#: src/join.c:1031 src/sort.c:3350
 #, c-format
 msgid "multi-character tab %s"
 msgstr "többkarakteres tab: %s"
 
-#: src/join.c:1035 src/sort.c:3217
+#: src/join.c:1035 src/sort.c:3355
 #, c-format
 msgid "incompatible tabs"
 msgstr "nem kompatibilis tabok"
@@ -5109,7 +5109,7 @@ msgstr ""
 msgid "FIXME: unknown"
 msgstr ""
 
-#: src/logname.c:40 src/pwd.c:49 src/sync.c:41
+#: src/logname.c:40 src/sync.c:41
 #, c-format
 msgid "Usage: %s [OPTION]\n"
 msgstr "Használat: %s [KAPCSOLÓ]\n"
@@ -5135,83 +5135,83 @@ msgstr "%Y %b %e"
 msgid "%b %e %H:%M"
 msgstr "%b %e %H.%M"
 
-#: src/ls.c:1470
+#: src/ls.c:1471
 #, c-format
 msgid "ignoring invalid value of environment variable QUOTING_STYLE: %s"
 msgstr ""
 "a QUOTING_STYLE környezeti változóban megadott érvénytelen érték\n"
 "figyelmen kívül hagyása: %s"
 
-#: src/ls.c:1497
+#: src/ls.c:1498
 #, c-format
 msgid "ignoring invalid width in environment variable COLUMNS: %s"
 msgstr ""
 "a COLUMNS környezeti változóban megadott érvénytelen szélesség\n"
 "figyelmen kívül hagyása: %s"
 
-#: src/ls.c:1527
+#: src/ls.c:1528
 #, c-format
 msgid "ignoring invalid tab size in environment variable TABSIZE: %s"
 msgstr ""
 "a TABSIZE környezeti változóban megadott érvénytelen tabulátorméret\n"
 "figyelmen kívül hagyása: %s"
 
-#: src/ls.c:1648 src/ptx.c:2046
+#: src/ls.c:1649 src/ptx.c:2043
 #, c-format
 msgid "invalid line width: %s"
 msgstr "érvénytelen sorhossz: %s"
 
-#: src/ls.c:1722
+#: src/ls.c:1723
 #, c-format
 msgid "invalid tab size: %s"
 msgstr "érvénytelen tabulátorméret: %s"
 
-#: src/ls.c:1912
+#: src/ls.c:1913
 #, c-format
 msgid "invalid time style format %s"
 msgstr "érvénytelen időformátum stílus: %s"
 
-#: src/ls.c:2256
+#: src/ls.c:2257
 #, c-format
 msgid "unrecognized prefix: %s"
 msgstr "ismeretlen előtag: %s"
 
-#: src/ls.c:2279
+#: src/ls.c:2280
 #, c-format
 msgid "unparsable value for LS_COLORS environment variable"
 msgstr "az LS_COLORS környezeti változó értéke nem értelmezhető"
 
-#: src/ls.c:2356 src/pwd.c:150
+#: src/ls.c:2357 src/pwd.c:162
 #, c-format
 msgid "cannot open directory %s"
 msgstr "nem lehet a következő könyvtárat megnyitni: %s"
 
-#: src/ls.c:2371
+#: src/ls.c:2372
 #, c-format
 msgid "cannot determine device and inode of %s"
 msgstr "%s eszközét és inode-ját nem lehet megállapítani"
 
-#: src/ls.c:2380
+#: src/ls.c:2381
 #, c-format
 msgid "%s: not listing already-listed directory"
 msgstr "%s: a már listázott könyvtár nem kerül listázásra"
 
-#: src/ls.c:2441 src/pwd.c:218
+#: src/ls.c:2442 src/pwd.c:230
 #, c-format
 msgid "reading directory %s"
 msgstr "%s könyvtár olvasása"
 
-#: src/ls.c:2451
+#: src/ls.c:2452
 #, c-format
 msgid "closing directory %s"
 msgstr "%s könyvtár bezárása"
 
-#: src/ls.c:3023
+#: src/ls.c:3024
 #, c-format
 msgid "cannot compare file names %s and %s"
 msgstr "%s és %s fájlnevek nem hasonlíthatók össze"
 
-#: src/ls.c:4410
+#: src/ls.c:4411
 msgid ""
 "List information about the FILEs (the current directory by default).\n"
 "Sort entries alphabetically if none of -cftuvSUX nor --sort.\n"
@@ -5222,7 +5222,7 @@ msgstr ""
 "vagy a --sort kapcsolók valamelyike.\n"
 "\n"
 
-#: src/ls.c:4418
+#: src/ls.c:4419
 msgid ""
 "  -a, --all                  do not ignore entries starting with .\n"
 "  -A, --almost-all           do not list implied . and ..\n"
@@ -5235,7 +5235,7 @@ msgstr ""
 "  -b, --escape               oktális escape karaktereket jelenít meg\n"
 "                               a nem-grafikus karakterek helyett\n"
 
-#: src/ls.c:4424
+#: src/ls.c:4425
 msgid ""
 "      --block-size=SIZE      use SIZE-byte blocks\n"
 "  -B, --ignore-backups       do not list implied entries ending with ~\n"
@@ -5255,7 +5255,7 @@ msgstr ""
 "rendez\n"
 "                               egyébként: ctime szerint rendez\n"
 
-#: src/ls.c:4432
+#: src/ls.c:4433
 msgid ""
 "  -C                         list entries by columns\n"
 "      --color[=WHEN]         control whether color is used to distinguish "
@@ -5274,7 +5274,7 @@ msgstr ""
 "                               és ne kövesse a szimbolikus linkeket\n"
 "  -D, --dired                az Emacs dired módja által használt kimenet\n"
 
-#: src/ls.c:4440
+#: src/ls.c:4441
 msgid ""
 "  -f                         do not sort, enable -aU, disable -ls --color\n"
 "  -F, --classify             append indicator (one of */=>@|) to entries\n"
@@ -5296,11 +5296,11 @@ msgstr ""
 "                               vertical: -C\n"
 "      --full-time            mint a -l --time-style=full-iso\n"
 
-#: src/ls.c:4448
+#: src/ls.c:4449
 msgid "  -g                         like -l, but do not list owner\n"
 msgstr "  -g                         mint a -l, de tulajdonos kiírása nélkül\n"
 
-#: src/ls.c:4451
+#: src/ls.c:4452
 msgid ""
 "      --group-directories-first\n"
 "                             group directories before files.\n"
@@ -5313,7 +5313,7 @@ msgstr ""
 "sort=none (-U)\n"
 "                               használata letiltja a csoportosítást\n"
 
-#: src/ls.c:4457
+#: src/ls.c:4458
 msgid ""
 "  -G, --no-group             in a long listing, don't print group names\n"
 "  -h, --human-readable       with -l, print sizes in human readable format\n"
@@ -5326,7 +5326,7 @@ msgstr ""
 "  -H, --si               ugyanaz mint előbb, de 1000-es szorzó 1024-es "
 "helyett\n"
 
-#: src/ls.c:4463
+#: src/ls.c:4464
 msgid ""
 "  -H, --dereference-command-line\n"
 "                             follow symbolic links listed on the command "
@@ -5348,7 +5348,7 @@ msgstr ""
 "illeszkedő\n"
 "                               bejegyzéseket (a -a vagy -A felülbírálja)\n"
 
-#: src/ls.c:4472
+#: src/ls.c:4473
 msgid ""
 "      --indicator-style=WORD  append indicator with style WORD to entry "
 "names:\n"
@@ -5368,7 +5368,7 @@ msgstr ""
 "                               bejegyzéseket\n"
 "  -k                         mint a --block-size=1K\n"
 
-#: src/ls.c:4480
+#: src/ls.c:4481
 msgid ""
 "  -l                         use a long listing format\n"
 "  -L, --dereference          when showing file information for a symbolic\n"
@@ -5385,7 +5385,7 @@ msgstr ""
 "  -m                         a szélességet a bejegyzések vesszővel\n"
 "                               elválasztott listájával tölti ki\n"
 
-#: src/ls.c:4487
+#: src/ls.c:4488
 msgid ""
 "  -n, --numeric-uid-gid      like -l, but list numeric user and group IDs\n"
 "  -N, --literal              print raw entry names (don't treat e.g. "
@@ -5405,7 +5405,7 @@ msgstr ""
 "  -p, --indicator-style=slash\n"
 "                             egy / jelet fűz a könyvtárakhoz\n"
 
-#: src/ls.c:4495
+#: src/ls.c:4496
 msgid ""
 "  -q, --hide-control-chars   print ? instead of non graphic characters\n"
 "      --show-control-chars   show non graphic characters as-is (default\n"
@@ -5426,7 +5426,7 @@ msgstr ""
 "                               literal, locale, shell, shell-always, c, "
 "escape\n"
 
-#: src/ls.c:4503
+#: src/ls.c:4504
 #, fuzzy
 msgid ""
 "  -r, --reverse              reverse order while sorting\n"
@@ -5438,7 +5438,7 @@ msgstr ""
 "  -R, --recursive            alkönyvtárak rekurzív listázása\n"
 "  -s, --size                 kiírja az egyes fájlok méretét blokkban\n"
 
-#: src/ls.c:4508
+#: src/ls.c:4509
 msgid ""
 "  -S                         sort by file size\n"
 "      --sort=WORD            sort by WORD instead of name: none -U,\n"
@@ -5463,7 +5463,7 @@ msgstr ""
 "                               status: -c; a megadott idő alapján rendez,\n"
 "                               ha a --sort=time kapcsoló meg van adva\n"
 
-#: src/ls.c:4517
+#: src/ls.c:4518
 msgid ""
 "      --time-style=STYLE     with -l, show times using style STYLE:\n"
 "                             full-iso, long-iso, iso, locale, +FORMAT.\n"
@@ -5488,7 +5488,7 @@ msgstr ""
 "                               csak a POSIX területi beállításokon kívül\n"
 "                               lép életbe.\n"
 
-#: src/ls.c:4526
+#: src/ls.c:4527
 msgid ""
 "  -t                         sort by modification time\n"
 "  -T, --tabsize=COLS         assume tab stops at each COLS instead of 8\n"
@@ -5496,7 +5496,7 @@ msgstr ""
 "  -t                         módosítás dátuma alapján rendez\n"
 "  -T, --tabsize=OSZL         tabulátor minden OSZL-nál, 8 helyett\n"
 
-#: src/ls.c:4530
+#: src/ls.c:4531
 msgid ""
 "  -u                         with -lt: sort by, and show, access time\n"
 "                               with -l: show access time and sort by name\n"
@@ -5515,7 +5515,7 @@ msgstr ""
 "                               listázza\n"
 "  -v                         verzió alapján rendez\n"
 
-#: src/ls.c:4537
+#: src/ls.c:4538
 msgid ""
 "  -w, --width=COLS           assume screen width instead of current value\n"
 "  -x                         list entries by lines instead of by columns\n"
@@ -5532,7 +5532,7 @@ msgstr ""
 "                               kontextusának kiírása\n"
 "  -1                         soronként egy fájlnevet ír ki\n"
 
-#: src/ls.c:4550
+#: src/ls.c:4551
 msgid ""
 "\n"
 "By default, color is not used to distinguish types of files.  That is\n"
@@ -5552,7 +5552,7 @@ msgstr ""
 "változó befolyásolhatja a színeket és könnyen beállítható a dircolors "
 "paranccsal.\n"
 
-#: src/ls.c:4559
+#: src/ls.c:4560
 msgid ""
 "\n"
 "Exit status:\n"
@@ -5982,7 +5982,7 @@ msgstr "a könyvtár létrehozása meghiúsult a következő sablon használatá
 msgid "failed to create file via template %s"
 msgstr "a fájl létrehozása meghiúsult a következő sablon használatával: %s"
 
-#: src/mv.c:291
+#: src/mv.c:285
 msgid ""
 "Rename SOURCE to DEST, or move SOURCE(s) to DIRECTORY.\n"
 "\n"
@@ -5990,7 +5990,7 @@ msgstr ""
 "A FORRÁST átnevezi a CÉLRA vagy több FORRÁST egy CÉLKÖNYVTÁRBA helyez át.\n"
 "\n"
 
-#: src/mv.c:298
+#: src/mv.c:292
 #, fuzzy
 msgid ""
 "      --backup[=CONTROL]       make a backup of each existing destination "
@@ -6010,7 +6010,7 @@ msgstr ""
 "  -f, --force                  nem kérdez felülírás előtt\n"
 "  -i, --interactive            felülírás előtt kérdez\n"
 
-#: src/mv.c:306
+#: src/mv.c:300
 msgid ""
 "      --strip-trailing-slashes  remove any trailing slashes from each "
 "SOURCE\n"
@@ -6023,7 +6023,7 @@ msgstr ""
 "kiterjesztésének\n"
 "                                 felülbírálása\n"
 
-#: src/mv.c:311
+#: src/mv.c:305
 msgid ""
 "  -t, --target-directory=DIRECTORY  move all SOURCE arguments into "
 "DIRECTORY\n"
@@ -6578,7 +6578,7 @@ msgid "warning: invalid width %lu; using %d instead"
 msgstr ""
 "figyelmeztetés: %lu szélesség érvénytelen, helyette %d kerül felhasználásra"
 
-#: src/operand2sig.c:79
+#: src/operand2sig.c:78
 #, c-format
 msgid "%s: invalid signal"
 msgstr "%s: érvénytelen szignál"
@@ -6812,74 +6812,74 @@ msgstr ""
 msgid "Roland Huebner"
 msgstr ""
 
-#: src/pr.c:913
+#: src/pr.c:911
 #, c-format
 msgid "`--pages=FIRST_PAGE[:LAST_PAGE]' missing argument"
 msgstr "„--pages=ELSŐ_OLDAL[:UTOLSÓ_OLDAL]” hiányzó argumentum"
 
-#: src/pr.c:915
+#: src/pr.c:913
 #, fuzzy, c-format
 msgid "invalid page range %s"
 msgstr "Érvénytelen oldaltartomány: %s"
 
-#: src/pr.c:980
+#: src/pr.c:978
 #, c-format
 msgid "`-l PAGE_LENGTH' invalid number of lines: %s"
 msgstr "„-l OLDALHOSSZ” érvénytelen sorszám: %s"
 
-#: src/pr.c:1004
+#: src/pr.c:1002
 #, c-format
 msgid "`-N NUMBER' invalid starting line number: %s"
 msgstr "„-N SZÁM” érvénytelen kezdő sorszám: %s"
 
-#: src/pr.c:1016
+#: src/pr.c:1014
 #, c-format
 msgid "`-o MARGIN' invalid line offset: %s"
 msgstr "„-o MARGÓ” érvénytelen soreltolás: %s"
 
-#: src/pr.c:1057
+#: src/pr.c:1055
 #, c-format
 msgid "`-w PAGE_WIDTH' invalid number of characters: %s"
 msgstr "„-w OLDAL_SZÉLESSÉG” érvénytelen karakterszám: %s"
 
-#: src/pr.c:1071
+#: src/pr.c:1069
 #, c-format
 msgid "`-W PAGE_WIDTH' invalid number of characters: %s"
 msgstr "„-W OLDAL_SZÉLESSÉG” érvénytelen karakterszám: %s"
 
-#: src/pr.c:1101
+#: src/pr.c:1099
 #, fuzzy, c-format
 msgid "cannot specify number of columns when printing in parallel"
 msgstr "Nem adható meg az oszlopok száma párhuzamos nyomtatás esetén."
 
-#: src/pr.c:1105
+#: src/pr.c:1103
 #, fuzzy, c-format
 msgid "cannot specify both printing across and printing in parallel"
 msgstr "Nem adható meg mind a vízszintes, mind a párhuzamos nyomtatás."
 
-#: src/pr.c:1201
+#: src/pr.c:1199
 #, c-format
 msgid "`-%c' extra characters or invalid number in the argument: %s"
 msgstr ""
 "„-%c” extra karakterek vagy érvénytelen szám a következő argumentumban:\n"
 "%s"
 
-#: src/pr.c:1305
+#: src/pr.c:1303
 #, c-format
 msgid "page width too narrow"
 msgstr "az oldalszélesség túl keskeny"
 
-#: src/pr.c:2369
+#: src/pr.c:2367
 #, c-format
 msgid "starting page number %<PRIuMAX> exceeds page count %<PRIuMAX>"
 msgstr "a(z) %<PRIuMAX> kezdő oldalszám meghaladja a(z) %<PRIuMAX> oldalszámot"
 
-#: src/pr.c:2396
+#: src/pr.c:2394
 #, fuzzy, c-format
 msgid "page number overflow"
 msgstr "Oldalszám-túlcsordulás"
 
-#: src/pr.c:2401
+#: src/pr.c:2399
 #, c-format
 msgid "Page %<PRIuMAX>"
 msgstr "%<PRIuMAX>. oldal"
@@ -7275,12 +7275,12 @@ msgstr ""
 msgid "F. Pinard"
 msgstr "F. Pinard"
 
-#: src/ptx.c:424
+#: src/ptx.c:421
 #, c-format
 msgid "%s (for regexp %s)"
 msgstr "%s (a(z) %s regexphez)"
 
-#: src/ptx.c:1887
+#: src/ptx.c:1884
 #, c-format
 msgid ""
 "Usage: %s [OPTION]... [INPUT]...   (without -G)\n"
@@ -7289,7 +7289,7 @@ msgstr ""
 "Használat: %s [KAPCSOLÓ]... [BEMENET]...   (-G nélkül)\n"
 "  vagy:    %s -G [KAPCSOLÓ]... [BEMENET [KIMENET]]\n"
 
-#: src/ptx.c:1891
+#: src/ptx.c:1888
 msgid ""
 "Output a permuted index, including context, of the words in the input "
 "files.\n"
@@ -7299,7 +7299,7 @@ msgstr ""
 "beleértve.\n"
 "\n"
 
-#: src/ptx.c:1898
+#: src/ptx.c:1895
 msgid ""
 "  -A, --auto-reference           output automatically generated references\n"
 "  -G, --traditional              behave more like System V `ptx'\n"
@@ -7311,7 +7311,7 @@ msgstr ""
 "  -F, --flag-truncation=KARAKTERLÁNC  a KARAKTERLÁNC használata a\n"
 "                                      sorcsonkítások jelölésére\n"
 
-#: src/ptx.c:1903
+#: src/ptx.c:1900
 msgid ""
 "  -M, --macro-name=STRING        macro name to use instead of `xx'\n"
 "  -O, --format=roff              generate output as roff directives\n"
@@ -7326,7 +7326,7 @@ msgstr ""
 "  -S, --sentence-regexp=REGEXP   sorok vagy mondatok végéhez\n"
 "  -T, --format=tex               a kimenet előállítása TeX irányelvekként\n"
 
-#: src/ptx.c:1910
+#: src/ptx.c:1907
 msgid ""
 "  -W, --word-regexp=REGEXP       use REGEXP to match each keyword\n"
 "  -b, --break-file=FILE          word break characters in this FILE\n"
@@ -7346,7 +7346,7 @@ msgstr ""
 "  -o, --only-file=FÁJL           az egyedüli szólista olvasása ebből a "
 "FÁJLBÓL\n"
 
-#: src/ptx.c:1918
+#: src/ptx.c:1915
 msgid ""
 "  -r, --references               first field of each line is a reference\n"
 "  -t, --typeset-mode               - not implemented -\n"
@@ -7359,7 +7359,7 @@ msgstr ""
 "  -w, --width=SZÁM               a kimenet szélessége oszlopokban, a \n"
 "                                   hivatkozások kihagyásával\n"
 
-#: src/ptx.c:1925
+#: src/ptx.c:1922
 msgid ""
 "\n"
 "With no FILE or if FILE is -, read Standard Input.  `-F /' by default.\n"
@@ -7368,12 +7368,17 @@ msgstr ""
 "Ha a FÁJL nincs megadva, vagy -, akkor a szabványos bemenetet olvassa.\n"
 "A „-F /” az alapértelmezés.\n"
 
-#: src/ptx.c:2019
+#: src/ptx.c:2016
 #, c-format
 msgid "invalid gap width: %s"
 msgstr "érvénytelen résszélesség: %s"
 
-#: src/pwd.c:50
+#: src/pwd.c:57 src/tty.c:65 src/uname.c:122 src/whoami.c:46
+#, c-format
+msgid "Usage: %s [OPTION]...\n"
+msgstr "Használat: %s [KAPCSOLÓ]...\n"
+
+#: src/pwd.c:58
 msgid ""
 "Print the full filename of the current working directory.\n"
 "\n"
@@ -7381,17 +7386,23 @@ msgstr ""
 "Az aktuális munkakönyvtár teljes fájlnevének kiírása.\n"
 "\n"
 
-#: src/pwd.c:155
+#: src/pwd.c:62
+msgid ""
+"  -L, --logical   use PWD from environment, even if it contains symlinks\n"
+"  -P, --physical  avoid all symlinks\n"
+msgstr ""
+
+#: src/pwd.c:167
 #, c-format
 msgid "failed to chdir to %s"
 msgstr "a következő könyvtárba lépés meghiúsult: %s"
 
-#: src/pwd.c:159 src/pwd.c:266
+#: src/pwd.c:171 src/pwd.c:278
 #, c-format
 msgid "failed to stat %s"
 msgstr "%s elérése meghiúsult"
 
-#: src/pwd.c:224
+#: src/pwd.c:236
 #, c-format
 msgid "couldn't find directory entry in %s with matching i-node"
 msgstr ""
@@ -7399,7 +7410,7 @@ msgstr ""
 "következőben:\n"
 "%s"
 
-#: src/pwd.c:301
+#: src/pwd.c:363
 #, c-format
 msgid "ignoring non-option arguments"
 msgstr "a nem kapcsoló argumentumok figyelmen kívül marad"
@@ -8281,7 +8292,7 @@ msgstr "%s: az írásra megnyitás meghiúsult"
 msgid "%s: invalid number of passes"
 msgstr "%s: érvénytelen menetszám"
 
-#: src/shred.c:1143 src/shuf.c:329 src/sort.c:3185
+#: src/shred.c:1143 src/shuf.c:329 src/sort.c:3323
 #, c-format
 msgid "multiple random sources specified"
 msgstr "több véletlen forrás van megadva"
@@ -8348,7 +8359,7 @@ msgstr "érvénytelen bemeneti tartomány: %s"
 msgid "invalid line count %s"
 msgstr "érvénytelen sorszám: %s"
 
-#: src/shuf.c:323 src/sort.c:3179
+#: src/shuf.c:323 src/sort.c:3317
 #, c-format
 msgid "multiple output files specified"
 msgstr "több kimeneti fájl van megadva"
@@ -8596,161 +8607,158 @@ msgstr "várakozás a következőre: %s [-d]"
 msgid "%s [-d] terminated abnormally"
 msgstr "A(z) %s [-d] váratlanul befejeződött"
 
-#: src/sort.c:771 src/tac.c:458
+#: src/sort.c:776 src/tac.c:458
 #, fuzzy, c-format
 msgid "cannot create temporary file in %s"
 msgstr "nem hozható létre a következő ideiglenes fájl: %s"
 
-#: src/sort.c:800 src/sort.c:3373
+#: src/sort.c:813 src/sort.c:2433 src/sort.c:2711 src/sort.c:2714
+#: src/sort.c:3511
 msgid "open failed"
 msgstr "a megnyitás meghiúsult"
 
-#: src/sort.c:822
+#: src/sort.c:833
 msgid "fflush failed"
 msgstr "az fflush meghiúsult"
 
-#: src/sort.c:827 src/sort.c:3428
+#: src/sort.c:838 src/sort.c:3566
 msgid "close failed"
 msgstr "a lezárás meghiúsult"
 
-#: src/sort.c:836
+#: src/sort.c:847
 #, c-format
 msgid "dup2 failed"
 msgstr "a dup2 meghiúsult"
 
-#: src/sort.c:935
+#: src/sort.c:956
 #, c-format
 msgid "couldn't execute %s"
 msgstr "nem hajtható végre: %s"
 
-#: src/sort.c:944 src/sort.c:993
+#: src/sort.c:965
 msgid "couldn't create temporary file"
 msgstr "nem hozható létre ideiglenes fájl"
 
-#: src/sort.c:967
-msgid "couldn't open temporary file"
-msgstr "nem nyitható meg ideiglenes fájl"
-
-#: src/sort.c:984
-#, c-format
-msgid "couldn't execute %s -d"
-msgstr "nem hajtható végre: %s -d"
-
-#: src/sort.c:988
+#: src/sort.c:1005
 #, c-format
 msgid "couldn't create process for %s -d"
 msgstr "nem hozható létre folyamat a következőhöz: %s -d"
 
-#: src/sort.c:1002
+#: src/sort.c:1019
+#, c-format
+msgid "couldn't execute %s -d"
+msgstr "nem hajtható végre: %s -d"
+
+#: src/sort.c:1043
 msgid "write failed"
 msgstr "az írás meghiúsult"
 
-#: src/sort.c:1039
+#: src/sort.c:1080
 #, c-format
 msgid "warning: cannot remove: %s"
 msgstr "figyelmeztetés: a(z) %s nem távolítható el"
 
-#: src/sort.c:1125
+#: src/sort.c:1166
 #, fuzzy, c-format
 msgid "invalid --%s argument %s"
 msgstr "érvénytelen argumentum: %s"
 
-#: src/sort.c:1128
+#: src/sort.c:1169
 #, fuzzy, c-format
 msgid "minimum --%s argument is %s"
 msgstr "érvénytelen %s%s argumentum: „%s”"
 
-#: src/sort.c:1143
+#: src/sort.c:1184
 #, fuzzy, c-format
 msgid "--%s argument %s too large"
 msgstr "%s%s: a(z) „%s” argumentum túl nagy"
 
-#: src/sort.c:1146
+#: src/sort.c:1187
 #, c-format
 msgid "maximum --%s argument with current rlimit is %s"
 msgstr ""
 
-#: src/sort.c:1291
+#: src/sort.c:1332
 msgid "stat failed"
 msgstr "az elérés meghiúsult"
 
-#: src/sort.c:1555
+#: src/sort.c:1593
 msgid "read failed"
 msgstr "az olvasás meghiúsult"
 
-#: src/sort.c:2104
+#: src/sort.c:2142
 #, c-format
 msgid "%s: %s:%s: disorder: "
 msgstr "%s: %s:%s: rendezetlenség: "
 
-#: src/sort.c:2108
+#: src/sort.c:2146
 msgid "standard error"
 msgstr "szabványos hibakimenet"
 
-#: src/sort.c:2725
+#: src/sort.c:2866
 #, c-format
 msgid "%s: invalid field specification %s"
 msgstr "%s: érvénytelen mezőspecifikáció: %s"
 
-#: src/sort.c:2736
+#: src/sort.c:2877
 #, c-format
 msgid "options `-%s' are incompatible"
 msgstr "a következő kapcsolók inkompatibilisak: „-%s”"
 
-#: src/sort.c:2803
+#: src/sort.c:2944
 #, c-format
 msgid "%s: invalid count at start of %s"
 msgstr "%s: érvénytelen szám a(z) %s kezdetén"
 
-#: src/sort.c:3056
+#: src/sort.c:3197
 msgid "invalid number after `-'"
 msgstr "érvénytelen szám a „-” után"
 
-#: src/sort.c:3059 src/sort.c:3129 src/sort.c:3156
+#: src/sort.c:3200 src/sort.c:3270 src/sort.c:3298
 msgid "invalid number after `.'"
 msgstr "érvénytelen szám a „.” után"
 
-#: src/sort.c:3062 src/sort.c:3165
+#: src/sort.c:3203 src/sort.c:3303
 msgid "stray character in field spec"
 msgstr "véletlen karakter a mezőspecifikációban"
 
-#: src/sort.c:3107
+#: src/sort.c:3248
 #, c-format
 msgid "multiple compress programs specified"
 msgstr "több tömörítőprogram van megadva"
 
-#: src/sort.c:3120
+#: src/sort.c:3261
 msgid "invalid number at field start"
 msgstr "érvénytelen szám a mező kezdeténél"
 
-#: src/sort.c:3124 src/sort.c:3152
+#: src/sort.c:3265 src/sort.c:3293
 msgid "field number is zero"
 msgstr "a mezőszám nulla"
 
-#: src/sort.c:3133
+#: src/sort.c:3274
 msgid "character offset is zero"
 msgstr "karaktereltolás nulla"
 
-#: src/sort.c:3148
+#: src/sort.c:3289
 msgid "invalid number after `,'"
 msgstr "érvénytelen szám a „,” után"
 
-#: src/sort.c:3290 src/wc.c:680
+#: src/sort.c:3428 src/wc.c:680
 #, c-format
 msgid "cannot read file names from %s"
 msgstr "nem olvashatók fájlnevek a következőből: %s"
 
-#: src/sort.c:3312
+#: src/sort.c:3450
 #, fuzzy, c-format
 msgid "%s:%lu: invalid zero-length file name"
 msgstr "érvénytelen nulla hosszúságú fájlnév"
 
-#: src/sort.c:3318
+#: src/sort.c:3456
 #, fuzzy, c-format
 msgid "no input from %s"
 msgstr "%s bemeneti fájl lezárása"
 
-#: src/sort.c:3398
+#: src/sort.c:3536
 #, c-format
 msgid "extra operand %s not allowed with -%c"
 msgstr "a(z) %s extra operandus nem engedélyezett a -%c kapcsolóval"
@@ -9672,7 +9680,7 @@ msgstr ""
 msgid "ignoring all arguments"
 msgstr "minden argumentum figyelmen kívül marad"
 
-#: src/system.h:432
+#: src/system.h:433
 #, c-format
 msgid ""
 "\n"
@@ -9688,15 +9696,15 @@ msgstr ""
 "parancsértelmező\n"
 "dokumentációjához.\n"
 
-#: src/system.h:438
+#: src/system.h:439
 msgid "      --help     display this help and exit\n"
 msgstr "      --help     ezen súgó megjelenítése és kilépés\n"
 
-#: src/system.h:440
+#: src/system.h:441
 msgid "      --version  output version information and exit\n"
 msgstr "      --version  verzióinformációk megjelenítése és kilépés\n"
 
-#: src/system.h:622
+#: src/system.h:623
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -9705,16 +9713,20 @@ msgstr ""
 "\n"
 "A programhibákat a(z) <%s> címen jelentheted.\n"
 
-#: src/system.h:625
+#: src/system.h:626
 #, c-format
 msgid "%s home page: <http://www.gnu.org/software/%s/>\n"
 msgstr ""
 
-#: src/system.h:627
+#: src/system.h:628
 msgid "General help using GNU software: <http://www.gnu.org/gethelp/>\n"
 msgstr ""
 
-#: src/system.h:635
+#. TRANSLATORS: Replace LANG_CODE in this URL with your language code
+#. <http://translationproject.org/team/LANG_CODE.html> to form one of
+#. the URLs at http://translationproject.org/team/.  Otherwise, replace
+#. the entire URL with your translation team's email address.
+#: src/system.h:637
 #, c-format
 msgid "Report %s translation bugs to <http://translationproject.org/team/>\n"
 msgstr ""
@@ -10816,11 +10828,6 @@ msgstr "%s: a bemenet páratlan számú jelsort tartalmaz"
 msgid "%s: input contains a loop:"
 msgstr "%s: bemenet hurkot tartalmaz:"
 
-#: src/tty.c:65 src/uname.c:122 src/whoami.c:46
-#, c-format
-msgid "Usage: %s [OPTION]...\n"
-msgstr "Használat: %s [KAPCSOLÓ]...\n"
-
 #: src/tty.c:66
 msgid ""
 "Print the file name of the terminal connected to standard input.\n"
@@ -10885,7 +10892,7 @@ msgstr ""
 msgid "cannot get system name"
 msgstr "nem kérhető le a rendszer neve"
 
-#: src/unexpand.c:121
+#: src/unexpand.c:117
 msgid ""
 "Convert blanks in each FILE to tabs, writing to standard output.\n"
 "With no FILE, or when FILE is -, read standard input.\n"
@@ -10896,7 +10903,7 @@ msgstr ""
 "olvassa.\n"
 "\n"
 
-#: src/unexpand.c:129
+#: src/unexpand.c:125
 msgid ""
 "  -a, --all        convert all blanks, instead of just initial blanks\n"
 "      --first-only  convert only leading sequences of blanks (overrides -a)\n"
@@ -10913,12 +10920,12 @@ msgstr ""
 "használata\n"
 "                     (bekapcsolja a -a kapcsolót)\n"
 
-#: src/unexpand.c:157
+#: src/unexpand.c:153
 #, c-format
 msgid "tabs are too far apart"
 msgstr "a tabok túl messze vannak egymástól"
 
-#: src/unexpand.c:508
+#: src/unexpand.c:504
 #, c-format
 msgid "tab stop value is too large"
 msgstr "a tab méret túl nagy"
@@ -11346,6 +11353,9 @@ msgstr ""
 "Az összes megadott KARAKTERLÁNCOT vagy az „y”-t tartalmazó sor ismételt\n"
 "kiírása.\n"
 "\n"
+
+#~ msgid "couldn't open temporary file"
+#~ msgstr "nem nyitható meg ideiglenes fájl"
 
 #~ msgid ""
 #~ "  -P, --no-dereference         never follow symbolic links in SOURCE\n"

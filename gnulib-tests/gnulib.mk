@@ -42,6 +42,15 @@ libtests_a_DEPENDENCIES = $(gltests_LIBOBJS)
 EXTRA_libtests_a_SOURCES =
 AM_LIBTOOLFLAGS = --preserve-dup-deps
 
+## begin gnulib module accept
+
+
+EXTRA_DIST += accept.c w32sock.h
+
+EXTRA_libtests_a_SOURCES += accept.c
+
+## end   gnulib module accept
+
 ## begin gnulib module acl-tests
 
 TESTS += test-file-has-acl.sh test-set-mode-acl.sh test-copy-acl.sh
@@ -124,6 +133,15 @@ EXTRA_DIST += test-binary-io.sh test-binary-io.c
 
 ## end   gnulib module binary-io-tests
 
+## begin gnulib module bind
+
+
+EXTRA_DIST += bind.c w32sock.h
+
+EXTRA_libtests_a_SOURCES += bind.c
+
+## end   gnulib module bind
+
 ## begin gnulib module btowc-tests
 
 TESTS += test-btowc1.sh test-btowc2.sh
@@ -171,6 +189,15 @@ test_closein_LDADD = $(LDADD) @LIBINTL@
 EXTRA_DIST += test-closein.sh test-closein.c
 
 ## end   gnulib module closein-tests
+
+## begin gnulib module connect
+
+
+EXTRA_DIST += connect.c w32sock.h
+
+EXTRA_libtests_a_SOURCES += connect.c
+
+## end   gnulib module connect
 
 ## begin gnulib module crypto/md5-tests
 
@@ -328,10 +355,10 @@ EXTRA_DIST += test-frexpl.c
 
 ## begin gnulib module fseeko-tests
 
-TESTS += test-fseeko.sh
+TESTS += test-fseeko.sh test-fseeko2.sh
 TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@' srcdir='$(srcdir)'
 check_PROGRAMS += test-fseeko
-EXTRA_DIST += test-fseeko.c test-fseeko.sh
+EXTRA_DIST += test-fseeko.c test-fseeko.sh test-fseeko2.sh
 
 ## end   gnulib module fseeko-tests
 
@@ -346,10 +373,10 @@ EXTRA_DIST += test-fseterr.c
 
 ## begin gnulib module ftello-tests
 
-TESTS += test-ftello.sh
+TESTS += test-ftello.sh test-ftello2.sh
 TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@' srcdir='$(srcdir)'
 check_PROGRAMS += test-ftello
-EXTRA_DIST += test-ftello.c test-ftello.sh
+EXTRA_DIST += test-ftello.c test-ftello.sh test-ftello2.sh
 
 ## end   gnulib module ftello-tests
 
@@ -434,6 +461,15 @@ EXTRA_DIST += test-iconv.c
 
 ## end   gnulib module iconv-tests
 
+## begin gnulib module inet_pton
+
+
+EXTRA_DIST += inet_pton.c
+
+EXTRA_libtests_a_SOURCES += inet_pton.c
+
+## end   gnulib module inet_pton
+
 ## begin gnulib module inttypes-tests
 
 TESTS += test-inttypes
@@ -442,6 +478,15 @@ check_PROGRAMS += test-inttypes
 EXTRA_DIST += test-inttypes.c
 
 ## end   gnulib module inttypes-tests
+
+## begin gnulib module ioctl
+
+
+EXTRA_DIST += ioctl.c w32sock.h
+
+EXTRA_libtests_a_SOURCES += ioctl.c
+
+## end   gnulib module ioctl
 
 ## begin gnulib module isnand-nolibm-tests
 
@@ -466,9 +511,18 @@ EXTRA_DIST += test-isnanf-nolibm.c test-isnanf.h nan.h
 TESTS += test-isnanl-nolibm
 check_PROGRAMS += test-isnanl-nolibm
 
-EXTRA_DIST += test-isnanl-nolibm.c test-isnanl.h
+EXTRA_DIST += test-isnanl-nolibm.c test-isnanl.h nan.h
 
 ## end   gnulib module isnanl-nolibm-tests
+
+## begin gnulib module listen
+
+
+EXTRA_DIST += listen.c w32sock.h
+
+EXTRA_libtests_a_SOURCES += listen.c
+
+## end   gnulib module listen
 
 ## begin gnulib module lseek-tests
 
@@ -609,6 +663,24 @@ EXTRA_DIST += test-open.c
 
 ## end   gnulib module open-tests
 
+## begin gnulib module perror
+
+
+EXTRA_DIST += perror.c
+
+EXTRA_libtests_a_SOURCES += perror.c
+
+## end   gnulib module perror
+
+## begin gnulib module perror-tests
+
+TESTS += test-perror.sh
+TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@' srcdir='$(srcdir)'
+check_PROGRAMS += test-perror
+EXTRA_DIST += test-perror.c test-perror.sh
+
+## end   gnulib module perror-tests
+
 ## begin gnulib module printf-frexp-tests
 
 TESTS += test-printf-frexp
@@ -654,6 +726,29 @@ EXTRA_DIST += test-read-file.c
 
 ## end   gnulib module read-file-tests
 
+## begin gnulib module select-tests
+
+TESTS += test-select test-select-in.sh test-select-out.sh
+# test-select-stdin has to be run by hand.
+TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@'
+check_PROGRAMS += test-select test-select-fd test-select-stdin
+test_select_LDADD = $(LDADD) @LIBSOCKET@
+test_select_fd_LDADD = $(LDADD) @LIBSOCKET@
+test_select_stdin_LDADD = $(LDADD) @LIBSOCKET@
+
+EXTRA_DIST += test-select.c test-select-fd.c test-select-in.sh test-select-out.sh test-select-stdin.c
+
+## end   gnulib module select-tests
+
+## begin gnulib module setsockopt
+
+
+EXTRA_DIST += setsockopt.c w32sock.h
+
+EXTRA_libtests_a_SOURCES += setsockopt.c
+
+## end   gnulib module setsockopt
+
 ## begin gnulib module sigaction-tests
 
 TESTS += test-sigaction
@@ -661,6 +756,15 @@ check_PROGRAMS += test-sigaction
 EXTRA_DIST += test-sigaction.c
 
 ## end   gnulib module sigaction-tests
+
+## begin gnulib module signal-tests
+
+TESTS += test-signal
+check_PROGRAMS += test-signal
+
+EXTRA_DIST += test-signal.c
+
+## end   gnulib module signal-tests
 
 ## begin gnulib module signbit-tests
 
@@ -697,6 +801,32 @@ check_PROGRAMS += test-snprintf
 EXTRA_DIST += test-snprintf.c
 
 ## end   gnulib module snprintf-tests
+
+## begin gnulib module socket
+
+
+EXTRA_DIST += socket.c w32sock.h
+
+EXTRA_libtests_a_SOURCES += socket.c
+
+## end   gnulib module socket
+
+## begin gnulib module sockets
+
+libtests_a_SOURCES += sockets.h sockets.c
+
+EXTRA_DIST += w32sock.h
+
+## end   gnulib module sockets
+
+## begin gnulib module sockets-tests
+
+TESTS += test-sockets
+check_PROGRAMS += test-sockets
+test_sockets_LDADD = $(LDADD) @LIBSOCKET@
+EXTRA_DIST += test-sockets.c
+
+## end   gnulib module sockets-tests
 
 ## begin gnulib module stat-time-tests
 
@@ -785,6 +915,33 @@ check_PROGRAMS += test-strverscmp
 EXTRA_DIST += test-strverscmp.c
 
 ## end   gnulib module strverscmp-tests
+
+## begin gnulib module sys_ioctl
+
+BUILT_SOURCES += $(SYS_IOCTL_H)
+
+# We need the following in order to create <sys/ioctl.h> when the system
+# does not have a complete one.
+sys/ioctl.h: sys_ioctl.in.h
+	@MKDIR_P@ sys
+	rm -f $@-t $@
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  sed -e 's|@''HAVE_SYS_IOCTL_H''@|$(HAVE_SYS_IOCTL_H)|g' \
+	      -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
+	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|@PRAGMA_SYSTEM_HEADER@|g' \
+	      -e 's|@''NEXT_SYS_IOCTL_H''@|$(NEXT_SYS_IOCTL_H)|g' \
+	      -e 's|@''GNULIB_IOCTL''@|$(GNULIB_IOCTL)|g' \
+	      -e 's|@''SYS_IOCTL_H_HAVE_WINSOCK2_H''@|$(SYS_IOCTL_H_HAVE_WINSOCK2_H)|g' \
+	      -e '/definition of GL_LINK_WARNING/r $(LINK_WARNING_H)' \
+	      < $(srcdir)/sys_ioctl.in.h; \
+	} > $@-t
+	mv $@-t $@
+MOSTLYCLEANFILES += sys/ioctl.h sys/ioctl.h-t
+MOSTLYCLEANDIRS += sys
+
+EXTRA_DIST += sys_ioctl.in.h
+
+## end   gnulib module sys_ioctl
 
 ## begin gnulib module sys_select-tests
 

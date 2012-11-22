@@ -405,7 +405,6 @@ sed_filter = s/^ *//;s/N_ (//;s/^"//;s/")*$$//
 s1 = '/^\#define AUTHORS \([^\\]\)/{;s//\1/;$(sed_filter);p;q;}'
 # Sometimes the string is on the backslash-continued line after the #define.
 s2 = '/^\#define AUTHORS \\\\/{;n;$(sed_filter);p;q;}'
-# FIXME: handle *.sh;  and use $(all_programs), not $(SOURCES)
 ../AUTHORS: $(SOURCES)
 	rm -f $@-t
 	(						\
@@ -449,6 +448,7 @@ sc_tight_scope: $(all_programs)
 	) | $(ASSORT) -u | sed 's/^/^/;s/$$/$$/' > $$t;			\
 	nm -e *.$(OBJEXT)						\
 	    | sed -n 's/.* T //p'					\
+	    | sed 's/^_//'						\
 	    | grep -Ev -f $$t &&					\
 	  { echo 'the above functions should have static scope' 1>&2;	\
 	    exit 1; } || : ;						\
@@ -457,6 +457,7 @@ sc_tight_scope: $(all_programs)
 	    $$hdr *.h ) | $(ASSORT) -u > $$t;				\
 	nm -e *.$(OBJEXT)						\
 	    | sed -n 's/.* [BD] //p'					\
+	    | sed 's/^_//'						\
 	    | grep -Ev -f $$t &&					\
 	  { echo 'the above variables should have static scope' 1>&2;	\
 	    exit 1; } || :

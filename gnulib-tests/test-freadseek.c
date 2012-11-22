@@ -2,7 +2,7 @@
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
 #line 1
 /* Test of freadseek() function.
-   Copyright (C) 2007-2008 Free Software Foundation, Inc.
+   Copyright (C) 2007-2009 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -95,10 +95,12 @@ main (int argc, char **argv)
   ASSERT (fgetc (stdin) == EOF);
   ASSERT (!ferror (stdin));
 
+#if !defined __MINT__ /* FreeMiNT has problems seeking past end of file */
   /* Test move beyond end of file.  */
   ASSERT (freadseek (stdin, 1000000) == 0);
   ASSERT (fgetc (stdin) == EOF);
   ASSERT (!ferror (stdin));
+#endif
 
   return 0;
 }

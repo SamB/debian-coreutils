@@ -135,6 +135,9 @@
 /* Define as the word index where to find the sign of 'float'. */
 #undef FLT_SIGNBIT_WORD
 
+/* Define to 1 if ungetc is broken when used on arbitrary bytes. */
+#undef FUNC_UNGETC_BROKEN
+
 /* Define to the type of elements in the array set by `getgroups'. Usually
    this is either `int' or `gid_t'. */
 #undef GETGROUPS_T
@@ -164,17 +167,20 @@
 /* Define to 1 when using the gnulib module fts. */
 #undef GNULIB_FTS
 
+/* Define to 1 when using the gnulib module ioctl. */
+#undef GNULIB_IOCTL
+
 /* Define to indicate the 'malloc' module. */
 #undef GNULIB_MALLOC_GNU
 
 /* Define to 1 when using the gnulib module open. */
 #undef GNULIB_OPEN
 
+/* enable some gnulib portability checks */
+#undef GNULIB_PORTCHECK
+
 /* Define to indicate the 'realloc' module. */
 #undef GNULIB_REALLOC_GNU
-
-/* Define to 1 when using the gnulib module sys_socket. */
-#undef GNULIB_SYS_SOCKET
 
 /* Define to 1 when using the gnulib module unistr/u8-uctomb. */
 #undef GNULIB_UNISTR_U8_UCTOMB
@@ -506,6 +512,10 @@
    don't. */
 #undef HAVE_DECL_INET_NTOP
 
+/* Define to 1 if you have the declaration of `inet_pton', and to 0 if you
+   don't. */
+#undef HAVE_DECL_INET_PTON
+
 /* Define to 1 if you have the declaration of `isblank', and to 0 if you
    don't. */
 #undef HAVE_DECL_ISBLANK
@@ -819,6 +829,9 @@
 /* Define to 1 if you have the `inet_ntop' function. */
 #undef HAVE_INET_NTOP
 
+/* Define to 1 if you have the `inet_pton' function. */
+#undef HAVE_INET_PTON
+
 /* Define to 1 if you have the `initgroups' function. */
 #undef HAVE_INITGROUPS
 
@@ -953,7 +966,7 @@
 /* Define to 1 if you have the `mbrlen' function. */
 #undef HAVE_MBRLEN
 
-/* Define to 1 if mbrtowc and mbstate_t are properly declared. */
+/* Define to 1 if you have the `mbrtowc' function. */
 #undef HAVE_MBRTOWC
 
 /* Define to 1 if you have the `mbsinit' function. */
@@ -1213,6 +1226,9 @@
 
 /* Define if you have the strndup() function and it works. */
 #undef HAVE_STRNDUP
+
+/* Define to 1 if you have the `strnlen' function. */
+#undef HAVE_STRNLEN
 
 /* Define to 1 if you have the <stropts.h> header file. */
 #undef HAVE_STROPTS_H
@@ -1600,6 +1616,9 @@
 /* Define to 1 if you have the `wcslen' function. */
 #undef HAVE_WCSLEN
 
+/* Define to 1 if you have the `wcsnlen' function. */
+#undef HAVE_WCSNLEN
+
 /* Define to 1 if you have the `wctob' function. */
 #undef HAVE_WCTOB
 
@@ -1786,6 +1805,10 @@
 /* Define if the vasnprintf implementation needs special code for the 'F'
    directive. */
 #undef NEED_PRINTF_DIRECTIVE_F
+
+/* Define if the vasnprintf implementation needs special code for the 'ls'
+   directive. */
+#undef NEED_PRINTF_DIRECTIVE_LS
 
 /* Define if the vasnprintf implementation needs special code for 'double'
    arguments. */
@@ -2010,6 +2033,9 @@
 /* Define to l, ll, u, ul, ull, etc., as suitable for constants of type
    'wchar_t'. */
 #undef WCHAR_T_SUFFIX
+
+/* Define if WSAStartup is needed. */
+#undef WINDOWS_SOCKETS
 
 /* Define if sys/ptem.h is required for struct winsize. */
 #undef WINSIZE_IN_PTEM

@@ -17,17 +17,19 @@ XGETTEXT_OPTIONS = --keyword=_ --keyword=N_ \
  --flag=N_:1:pass-c-format\
  --flag=error:3:c-format --flag=error_at_line:5:c-format\
 \
- --from-code=UTF-8\
- --flag=asprintf:2:c-format\
  --flag=asnprintf:3:c-format\
+ --flag=asprintf:2:c-format\
  --flag=error:3:c-format\
  --flag=error_at_line:5:c-format\
- --flag=vasprintf:2:c-format\
  --flag=vasnprintf:3:c-format\
+ --flag=vasprintf:2:c-format\
+ --flag=verror:3:c-format\
+ --flag=verror_at_line:5:c-format\
  --flag=wrapf:1:c-format\
  --flag=xasprintf:1:c-format\
  --flag=xfprintf:2:c-format\
  --flag=xprintf:1:c-format\
+ --from-code=UTF-8\
 \
  --keyword=proper_name:1,'"This is a proper name. See the gettext manual, section Names."'\
  --keyword=proper_name_utf8:1,'"This is a proper name. See the gettext manual, section Names."'\

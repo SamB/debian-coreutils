@@ -1,5 +1,5 @@
 /* cat -- concatenate files and print on the standard output.
-   Copyright (C) 88, 90, 91, 1995-2008 Free Software Foundation, Inc.
+   Copyright (C) 88, 90, 91, 1995-2009 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -47,10 +47,6 @@
 #define AUTHORS \
   proper_name_utf8 ("Torbjorn Granlund", "Torbj\303\266rn Granlund"), \
   proper_name ("Richard M. Stallman")
-
-/* Undefine, to avoid warning about redefinition on some systems.  */
-#undef max
-#define max(h,i) ((h) > (i) ? (h) : (i))
 
 /* Name of input file.  May be "-".  */
 static char const *infile;
@@ -337,7 +333,7 @@ cat (
 		input_pending = true;
 #endif
 
-	      if (input_pending)
+	      if (!input_pending)
 		write_pending (outbuf, &bpout);
 
 	      /* Read more input into INBUF.  */
@@ -640,7 +636,7 @@ main (int argc, char **argv)
   if (fstat (STDOUT_FILENO, &stat_buf) < 0)
     error (EXIT_FAILURE, errno, _("standard output"));
 
-  outsize = ST_BLKSIZE (stat_buf);
+  outsize = io_blksize (stat_buf);
   /* Input file can be output file for non-regular files.
      fstat on pipes returns S_IFSOCK on some systems, S_IFIFO
      on others, so the checking should not be done for those types,
@@ -704,7 +700,7 @@ main (int argc, char **argv)
 	  ok = false;
 	  goto contin;
 	}
-      insize = ST_BLKSIZE (stat_buf);
+      insize = io_blksize (stat_buf);
 
       /* Compare the device and i-node numbers of this input file with
 	 the corresponding values of the (output file associated with)
@@ -726,7 +722,7 @@ main (int argc, char **argv)
       if (! (number | show_ends | show_nonprinting
 	     | show_tabs | squeeze_blank))
 	{
-	  insize = max (insize, outsize);
+	  insize = MAX (insize, outsize);
 	  inbuf = xmalloc (insize + page_size - 1);
 
 	  ok &= simple_cat (ptr_align (inbuf, page_size), insize);
