@@ -63,14 +63,15 @@ static const char *const slack_codes[] =
   "SYMLINK", "ORPHAN", "MISSING", "FIFO", "PIPE", "SOCK", "BLK", "BLOCK",
   "CHR", "CHAR", "DOOR", "EXEC", "LEFT", "LEFTCODE", "RIGHT", "RIGHTCODE",
   "END", "ENDCODE", "SUID", "SETUID", "SGID", "SETGID", "STICKY",
-  "OTHER_WRITABLE", "OWR", "STICKY_OTHER_WRITABLE", "OWT", NULL
+  "OTHER_WRITABLE", "OWR", "STICKY_OTHER_WRITABLE", "OWT", "CAPABILITY",
+  "HARDLINK", "CLRTOEOL", NULL
 };
 
 static const char *const ls_codes[] =
 {
   "no", "no", "fi", "rs", "di", "ln", "ln", "ln", "or", "mi", "pi", "pi",
   "so", "bd", "bd", "cd", "cd", "do", "ex", "lc", "lc", "rc", "rc", "ec", "ec",
-  "su", "su", "sg", "sg", "st", "ow", "ow", "tw", "tw", NULL
+  "su", "su", "sg", "sg", "st", "ow", "ow", "tw", "tw", "ca", "hl", "cl", NULL
 };
 #define array_len(Array) (sizeof (Array) / sizeof *(Array))
 verify (array_len (slack_codes) == array_len (ls_codes));
@@ -86,8 +87,6 @@ static struct option const long_options[] =
     {GETOPT_VERSION_OPTION_DECL},
     {NULL, 0, NULL, 0}
   };
-
-char *program_name;
 
 void
 usage (int status)
@@ -402,7 +401,7 @@ main (int argc, char **argv)
   bool print_database = false;
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
@@ -450,8 +449,8 @@ to select a shell syntax are mutually exclusive"));
       error (0, 0, _("extra operand %s"), quote (argv[!print_database]));
       if (print_database)
 	fprintf (stderr, "%s\n",
-		 _("File operands cannot be combined with "
-		   "--print-database (-p)."));
+		 _("file operands cannot be combined with "
+		   "--print-database (-p)"));
       usage (EXIT_FAILURE);
     }
 

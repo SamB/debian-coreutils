@@ -1,5 +1,5 @@
-# frexp.m4 serial 5
-dnl Copyright (C) 2007 Free Software Foundation, Inc.
+# frexp.m4 serial 7
+dnl Copyright (C) 2007, 2008, 2009 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
@@ -48,7 +48,7 @@ AC_DEFUN([gl_FUNC_FREXP],
     gl_func_frexp=no
   fi
   if test $gl_func_frexp = yes; then
-    AC_DEFINE([HAVE_FREXP], 1,
+    AC_DEFINE([HAVE_FREXP], [1],
       [Define if the frexp() function is available and works.])
   else
     AC_LIBOBJ([frexp])
@@ -80,7 +80,7 @@ AC_DEFUN([gl_FUNC_FREXP_NO_LIBM],
     REPLACE_FREXP=1
   fi
   if test $gl_func_frexp_no_libm = yes; then
-    AC_DEFINE([HAVE_FREXP_IN_LIBC], 1,
+    AC_DEFINE([HAVE_FREXP_IN_LIBC], [1],
       [Define if the frexp() function is available in libc.])
   else
     AC_LIBOBJ([frexp])
@@ -88,7 +88,8 @@ AC_DEFUN([gl_FUNC_FREXP_NO_LIBM],
 ])
 
 dnl Test whether frexp() works also on denormalized numbers (this fails e.g. on
-dnl NetBSD 3.0) and on infinite numbers (this fails e.g. on IRIX 6.5 and mingw).
+dnl NetBSD 3.0), on infinite numbers (this fails e.g. on IRIX 6.5 and mingw),
+dnl and on negative zero (this fails e.g. on NetBSD 4.99).
 AC_DEFUN([gl_FUNC_FREXP_WORKS],
 [
   AC_REQUIRE([AC_PROG_CC])
@@ -98,10 +99,14 @@ AC_DEFUN([gl_FUNC_FREXP_WORKS],
       AC_TRY_RUN([
 #include <float.h>
 #include <math.h>
+#include <string.h>
 int main()
 {
   int i;
   volatile double x;
+/* HP cc on HP-UX 10.20 has a bug with the constant expression -0.0.
+   So we use -zero instead.  */
+  double zero = 0.0;
   /* Test on denormalized numbers.  */
   for (i = 1, x = 1.0; i >= DBL_MIN_EXP; i--, x *= 0.5)
     ;
@@ -120,6 +125,14 @@ int main()
     int exp;
     double y = frexp (x, &exp);
     if (y != x)
+      return 1;
+  }
+  /* Test on negative zero.  */
+  x = -zero;
+  {
+    int exp;
+    double y = frexp (x, &exp);
+    if (memcmp (&y, &x, sizeof x))
       return 1;
   }
   return 0;

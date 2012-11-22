@@ -2,7 +2,7 @@
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
 #line 1
 /* Test of signbit() substitute.
-   Copyright (C) 2007, 2008 Free Software Foundation, Inc.
+   Copyright (C) 2007, 2008, 2009 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -23,6 +23,7 @@
 
 #include <math.h>
 
+#include <float.h>
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -42,9 +43,28 @@
 float zerof = 0.0f;
 double zerod = 0.0;
 long double zerol = 0.0L;
-/* We cannot use the expression '-zerol' here, because on HP-UX/hppa it
-   evaluates to 0.0L, not -0.0L.  */
+
+/* HP cc on HP-UX 10.20 has a bug with the constant expression -0.0f.
+   So we use -zerof instead.  */
+
+/* HP cc on HP-UX 10.20 has a bug with the constant expression -0.0.
+   So we use -zerod instead.  */
+
+/* On HP-UX 10.20, negating 0.0L does not yield -0.0L.
+   So we use minus_zerol instead.
+   IRIX cc can't put -0.0L into .data, but can compute at runtime.
+   Note that the expression -LDBL_MIN * LDBL_MIN does not work on other
+   platforms, such as when cross-compiling to PowerPC on MacOS X 10.5.  */
+#if defined __hpux || defined __sgi
+static long double
+compute_minus_zerol (void)
+{
+  return -LDBL_MIN * LDBL_MIN;
+}
+# define minus_zerol compute_minus_zerol ()
+#else
 long double minus_zerol = -0.0L;
+#endif
 
 static void
 test_signbitf ()
@@ -59,9 +79,9 @@ test_signbitf ()
   /* Zeros.  */
   ASSERT (!signbit (0.0f));
   if (1.0f / -zerof < 0)
-    ASSERT (signbit (-0.0f));
+    ASSERT (signbit (-zerof));
   else
-    ASSERT (!signbit (-0.0f));
+    ASSERT (!signbit (-zerof));
   /* Infinite values.  */
   ASSERT (!signbit (1.0f / 0.0f));
   ASSERT (signbit (-1.0f / 0.0f));
@@ -104,9 +124,9 @@ test_signbitd ()
   /* Zeros.  */
   ASSERT (!signbit (0.0));
   if (1.0 / -zerod < 0)
-    ASSERT (signbit (-0.0));
+    ASSERT (signbit (-zerod));
   else
-    ASSERT (!signbit (-0.0));
+    ASSERT (!signbit (-zerod));
   /* Infinite values.  */
   ASSERT (!signbit (1.0 / 0.0));
   ASSERT (signbit (-1.0 / 0.0));
@@ -147,9 +167,9 @@ test_signbitl ()
   /* Zeros.  */
   ASSERT (!signbit (0.0L));
   if (1.0L / minus_zerol < 0)
-    ASSERT (signbit (-0.0L));
+    ASSERT (signbit (minus_zerol));
   else
-    ASSERT (!signbit (-0.0L));
+    ASSERT (!signbit (minus_zerol));
   /* Infinite values.  */
   ASSERT (!signbit (1.0L / 0.0L));
   ASSERT (signbit (-1.0L / 0.0L));

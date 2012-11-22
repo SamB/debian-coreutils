@@ -24,14 +24,11 @@
 
 #include "system.h"
 #include "cycle-check.h"
-#include "dirfd.h"
 #include "error.h"
-#include "euidaccess.h"
 #include "euidaccess-stat.h"
 #include "file-type.h"
 #include "hash.h"
 #include "hash-pjw.h"
-#include "lstat.h"
 #include "obstack.h"
 #include "quote.h"
 #include "remove.h"
@@ -44,9 +41,6 @@
    in dirname.h as well as locals used below.  */
 #define dir_name rm_dir_name
 #define dir_len rm_dir_len
-
-#define obstack_chunk_alloc malloc
-#define obstack_chunk_free free
 
 /* This is the maximum number of consecutive readdir/unlink calls that
    can be made (with no intervening rewinddir or closedir/opendir) before
@@ -62,6 +56,14 @@ enum
   {
     CONSECUTIVE_READDIR_UNLINK_THRESHOLD = 10
   };
+
+/* If the heuristics in preprocess_dir suggest that there
+   are fewer than this many entries in a directory, then it
+   skips the preprocessing altogether.  */
+enum
+{
+  INODE_SORT_DIR_ENTRIES_THRESHOLD = 10000
+};
 
 /* FIXME: in 2009, or whenever Darwin 7.9.0 (aka MacOS X 10.3.9) is no
    longer relevant, remove this work-around code.  Then, there will be
@@ -127,8 +129,6 @@ struct AD_ent
 # define DT_DIR 1
 # define DT_LNK 2
 #endif
-
-extern char *program_name;
 
 struct dirstack_state
 {
@@ -222,6 +222,24 @@ hash_compare_strings (void const *x, void const *y)
   return STREQ (x, y) ? true : false;
 }
 
+/* Obstack allocator: longjump on failure.  */
+static void *
+rm_malloc (void *v_jumpbuf, long size)
+{
+  jmp_buf *jumpbuf = v_jumpbuf;
+  void *p = malloc (size);
+  if (p)
+    return p;
+  longjmp (*jumpbuf, 1);
+}
+
+/* With the 2-arg allocator, we must also provide a two-argument freer.  */
+static void
+rm_free (void *v_jumpbuf ATTRIBUTE_UNUSED, void *ptr)
+{
+  free (ptr);
+}
+
 static inline void
 push_dir (Dirstack_state *ds, const char *dir_name)
 {
@@ -247,13 +265,15 @@ push_dir (Dirstack_state *ds, const char *dir_name)
 /* Return the entry name of the directory on the top of the stack
    in malloc'd storage.  */
 static inline char *
-top_dir (Dirstack_state const *ds)
+top_dir (Dirstack_state *ds)
 {
   size_t n_lengths = obstack_object_size (&ds->len_stack) / sizeof (size_t);
   size_t *length = obstack_base (&ds->len_stack);
   size_t top_len = length[n_lengths - 1];
   char const *p = obstack_next_free (&ds->dir_stack) - top_len;
-  char *q = xmalloc (top_len);
+  char *q = malloc (top_len);
+  if (q == NULL)
+    longjmp (ds->current_arg_jumpbuf, 1);
   memcpy (q, p, top_len - 1);
   q[top_len - 1] = 0;
   return q;
@@ -442,14 +462,32 @@ AD_stack_clear (Dirstack_state *ds)
     }
 }
 
-static Dirstack_state *
-ds_init (void)
+/* Initialize obstack O just enough so that it may be freed
+   with obstack_free.  */
+static void
+obstack_init_minimal (struct obstack *o)
 {
-  Dirstack_state *ds = xmalloc (sizeof *ds);
-  obstack_init (&ds->dir_stack);
-  obstack_init (&ds->len_stack);
-  obstack_init (&ds->Active_dir);
-  return ds;
+  o->chunk = NULL;
+}
+
+static void
+ds_init (Dirstack_state *ds)
+{
+  unsigned int i;
+  struct obstack *o[3];
+  o[0] = &ds->dir_stack;
+  o[1] = &ds->len_stack;
+  o[2] = &ds->Active_dir;
+
+  /* Ensure each of these is NULL, in case init/allocation
+     fails and we end up calling ds_free on all three while only
+     one or two has been initialized.  */
+  for (i = 0; i < 3; i++)
+    obstack_init_minimal (o[i]);
+
+  for (i = 0; i < 3; i++)
+    obstack_specify_allocation_with_arg
+      (o[i], 0, 0, rm_malloc, rm_free, &ds->current_arg_jumpbuf);
 }
 
 static void
@@ -468,7 +506,6 @@ ds_free (Dirstack_state *ds)
   obstack_free (&ds->dir_stack, NULL);
   obstack_free (&ds->len_stack, NULL);
   obstack_free (&ds->Active_dir, NULL);
-  free (ds);
 }
 
 /* Pop the active directory (AD) stack and prepare to move `up' one level,
@@ -920,12 +957,12 @@ prompt (int fd_cwd, Dirstack_state const *ds, char const *filename,
 	      return RM_ERROR;
 	    }
 
-	  /* TRANSLATORS: You may find it more convenient to translate
-	     the equivalent of _("%s: remove %s (write-protected) %s? ").
-	     It should avoid grammatical problems with the output
-	     of file_type.  */
 	  fprintf (stderr,
 		   (write_protected
+		    /* TRANSLATORS: You may find it more convenient to
+		       translate "%s: remove %s (write-protected) %s? "
+		       instead.  It should avoid grammatical problems
+		       with the output of file_type.  */
 		    ? _("%s: remove write-protected %s %s? ")
 		    : _("%s: remove %s %s? ")),
 		   program_name, file_type (sbuf), quoted_name);
@@ -1211,6 +1248,188 @@ fd_to_subdirp (int fd_cwd, char const *f,
   return NULL;
 }
 
+struct readdir_data
+{
+  ino_t ino;
+  char name[FLEXIBLE_ARRAY_MEMBER];
+};
+
+#if HAVE_STRUCT_DIRENT_D_TYPE
+/* A comparison function to sort on increasing inode number.  */
+static int
+compare_ino (void const *av, void const *bv)
+{
+  struct readdir_data const *const *a = av;
+  struct readdir_data const *const *b = bv;
+  return (a[0]->ino < b[0]->ino ? -1
+	  : b[0]->ino < a[0]->ino ? 1 : 0);
+}
+
+/* Return an approximation of the maximum number of dirent entries
+   in a directory with stat data *ST.  */
+static size_t
+dirent_count (struct stat const *st)
+{
+  return st->st_size / 16;
+}
+
+#if defined __linux__ \
+  && HAVE_SYS_VFS_H && HAVE_FSTATFS && HAVE_STRUCT_STATFS_F_TYPE
+#  include <sys/vfs.h>
+#  include "fs.h"
+
+/* Return false if it is easy to determine the file system type of
+   the directory on which DIR_FD is open, and sorting dirents on
+   inode numbers is known not to improve traversal performance with
+   that type of file system.  Otherwise, return true.  */
+static bool
+dirent_inode_sort_may_be_useful (int dir_fd)
+{
+  /* Skip the sort only if we can determine efficiently
+     that skipping it is the right thing to do.
+     The cost of performing an unnecessary sort is negligible,
+     while the cost of *not* performing it can be O(N^2) with
+     a very large constant.  */
+  struct statfs fs_buf;
+
+  /* If fstatfs fails, assume sorting would be useful.  */
+  if (fstatfs (dir_fd, &fs_buf) != 0)
+    return true;
+
+  /* FIXME: what about when f_type is not an integral type?
+     deal with that if/when it's encountered.  */
+  switch (fs_buf.f_type)
+    {
+    case S_MAGIC_TMPFS:
+    case S_MAGIC_NFS:
+      /* On a file system of any of these types, sorting
+	 is unnecessary, and hence wasteful.  */
+      return false;
+
+    default:
+      return true;
+    }
+}
+# else /* !HAVE_STRUCT_STATFS_F_TYPE */
+static bool dirent_inode_sort_may_be_useful (int dir_fd) { return true; }
+# endif /* !HAVE_STRUCT_STATFS_F_TYPE */
+#endif /* HAVE_STRUCT_DIRENT_D_TYPE */
+
+/* When a directory contains very many entries, operating on N entries in
+   readdir order can be very seek-intensive (be it to unlink or even to
+   merely stat each entry), to the point that it results in O(N^2) work.
+   This is file-system-specific: ext3 and ext4 (as of 2008) are susceptible,
+   but tmpfs is not.  The general solution is to process entries in inode
+   order.  That means reading all entries, and sorting them before operating
+   on any.  As such, it is useful only on systems with useful dirent.d_ino.
+   Since 'rm -r's removal process must traverse into directories and since
+   this preprocessing phase can allocate O(N) storage, here we store and
+   sort only non-directory entries, and then remove all of those, so that we
+   can free all allocated storage before traversing into any subdirectory.
+   Perform this optimization only when not interactive and not in verbose
+   mode, to keep the implementation simple and to minimize duplication.
+   Upon failure, simply free any resources and return.  */
+static void
+preprocess_dir (DIR **dirp, struct rm_options const *x)
+{
+#if HAVE_STRUCT_DIRENT_D_TYPE
+
+  struct stat st;
+  /* There are many reasons to return right away, skipping this
+     optimization.  The penalty for being wrong is that we will
+     perform a small amount of extra work.
+
+     Skip this optimization if... */
+
+  int dir_fd = dirfd (*dirp);
+  if (/* - there is a chance of interactivity */
+      x->interactive != RMI_NEVER
+
+      /* - we're in verbose mode */
+      || x->verbose
+
+      /* - privileged users can unlink nonempty directories.
+	 Otherwise, there'd be a race condition between the readdir
+	 call (in which we learn dirent.d_type) and the unlink, by
+	 which time the non-directory may be replaced with a directory. */
+      || ! cannot_unlink_dir ()
+
+      /* - we can't fstat the file descriptor */
+      || fstat (dir_fd, &st) != 0
+
+      /* - the directory is smaller than some threshold.
+	 Estimate the number of inodes with a heuristic.
+         There's no significant benefit to sorting if there are
+	 too few inodes.  */
+      || dirent_count (&st) < INODE_SORT_DIR_ENTRIES_THRESHOLD
+
+      /* Sort only if it might help.  */
+      || ! dirent_inode_sort_may_be_useful (dir_fd))
+    return;
+
+  /* FIXME: maybe test file system type, too; skip if it's tmpfs: see fts.c */
+
+  struct obstack o_readdir_data;  /* readdir data: inode,name pairs  */
+  struct obstack o_p;  /* an array of pointers to each inode,name pair */
+
+  /* Arrange to longjmp upon obstack allocation failure.  */
+  jmp_buf readdir_jumpbuf;
+  if (setjmp (readdir_jumpbuf))
+    goto cleanup;
+
+  obstack_init_minimal (&o_readdir_data);
+  obstack_init_minimal (&o_p);
+
+  obstack_specify_allocation_with_arg (&o_readdir_data, 0, 0,
+				       rm_malloc, rm_free, &readdir_jumpbuf);
+  obstack_specify_allocation_with_arg (&o_p, 0, 0,
+				       rm_malloc, rm_free, &readdir_jumpbuf);
+
+  /* Read all entries, storing <d_ino, d_name> for each non-dir one.
+     Maintain a parallel list of pointers into the primary buffer.  */
+  while (1)
+    {
+      struct dirent const *dp;
+      dp = readdir_ignoring_dot_and_dotdot (*dirp);
+      /* no need to distinguish EOF from failure */
+      if (dp == NULL)
+	break;
+
+      /* Skip known-directory and type-unknown entries.  */
+      if (D_TYPE (dp) == DT_UNKNOWN || D_TYPE (dp) == DT_DIR)
+	break;
+
+      size_t name_len = strlen (dp->d_name);
+      size_t ent_len = offsetof (struct readdir_data, name) + name_len + 1;
+      struct readdir_data *v = obstack_alloc (&o_readdir_data, ent_len);
+      v->ino = D_INO (dp);
+      memcpy (v->name, dp->d_name, name_len + 1);
+
+      /* Append V to the list of pointers.  */
+      obstack_ptr_grow (&o_p, v);
+    }
+
+  /* Compute size and finalize VV.  */
+  size_t n = obstack_object_size (&o_p) / sizeof (void *);
+  struct readdir_data **vv = obstack_finish (&o_p);
+
+  /* Sort on inode number.  */
+  qsort(vv, n, sizeof *vv, compare_ino);
+
+  /* Iterate through those pointers, unlinking each name.  */
+  for (size_t i = 0; i < n; i++)
+    {
+      /* ignore failure */
+      unlinkat (dir_fd, vv[i]->name, 0);
+    }
+
+ cleanup:
+  obstack_free (&o_readdir_data, NULL);
+  obstack_free (&o_p, NULL);
+  rewinddir (*dirp);
+#endif
+}
+
 /* Remove entries in the directory open on DIRP
    Upon finding a directory that is both non-empty and that can be chdir'd
    into, return RM_OK and set *SUBDIR and fill in SUBDIR_SB, where
@@ -1232,6 +1451,10 @@ remove_cwd_entries (DIR **dirp,
 
   assert (VALID_STATUS (status));
   *subdir = NULL;
+
+  /* This is just an optimization.
+     It's not a fatal problem if it fails.  */
+  preprocess_dir (dirp, x);
 
   while (1)
     {
@@ -1543,8 +1766,8 @@ rm_1 (Dirstack_state *ds, char const *filename,
   if (dot_or_dotdot (base))
     {
       error (0, 0, _(base == filename
-		     ? "cannot remove directory %s"
-		     : "cannot remove %s directory %s"),
+		     ? N_("cannot remove directory %s")
+		     : N_("cannot remove %s directory %s")),
 	     quote_n (0, base), quote_n (1, filename));
       return RM_ERROR;
     }
@@ -1596,9 +1819,18 @@ extern enum RM_status
 rm (size_t n_files, char const *const *file, struct rm_options const *x)
 {
   enum RM_status status = RM_OK;
-  Dirstack_state *ds = ds_init ();
+  Dirstack_state ds;
   int cwd_errno = 0;
   size_t i;
+
+  /* Arrange for obstack allocation failure to longjmp.  */
+  if (setjmp (ds.current_arg_jumpbuf))
+    {
+      status = RM_ERROR;
+      goto cleanup;
+    }
+
+  ds_init (&ds);
 
   for (i = 0; i < n_files; i++)
     {
@@ -1609,7 +1841,7 @@ rm (size_t n_files, char const *const *file, struct rm_options const *x)
 	}
       else
 	{
-	  enum RM_status s = rm_1 (ds, file[i], x, &cwd_errno);
+	  enum RM_status s = rm_1 (&ds, file[i], x, &cwd_errno);
 	  assert (VALID_STATUS (s));
 	  UPDATE_STATUS (status, s);
 	}
@@ -1622,7 +1854,8 @@ rm (size_t n_files, char const *const *file, struct rm_options const *x)
       status = RM_ERROR;
     }
 
-  ds_free (ds);
+ cleanup:;
+  ds_free (&ds);
 
   return status;
 }

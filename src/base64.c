@@ -37,10 +37,8 @@
 
 #define AUTHORS proper_name ("Simon Josefsson")
 
-/* The invocation name of this program.  */
-char *program_name;
-
-static const struct option long_options[] = {
+static struct option const long_options[] =
+{
   {"decode", no_argument, 0, 'd'},
   {"wrap", required_argument, 0, 'w'},
   {"ignore-garbage", no_argument, 0, 'i'},
@@ -50,7 +48,7 @@ static const struct option long_options[] = {
   {NULL, 0, NULL, 0}
 };
 
-static void
+void
 usage (int status)
 {
   if (status != EXIT_SUCCESS)
@@ -59,7 +57,7 @@ usage (int status)
   else
     {
       printf (_("\
-Usage: %s [OPTION] [FILE]\n\
+Usage: %s [OPTION]... [FILE]\n\
 Base64 encode or decode FILE, or standard input, to standard output.\n\
 \n"), program_name);
       fputs (_("\
@@ -216,7 +214,7 @@ do_decode (FILE *in, FILE *out, bool ignore_garbage)
 	 However, when it processes the final input buffer, we want
 	 to iterate it one additional time, but with an indicator
 	 telling it to flush what is in CTX.  */
-      for (k = 0; k < 1 + feof (in); k++)
+      for (k = 0; k < 1 + !!feof (in); k++)
 	{
 	  if (k == 1 && ctx.i == 0)
 	    break;
@@ -240,15 +238,15 @@ main (int argc, char **argv)
   FILE *input_fh;
   const char *infile;
 
-  /* True if --decode has bene given and we should decode data. */
+  /* True if --decode has been given and we should decode data. */
   bool decode = false;
-  /* True if we should ignore non-alphabetic characters. */
+  /* True if we should ignore non-base64-alphabetic characters. */
   bool ignore_garbage = false;
   /* Wrap encoded base64 data around the 76:th column, by default. */
   uintmax_t wrap_column = 76;
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);

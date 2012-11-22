@@ -1,5 +1,5 @@
 /* copy.c -- core functions for copying files and directories
-   Copyright (C) 89, 90, 91, 1995-2008 Free Software Foundation, Inc.
+   Copyright (C) 89, 90, 91, 1995-2009 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -35,7 +35,6 @@
 #include "buffer-lcm.h"
 #include "copy.h"
 #include "cp-hash.h"
-#include "euidaccess.h"
 #include "error.h"
 #include "fcntl--.h"
 #include "file-set.h"
@@ -44,7 +43,7 @@
 #include "full-write.h"
 #include "hash.h"
 #include "hash-triple.h"
-#include "lchmod.h"
+#include "ignore-value.h"
 #include "quote.h"
 #include "same.h"
 #include "savedir.h"
@@ -54,6 +53,13 @@
 #include "write-any-file.h"
 #include "areadlink.h"
 #include "yesno.h"
+
+#if USE_XATTR
+# include <attr/error_context.h>
+# include <attr/libattr.h>
+# include <stdarg.h>
+# include "verror.h"
+#endif
 
 #ifndef HAVE_FCHOWN
 # define HAVE_FCHOWN false
@@ -72,7 +78,7 @@ rpl_mkfifo (char const *file, mode_t mode)
   errno = ENOTSUP;
   return -1;
 }
-#define mkfifo rpl_mkfifo
+# define mkfifo rpl_mkfifo
 #endif
 
 #ifndef USE_ACL
@@ -107,9 +113,6 @@ static bool owner_failure_ok (struct cp_options const *x);
 static char const *top_level_src_name;
 static char const *top_level_dst_name;
 
-/* The invocation name of this program.  */
-extern char *program_name;
-
 /* FIXME: describe */
 /* FIXME: rewrite this to use a hash table so we avoid the quadratic
    performance hit that's probably noticeable only on trees deeper
@@ -126,6 +129,72 @@ is_ancestor (const struct stat *sb, const struct dir_list *ancestors)
     }
   return false;
 }
+
+#if USE_XATTR
+static void
+copy_attr_error (struct error_context *ctx ATTRIBUTE_UNUSED,
+		 char const *fmt, ...)
+{
+  int err = errno;
+  va_list ap;
+
+  /* use verror module to print error message */
+  va_start (ap, fmt);
+  verror (0, err, fmt, ap);
+  va_end (ap);
+}
+
+static char const *
+copy_attr_quote (struct error_context *ctx ATTRIBUTE_UNUSED, char const *str)
+{
+  return quote (str);
+}
+
+static void
+copy_attr_free (struct error_context *ctx ATTRIBUTE_UNUSED,
+		char const *str ATTRIBUTE_UNUSED)
+{
+}
+
+static bool
+copy_attr_by_fd (char const *src_path, int src_fd,
+		 char const *dst_path, int dst_fd)
+{
+  struct error_context ctx =
+  {
+    .error = copy_attr_error,
+    .quote = copy_attr_quote,
+    .quote_free = copy_attr_free
+  };
+  return 0 == attr_copy_fd (src_path, src_fd, dst_path, dst_fd, 0, &ctx);
+}
+
+static bool
+copy_attr_by_name (char const *src_path, char const *dst_path)
+{
+  struct error_context ctx =
+  {
+    .error = copy_attr_error,
+    .quote = copy_attr_quote,
+    .quote_free = copy_attr_free
+  };
+  return 0 == attr_copy_file (src_path, dst_path, 0, &ctx);
+}
+#else /* USE_XATTR */
+
+static bool
+copy_attr_by_fd (char const *src_path, int src_fd,
+		 char const *dst_path, int dst_fd)
+{
+  return true;
+}
+
+static bool
+copy_attr_by_name (char const *src_path, char const *dst_path)
+{
+  return true;
+}
+#endif /* USE_XATTR */
 
 /* Read the contents of the directory SRC_NAME_IN, and recursively
    copy the contents to DST_NAME_IN.  NEW_DST is true if
@@ -206,7 +275,7 @@ set_owner (const struct cp_options *x, char const *dst_name, int dest_desc,
      group.  Avoid the window by first changing to a restrictive
      temporary mode if necessary.  */
 
-  if (!new_dst & (x->preserve_mode | x->move_mode | x->set_mode))
+  if (!new_dst && (x->preserve_mode | x->move_mode | x->set_mode))
     {
       mode_t old_mode = dst_sb->st_mode;
       mode_t new_mode =
@@ -233,7 +302,7 @@ set_owner (const struct cp_options *x, char const *dst_name, int dest_desc,
 	  /* We've failed to set *both*.  Now, try to set just the group
 	     ID, but ignore any failure here, and don't change errno.  */
           int saved_errno = errno;
-          (void) fchown (dest_desc, -1, gid);
+          ignore_value (fchown (dest_desc, -1, gid));
           errno = saved_errno;
         }
     }
@@ -246,7 +315,7 @@ set_owner (const struct cp_options *x, char const *dst_name, int dest_desc,
 	  /* We've failed to set *both*.  Now, try to set just the group
 	     ID, but ignore any failure here, and don't change errno.  */
           int saved_errno = errno;
-          (void) lchown (dst_name, -1, gid);
+          ignore_value (lchown (dst_name, -1, gid));
           errno = saved_errno;
         }
     }
@@ -381,7 +450,8 @@ copy_reg (char const *src_name, char const *dst_name,
 	  security_context_t con = NULL;
 	  if (getfscreatecon (&con) < 0)
 	    {
-	      error (0, errno, _("failed to get file system create context"));
+	      if (!x->reduce_diagnostics)
+	        error (0, errno, _("failed to get file system create context"));
 	      if (x->require_preserve_context)
 		{
 		  return_val = false;
@@ -393,9 +463,10 @@ copy_reg (char const *src_name, char const *dst_name,
 	    {
 	      if (fsetfilecon (dest_desc, con) < 0)
 		{
-		  error (0, errno,
-			 _("failed to set the security context of %s to %s"),
-			 quote_n (0, dst_name), quote_n (1, con));
+		  if (!x->reduce_diagnostics)
+		    error (0, errno,
+			   _("failed to set the security context of %s to %s"),
+			   quote_n (0, dst_name), quote_n (1, con));
 		  if (x->require_preserve_context)
 		    {
 		      return_val = false;
@@ -403,7 +474,7 @@ copy_reg (char const *src_name, char const *dst_name,
 		      goto close_src_and_dst_desc;
 		    }
 		}
-	      freecon(con);
+	      freecon (con);
 	    }
 	}
 
@@ -426,7 +497,7 @@ copy_reg (char const *src_name, char const *dst_name,
   if (*new_dst)
     {
       int open_flags = O_WRONLY | O_CREAT | O_BINARY;
-      dest_desc = open (dst_name, open_flags | O_EXCL ,
+      dest_desc = open (dst_name, open_flags | O_EXCL,
 			dst_mode & ~omitted_permissions);
       dest_errno = errno;
 
@@ -684,6 +755,11 @@ copy_reg (char const *src_name, char const *dst_name,
     }
 
   set_author (dst_name, dest_desc, src_sb);
+
+  if (x->preserve_xattr && ! copy_attr_by_fd (src_name, source_desc,
+					      dst_name, dest_desc)
+      && x->require_preserve_xattr)
+    return false;
 
   if (x->preserve_mode || x->move_mode)
     {
@@ -1415,6 +1491,10 @@ copy_internal (char const *src_name, char const *dst_name,
      we can arrange to create a hard link between the corresponding names
      in the destination tree.
 
+     When using the --link (-l) option, there is no need to take special
+     measures, because (barring race conditions) files that are hard-linked
+     in the source tree will also be hard-linked in the destination tree.
+
      Sometimes, when preserving links, we have to record dev/ino even
      though st_nlink == 1:
      - when in move_mode, since we may be moving a group of N hard-linked
@@ -1433,26 +1513,28 @@ copy_internal (char const *src_name, char const *dst_name,
      - likewise for -L except that it applies to all files, not just
 	command line arguments.
 
-     Also record directory dev/ino when using --recursive.  We'll use that
-     info to detect this problem: cp -R dir dir.  FIXME-maybe: ideally,
-     directory info would be recorded in a separate hash table, since
-     such entries are useful only while a single command line hierarchy
-     is being copied -- so that separate table could be cleared between
-     command line args.  Using the same hash table to preserve hard
-     links means that it may not be cleared.  */
+     Also, with --recursive, record dev/ino of each command-line directory.
+     We'll use that info to detect this problem: cp -R dir dir.  */
 
   if (x->move_mode && src_sb.st_nlink == 1)
     {
       earlier_file = src_to_dest_lookup (src_sb.st_ino, src_sb.st_dev);
     }
-  else if ((x->preserve_links
-	    && (1 < src_sb.st_nlink
-		|| (command_line_arg
-		    && x->dereference == DEREF_COMMAND_LINE_ARGUMENTS)
-		|| x->dereference == DEREF_ALWAYS))
-	   || (x->recursive && S_ISDIR (src_mode)))
+  else if (x->preserve_links
+	   && !x->hard_link
+	   && (1 < src_sb.st_nlink
+	       || (command_line_arg
+		   && x->dereference == DEREF_COMMAND_LINE_ARGUMENTS)
+	       || x->dereference == DEREF_ALWAYS))
     {
       earlier_file = remember_copied (dst_name, src_sb.st_ino, src_sb.st_dev);
+    }
+  else if (x->recursive && S_ISDIR (src_mode))
+    {
+      if (command_line_arg)
+	earlier_file = remember_copied (dst_name, src_sb.st_ino, src_sb.st_dev);
+      else
+	earlier_file = src_to_dest_lookup (src_sb.st_ino, src_sb.st_dev);
     }
 
   /* Did we copy this inode somewhere else (in this command line argument)
@@ -1641,9 +1723,10 @@ copy_internal (char const *src_name, char const *dst_name,
 	{
 	  if (setfscreatecon (con) < 0)
 	    {
-	      error (0, errno,
-		     _("failed to set default file creation context to %s"),
-		     quote (con));
+	      if (!x->reduce_diagnostics)
+	        error (0, errno,
+		       _("failed to set default file creation context to %s"),
+		       quote (con));
 	      if (x->require_preserve_context)
 		{
 		  freecon (con);
@@ -1656,9 +1739,10 @@ copy_internal (char const *src_name, char const *dst_name,
 	{
 	  if (errno != ENOTSUP && errno != ENODATA)
 	    {
-	      error (0, errno,
-		     _("failed to get security context of %s"),
-		     quote (src_name));
+	      if (!x->reduce_diagnostics)
+	        error (0, errno,
+		       _("failed to get security context of %s"),
+		       quote (src_name));
 	      if (x->require_preserve_context)
 		return false;
 	    }
@@ -1734,8 +1818,8 @@ copy_internal (char const *src_name, char const *dst_name,
 	  /* Insert the created directory's inode and device
              numbers into the search structure, so that we can
              avoid copying it again.  */
-
-	  remember_copied (dst_name, dst_sb.st_ino, dst_sb.st_dev);
+	  if (!x->hard_link)
+	    remember_copied (dst_name, dst_sb.st_ino, dst_sb.st_dev);
 
 	  if (x->verbose)
 	    emit_verbose (src_name, dst_name, NULL);
@@ -1982,6 +2066,10 @@ copy_internal (char const *src_name, char const *dst_name,
     }
 
   set_author (dst_name, -1, &src_sb);
+
+  if (x->preserve_xattr && ! copy_attr_by_name (src_name, dst_name)
+      && x->require_preserve_xattr)
+    return false;
 
   if (x->preserve_mode || x->move_mode)
     {

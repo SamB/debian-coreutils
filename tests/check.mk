@@ -43,13 +43,13 @@ check: vc_exe_in_TESTS
 built_programs = \
   (cd $(top_builddir)/src && MAKEFLAGS= $(MAKE) -s built_programs.list)
 
-# Note that the first lines are statements.  They ensures that environment
+# Note that the first lines are statements.  They ensure that environment
 # variables that can perturb tests are unset or set to expected values.
 # The rest are envvar settings that propagate build-related Makefile
 # variables to test scripts.
 TESTS_ENVIRONMENT =				\
   . $(srcdir)/lang-default;			\
-  tmp__=$$TMPDIR; test -d $tmp__ || tmp__=.;	\
+  tmp__=$$TMPDIR; test -d "$$tmp__" || tmp__=.;	\
   . $(srcdir)/envvar-check;			\
   TMPDIR=$$tmp__; export TMPDIR;		\
   shell_or_perl_() {				\
@@ -67,7 +67,9 @@ TESTS_ENVIRONMENT =				\
       $(SHELL) "$$1";				\
     fi;						\
   };						\
+  export					\
   LOCALE_FR='$(LOCALE_FR)'			\
+  LOCALE_FR_UTF8='$(LOCALE_FR_UTF8)'		\
   abs_top_builddir='$(abs_top_builddir)'	\
   abs_top_srcdir='$(abs_top_srcdir)'		\
   abs_srcdir='$(abs_srcdir)'			\
@@ -78,19 +80,23 @@ TESTS_ENVIRONMENT =				\
   top_srcdir='$(top_srcdir)'			\
   CONFIG_HEADER='$(abs_top_builddir)/lib/config.h' \
   CU_TEST_NAME=`basename '$(abs_srcdir)'`,$$tst	\
+  CC='$(CC)'					\
+  AWK='$(AWK)'					\
   EGREP='$(EGREP)'				\
   EXEEXT='$(EXEEXT)'				\
   MAKE=$(MAKE)					\
   PACKAGE_BUGREPORT='$(PACKAGE_BUGREPORT)'	\
   PACKAGE_VERSION=$(PACKAGE_VERSION)		\
   PERL='$(PERL)'				\
+  PREFERABLY_POSIX_SHELL='$(PREFERABLY_POSIX_SHELL)' \
   REPLACE_GETCWD=$(REPLACE_GETCWD)		\
   PATH='$(abs_top_builddir)/src$(PATH_SEPARATOR)'"$$PATH" \
-  shell_or_perl_
+  ; shell_or_perl_
 
 TEST_LOGS = $(TESTS:=.log)
 
 # Parallel replacement of Automake's check-TESTS target.
+SUFFIXES =
 include $(top_srcdir)/build-aux/check.mk
 
 VERBOSE = yes

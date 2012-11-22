@@ -1,6 +1,6 @@
 /* print the hexadecimal identifier for the current host
 
-   Copyright (C) 1997, 1999, 2000, 2001, 2002, 2003, 2004, 2007-2008 Free
+   Copyright (C) 1997, 1999, 2000, 2001, 2002, 2003, 2004, 2007-2009 Free
    Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
@@ -33,9 +33,6 @@
 
 #define AUTHORS proper_name ("Jim Meyering")
 
-/* The name this program was run with, for error messages. */
-char *program_name;
-
 void
 usage (int status)
 {
@@ -45,12 +42,10 @@ usage (int status)
   else
     {
       printf (_("\
-Usage: %s\n\
-  or:  %s OPTION\n\
+Usage: %s [OPTION]\n\
 Print the numeric identifier (in hexadecimal) for the current host.\n\
 \n\
-"),
-	      program_name, program_name);
+"), program_name);
       fputs (HELP_OPTION_DESCRIPTION, stdout);
       fputs (VERSION_OPTION_DESCRIPTION, stdout);
       emit_bug_reporting_address ();
@@ -64,14 +59,14 @@ main (int argc, char **argv)
   unsigned int id;
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
 
   atexit (close_stdout);
 
-  parse_long_options (argc, argv, PROGRAM_NAME, PACKAGE_NAME, VERSION,
+  parse_long_options (argc, argv, PROGRAM_NAME, PACKAGE_NAME, Version,
 		      usage, AUTHORS, (char const *) NULL);
   if (getopt_long (argc, argv, "", NULL, NULL) != -1)
     usage (EXIT_FAILURE);

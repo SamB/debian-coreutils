@@ -33,9 +33,6 @@
 
 #define AUTHORS proper_name ("David MacKenzie")
 
-/* The name this program was run with. */
-char *program_name;
-
 static struct option const longopts[] =
 {
   {GETOPT_SELINUX_CONTEXT_OPTION_DECL},
@@ -59,14 +56,14 @@ usage (int status)
 Create the special file NAME of the given TYPE.\n\
 \n\
 "), stdout);
-      fputs(_("\
-  -Z, --context=CTX  set the SELinux security context of NAME to CTX\n\
-"), stdout);
       fputs (_("\
 Mandatory arguments to long options are mandatory for short options too.\n\
 "), stdout);
       fputs (_("\
-  -m, --mode=MODE   set file permission bits to MODE, not a=rw - umask\n\
+  -m, --mode=MODE    set file permission bits to MODE, not a=rw - umask\n\
+"), stdout);
+      fputs (_("\
+  -Z, --context=CTX  set the SELinux security context of NAME to CTX\n\
 "), stdout);
       fputs (HELP_OPTION_DESCRIPTION, stdout);
       fputs (VERSION_OPTION_DESCRIPTION, stdout);
@@ -100,7 +97,7 @@ main (int argc, char **argv)
   security_context_t scontext = NULL;
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);

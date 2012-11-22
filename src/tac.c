@@ -48,6 +48,7 @@ tac -r -s '.\|
 #include "quotearg.h"
 #include "safe-read.h"
 #include "stdlib--.h"
+#include "xfreopen.h"
 
 /* The official name of this program (e.g., no `g' prefix).  */
 #define PROGRAM_NAME "tac"
@@ -74,9 +75,6 @@ tac -r -s '.\|
 
 /* The number of bytes per atomic write. */
 #define WRITESIZE 8192
-
-/* The name this program was run with. */
-char *program_name;
 
 /* The string that separates the records of the file. */
 static char const *separator;
@@ -457,7 +455,8 @@ copy_to_temp (FILE **g_tmp, char **g_tempfile, int input_fd, char const *file)
   fd = mkstemp (template);
   if (fd < 0)
     {
-      error (0, errno, _("cannot create temporary file %s"), quote (tempfile));
+      error (0, errno, _("cannot create temporary file in %s"),
+	     quote (tempdir));
       return false;
     }
 
@@ -535,7 +534,7 @@ tac_file (const char *filename)
       fd = STDIN_FILENO;
       filename = _("standard input");
       if (O_BINARY && ! isatty (STDIN_FILENO))
-	freopen (NULL, "rb", stdin);
+	xfreopen (NULL, "rb", stdin);
     }
   else
     {
@@ -575,7 +574,7 @@ main (int argc, char **argv)
   char const *const *file;
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
@@ -649,7 +648,7 @@ main (int argc, char **argv)
 	  : default_file_list);
 
   if (O_BINARY && ! isatty (STDOUT_FILENO))
-    freopen (NULL, "wb", stdout);
+    xfreopen (NULL, "wb", stdout);
 
   {
     size_t i;

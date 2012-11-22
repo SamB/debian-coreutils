@@ -34,9 +34,9 @@
 #include "error.h"
 #include "full-write.h"
 #include "full-read.h"
-#include "inttostr.h"
 #include "quote.h"
 #include "safe-read.h"
+#include "xfreopen.h"
 #include "xstrtol.h"
 
 /* The official name of this program (e.g., no `g' prefix).  */
@@ -63,9 +63,6 @@ enum header_mode
 {
   multiple_files, always, never
 };
-
-/* The name this program was run with. */
-char *program_name;
 
 /* Have we ever read standard input?  */
 static bool have_read_stdin;
@@ -842,7 +839,7 @@ head_file (const char *filename, uintmax_t n_units, bool count_lines,
       fd = STDIN_FILENO;
       filename = _("standard input");
       if (O_BINARY && ! isatty (STDIN_FILENO))
-	freopen (NULL, "rb", stdin);
+	xfreopen (NULL, "rb", stdin);
     }
   else
     {
@@ -920,7 +917,7 @@ main (int argc, char **argv)
   char const *const *file_list;
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
@@ -1055,7 +1052,7 @@ main (int argc, char **argv)
 	       : default_file_list);
 
   if (O_BINARY && ! isatty (STDOUT_FILENO))
-    freopen (NULL, "wb", stdout);
+    xfreopen (NULL, "wb", stdout);
 
   for (i = 0; file_list[i]; ++i)
     ok &= head_file (file_list[i], n_units, count_lines, elide_from_end);

@@ -24,6 +24,7 @@
 #include "system.h"
 #include "error.h"
 #include "stdio--.h"
+#include "xfreopen.h"
 
 /* The official name of this program (e.g., no `g' prefix).  */
 #define PROGRAM_NAME "tee"
@@ -40,9 +41,6 @@ static bool append;
 
 /* If true, ignore interrupts. */
 static bool ignore_interrupts;
-
-/* The name that this program was run with. */
-char *program_name;
 
 static struct option const long_options[] =
 {
@@ -86,7 +84,7 @@ main (int argc, char **argv)
   int optc;
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
@@ -155,9 +153,9 @@ tee_files (int nfiles, const char **files)
     files[i] = files[i - 1];
 
   if (O_BINARY && ! isatty (STDIN_FILENO))
-    freopen (NULL, "rb", stdin);
+    xfreopen (NULL, "rb", stdin);
   if (O_BINARY && ! isatty (STDOUT_FILENO))
-    freopen (NULL, "wb", stdout);
+    xfreopen (NULL, "wb", stdout);
 
   /* In the array of NFILES + 1 descriptors, make
      the first one correspond to standard output.   */
@@ -193,7 +191,7 @@ tee_files (int nfiles, const char **files)
 	 Standard output is the first one.  */
       for (i = 0; i <= nfiles; i++)
 	if (descriptors[i]
-	    && fwrite (buffer, 1, bytes_read, descriptors[i]) != bytes_read)
+	    && fwrite (buffer, bytes_read, 1, descriptors[i]) != 1)
 	  {
 	    error (0, errno, "%s", files[i]);
 	    descriptors[i] = NULL;

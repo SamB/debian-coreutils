@@ -51,9 +51,6 @@
    allocated for the output line.  */
 #define OUTPUT_BLOCK 256
 
-/* The name this program was run with.  */
-char *program_name;
-
 /* If true, convert blanks even after nonblank characters have been
    read on the line.  */
 static bool convert_entire_line;
@@ -79,7 +76,7 @@ static char **file_list;
 /* Default for `file_list' if no files are given on the command line.  */
 static char *stdin_argv[] =
 {
-  "-", NULL
+  (char *) "-", NULL
 };
 
 /* True if we have ever read standard input.  */
@@ -370,7 +367,7 @@ main (int argc, char **argv)
   int c;
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);

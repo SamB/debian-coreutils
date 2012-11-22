@@ -1,5 +1,167 @@
 GNU coreutils NEWS                                    -*- outline -*-
 
+* Noteworthy changes in release 7.1 (2009-02-21) [stable]
+
+** New features
+
+  Add extended attribute support available on certain filesystems like ext2
+  and XFS.
+    cp: Tries to copy xattrs when --preserve=xattr or --preserve=all specified
+    mv: Always tries to copy xattrs
+    install: Never copies xattrs
+
+  cp and mv accept a new option, --no-clobber (-n): silently refrain
+  from overwriting any existing destination file
+
+  dd accepts iflag=cio and oflag=cio to open the file in CIO (concurrent I/O)
+  mode where this feature is available.
+
+  install accepts a new option, --compare (-C): compare each pair of source
+  and destination files, and if the destination has identical content and
+  any specified owner, group, permissions, and possibly SELinux context, then
+  do not modify the destination at all.
+
+  ls --color now highlights hard linked files, too
+
+  stat -f recognizes the Lustre file system type
+
+** Bug fixes
+
+  chgrp, chmod, chown --silent (--quiet, -f) no longer print some diagnostics
+  [bug introduced in coreutils-5.1]
+
+  cp uses much less memory in some situations
+
+  cp -a now correctly tries to preserve SELinux context (announced in 6.9.90),
+  doesn't inform about failure, unlike with --preserve=all
+
+  du --files0-from=FILE no longer reads all of FILE into RAM before
+  processing the first file name
+
+  seq 9223372036854775807 9223372036854775808 now prints only two numbers
+  on systems with extended long double support and good library support.
+  Even with this patch, on some systems, it still produces invalid output,
+  from 3 to at least 1026 lines long. [bug introduced in coreutils-6.11]
+
+  seq -w now accounts for a decimal point added to the last number
+  to correctly print all numbers to the same width.
+
+  wc --files0-from=FILE no longer reads all of FILE into RAM, before
+  processing the first file name, unless the list of names is known
+  to be small enough.
+
+** Changes in behavior
+
+  cp and mv: the --reply={yes,no,query} option has been removed.
+  Using it has elicited a warning for the last three years.
+
+  dd: user specified offsets that are too big are handled better.
+  Previously, erroneous parameters to skip and seek could result
+  in redundant reading of the file with no warnings or errors.
+
+  du: -H (initially equivalent to --si) is now equivalent to
+  --dereference-args, and thus works as POSIX requires
+
+  shred: now does 3 overwrite passes by default rather than 25.
+
+  ls -l now marks SELinux-only files with the less obtrusive '.',
+  rather than '+'.  A file with any other combination of MAC and ACL
+  is still marked with a '+'.
+
+
+* Noteworthy changes in release 7.0 (2008-10-05) [beta]
+
+** New programs
+
+  timeout: Run a command with bounded time.
+  truncate: Set the size of a file to a specified size.
+
+** New features
+
+  chgrp, chmod, chown, chcon, du, rm: now all display linear performance,
+  even when operating on million-entry directories on ext3 and ext4 file
+  systems.  Before, they would exhibit O(N^2) performance, due to linear
+  per-entry seek time cost when operating on entries in readdir order.
+  Rm was improved directly, while the others inherit the improvement
+  from the newer version of fts in gnulib.
+
+  comm now verifies that the inputs are in sorted order.  This check can
+  be turned off with the --nocheck-order option.
+
+  comm accepts new option, --output-delimiter=STR, that allows specification
+  of an output delimiter other than the default single TAB.
+
+  cp and mv: the deprecated --reply=X option is now also undocumented.
+
+  dd accepts iflag=fullblock to make it accumulate full input blocks.
+  With this new option, after a short read, dd repeatedly calls read,
+  until it fills the incomplete block, reaches EOF, or encounters an error.
+
+  df accepts a new option --total, which produces a grand total of all
+  arguments after all arguments have been processed.
+
+  If the GNU MP library is available at configure time, factor and
+  expr support arbitrarily large numbers.  Pollard's rho algorithm is
+  used to factor large numbers.
+
+  install accepts a new option --strip-program to specify the program used to
+  strip binaries.
+
+  ls now colorizes files with capabilities if libcap is available
+
+  ls -v now uses filevercmp function as sort predicate (instead of strverscmp)
+
+  md5sum now accepts the new option, --quiet, to suppress the printing of
+  'OK' messages.  sha1sum, sha224sum, sha384sum, and sha512sum accept it, too.
+
+  sort accepts a new option, --files0-from=F, that specifies a file
+  containing a null-separated list of files to sort.  This list is used
+  instead of filenames passed on the command-line to avoid problems with
+  maximum command-line (argv) length.
+
+  sort accepts a new option --batch-size=NMERGE, where NMERGE
+  represents the maximum number of inputs that will be merged at once.
+  When processing more than NMERGE inputs, sort uses temporary files.
+
+  sort accepts a new option --version-sort (-V, --sort=version),
+  specifying that ordering is to be based on filevercmp.
+
+** Bug fixes
+
+  chcon --verbose now prints a newline after each message
+
+  od no longer suffers from platform bugs in printf(3).  This is
+  probably most noticeable when using 'od -tfL' to print long doubles.
+
+  seq -0.1 0.1 2 now prints 2,0 when locale's decimal point is ",".
+  Before, it would mistakenly omit the final number in that example.
+
+  shuf honors the --zero-terminated (-z) option, even with --input-range=LO-HI
+
+  shuf --head-count is now correctly documented.  The documentation
+  previously claimed it was called --head-lines.
+
+** Improvements
+
+  Improved support for access control lists (ACLs): On MacOS X, Solaris 7..10,
+  HP-UX 11, Tru64, AIX, IRIX 6.5, and Cygwin, "ls -l" now displays the presence
+  of an ACL on a file via a '+' sign after the mode, and "cp -p" copies ACLs.
+
+  join has significantly better performance due to better memory management
+
+  ls now uses constant memory when not sorting and using one_per_line format,
+  no matter how many files are in a given directory
+
+  od now aligns fields across lines when printing multiple -t
+  specifiers, and no longer prints fields that resulted entirely from
+  padding the input out to the least common multiple width.
+
+** Changes in behavior
+
+  stat's --context (-Z) option has always been a no-op.
+  Now it evokes a warning that it is obsolete and will be removed.
+
+
 * Noteworthy changes in release 6.12 (2008-05-31) [stable]
 
 ** Bug fixes
@@ -2211,8 +2373,7 @@ packages, see ./old/*/NEWS.
 
 ========================================================================
 
-Copyright (C) 2001, 2002, 2003, 2004, 2005, 2006 Free Software
-Foundation, Inc.
+Copyright (C) 2001-2009 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.2 or

@@ -1,5 +1,5 @@
 /* touch -- change modification and access times of files
-   Copyright (C) 87, 1989-1991, 1995-2005, 2007-2008
+   Copyright (C) 87, 1989-1991, 1995-2005, 2007-2009
    Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
@@ -48,9 +48,6 @@
 #define CH_ATIME 1
 #define CH_MTIME 2
 
-/* The name by which this program was run. */
-char *program_name;
-
 /* Which timestamps to change. */
 static int change_times;
 
@@ -85,7 +82,7 @@ static struct option const longopts[] =
   {"time", required_argument, NULL, TIME_OPTION},
   {"no-create", no_argument, NULL, 'c'},
   {"date", required_argument, NULL, 'd'},
-  {"file", required_argument, NULL, 'r'}, /* FIXME: remove --file in 2006 */
+  {"file", required_argument, NULL, 'r'}, /* FIXME: remove --file in 2010 */
   {"reference", required_argument, NULL, 'r'},
   {GETOPT_HELP_OPTION_DECL},
   {GETOPT_VERSION_OPTION_DECL},
@@ -278,9 +275,10 @@ main (int argc, char **argv)
   bool date_set = false;
   bool ok = true;
   char const *flex_date = NULL;
+  int long_idx; /* FIXME: remove in 2010, when --file is removed */
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
@@ -290,7 +288,7 @@ main (int argc, char **argv)
   change_times = 0;
   no_create = use_ref = false;
 
-  while ((c = getopt_long (argc, argv, "acd:fmr:t:", longopts, NULL)) != -1)
+  while ((c = getopt_long (argc, argv, "acd:fmr:t:", longopts, &long_idx)) != -1)
     {
       switch (c)
 	{
@@ -314,6 +312,10 @@ main (int argc, char **argv)
 	  break;
 
 	case 'r':
+	  if (long_idx == 3)
+	    error (0, 0,
+		   _("warning: the --%s option is obsolete; use --reference"),
+		   longopts[long_idx].name);
 	  use_ref = true;
 	  ref_file = optarg;
 	  break;

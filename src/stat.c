@@ -1,5 +1,5 @@
 /* stat.c -- display file or file system status
-   Copyright (C) 2001-2008 Free Software Foundation, Inc.
+   Copyright (C) 2001-2009 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -62,7 +62,6 @@
 #include "file-type.h"
 #include "fs.h"
 #include "getopt.h"
-#include "inttostr.h"
 #include "quote.h"
 #include "quotearg.h"
 #include "stat-time.h"
@@ -157,14 +156,11 @@ enum
   PRINTF_OPTION = CHAR_MAX + 1
 };
 
-static struct option const long_options[] = {
+static struct option const long_options[] =
+{
   {"context", no_argument, 0, 'Z'},
   {"dereference", no_argument, NULL, 'L'},
   {"file-system", no_argument, NULL, 'f'},
-
-  /* obsolete and undocumented alias: FIXME: remove in 2009 */
-  {"filesystem", no_argument, NULL, 'f'},
-
   {"format", required_argument, NULL, 'c'},
   {"printf", required_argument, NULL, PRINTF_OPTION},
   {"terse", no_argument, NULL, 't'},
@@ -172,8 +168,6 @@ static struct option const long_options[] = {
   {GETOPT_VERSION_OPTION_DECL},
   {NULL, 0, NULL, 0}
 };
-
-char *program_name;
 
 /* Whether to follow symbolic links;  True for --dereference (-L).  */
 static bool follow_links;
@@ -271,6 +265,8 @@ human_fstype (STRUCT_STATVFS const *statfsbuf)
       return "jffs";
     case S_MAGIC_JFS: /* 0x3153464A */
       return "jfs";
+    case S_MAGIC_LUSTRE: /* 0x0BD00BD0 */
+      return "lustre";
     case S_MAGIC_MINIX: /* 0x137F */
       return "minix";
     case S_MAGIC_MINIX_30: /* 0x138F */
@@ -416,9 +412,7 @@ human_time (struct timespec t)
 			+ sizeof "-MM-DD HH:MM:SS.NNNNNNNNN +ZZZZ"))];
   struct tm const *tm = localtime (&t.tv_sec);
   if (tm == NULL)
-    return (TYPE_SIGNED (time_t)
-	    ? imaxtostr (t.tv_sec, str)
-	    : umaxtostr (t.tv_sec, str));
+    return timetostr (t.tv_sec, str);
   nstrftime (str, sizeof str, "%Y-%m-%d %H:%M:%S.%N %z", tm, 0, t.tv_nsec);
   return str;
 }
@@ -547,7 +541,7 @@ print_statfs (char *pformat, size_t prefix_len, char m, char const *filename,
       }
       break;
     case 'c':
-      out_int (pformat, prefix_len, statfsbuf->f_files);
+      out_uint (pformat, prefix_len, statfsbuf->f_files);
       break;
     case 'd':
       out_int (pformat, prefix_len, statfsbuf->f_ffree);
@@ -912,7 +906,7 @@ usage (int status)
 	     program_name);
   else
     {
-      printf (_("Usage: %s [OPTION] FILE...\n"), program_name);
+      printf (_("Usage: %s [OPTION]... FILE...\n"), program_name);
       fputs (_("\
 Display file or file system status.\n\
 \n\
@@ -1005,7 +999,7 @@ main (int argc, char *argv[])
   bool ok = true;
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
@@ -1040,9 +1034,13 @@ main (int argc, char *argv[])
 	  terse = true;
 	  break;
 
-	case 'Z':  /* FIXME: remove in 2010, warn in mid 2008 */
-	  /* Ignored, for compatibility with distributions
-	     that implemented this before upstream.  */
+	case 'Z':  /* FIXME: remove in 2010 */
+	  /* Ignore, for compatibility with distributions
+	     that implemented this before upstream.
+	     But warn of impending removal.  */
+	  error (0, 0,
+		 _("the --context (-Z) option is obsolete and will be removed\n"
+		   "in a future release"));
 	  break;
 
 	case_GETOPT_HELP_CHAR;

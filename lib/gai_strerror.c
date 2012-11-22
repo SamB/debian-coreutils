@@ -1,7 +1,7 @@
 /* -*- buffer-read-only: t -*- vi: set ro: */
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
 #line 1
-/* Copyright (C) 1997, 2001, 2002, 2004, 2005, 2006 Free Software Foundation, Inc.
+/* Copyright (C) 1997, 2001, 2002, 2004, 2005, 2006, 2008 Free Software Foundation, Inc.
    This file is part of the GNU C Library.
    Contributed by Philip Blundell <pjb27@cam.ac.uk>, 1997.
 
@@ -21,13 +21,10 @@
 
 #ifndef _LIBC
 # include <config.h>
-# include "getaddrinfo.h"
 #endif
 
 #include <stdio.h>
-#ifdef HAVE_NETDB_H
-# include <netdb.h>
-#endif
+#include <netdb.h>
 
 #ifdef _LIBC
 # include <libintl.h>

@@ -1,6 +1,6 @@
 ## DO NOT EDIT! GENERATED AUTOMATICALLY!
 ## Process this file with automake to produce Makefile.in.
-# Copyright (C) 2002-2008 Free Software Foundation, Inc.
+# Copyright (C) 2002-2009 Free Software Foundation, Inc.
 #
 # This file is free software, distributed under the terms of the GNU
 # General Public License.  As a special exception to the GNU General
@@ -42,13 +42,18 @@ libtests_a_DEPENDENCIES = $(gltests_LIBOBJS)
 EXTRA_libtests_a_SOURCES =
 AM_LIBTOOLFLAGS = --preserve-dup-deps
 
-## begin gnulib module EOVERFLOW-tests
+## begin gnulib module acl-tests
 
-TESTS += test-EOVERFLOW
-check_PROGRAMS += test-EOVERFLOW
-EXTRA_DIST += test-EOVERFLOW.c
+TESTS += test-file-has-acl.sh test-set-mode-acl.sh test-copy-acl.sh
+TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@' USE_ACL=$(USE_ACL)
+check_PROGRAMS += test-file-has-acl test-set-mode-acl test-copy-acl test-sameacls
+test_file_has_acl_LDADD = $(LDADD) $(LIB_ACL)
+test_set_mode_acl_LDADD = $(LDADD) $(LIB_ACL) @LIBINTL@
+test_copy_acl_LDADD = $(LDADD) $(LIB_ACL) @LIBINTL@
+test_sameacls_LDADD = $(LDADD) $(LIB_ACL) @LIBINTL@
+EXTRA_DIST += test-file-has-acl.sh test-set-mode-acl.sh test-copy-acl.sh test-file-has-acl.c test-set-mode-acl.c test-copy-acl.c test-sameacls.c
 
-## end   gnulib module EOVERFLOW-tests
+## end   gnulib module acl-tests
 
 ## begin gnulib module alloca-opt-tests
 
@@ -68,6 +73,14 @@ test_argmatch_LDADD = $(LDADD) @LIBINTL@
 EXTRA_DIST += test-argmatch.c
 
 ## end   gnulib module argmatch-tests
+
+## begin gnulib module argv-iter-tests
+
+TESTS += test-argv-iter
+check_PROGRAMS += test-argv-iter
+EXTRA_DIST += test-argv-iter.c
+
+## end   gnulib module argv-iter-tests
 
 ## begin gnulib module arpa_inet-tests
 
@@ -110,6 +123,16 @@ check_PROGRAMS += test-binary-io
 EXTRA_DIST += test-binary-io.sh test-binary-io.c
 
 ## end   gnulib module binary-io-tests
+
+## begin gnulib module btowc-tests
+
+TESTS += test-btowc1.sh test-btowc2.sh
+TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@' LOCALE_FR='@LOCALE_FR@' LOCALE_FR_UTF8='@LOCALE_FR_UTF8@'
+check_PROGRAMS += test-btowc
+
+EXTRA_DIST += test-btowc1.sh test-btowc2.sh test-btowc.c
+
+## end   gnulib module btowc-tests
 
 ## begin gnulib module c-ctype-tests
 
@@ -183,6 +206,15 @@ EXTRA_DIST += test-environ.c
 
 ## end   gnulib module environ-tests
 
+## begin gnulib module errno-tests
+
+TESTS += test-errno
+check_PROGRAMS += test-errno
+
+EXTRA_DIST += test-errno.c
+
+## end   gnulib module errno-tests
+
 ## begin gnulib module fcntl-tests
 
 TESTS += test-fcntl
@@ -210,6 +242,14 @@ test_filenamecat_LDADD = $(LDADD) @LIBINTL@
 EXTRA_DIST += test-filenamecat.c
 
 ## end   gnulib module filenamecat-tests
+
+## begin gnulib module filevercmp-tests
+
+TESTS += test-filevercmp
+check_PROGRAMS += test-filevercmp
+EXTRA_DIST += test-filevercmp.c
+
+## end   gnulib module filevercmp-tests
 
 ## begin gnulib module fpending-tests
 
@@ -268,8 +308,9 @@ EXTRA_DIST += test-freadseek.c test-freadseek.sh
 
 ## begin gnulib module frexp-nolibm-tests
 
-TESTS += test-frexp
-check_PROGRAMS += test-frexp
+TESTS += test-frexp-nolibm
+check_PROGRAMS += test-frexp-nolibm
+test_frexp_nolibm_SOURCES = test-frexp.c
 
 EXTRA_DIST += test-frexp.c
 
@@ -277,8 +318,9 @@ EXTRA_DIST += test-frexp.c
 
 ## begin gnulib module frexpl-nolibm-tests
 
-TESTS += test-frexpl
-check_PROGRAMS += test-frexpl
+TESTS += test-frexpl-nolibm
+check_PROGRAMS += test-frexpl-nolibm
+test_frexpl_nolibm_SOURCES = test-frexpl.c
 
 EXTRA_DIST += test-frexpl.c
 
@@ -315,11 +357,20 @@ EXTRA_DIST += test-ftello.c test-ftello.sh
 
 TESTS += test-getaddrinfo
 check_PROGRAMS += test-getaddrinfo
-test_getaddrinfo_LDADD = $(LDADD) @LIBINTL@
+test_getaddrinfo_LDADD = $(LDADD) @GETADDRINFO_LIB@ @LIBINTL@
 
 EXTRA_DIST += test-getaddrinfo.c
 
 ## end   gnulib module getaddrinfo-tests
+
+## begin gnulib module getdate-tests
+
+TESTS += test-getdate
+check_PROGRAMS += test-getdate
+test_getdate_LDADD = $(LDADD) @LIBINTL@ $(LIB_CLOCK_GETTIME)
+EXTRA_DIST += test-getdate.c
+
+## end   gnulib module getdate-tests
 
 ## begin gnulib module getdelim-tests
 
@@ -394,19 +445,19 @@ EXTRA_DIST += test-inttypes.c
 
 ## begin gnulib module isnand-nolibm-tests
 
-TESTS += test-isnand
-check_PROGRAMS += test-isnand
+TESTS += test-isnand-nolibm
+check_PROGRAMS += test-isnand-nolibm
 
-EXTRA_DIST += test-isnand.c nan.h
+EXTRA_DIST += test-isnand-nolibm.c test-isnand.h nan.h
 
 ## end   gnulib module isnand-nolibm-tests
 
 ## begin gnulib module isnanf-nolibm-tests
 
-TESTS += test-isnanf
-check_PROGRAMS += test-isnanf
+TESTS += test-isnanf-nolibm
+check_PROGRAMS += test-isnanf-nolibm
 
-EXTRA_DIST += test-isnanf.c nan.h
+EXTRA_DIST += test-isnanf-nolibm.c test-isnanf.h nan.h
 
 ## end   gnulib module isnanf-nolibm-tests
 
@@ -428,6 +479,14 @@ EXTRA_DIST += test-lseek.c test-lseek.sh
 
 ## end   gnulib module lseek-tests
 
+## begin gnulib module lstat-tests
+
+TESTS += test-lstat
+check_PROGRAMS += test-lstat
+EXTRA_DIST += test-lstat.c
+
+## end   gnulib module lstat-tests
+
 ## begin gnulib module malloca-tests
 
 TESTS += test-malloca
@@ -446,6 +505,21 @@ EXTRA_DIST += test-math.c
 
 ## end   gnulib module math-tests
 
+## begin gnulib module mbrtowc-tests
+
+TESTS += test-mbrtowc1.sh test-mbrtowc2.sh test-mbrtowc3.sh test-mbrtowc4.sh
+TESTS_ENVIRONMENT += \
+  EXEEXT='@EXEEXT@' \
+  LOCALE_FR='@LOCALE_FR@' \
+  LOCALE_FR_UTF8='@LOCALE_FR_UTF8@' \
+  LOCALE_JA='@LOCALE_JA@' \
+  LOCALE_ZH_CN='@LOCALE_ZH_CN@'
+check_PROGRAMS += test-mbrtowc
+
+EXTRA_DIST += test-mbrtowc1.sh test-mbrtowc2.sh test-mbrtowc3.sh test-mbrtowc4.sh test-mbrtowc.c
+
+## end   gnulib module mbrtowc-tests
+
 ## begin gnulib module mbscasecmp-tests
 
 TESTS += test-mbscasecmp.sh
@@ -455,6 +529,16 @@ check_PROGRAMS += test-mbscasecmp
 EXTRA_DIST += test-mbscasecmp.sh test-mbscasecmp.c
 
 ## end   gnulib module mbscasecmp-tests
+
+## begin gnulib module mbsinit-tests
+
+TESTS += test-mbsinit.sh
+TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@' LOCALE_FR_UTF8='@LOCALE_FR_UTF8@'
+check_PROGRAMS += test-mbsinit
+
+EXTRA_DIST += test-mbsinit.sh test-mbsinit.c
+
+## end   gnulib module mbsinit-tests
 
 ## begin gnulib module mbsstr-tests
 
@@ -498,6 +582,15 @@ EXTRA_DIST += test-memrchr.c
 
 ## end   gnulib module memrchr-tests
 
+## begin gnulib module netdb-tests
+
+TESTS += test-netdb
+check_PROGRAMS += test-netdb
+
+EXTRA_DIST += test-netdb.c
+
+## end   gnulib module netdb-tests
+
 ## begin gnulib module netinet_in-tests
 
 TESTS += test-netinet_in
@@ -506,6 +599,15 @@ check_PROGRAMS += test-netinet_in
 EXTRA_DIST += test-netinet_in.c
 
 ## end   gnulib module netinet_in-tests
+
+## begin gnulib module open-tests
+
+TESTS += test-open
+check_PROGRAMS += test-open
+
+EXTRA_DIST += test-open.c
+
+## end   gnulib module open-tests
 
 ## begin gnulib module printf-frexp-tests
 
@@ -525,20 +627,40 @@ EXTRA_DIST += test-printf-frexpl.c
 
 ## end   gnulib module printf-frexpl-tests
 
-## begin gnulib module progname
-
-libtests_a_SOURCES += progname.h progname.c
-
-## end   gnulib module progname
-
 ## begin gnulib module quotearg-tests
 
-TESTS += test-quotearg
+TESTS += test-quotearg.sh
+TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@' srcdir='$(srcdir)' LOCALE_FR='@LOCALE_FR@' LOCALE_FR_UTF8='@LOCALE_FR_UTF8@'
 check_PROGRAMS += test-quotearg
 test_quotearg_LDADD = $(LDADD) @LIBINTL@
-EXTRA_DIST += test-quotearg.c
+EXTRA_DIST += test-quotearg.sh test-quotearg.c locale/fr/LC_MESSAGES/test-quotearg.po locale/fr/LC_MESSAGES/test-quotearg.mo
 
 ## end   gnulib module quotearg-tests
+
+## begin gnulib module read-file
+
+
+EXTRA_DIST += read-file.c read-file.h
+
+EXTRA_libtests_a_SOURCES += read-file.c
+
+## end   gnulib module read-file
+
+## begin gnulib module read-file-tests
+
+TESTS += test-read-file
+check_PROGRAMS += test-read-file
+EXTRA_DIST += test-read-file.c
+
+## end   gnulib module read-file-tests
+
+## begin gnulib module sigaction-tests
+
+TESTS += test-sigaction
+check_PROGRAMS += test-sigaction
+EXTRA_DIST += test-sigaction.c
+
+## end   gnulib module sigaction-tests
 
 ## begin gnulib module signbit-tests
 
@@ -656,6 +778,23 @@ EXTRA_DIST += test-strtod.c
 
 ## end   gnulib module strtod-tests
 
+## begin gnulib module strverscmp-tests
+
+TESTS += test-strverscmp
+check_PROGRAMS += test-strverscmp
+EXTRA_DIST += test-strverscmp.c
+
+## end   gnulib module strverscmp-tests
+
+## begin gnulib module sys_select-tests
+
+TESTS += test-sys_select
+check_PROGRAMS += test-sys_select
+
+EXTRA_DIST += test-sys_select.c
+
+## end   gnulib module sys_select-tests
+
 ## begin gnulib module sys_socket-tests
 
 TESTS += test-sys_socket
@@ -703,11 +842,13 @@ EXTRA_DIST += test-unistd.c
 
 ## begin gnulib module uniwidth/width-tests
 
-TESTS += test-uc_width
-check_PROGRAMS += test-uc_width
+TESTS += test-uc_width uniwidth/test-uc_width2.sh
+TESTS_ENVIRONMENT += EXEEXT='@EXEEXT@'
+check_PROGRAMS += test-uc_width test-uc_width2
 test_uc_width_SOURCES = uniwidth/test-uc_width.c
+test_uc_width2_SOURCES = uniwidth/test-uc_width2.c
 
-EXTRA_DIST += uniwidth/test-uc_width.c
+EXTRA_DIST += uniwidth/test-uc_width.c uniwidth/test-uc_width2.c uniwidth/test-uc_width2.sh
 
 ## end   gnulib module uniwidth/width-tests
 
@@ -774,6 +915,30 @@ EXTRA_DIST += test-wchar.c
 
 ## end   gnulib module wchar-tests
 
+## begin gnulib module wcrtomb-tests
+
+TESTS += test-wcrtomb.sh
+TESTS_ENVIRONMENT += \
+  EXEEXT='@EXEEXT@' \
+  LOCALE_FR='@LOCALE_FR@' \
+  LOCALE_FR_UTF8='@LOCALE_FR_UTF8@' \
+  LOCALE_JA='@LOCALE_JA@' \
+  LOCALE_ZH_CN='@LOCALE_ZH_CN@'
+check_PROGRAMS += test-wcrtomb
+
+EXTRA_DIST += test-wcrtomb.sh test-wcrtomb.c
+
+## end   gnulib module wcrtomb-tests
+
+## begin gnulib module wctob
+
+
+EXTRA_DIST += wctob.c
+
+EXTRA_libtests_a_SOURCES += wctob.c
+
+## end   gnulib module wctob
+
 ## begin gnulib module wctype-tests
 
 TESTS += test-wctype
@@ -833,6 +998,16 @@ test_xstrtoumax_LDADD = $(LDADD) @LIBINTL@
 EXTRA_DIST += test-xstrtoumax.c test-xstrtoumax.sh
 
 ## end   gnulib module xstrtoumax-tests
+
+## begin gnulib module xvasprintf-tests
+
+TESTS += test-xvasprintf
+check_PROGRAMS += test-xvasprintf
+test_xvasprintf_LDADD = $(LDADD) @LIBINTL@
+
+EXTRA_DIST += test-xvasprintf.c
+
+## end   gnulib module xvasprintf-tests
 
 ## begin gnulib module yesno-tests
 

@@ -61,7 +61,8 @@
 
 #define AUTHORS proper_name ("Russell Coker")
 
-static struct option long_options[] = {
+static struct option const long_options[] =
+{
   {"role", required_argument, NULL, 'r'},
   {"type", required_argument, NULL, 't'},
   {"user", required_argument, NULL, 'u'},
@@ -71,9 +72,6 @@ static struct option long_options[] = {
   {GETOPT_VERSION_OPTION_DECL},
   {NULL, 0, NULL, 0}
 };
-
-/* The name the program was run with. */
-char *program_name;
 
 void
 usage (int status)
@@ -122,7 +120,7 @@ main (int argc, char **argv)
   context_t con;
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);

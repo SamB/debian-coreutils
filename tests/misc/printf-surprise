@@ -54,6 +54,10 @@ fail=0
 
 mkfifo fifo || framework_failure
 
+# Disable MALLOC_PERTURB_, to avoid triggering this bug
+# http://bugs.debian.org/481543#77
+export MALLOC_PERTURB_=0
+
 head -c 10 fifo > out &
 ( ulimit -v 10000; env $prog %20000000f 0 2>err-msg > fifo )
 exit=$?
@@ -61,9 +65,14 @@ exit=$?
 # Map this longer, and rarer, diagnostic to the common one.
 # printf: cannot perform formatted output: Cannot allocate memory" \
 sed 's/cannot perform .*/write error/' err-msg > k && mv k err-msg
-err_msg=$(cat err-msg)
+err_msg=$(cat err-msg|tr '\n' :)
+
+# By some bug, on Solaris 11 (5.11 snv_86), err_msg ends up
+# containing '1> fifo:printf: write error:'.  Recognize that, too.
+
 case $err_msg in
-  "$prog: write error") diagnostic=y ;;
+  "$prog: write error:") diagnostic=y ;;
+  "1> fifo:$prog: write error:") diagnostic=y ;;
   '') diagnostic=n ;;
   *) diagnostic=unexpected ;;
 esac
@@ -73,13 +82,14 @@ case $n_out:$diagnostic:$exit in
   10:n:0) ;; # ok, succeeds w/no diagnostic: FreeBSD 6.1
   0:y:1)  ;; # ok, glibc-2.8 and newer, when printf(3) fails with ENOMEM
 
-  *:139)     # segfault; known bug at least in debian unstable's libc6 2.7-11
-     echo 1>&2 "$0: bug in snprintf causes low-mem use of printf to segfault"
-     fail=77;;
+  # With MALLOC_PERTURB_=0, this no longer happens.
+  # *:139)     # segfault; known bug at least in debian unstable's libc6 2.7-11
+  #    echo 1>&2 "$0: bug in snprintf causes low-mem use of printf to segfault"
+  #    fail=77;;
 
   # 10:y) ;; # Fail: doesn't happen: nobody succeeds with a diagnostic
   # 0:n)  ;; # Fail pre-patch: no output, no diag
   *) fail=1;;
 esac
 
-(exit $fail); exit $fail
+Exit $fail

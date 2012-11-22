@@ -43,6 +43,7 @@
 #include <sys/types.h>
 #include <stdint.h>
 #include "system.h"
+#include "xfreopen.h"
 
 #ifdef CRCTAB
 
@@ -108,13 +109,9 @@ main (void)
 # include <getopt.h>
 # include "long-options.h"
 # include "error.h"
-# include "inttostr.h"
 
 /* Number of bytes to read at once.  */
 # define BUFLEN (1 << 16)
-
-/* The name this program was run with.  */
-char *program_name;
 
 static uint_fast32_t const crctab[256] =
 {
@@ -196,7 +193,7 @@ cksum (const char *file, bool print_name)
       fp = stdin;
       have_read_stdin = true;
       if (O_BINARY && ! isatty (STDIN_FILENO))
-	freopen (NULL, "rb", stdin);
+	xfreopen (NULL, "rb", stdin);
     }
   else
     {
@@ -284,14 +281,14 @@ main (int argc, char **argv)
   bool ok;
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
 
   atexit (close_stdout);
 
-  parse_long_options (argc, argv, PROGRAM_NAME, PACKAGE, VERSION,
+  parse_long_options (argc, argv, PROGRAM_NAME, PACKAGE, Version,
 		      usage, AUTHORS, (char const *) NULL);
   if (getopt_long (argc, argv, "", NULL, NULL) != -1)
     usage (EXIT_FAILURE);

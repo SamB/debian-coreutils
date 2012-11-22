@@ -39,6 +39,7 @@
 #include "full-write.h"
 #include "quote.h"
 #include "safe-read.h"
+#include "xfreopen.h"
 
 /* The official name of this program (e.g., no `g' prefix).  */
 #define PROGRAM_NAME "cat"
@@ -50,9 +51,6 @@
 /* Undefine, to avoid warning about redefinition on some systems.  */
 #undef max
 #define max(h,i) ((h) > (i) ? (h) : (i))
-
-/* Name under which this program was invoked.  */
-char *program_name;
 
 /* Name of input file.  May be "-".  */
 static char const *infile;
@@ -93,7 +91,7 @@ usage (int status)
   else
     {
       printf (_("\
-Usage: %s [OPTION] [FILE]...\n\
+Usage: %s [OPTION]... [FILE]...\n\
 "),
 	      program_name);
       fputs (_("\
@@ -565,7 +563,7 @@ main (int argc, char **argv)
   };
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
@@ -667,7 +665,7 @@ main (int argc, char **argv)
     {
       file_open_mode |= O_BINARY;
       if (O_BINARY && ! isatty (STDOUT_FILENO))
-	freopen (NULL, "wb", stdout);
+	xfreopen (NULL, "wb", stdout);
     }
 
   /* Check if any of the input files are the same as the output file.  */
@@ -687,7 +685,7 @@ main (int argc, char **argv)
 	  have_read_stdin = true;
 	  input_desc = STDIN_FILENO;
 	  if ((file_open_mode & O_BINARY) && ! isatty (STDIN_FILENO))
-	    freopen (NULL, "rb", stdin);
+	    xfreopen (NULL, "rb", stdin);
 	}
       else
 	{

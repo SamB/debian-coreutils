@@ -44,6 +44,8 @@
 int
 main ()
 {
+  void *nil = NULL; /* Use to avoid gcc attribute((nonnull)) warnings.  */
+
   size_t n = 0x100000;
   char *input = malloc (n);
   ASSERT (input);
@@ -59,7 +61,7 @@ main ()
   ASSERT (MEMCHR (input, 'a', n) == input);
 
   ASSERT (MEMCHR (input, 'a', 0) == NULL);
-  ASSERT (MEMCHR (NULL, 'a', 0) == NULL);
+  ASSERT (MEMCHR (nil, 'a', 0) == NULL);
 
   ASSERT (MEMCHR (input, 'b', n) == input + 1);
   ASSERT (MEMCHR (input, 'c', n) == input + 2);

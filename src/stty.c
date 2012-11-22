@@ -1,5 +1,5 @@
 /* stty -- change and print terminal line settings
-   Copyright (C) 1990-2005, 2007-2008 Free Software Foundation, Inc.
+   Copyright (C) 1990-2005, 2007-2009 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -204,7 +204,7 @@ struct mode_info
     unsigned long mask;		/* Other bits to turn off for this mode.  */
   };
 
-static struct mode_info mode_info[] =
+static struct mode_info const mode_info[] =
 {
   {"parenb", control, REV, PARENB, 0},
   {"parodd", control, REV, PARODD, 0},
@@ -368,7 +368,7 @@ struct control_info
 
 /* Control characters. */
 
-static struct control_info control_info[] =
+static struct control_info const control_info[] =
 {
   {"intr", CINTR, VINTR},
   {"quit", CQUIT, VQUIT},
@@ -418,7 +418,7 @@ static char const *visible (cc_t ch);
 static unsigned long int baud_to_value (speed_t speed);
 static bool recover_mode (char const *arg, struct termios *mode);
 static int screen_columns (void);
-static bool set_mode (struct mode_info *info, bool reversed,
+static bool set_mode (struct mode_info const *info, bool reversed,
 		      struct termios *mode);
 static unsigned long int integer_arg (const char *s, unsigned long int max);
 static speed_t string_to_baud (const char *arg);
@@ -432,7 +432,7 @@ static void display_settings (enum output_type output_type,
 static void display_speed (struct termios *mode, bool fancy);
 static void display_window_size (bool fancy, char const *device_name);
 static void sane_mode (struct termios *mode);
-static void set_control_char (struct control_info *info,
+static void set_control_char (struct control_info const *info,
 			      const char *arg,
 			      struct termios *mode);
 static void set_speed (enum speed_setting type, const char *arg,
@@ -445,7 +445,7 @@ static int max_col;
 /* Current position, to know when to wrap. */
 static int current_col;
 
-static struct option longopts[] =
+static struct option const longopts[] =
 {
   {"all", no_argument, NULL, 'a'},
   {"save", no_argument, NULL, 'g'},
@@ -454,9 +454,6 @@ static struct option longopts[] =
   {GETOPT_VERSION_OPTION_DECL},
   {NULL, 0, NULL, 0}
 };
-
-/* The name this program was run with. */
-char *program_name;
 
 static void wrapf (const char *message, ...)
      __attribute__ ((__format__ (__printf__, 1, 2)));
@@ -507,9 +504,9 @@ usage (int status)
   else
     {
       printf (_("\
-Usage: %s [-F DEVICE] [--file=DEVICE] [SETTING]...\n\
-  or:  %s [-F DEVICE] [--file=DEVICE] [-a|--all]\n\
-  or:  %s [-F DEVICE] [--file=DEVICE] [-g|--save]\n\
+Usage: %s [-F DEVICE | --file=DEVICE] [SETTING]...\n\
+  or:  %s [-F DEVICE | --file=DEVICE] [-a|--all]\n\
+  or:  %s [-F DEVICE | --file=DEVICE] [-g|--save]\n\
 "),
 	      program_name, program_name, program_name);
       fputs (_("\
@@ -554,7 +551,7 @@ Special characters:\n\
       fputs (_("\
 \n\
 Special settings:\n\
-  N             set the input and output speeds to N bauds\n\
+   N             set the input and output speeds to N bauds\n\
  * cols N        tell the kernel that the terminal has N columns\n\
  * columns N     same as cols N\n\
 "), stdout);
@@ -710,7 +707,7 @@ Combination settings:\n\
                  -onocr -onlret -ofill -ofdel nl0 cr0 tab0 bs0 vt0 ff0\n\
                  isig icanon iexten echo echoe echok -echonl -noflsh\n\
                  -xcase -tostop -echoprt echoctl echoke, all special\n\
-                 characters to their default values.\n\
+                 characters to their default values\n\
 "), stdout);
       fputs (_("\
 \n\
@@ -729,7 +726,7 @@ main (int argc, char **argv)
 {
   /* Initialize to all zeroes so there is no risk memcmp will report a
      spurious difference in an uninitialized portion of the structure.  */
-  struct termios mode = { 0, };
+  DECLARE_ZEROED_AGGREGATE (struct termios, mode);
 
   enum output_type output_type;
   int optc;
@@ -745,7 +742,7 @@ main (int argc, char **argv)
   const char *device_name;
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
@@ -818,7 +815,7 @@ main (int argc, char **argv)
 	     "mutually exclusive"));
 
   /* Specifying any other arguments with -a or -g gets an error.  */
-  if (!noargs & (verbose_output | recoverable_output))
+  if (!noargs && (verbose_output | recoverable_output))
     error (EXIT_FAILURE, 0,
 	   _("when specifying an output style, modes may not be set"));
 
@@ -1002,7 +999,7 @@ main (int argc, char **argv)
     {
       /* Initialize to all zeroes so there is no risk memcmp will report a
 	 spurious difference in an uninitialized portion of the structure.  */
-      struct termios new_mode = { 0, };
+      DECLARE_ZEROED_AGGREGATE (struct termios, new_mode);
 
       if (tcsetattr (STDIN_FILENO, TCSADRAIN, &mode))
 	error (EXIT_FAILURE, errno, "%s", device_name);
@@ -1046,7 +1043,7 @@ main (int argc, char **argv)
 #ifdef TESTING
 	      {
 		size_t i;
-		printf (_("new_mode: mode\n"));
+		printf ("new_mode: mode\n");
 		for (i = 0; i < sizeof (new_mode); i++)
 		  printf ("0x%02x: 0x%02x\n",
 			  *(((unsigned char *) &new_mode) + i),
@@ -1064,7 +1061,7 @@ main (int argc, char **argv)
    return true.  */
 
 static bool
-set_mode (struct mode_info *info, bool reversed, struct termios *mode)
+set_mode (struct mode_info const *info, bool reversed, struct termios *mode)
 {
   tcflag_t *bitsp;
 
@@ -1270,7 +1267,7 @@ set_mode (struct mode_info *info, bool reversed, struct termios *mode)
 }
 
 static void
-set_control_char (struct control_info *info, const char *arg,
+set_control_char (struct control_info const *info, const char *arg,
 		  struct termios *mode)
 {
   unsigned long int value;
@@ -1719,7 +1716,7 @@ struct speed_map
   unsigned long int value;	/* Numeric value. */
 };
 
-static struct speed_map speeds[] =
+static struct speed_map const speeds[] =
 {
   {"0", B0, 0},
   {"50", B50, 50},

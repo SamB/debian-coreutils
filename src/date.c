@@ -28,7 +28,6 @@
 #include "argmatch.h"
 #include "error.h"
 #include "getdate.h"
-#include "inttostr.h"
 #include "posixtm.h"
 #include "quote.h"
 #include "stat-time.h"
@@ -38,8 +37,6 @@
 #define PROGRAM_NAME "date"
 
 #define AUTHORS proper_name ("David MacKenzie")
-
-int putenv ();
 
 static bool show_date (const char *format, struct timespec when);
 
@@ -76,9 +73,6 @@ ARGMATCH_VERIFY (time_spec_string, time_spec);
 
 /* A format suitable for Internet RFC 2822.  */
 static char const rfc_2822_format[] = "%a, %d %b %Y %H:%M:%S %z";
-
-/* The name this program was run with, for error messages. */
-char *program_name;
 
 /* For long options that have no equivalent short option, use a
    non-character as a pseudo short option, starting with CHAR_MAX + 1.  */
@@ -156,8 +150,7 @@ Display the current time in the given FORMAT, or set the system date.\n\
       fputs (VERSION_OPTION_DESCRIPTION, stdout);
       fputs (_("\
 \n\
-FORMAT controls the output.  The only valid option for the second form\n\
-specifies Coordinated Universal Time.  Interpreted sequences are:\n\
+FORMAT controls the output.  Interpreted sequences are:\n\
 \n\
   %%   a literal %\n\
   %a   locale's abbreviated weekday name (e.g., Sun)\n\
@@ -169,7 +162,7 @@ specifies Coordinated Universal Time.  Interpreted sequences are:\n\
   %c   locale's date and time (e.g., Thu Mar  3 23:05:25 2005)\n\
 "), stdout);
       fputs (_("\
-  %C   century; like %Y, except omit last two digits (e.g., 21)\n\
+  %C   century; like %Y, except omit last two digits (e.g., 20)\n\
   %d   day of month (e.g, 01)\n\
   %D   date; same as %m/%d/%y\n\
   %e   day of month, space padded; same as %_d\n\
@@ -325,7 +318,7 @@ main (int argc, char **argv)
   int option_specified_date;
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
@@ -390,7 +383,7 @@ main (int argc, char **argv)
 	  /* POSIX says that `date -u' is equivalent to setting the TZ
 	     environment variable, so this option should do nothing other
 	     than setting TZ.  */
-	  if (putenv ("TZ=UTC0") != 0)
+	  if (putenv (bad_cast ("TZ=UTC0")) != 0)
 	    xalloc_die ();
 	  TZSET;
 	  break;
@@ -444,8 +437,8 @@ main (int argc, char **argv)
 	{
 	  error (0, 0,
 		 _("the argument %s lacks a leading `+';\n"
-		   "When using an option to specify date(s), any non-option\n"
-		   "argument must be a format string beginning with `+'."),
+		   "when using an option to specify date(s), any non-option\n"
+		   "argument must be a format string beginning with `+'"),
 		 quote (argv[optind]));
 	  usage (EXIT_FAILURE);
 	}
@@ -543,10 +536,7 @@ show_date (const char *format, struct timespec when)
   if (! tm)
     {
       char buf[INT_BUFSIZE_BOUND (intmax_t)];
-      error (0, 0, _("time %s is out of range"),
-	     (TYPE_SIGNED (time_t)
-	      ? imaxtostr (when.tv_sec, buf)
-	      : umaxtostr (when.tv_sec, buf)));
+      error (0, 0, _("time %s is out of range"), timetostr (when.tv_sec, buf));
       return false;
     }
 

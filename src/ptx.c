@@ -68,9 +68,6 @@
 /* Imported from "regex.c".  */
 #define Sword 1
 
-/* The name this program was run with. */
-char *program_name;
-
 /* Program options.  */
 
 enum Format
@@ -1356,6 +1353,8 @@ fix_output_parameters (void)
 	 right side, or one on either side.  */
 
       before_max_width -= 2 * truncation_string_length;
+      if (before_max_width < 0)
+	before_max_width = 0;
       keyafter_max_width -= 2 * truncation_string_length;
     }
   else
@@ -1938,7 +1937,7 @@ With no FILE or if FILE is -, read Standard Input.  `-F /' by default.\n\
 `----------------------------------------------------------------------*/
 
 /* Long options equivalences.  */
-static const struct option long_options[] =
+static struct option const long_options[] =
 {
   {"auto-reference", no_argument, NULL, 'A'},
   {"break-file", required_argument, NULL, 'b'},
@@ -1980,7 +1979,7 @@ main (int argc, char **argv)
   /* Decode program options.  */
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
@@ -2115,11 +2114,10 @@ main (int argc, char **argv)
 
       for (file_index = 0; file_index < number_input_files; file_index++)
 	{
-	  input_file_name[file_index] = argv[optind];
 	  if (!*argv[optind] || STREQ (argv[optind], "-"))
-	    input_file_name[0] = NULL;
+	    input_file_name[file_index] = NULL;
 	  else
-	    input_file_name[0] = argv[optind];
+	    input_file_name[file_index] = argv[optind];
 	  optind++;
 	}
     }

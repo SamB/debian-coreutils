@@ -30,11 +30,10 @@
 #include <sys/types.h>
 #include "system.h"
 
+#include "c-ctype.h"
 #include "canon-host.h"
 #include "readutmp.h"
 #include "error.h"
-#include "hard-locale.h"
-#include "inttostr.h"
 #include "quote.h"
 
 /* The official name of this program (e.g., no `g' prefix).  */
@@ -96,10 +95,7 @@
 # define UT_ID(U) "??"
 #endif
 
-char *ttyname ();
-
-/* The name this program was run with. */
-char *program_name;
+char *ttyname (int);
 
 /* If true, attempt to canonicalize hostnames via a DNS lookup. */
 static bool do_lookup;
@@ -162,7 +158,8 @@ enum
   LOOKUP_OPTION = CHAR_MAX + 1
 };
 
-static struct option const longopts[] = {
+static struct option const longopts[] =
+{
   {"all", no_argument, NULL, 'a'},
   {"boot", no_argument, NULL, 'b'},
   {"count", no_argument, NULL, 'q'},
@@ -233,7 +230,7 @@ time_string (const STRUCT_UTMP *utmp_ent)
       return buf;
     }
   else
-    return TYPE_SIGNED (time_t) ? imaxtostr (t, buf) : umaxtostr (t, buf);
+    return timetostr (t, buf);
 }
 
 /* Print formatted output line. Uses mostly arbitrary field sizes, probably
@@ -429,7 +426,7 @@ print_user (const STRUCT_UTMP *utmp_ent, time_t boottime)
 static void
 print_boottime (const STRUCT_UTMP *utmp_ent)
 {
-  print_line (-1, "", ' ', -1, "system boot",
+  print_line (-1, "", ' ', -1, _("system boot"),
 	      time_string (utmp_ent), "", "", "", "");
 }
 
@@ -474,7 +471,7 @@ print_login (const STRUCT_UTMP *utmp_ent)
 
   /* FIXME: add idle time? */
 
-  print_line (-1, "LOGIN", ' ', sizeof utmp_ent->ut_line, utmp_ent->ut_line,
+  print_line (-1, _("LOGIN"), ' ', sizeof utmp_ent->ut_line, utmp_ent->ut_line,
 	      time_string (utmp_ent), "", pidstr, comment, "");
   free (comment);
 }
@@ -514,7 +511,7 @@ print_runlevel (const STRUCT_UTMP *utmp_ent)
   sprintf (comment, "%s%c", _("last="), (last == 'N') ? 'S' : last);
 
   print_line (-1, "", ' ', -1, runlevline, time_string (utmp_ent),
-	      "", "", comment, "");
+	      "", "", c_isprint (last) ? comment : "", "");
 
   return;
 }
@@ -632,6 +629,9 @@ usage (int status)
     {
       printf (_("Usage: %s [OPTION]... [ FILE | ARG1 ARG2 ]\n"), program_name);
       fputs (_("\
+Print information about users who are currently logged in.\n\
+"), stdout);
+      fputs (_("\
 \n\
   -a, --all         same as -b -d --login -p -r -t -T -u\n\
   -b, --boot        time of last system boot\n\
@@ -677,7 +677,7 @@ main (int argc, char **argv)
   bool assumptions = true;
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);

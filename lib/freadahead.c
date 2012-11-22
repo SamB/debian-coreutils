@@ -19,12 +19,13 @@
 /* Specification.  */
 #include "freadahead.h"
 
+#include <stdlib.h>
 #include "stdio-impl.h"
 
 size_t
 freadahead (FILE *fp)
 {
-#if defined _IO_ferror_unlocked || __GNU_LIBRARY__ == 1 /* GNU libc, BeOS, Linux libc5 */
+#if defined _IO_ftrylockfile || __GNU_LIBRARY__ == 1 /* GNU libc, BeOS, Haiku, Linux libc5 */
   if (fp->_IO_write_ptr > fp->_IO_write_base)
     return 0;
   return (fp->_IO_read_end - fp->_IO_read_ptr)
@@ -33,8 +34,12 @@ freadahead (FILE *fp)
 #elif defined __sferror || defined __DragonFly__ /* FreeBSD, NetBSD, OpenBSD, DragonFly, MacOS X, Cygwin */
   if ((fp_->_flags & __SWR) != 0 || fp_->_r < 0)
     return 0;
+# if defined __DragonFly__
+  return __sreadahead (fp);
+# else
   return fp_->_r
 	 + (HASUB (fp) ? fp_->_ur : 0);
+# endif
 #elif defined __EMX__               /* emx+gcc */
   if ((fp->_flags & _IOWRT) != 0)
     return 0;
@@ -65,6 +70,9 @@ freadahead (FILE *fp)
 	 + (fp->_Mode & 0x4000 /* _MBYTE */
 	    ? (fp->_Back + sizeof (fp->_Back)) - fp->_Rback
 	    : 0);
+#elif defined SLOW_BUT_NO_HACKS     /* users can define this */
+  abort ();
+  return 0;
 #else
  #error "Please port gnulib freadahead.c to your platform! Look at the definition of fflush, fread, ungetc on your system, then report this to bug-gnulib."
 #endif

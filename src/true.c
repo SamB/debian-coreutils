@@ -32,9 +32,6 @@
 
 #define AUTHORS proper_name ("Jim Meyering")
 
-/* The name this program was run with. */
-char *program_name;
-
 void
 usage (int status)
 {
@@ -45,8 +42,8 @@ Usage: %s [ignored command line arguments]\n\
 	  program_name, program_name);
   printf ("%s\n\n",
 	  _(EXIT_STATUS == EXIT_SUCCESS
-	    ? "Exit with a status code indicating success."
-	    : "Exit with a status code indicating failure."));
+	    ? N_("Exit with a status code indicating success.")
+	    : N_("Exit with a status code indicating failure.")));
   fputs (HELP_OPTION_DESCRIPTION, stdout);
   fputs (VERSION_OPTION_DESCRIPTION, stdout);
   printf (USAGE_BUILTIN_WARNING, PROGRAM_NAME);
@@ -58,7 +55,7 @@ int
 main (int argc, char **argv)
 {
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
@@ -73,7 +70,7 @@ main (int argc, char **argv)
 	usage (EXIT_STATUS);
 
       if (STREQ (argv[1], "--version"))
-	version_etc (stdout, PROGRAM_NAME, PACKAGE_NAME, VERSION, AUTHORS,
+	version_etc (stdout, PROGRAM_NAME, PACKAGE_NAME, Version, AUTHORS,
 		     (char *) NULL);
     }
 

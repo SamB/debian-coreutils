@@ -2,7 +2,7 @@
 # Make sure that `mv file unwritable-file' prompts the user
 # and that `mv -f file unwritable-file' doesn't.
 
-# Copyright (C) 2001, 2004, 2006-2008 Free Software Foundation, Inc.
+# Copyright (C) 2001, 2004, 2006-2009 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,9 +22,13 @@ if test "$VERBOSE" = yes; then
   mv --version
 fi
 
-. $srcdir/input-tty
 . $srcdir/test-lib.sh
+require_controlling_input_terminal_
 skip_if_root_
+
+skip_test_ FIXME: skip, until portability of trap ... TTIN is assured
+
+trap '' TTIN # Ignore SIGTTIN
 
 touch f g h i || framework_failure
 chmod 0 g i || framework_failure
@@ -54,4 +58,4 @@ case "`cat out`" in
   *) fail=1 ;;
 esac
 
-(exit $fail); exit $fail
+Exit $fail

@@ -20,7 +20,6 @@
 #include <sys/types.h>
 
 #include "system.h"
-#include "dirfd.h"
 #include "error.h"
 #include "long-options.h"
 #include "quote.h"
@@ -38,9 +37,6 @@ struct file_name
   size_t n_alloc;
   char *start;
 };
-
-/* The name this program was run with. */
-char *program_name;
 
 void
 usage (int status)
@@ -289,14 +285,14 @@ main (int argc, char **argv)
   char *wd;
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
 
   atexit (close_stdout);
 
-  parse_long_options (argc, argv, PROGRAM_NAME, PACKAGE_NAME, VERSION,
+  parse_long_options (argc, argv, PROGRAM_NAME, PACKAGE_NAME, Version,
 		      usage, AUTHORS, (char const *) NULL);
   if (getopt_long (argc, argv, "", NULL, NULL) != -1)
     usage (EXIT_FAILURE);

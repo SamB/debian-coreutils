@@ -1,5 +1,5 @@
 /* chmod -- change permission modes of files
-   Copyright (C) 89, 90, 91, 1995-2008 Free Software Foundation, Inc.
+   Copyright (C) 89, 90, 91, 1995-2009 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -58,9 +58,6 @@ enum Verbosity
   V_off
 };
 
-/* The name the program was run with. */
-char *program_name;
-
 /* The desired change to the mode.  */
 static struct mode_change *change;
 
@@ -70,7 +67,7 @@ static mode_t umask_value;
 /* If true, change the modes of directories recursively. */
 static bool recurse;
 
-/* If true, force silence (no error messages). */
+/* If true, force silence (suppress most of error messages). */
 static bool force_silent;
 
 /* If true, diagnose surprises from naive misuses like "chmod -r file".
@@ -124,7 +121,7 @@ mode_changed (char const *file, mode_t old_mode, mode_t new_mode)
 
       if (stat (file, &new_stats) != 0)
 	{
-	  if (!force_silent)
+	  if (! force_silent)
 	    error (0, errno, _("getting new attributes of %s"), quote (file));
 	  return false;
 	}
@@ -206,24 +203,29 @@ process_file (FTS *fts, FTSENT *ent)
 	  fts_set (fts, ent, FTS_AGAIN);
 	  return true;
 	}
-      error (0, ent->fts_errno, _("cannot access %s"), quote (file_full_name));
+      if (! force_silent)
+        error (0, ent->fts_errno, _("cannot access %s"),
+	       quote (file_full_name));
       ok = false;
       break;
 
     case FTS_ERR:
-      error (0, ent->fts_errno, _("%s"), quote (file_full_name));
+      if (! force_silent)
+        error (0, ent->fts_errno, _("%s"), quote (file_full_name));
       ok = false;
       break;
 
     case FTS_DNR:
-      error (0, ent->fts_errno, _("cannot read directory %s"),
-	     quote (file_full_name));
+      if (! force_silent)
+        error (0, ent->fts_errno, _("cannot read directory %s"),
+	       quote (file_full_name));
       ok = false;
       break;
 
     case FTS_SLNONE:
-      error (0, 0, _("cannot operate on dangling symlink %s"),
-	     quote (file_full_name));
+      if (! force_silent)
+        error (0, 0, _("cannot operate on dangling symlink %s"),
+	       quote (file_full_name));
       ok = false;
 
     default:
@@ -322,7 +324,8 @@ process_files (char **files, int bit_flags)
 	  if (errno != 0)
 	    {
 	      /* FIXME: try to give a better message  */
-	      error (0, errno, _("fts_read failed"));
+	      if (! force_silent)
+	        error (0, errno, _("fts_read failed"));
 	      ok = false;
 	    }
 	  break;
@@ -394,7 +397,7 @@ main (int argc, char **argv)
   int c;
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
@@ -531,7 +534,8 @@ main (int argc, char **argv)
       root_dev_ino = NULL;
     }
 
-  ok = process_files (argv + optind, FTS_COMFOLLOW | FTS_PHYSICAL);
+  ok = process_files (argv + optind,
+		      FTS_COMFOLLOW | FTS_PHYSICAL | FTS_DEFER_STAT);
 
   exit (ok ? EXIT_SUCCESS : EXIT_FAILURE);
 }

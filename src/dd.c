@@ -1,5 +1,5 @@
 /* dd -- convert a file while copying it.
-   Copyright (C) 85, 90, 91, 1995-2008 Free Software Foundation, Inc.
+   Copyright (C) 85, 90, 91, 1995-2009 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -66,6 +66,12 @@ static void process_signals (void);
 # define SIGINFO SIGUSR1
 #endif
 
+/* This may belong in GNULIB's fcntl module instead.
+   Define O_CIO to 0 if it is not supported by this OS. */
+#ifndef O_CIO
+# define O_CIO 0
+#endif
+
 #if ! HAVE_FDATASYNC
 # define fdatasync(fd) (errno = ENOSYS, -1)
 #endif
@@ -127,9 +133,6 @@ enum
   {
     STATUS_NOXFER = 01
   };
-
-/* The name this program was run with. */
-char *program_name;
 
 /* The name of the input file, or NULL for the standard input. */
 static char const *input_file = NULL;
@@ -197,8 +200,7 @@ static bool input_seekable;
 static int input_seek_errno;
 
 /* File offset of the input, in bytes, along with a flag recording
-   whether it overflowed.  The offset is valid only if the input is
-   seekable and if the offset has not overflowed.  */
+   whether it overflowed.  */
 static uintmax_t input_offset;
 static bool input_offset_overflow;
 
@@ -227,6 +229,9 @@ static sig_atomic_t volatile interrupt_signal;
 
 /* A count of the number of pending info signals that have been received.  */
 static sig_atomic_t volatile info_signal_count;
+
+/* Function used for read (to handle iflag=fullblock parameter).  */
+static ssize_t (*iread_fnc) (int fd, char *buf, size_t size);
 
 /* A longest symbol in the struct symbol_values tables below.  */
 #define LONGEST_SYMBOL "fdatasync"
@@ -259,11 +264,38 @@ static struct symbol_value const conversions[] =
   {"", 0}
 };
 
+enum
+  {
+    /* Use a value that is larger than that of any other O_ symbol.  */
+    O_FULLBLOCK = ((MAX (O_APPEND,
+		    MAX (O_BINARY,
+		    MAX (O_CIO,
+		    MAX (O_DIRECT,
+		    MAX (O_DIRECTORY,
+		    MAX (O_DSYNC,
+		    MAX (O_NOATIME,
+		    MAX (O_NOCTTY,
+		    MAX (O_NOFOLLOW,
+		    MAX (O_NOLINKS,
+		    MAX (O_NONBLOCK,
+		    MAX (O_SYNC,
+		    MAX (O_TEXT, 0)))))))))))))) << 1)
+  };
+
+/* Ensure that we didn't shift it off the end.  */
+verify (O_FULLBLOCK != 0);
+
+#define MULTIPLE_BITS_SET(i) (((i) & ((i) - 1)) != 0)
+
+/* Ensure that this is a single-bit value.  */
+verify ( ! MULTIPLE_BITS_SET (O_FULLBLOCK));
+
 /* Flags, for iflag="..." and oflag="...".  */
 static struct symbol_value const flags[] =
 {
   {"append",	O_APPEND},
   {"binary",	O_BINARY},
+  {"cio",	O_CIO},
   {"direct",	O_DIRECT},
   {"directory",	O_DIRECTORY},
   {"dsync",	O_DSYNC},
@@ -274,6 +306,7 @@ static struct symbol_value const flags[] =
   {"nonblock",	O_NONBLOCK},
   {"sync",	O_SYNC},
   {"text",	O_TEXT},
+  {"fullblock", O_FULLBLOCK}, /* Accumulate full blocks from input.  */
   {"",		0}
 };
 
@@ -430,16 +463,16 @@ Usage: %s [OPERAND]...\n\
       fputs (_("\
 Copy a file, converting and formatting according to the operands.\n\
 \n\
-  bs=BYTES        force ibs=BYTES and obs=BYTES\n\
+  bs=BYTES        read and write BYTES bytes at a time (also see ibs=,obs=)\n\
   cbs=BYTES       convert BYTES bytes at a time\n\
   conv=CONVS      convert the file as per the comma separated symbol list\n\
   count=BLOCKS    copy only BLOCKS input blocks\n\
-  ibs=BYTES       read BYTES bytes at a time\n\
+  ibs=BYTES       read BYTES bytes at a time (default: 512)\n\
 "), stdout);
       fputs (_("\
   if=FILE         read from FILE instead of stdin\n\
   iflag=FLAGS     read as per the comma separated symbol list\n\
-  obs=BYTES       write BYTES bytes at a time\n\
+  obs=BYTES       write BYTES bytes at a time (default: 512)\n\
   of=FILE         write to FILE instead of stdout\n\
   oflag=FLAGS     write as per the comma separated symbol list\n\
   seek=BLOCKS     skip BLOCKS obs-sized blocks at start of output\n\
@@ -449,8 +482,8 @@ Copy a file, converting and formatting according to the operands.\n\
       fputs (_("\
 \n\
 BLOCKS and BYTES may be followed by the following multiplicative suffixes:\n\
-xM M, c 1, w 2, b 512, kB 1000, K 1024, MB 1000*1000, M 1024*1024,\n\
-GB 1000*1000*1000, G 1024*1024*1024, and so on for T, P, E, Z, Y.\n\
+c =1, w =2, b =512, kB =1000, K =1024, MB =1000*1000, M =1024*1024, xM =M\n\
+GB =1000*1000*1000, G =1024*1024*1024, and so on for T, P, E, Z, Y.\n\
 \n\
 Each CONV symbol may be:\n\
 \n\
@@ -483,14 +516,18 @@ Each FLAG symbol may be:\n\
 \n\
   append    append mode (makes sense only for output; conv=notrunc suggested)\n\
 "), stdout);
+      if (O_CIO)
+	fputs (_("  cio       use concurrent I/O for data\n"), stdout);
       if (O_DIRECT)
 	fputs (_("  direct    use direct I/O for data\n"), stdout);
       if (O_DIRECTORY)
-	fputs (_("  directory fail unless a directory\n"), stdout);
+	fputs (_("  directory  fail unless a directory\n"), stdout);
       if (O_DSYNC)
 	fputs (_("  dsync     use synchronized I/O for data\n"), stdout);
       if (O_SYNC)
 	fputs (_("  sync      likewise, but also for metadata\n"), stdout);
+      fputs (_("  fullblock  accumulate full blocks of input (iflag only)\n"),
+	     stdout);
       if (O_NONBLOCK)
 	fputs (_("  nonblock  use non-blocking I/O\n"), stdout);
       if (O_NOATIME)
@@ -548,7 +585,7 @@ translate_charset (char const *new_trans)
 static inline bool
 multiple_bits_set (int i)
 {
-  return (i & (i - 1)) != 0;
+  return MULTIPLE_BITS_SET (i);
 }
 
 /* Print transfer statistics.  */
@@ -765,6 +802,27 @@ iread (int fd, char *buf, size_t size)
     }
 }
 
+/* Wrapper around iread function to accumulate full blocks.  */
+static ssize_t
+iread_fullblock (int fd, char *buf, size_t size)
+{
+  ssize_t nread = 0;
+
+  while (0 < size)
+    {
+      ssize_t ncurr = iread (fd, buf, size);
+      if (ncurr < 0)
+	return ncurr;
+      if (ncurr == 0)
+	break;
+      nread += ncurr;
+      buf   += ncurr;
+      size  -= ncurr;
+    }
+
+  return nread;
+}
+
 /* Write to FD the buffer BUF of size SIZE, processing any signals
    that arrive.  Return the number of bytes written, setting errno if
    this is less than SIZE.  Keep trying if there are partial
@@ -950,13 +1008,11 @@ scanargs (int argc, char *const *argv)
 	    {
 	      invalid |= ! (0 < n && n <= MAX_BLOCKSIZE (INPUT_BLOCK_SLOP));
 	      input_blocksize = n;
-	      conversions_mask |= C_TWOBUFS;
 	    }
 	  else if (operand_is (name, "obs"))
 	    {
 	      invalid |= ! (0 < n && n <= MAX_BLOCKSIZE (OUTPUT_BLOCK_SLOP));
 	      output_blocksize = n;
-	      conversions_mask |= C_TWOBUFS;
 	    }
 	  else if (operand_is (name, "bs"))
 	    {
@@ -987,12 +1043,13 @@ scanargs (int argc, char *const *argv)
 
   if (blocksize)
     input_blocksize = output_blocksize = blocksize;
+  else
+    {
+      /* POSIX says dd aggregates short reads into
+	 output_blocksize if bs= is not specified.  */
+      conversions_mask |= C_TWOBUFS;
+    }
 
-  /* If bs= was given, both `input_blocksize' and `output_blocksize' will
-     have been set to positive values.  If either has not been set,
-     bs= was not given, so make sure two buffers are used. */
-  if (input_blocksize == 0 || output_blocksize == 0)
-    conversions_mask |= C_TWOBUFS;
   if (input_blocksize == 0)
     input_blocksize = DEFAULT_BLOCKSIZE;
   if (output_blocksize == 0)
@@ -1002,6 +1059,16 @@ scanargs (int argc, char *const *argv)
 
   if (input_flags & (O_DSYNC | O_SYNC))
     input_flags |= O_RSYNC;
+
+  if (output_flags & O_FULLBLOCK)
+    {
+      error (0, 0, "%s: %s", _("invalid output flag"), "'fullblock'");
+      usage (EXIT_FAILURE);
+    }
+  iread_fnc = ((input_flags & O_FULLBLOCK)
+	       ? iread_fullblock
+	       : iread);
+  input_flags &= ~O_FULLBLOCK;
 
   if (multiple_bits_set (conversions_mask & (C_ASCII | C_EBCDIC | C_IBM)))
     error (EXIT_FAILURE, 0, _("cannot combine any two of {ascii,ebcdic,ibm}"));
@@ -1191,16 +1258,66 @@ skip (int fdesc, char const *file, uintmax_t records, size_t blocksize,
       && 0 <= skip_via_lseek (file, fdesc, offset, SEEK_CUR))
     {
       if (fdesc == STDIN_FILENO)
-	advance_input_offset (offset);
-      return 0;
+        {
+	   struct stat st;
+	   if (fstat (STDIN_FILENO, &st) != 0)
+	     error (EXIT_FAILURE, errno, _("cannot fstat %s"), quote (file));
+	   if (S_ISREG (st.st_mode) && st.st_size < (input_offset + offset))
+	     {
+	       /* When skipping past EOF, return the number of _full_ blocks
+		* that are not skipped, and set offset to EOF, so the caller
+		* can determine the requested skip was not satisfied.  */
+	       records = ( offset - st.st_size ) / blocksize;
+	       offset = st.st_size - input_offset;
+	     }
+	   else
+	     records = 0;
+	   advance_input_offset (offset);
+        }
+      else
+        records = 0;
+      return records;
     }
   else
     {
       int lseek_errno = errno;
+      off_t soffset;
+
+      /* The seek request may have failed above if it was too big
+         (> device size, > max file size, etc.)
+         Or it may not have been done at all (> OFF_T_MAX).
+         Therefore try to seek to the end of the file,
+         to avoid redundant reading.  */
+      if ((soffset = skip_via_lseek (file, fdesc, 0, SEEK_END)) >= 0)
+	{
+	  /* File is seekable, and we're at the end of it, and
+	     size <= OFF_T_MAX. So there's no point using read to advance.  */
+
+	  if (!lseek_errno)
+	    {
+	      /* The original seek was not attempted as offset > OFF_T_MAX.
+		 We should error for write as can't get to the desired
+		 location, even if OFF_T_MAX < max file size.
+		 For read we're not going to read any data anyway,
+		 so we should error for consistency.
+		 It would be nice to not error for /dev/{zero,null}
+		 for any offset, but that's not a significant issue.  */
+	      lseek_errno = EOVERFLOW;
+	    }
+
+	  if (fdesc == STDIN_FILENO)
+	    error (0, lseek_errno, _("%s: cannot skip"), quote (file));
+	  else
+	    error (0, lseek_errno, _("%s: cannot seek"), quote (file));
+	  /* If the file has a specific size and we've asked
+	     to skip/seek beyond the max allowable, then quit.  */
+	  quit (EXIT_FAILURE);
+	}
+      /* else file_size && offset > OFF_T_MAX or file ! seekable */
 
       do
 	{
-	  ssize_t nread = iread (fdesc, buf, blocksize);
+	  ssize_t nread = iread_fnc (fdesc, buf, blocksize);
 	  if (nread < 0)
 	    {
 	      if (fdesc == STDIN_FILENO)
@@ -1469,10 +1586,22 @@ dd_copy (void)
 
   if (skip_records != 0)
     {
-      skip (STDIN_FILENO, input_file, skip_records, input_blocksize, ibuf);
+      uintmax_t us_bytes = input_offset + (skip_records * input_blocksize);
+      uintmax_t us_blocks = skip (STDIN_FILENO, input_file,
+				  skip_records, input_blocksize, ibuf);
+      us_bytes -= input_offset;
+
       /* POSIX doesn't say what to do when dd detects it has been
-	 asked to skip past EOF, so I assume it's non-fatal if the
-	 call to 'skip' returns nonzero.  FIXME: maybe give a warning.  */
+	 asked to skip past EOF, so I assume it's non-fatal.
+	 There are 3 reasons why there might be unskipped blocks/bytes:
+	     1. file is too small
+	     2. pipe has not enough data
+	     3. short reads  */
+      if (us_blocks || (!input_offset_overflow && us_bytes))
+	{
+	  error (0, 0,
+		 _("%s: cannot skip to specified offset"), quote (input_file));
+	}
     }
 
   if (seek_records != 0)
@@ -1511,7 +1640,7 @@ dd_copy (void)
 		(conversions_mask & (C_BLOCK | C_UNBLOCK)) ? ' ' : '\0',
 		input_blocksize);
 
-      nread = iread (STDIN_FILENO, ibuf, input_blocksize);
+      nread = iread_fnc (STDIN_FILENO, ibuf, input_blocksize);
 
       if (nread == 0)
 	break;			/* EOF.  */
@@ -1671,7 +1800,7 @@ main (int argc, char **argv)
   off_t offset;
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
@@ -1681,7 +1810,7 @@ main (int argc, char **argv)
 
   page_size = getpagesize ();
 
-  parse_long_options (argc, argv, PROGRAM_NAME, PACKAGE, VERSION,
+  parse_long_options (argc, argv, PROGRAM_NAME, PACKAGE, Version,
 		      usage, AUTHORS, (char const *) NULL);
   close_stdout_required = false;
 
@@ -1710,7 +1839,7 @@ main (int argc, char **argv)
 
   offset = lseek (STDIN_FILENO, 0, SEEK_CUR);
   input_seekable = (0 <= offset);
-  input_offset = offset;
+  input_offset = MAX(0, offset);
   input_seek_errno = errno;
 
   if (output_file == NULL)

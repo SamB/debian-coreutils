@@ -28,6 +28,7 @@
 #include "error.h"
 #include "human.h"
 #include "safe-read.h"
+#include "xfreopen.h"
 
 /* The official name of this program (e.g., no `g' prefix).  */
 #define PROGRAM_NAME "sum"
@@ -35,9 +36,6 @@
 #define AUTHORS \
   proper_name ("Kayvan Aghaiepour"), \
   proper_name ("David MacKenzie")
-
-/* The name this program was run with. */
-char *program_name;
 
 /* True if any of the files read were the standard input. */
 static bool have_read_stdin;
@@ -65,7 +63,7 @@ Usage: %s [OPTION]... [FILE]...\n\
       fputs (_("\
 Print checksum and block counts for each FILE.\n\
 \n\
-  -r              defeat -s, use BSD sum algorithm, use 1K blocks\n\
+  -r              use BSD sum algorithm, use 1K blocks\n\
   -s, --sysv      use System V sum algorithm, use 512 bytes blocks\n\
 "), stdout);
       fputs (HELP_OPTION_DESCRIPTION, stdout);
@@ -100,7 +98,7 @@ bsd_sum_file (const char *file, int print_name)
       fp = stdin;
       have_read_stdin = true;
       if (O_BINARY && ! isatty (STDIN_FILENO))
-	freopen (NULL, "rb", stdin);
+	xfreopen (NULL, "rb", stdin);
     }
   else
     {
@@ -168,7 +166,7 @@ sysv_sum_file (const char *file, int print_name)
       fd = STDIN_FILENO;
       have_read_stdin = true;
       if (O_BINARY && ! isatty (STDIN_FILENO))
-	freopen (NULL, "rb", stdin);
+	xfreopen (NULL, "rb", stdin);
     }
   else
     {
@@ -228,7 +226,7 @@ main (int argc, char **argv)
   bool (*sum_func) (const char *, int) = bsd_sum_file;
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);

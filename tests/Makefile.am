@@ -11,7 +11,6 @@ EXTRA_DIST =		\
   README		\
   check.mk		\
   envvar-check		\
-  input-tty		\
   lang-default		\
   other-fs-tmpdir	\
   require-perl		\
@@ -25,9 +24,13 @@ root_tests =					\
   cp/cp-a-selinux				\
   cp/preserve-gid				\
   cp/special-bits				\
+  dd/skip-seek-past-dev				\
+  install/install-C-root			\
+  ls/capability					\
   ls/nameless-uid				\
   misc/chcon					\
   misc/selinux					\
+  misc/truncate-owned-by-other			\
   mkdir/writable-under-readonly			\
   mv/sticky-to-xpart				\
   rm/fail-2eperm				\
@@ -71,7 +74,9 @@ EXTRA_DIST += $(TESTS)
 TESTS =						\
   misc/help-version				\
   misc/invalid-opt				\
+  rm/ext3-perf					\
   rm/cycle					\
+  cp/link-heap					\
   chmod/no-x					\
   chgrp/basic					\
   rm/dangling-symlink				\
@@ -119,8 +124,10 @@ TESTS =						\
   chgrp/no-x					\
   chgrp/posix-H					\
   chgrp/recurse					\
+  misc/ptx					\
   misc/test					\
   misc/seq					\
+  misc/seq-long-double				\
   misc/head					\
   misc/head-elide-tail				\
   tail-2/tail-n0f				\
@@ -137,7 +144,6 @@ TESTS =						\
   misc/df-P					\
   misc/pwd-unreadable-parent			\
   misc/chcon-fail				\
-  misc/selinux					\
   misc/cut					\
   misc/wc					\
   misc/wc-files0-from				\
@@ -146,6 +152,7 @@ TESTS =						\
   misc/base64					\
   misc/basename					\
   misc/close-stdout				\
+  misc/comm					\
   misc/csplit					\
   misc/date-sec					\
   misc/dircolors				\
@@ -170,6 +177,7 @@ TESTS =						\
   misc/nl					\
   misc/nohup					\
   misc/od-N					\
+  misc/od-multiple-t				\
   misc/od-x8					\
   misc/paste					\
   misc/pathchk1					\
@@ -187,12 +195,15 @@ TESTS =						\
   misc/sha384sum				\
   misc/sha512sum				\
   misc/shred-exact				\
+  misc/shred-passes				\
   misc/shred-remove				\
   misc/shuf					\
   misc/sort					\
   misc/sort-compress				\
+  misc/sort-files0-from				\
   misc/sort-merge				\
   misc/sort-rand				\
+  misc/sort-version				\
   misc/split-a					\
   misc/split-fail				\
   misc/split-l					\
@@ -209,17 +220,29 @@ TESTS =						\
   misc/tee					\
   misc/tee-dash					\
   misc/test-diag				\
+  misc/timeout					\
+  misc/timeout-parameters			\
   misc/tr					\
+  misc/truncate-dangling-symlink		\
+  misc/truncate-dir-fail			\
+  misc/truncate-fail-diag			\
+  misc/truncate-fifo				\
+  misc/truncate-no-create-missing		\
+  misc/truncate-overflow			\
+  misc/truncate-parameters			\
+  misc/truncate-relative			\
   misc/tsort					\
   misc/tty-eof					\
   misc/unexpand					\
   misc/uniq					\
+  misc/xattr					\
   chmod/c-option				\
   chmod/equal-x					\
   chmod/equals					\
   chmod/inaccessible				\
   chmod/octal					\
   chmod/setgid					\
+  chmod/silent					\
   chmod/thru-dangling				\
   chmod/umask-x					\
   chmod/usage					\
@@ -265,9 +288,12 @@ TESTS =						\
   cp/thru-dangling				\
   dd/misc					\
   dd/not-rewound				\
+  dd/reblock					\
   dd/skip-seek					\
   dd/skip-seek2					\
+  dd/skip-seek-past-file			\
   dd/unblock-sync				\
+  df/total-verify				\
   du/2g						\
   du/8gb					\
   du/basic					\
@@ -293,21 +319,27 @@ TESTS =						\
   install/basic-1				\
   install/create-leading			\
   install/d-slashdot				\
+  install/install-C				\
+  install/install-C-selinux			\
+  install/strip-program				\
   install/trap					\
   ln/backup-1					\
   ln/hard-backup				\
   ln/misc					\
   ln/sf-1					\
   ln/target-1					\
+  ls/color-clear-to-eol				\
   ls/color-dtype-dir				\
   ls/dangle					\
   ls/dired					\
   ls/file-type					\
   ls/follow-slink				\
+  ls/hardlink					\
   ls/infloop					\
   ls/inode					\
   ls/m-option					\
   ls/no-arg					\
+  ls/no-cap					\
   ls/proc-selinux-segfault			\
   ls/recursive					\
   ls/rt-1					\
@@ -355,6 +387,7 @@ TESTS =						\
   mv/into-self-3				\
   mv/into-self-4				\
   mv/leak-fd					\
+  mv/mv-n					\
   mv/mv-special-1				\
   mv/no-target-dir				\
   mv/part-fail					\
@@ -363,7 +396,6 @@ TESTS =						\
   mv/part-symlink				\
   mv/partition-perm				\
   mv/perm-1					\
-  mv/reply-no					\
   mv/to-symlink					\
   mv/trailing-slash				\
   mv/update					\
@@ -552,4 +584,5 @@ pr_data =					\
   pr/ttb3-FF					\
   pr/w72l24f-ll
 
+AUTOMAKE_OPTIONS =
 include $(srcdir)/check.mk

@@ -1,6 +1,6 @@
 /* shred.c - overwrite files and devices to make it harder to recover data
 
-   Copyright (C) 1999-2008 Free Software Foundation, Inc.
+   Copyright (C) 1999-2009 Free Software Foundation, Inc.
    Copyright (C) 1997, 1998, 1999 Colin Plumb.
 
    This program is free software: you can redistribute it and/or modify
@@ -97,13 +97,12 @@
 #include "error.h"
 #include "fcntl--.h"
 #include "human.h"
-#include "inttostr.h"
 #include "quotearg.h"		/* For quotearg_colon */
 #include "randint.h"
 #include "randread.h"
 
 /* Default number of times to overwrite.  */
-enum { DEFAULT_PASSES = 25 };
+enum { DEFAULT_PASSES = 3 };
 
 /* How many seconds to wait before checking whether to output another
    verbose output line.  */
@@ -148,9 +147,6 @@ static struct option const long_opts[] =
   {NULL, 0, NULL, 0}
 };
 
-/* Global variable for error printing purposes */
-char const *program_name; /* Initialized before any possible use */
-
 void
 usage (int status)
 {
@@ -159,7 +155,7 @@ usage (int status)
 	     program_name);
   else
     {
-      printf (_("Usage: %s [OPTIONS] FILE [...]\n"), program_name);
+      printf (_("Usage: %s [OPTION]... FILE...\n"), program_name);
       fputs (_("\
 Overwrite the specified FILE(s) repeatedly, in order to make it harder\n\
 for even very expensive hardware probing to recover the data.\n\
@@ -170,7 +166,7 @@ Mandatory arguments to long options are mandatory for short options too.\n\
 "), stdout);
       printf (_("\
   -f, --force    change permissions to allow writing if necessary\n\
-  -n, --iterations=N  Overwrite N times instead of the default (%d)\n\
+  -n, --iterations=N  overwrite N times instead of the default (%d)\n\
       --random-source=FILE  get random bytes from FILE (default /dev/urandom)\n\
   -s, --size=N   shred this many bytes (suffixes like K, M, G accepted)\n\
 "), DEFAULT_PASSES);
@@ -280,6 +276,17 @@ passname (unsigned char const *data, char name[PASS_NAME_SIZE])
     memcpy (name, "random", PASS_NAME_SIZE);
 }
 
+/* Return true when it's ok to ignore an fsync or fdatasync
+   failure that set errno to ERRNO_VAL.  */
+static bool
+ignorable_sync_errno (int errno_val)
+{
+  return (errno_val == EINVAL
+	  || errno_val == EBADF
+	  /* HP-UX does this */
+	  || errno_val == EISDIR);
+}
+
 /* Request that all data for FD be transferred to the corresponding
    storage device.  QNAME is the file name (quoted for colons).
    Report any errors found.  Return 0 on success, -1
@@ -295,7 +302,7 @@ dosync (int fd, char const *qname)
   if (fdatasync (fd) == 0)
     return 0;
   err = errno;
-  if (err != EINVAL && err != EBADF)
+  if ( ! ignorable_sync_errno (err))
     {
       error (0, err, _("%s: fdatasync failed"), qname);
       errno = err;
@@ -306,7 +313,7 @@ dosync (int fd, char const *qname)
   if (fsync (fd) == 0)
     return 0;
   err = errno;
-  if (err != EINVAL && err != EBADF)
+  if ( ! ignorable_sync_errno (err))
     {
       error (0, err, _("%s: fsync failed"), qname);
       errno = err;
@@ -392,7 +399,7 @@ dopass (int fd, char const *qname, off_t *sizep, int type,
   /* Constant fill patterns need only be set up once. */
   if (type >= 0)
     {
-      lim = (0 <= size && size < sizeof_r ? size : sizeof r);
+      lim = (0 <= size && size < sizeof_r ? size : sizeof_r);
       fillpattern (type, r.u, lim);
       passname (r.u, pass_string);
     }
@@ -481,7 +488,7 @@ dopass (int fd, char const *qname, off_t *sizep, int type,
 
       /* Okay, we have written "soff" bytes. */
 
-      if (offset + soff < offset)
+      if (offset > OFF_T_MAX - (off_t) soff)
 	{
 	  error (0, 0, _("%s: file too large"), qname);
 	  return -1;
@@ -1092,7 +1099,7 @@ int
 main (int argc, char **argv)
 {
   bool ok = true;
-  struct Options flags = { 0, };
+  DECLARE_ZEROED_AGGREGATE (struct Options, flags);
   char **file;
   int n_files;
   int c;
@@ -1100,7 +1107,7 @@ main (int argc, char **argv)
   char const *random_source = NULL;
 
   initialize_main (&argc, &argv);
-  program_name = argv[0];
+  set_program_name (argv[0]);
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
